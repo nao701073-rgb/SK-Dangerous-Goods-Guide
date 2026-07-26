@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国内法令・IMDG Code｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/imdg-cross-reference.css">
+</head>
+<body>
+  <main class="workspace cross-reference-page">
+    <div class="page-heading-row">
+      <div>
+        <h1>国内法令・IMDG Code</h1>
+        <p>国内法令とIMDG Codeにまたがる参照先を、コード単位で確認します。</p>
+      </div>
+      <a class="back-link" href="dangerous-goods-search.html">← 危険物検索</a>
+    </div>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>コード検索</h2></div>
+      <div class="panel-body">
+        <form id="crossReferenceForm" class="compact-search">
+          <input id="crossReferenceInput" placeholder="例：P002、IBC08、T1、TP33、SP274、SW23">
+          <button type="submit">参照</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="crossReferenceResult" class="cross-reference-result"></section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>参照区分</h2></div>
+      <div id="crossReferenceCategories" class="category-grid panel-body"></div>
+    </section>
+
+    <aside class="data-notice">
+      <strong>表示方針</strong>
+      <p>
+        国内法令（危規則・危告示）とIMDG Codeの参照先を併記します。
+        英語原文が未登録のコードは、推測せず「参照位置特定済み」と表示します。
+      </p>
+    </aside>
+  </main>
+
+  <script src="../data/imdg-cross-reference.js?v=150"></script>
+  <script src="../assets/js/imdg-cross-reference-resolver.js?v=150"></script>
+  <script src="../assets/js/imdg-cross-reference-page.js?v=150"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+
+.module-card {
+  border-radius: 9px !important;
+  border-color: var(--app-line) !important;
+  box-shadow: var(--app-shadow) !important;
+}
+
+.module-card__icon {
+  border-radius: 8px !important;
+  background: var(--app-navy) !important;
+}
+
+.module-card--primary {
+  border-top: 3px solid var(--app-blue) !important;
+}
+
+
+.module-card{gap:18px;padding:20px 20px 18px}
+.module-card__icon{justify-content:center;align-items:center;border-radius:16px;background:#0d4f9a!important;color:#fff!important;box-shadow:0 10px 24px rgba(11,58,103,.14)}
+.module-card.is-disabled{opacity:.84}
+.module-card.is-disabled .module-card__icon{opacity:1}

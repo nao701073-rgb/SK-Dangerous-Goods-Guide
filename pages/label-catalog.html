@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>危険物標札一覧｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/label-catalog.css">
+</head>
+<body data-page="labels">
+  <main class="workspace label-catalog-page">
+    <div class="page-heading-row">
+      <div>
+        <h1>危険物標札一覧</h1>
+        <p>等級および副次危険性等級の表示確認用です。</p>
+      </div>
+      <a class="back-link" href="dangerous-goods-search.html">← 検索へ戻る</a>
+    </div>
+    <section id="labelCatalog" class="label-catalog-grid"></section>
+    <aside class="data-notice">
+      <strong>画像について</strong>
+      <p>
+        ユーザー提供の標札見本画像を反映しています。
+        limited quantity / excepted quantity は暫定画像です。
+      </p>
+    </aside>
+  </main>
+  <script src="../data/label-master.js?v=150"></script>
+  <script src="../assets/js/label-resolver.js?v=150"></script>
+  <script src="../assets/js/label-catalog.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

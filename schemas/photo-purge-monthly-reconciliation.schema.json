@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "photo-purge-monthly-reconciliation.schema.json",
+  "title": "写真完全削除証明書月次照合報告",
+  "type": "object",
+  "required": ["schemaVersion", "reportType", "targetMonth", "generatedAt", "totals", "offices", "issues", "certificates"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "reportType": { "const": "photo-purge-monthly-reconciliation" },
+    "targetMonth": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" },
+    "officeFilter": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "generatedBy": { "type": "string" },
+    "totals": {
+      "type": "object",
+      "required": ["certificateCount", "validCount", "invalidCount", "deletedPhotoCount", "deletedBytes", "issueCount"]
+    },
+    "offices": { "type": "array", "items": { "type": "object" } },
+    "issues": { "type": "array", "items": { "type": "object" } },
+    "certificates": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regulation-evidence-snapshot.schema.json",
+  "title": "Regulation Evidence Snapshot",
+  "type": "object",
+  "required": ["schemaVersion", "snapshotId", "caseReference", "asOfDate", "regulation", "evidence", "audit", "snapshotSha256"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "snapshotId": { "type": "string", "minLength": 1 },
+    "caseReference": { "type": "string", "minLength": 1 },
+    "asOfDate": { "type": "string", "format": "date" },
+    "regulation": {
+      "type": "object",
+      "required": ["regulationId", "revisionId", "editionLabel", "effectiveFrom"],
+      "properties": {
+        "regulationId": { "type": "string" },
+        "revisionId": { "type": "string" },
+        "editionLabel": { "type": "string" },
+        "effectiveFrom": { "type": "string", "format": "date" },
+        "effectiveTo": { "type": ["string", "null"], "format": "date" }
+      }
+    },
+    "evidence": { "type": "object" },
+    "audit": {
+      "type": "object",
+      "required": ["recordedBy", "createdAt", "immutableAfterApproval"],
+      "properties": {
+        "recordedBy": { "type": "string", "minLength": 1 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "immutableAfterApproval": { "const": true }
+      }
+    },
+    "snapshotSha256": { "type": "string", "minLength": 1 }
+  }
+}

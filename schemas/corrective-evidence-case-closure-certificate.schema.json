@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inspection-support.local/schemas/corrective-evidence-case-closure-certificate.schema.json",
+  "title": "案件クローズ証明書",
+  "type": "object",
+  "required": ["schemaVersion", "certificateId", "correctiveActionId", "officeId", "closedBy", "closedAt", "status", "verificationHash"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "certificateId": {"type": "string", "minLength": 1},
+    "correctiveActionId": {"type": "string", "minLength": 1},
+    "parentCorrectiveActionId": {"type": "string"},
+    "certificateReferenceId": {"type": "string"},
+    "proposalId": {"type": "string"},
+    "officeId": {"type": "string", "minLength": 1},
+    "office": {"type": "string"},
+    "reevaluationResult": {"enum": ["no-recurrence"]},
+    "closedBy": {"type": "string", "minLength": 1},
+    "closedAt": {"type": "string", "format": "date-time"},
+    "archivedAt": {"type": "string", "format": "date-time"},
+    "status": {"const": "archived"},
+    "verificationHash": {"type": "string", "minLength": 8}
+  },
+  "additionalProperties": true
+}

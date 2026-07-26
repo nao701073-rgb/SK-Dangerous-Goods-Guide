@@ -1,0 +1,184 @@
+
+.settings-page {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.settings-list {
+  display: grid;
+  gap: 0;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--app-line);
+}
+
+.settings-row:last-child {
+  border-bottom: 0;
+}
+
+.settings-row strong {
+  display: block;
+  font-size: .88rem;
+}
+
+.settings-row p {
+  max-width: 620px;
+  margin: 6px 0 0;
+  color: var(--app-muted);
+  font-size: .74rem;
+  line-height: 1.65;
+}
+
+.fixed-setting {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #e8f6ee;
+  color: var(--app-success);
+  font-size: .72rem;
+  font-weight: 900;
+}
+
+.switch {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #aebdcc;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.switch-slider::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  transition: .2s;
+}
+
+.switch input:checked + .switch-slider {
+  background: var(--app-blue);
+}
+
+.switch input:checked + .switch-slider::after {
+  transform: translateX(22px);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.settings-input-row {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 9px;
+}
+
+.settings-input-row input {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+}
+
+.settings-message {
+  min-height: 24px;
+  color: var(--app-success);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+@media (max-width: 620px) {
+  .settings-row {
+    align-items: flex-start;
+  }
+
+  .settings-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.segmented-control {
+  display: inline-grid;
+  grid-template-columns: repeat(2, auto);
+  padding: 3px;
+  border: 1px solid var(--app-line);
+  border-radius: 9px;
+  background: #eef3f8;
+}
+
+.segmented-control button {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--app-muted);
+  font-size: .72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.segmented-control button.is-active {
+  background: #fff;
+  color: var(--app-blue);
+  box-shadow: 0 1px 5px rgba(18, 50, 82, .16);
+}
+
+@media (max-width: 620px) {
+  .settings-row--layout {
+    display: grid;
+  }
+
+  .segmented-control {
+    width: 100%;
+  }
+
+  .segmented-control button {
+    width: 100%;
+  }
+}
+
+.settings-row--select select {
+  min-width: 260px;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  background: #fff;
+}
+.settings-actions { display:flex; gap:10px; align-items:center; padding-top:16px; }
+.secondary-action { display:inline-flex; min-height:42px; align-items:center; padding:0 14px; border:1px solid var(--app-line); border-radius:8px; background:#fff; color:var(--app-blue); font-size:.76rem; font-weight:800; }
+@media(max-width:620px){.settings-row--select{display:grid}.settings-row--select select{min-width:0;width:100%}.settings-actions{display:grid}}
+
+
+.sync-queue-panel{width:100%;margin-top:10px;padding:10px;border:1px solid var(--app-line);border-radius:8px;background:#fafcfe}.sync-queue-panel summary{cursor:pointer;font-weight:800;color:#075ca8}.sync-queue-actions{display:flex;gap:7px;margin:10px 0}.sync-queue-actions button{min-height:32px;border:1px solid #b7cadc;border-radius:6px;background:#fff;color:#075ca8;font-weight:800}.sync-queue-item{display:grid;grid-template-columns:90px 90px 1fr auto;gap:7px;padding:8px;border-top:1px solid #e0e7ee;font-size:.68rem}.sync-queue-item.is-error{background:#fff2f1}.sync-queue-item code{overflow:hidden;text-overflow:ellipsis}.sync-queue-empty{color:var(--app-muted);font-size:.72rem}

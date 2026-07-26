@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-finding.schema.json",
+  "title": "Corrective Evidence Access Audit Finding",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "severity",
+    "officeId",
+    "actor",
+    "occurredAt",
+    "status",
+    "sourceLogIds"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "enum": [
+        "permission-denied",
+        "missing-download-reason",
+        "bulk-download"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "medium",
+        "high"
+      ]
+    },
+    "officeId": {
+      "type": "string"
+    },
+    "office": {
+      "type": "string"
+    },
+    "actor": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "evidenceId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "detectedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceLogIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "status": {
+      "enum": [
+        "open",
+        "pending-review",
+        "resolved"
+      ]
+    },
+    "reviewedBy": {
+      "type": "string"
+    },
+    "reviewedAt": {
+      "type": "string"
+    },
+    "reviewNote": {
+      "type": "string"
+    },
+    "recurrencePrevention": {
+      "type": "string"
+    },
+    "reviewDueAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completionReviewedBy": {
+      "type": "string"
+    },
+    "completionReviewedAt": {
+      "type": "string"
+    },
+    "completionReviewNote": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

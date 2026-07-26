@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "photo-purge-corrective-action.schema.json",
+  "title": "Photo Purge Corrective Action",
+  "type": "object",
+  "required": [
+    "id",
+    "issueKey",
+    "issueType",
+    "officeId",
+    "cause",
+    "correctiveAction",
+    "assignedTo",
+    "dueAt",
+    "status",
+    "createdBy",
+    "createdAt",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issueKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issueType": {
+      "type": "string",
+      "minLength": 1
+    },
+    "certificateId": {
+      "type": "string"
+    },
+    "planId": {
+      "type": "string"
+    },
+    "targetMonth": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}$"
+    },
+    "officeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "office": {
+      "type": "string"
+    },
+    "issueMessage": {
+      "type": "string"
+    },
+    "cause": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correctiveAction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assignedTo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dueAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "open",
+        "completed-awaiting-verification",
+        "closed",
+        "cancelled"
+      ]
+    },
+    "createdBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completedBy": {
+      "type": "string"
+    },
+    "completedAt": {
+      "type": "string"
+    },
+    "completionNote": {
+      "type": "string"
+    },
+    "verifiedBy": {
+      "type": "string"
+    },
+    "verifiedAt": {
+      "type": "string"
+    },
+    "verificationNote": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "rootCauseCategory": {
+      "enum": [
+        "unclassified",
+        "human",
+        "procedure",
+        "system",
+        "training",
+        "management",
+        "external",
+        "other"
+      ]
+    },
+    "recurrencePrevention": {
+      "type": "string"
+    },
+    "preventionOwner": {
+      "type": "string"
+    },
+    "effectivenessDueAt": {
+      "type": "string"
+    },
+    "effectivenessStatus": {
+      "enum": [
+        "not-planned",
+        "planned",
+        "effective",
+        "ineffective"
+      ]
+    },
+    "effectivenessVerifiedBy": {
+      "type": "string"
+    },
+    "effectivenessVerifiedAt": {
+      "type": "string"
+    },
+    "effectivenessNote": {
+      "type": "string"
+    },
+    "horizontalDeployments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "targetOffice",
+          "note",
+          "status",
+          "sharedBy",
+          "sharedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "targetOffice": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "shared",
+              "acknowledged",
+              "completed"
+            ]
+          },
+          "sharedBy": {
+            "type": "string"
+          },
+          "sharedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "evidenceAttachments": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "title",
+          "fileName",
+          "mimeType",
+          "fileSize",
+          "fingerprint",
+          "status",
+          "uploadedBy",
+          "uploadedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "enum": [
+              "implementation",
+              "effectiveness",
+              "horizontal-deployment",
+              "other"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mimeType": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fileSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5242880
+          },
+          "fingerprint": {
+            "type": "string"
+          },
+          "dataUrl": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending-review",
+              "reviewed",
+              "rejected",
+              "removed"
+            ]
+          },
+          "uploadedBy": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uploadedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reviewedBy": {
+            "type": "string"
+          },
+          "reviewedAt": {
+            "type": "string"
+          },
+          "reviewNote": {
+            "type": "string"
+          },
+          "removedBy": {
+            "type": "string"
+          },
+          "removedAt": {
+            "type": "string"
+          },
+          "removeReason": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "isCurrent": {
+            "type": "boolean"
+          },
+          "previousEvidenceId": {
+            "type": "string"
+          },
+          "replacedByEvidenceId": {
+            "type": "string"
+          },
+          "replacementReason": {
+            "type": "string"
+          },
+          "originalVerified": {
+            "type": "boolean"
+          },
+          "originalVerifiedBy": {
+            "type": "string"
+          },
+          "originalVerifiedAt": {
+            "type": "string"
+          },
+          "originalVerificationNote": {
+            "type": "string"
+          },
+          "accessLevel": {
+            "enum": [
+              "office",
+              "office-admin",
+              "administrator"
+            ]
+          },
+          "downloadRestricted": {
+            "type": "boolean"
+          },
+          "accessPolicyUpdatedBy": {
+            "type": "string"
+          },
+          "accessPolicyUpdatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "production-release-decision.schema.json",
+  "title": "Production Release Decision",
+  "type": "object",
+  "required": ["schemaVersion", "decisionId", "releaseName", "releaseVersion", "status", "preparedBy", "preparedAt", "approvedBy", "approverRole", "approvedAt", "scheduledAt", "diagnosis", "checklist", "configurationSnapshot", "sha256"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "decisionId": {"type": "string", "minLength": 1},
+    "releaseName": {"type": "string", "minLength": 1},
+    "releaseVersion": {"type": "string", "minLength": 1},
+    "status": {"const": "approved"},
+    "preparedBy": {"type": "string", "minLength": 1},
+    "preparedAt": {"type": "string", "format": "date-time"},
+    "approvedBy": {"type": "string", "minLength": 1},
+    "approverRole": {"enum": ["office-admin", "admin"]},
+    "approvedAt": {"type": "string", "format": "date-time"},
+    "scheduledAt": {"type": "string", "format": "date-time"},
+    "comment": {"type": "string"},
+    "diagnosis": {"type": "object"},
+    "checklist": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "label", "completed"], "properties": {"id": {"type": "string"}, "label": {"type": "string"}, "completed": {"const": true}}}},
+    "configurationSnapshot": {"type": "object"},
+    "configurationVerifiedAt": {"type": "string", "format": "date-time"},
+    "sha256": {"type": "string", "minLength": 16}
+  },
+  "additionalProperties": true
+}

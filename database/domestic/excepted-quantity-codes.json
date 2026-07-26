@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-25",
+  "source": {
+    "title": "船舶による危険物の運送基準等を定める告示",
+    "publisher": "国土交通省",
+    "domesticReference": "危告示別表第1「微量危険物の許容容量又は許容質量」欄",
+    "detailReference": "微量危険物に関する規定およびEコード対応数量",
+    "url": "https://www.mlit.go.jp/maritime/content/001892633.pdf"
+  },
+  "internationalReference": {
+    "title": "Dangerous goods packed in excepted quantities",
+    "reference": "IMDG Code Chapter 3.5 / UN Model Regulations Chapter 3.5",
+    "note": "Eコードの数量体系は国際基準と整合する。"
+  },
+  "codes": {
+    "E0": {
+      "perInnerLiquidMl": null,
+      "perInnerSolidG": null,
+      "perOuterLiquidMl": null,
+      "perOuterSolidG": null,
+      "permitted": false,
+      "summaryJa": "微量危険物としての運送は認められていません。"
+    },
+    "E1": {
+      "perInnerLiquidMl": 30,
+      "perInnerSolidG": 30,
+      "perOuterLiquidMl": 1000,
+      "perOuterSolidG": 1000,
+      "permitted": true,
+      "summaryJa": "内装容器1個当たり30mL又は30g以下、外装容器1個当たりの合計は1,000mL又は1,000g以下です。"
+    },
+    "E2": {
+      "perInnerLiquidMl": 30,
+      "perInnerSolidG": 30,
+      "perOuterLiquidMl": 500,
+      "perOuterSolidG": 500,
+      "permitted": true,
+      "summaryJa": "内装容器1個当たり30mL又は30g以下、外装容器1個当たりの合計は500mL又は500g以下です。"
+    },
+    "E3": {
+      "perInnerLiquidMl": 30,
+      "perInnerSolidG": 30,
+      "perOuterLiquidMl": 300,
+      "perOuterSolidG": 300,
+      "permitted": true,
+      "summaryJa": "内装容器1個当たり30mL又は30g以下、外装容器1個当たりの合計は300mL又は300g以下です。"
+    },
+    "E4": {
+      "perInnerLiquidMl": 1,
+      "perInnerSolidG": 1,
+      "perOuterLiquidMl": 500,
+      "perOuterSolidG": 500,
+      "permitted": true,
+      "summaryJa": "内装容器1個当たり1mL又は1g以下、外装容器1個当たりの合計は500mL又は500g以下です。"
+    },
+    "E5": {
+      "perInnerLiquidMl": 1,
+      "perInnerSolidG": 1,
+      "perOuterLiquidMl": 300,
+      "perOuterSolidG": 300,
+      "permitted": true,
+      "summaryJa": "内装容器1個当たり1mL又は1g以下、外装容器1個当たりの合計は300mL又は300g以下です。"
+    }
+  }
+}

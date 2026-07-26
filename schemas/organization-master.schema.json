@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://internal.example/schemas/organization-master.schema.json",
+  "title": "Organization master",
+  "type": "object",
+  "required": ["version", "accountPolicy", "headquarters", "blocks"],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "accountPolicy": { "type": "object" },
+    "headquarters": {
+      "type": "object",
+      "required": ["id", "name", "type", "scope"]
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "code", "name", "status", "offices"],
+        "properties": {
+          "offices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "code", "name", "status"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

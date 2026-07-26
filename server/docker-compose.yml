@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-inspection_support}
+      POSTGRES_USER: ${POSTGRES_USER:-inspection_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+    volumes:
+      - inspection_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-inspection_user} -d ${POSTGRES_DB:-inspection_support}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [backend]
+
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - inspection_photos:/app/storage/photos
+      - inspection_backups:/backups
+    expose: ["8080"]
+    networks: [backend]
+    security_opt:
+      - no-new-privileges:true
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ../:/usr/share/nginx/html:ro
+    networks: [backend]
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  inspection_db:
+  inspection_photos:
+  inspection_backups:
+
+networks:
+  backend:
+    driver: bridge

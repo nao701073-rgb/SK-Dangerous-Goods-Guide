@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmSコード参照｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/ems.css">
+</head>
+<body data-page="ems">
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Emergency Schedules</p>
+      <h1>EmSコード参照</h1>
+    </div>
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
+  </header>
+
+  <main class="main-content ems-page">
+    <section class="ems-intro">
+      <span class="status-badge status-badge--blue">IMDG Code 42-24</span>
+      <h2>UN番号からFire・Spillageコードを参照</h2>
+      <p>
+        危険物のUN番号に対応するEmSコードを、MSC.1/Circ.1588/Rev.3の
+        索引データから取得します。
+      </p>
+
+      <form id="emsLookupForm" class="ems-lookup-form">
+        <input id="emsUnInput" inputmode="numeric" maxlength="6" placeholder="例：1203 または UN1203">
+        <button class="primary-action" type="submit">参照</button>
+      </form>
+    </section>
+
+    <section id="emsLookupResult" class="ems-result">
+      <div class="empty-state">
+        <strong>UN番号を入力してください</strong>
+      </div>
+    </section>
+
+    <section class="ems-code-lists">
+      <article class="ems-list-card">
+        <h2>Fire Schedule</h2>
+        <div id="fireCodeList" class="ems-chip-list"></div>
+      </article>
+      <article class="ems-list-card">
+        <h2>Spillage Schedule</h2>
+        <div id="spillageCodeList" class="ems-chip-list"></div>
+      </article>
+    </section>
+
+    <aside class="data-notice">
+      <strong>注意</strong>
+      <p>
+        EmSコードは船上における火災・漏えい時の緊急対応を参照するためのものです。
+        実際の対応では、船舶の緊急時対応計画、原典および最新のIMDG Codeを確認してください。
+      </p>
+    </aside>
+  </main>
+
+  <script src="../data/un-data.js"></script>
+  <script src="../data/ems-assignments.js"></script>
+  <script src="../data/ems-schedule-master.js"></script>
+  <script src="../assets/js/ems-resolver.js"></script>
+  <script src="../assets/js/ems.js"></script>
+  <script src="../assets/js/system-shell.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>関連資料｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/references.css?v=150">
+</head>
+<body data-page="references">
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Reference Documents</p>
+      <h1>関連資料</h1>
+    </div>
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
+  </header>
+
+  <main class="main-content references-page">
+    <section class="reference-search-panel">
+      <div>
+        <span class="status-badge status-badge--blue">資料レジストリ</span>
+        <h2>検査・検品に関係する資料を整理</h2>
+        <p>危規則、危告示、放告示、CTU Codeおよび収納検査に必要なIMDG Code条文を整理します。</p>
+      </div>
+
+      <div class="reference-controls">
+        <input id="referenceQuery" type="search" placeholder="資料名・タグで検索">
+        <select id="referenceCategory">
+          <option value="">すべての分類</option>
+          <option value="domestic-regulation">国内省令</option>
+          <option value="domestic-notification">国内告示</option>
+          <option value="international-code">国際行動規範</option>
+                    <option value="ai-guide">AI要約ガイド</option>
+        </select>
+      </div>
+    </section>
+
+
+
+
+    <section class="training-guide-section">
+      <div class="section-heading training-guide-heading">
+        <div>
+          <h2>検査・検品業務資料 AI要約 <span id="trainingGuideCount"></span></h2>
+          <p>「IMDGコードに基づく検査・検品業務に関する資料 初版」を、実務で参照しやすい6カテゴリーに整理しています。</p>
+        </div>
+      </div>
+
+      <div class="training-guide-controls">
+        <input id="trainingGuideQuery" type="search" placeholder="例：国連番号、包装、ラベル、隔離、CTU">
+        <select id="trainingGuideCategory">
+          <option value="">すべてのカテゴリー</option>
+        </select>
+      </div>
+      <div class="ai-learning-progress">
+        <div><strong id="trainingGuideProgress">0 / 0</strong><span>確認済み</span></div>
+        <label><input id="trainingGuideUnreadOnly" type="checkbox"> 未確認のみ</label>
+        <label><input id="trainingGuideFavoriteOnly" type="checkbox"> お気に入りのみ</label>
+        <button id="exportTrainingNotes" type="button">確認記録をCSV出力</button>
+      </div>
+
+      <div id="trainingGuideList" class="training-guide-list"></div>
+      <aside class="training-guide-caution" id="trainingGuideCaution"></aside>
+    </section>
+
+    <section class="imdg-clause-section">
+      <div class="section-heading imdg-clause-heading">
+        <div>
+          <p class="eyebrow">IMDG Code 42-24</p>
+          <h2>危険物コンテナ収納検査関連条文 <span id="imdgClauseCount"></span></h2>
+          <p>
+            国内法令で詳細が示されていない、または危告示のコードだけでは確認しづらい項目に限定しています。
+          </p>
+        </div>
+        <a class="source-document-link"
+           href="../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
+           target="_blank" rel="noopener">
+          公式原文を開く
+        </a>
+      </div>
+
+      <div class="imdg-clause-controls">
+        <input id="imdgClauseQuery" type="search" placeholder="例：5.2.1、標札、SP274、隔離、CTU">
+        <select id="imdgClauseCategory">
+          <option value="">すべての区分</option>
+        </select>
+      </div>
+
+      <div id="imdgClauseList" class="imdg-clause-list"></div>
+    </section>
+
+    <section class="ai-guide-section">
+      <div class="section-heading ai-guide-heading">
+        <div>
+          <p class="eyebrow">AI Quick Guide</p>
+          <h2>理解しづらい規定のAI要約 <span id="aiGuideCount"></span></h2>
+          <p>
+            危規則・危告示の条文やコードだけでは、適用手順や現物確認方法が分かりにくい項目を抽出しています。
+          </p>
+        </div>
+        <a class="source-document-link" href="#referenceList">
+          登録資料を確認
+        </a>
+      </div>
+
+      <div class="ai-guide-controls">
+        <input id="aiGuideQuery" type="search" placeholder="例：SP274、オーバーパック、隔離、IBC">
+        <select id="aiGuideCategory">
+          <option value="">すべてのテーマ</option>
+        </select>
+      </div>
+
+      <div id="aiGuideList" class="ai-guide-list"></div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Documents</p>
+          <h2>登録資料 <span id="referenceCount"></span></h2>
+        </div>
+      </div>
+      <div id="referenceList" class="reference-grid"></div>
+    </section>
+
+    <aside class="data-notice">
+      <strong>資料の扱い</strong>
+      <p>
+        関連資料は参考資料として登録します。検索結果や解説を実務判断に使用する場合は、
+        原本、改訂版、適用日および公的原典を確認してください。
+      </p>
+    </aside>
+  </main>
+
+  <script src="../data/reference-documents.js?v=150"></script>
+  <script src="../data/imdg-inspection-guide-summary.js?v=150"></script>
+  <script src="../data/ai-reference-summaries.js?v=150"></script>
+  <script src="../data/imdg-container-inspection-clauses.js?v=150"></script>
+  <script src="../assets/js/imdg-inspection-guide.js?v=150"></script>
+  <script src="../assets/js/references.js?v=150"></script>
+  <script src="../assets/js/system-shell.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

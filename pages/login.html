@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>オンラインログイン｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/settings.css">
+<style>
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(470px,100%);background:#fff;border:1px solid #dbe5ef;border-radius:16px;padding:28px;box-shadow:0 18px 48px rgba(7,59,120,.14)}.login-brand{display:flex;gap:14px;align-items:center;margin-bottom:24px}.login-brand img{width:58px;height:58px;object-fit:contain}.login-card label{display:grid;gap:7px;margin:15px 0;font-weight:700}.login-card input{min-height:46px;border:1px solid #ccd9e6;border-radius:8px;padding:0 12px}.login-card button{width:100%;min-height:46px;border:0;border-radius:9px;background:#0b5cab;color:#fff;font-weight:800}.login-card button.secondary{background:#fff;color:#0b5cab;border:1px solid #9fc2e4;margin-top:10px}.login-note{color:#637b91;font-size:.78rem;line-height:1.65}.login-message{min-height:24px;margin-top:12px;color:#c0392b}.mfa-panel[hidden]{display:none}.mfa-code{font-size:1.35rem;letter-spacing:.35rem;text-align:center;font-weight:800}.account-note{padding:12px;border-radius:9px;background:#f4f8fc;color:#425f78;font-size:.76rem;line-height:1.65}
+</style></head>
+<body><main class="login-wrap"><section class="login-card">
+<div class="login-brand"><img src="../assets/images/sk-brand-logo-v82.png" alt="SK"><div><strong>検査・検品業務サポートシステム</strong><p class="eyebrow">Dangerous Goods Guide</p></div></div>
+<h1>社内オンラインログイン</h1>
+<p class="login-note">管理者から付与されたログインIDとパスワードを入力してください。メール認証による二段階認証は将来実装予定です。</p>
+<div class="account-note">検査員・安全環境室のほか、検査員以外の社内職員向けに、ゲスト用・検証者用アカウントを発行できます。ゲストは閲覧専用、検証者は閲覧と検証記録に限定されます。</div>
+<form id="loginForm">
+<section id="credentialPanel"><label>ログインID<input id="loginId" type="text" autocomplete="username" required></label><label>パスワード<input id="loginPassword" type="password" autocomplete="current-password" minlength="8" required></label><label style="display:flex;grid-template-columns:auto 1fr;align-items:center;font-weight:400"><input id="rememberLogin" type="checkbox">この端末でログイン状態を保持</label><button type="submit">ログイン</button><button id="forgotPassword" class="secondary" type="button">パスワードを忘れた場合</button></section>
+<div id="loginMessage" class="login-message" aria-live="polite"></div></form><p><a href="settings.html">← 設定画面へ戻る</a></p>
+</section></main>
+<script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=150"></script><script src="../assets/js/api-client.js?v=150"></script>
+<script>
+(()=>{const $=id=>document.getElementById(id);const message=t=>$('loginMessage').textContent=t;
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();message('ログイン情報を確認中…');try{const data=await ISSApi.startLogin($('loginId').value,$('loginPassword').value);if(data.mfaRequired){throw new Error('二段階認証は初期実装では使用しません。管理者に設定をご確認ください。');}ISSApi.storeSession(data,$('rememberLogin').checked);message('ログインしました。');location.href='../index.html';}catch(err){message(err.message);}});
+$('forgotPassword').addEventListener('click',()=>message('パスワードの再設定は管理者へ依頼してください。利用者のパスワード変更は管理者画面からのみ行います。メールによる再設定は将来実装予定です。'));
+})();
+</script><script src="../assets/js/online-status.js?v=150"></script>  <script src="../assets/js/session-guard.js"></script>
+</body></html>

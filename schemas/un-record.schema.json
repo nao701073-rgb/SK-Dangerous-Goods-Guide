@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://internal.example/schemas/un-record.schema.json",
+  "title": "Dangerous goods UN record",
+  "type": "object",
+  "required": [
+    "sourcePage", "sourceRow", "unNumber", "properShippingNameJa",
+    "properShippingName", "classification", "class", "packingGroup",
+    "specialProvisions", "labels", "marinePollutant", "source"
+  ],
+  "properties": {
+    "sourcePage": { "type": "integer", "minimum": 1 },
+    "sourceRow": { "type": "integer", "minimum": 1 },
+    "unNumber": { "type": "string", "pattern": "^[0-9]{4}$" },
+    "properShippingNameJa": { "type": "string", "minLength": 1 },
+    "properShippingName": { "type": "string", "minLength": 1 },
+    "classification": { "type": "string", "minLength": 1 },
+    "item": { "type": "string" },
+    "class": { "type": "string", "minLength": 1 },
+    "segregationGroup": { "type": "string" },
+    "subsidiaryRisk": { "type": "string" },
+    "packingGroup": { "type": "string" },
+    "limitedQuantity": { "type": "string" },
+    "exceptedQuantity": { "type": "string" },
+    "specialProvisions": { "type": "array", "items": { "type": "string" } },
+    "stowage": { "type": "string" },
+    "segregation": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string" } },
+    "marinePollutant": { "type": "boolean" },
+    "ems": { "type": "string" },
+    "source": { "type": "string", "minLength": 1 },
+    "rawText": { "type": "string" },
+    "note": { "type": "string" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,4 @@
+﻿login_id,display_name,role,office_id,email,initial_password,account_owner
+kawasaki.director,川崎事業所 事業所長,office-admin,kawasaki-office,,ChangeMe123!,事業所長本人
+kawasaki.inspector01,川崎事業所 検査員01,office-user,kawasaki-office,,ChangeMe123!,検査員本人
+kawasaki.inspector02,川崎事業所 検査員02,office-user,kawasaki-office,,ChangeMe123!,検査員本人

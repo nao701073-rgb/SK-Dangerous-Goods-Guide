@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>システム保守・バックアップ｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=150">
+  <link rel="stylesheet" href="../assets/css/system-maintenance.css?v=150">
+</head>
+<body data-page="settings">
+  <main class="workspace maintenance-page">
+    <div class="page-breadcrumb">ホーム ＞ 設定 ＞ システム保守・バックアップ</div>
+    <div class="page-heading-row">
+      <div><h1>システム保守・バックアップ</h1><p>全体整合性診断、バックアップ作成、復元前検査、運用引継ぎ情報を一括管理します。</p></div>
+      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+    </div>
+
+    <section class="maintenance-summary" aria-label="保守状況概要">
+      <article><span>総合判定</span><strong id="maintenanceOverall">未診断</strong></article>
+      <article><span>保存データ</span><strong id="maintenanceStorage">-</strong></article>
+      <article><span>要確認</span><strong id="maintenanceWarnings">-</strong></article>
+      <article><span>最終バックアップ</span><strong id="maintenanceLastBackup">未実施</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>全体整合性診断</h2><p>申請番号、写真、監査・証明書・法令更新関連データの構文、重複、参照切れ、容量を検査します。</p></div></div>
+      <div class="panel-body">
+        <div class="maintenance-actions">
+          <button id="runMaintenanceDiagnosis" class="primary-action" type="button">全体診断を実行</button>
+          <button id="exportMaintenanceDiagnosis" type="button" disabled>診断結果JSON</button>
+          <button id="exportMaintenanceCsv" type="button" disabled>診断結果CSV</button>
+        </div>
+        <div id="maintenanceDiagnosisMessage" class="maintenance-message" aria-live="polite"></div>
+        <div id="maintenanceCheckList" class="maintenance-check-list"><p class="empty-state">診断を実行すると結果を表示します。</p></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>バックアップ作成</h2><p>ブラウザ内の業務データと設定を、検証ハッシュ付きJSONとして出力します。</p></div></div>
+      <div class="panel-body maintenance-grid">
+        <label><strong>バックアップ名称</strong><input id="backupLabel" type="text" placeholder="例：川崎事業所 月次バックアップ"></label>
+        <label><strong>作成者</strong><input id="backupCreatedBy" type="text" value="管理者"></label>
+        <label class="maintenance-wide"><strong>備考</strong><textarea id="backupNote" rows="3" placeholder="対象期間や作成理由"></textarea></label>
+        <label class="check-field maintenance-wide"><input id="backupIncludeSession" type="checkbox"> ログインセッション等の一時情報も含める（通常は含めない）</label>
+        <div class="maintenance-actions maintenance-wide"><button id="createSystemBackup" class="primary-action" type="button">バックアップJSONを作成</button></div>
+        <div id="backupMessage" class="maintenance-message maintenance-wide" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>復元前検査・復元</h2><p>バックアップを直接上書きせず、先に形式、ハッシュ、対象件数、事業所範囲を検査します。</p></div></div>
+      <div class="panel-body">
+        <label class="file-drop-field"><strong>バックアップJSON</strong><input id="restoreBackupFile" type="file" accept="application/json,.json"></label>
+        <div class="maintenance-actions">
+          <button id="inspectSystemBackup" type="button">復元前検査</button>
+          <button id="restoreSystemBackup" class="danger-action" type="button" disabled>検査済みバックアップを復元</button>
+        </div>
+        <div id="restoreMessage" class="maintenance-message" aria-live="polite"></div>
+        <div id="restorePreview" class="restore-preview" hidden></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>運用引継ぎ・構成情報</h2><p>導入先、データ件数、設定、関連資料をまとめて出力し、担当者交代や障害対応に利用します。</p></div></div>
+      <div class="panel-body">
+        <div class="maintenance-actions">
+          <button id="exportHandoverReport" type="button">運用引継ぎ報告JSON</button>
+          <button id="printHandoverReport" type="button">運用引継ぎ報告を印刷</button>
+        </div>
+        <div class="admin-link-grid maintenance-links">
+          <a href="production-readiness.html">本番導入準備確認</a>
+          <a href="data-migration.html">データ移行管理</a>
+          <a href="security-admin.html">セキュリティ・監査管理</a>
+          <a href="regulation-update-admin.html">法令改正・データ更新管理</a>
+          <a href="../docs/バックアップ復元手順書.md">バックアップ・復元手順書</a>
+          <a href="../docs/part145-system-integrity-backup-handover.md">第145回運用仕様書</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../data/organization-master.js"></script>
+  <script src="../assets/js/organization.js"></script>
+  <script src="../assets/js/storage.js?v=150"></script>
+  <script src="../assets/js/system-maintenance.js?v=150"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

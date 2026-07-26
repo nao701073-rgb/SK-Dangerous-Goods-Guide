@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "photo-purge-certificate-verification.schema.json",
+  "title": "写真完全削除証明書検証結果",
+  "type": "object",
+  "required": ["schemaVersion", "valid", "verifiedAt", "certificateId", "planId", "suppliedHash", "calculatedHash", "linkedPlanFound", "errors", "warnings", "summary"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "valid": { "type": "boolean" },
+    "verifiedAt": { "type": "string", "format": "date-time" },
+    "certificateId": { "type": "string" },
+    "planId": { "type": "string" },
+    "suppliedHash": { "type": "string" },
+    "calculatedHash": { "type": "string" },
+    "linkedPlanFound": { "type": "boolean" },
+    "errors": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "summary": {
+      "type": "object",
+      "required": ["deletedPhotoCount", "deletedBytes", "office", "executedBy", "executedAt"],
+      "properties": {
+        "deletedPhotoCount": { "type": "integer", "minimum": 0 },
+        "deletedBytes": { "type": "integer", "minimum": 0 },
+        "office": { "type": "string" },
+        "executedBy": { "type": "string" },
+        "executedAt": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

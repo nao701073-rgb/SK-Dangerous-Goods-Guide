@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-rule-certificate-monthly-reconciliation.schema.json",
+  "title": "監査ルール適用証明月次照合報告",
+  "type": "object",
+  "required": ["schemaVersion", "reportId", "targetMonth", "generatedAt", "summary", "records"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "reportId": { "type": "string" },
+    "targetMonth": { "type": "string", "pattern": "^\\d{4}-\\d{2}$" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "generatedBy": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "required": ["certificates", "valid", "invalid", "proposalMissing", "duplicateCertificateIds", "duplicateProposalIds"],
+      "properties": {
+        "certificates": { "type": "integer", "minimum": 0 },
+        "valid": { "type": "integer", "minimum": 0 },
+        "invalid": { "type": "integer", "minimum": 0 },
+        "proposalMissing": { "type": "integer", "minimum": 0 },
+        "duplicateCertificateIds": { "type": "integer", "minimum": 0 },
+        "duplicateProposalIds": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "duplicateCertificateIds": { "type": "array", "items": { "type": "string" } },
+    "duplicateProposalIds": { "type": "array", "items": { "type": "string" } },
+    "records": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}

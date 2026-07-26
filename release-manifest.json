@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-rc2",
+  "part": 150,
+  "releaseType": "trial-operation-candidate",
+  "generatedAt": "2026-07-26",
+  "fileCount": 664,
+  "totalBytes": 102265656,
+  "countsByExtension": {
+    ".conf": 1,
+    ".css": 23,
+    ".csv": 6,
+    ".example": 1,
+    ".html": 26,
+    ".jpg": 54,
+    ".js": 74,
+    ".json": 59,
+    ".md": 159,
+    ".mjs": 1,
+    ".pdf": 5,
+    ".png": 193,
+    ".sh": 5,
+    ".sql": 54,
+    ".txt": 1,
+    ".yml": 1,
+    "[none]": 1
+  },
+  "qaReport": "docs/part150-static-qa-report.json",
+  "checksumFile": "SHA256SUMS.txt"
+}

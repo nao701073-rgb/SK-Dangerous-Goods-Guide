@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>運用監視・障害対応｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=150">
+  <link rel="stylesheet" href="../assets/css/operations-monitoring.css?v=150">
+</head>
+<body data-page="settings">
+  <main class="workspace operations-page">
+    <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 運用監視・障害対応</div>
+    <div class="page-heading-row">
+      <div><h1>運用監視・障害対応</h1><p>運用開始後の状態確認、障害記録、復旧訓練、定期点検をまとめて管理します。</p></div>
+      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+    </div>
+
+    <section class="operations-summary" aria-label="運用状況概要">
+      <article><span>総合状態</span><strong id="operationsOverall">未確認</strong></article>
+      <article><span>未解決障害</span><strong id="openIncidentCount">0件</strong></article>
+      <article><span>期限超過</span><strong id="overdueCount">0件</strong></article>
+      <article><span>最終点検</span><strong id="lastInspectionAt">未実施</strong></article>
+      <article><span>最終復旧訓練</span><strong id="lastDrillAt">未実施</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>運用状態チェック</h2><p>ブラウザ保存領域、社内API設定、同期キュー、バックアップ、リリース判定を横断確認します。</p></div></div>
+      <div class="panel-body">
+        <div class="operations-actions"><button id="runOperationalCheck" class="primary-action" type="button">現在状態を点検</button><button id="exportOperationalCheck" type="button" disabled>点検JSON出力</button><button id="exportOperationalCheckCsv" type="button" disabled>点検CSV出力</button></div>
+        <div id="operationalCheckMessage" class="operations-message" aria-live="polite"></div>
+        <div id="operationalCheckList" class="operations-check-list"><p class="empty-state">点検を実行すると結果を表示します。</p></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>障害・不具合記録</h2><p>受付から復旧、原因、再発防止、完了確認まで一つの記録で管理します。</p></div></div>
+      <div class="panel-body operations-form-grid">
+        <label>件名<input id="incidentTitle" placeholder="例：写真登録画面で保存エラー"></label>
+        <label>重要度<select id="incidentSeverity"><option value="low">低</option><option value="medium" selected>中</option><option value="high">高</option><option value="critical">重大</option></select></label>
+        <label>発生日時<input id="incidentOccurredAt" type="datetime-local"></label>
+        <label>対応期限<input id="incidentDueAt" type="datetime-local"></label>
+        <label>受付者<input id="incidentReportedBy" placeholder="氏名"></label>
+        <label>対応担当者<input id="incidentAssignee" placeholder="氏名"></label>
+        <label class="operations-wide">発生内容<textarea id="incidentDescription" rows="3" placeholder="発生条件、影響範囲、再現手順"></textarea></label>
+        <label class="operations-wide">暫定対応<textarea id="incidentWorkaround" rows="2" placeholder="業務継続のための暫定対応"></textarea></label>
+        <div class="operations-actions operations-wide"><button id="createIncident" class="primary-action" type="button">障害記録を登録</button><button id="exportIncidentLedger" type="button">障害台帳CSV</button></div>
+        <div id="incidentMessage" class="operations-message operations-wide" aria-live="polite"></div>
+      </div>
+      <div class="panel-body">
+        <div class="operations-filter-row"><input id="incidentFilter" type="search" placeholder="件名・担当者・原因・対応内容で検索"><select id="incidentStatusFilter"><option value="">すべての状態</option><option value="open">受付</option><option value="investigating">調査中</option><option value="recovering">復旧対応中</option><option value="review">完了確認待ち</option><option value="closed">完了</option></select><select id="incidentSeverityFilter"><option value="">すべての重要度</option><option value="critical">重大</option><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></div>
+        <div id="incidentList" class="operations-card-list"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>復旧訓練</h2><p>バックアップ復元、API停止、端末交換などの訓練結果を記録します。</p></div></div>
+      <div class="panel-body operations-form-grid">
+        <label>訓練種別<select id="drillType"><option value="backup-restore">バックアップ復元</option><option value="api-outage">社内API停止</option><option value="device-replacement">端末交換</option><option value="offline-operation">オフライン継続運用</option><option value="other">その他</option></select></label>
+        <label>実施日時<input id="drillPerformedAt" type="datetime-local"></label>
+        <label>実施者<input id="drillPerformedBy" placeholder="氏名"></label>
+        <label>確認者<input id="drillReviewedBy" placeholder="氏名（実施者とは別）"></label>
+        <label class="operations-wide">訓練シナリオ<textarea id="drillScenario" rows="2" placeholder="想定障害、復旧目標、対象データ"></textarea></label>
+        <label class="operations-wide">結果・課題<textarea id="drillResult" rows="3" placeholder="復旧所要時間、成功・失敗、課題、改善事項"></textarea></label>
+        <div class="operations-actions operations-wide"><button id="createDrill" class="primary-action" type="button">訓練記録を登録</button><button id="exportDrillLedger" type="button">訓練台帳CSV</button></div>
+        <div id="drillMessage" class="operations-message operations-wide" aria-live="polite"></div>
+      </div>
+      <div class="panel-body"><div id="drillList" class="operations-card-list"></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>定期点検計画</h2><p>月次・四半期・年次の点検項目、次回期限、実施結果を管理します。</p></div></div>
+      <div class="panel-body operations-form-grid">
+        <label>点検名称<input id="inspectionName" placeholder="例：月次バックアップ復元確認"></label>
+        <label>周期<select id="inspectionFrequency"><option value="monthly">月次</option><option value="quarterly">四半期</option><option value="semiannual">半期</option><option value="annual">年次</option><option value="custom">任意</option></select></label>
+        <label>次回期限<input id="inspectionDueAt" type="date"></label>
+        <label>担当者<input id="inspectionOwner" placeholder="氏名"></label>
+        <label class="operations-wide">点検内容<textarea id="inspectionItems" rows="3" placeholder="接続確認、データ照合、容量確認、復元試験など"></textarea></label>
+        <div class="operations-actions operations-wide"><button id="createInspectionPlan" class="primary-action" type="button">点検計画を登録</button><button id="exportInspectionLedger" type="button">点検台帳CSV</button><button id="exportOperationsMonthlyReport" type="button">月次運用報告JSON</button></div>
+        <div id="inspectionMessage" class="operations-message operations-wide" aria-live="polite"></div>
+      </div>
+      <div class="panel-body"><div id="inspectionList" class="operations-card-list"></div></div>
+    </section>
+
+    <section class="panel"><div class="panel-heading"><h2>関連資料</h2></div><div class="panel-body admin-link-grid"><a href="production-readiness.html">本番導入・リリース判定</a><a href="system-maintenance.html">システム保守・バックアップ</a><a href="security-admin.html">セキュリティ・監査管理</a><a href="../docs/part147-operations-monitoring-and-recovery.md">第147回運用仕様書</a><a href="../docs/障害対応・復旧訓練手順書.md">障害対応・復旧訓練手順書</a></div></section>
+  </main>
+
+  <script src="../data/organization-master.js"></script>
+  <script src="../assets/js/organization.js"></script>
+  <script src="../assets/js/storage.js?v=150"></script>
+  <script src="../assets/js/operations-monitoring.js?v=150"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

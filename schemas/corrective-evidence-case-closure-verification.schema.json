@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-case-closure-verification.schema.json",
+  "title": "案件クローズ証明再検証記録",
+  "type": "object",
+  "required": ["id", "certificateId", "correctiveActionId", "officeId", "verifiedBy", "verifiedAt", "result", "errors", "calculatedHash", "storedHash"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "certificateId": {"type": "string", "minLength": 1},
+    "correctiveActionId": {"type": "string", "minLength": 1},
+    "officeId": {"type": "string", "minLength": 1},
+    "office": {"type": "string"},
+    "verifiedBy": {"type": "string", "minLength": 1},
+    "verifiedAt": {"type": "string", "format": "date-time"},
+    "result": {"enum": ["passed", "failed"]},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "calculatedHash": {"type": "string", "minLength": 1},
+    "storedHash": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}

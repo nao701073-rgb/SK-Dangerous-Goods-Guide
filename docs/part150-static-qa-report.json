@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-07-26T14:10:08.285Z",
+  "root": "/mnt/data/part150_work",
+  "status": "passed",
+  "stats": {
+    "html": 26,
+    "js": 75,
+    "json": 58,
+    "refs": 322,
+    "bytes": 102188210
+  },
+  "findingCount": 0,
+  "findings": [],
+  "oversizedAssets": [
+    {
+      "file": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "bytes": 9542439
+    },
+    {
+      "file": "references/originals/dangerous-goods-notification.pdf",
+      "bytes": 9079009
+    },
+    {
+      "file": "references/originals/ctu-code-ja.pdf",
+      "bytes": 4314214
+    },
+    {
+      "file": "data/un-data.js",
+      "bytes": 3361196
+    },
+    {
+      "file": "references/originals/dangerous-goods-regulations.pdf",
+      "bytes": 1973645
+    },
+    {
+      "file": "images/guides/package-marking-un1224-guide.png",
+      "bytes": 1143236
+    }
+  ]
+}

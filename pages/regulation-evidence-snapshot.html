@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>案件判定根拠スナップショット｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css">
+</head>
+<body data-page="regulations">
+  <header class="app-header">
+    <div><p class="eyebrow">Case Evidence Snapshot</p><h1>案件判定根拠スナップショット</h1></div>
+    <a class="icon-button" href="regulations.html" aria-label="関連法令へ戻る">←</a>
+  </header>
+  <main class="main-content revision-page">
+    <section class="revision-hero">
+      <span class="status-badge status-badge--blue">監査・過去案件再現</span>
+      <h2>案件時点の法令版と判定根拠を固定保存</h2>
+      <p>法令PDFや構造化データが改正後に更新されても、案件番号、基準日、採用版、原本PDFハッシュ、データセットハッシュを記録し、当時の判断根拠を再現できるようにします。</p>
+    </section>
+
+    <section class="revision-panel">
+      <div class="section-heading"><div><p class="eyebrow">Create Snapshot</p><h2>スナップショット作成</h2></div></div>
+      <form id="snapshotForm" class="revision-form">
+        <label>案件番号<input id="caseReference" required placeholder="例：KAW-2026-0001"></label>
+        <label>判定基準日<input id="asOfDate" type="date" required></label>
+        <label>対象法令<select id="regulationId" required></select></label>
+        <label>使用目的<select id="purpose"><option value="inspection">検査・検品判定</option><option value="review">照査</option><option value="training">研修・教育</option><option value="audit">監査・説明</option></select></label>
+        <label>対象UN番号<input id="unNumber" inputmode="numeric" placeholder="例：1203"></label>
+        <label>対象品名<input id="properShippingName" placeholder="例：GASOLINE"></label>
+        <label class="wide">判定・確認内容<textarea id="decisionSummary" rows="4" required placeholder="例：包装要件、標札、隔離、積載方法を確認した。"></textarea></label>
+        <label class="wide">参照箇所<textarea id="sourceReferences" rows="3" placeholder="例：危告示 別表第1 UN1203、IMDG 7.2.4、PDF 123頁"></textarea></label>
+        <label>記録者<input id="recordedBy" required placeholder="氏名または社員番号"></label>
+        <label>確認者<input id="reviewedBy" placeholder="必要な場合のみ"></label>
+        <div class="wide form-actions"><button class="primary-button" type="submit">適用版を解決して作成</button><button class="secondary-button" type="button" id="downloadSnapshot" disabled>JSONを保存</button></div>
+      </form>
+      <div id="snapshotResult" class="validation-result" aria-live="polite"></div>
+    </section>
+
+    <section class="revision-panel">
+      <div class="section-heading"><div><p class="eyebrow">Required Evidence</p><h2>保存する証跡</h2></div></div>
+      <div class="workflow-grid">
+        <article><strong>1</strong><h3>案件情報</h3><p>案件番号、基準日、対象UN番号、判定内容を保存。</p></article>
+        <article><strong>2</strong><h3>採用版</h3><p>基準日に適用される法令版と適用期間を固定。</p></article>
+        <article><strong>3</strong><h3>原本証明</h3><p>PDFファイル名とSHA-256を記録し、原本同一性を確認。</p></article>
+        <article><strong>4</strong><h3>データ証明</h3><p>公開データセット版・件数・ハッシュを保存。</p></article>
+      </div>
+    </section>
+
+    <section class="revision-panel caution-panel">
+      <h2>運用上の注意</h2>
+      <p>スナップショットは法令判断そのものを自動化するものではありません。検査員が確認した根拠を、後日説明できる状態で固定するための記録です。未承認版、適用期間が重複した版、基準日に該当しない版は採用できません。</p>
+    </section>
+  </main>
+  <script src="../data/regulation-registry.js"></script>
+  <script src="../data/regulation-revision-registry.js"></script>
+  <script src="../assets/js/regulation-evidence-snapshot.js"></script>
+  <script src="../assets/js/system-shell.js"></script>
+</body>
+</html>

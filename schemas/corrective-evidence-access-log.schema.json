@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-access-log.schema.json",
+  "title": "Corrective Evidence Access Log",
+  "type": "object",
+  "required": [
+    "id",
+    "actionId",
+    "evidenceId",
+    "officeId",
+    "operation",
+    "actor",
+    "role",
+    "accessedAt"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidenceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "officeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "office": {
+      "type": "string"
+    },
+    "certificateId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "accessLevel": {
+      "enum": [
+        "office",
+        "office-admin",
+        "administrator"
+      ]
+    },
+    "operation": {
+      "enum": [
+        "view",
+        "download"
+      ]
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string"
+    },
+    "accessedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": true
+}

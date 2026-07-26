@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-rule-proposal.schema.json",
+  "title": "証拠資料アクセス監査ルール変更申請",
+  "type": "object",
+  "required": [
+    "id",
+    "schemaVersion",
+    "status",
+    "type",
+    "reason",
+    "previousRules",
+    "candidateRules",
+    "simulationSummary",
+    "createdAt",
+    "createdBy",
+    "releaseMode"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "status": {
+      "enum": [
+        "pending-approval",
+        "approved",
+        "approved-scheduled",
+        "applied",
+        "rejected"
+      ]
+    },
+    "type": {
+      "enum": [
+        "change",
+        "rollback"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "previousRules": {
+      "$ref": "corrective-evidence-audit-rule.schema.json"
+    },
+    "candidateRules": {
+      "$ref": "corrective-evidence-audit-rule.schema.json"
+    },
+    "simulationSummary": {
+      "type": "object"
+    },
+    "simulationHash": {
+      "type": "string"
+    },
+    "simulatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "releaseMode": {
+      "enum": [
+        "immediate",
+        "scheduled"
+      ]
+    },
+    "scheduledAt": {
+      "type": "string"
+    },
+    "approvedAt": {
+      "type": "string"
+    },
+    "approvedBy": {
+      "type": "string"
+    },
+    "appliedAt": {
+      "type": "string"
+    },
+    "appliedBy": {
+      "type": "string"
+    },
+    "rejectedAt": {
+      "type": "string"
+    },
+    "rejectedBy": {
+      "type": "string"
+    },
+    "rejectionReason": {
+      "type": "string"
+    },
+    "sourceProposalId": {
+      "type": "string"
+    },
+    "approvalDueAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "applicationDueAt": {
+      "type": "string"
+    },
+    "notificationAcknowledgedAt": {
+      "type": "string"
+    },
+    "notificationAcknowledgedBy": {
+      "type": "string"
+    },
+    "assignedTo": {
+      "type": "string"
+    },
+    "assignmentHistory": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "escalatedToAdministrator": {
+      "type": "boolean"
+    },
+    "escalatedAt": {
+      "type": "string"
+    },
+    "escalatedBy": {
+      "type": "string"
+    },
+    "escalationReason": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

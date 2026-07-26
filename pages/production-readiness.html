@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本番導入・リリース判定｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=150">
+</head>
+<body data-page="settings">
+  <main class="workspace admin-tool-page">
+    <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 本番導入・リリース判定</div>
+    <div class="page-heading-row">
+      <div><h1>本番導入・リリース判定</h1><p>端末、社内API、データ、権限、バックアップ、運用体制をまとめて確認し、承認記録を残します。</p></div>
+      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+    </div>
+
+    <section class="readiness-hero">
+      <div><span id="readinessBadge">未確認</span><h2 id="readinessTitle">導入前チェックを実行してください</h2><p id="readinessSummary">必須条件、運用チェックリスト、承認状態を統合して判定します。</p></div>
+      <div class="readiness-actions"><button id="runReadiness" class="primary-action" type="button">総合診断を実行</button><button id="exportReadiness" type="button">診断JSON出力</button></div>
+    </section>
+
+    <section class="panel"><div class="panel-heading"><h2>ブラウザ・端末側</h2></div><div class="panel-body"><div id="localReadinessChecks" class="check-list"></div></div></section>
+    <section class="panel"><div class="panel-heading"><h2>社内サーバー側</h2></div><div class="panel-body"><div id="serverReadinessChecks" class="check-list"><p>診断を実行すると結果を表示します。</p></div></div></section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>運用開始チェックリスト</h2><p>実施済みの項目にチェックしてください。</p></div>
+      <div class="panel-body">
+        <div id="releaseChecklist" class="check-list"></div>
+        <div class="form-actions"><button id="saveReleaseChecklist" class="secondary-action" type="button">チェック状態を保存</button><button id="resetReleaseChecklist" type="button">リセット</button></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>本番設定の固定</h2><p>承認後の重要設定変更を検知するため、現在値のスナップショットを保存します。</p></div>
+      <div class="panel-body">
+        <div id="configurationSnapshotStatus" class="fixed-setting">設定スナップショットは未作成です。</div>
+        <div class="form-actions"><button id="createConfigurationSnapshot" class="secondary-action" type="button">現在設定を固定</button><button id="verifyConfigurationSnapshot" type="button">設定変更を検査</button><button id="exportConfigurationSnapshot" type="button">設定JSON出力</button></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>リリース判定・承認</h2><p>作成者と承認者は別の担当者にしてください。承認権限は事業所管理者または管理者のみです。</p></div>
+      <div class="panel-body admin-form-grid">
+        <label>リリース名称<input id="releaseName" placeholder="例：川崎事業所 試験運用開始"></label>
+        <label>対象バージョン<input id="releaseVersion" value="v1-part146"></label>
+        <label>判定作成者<input id="releasePreparedBy" placeholder="氏名"></label>
+        <label>承認者<input id="releaseApprovedBy" placeholder="氏名"></label>
+        <label>承認者権限<select id="releaseApproverRole"><option value="office-admin">事業所管理者</option><option value="admin">管理者</option></select></label>
+        <label>運用開始予定日時<input id="releaseScheduledAt" type="datetime-local"></label>
+        <label class="admin-form-wide">判定・承認コメント<textarea id="releaseComment" rows="3" placeholder="未対応事項、条件付き承認の条件、運用上の注意等"></textarea></label>
+        <div class="admin-form-wide form-actions"><button id="createReleaseDecision" class="primary-action" type="button">リリース判定を作成</button><button id="exportReleaseDecision" type="button">判定書JSON出力</button><button id="printReleaseDecision" type="button">判定書を印刷</button></div>
+        <div id="releaseDecisionResult" class="admin-form-wide validation-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>直近のリリース判定</h2></div>
+      <div class="panel-body"><div id="releaseDecisionLedger" class="check-list"><p>判定記録はありません。</p></div></div>
+    </section>
+
+    <section class="panel"><div class="panel-heading"><h2>導入・運用資料</h2></div><div class="panel-body admin-link-grid"><a href="../docs/本番導入設定手順書.md">本番導入設定手順書</a><a href="../docs/運用管理手順書.md">運用管理手順書</a><a href="../docs/バックアップ復元手順書.md">バックアップ・復元手順書</a><a href="../docs/社内接続試験チェックリスト.md">社内接続試験チェックリスト</a><a href="../docs/part90-rollout-and-acceptance.md">段階導入・受入判定</a><a href="../docs/part146-production-release-gate.md">第146回リリース判定仕様</a></div></section>
+  </main>
+  <script src="../assets/js/api-client.js?v=150"></script>
+  <script src="../assets/js/production-readiness.js?v=150"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

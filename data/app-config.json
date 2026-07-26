@@ -1,0 +1,238 @@
+{
+  "systemName": "検査・検品業務サポートシステム",
+  "version": "1.0.0-rc1",
+  "offline": true,
+  "modules": [
+    {
+      "id": "dangerous-goods",
+      "name": "危険物検索・解説",
+      "status": "active"
+    },
+    {
+      "id": "ems",
+      "name": "EmSコード参照",
+      "status": "active"
+    },
+    {
+      "id": "application-management",
+      "name": "申請番号管理",
+      "status": "active"
+    },
+    {
+      "id": "photo-management",
+      "name": "写真管理",
+      "status": "active"
+    },
+    {
+      "id": "regulations",
+      "name": "関連法令・国際規則",
+      "status": "foundation"
+    },
+    {
+      "id": "references",
+      "name": "関連資料",
+      "status": "foundation"
+    },
+    {
+      "id": "ctu-code",
+      "name": "CTU Code",
+      "status": "future"
+    },
+    {
+      "id": "securing-calculation",
+      "name": "固縛力参考算定",
+      "status": "future"
+    },
+    {
+      "id": "ai-image-analysis",
+      "name": "AI画像解析",
+      "status": "future"
+    }
+  ],
+  "build": "part149-final-qa-and-performance-tuning",
+  "designSystem": {
+    "layout": "left-sidebar-desktop-bottom-navigation-mobile",
+    "palette": "navy-blue-white",
+    "reference": "user-provided layout concept",
+    "mobileFirst": true
+  },
+  "labelAssets": {
+    "format": "SVG",
+    "count": 19,
+    "offline": true,
+    "sourceReference": "https://www.sklabel.jp/",
+    "copiedProductImages": false,
+    "class1Divisions": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.6"
+    ],
+    "resolution": "1200x1200",
+    "completeFrame": true,
+    "generatedCount": 22
+  },
+  "imdgCrossReference": {
+    "edition": "42-24",
+    "mandatoryFrom": "2026-01-01",
+    "specificReferenceCount": 7,
+    "categoryCount": 9
+  },
+  "displaySettings": {
+    "domesticNotification": "always-visible-primary",
+    "imdgReferences": "user-toggle",
+    "defaultShowImdgReferences": true,
+    "requirementLayout": {
+      "default": "two-column",
+      "options": [
+        "two-column",
+        "horizontal"
+      ]
+    }
+  },
+  "dangerousGoodsDetailLayout": {
+    "primarySource": "危告示別表第1",
+    "officialFieldNames": true,
+    "responsiveGroupedColumns": true
+  },
+  "exceptedQuantity": {
+    "codes": [
+      "E0",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5"
+    ],
+    "showsDomesticLimits": true,
+    "showsAiSummary": true
+  },
+  "packageMarking": {
+    "characterHeightsMm": [
+      12,
+      6
+    ],
+    "verySmallPackages": "appropriate-size",
+    "nosAiSupport": true,
+    "guideImageIncluded": true
+  },
+  "marinePollutantDisplay": {
+    "noPMarkLabel": "別表第1にP表記なし",
+    "avoidsDefinitiveNonApplicable": true,
+    "consignorDeclarationCaveat": true,
+    "imdgClassificationCaveat": true,
+    "pMarkedLabel": "別表第1にP表記あり",
+    "displayFormat": "海洋汚染物質 + status"
+  },
+  "referenceAiSummaries": {
+    "summaryCount": 10,
+    "ctuSummaryCount": 10,
+    "style": "concise"
+  },
+  "referenceRegistry": {
+    "documentCount": 5,
+    "displayOrder": [
+      "危規則",
+      "危告示",
+      "放告示",
+      "CTU Code",
+      "IMDG Code 42-24"
+    ],
+    "removedFromRelatedMaterials": [
+      "国際海上コンテナの陸上における安全輸送ガイドライン",
+      "国際海上コンテナの陸上における安全輸送マニュアル",
+      "船舶検査心得",
+      "Informative Material Related to the CTU Code",
+      "AAR Intermodal Loading Guide",
+      "EmS Guide",
+      "IMDGコードに基づく検査・検品業務に関する資料 初版"
+    ]
+  },
+  "imdgSelectedClauses": {
+    "edition": "42-24",
+    "officialInstrument": "MSC.556(108)",
+    "clauseCount": 19,
+    "scope": "dangerous-goods-container-stuffing-inspection",
+    "fullTextReproduced": false
+  },
+  "packageMarkingGuide": {
+    "exampleCount": 1,
+    "title": "国連番号・UNの文字高さ",
+    "primaryDomesticReference": "危告示 第7条の3第2項",
+    "supplementaryImdgReference": "IMDG Code 5.2.1.1"
+  },
+  "limitedQuantityDisplay": {
+    "showsInnerLimit": true,
+    "showsOuterTotalLimit": true,
+    "outerTotalLimit": "30kg",
+    "format": "内装：{quantity}以下／外装合計：30kg以下"
+  },
+  "terminology": {
+    "classDisplay": "等級",
+    "subsidiaryRiskDisplay": "副次危険性等級",
+    "dangerousGoodsClassDisplayDeprecated": true,
+    "auditScope": [
+      "危険物詳細",
+      "検索結果",
+      "標札一覧",
+      "関連資料",
+      "説明文",
+      "仕様書"
+    ],
+    "packingGroupDisplay": "容器等級"
+  },
+  "terminologyUpdate": {
+    "old": "N.O.S.（技術名／Technical Name）",
+    "new": "N.O.S.（技術名／Technical Name）",
+    "englishPlaceholder": "(Technical Name)"
+  },
+  "recordSelection": {
+    "usesSourceRow": true,
+    "usesPackingGroupFallback": true
+  },
+  "technicalNameSupport": {
+    "schemaVersion": "2.0",
+    "target": "SP274 N.O.S. entries",
+    "coverage": 509,
+    "selectionOrder": [
+      "UN-specific",
+      "proper-shipping-name keyword",
+      "class fallback",
+      "SDS fallback"
+    ],
+    "specialProvisionProfiles": [
+      "SP274",
+      "SP223",
+      "SP362",
+      "SP391",
+      "SP943"
+    ]
+  },
+  "mobileActualSizeCalibration": {
+    "enabled": true,
+    "referenceLengthMm": 50,
+    "adjustmentRangePercent": [
+      60,
+      160
+    ],
+    "stepPercent": 2,
+    "storedPerDevice": true
+  },
+  "detailRenderingFix": {
+    "packingGroupSortValueDefined": true,
+    "blankScreenResolved": true
+  },
+  "releaseStage": "pilot-integration",
+  "roleModel": {
+    "displayRoles": [
+      "利用者",
+      "事業所管理者",
+      "管理者"
+    ],
+    "internalCompatibility": {
+      "administrator": "safety-environment-admin"
+    },
+    "note": "内部ロール値は既存データ互換のため維持し、画面表示は管理者へ統一"
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社内検証管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/validation-admin.css">
+</head>
+<body data-page="validation">
+  <main class="workspace validation-page">
+    <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 社内検証管理</div>
+    <div class="page-heading-row">
+      <div><h1>社内検証管理</h1><p>利用者・事業所の初期登録、検証用データ投入、接続試験、検証結果を一元管理します。</p></div>
+      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+    </div>
+
+    <section class="validation-status-grid">
+      <article class="status-card"><span>API接続</span><strong id="apiStatus">未確認</strong></article>
+      <article class="status-card"><span>ログイン</span><strong id="authStatus">未確認</strong></article>
+      <article class="status-card"><span>事業所数</span><strong id="officeCount">－</strong></article>
+      <article class="status-card"><span>利用者数</span><strong id="userCount">－</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>接続試験</h2></div>
+      <div class="panel-body test-actions">
+        <button id="runBasicConnectionTest" class="primary-action" type="button">基本接続試験を実行</button>
+        <button id="createSampleData" class="secondary-action" type="button">検証用データを投入</button>
+        <a class="secondary-action" href="production-readiness.html">本番導入準備確認</a><a class="secondary-action" href="kawasaki-pilot.html">川崎事業所 試験運用</a>
+        <a class="secondary-action" href="access-control.html">権限・共有範囲</a>
+        <a class="secondary-action" href="login.html">オンラインログイン</a>
+        <span id="connectionMessage" class="inline-message"></span>
+      </div>
+    </section>
+
+    <div class="two-column-panels">
+      <section class="panel">
+        <div class="panel-heading"><h2>利用者の初期登録</h2></div>
+        <form id="userForm" class="panel-body form-grid">
+          <label><span>ログインID</span><input id="userLoginId" required placeholder="例：kawasaki.n.oura"></label><label><span>初期パスワード</span><input id="userInitialPassword" type="password" minlength="8" required placeholder="管理者が任意に設定"></label><label><span>メールアドレス（将来の二段階認証用・任意）</span><input id="userEmail" type="email" placeholder="name@company.co.jp"></label>
+          <label><span>表示名</span><input id="userDisplayName" required placeholder="川崎事業所 検証利用者"></label>
+          <label><span>権限</span><select id="userRole"><option value="office-user">検査員</option><option value="office-admin">事業所管理者</option><option value="safety-environment-admin">管理者</option><option value="guest">ゲスト（社内職員・閲覧専用）</option><option value="validator">検証者（社内職員・閲覧＋検証記録）</option></select></label>
+          <label><span>所属事業所</span><select id="userOfficeId"></select></label>
+          <p class="form-note full-width">初期実装では、管理者が設定したログインIDとパスワードでログインします。メール認証・二段階認証は将来実装予定です。初期パスワードは利用者へ安全な方法で通知してください。</p>
+          <button class="primary-action full-width" type="submit">利用者を登録</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><h2>事業所の追加登録</h2></div>
+        <form id="officeForm" class="panel-body form-grid">
+          <label><span>事業所ID</span><input id="newOfficeId" required placeholder="office-example"></label>
+          <label><span>ブロック</span><select id="newOfficeBlock"></select></label>
+          <label class="full-width"><span>事業所名</span><input id="newOfficeName" required placeholder="○○事業所"></label>
+          <button class="primary-action full-width" type="submit">事業所を登録</button>
+          <p class="form-note full-width">他ブロックを追加する場合は、先にサーバーのブロックマスタへ登録してください。</p>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>登録済み利用者</h2><button id="reloadUsers" class="secondary-action" type="button">再読込</button></div>
+      <div class="panel-body table-scroll"><table class="data-table"><thead><tr><th>表示名</th><th>ログインID</th><th>メール（任意）</th><th>権限</th><th>所属</th><th>状態</th><th>操作</th></tr></thead><tbody id="userTableBody"></tbody></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>検証実施記録</h2><button id="createValidationRun" class="primary-action" type="button">新しい検証を開始</button></div>
+      <div class="panel-body">
+        <div id="validationRunList" class="run-list"></div>
+        <div id="validationDetail" class="validation-detail" hidden>
+          <div class="detail-heading"><div><strong id="validationTitle"></strong><span id="validationEnvironment"></span></div><button id="closeValidationDetail" class="secondary-action" type="button">閉じる</button></div>
+          <div id="validationChecklist" class="checklist"></div>
+          <div class="completion-box">
+            <label><span>総括</span><textarea id="validationSummary" rows="4" placeholder="未解決事項、本番移行条件、担当者など"></textarea></label>
+            <div class="completion-actions"><button data-complete-status="合格" class="primary-action" type="button">合格で完了</button><button data-complete-status="要改善" class="warning-action" type="button">要改善で完了</button><button data-complete-status="中止" class="secondary-action" type="button">中止</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="validationMessage" class="validation-message" aria-live="polite"></div>
+  </main>
+  <script src="../assets/js/storage.js?v=150"></script>
+  <script src="../assets/js/api-client.js?v=150"></script>
+  <script src="../assets/js/validation-admin.js?v=150"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

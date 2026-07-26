@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "description": "国内法令条文と国際規則の主たる対応関係および追加参照先を管理する。",
+  "references": [
+    {
+      "referenceId": "sample-reference",
+      "source": {
+        "regulationId": "domestic-ship-dangerous-goods",
+        "nodeId": "article-sample"
+      },
+      "primaryTarget": {
+        "regulationId": "international-imdg",
+        "nodeId": "clause-sample",
+        "relationship": "closest-correspondence"
+      },
+      "additionalTargets": [],
+      "keywords": [],
+      "relatedUnNumbers": [],
+      "status": "draft",
+      "note": "サンプル。実運用データではありません。"
+    }
+  ]
+}

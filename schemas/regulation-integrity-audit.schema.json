@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regulation-integrity-audit.schema.json",
+  "title": "法令更新パッケージ整合性監査結果",
+  "type": "object",
+  "required": ["schemaVersion", "auditedAt", "status", "checks", "issues", "reportSha256"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "auditedAt": {"type": "string", "format": "date-time"},
+    "manifestFile": {"type": "string"},
+    "regulationId": {"type": ["string", "null"]},
+    "editionLabel": {"type": ["string", "null"]},
+    "status": {"enum": ["passed", "attention-required"]},
+    "checks": {"type": "array", "items": {"type": "object"}},
+    "issues": {"type": "array", "items": {"type": "string"}},
+    "reportSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

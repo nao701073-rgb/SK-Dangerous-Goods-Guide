@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お気に入り｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/management.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Office Favorites</p>
+      <h1>事業所のお気に入り</h1>
+    </div>
+    <a class="icon-button" href="dangerous-goods-search.html" aria-label="検索画面へ戻る">←</a>
+  </header>
+
+  <main class="main-content management-page">
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Favorites</p>
+          <h2 id="officeTitle">お気に入り一覧</h2>
+        </div>
+        <input id="favoriteFilter" type="search" placeholder="UN番号・品名・メモで絞り込み">
+      </div>
+      <div id="favoriteCards" class="management-list"></div>
+    </section>
+  </main>
+
+  <script src="../data/organization-master.js"></script>
+  <script src="../assets/js/organization.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/favorites.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

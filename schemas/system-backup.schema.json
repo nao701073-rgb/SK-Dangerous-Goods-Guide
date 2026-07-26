@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "system-backup.schema.json",
+  "title": "Inspection Support System Backup",
+  "type": "object",
+  "required": ["schemaVersion", "type", "backupId", "createdAt", "createdBy", "payloadHash", "payload", "verificationHash"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "type": {"const": "inspection-support-system-backup"},
+    "systemVersion": {"type": "string"},
+    "backupId": {"type": "string", "minLength": 1},
+    "label": {"type": "string"},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "createdBy": {"type": "string", "minLength": 1},
+    "officeId": {"type": "string"},
+    "officeName": {"type": "string"},
+    "includesTemporarySessionData": {"type": "boolean"},
+    "excludedKeys": {"type": "array", "items": {"type": "string"}},
+    "itemCounts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "payloadHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "payload": {"type": "object", "additionalProperties": {"type": ["string", "null"]}},
+    "verificationHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": true
+}

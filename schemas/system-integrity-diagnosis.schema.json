@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "system-integrity-diagnosis.schema.json",
+  "title": "System Integrity Diagnosis",
+  "type": "object",
+  "required": ["schemaVersion", "type", "diagnosedAt", "summary", "checks", "verificationHash"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "type": {"const": "system-integrity-diagnosis"},
+    "diagnosedAt": {"type": "string", "format": "date-time"},
+    "storageKeyCount": {"type": "integer", "minimum": 0},
+    "storageBytes": {"type": "integer", "minimum": 0},
+    "summary": {
+      "type": "object",
+      "required": ["critical", "warnings", "passed"],
+      "properties": {
+        "critical": {"type": "integer", "minimum": 0},
+        "warnings": {"type": "integer", "minimum": 0},
+        "passed": {"type": "integer", "minimum": 0}
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "detail"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"enum": ["pass", "warning", "error"]},
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "verificationHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": true
+}

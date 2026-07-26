@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://inspection-support.local/schemas/regulation-dataset-envelope.schema.json",
+  "title":"Regulation dataset envelope",
+  "type":"object",
+  "required":["schemaVersion","regulationId","editionLabel","targetKey","recordKey","records"],
+  "properties": {
+    "schemaVersion":{"type":"string","minLength":1},
+    "regulationId":{"type":"string","minLength":1},
+    "editionLabel":{"type":"string","minLength":1},
+    "targetKey":{"type":"string","minLength":1},
+    "recordKey":{"type":"string","minLength":1},
+    "generatedAt":{"type":["string","null"]},
+    "records":{"type":"array","items":{"type":"object"}}
+  },
+  "additionalProperties":false
+}

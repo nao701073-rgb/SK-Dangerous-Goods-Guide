@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-rule-simulation.schema.json",
+  "title": "Corrective Evidence Audit Rule Simulation",
+  "type": "object",
+  "required": ["schemaVersion", "simulatedAt", "candidateRules", "summary", "findings"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "simulatedAt": { "type": "string", "format": "date-time" },
+    "simulatedBy": { "type": "string" },
+    "logCount": { "type": "integer", "minimum": 0 },
+    "currentRules": { "type": "object" },
+    "candidateRules": { "type": "object" },
+    "summary": {
+      "type": "object",
+      "required": ["total", "high", "medium", "added", "removed"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "high": { "type": "integer", "minimum": 0 },
+        "medium": { "type": "integer", "minimum": 0 },
+        "added": { "type": "integer", "minimum": 0 },
+        "removed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "byOffice": { "type": "array", "items": { "type": "object" } },
+    "findings": { "type": "array", "items": { "type": "object" } },
+    "added": { "type": "array", "items": { "type": "object" } },
+    "removed": { "type": "array", "items": { "type": "object" } }
+  }
+}

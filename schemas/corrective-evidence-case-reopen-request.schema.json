@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-case-reopen-request.schema.json",
+  "title": "案件再開申請",
+  "type": "object",
+  "required": ["id", "certificateId", "correctiveActionId", "officeId", "requestedBy", "requestedAt", "reason", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "certificateId": {"type": "string", "minLength": 1},
+    "correctiveActionId": {"type": "string", "minLength": 1},
+    "officeId": {"type": "string", "minLength": 1},
+    "office": {"type": "string"},
+    "requestedBy": {"type": "string", "minLength": 1},
+    "requestedAt": {"type": "string", "format": "date-time"},
+    "reason": {"type": "string", "minLength": 1},
+    "evidence": {"type": "string"},
+    "status": {"enum": ["pending-approval", "approved", "rejected", "cancelled"]},
+    "approvedBy": {"type": "string"},
+    "approvedAt": {"type": "string"},
+    "approvalNote": {"type": "string"}
+  },
+  "additionalProperties": true
+}

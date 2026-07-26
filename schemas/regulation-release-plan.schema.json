@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regulation-release-plan.schema.json",
+  "title": "法令データ公開計画",
+  "type": "object",
+  "required": ["schemaVersion", "releaseId", "regulationId", "editionLabel", "manifestSha256", "integrityAuditSha256", "releaseMode", "effectiveFrom", "rollbackRevisionId", "gateStatus", "gateChecks", "createdAt", "releasePlanSha256"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "releaseId": {"type": "string", "minLength": 1},
+    "regulationId": {"type": "string", "minLength": 1},
+    "editionLabel": {"type": "string", "minLength": 1},
+    "manifestSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "integrityAuditSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "releaseMode": {"enum": ["immediate", "scheduled"]},
+    "scheduledAt": {"type": ["string", "null"], "format": "date-time"},
+    "effectiveFrom": {"type": "string", "format": "date"},
+    "rollbackRevisionId": {"type": "string", "minLength": 1},
+    "preparedBy": {"type": "string"},
+    "approvedBy": {"type": "string"},
+    "gateStatus": {"enum": ["ready", "blocked"]},
+    "gateChecks": {"type": "array", "items": {"type": "object", "required": ["key", "label", "passed"], "properties": {"key": {"type": "string"}, "label": {"type": "string"}, "passed": {"type": "boolean"}}, "additionalProperties": false}},
+    "createdAt": {"type": "string", "format": "date-time"},
+    "releasePlanSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

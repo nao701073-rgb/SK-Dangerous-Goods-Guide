@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-rule.schema.json",
+  "title": "Corrective Evidence Access Audit Rule",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "permissionDeniedEnabled",
+    "missingReasonEnabled",
+    "bulkDownloadEnabled",
+    "bulkWindowMinutes",
+    "bulkMediumThreshold",
+    "bulkHighThreshold",
+    "lookbackHours"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "permissionDeniedEnabled": { "type": "boolean" },
+    "missingReasonEnabled": { "type": "boolean" },
+    "bulkDownloadEnabled": { "type": "boolean" },
+    "bulkWindowMinutes": { "type": "integer", "minimum": 1, "maximum": 120 },
+    "bulkMediumThreshold": { "type": "integer", "minimum": 2, "maximum": 100 },
+    "bulkHighThreshold": { "type": "integer", "minimum": 3, "maximum": 200 },
+    "lookbackHours": { "type": "integer", "minimum": 1, "maximum": 720 },
+    "updatedAt": { "type": "string" },
+    "updatedBy": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["bulkMediumThreshold", "bulkHighThreshold"] },
+      "then": {}
+    }
+  ],
+  "additionalProperties": true
+}

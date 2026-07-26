@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inspection-support.local/schemas/photo-purge-certificate.schema.json",
+  "title": "Photo Purge Certificate",
+  "type": "object",
+  "required": [
+    "schemaVersion", "certificateId", "planId", "officeId", "office",
+    "reason", "createdBy", "createdAt", "approvedBy", "approvedAt",
+    "executedBy", "executedAt", "deletedPhotoCount", "deletedBytes",
+    "targetPhotos", "result", "verificationHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "certificateId": { "type": "string", "minLength": 1 },
+    "planId": { "type": "string", "minLength": 1 },
+    "officeId": { "type": "string", "minLength": 1 },
+    "office": { "type": "string", "minLength": 1 },
+    "applications": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "reason": { "type": "string", "minLength": 1 },
+    "createdBy": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "approvedBy": { "type": "string", "minLength": 1 },
+    "approvedAt": { "type": "string", "format": "date-time" },
+    "executedBy": { "type": "string", "minLength": 1 },
+    "executedAt": { "type": "string", "format": "date-time" },
+    "deletedPhotoCount": { "type": "integer", "minimum": 0 },
+    "deletedBytes": { "type": "integer", "minimum": 0 },
+    "targetPhotos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["photoId", "fileSize"],
+        "properties": {
+          "photoId": { "type": "string", "minLength": 1 },
+          "applicationId": { "type": "string" },
+          "applicationNumber": { "type": "string" },
+          "fileName": { "type": "string" },
+          "fileSize": { "type": "integer", "minimum": 0 },
+          "fingerprint": { "type": "string" },
+          "registeredAt": { "type": "string" },
+          "deletedAt": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "result": { "enum": ["completed", "failed", "partial"] },
+    "verificationHash": { "type": "string", "minLength": 8 }
+  },
+  "additionalProperties": false
+}

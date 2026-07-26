@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-monthly-report.schema.json",
+  "title": "Corrective Evidence Access Audit Monthly Report",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "month",
+    "generatedAt",
+    "summary",
+    "offices",
+    "findings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "reportType": {
+      "const": "corrective-evidence-access-audit-monthly"
+    },
+    "month": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generatedByRole": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "offices": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

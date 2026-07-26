@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-25",
+  "documents": [
+    {
+      "documentId": "ship-inspection-guidance",
+      "title": "船舶検査心得",
+      "category": "domestic-guidance",
+      "language": "ja",
+      "sourceType": "uploaded-pdf",
+      "fileName": "船舶検査心得.pdf",
+      "status": "reference",
+      "tags": [
+        "船舶安全法",
+        "危険物",
+        "検査",
+        "告示"
+      ]
+    },
+    {
+      "documentId": "container-road-safety-guideline",
+      "title": "国際海上コンテナの陸上における安全輸送ガイドライン",
+      "category": "domestic-guidance",
+      "language": "ja",
+      "sourceType": "uploaded-pdf",
+      "fileName": "国際海上コンテナの陸上における安全輸送ガイドラインH28.6改訂.pdf",
+      "status": "reference",
+      "tags": [
+        "コンテナ",
+        "陸上輸送",
+        "安全"
+      ]
+    },
+    {
+      "documentId": "container-road-safety-manual",
+      "title": "国際海上コンテナの陸上における安全輸送マニュアル",
+      "category": "domestic-guidance",
+      "language": "ja",
+      "sourceType": "uploaded-pdf",
+      "fileName": "国際海上コンテナの陸上における安全輸送マニュアルH28.6改訂.pdf",
+      "status": "reference",
+      "tags": [
+        "コンテナ",
+        "積付",
+        "偏荷重",
+        "安全輸送"
+      ]
+    },
+    {
+      "documentId": "ctu-informative-material",
+      "title": "Informative Material Related to the CTU Code",
+      "category": "international-guidance",
+      "language": "en",
+      "sourceType": "uploaded-pdf",
+      "fileName": "Informative_Material_Related_To_The_CTU_Code.pdf",
+      "status": "reference",
+      "tags": [
+        "CTU Code",
+        "lashing",
+        "packing",
+        "load distribution"
+      ]
+    },
+    {
+      "documentId": "aar-intermodal-loading-guide",
+      "title": "AAR Intermodal Loading Guide",
+      "category": "industry-guide",
+      "language": "en",
+      "sourceType": "uploaded-pdf",
+      "fileName": "AAR-INTERMODAL_LOADING_GUIDE.pdf",
+      "status": "reference",
+      "tags": [
+        "Ty-Gard",
+        "wood",
+        "rubber mats",
+        "dunnage",
+        "securement"
+      ]
+    },
+    {
+      "documentId": "ems-guide-42-24",
+      "title": "EmS Guide (IMDG Code Amendment 42-24)",
+      "category": "international-guidance",
+      "language": "en",
+      "sourceType": "uploaded-pdf",
+      "fileName": "EMS+Guide+(IMDG+Code42-24)+MSC.1-Circ.1588-Rev.3.pdf",
+      "status": "reference",
+      "tags": [
+        "EmS",
+        "fire",
+        "spillage",
+        "IMDG Code 42-24"
+      ]
+    },
+    {
+      "documentId": "radioactive-transport-notification",
+      "title": "船舶による放射性物質等の運送基準の細目等を定める告示",
+      "category": "domestic-notification",
+      "language": "ja",
+      "sourceType": "uploaded-pdf",
+      "fileName": "00006175.pdf",
+      "status": "reference",
+      "tags": [
+        "放射性物質",
+        "標札",
+        "輸送指数",
+        "臨界安全指数"
+      ]
+    }
+  ]
+}

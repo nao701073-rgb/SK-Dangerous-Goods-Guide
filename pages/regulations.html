@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>関連法令・国際規則｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/regulations.css">
+</head>
+<body data-page="regulations">
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Regulations & International Codes</p>
+      <h1>関連法令・国際規則</h1>
+    </div>
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
+  </header>
+
+  <main class="main-content regulations-page">
+    <section class="regulation-intro">
+      <span class="status-badge status-badge--blue">拡張基盤</span>
+      <h2>国内法令と国際規則を共通形式で管理</h2>
+      <p>
+        法令・条約・コードを後から追加できる共通レジストリと、
+        国内法令から国際規則への対照データ構造を用意しています。
+      </p>
+    </section>
+
+    <section class="regulation-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Domestic</p>
+          <h2>国内法令</h2>
+        </div>
+      </div>
+      <div id="domesticRegulations" class="regulation-grid"></div>
+    </section>
+
+    <section class="regulation-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">International</p>
+          <h2>国際条約・国際規則</h2>
+        </div>
+      </div>
+      <div id="internationalRegulations" class="regulation-grid"></div>
+    </section>
+
+    <section class="regulation-section">
+      <article class="cross-reference-card">
+        <h2>法令改正・データ更新管理</h2>
+        <p>新しい危規則、危告示、IMDG Code、その他の法令PDFを版管理し、差分確認・承認後にデータベースへ反映します。</p>
+        <a class="primary-button" href="regulation-update-admin.html">改正管理を開く</a>
+      </article>
+    </section>
+
+    <section class="regulation-section">
+      <article class="cross-reference-card">
+        <h2>案件判定根拠スナップショット</h2>
+        <p>案件時点で採用した法令版、原本PDF、構造化データ、判定根拠を固定保存し、改正後も当時の判断を再現します。</p>
+        <a class="primary-button" href="regulation-evidence-snapshot.html">スナップショットを作成</a>
+      </article>
+    </section>
+
+    <section class="regulation-section">
+      <article class="cross-reference-card">
+        <h2>国内法令・IMDG Code対照</h2>
+        <p>危告示に記載されたコードとIMDG Codeの参照先を確認します。</p>
+        <a class="primary-button" href="imdg-cross-reference.html">国内法令・IMDG Codeを開く</a>
+      </article>
+    </section>
+
+    <section class="regulation-section">
+      <article class="cross-reference-card">
+        <h2>法令対照の表示方針</h2>
+        <div class="reference-flow">
+          <div>国内法令の条文</div>
+          <span>↓</span>
+          <div>主たる対応規定<br><small>最も対応する規定を1件表示</small></div>
+          <span>＋</span>
+          <div>追加参照先<br><small>必要に応じて複数表示</small></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="../data/regulation-registry.js"></script>
+  <script src="../assets/js/regulations.js"></script>
+  <script src="../assets/js/system-shell.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>

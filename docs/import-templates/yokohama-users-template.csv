@@ -1,0 +1,4 @@
+﻿login_id,display_name,role,office_id,email,initial_password,account_owner
+yokohama.director,横浜事業所 事業所長,office-admin,yokohama-office,,ChangeMe123!,事業所長本人
+yokohama.inspector01,横浜事業所 検査員01,office-user,yokohama-office,,ChangeMe123!,検査員本人
+yokohama.inspector02,横浜事業所 検査員02,office-user,yokohama-office,,ChangeMe123!,検査員本人

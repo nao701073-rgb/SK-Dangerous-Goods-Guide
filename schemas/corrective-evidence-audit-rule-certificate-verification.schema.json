@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-audit-rule-certificate-verification.schema.json",
+  "title": "監査ルール適用証明検証結果",
+  "type": "object",
+  "required": ["schemaVersion", "verificationId", "certificateId", "proposalId", "valid", "errors", "warnings", "calculatedHash", "registeredHash", "checkedAt", "checkedBy", "source"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "verificationId": { "type": "string", "minLength": 1 },
+    "certificateId": { "type": "string" },
+    "proposalId": { "type": "string" },
+    "valid": { "type": "boolean" },
+    "errors": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "calculatedHash": { "type": "string" },
+    "registeredHash": { "type": "string" },
+    "checkedAt": { "type": "string", "format": "date-time" },
+    "checkedBy": { "type": "string" },
+    "source": { "enum": ["ledger", "import", "monthly"] }
+  },
+  "additionalProperties": true
+}

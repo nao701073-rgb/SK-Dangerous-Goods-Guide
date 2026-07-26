@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "corrective-evidence-case-reopen-investigation.schema.json",
+  "title": "案件再開後の再調査・追加是正・再クローズ",
+  "type": "object",
+  "required": ["id", "reopenRequestId", "certificateId", "correctiveActionId", "officeId", "status", "assignedTo", "scope", "startedBy", "startedAt"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "reopenRequestId": {"type": "string", "minLength": 1},
+    "certificateId": {"type": "string", "minLength": 1},
+    "previousClosureCertificateId": {"type": "string"},
+    "correctiveActionId": {"type": "string", "minLength": 1},
+    "officeId": {"type": "string", "minLength": 1},
+    "office": {"type": "string"},
+    "status": {"enum": ["investigating", "pending-review", "corrective-in-progress", "pending-corrective-verification", "reevaluation-pending", "pending-reclosure", "reclosed", "cancelled"]},
+    "scope": {"type": "string", "minLength": 1},
+    "assignedTo": {"type": "string", "minLength": 1},
+    "dueAt": {"type": "string", "format": "date-time"},
+    "progress": {"type": "number", "minimum": 0, "maximum": 100},
+    "findings": {"type": "string"},
+    "rootCause": {"type": "string"},
+    "additionalAction": {"type": "string"},
+    "reevaluationResult": {"enum": ["", "no-recurrence", "recurrence"]},
+    "reclosureCertificateId": {"type": "string"},
+    "history": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": true
+}

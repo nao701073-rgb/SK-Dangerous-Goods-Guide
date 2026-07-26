@@ -1,0 +1,4 @@
+﻿login_id,display_name,role,office_id,email,initial_password,account_owner
+msc.director,首都圏サーベイセンター 事業所長,office-admin,metropolitan-survey,,ChangeMe123!,事業所長本人
+msc.inspector01,首都圏サーベイセンター 検査員01,office-user,metropolitan-survey,,ChangeMe123!,検査員本人
+msc.inspector02,首都圏サーベイセンター 検査員02,office-user,metropolitan-survey,,ChangeMe123!,検査員本人

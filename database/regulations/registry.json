@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.1",
+  "updatedAt": "2026-07-25",
+  "regulations": [
+    {
+      "regulationId": "domestic-ship-dangerous-goods",
+      "category": "domestic",
+      "officialName": "危険物船舶運送及び貯蔵規則",
+      "shortName": "危規則",
+      "documentType": "ministerial-ordinance",
+      "jurisdiction": "Japan",
+      "status": "planned",
+      "dataPath": "domestic/ship-dangerous-goods/articles.json"
+    },
+    {
+      "regulationId": "domestic-dangerous-goods-notification",
+      "category": "domestic",
+      "officialName": "船舶による危険物の運送基準等に関する告示",
+      "shortName": "危告示",
+      "documentType": "notification",
+      "jurisdiction": "Japan",
+      "status": "planned",
+      "dataPath": "domestic/dangerous-goods-notification/articles.json"
+    },
+    {
+      "regulationId": "domestic-high-pressure-gas-safety",
+      "category": "domestic",
+      "officialName": "高圧ガス保安法",
+      "shortName": "高圧ガス保安法",
+      "documentType": "law",
+      "jurisdiction": "Japan",
+      "status": "future",
+      "dataPath": "domestic/high-pressure-gas-safety/articles.json"
+    },
+    {
+      "regulationId": "domestic-radioactive-material-transport",
+      "category": "domestic",
+      "officialName": "船舶による放射性物質等の運送基準の細目等を定める告示",
+      "shortName": "放射性物質運送告示",
+      "documentType": "notification",
+      "jurisdiction": "Japan",
+      "status": "source-uploaded",
+      "dataPath": "domestic/radioactive-material-transport/articles.json",
+      "sourceDocuments": [
+        {
+          "title": "船舶による放射性物質等の運送基準の細目等を定める告示",
+          "fileName": "00006175.pdf",
+          "sourceType": "uploaded-pdf"
+        }
+      ]
+    },
+    {
+      "regulationId": "international-imdg",
+      "category": "international",
+      "officialName": "International Maritime Dangerous Goods Code",
+      "shortName": "IMDG Code",
+      "documentType": "international-code",
+      "jurisdiction": "International",
+      "status": "active",
+      "dataPath": "international/imdg/clauses.json"
+    },
+    {
+      "regulationId": "international-ctu",
+      "category": "international",
+      "officialName": "IMO/ILO/UNECE Code of Practice for Packing of Cargo Transport Units",
+      "shortName": "CTU Code",
+      "documentType": "international-code",
+      "jurisdiction": "International",
+      "status": "future",
+      "dataPath": "international/ctu/clauses.json"
+    },
+    {
+      "regulationId": "international-marpol",
+      "category": "international",
+      "officialName": "International Convention for the Prevention of Pollution from Ships",
+      "shortName": "MARPOL",
+      "documentType": "international-convention",
+      "jurisdiction": "International",
+      "status": "future",
+      "dataPath": "international/marpol/clauses.json"
+    },
+    {
+      "regulationId": "international-csc",
+      "category": "international",
+      "officialName": "安全なコンテナーに関する国際条約",
+      "shortName": "CSC",
+      "documentType": "international-convention",
+      "jurisdiction": "International",
+      "status": "reference",
+      "dataPath": "international/csc/clauses.json",
+      "officialNameEn": "International Convention for Safe Containers",
+      "officialSource": {
+        "publisher": "外務省",
+        "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/htmls/B-S54-0123.html"
+      }
+    },
+    {
+      "regulationId": "domestic-ship-safety-act",
+      "category": "domestic",
+      "officialName": "船舶安全法",
+      "shortName": "船舶安全法",
+      "documentType": "law",
+      "jurisdiction": "Japan",
+      "lawNumber": "昭和8年法律第11号",
+      "lawId": "308AC0000000011",
+      "status": "reference",
+      "officialSource": {
+        "publisher": "e-Gov法令検索",
+        "url": "https://laws.e-gov.go.jp/law/308AC0000000011"
+      },
+      "dataPath": "domestic/ship-safety-act/articles.json"
+    }
+  ]
+}

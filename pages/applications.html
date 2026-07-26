@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>申請番号管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/photo-management.css?v=150">
+  <link rel="stylesheet" href="../assets/css/organization-management.css">
+</head>
+<body data-page="applications">
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Application Management</p>
+      <h1>申請番号管理</h1>
+    </div>
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
+  </header>
+
+  <main class="main-content photo-page">
+    <section class="management-panel organization-context-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Organization Scope</p>
+          <h2>表示範囲・所属</h2>
+        </div>
+        <span id="currentRoleBadge" class="scope-badge"></span>
+      </div>
+      <div class="organization-context-grid">
+        <label>
+          表示範囲
+          <select id="applicationScope">
+            <option value="office">所属事業所</option>
+            <option value="all">全事業所（安全環境室）</option>
+          </select>
+        </label>
+        <label>
+          事業所
+          <select id="applicationOfficeFilter"></select>
+        </label>
+      </div>
+      <div id="officeSummary" class="office-summary-grid"></div>
+      <p class="scope-note">安全環境室の権限では、全ブロック・全事業所の申請番号と関連写真を横断して閲覧できます。</p>
+    </section>
+
+    <section class="management-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">New Application</p>
+          <h2>申請番号を登録</h2>
+        </div>
+      </div>
+
+      <form id="applicationForm" class="application-form">
+        <input id="editingApplicationId" type="hidden">
+        <label>
+          申請番号
+          <input id="applicationNumber" required placeholder="例：KAW-2026-0001">
+        </label>
+        <label id="registrationOfficeField">
+          登録先事業所
+          <select id="registrationOffice"></select>
+        </label>
+        <label>
+          荷主
+          <input id="shipperName" placeholder="荷主名">
+        </label>
+        <label>
+          貨物名
+          <input id="cargoName" placeholder="貨物名">
+        </label>
+        <label>
+          進捗状況
+          <select id="applicationStatus"><option value="active">受付・作業中</option><option value="review">確認中</option><option value="completed">完了</option><option value="archived">保管</option></select>
+        </label>
+        <label class="application-form__wide">
+          メモ
+          <textarea id="applicationNote" rows="3" placeholder="案件に関するメモ"></textarea>
+        </label>
+        <div class="application-form__wide form-actions">
+          <button id="applicationSubmitButton" class="primary-action" type="submit">登録</button>
+          <button id="applicationEditCancel" type="button" hidden>編集を取消</button>
+          <span id="applicationMessage" class="form-message"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Applications</p>
+          <h2>登録済み申請番号</h2>
+        </div>
+        <div class="application-filter-tools">
+          <input id="applicationFilter" type="search" placeholder="申請番号・荷主・貨物名で検索">
+          <select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="active">受付・作業中</option><option value="review">確認中</option><option value="completed">完了</option><option value="archived">保管</option></select>
+          <button id="exportApplicationsCsv" type="button">CSV出力</button>
+        </div>
+      </div>
+      <div id="applicationList" class="application-list"></div>
+    </section>
+
+    <section class="management-panel" id="applicationPhotoSection">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Application Photos</p>
+          <h2>申請番号に写真を登録</h2>
+        </div>
+      </div>
+
+      <p id="photoPolicyInfo" class="scope-note"></p>
+      <form id="photoForm" class="photo-form">
+        <label>
+          申請番号
+          <select id="photoApplication" required>
+            <option value="">選択してください</option>
+          </select>
+        </label>
+
+        <label>
+          写真
+          <input id="photoFile" type="file" accept="image/*" capture="environment" required>
+          <small class="field-help">ファイル選択のほか、下のプレビュー枠へドラッグ＆ドロップ、または画像を貼り付けできます。</small>
+        </label>
+        <label>
+          画像保存サイズ
+          <select id="photoResize">
+            <option value="auto">自動圧縮（推奨・容量上限内）</option>
+            <option value="1600">長辺1600px</option>
+            <option value="2048">長辺2048px</option>
+            <option value="original">元サイズ相当（EXIF除去）</option>
+          </select>
+          <small class="field-help">自動圧縮では、長辺とJPEG画質を段階的に調整し、原則1MB以下かつ事業所設定の上限内にします。</small>
+        </label>
+        <label class="check-field"><input id="photoRepresentative" type="checkbox"> この申請番号の代表写真にする</label>
+        <label class="check-field"><input id="photoKeepGps" type="checkbox"> 写真の位置情報を業務記録として保存する</label>
+        <p class="photo-form__wide metadata-policy-note">保存画像からEXIF・端末情報を除去します。GPSは上記にチェックした場合のみ、画像とは別の管理項目として保存します。</p>
+
+        <label>
+          撮影日時
+          <input id="shootingAt" type="datetime-local">
+          <small class="field-help">JPEG写真に撮影日時が含まれる場合は自動反映します。含まれない場合はファイル日時を使用します。</small>
+        </label>
+
+        <label>
+          登録者
+          <input id="registeredBy" value="利用者">
+        </label>
+
+        <label class="photo-form__wide">
+          コメント
+          <textarea id="photoComment" rows="3" placeholder="写真の内容や確認事項"></textarea>
+        </label>
+
+        <div id="photoPreviewDropZone" class="photo-preview photo-form__wide" tabindex="0" role="button" aria-label="写真プレビュー。画像のドラッグ＆ドロップまたは貼り付けに対応">
+          <img id="photoPreview" alt="写真プレビュー" hidden>
+          <p id="photoPreviewPlaceholder">選択した写真がここに表示されます。ここへ画像をドラッグ＆ドロップ、または貼り付けもできます。</p>
+        </div>
+
+        <div id="photoOptimizationInfo" class="photo-optimization-info photo-form__wide" hidden>
+          <div><dt>元画像</dt><dd id="photoOriginalInfo">-</dd></div>
+          <div><dt>保存画像</dt><dd id="photoSavedInfo">-</dd></div>
+          <div><dt>削減率</dt><dd id="photoReductionInfo">-</dd></div>
+          <div><dt>上限判定</dt><dd id="photoLimitInfo">-</dd></div>
+          <div><dt>重複確認</dt><dd id="photoDuplicateInfo">-</dd></div>
+          <div><dt>撮影日時取得</dt><dd id="photoCapturedAtInfo">-</dd></div>
+          <div><dt>位置情報</dt><dd id="photoGpsInfo">-</dd></div>
+          <div><dt>メタデータ処理</dt><dd id="photoMetadataInfo">-</dd></div>
+        </div>
+
+        <div class="photo-form__wide form-actions">
+          <button class="primary-action" type="submit">写真を登録</button>
+          <span id="photoMessage" class="form-message"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Registered Photos</p>
+          <h2>申請番号別の登録写真</h2>
+        </div>
+        <div class="photo-filter-row">
+          <input id="photoFilter" type="search" placeholder="申請番号・コメントで検索">
+          <select id="photoApplicationFilter">
+            <option value="">すべての申請番号</option>
+          </select>
+          <label class="check-field photo-deleted-toggle"><input id="showDeletedPhotos" type="checkbox"> 削除済みも表示</label>
+          <button id="exportPhotosCsv" type="button">CSV出力</button>
+        </div>
+      </div>
+      <div id="photoList" class="photo-list"></div>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Photo Audit Trail</p>
+          <h2>写真操作履歴</h2>
+        </div>
+        <div class="photo-filter-row">
+          <input id="photoAuditFilter" type="search" placeholder="申請番号・操作者・理由で検索">
+          <select id="photoAuditApplicationFilter">
+            <option value="">すべての申請番号</option>
+          </select>
+          <button id="exportPhotoAuditCsv" type="button">履歴CSV出力</button>
+        </div>
+      </div>
+      <div id="photoAuditList" class="photo-audit-list"></div>
+    </section>
+
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Photo Retention</p>
+          <h2>写真の保存期間・保全管理</h2>
+        </div>
+        <div class="photo-filter-row">
+          <select id="photoRetentionFilter">
+            <option value="review-due">整理確認対象</option>
+            <option value="purge-ready">完全削除候補</option>
+            <option value="hold">保全指定中</option>
+            <option value="all">すべて</option>
+          </select>
+          <button id="exportPhotoRetentionCsv" type="button">保存期間CSV出力</button>
+        </div>
+      </div>
+      <p id="photoRetentionSummary" class="scope-note"></p>
+      <div id="photoStorageDashboard" class="photo-storage-dashboard"></div>
+      <div id="photoRetentionBulkActions" class="photo-retention-bulk-actions" hidden>
+        <label><input id="selectAllPurgeCandidates" type="checkbox"> 表示中の完全削除候補をすべて選択</label>
+        <input id="photoPurgeReason" type="text" placeholder="完全削除計画の理由（必須）">
+        <input id="photoPurgeAssignedApprover" type="text" placeholder="承認担当者（任意）">
+        <button id="createPhotoPurgePlan" type="button">選択写真の削除計画を作成</button>
+      </div>
+      <div id="photoRetentionList" class="photo-retention-list"></div>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Photo Purge Approval</p>
+          <h2>写真の完全削除計画・承認</h2>
+        </div>
+        <div class="management-actions">
+          <button id="exportPhotoPurgeCertificates" type="button">削除証明書JSON出力</button>
+          <button id="exportPhotoPurgePlans" type="button">削除計画JSON出力</button>
+        </div>
+      </div>
+      <p class="scope-note">完全削除は、計画作成者とは異なる事業所管理者または管理者の承認後に実行できます。期限超過計画は警告表示され、担当者の再割当または管理者への引継ぎができます。</p>
+      <div id="photoPurgeNotificationSummary" class="photo-purge-notification-summary"></div>
+      <div class="photo-purge-dashboard-tools">
+        <select id="photoPurgeStatusFilter">
+          <option value="active">未完了すべて</option>
+          <option value="pending">承認待ち</option>
+          <option value="approved">実行待ち</option>
+          <option value="overdue">期限超過</option>
+          <option value="escalated">管理者引継ぎ</option>
+          <option value="all">完了・取消を含む</option>
+        </select>
+        <input id="photoPurgeAssigneeFilter" type="search" placeholder="担当者・作成者・承認者で検索">
+        <label class="check-field"><input id="photoPurgeUnacknowledgedOnly" type="checkbox"> 未確認のみ</label>
+        <button id="exportPhotoPurgeNotifications" type="button">通知CSV出力</button>
+      </div>
+      <div id="photoPurgePlanList" class="photo-purge-plan-list"></div>
+    </section>
+
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div><p class="eyebrow">Certificate Ledger</p><h2>完全削除証明書台帳</h2></div>
+        <button id="exportPhotoPurgeCertificateLedger" type="button">台帳CSV出力</button>
+      </div>
+      <p class="scope-note">証明書ID、申請番号、事業所、実行者、実行日、検証状態から削除証明書を検索・照合できます。</p>
+      <div class="certificate-ledger-tools">
+        <input id="photoPurgeCertificateLedgerFilter" type="search" placeholder="証明書ID・計画ID・申請番号・実行者で検索">
+        <select id="photoPurgeCertificateLedgerStatus">
+          <option value="all">すべての検証状態</option>
+          <option value="valid">検証合格</option>
+          <option value="invalid">検証不合格</option>
+          <option value="unverified">未検証</option>
+        </select>
+      </div>
+      <p id="photoPurgeCertificateLedgerSummary" class="scope-note"></p>
+      <div id="photoPurgeCertificateLedgerList" class="certificate-ledger-list"></div>
+    </section>
+
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div><p class="eyebrow">Monthly Reconciliation</p><h2>削除証明書の月次集計・照合</h2></div>
+        <div class="management-actions">
+          <button id="exportPhotoPurgeMonthlyCsv" type="button">月次CSV出力</button>
+          <button id="exportPhotoPurgeMonthlyJson" type="button">月次報告JSON</button>
+        </div>
+      </div>
+      <p class="scope-note">対象月の削除証明書を事業所別に集計し、検証不合格・削除計画未照合・重複証明書を抽出します。</p>
+      <div class="certificate-monthly-tools">
+        <label>対象月<input id="photoPurgeMonthlyMonth" type="month"></label>
+        <select id="photoPurgeMonthlyOffice"><option value="all">すべての事業所</option></select>
+        <label class="check-field"><input id="photoPurgeMonthlyIssuesOnly" type="checkbox"> 要確認のみ表示</label>
+      </div>
+      <div id="photoPurgeMonthlySummary" class="certificate-monthly-summary"></div>
+      <div id="photoPurgeMonthlyOfficeList" class="certificate-monthly-office-list"></div>
+      <div id="photoPurgeMonthlyIssueList" class="certificate-monthly-issue-list"></div>
+    </section>
+
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div><p class="eyebrow">Audit Detection Rules</p><h2>アクセス監査ルール設定</h2></div>
+        <div class="management-actions">
+          <button id="simulateCorrectiveEvidenceAuditRules" type="button">変更前にシミュレーション</button>
+          <button id="createCorrectiveEvidenceAuditRuleProposal" type="button">変更申請を作成</button>
+          <button id="exportCorrectiveEvidenceAuditRuleHistory" type="button">変更履歴CSV</button>
+        </div>
+      </div>
+      <p class="scope-note">検出基準は事業所管理者または管理者のみ変更できます。変更理由と変更前後の値を履歴として保存します。</p>
+      <div class="audit-rule-grid">
+        <label class="check-field"><input id="auditRulePermissionDenied" type="checkbox"> 権限外アクセスを検出</label>
+        <label class="check-field"><input id="auditRuleMissingReason" type="checkbox"> 理由未入力を検出</label>
+        <label class="check-field"><input id="auditRuleBulkDownload" type="checkbox"> 短時間大量取得を検出</label>
+        <label>集計時間（分）<input id="auditRuleWindowMinutes" type="number" min="1" max="120"></label>
+        <label>中優先度（件以上）<input id="auditRuleMediumThreshold" type="number" min="2" max="100"></label>
+        <label>高優先度（件以上）<input id="auditRuleHighThreshold" type="number" min="3" max="200"></label>
+        <label>標準監査対象時間（時間）<input id="auditRuleLookbackHours" type="number" min="1" max="720"></label>
+        <label>適用方法<select id="auditRuleReleaseMode"><option value="immediate">承認後すぐ適用</option><option value="scheduled">予約適用</option></select></label>
+        <label>予約適用日時<input id="auditRuleScheduledAt" type="datetime-local"></label>
+        <label class="audit-rule-grid__wide">変更理由<input id="auditRuleChangeReason" type="text" placeholder="例：運用実績を踏まえ大量取得の閾値を見直し"></label>
+      </div>
+      <p id="correctiveEvidenceAuditRuleSummary" class="scope-note"></p>
+      <div id="correctiveEvidenceAuditRuleProposalSummary" class="photo-purge-notification-summary"></div>
+      <div class="certificate-corrective-tools">
+        <select id="correctiveEvidenceAuditRuleProposalFilter">
+          <option value="all">すべての申請</option>
+          <option value="pending-approval">承認待ち</option>
+          <option value="approved-scheduled">予約適用待ち</option>
+          <option value="overdue">期限超過</option>
+          <option value="unacknowledged">未確認通知</option>
+          <option value="escalated">管理者引継ぎ</option>
+        </select>
+      </div>
+      <div id="correctiveEvidenceAuditSimulation" class="audit-rule-simulation"></div>
+      <div id="correctiveEvidenceAuditRuleProposalList" class="audit-rule-history"></div>
+      <div class="management-heading audit-rule-ledger-heading">
+        <div><p class="eyebrow">Application Ledger</p><h3>変更申請の処理台帳・適用証明</h3></div>
+        <div class="management-actions">
+          <button id="exportAuditRuleProposalLedgerCsv" type="button">処理台帳CSV</button>
+          <button id="exportAuditRuleCertificatesJson" type="button">適用証明一括JSON</button>
+        </div>
+      </div>
+      <div class="certificate-verification-tools">
+        <label>証明書JSON<input id="auditRuleCertificateFile" type="file" accept="application/json,.json"></label>
+        <button id="verifyAuditRuleCertificateFile" type="button">証明書を検証</button>
+        <label>月次照合対象<input id="auditRuleCertificateMonth" type="month"></label>
+        <button id="runAuditRuleCertificateMonthly" type="button">月次照合</button>
+        <button id="exportAuditRuleCertificateVerificationsCsv" type="button">検証履歴CSV</button>
+      </div>
+      <div id="auditRuleCertificateVerificationResult" class="audit-rule-simulation"></div>
+      <div class="management-heading audit-rule-ledger-heading">
+        <div><p class="eyebrow">Corrective Actions</p><h3>適用証明の要確認・是正処置</h3></div>
+        <div class="management-actions"><button id="exportAuditRuleCertificateCorrectiveCsv" type="button">是正処置CSV</button></div>
+      </div>
+      <p class="scope-note">月次照合で検出した検証不合格、申請未照合、ID重複について、原因・担当者・期限・対応結果・別担当者による完了確認に加え、再発防止策の効果確認、効果不十分時の再是正、再是正後の再評価と案件クローズまで管理します。</p>
+      <div id="auditRuleCertificateCorrectiveSummary" class="photo-purge-notification-summary"></div>
+      <div class="certificate-corrective-tools">
+        <select id="auditRuleCertificateCorrectiveStatus"><option value="active">未完了すべて</option><option value="open">対応中</option><option value="pending-verification">完了確認待ち</option><option value="overdue">期限超過</option><option value="closed">完了</option><option value="all">すべて</option></select>
+        <input id="auditRuleCertificateCorrectiveFilter" type="search" placeholder="証明書ID・申請ID・担当者・原因・是正内容で検索">
+      </div>
+      <div class="certificate-verification-tools">
+        <label>傾向分析対象月<input id="auditRuleCertificateCorrectiveTrendMonth" type="month"></label>
+        <button id="runAuditRuleCertificateCorrectiveTrend" type="button">傾向分析</button>
+        <button id="exportAuditRuleCertificateCorrectiveTrendJson" type="button">月次傾向JSON</button>
+      </div>
+      <div id="auditRuleCertificateCorrectiveTrendResult" class="audit-rule-simulation"></div>
+      <div id="auditRuleCertificateMonthlyIssues" class="certificate-corrective-list"></div>
+      <div id="auditRuleCertificateCorrectiveList" class="certificate-corrective-list"></div>
+      <div class="management-heading audit-rule-ledger-heading">
+        <div><p class="eyebrow">Case Closure Archive</p><h3>案件クローズ証明・アーカイブ台帳</h3></div>
+        <div class="management-actions"><button id="exportCaseClosureCertificatesJson" type="button">証明書一括JSON</button><button id="exportCaseClosureCertificatesCsv" type="button">台帳CSV</button></div>
+      </div>
+      <div class="certificate-corrective-tools">
+        <input id="caseClosureCertificateFilter" type="search" placeholder="証明書ID・是正処置ID・事業所・承認者で検索">
+        <label>証明書保存期間<input id="caseClosureRetentionYears" type="number" min="1" max="30" value="10">年</label>
+        <button id="saveCaseClosureRetentionYears" type="button">保存期間を設定</button>
+      </div>
+      <div id="caseClosureCertificateSummary" class="photo-purge-notification-summary"></div>
+      <div id="caseClosureCertificateList" class="certificate-corrective-list"></div>
+      <div class="management-heading audit-rule-ledger-heading">
+        <div><p class="eyebrow">Case Reopen Requests</p><h3>案件再開申請</h3></div>
+      </div>
+      <p class="scope-note">新事実、再発、判断根拠の変更などが判明した場合は、クローズ証明を削除せず、再開申請を作成して別担当者の承認を受けます。再調査、追加是正、再評価、再クローズまでの期限と処理状況を一括管理します。</p>
+      <div id="caseReopenWorkflowSummary" class="photo-purge-notification-summary"></div>
+      <div class="certificate-corrective-tools certificate-corrective-tools--dashboard">
+        <select id="caseReopenWorkflowStatus">
+          <option value="active">未完了すべて</option>
+          <option value="pending-approval">再開承認待ち</option>
+          <option value="investigating">再調査中</option>
+          <option value="pending-review">再調査承認待ち</option>
+          <option value="corrective-in-progress">追加是正中</option>
+          <option value="pending-corrective-verification">追加是正确認待ち</option>
+          <option value="reevaluation-pending">再評価待ち</option>
+          <option value="pending-reclosure">再クローズ承認待ち</option>
+          <option value="overdue">期限超過</option>
+          <option value="reclosed">再クローズ済み</option>
+          <option value="all">すべて</option>
+        </select>
+        <input id="caseReopenRequestFilter" type="search" placeholder="再開申請ID・証明書ID・担当者・理由・調査結果で検索">
+        <select id="caseReopenWorkflowOffice"><option value="all">すべての事業所</option></select>
+        <button id="exportCaseReopenWorkflowCsv" type="button">再開案件CSV</button>
+        <button id="exportCaseReopenWorkflowJson" type="button">再開案件JSON</button>
+      </div>
+      <div id="caseReopenRequestList" class="certificate-corrective-list"></div>
+      <div id="correctiveEvidenceAuditRuleCertificateLedger" class="audit-rule-history"></div>
+      <div id="correctiveEvidenceAuditRuleHistory" class="audit-rule-history"></div>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div><p class="eyebrow">Evidence Access Audit</p><h2>証拠資料アクセス監査</h2></div>
+        <div class="management-actions">
+          <button id="runCorrectiveEvidenceAudit" type="button">設定時間を監査</button>
+          <button id="exportCorrectiveEvidenceAuditCsv" type="button">監査所見CSV</button>
+          <button id="exportCorrectiveEvidenceAuditMonthlyJson" type="button">月次報告JSON</button>
+        </div>
+      </div>
+      <p class="scope-note">権限外アクセス、理由未入力による取得拒否、短時間の大量ダウンロードを、現在の監査ルールに基づいて抽出します。所見の確認、再発防止策、別担当者による完了レビューは事業所管理者または管理者のみ実行できます。</p>
+      <div id="correctiveEvidenceAuditSummary" class="photo-purge-notification-summary"></div>
+      <div class="certificate-corrective-tools">
+        <select id="correctiveEvidenceAuditStatus"><option value="open">未処理</option><option value="pending-review">レビュー待ち</option><option value="resolved">完了</option><option value="all">すべて</option></select>
+        <input id="correctiveEvidenceAuditFilter" type="search" placeholder="操作者・資料名・事業所・種別で検索">
+      </div>
+      <div id="correctiveEvidenceAuditList" class="certificate-corrective-list"></div>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div><p class="eyebrow">Corrective Action Dashboard</p><h2>是正処置の進捗・期限管理</h2></div>
+        <div class="management-actions">
+          <button id="exportPhotoPurgeCorrectiveCsv" type="button">是正処置CSV出力</button>
+          <button id="exportPhotoPurgeCorrectiveMonthlyJson" type="button">月次報告JSON</button>
+          <button id="exportCorrectiveEvidenceAccessCsv" type="button">資料アクセス履歴CSV</button>
+        </div>
+      </div>
+      <p class="scope-note">月次照合で検出した要確認事項について、担当者、対応期限、管理者へのエスカレーション、完了確認に加え、原因分類・再発防止策・効果確認・他事業所への横展開に加え、実施証拠・効果確認資料の登録、別担当者による資料確認、閲覧区分・ダウンロード制御・アクセス履歴を管理します。</p>
+      <div id="photoPurgeCorrectiveSummary" class="photo-purge-notification-summary"></div>
+      <div class="certificate-corrective-tools certificate-corrective-tools--dashboard">
+        <select id="photoPurgeCorrectiveStatus">
+          <option value="active">未完了すべて</option>
+          <option value="open">対応中</option>
+          <option value="completed-awaiting-verification">完了確認待ち</option>
+          <option value="overdue">期限超過</option>
+          <option value="escalated">管理者エスカレーション</option>
+          <option value="closed">完了</option>
+          <option value="all">すべて</option>
+        </select>
+        <input id="photoPurgeCorrectiveFilter" type="search" placeholder="証明書ID・計画ID・担当者・原因・是正内容で検索">
+        <input id="photoPurgeCorrectiveMonth" type="month" aria-label="対象月">
+        <select id="photoPurgeCorrectiveOffice"><option value="all">すべての事業所</option></select>
+      </div>
+      <div id="photoPurgeCorrectiveAssigneeSummary" class="corrective-assignee-summary"></div>
+      <div id="photoPurgeCorrectiveList" class="certificate-corrective-list"></div>
+    </section>
+
+    <section class="management-panel">
+      <div class="management-heading">
+        <div>
+          <p class="eyebrow">Certificate Verification</p>
+          <h2>完全削除証明書の検証</h2>
+        </div>
+      </div>
+      <p class="scope-note">削除証明書JSONを読み込み、検証ハッシュ、削除件数、削減容量、対応する削除計画との整合性を確認します。画像本体は読み込みません。</p>
+      <div class="certificate-verification-form">
+        <label>
+          削除証明書JSON
+          <input id="photoPurgeCertificateFile" type="file" accept="application/json,.json">
+        </label>
+        <button id="verifyPhotoPurgeCertificate" type="button">証明書を検証</button>
+        <button id="exportPhotoPurgeVerification" type="button" disabled>検証結果JSON出力</button>
+      </div>
+      <div id="photoPurgeVerificationResult" class="certificate-verification-result" hidden></div>
+    </section>
+
+    <dialog id="photoViewerDialog" class="photo-viewer-dialog">
+      <article class="photo-viewer-card">
+        <header class="photo-viewer-card__header">
+          <div>
+            <p class="eyebrow">Photo Viewer</p>
+            <h3 id="photoViewerTitle">登録写真</h3>
+          </div>
+          <button id="photoViewerClose" class="secondary-link" type="button">閉じる</button>
+        </header>
+        <div class="photo-viewer-card__body">
+          <img id="photoViewerImage" alt="登録写真の拡大表示">
+          <dl id="photoViewerMeta" class="photo-meta"></dl>
+        </div>
+      </article>
+    </dialog>
+
+    <aside class="data-notice">
+      <strong>写真の保存方式</strong>
+      <p>この開発版では写真をブラウザ内に保存します。運用方式をハイブリッドまたはオンラインに変更すると、申請番号・写真の更新情報を同期キューへ登録します。本番運用では社内サーバーAPIと中央データベースへ接続します。写真枚数・容量の上限は設定画面で管理できます。</p>
+    </aside>
+
+  </main>
+
+  <script src="../data/organization-master.js"></script>
+  <script src="../assets/js/organization.js"></script>
+  <script src="../assets/js/storage.js?v=150"></script>
+  <script src="../assets/js/applications.js?v=150"></script>
+  <script src="../assets/js/photos.js?v=150"></script>
+  <script src="../assets/js/system-shell.js"></script>
+  <script src="../assets/js/online-status.js?v=150"></script>
+</body>
+</html>
