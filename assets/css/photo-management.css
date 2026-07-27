@@ -421,3 +421,6 @@
 /* Part 137: certificate corrective recurrence prevention and trend review */
 .management-actions button[data-plan-rule-certificate-prevention],
 .management-actions button[data-review-rule-certificate-prevention]{border-color:#78a98a;color:#18743a;background:#f3fbf6}
+
+/* Part 152 application section navigator */
+.application-section-nav{position:sticky;top:0;z-index:12;display:flex;gap:8px;overflow-x:auto;padding:10px;margin-bottom:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 8px 22px rgba(11,58,103,.08)}.application-section-nav button{white-space:nowrap;min-height:42px;padding:0 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--navy);font-weight:800}.application-section-nav button.is-active{background:var(--navy);color:#fff}.application-primary-section[hidden]{display:none!important}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updatedAt": "2026-07-25",
+  "updatedAt": "2026-07-27",
   "documents": [
     {
       "documentId": "ship-inspection-guidance",
@@ -93,19 +93,38 @@
       ]
     },
     {
-      "documentId": "radioactive-transport-notification",
-      "title": "船舶による放射性物質等の運送基準の細目等を定める告示",
+      "documentId": "radioactive-materials-notification",
+      "title": "船舶による放射性物質等の運送基準の細目等を定める告示（放告示）",
       "category": "domestic-notification",
       "language": "ja",
-      "sourceType": "uploaded-pdf",
-      "fileName": "00006175.pdf",
+      "sourceType": "included-pdf",
+      "fileName": "radioactive-materials-notification.pdf",
       "status": "reference",
       "tags": [
         "放射性物質",
         "標札",
         "輸送指数",
         "臨界安全指数"
-      ]
+      ],
+      "shortTitle": "放告示",
+      "filePath": "../references/originals/radioactive-materials-notification.pdf"
+    },
+    {
+      "documentId": "imdg-code-amendment-42-24",
+      "title": "IMDG Code Amendment 42-24（MSC.556(108)）",
+      "category": "international-code",
+      "language": "en",
+      "sourceType": "included-pdf",
+      "fileName": "imdg-code-amendment-42-24-msc556-108.pdf",
+      "status": "reference",
+      "tags": [
+        "IMDG Code",
+        "42-24",
+        "MSC.556(108)",
+        "危険物"
+      ],
+      "shortTitle": "IMDG Code 42-24",
+      "filePath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
     }
   ]
 }

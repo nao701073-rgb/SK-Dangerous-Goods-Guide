@@ -1,10 +1,15 @@
 {
   "product": "検査・検品業務サポートシステム",
   "englishName": "Dangerous Goods Guide",
-  "version": "1.0.0-rc2",
-  "part": 150,
+  "version": "1.0.0-rc17",
+  "part": 165,
   "releaseType": "trial-operation-candidate",
-  "releasedAt": "2026-07-26",
-  "roles": ["利用者", "事業所管理者", "管理者"],
-  "notes": "試験運用向け統合完成候補版。社内サーバー接続、本番認証、複数端末同期は導入環境での検証が必要。"
+  "releasedAt": "2026-07-27",
+  "roles": [
+    "利用者",
+    "事業所管理者",
+    "管理者"
+  ],
+  "notes": "検索履歴画面のホーム戻りボタンを矢印表示からホームアイコンへ変更。",
+  "releaseName": "検索履歴ホームアイコン修正版"
 }

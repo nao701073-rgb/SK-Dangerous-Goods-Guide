@@ -2394,7 +2394,7 @@ body.is-code-modal-open { overflow: hidden; }
 .pdf-image-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 1200;
+  z-index: 5000;
   display: grid;
   place-items: center;
   padding: 18px;
@@ -2433,15 +2433,33 @@ body.is-code-modal-open { overflow: hidden; }
   font-size: .8rem;
 }
 
+.pdf-image-lightbox__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .pdf-image-lightbox__header button {
-  width: 40px;
+  min-width: 40px;
   height: 40px;
+  padding: 0 12px;
   border: 1px solid #b8c9da;
-  border-radius: 50%;
+  border-radius: 999px;
   background: #fff;
   color: var(--app-navy);
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 800;
   cursor: pointer;
+}
+
+.pdf-image-lightbox__scale {
+  min-width: 66px;
+  text-align: center;
+  color: #38536f;
+  font-size: .78rem;
+  font-weight: 800;
 }
 
 .pdf-image-lightbox__body {
@@ -2455,10 +2473,11 @@ body.is-code-modal-open { overflow: hidden; }
   display: block;
   width: auto;
   max-width: none;
-  min-width: 100%;
+  min-width: 0;
   height: auto;
   margin: 0 auto;
   background: #fff;
+  box-shadow: 0 10px 30px rgba(7, 42, 74, .12);
 }
 
 body.is-pdf-lightbox-open {
@@ -2507,15 +2526,16 @@ body.is-pdf-lightbox-open {
   }
 
   .pdf-image-lightbox__header {
+    align-items: flex-start;
     padding: max(8px, env(safe-area-inset-top)) 10px 8px;
+  }
+
+  .pdf-image-lightbox__controls {
+    justify-content: flex-start;
   }
 
   .pdf-image-lightbox__body {
     padding: 8px;
-  }
-
-  .pdf-image-lightbox__body img {
-    min-width: 760px;
   }
 }
 
@@ -2568,3 +2588,26 @@ body.is-pdf-lightbox-open {
     column-gap: 6px;
   }
 }
+
+/* Part 151: placard section directly below basic information */
+.dg-main-column > .panel .label-grid {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+@media (max-width: 680px) {
+  .dg-main-column > .panel .label-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dg-main-column > .panel .label-card--actual {
+    min-height: 190px;
+  }
+}
+
+.marking-calibration-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid #cbdbea;border-radius:12px;background:#eef5fc}.marking-calibration-summary button{min-height:42px;border:1px solid #0b5cab;border-radius:10px;background:#fff;color:#0b5cab;font-weight:800}.marking-actual-size.is-landscape-view{width:100vw;height:100vh;overflow:auto;padding:18px;background:#fff;box-sizing:border-box}.marking-actual-size.is-landscape-view .marking-actual-size__preview{max-width:1000px;margin:auto}@media(max-width:720px){.marking-calibration-summary{align-items:stretch;flex-direction:column}}
+
+/* Part 153: ensure PDF figure preview is always frontmost */
+.pdf-image-lightbox{isolation:isolate}
+.pdf-image-lightbox__dialog{z-index:2;outline:none}
+.pdf-image-lightbox__backdrop{z-index:1}
+.pdf-image-lightbox__dialog:focus-visible{box-shadow:0 0 0 4px rgba(55,139,220,.35),0 20px 60px rgba(0,0,0,.32)}

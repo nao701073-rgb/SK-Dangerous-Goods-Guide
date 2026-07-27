@@ -163,4 +163,18 @@
       ? "安全環境室の全事業所閲覧権限を保存しました。"
       : `${context.blockName}・${context.officeName}の所属設定を保存しました。`);
   });
+
+  const actualSizeStorageKey = "dangerousGoodsGuideActualSizeScale";
+  const actualSizeValue = document.getElementById("actualSizeCalibrationValue");
+  const actualSizeRuler = document.getElementById("actualSizeCalibrationRuler");
+  let actualSizeScale = Math.min(1.6, Math.max(.6, Number(localStorage.getItem(actualSizeStorageKey)) || 1));
+  const drawActualSize = () => {
+    if (actualSizeValue) actualSizeValue.textContent = `${Math.round(actualSizeScale*100)}%`;
+    if (actualSizeRuler) actualSizeRuler.style.width = `${50*(96/25.4)*actualSizeScale}px`;
+  };
+  document.getElementById("actualSizeMinus")?.addEventListener("click",()=>{actualSizeScale=Math.max(.6,Math.round((actualSizeScale-.02)*100)/100);drawActualSize()});
+  document.getElementById("actualSizePlus")?.addEventListener("click",()=>{actualSizeScale=Math.min(1.6,Math.round((actualSizeScale+.02)*100)/100);drawActualSize()});
+  document.getElementById("actualSizeReset")?.addEventListener("click",()=>{actualSizeScale=1;drawActualSize()});
+  document.getElementById("saveActualSizeCalibration")?.addEventListener("click",()=>{localStorage.setItem(actualSizeStorageKey,String(actualSizeScale));showMessage(`実寸補正を${Math.round(actualSizeScale*100)}%で保存しました。`)});
+  drawActualSize();
 })();

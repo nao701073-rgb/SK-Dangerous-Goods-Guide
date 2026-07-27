@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="../assets/css/settings.css">
 </head>
 <body data-page="settings">
+  <header class="app-header">
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る">⌂</a>
+    <div>
+      <p class="eyebrow">Settings</p>
+      <h1>システム設定</h1>
+    </div>
+  </header>
   <main class="workspace settings-page">
     <div class="page-breadcrumb">ホーム ＞ 設定</div>
     <div class="page-heading-row">
@@ -16,7 +23,6 @@
         <h1>システム設定</h1>
         <p>表示、所属事業所、利用権限を設定します。</p>
       </div>
-      <a class="back-link" href="../index.html">← ホーム</a>
     </div>
 
     <section class="panel">
@@ -61,6 +67,21 @@
       </div>
     </section>
 
+
+    <section class="panel">
+      <div class="panel-heading"><h2>正式輸送品名・国連番号の実寸補正</h2></div>
+      <div class="panel-body settings-list">
+        <div class="settings-row settings-row--layout">
+          <div><strong>50mm基準線で端末を補正</strong><p>定規を当てて基準線が50mmになるように調整します。保存後は危険物詳細画面で再調整する必要はありません。</p></div>
+          <div class="actual-size-setting">
+            <div id="actualSizeCalibrationValue">100%</div>
+            <div class="actual-size-setting__ruler" id="actualSizeCalibrationRuler"><span>50mm</span></div>
+            <div class="segmented-control"><button id="actualSizeMinus" type="button">−</button><button id="actualSizeReset" type="button">100%に戻す</button><button id="actualSizePlus" type="button">＋</button></div>
+            <button id="saveActualSizeCalibration" class="primary-action" type="button">実寸補正を保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="panel">
       <div class="panel-heading">
         <h2>所属・閲覧権限</h2>
@@ -143,11 +164,11 @@
 
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
-  <script src="../assets/js/storage.js?v=150"></script>
-  <script src="../assets/js/api-client.js?v=150"></script>
-  <script src="../assets/js/sync-manager.js?v=150"></script>
-  <script src="../assets/js/settings.js?v=150"></script>
-  <script src="../assets/js/online-status.js?v=150"></script>
+  <script src="../assets/js/storage.js?v=159"></script>
+  <script src="../assets/js/api-client.js?v=159"></script>
+  <script src="../assets/js/sync-manager.js?v=159"></script>
+  <script src="../assets/js/settings.js?v=159"></script>
+  <script src="../assets/js/online-status.js?v=159"></script>
   <script src="../assets/js/session-guard.js"></script>
 </body>
 </html>

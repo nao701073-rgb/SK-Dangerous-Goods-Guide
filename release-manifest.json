@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0-rc2",
-  "part": 150,
+  "version": "1.0.0-rc17",
+  "part": 165,
   "releaseType": "trial-operation-candidate",
-  "generatedAt": "2026-07-26",
-  "fileCount": 664,
-  "totalBytes": 102265656,
+  "generatedAt": "2026-07-27",
+  "fileCount": 674,
+  "totalBytes": 103216668,
   "countsByExtension": {
     ".conf": 1,
     ".css": 23,
@@ -13,10 +13,10 @@
     ".html": 26,
     ".jpg": 54,
     ".js": 74,
-    ".json": 59,
-    ".md": 159,
+    ".json": 60,
+    ".md": 167,
     ".mjs": 1,
-    ".pdf": 5,
+    ".pdf": 6,
     ".png": 193,
     ".sh": 5,
     ".sql": 54,
@@ -24,6 +24,9 @@
     ".yml": 1,
     "[none]": 1
   },
-  "qaReport": "docs/part150-static-qa-report.json",
-  "checksumFile": "SHA256SUMS.txt"
+  "qaReport": "docs/part149-static-qa-report.json",
+  "checksumFile": "SHA256SUMS.txt",
+  "notes": [
+    "検索履歴画面のホーム戻りボタンをホームアイコンへ変更"
+  ]
 }

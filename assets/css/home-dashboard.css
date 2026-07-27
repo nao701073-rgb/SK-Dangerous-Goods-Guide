@@ -19,3 +19,6 @@
 .module-card__icon{justify-content:center;align-items:center;border-radius:16px;background:#0d4f9a!important;color:#fff!important;box-shadow:0 10px 24px rgba(11,58,103,.14)}
 .module-card.is-disabled{opacity:.84}
 .module-card.is-disabled .module-card__icon{opacity:1}
+
+/* Part 152 usability */
+.app-header--menu-left{justify-content:flex-start}.app-header--menu-left .app-brand{flex:1}.module-card:not(.is-disabled){cursor:pointer}.module-card:not(.is-disabled):focus-visible{outline:3px solid rgba(24,115,200,.35);outline-offset:3px}.module-card:not(.is-disabled):hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(11,58,103,.14)}

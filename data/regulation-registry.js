@@ -6,7 +6,8 @@ window.REGULATION_REGISTRY = [
     "shortName": "危規則",
     "documentType": "ministerial-ordinance",
     "jurisdiction": "Japan",
-    "status": "planned",
+    "status": "reference",
+    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/dangerous-goods-regulations.pdf"},
     "dataPath": "domestic/ship-dangerous-goods/articles.json"
   },
   {
@@ -16,7 +17,8 @@ window.REGULATION_REGISTRY = [
     "shortName": "危告示",
     "documentType": "notification",
     "jurisdiction": "Japan",
-    "status": "planned",
+    "status": "reference",
+    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/dangerous-goods-notification.pdf"},
     "dataPath": "domestic/dangerous-goods-notification/articles.json"
   },
   {
@@ -33,59 +35,103 @@ window.REGULATION_REGISTRY = [
     "regulationId": "domestic-radioactive-material-transport",
     "category": "domestic",
     "officialName": "船舶による放射性物質等の運送基準の細目等を定める告示",
-    "shortName": "放射性物質運送告示",
+    "shortName": "放告示",
     "documentType": "notification",
     "jurisdiction": "Japan",
-    "status": "source-uploaded",
+    "status": "reference",
+    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/radioactive-materials-notification.pdf"},
     "dataPath": "domestic/radioactive-material-transport/articles.json",
     "sourceDocuments": [
       {
         "title": "船舶による放射性物質等の運送基準の細目等を定める告示",
-        "fileName": "00006175.pdf",
-        "sourceType": "uploaded-pdf"
+        "fileName": "radioactive-materials-notification.pdf",
+        "filePath": "../references/originals/radioactive-materials-notification.pdf",
+        "sourceType": "included-pdf"
       }
     ]
   },
   {
     "regulationId": "international-imdg",
     "category": "international",
-    "officialName": "International Maritime Dangerous Goods Code",
+    "officialName": "International Maritime Dangerous Goods (IMDG) Code",
+    "officialNameJa": "国際海上危険物規定",
     "shortName": "IMDG Code",
     "documentType": "international-code",
     "jurisdiction": "International",
-    "status": "active",
+    "status": "reference",
+    "officialSource": {
+      "publisher": "IMO",
+      "url": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
+    },
+    "sourceNote": "IMO公表のIMDG Code Amendment 42-24（MSC.556(108)）",
+    "sourceDocuments": [
+      {
+        "title": "IMDG Code Amendment 42-24（MSC.556(108)）",
+        "fileName": "imdg-code-amendment-42-24-msc556-108.pdf",
+        "filePath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+        "sourceType": "included-pdf"
+      }
+    ],
     "dataPath": "international/imdg/clauses.json"
   },
   {
     "regulationId": "international-ctu",
     "category": "international",
     "officialName": "IMO/ILO/UNECE Code of Practice for Packing of Cargo Transport Units",
+    "officialNameJa": "貨物輸送ユニットの収納のための行動規範",
     "shortName": "CTU Code",
     "documentType": "international-code",
     "jurisdiction": "International",
-    "status": "future",
+    "status": "reference",
+    "officialSource": {
+      "publisher": "国土交通省",
+      "url": "../references/originals/ctu-code-ja.pdf"
+    },
+    "sourceNote": "国土交通省公表の改訂版 CTU Code 仮訳",
+    "sourceDocuments": [
+      {
+        "title": "IMO/ILO/UNECE 貨物輸送ユニットの収納のための行動規範（仮訳）",
+        "fileName": "ctu-code-ja.pdf",
+        "filePath": "../references/originals/ctu-code-ja.pdf",
+        "sourceType": "included-pdf"
+      }
+    ],
     "dataPath": "international/ctu/clauses.json"
   },
   {
     "regulationId": "international-marpol",
     "category": "international",
-    "officialName": "International Convention for the Prevention of Pollution from Ships",
-    "shortName": "MARPOL",
+    "officialName": "International Convention for the Prevention of Pollution from Ships, 1973, as modified by the Protocol of 1978 relating thereto",
+    "officialNameJa": "1973年の船舶による汚染の防止のための国際条約に関する1978年の議定書",
+    "shortName": "MARPOL 73/78",
     "documentType": "international-convention",
     "jurisdiction": "International",
-    "status": "future",
+    "status": "reference",
+    "officialSource": {
+      "publisher": "国土交通省",
+      "url": "../references/originals/marpol-73-78-annex-ii-ja.pdf"
+    },
+    "sourceNote": "国土交通省公表の改訂版 MARPOL 73/78 附属書II仮訳",
+    "sourceDocuments": [
+      {
+        "title": "改訂版 MARPOL 73/78 附属書II仮訳",
+        "fileName": "marpol-73-78-annex-ii-ja.pdf",
+        "filePath": "../references/originals/marpol-73-78-annex-ii-ja.pdf",
+        "sourceType": "included-pdf"
+      }
+    ],
     "dataPath": "international/marpol/clauses.json"
   },
   {
     "regulationId": "international-csc",
     "category": "international",
-    "officialName": "安全なコンテナーに関する国際条約",
+    "officialName": "The International Convention for Safe Containers",
+    "officialNameJa": "安全なコンテナーに関する国際条約",
     "shortName": "CSC",
     "documentType": "international-convention",
     "jurisdiction": "International",
     "status": "reference",
     "dataPath": "international/csc/clauses.json",
-    "officialNameEn": "International Convention for Safe Containers",
     "officialSource": {
       "publisher": "外務省",
       "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/htmls/B-S54-0123.html"

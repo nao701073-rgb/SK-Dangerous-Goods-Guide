@@ -467,6 +467,56 @@
         </article>
 
         <article class="panel">
+          <div class="panel-heading"><h3>標札表示</h3></div>
+          <div class="panel-body">
+            <div class="label-grid">
+              <div class="label-card label-card--actual">
+                ${
+                  primaryLabel
+                    ? `<img src="${escapeHtml(primaryLabel.src)}" alt="${escapeHtml(primaryLabel.nameJa)}">
+                       <strong>正標札</strong>
+                       <small>${escapeHtml(primaryLabel.nameJa)}／等級 ${display(primaryLabel.class)}</small>`
+                    : `<div class="label-empty">正標札画像未登録</div>`
+                }
+              </div>
+
+              ${
+                subsidiaryLabels.length
+                  ? subsidiaryLabels.map((label, index) => `
+                      <div class="label-card label-card--actual">
+                        <img src="${escapeHtml(label.src)}" alt="${escapeHtml(label.nameJa)}">
+                        <strong>${subsidiaryLabels.length > 1 ? `副標札 ${index + 1}` : "副標札"}</strong>
+                        <small>${escapeHtml(label.nameJa)}／等級 ${display(label.class)}</small>
+                      </div>
+                    `).join("")
+                  : `<div class="label-card label-card--actual">
+                       <div class="label-empty">副標札なし</div>
+                       <strong>副標札</strong>
+                       <small>副次危険性等級なし</small>
+                     </div>`
+              }
+
+              ${
+                marineLabel
+                  ? `<div class="label-card label-card--actual">
+                       <img src="${escapeHtml(marineLabel.src)}" alt="${escapeHtml(marineLabel.nameJa)}">
+                       <strong>海洋汚染物質</strong>
+                       <small>Marine Pollutant</small>
+                     </div>`
+                  : ""
+              }
+            </div>
+
+            <div class="legal-reference-box">
+              <strong>国内法令の主な参照</strong>
+              <ul>
+                ${labelLegalReferences.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
           <div class="tab-strip" role="tablist">
             <button class="tab-button is-active" data-tab="overview" type="button">概要</button>
             <button class="tab-button" data-tab="packing" type="button">包装要件</button>
@@ -835,55 +885,7 @@
       </section>
 
       <aside class="dg-side-column">
-        <article class="panel">
-          <div class="panel-heading"><h3>標札表示</h3></div>
-          <div class="panel-body">
-            <div class="label-grid">
-              <div class="label-card label-card--actual">
-                ${
-                  primaryLabel
-                    ? `<img src="${escapeHtml(primaryLabel.src)}" alt="${escapeHtml(primaryLabel.nameJa)}">
-                       <strong>正標札</strong>
-                       <small>${escapeHtml(primaryLabel.nameJa)}／等級 ${display(primaryLabel.class)}</small>`
-                    : `<div class="label-empty">正標札画像未登録</div>`
-                }
-              </div>
 
-              ${
-                subsidiaryLabels.length
-                  ? subsidiaryLabels.map((label, index) => `
-                      <div class="label-card label-card--actual">
-                        <img src="${escapeHtml(label.src)}" alt="${escapeHtml(label.nameJa)}">
-                        <strong>${subsidiaryLabels.length > 1 ? `副標札 ${index + 1}` : "副標札"}</strong>
-                        <small>${escapeHtml(label.nameJa)}／等級 ${display(label.class)}</small>
-                      </div>
-                    `).join("")
-                  : `<div class="label-card label-card--actual">
-                       <div class="label-empty">副標札なし</div>
-                       <strong>副標札</strong>
-                       <small>副次危険性等級なし</small>
-                     </div>`
-              }
-
-              ${
-                marineLabel
-                  ? `<div class="label-card label-card--actual">
-                       <img src="${escapeHtml(marineLabel.src)}" alt="${escapeHtml(marineLabel.nameJa)}">
-                       <strong>海洋汚染物質</strong>
-                       <small>Marine Pollutant</small>
-                     </div>`
-                  : ""
-              }
-            </div>
-
-            <div class="legal-reference-box">
-              <strong>国内法令の主な参照</strong>
-              <ul>
-                ${labelLegalReferences.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
-              </ul>
-            </div>
-          </div>
-        </article>
 
         <article class="panel marking-panel">
           <div class="panel-heading"><h3>正式輸送品名・国連番号表示</h3></div>
@@ -931,24 +933,11 @@
                        <div class="marking-actual-size" data-actual-size-panel>
                          <div class="marking-actual-size__heading">
                            <strong>スマホ画面で実寸比較</strong>
-                           <span>iPhone・Androidとも、最初に50mm基準線を定規で合わせてください。正式輸送品名と国連番号を、12mmまたは6mmの文字高さで確認できます。</span>
+                           <span>設定画面で保存した実寸補正値を使用します。正式輸送品名と国連番号を、12mmまたは6mmの文字高さで確認できます。</span>
                          </div>
-                         <div class="marking-calibration">
-                           <div class="marking-calibration__top">
-                             <strong>実寸補正</strong>
-                             <span data-calibration-value>100%</span>
-                           </div>
-                           <div class="marking-calibration__ruler-wrap">
-                             <div class="marking-calibration__ruler" data-calibration-ruler>
-                               <span>50mm</span>
-                             </div>
-                           </div>
-                           <div class="marking-calibration__controls">
-                             <button type="button" data-calibration-minus aria-label="実寸表示を小さくする">−</button>
-                             <button type="button" data-calibration-reset>100%に戻す</button>
-                             <button type="button" data-calibration-plus aria-label="実寸表示を大きくする">＋</button>
-                           </div>
-                           <p>実物の定規で基準線が50mmになるまで、−／＋で調整します。補正値はこの端末に保存されます。</p>
+                         <div class="marking-calibration-summary">
+                           <span>設定画面で保存した補正値：<strong data-calibration-value>100%</strong></span>
+                           <button type="button" data-open-landscape>横画面で実寸比較を開く</button>
                          </div>
                          <div class="marking-size-selector" role="tablist" aria-label="文字高さの切替">
                            <button type="button" class="marking-size-selector__button is-active" data-marking-size-option="12">12mm</button>
@@ -966,7 +955,7 @@
                              </div>
                            </div>
                          </div>
-                         <p class="marking-actual-size__note">ブラウザのページ拡大率は100%にしてください。画面回転後や別ブラウザで開いた場合は、50mm基準線を再確認してください。</p>
+                         <p class="marking-actual-size__note">ブラウザのページ拡大率は100%にしてください。補正値を変更する場合はホームの設定画面から調整してください。</p>
                        </div>
                      </div>
                    </details>`
@@ -1034,8 +1023,6 @@
         const millimetres = Number(sample.dataset.actualSize) || selectedSize;
         sample.style.fontSize = `${millimetres * mmToCssPx * actualSizeScale}px`;
       });
-      const ruler = actualSizePanel.querySelector("[data-calibration-ruler]");
-      if (ruler) ruler.style.width = `${50 * mmToCssPx * actualSizeScale}px`;
       const value = actualSizePanel.querySelector("[data-calibration-value]");
       if (value) value.textContent = `${Math.round(actualSizeScale * 100)}%`;
       localStorage.setItem(storageKey, String(actualSizeScale));
@@ -1050,24 +1037,19 @@
       const caption = actualSizePanel.querySelector("[data-marking-size-caption]");
       if (label) label.textContent = selectedSize === 6 ? "6mm以上" : "12mm以上";
       if (caption) caption.textContent = selectedSize === 6 ? "小型容器等" : "原則";
-      actualSizePanel.querySelectorAll("[data-marking-size-option]").forEach(button => {
+      actualSizePanel.querySelector("[data-open-landscape]")?.addEventListener("click", async () => {
+      actualSizePanel.classList.add("is-landscape-view");
+      try { await actualSizePanel.requestFullscreen?.(); } catch {}
+      try { await screen.orientation?.lock?.("landscape"); } catch {}
+    });
+    document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) actualSizePanel.classList.remove("is-landscape-view"); });
+
+    actualSizePanel.querySelectorAll("[data-marking-size-option]").forEach(button => {
         button.classList.toggle("is-active", Number(button.dataset.markingSizeOption) === selectedSize);
       });
       localStorage.setItem(sizeKey, String(selectedSize));
       applyActualSizeScale();
     };
-
-    const changeActualSizeScale = delta => {
-      actualSizeScale = clampScale(Math.round((actualSizeScale + delta) * 100) / 100);
-      applyActualSizeScale();
-    };
-
-    actualSizePanel.querySelector("[data-calibration-minus]")?.addEventListener("click", () => changeActualSizeScale(-0.02));
-    actualSizePanel.querySelector("[data-calibration-plus]")?.addEventListener("click", () => changeActualSizeScale(0.02));
-    actualSizePanel.querySelector("[data-calibration-reset]")?.addEventListener("click", () => {
-      actualSizeScale = 1;
-      applyActualSizeScale();
-    });
     actualSizePanel.querySelectorAll("[data-marking-size-option]").forEach(button => {
       button.addEventListener("click", () => updateMarkingSizeMode(Number(button.dataset.markingSizeOption)));
     });
@@ -1084,16 +1066,81 @@
   pdfImageLightbox.hidden = true;
   pdfImageLightbox.innerHTML = `
     <div class="pdf-image-lightbox__backdrop" data-pdf-lightbox-close></div>
-    <div class="pdf-image-lightbox__dialog" role="dialog" aria-modal="true" aria-label="原文ページ画像の拡大表示">
+    <div class="pdf-image-lightbox__dialog" role="dialog" aria-modal="true" aria-label="原文ページ画像の拡大表示" tabindex="-1">
       <div class="pdf-image-lightbox__header">
         <strong data-pdf-lightbox-title>原文ページ画像</strong>
-        <button type="button" data-pdf-lightbox-close aria-label="拡大表示を閉じる">×</button>
+        <div class="pdf-image-lightbox__controls" role="toolbar" aria-label="原文画像の拡大縮小操作">
+          <button type="button" data-pdf-lightbox-zoom-out aria-label="縮小">－</button>
+          <span class="pdf-image-lightbox__scale" data-pdf-lightbox-scale>100%</span>
+          <button type="button" data-pdf-lightbox-zoom-in aria-label="拡大">＋</button>
+          <button type="button" data-pdf-lightbox-fit aria-label="全体表示">全体表示</button>
+          <button type="button" data-pdf-lightbox-reset aria-label="100%表示">100%</button>
+          <button type="button" data-pdf-lightbox-close aria-label="拡大表示を閉じる">×</button>
+        </div>
       </div>
       <div class="pdf-image-lightbox__body">
         <img data-pdf-lightbox-image alt="原文ページ拡大画像">
       </div>
     </div>`;
   document.body.appendChild(pdfImageLightbox);
+
+  const pdfLightboxState = {
+    naturalWidth: 0,
+    naturalHeight: 0,
+    fitScale: 1,
+    scale: 1
+  };
+
+  const updatePdfLightboxScaleText = () => {
+    const scaleLabel = pdfImageLightbox.querySelector("[data-pdf-lightbox-scale]");
+    if (scaleLabel) scaleLabel.textContent = `${Math.round((pdfLightboxState.scale || 1) * 100)}%`;
+  };
+
+  const calculatePdfLightboxFitScale = () => {
+    const body = pdfImageLightbox.querySelector(".pdf-image-lightbox__body");
+    if (!body || !pdfLightboxState.naturalWidth || !pdfLightboxState.naturalHeight) {
+      pdfLightboxState.fitScale = 1;
+      return 1;
+    }
+    const padding = 16;
+    const availableWidth = Math.max(body.clientWidth - padding, 120);
+    const availableHeight = Math.max(body.clientHeight - padding, 120);
+    const widthScale = availableWidth / pdfLightboxState.naturalWidth;
+    const heightScale = availableHeight / pdfLightboxState.naturalHeight;
+    pdfLightboxState.fitScale = Math.min(widthScale, heightScale, 1);
+    return pdfLightboxState.fitScale;
+  };
+
+  const applyPdfLightboxScale = (nextScale, options = {}) => {
+    const image = pdfImageLightbox.querySelector("[data-pdf-lightbox-image]");
+    const body = pdfImageLightbox.querySelector(".pdf-image-lightbox__body");
+    if (!image || !body || !pdfLightboxState.naturalWidth || !pdfLightboxState.naturalHeight) return;
+    const preserveCenter = options.preserveCenter !== false;
+    const minimumScale = Math.min(pdfLightboxState.fitScale || 1, 1);
+    const maximumScale = 6;
+    const previousScale = pdfLightboxState.scale || 1;
+    const targetScale = Math.min(Math.max(nextScale, minimumScale), maximumScale);
+    const previousCenterX = (body.scrollLeft + body.clientWidth / 2) / previousScale;
+    const previousCenterY = (body.scrollTop + body.clientHeight / 2) / previousScale;
+    pdfLightboxState.scale = targetScale;
+    image.style.width = `${Math.round(pdfLightboxState.naturalWidth * targetScale)}px`;
+    image.style.height = `${Math.round(pdfLightboxState.naturalHeight * targetScale)}px`;
+    updatePdfLightboxScaleText();
+    requestAnimationFrame(() => {
+      if (!preserveCenter || Math.abs(targetScale - (pdfLightboxState.fitScale || 1)) < 0.001) {
+        body.scrollLeft = 0;
+        body.scrollTop = 0;
+        return;
+      }
+      body.scrollLeft = Math.max(0, previousCenterX * targetScale - body.clientWidth / 2);
+      body.scrollTop = Math.max(0, previousCenterY * targetScale - body.clientHeight / 2);
+    });
+  };
+
+  const fitPdfLightboxImage = () => {
+    calculatePdfLightboxFitScale();
+    applyPdfLightboxScale(pdfLightboxState.fitScale || 1, { preserveCenter: false });
+  };
 
   const closePdfImageLightbox = () => {
     pdfImageLightbox.hidden = true;
@@ -1103,13 +1150,48 @@
   const openPdfImageLightbox = (src, page) => {
     const image = pdfImageLightbox.querySelector("[data-pdf-lightbox-image]");
     const title = pdfImageLightbox.querySelector("[data-pdf-lightbox-title]");
-    if (image) image.src = src || "";
+    const dialog = pdfImageLightbox.querySelector(".pdf-image-lightbox__dialog");
+    const body = pdfImageLightbox.querySelector(".pdf-image-lightbox__body");
+    if (!image || !body) return;
+    pdfLightboxState.naturalWidth = 0;
+    pdfLightboxState.naturalHeight = 0;
+    pdfLightboxState.fitScale = 1;
+    pdfLightboxState.scale = 1;
+    image.style.width = "";
+    image.style.height = "";
+    image.onload = () => {
+      pdfLightboxState.naturalWidth = image.naturalWidth || image.width || 0;
+      pdfLightboxState.naturalHeight = image.naturalHeight || image.height || 0;
+      fitPdfLightboxImage();
+    };
+    image.src = src || "";
     if (title) title.textContent = page ? `国内法令原文 PDF ${page}ページ` : "国内法令原文ページ";
     pdfImageLightbox.hidden = false;
     document.body.classList.add("is-pdf-lightbox-open");
+    body.scrollTop = 0;
+    body.scrollLeft = 0;
+    updatePdfLightboxScaleText();
+    requestAnimationFrame(() => {
+      pdfImageLightbox.style.zIndex = "5000";
+      dialog?.focus({ preventScroll: true });
+    });
   };
 
   pdfImageLightbox.querySelectorAll("[data-pdf-lightbox-close]").forEach(button => button.addEventListener("click", closePdfImageLightbox));
+  pdfImageLightbox.querySelector("[data-pdf-lightbox-zoom-in]")?.addEventListener("click", () => applyPdfLightboxScale((pdfLightboxState.scale || 1) * 1.2));
+  pdfImageLightbox.querySelector("[data-pdf-lightbox-zoom-out]")?.addEventListener("click", () => applyPdfLightboxScale((pdfLightboxState.scale || 1) / 1.2));
+  pdfImageLightbox.querySelector("[data-pdf-lightbox-fit]")?.addEventListener("click", fitPdfLightboxImage);
+  pdfImageLightbox.querySelector("[data-pdf-lightbox-reset]")?.addEventListener("click", () => applyPdfLightboxScale(1, { preserveCenter: false }));
+  window.addEventListener("resize", () => {
+    if (pdfImageLightbox.hidden) return;
+    const beforeFitScale = pdfLightboxState.fitScale || 1;
+    calculatePdfLightboxFitScale();
+    if ((pdfLightboxState.scale || 1) <= beforeFitScale + 0.001) {
+      applyPdfLightboxScale(pdfLightboxState.fitScale || 1, { preserveCenter: false });
+    } else {
+      updatePdfLightboxScaleText();
+    }
+  });
 
   const closeCodeModal = () => {
     if (!codeModal) return;

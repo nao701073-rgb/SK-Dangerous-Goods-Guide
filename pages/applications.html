@@ -6,7 +6,7 @@
   <title>申請番号管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/photo-management.css?v=150">
+  <link rel="stylesheet" href="../assets/css/photo-management.css?v=159">
   <link rel="stylesheet" href="../assets/css/organization-management.css">
 </head>
 <body data-page="applications">
@@ -19,7 +19,14 @@
   </header>
 
   <main class="main-content photo-page">
-    <section class="management-panel organization-context-panel">
+    <nav class="application-section-nav" aria-label="申請番号管理の項目">
+      <button type="button" data-application-section="applicationScopeSection">表示範囲・所属</button>
+      <button type="button" data-application-section="applicationRegisterSection">申請番号を登録</button>
+      <button type="button" data-application-section="applicationListSection">登録済み申請番号</button>
+      <button type="button" data-application-section="applicationPhotoSection">申請番号に写真を登録</button>
+      <button type="button" data-application-section="all">すべて表示</button>
+    </nav>
+    <section class="management-panel organization-context-panel application-primary-section" id="applicationScopeSection">
       <div class="management-heading">
         <div>
           <p class="eyebrow">Organization Scope</p>
@@ -44,7 +51,7 @@
       <p class="scope-note">安全環境室の権限では、全ブロック・全事業所の申請番号と関連写真を横断して閲覧できます。</p>
     </section>
 
-    <section class="management-panel">
+    <section class="management-panel application-primary-section" id="applicationRegisterSection">
       <div class="section-heading">
         <div>
           <p class="eyebrow">New Application</p>
@@ -86,7 +93,7 @@
       </form>
     </section>
 
-    <section class="management-panel">
+    <section class="management-panel application-primary-section" id="applicationListSection">
       <div class="management-heading">
         <div>
           <p class="eyebrow">Applications</p>
@@ -101,7 +108,7 @@
       <div id="applicationList" class="application-list"></div>
     </section>
 
-    <section class="management-panel" id="applicationPhotoSection">
+    <section class="management-panel application-primary-section" id="applicationPhotoSection">
       <div class="section-heading">
         <div>
           <p class="eyebrow">Application Photos</p>
@@ -509,10 +516,13 @@
 
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
-  <script src="../assets/js/storage.js?v=150"></script>
-  <script src="../assets/js/applications.js?v=150"></script>
-  <script src="../assets/js/photos.js?v=150"></script>
+  <script src="../assets/js/storage.js?v=159"></script>
+  <script src="../assets/js/applications.js?v=159"></script>
+  <script src="../assets/js/photos.js?v=159"></script>
   <script src="../assets/js/system-shell.js"></script>
-  <script src="../assets/js/online-status.js?v=150"></script>
+  <script src="../assets/js/online-status.js?v=159"></script>
+  <script>
+  (()=>{const buttons=[...document.querySelectorAll("[data-application-section]")];const primary=[...document.querySelectorAll(".application-primary-section")];function show(id){primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});}buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));show("applicationScopeSection");})();
+  </script>
 </body>
 </html>

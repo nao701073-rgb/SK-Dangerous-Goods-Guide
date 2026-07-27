@@ -42,6 +42,9 @@
       const sourceLink = sourceUrl
         ? `<a class="regulation-source-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">公的原典を開く ↗</a>`
         : "";
+      const sourceNote = item.sourceNote
+        ? `<small class="regulation-source-note">${escapeHtml(item.sourceNote)}</small>`
+        : "";
 
       const identifiers = [
         item.lawNumber,
@@ -61,17 +64,19 @@
           <div>
             <h3>${escapeHtml(item.shortName)}</h3>
             <p>${escapeHtml(item.officialName)}</p>
+            ${item.officialNameJa ? `<p class="regulation-name-ja">${escapeHtml(item.officialNameJa)}</p>` : ""}
             ${item.officialNameEn ? `<p>${escapeHtml(item.officialNameEn)}</p>` : ""}
           </div>
           ${identifiers.length ? `<div class="regulation-identifiers">${identifiers.map(escapeHtml).join("<br>")}</div>` : ""}
           ${sourceLink}
+          ${sourceNote}
         </article>
       `;
     }).join("");
   }
 
   domesticRoot.innerHTML = render(
-    regulations.filter(item => item.category === "domestic")
+    regulations.filter(item => item.category === "domestic" && item.regulationId !== "domestic-high-pressure-gas-safety")
   );
 
   internationalRoot.innerHTML = render(
