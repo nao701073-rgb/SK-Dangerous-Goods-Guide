@@ -22,3 +22,98 @@
 
 /* Part 152 usability */
 .app-header--menu-left{justify-content:flex-start}.app-header--menu-left .app-brand{flex:1}.module-card:not(.is-disabled){cursor:pointer}.module-card:not(.is-disabled):focus-visible{outline:3px solid rgba(24,115,200,.35);outline-offset:3px}.module-card:not(.is-disabled):hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(11,58,103,.14)}
+
+/* Part 186: desktop home density and width adjustment */
+@media (min-width: 980px) {
+  .main-content {
+    width: min(1420px, calc(100% - 48px));
+    padding-top: 18px;
+    padding-bottom: 34px;
+  }
+
+  .hero-card {
+    padding: 22px 24px;
+    gap: 18px;
+  }
+
+  .dashboard-section {
+    margin-top: 26px;
+  }
+
+  .section-heading {
+    margin-bottom: 12px;
+  }
+
+  .module-grid,
+  .activity-grid {
+    gap: 14px;
+  }
+
+  .module-card {
+    min-height: 176px;
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .info-panel {
+    padding: 18px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .main-content {
+    width: min(1480px, calc(100% - 64px));
+  }
+}
+
+
+/* Part 187: paragraph and line-wrap quality review */
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.page-card h1,
+.page-card h2,
+.page-card h3,
+.panel h1,
+.panel h2,
+.panel h3 {
+  text-wrap: balance;
+  line-break: strict;
+  overflow-wrap: break-word;
+}
+
+.main-content p,
+.main-content li,
+.page-card p,
+.page-card li,
+.panel p,
+.panel li,
+.module-card p,
+.info-panel p {
+  text-wrap: pretty;
+  line-break: strict;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.hero-card > div {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.hero-card p {
+  max-width: none;
+}
+
+@media (min-width: 1180px) {
+  .hero-card p {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1179px) {
+  .hero-card p {
+    white-space: normal;
+  }
+}
