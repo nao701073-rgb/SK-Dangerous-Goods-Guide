@@ -26,6 +26,7 @@ export const config = {
   loginLockMinutes: number('LOGIN_LOCK_MINUTES', 30),
   auditRetentionDays: number('AUDIT_RETENTION_DAYS', 365),
   allowLocalAuth: bool('ALLOW_LOCAL_AUTH', true),
+  adminSuccessionEnabled: bool('ADMIN_SUCCESSION_ENABLED', false),
   mfa: {
     enabled: bool('MFA_ENABLED', false),
     codeMinutes: number('MFA_CODE_MINUTES', 10),
@@ -33,14 +34,14 @@ export const config = {
     resendSeconds: number('MFA_RESEND_SECONDS', 60)
   },
   accountTokenMinutes: number('ACCOUNT_TOKEN_MINUTES', 1440),
-  publicAppUrl: process.env.PUBLIC_APP_URL || 'https://inspection.internal.example.jp',
+  publicAppUrl: process.env.PUBLIC_APP_URL || 'https://guide.example.jp',
   smtp: {
     host: process.env.SMTP_HOST || '',
     port: number('SMTP_PORT', 587),
     secure: bool('SMTP_SECURE', false),
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
-    from: process.env.SMTP_FROM || 'inspection-support@example.local',
+    from: process.env.SMTP_FROM || 'inspection-support@example.jp',
     rejectUnauthorized: bool('SMTP_REJECT_UNAUTHORIZED', true)
   },
   oidc: {

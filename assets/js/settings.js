@@ -52,6 +52,15 @@
     `<option value="${office.id}">${office.blockName}｜${office.name}</option>`
   ).join("");
   officeSelect.value = window.ISSStorage.getOfficeId();
+  const isSafetyRole = role => ["safety-environment-director", "safety-environment-staff", "safety-environment-admin"].includes(role);
+  const updateOrganizationControls = () => {
+    const safety = isSafetyRole(roleSelect.value);
+    officeSelect.disabled = safety;
+    officeSelect.setAttribute("aria-disabled", safety ? "true" : "false");
+    officeSelect.title = safety ? "安全環境室は全事業所を閲覧するため、所属事業所の選択は不要です。" : "所属事業所を選択してください。";
+  };
+  roleSelect.addEventListener("change", updateOrganizationControls);
+  updateOrganizationControls();
   operationMode.value = window.ISSStorage.getOperationMode();
   serverEndpoint.value = window.ISSStorage.getServerEndpoint();
   syncQueueCount.textContent = `${window.ISSStorage.getSyncQueue().filter(item => ["pending", "error", "processing"].includes(item.status)).length}件`;
@@ -157,7 +166,7 @@
 
   saveContextButton.addEventListener("click", () => {
     window.ISSStorage.setUserRole(roleSelect.value);
-    window.ISSStorage.setOfficeId(officeSelect.value);
+    if (!isSafetyRole(roleSelect.value)) window.ISSStorage.setOfficeId(officeSelect.value);
     const context = window.ISSStorage.getCurrentContext();
     showMessage(context.canViewAllOffices
       ? "安全環境室の全事業所閲覧権限を保存しました。"

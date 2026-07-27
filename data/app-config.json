@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part149-final-qa-and-performance-tuning",
+  "build": "part193-cloud-connection-readiness",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -223,16 +223,30 @@
     "packingGroupSortValueDefined": true,
     "blankScreenResolved": true
   },
-  "releaseStage": "pilot-integration",
+  "releaseStage": "cloud-connection-readiness",
   "roleModel": {
     "displayRoles": [
       "利用者",
       "事業所管理者",
+      "安全環境室 職員",
+      "安全環境室長",
       "管理者"
     ],
     "internalCompatibility": {
       "administrator": "safety-environment-admin"
     },
     "note": "内部ロール値は既存データ互換のため維持し、画面表示は管理者へ統一"
+  },
+  "deploymentModel": {
+    "onPremiseServerRequired": false,
+    "frontend": "static-web-hosting",
+    "api": "cloud-container",
+    "database": "managed-postgresql",
+    "photoStorage": "cloud-persistent-disk",
+    "expectedUsers": {
+      "pilot": 50,
+      "future": 150
+    },
+    "connectionSetupPage": true
   }
 }

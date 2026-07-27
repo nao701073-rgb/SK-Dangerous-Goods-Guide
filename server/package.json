@@ -1,6 +1,6 @@
 {
   "name": "inspection-support-system-api",
-  "version": "1.6.0",
+  "version": "2.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,18 @@
     "snapshot:regulation": "node scripts/create-evidence-snapshot.js",
     "audit:regulation": "node scripts/audit-regulation-package.js",
     "release:regulation": "node scripts/create-regulation-release-plan.js",
-    "qa:static": "node ../tools/qa-static.mjs"
+    "qa:static": "node ../tools/qa-static.mjs",
+    "users:import": "node scripts/import-users.js",
+    "data:validate": "node scripts/validate-static-data.js",
+    "data:normalize": "node scripts/normalize-static-data.js --write",
+    "data:audit": "node scripts/audit-data-quality.js --write",
+    "data:audit:strict": "node scripts/audit-data-quality.js --write --strict",
+    "data:compare": "node scripts/compare-un-datasets.js",
+    "data:release-check": "node scripts/check-data-release.js ../docs/Part211_データ品質監査レポート.json",
+    "data:normalize:fields": "node scripts/normalize-part211-fields.js",
+    "pilot:users-template": "node scripts/generate-pilot-user-template.js",
+    "pilot:roles": "node scripts/verify-role-matrix.js",
+    "pilot:load": "node scripts/pilot-load-test.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

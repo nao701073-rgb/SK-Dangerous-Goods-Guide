@@ -1,0 +1,5 @@
+login_id,display_name,email,role,office_id,initial_password,mfa_required
+kawasaki.user01,川崎 検査員01,kawasaki.user01@example.local,office-user,office-kawasaki,,false
+kawasaki.director,川崎 事業所長,kawasaki.director@example.local,office-admin,office-kawasaki,,true
+safety.director,安全環境室長,,safety-environment-director,,,true
+safety.staff01,安全環境室 職員01,,safety-environment-staff,,,true

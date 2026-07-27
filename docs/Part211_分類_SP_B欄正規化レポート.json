@@ -1,0 +1,746 @@
+{
+  "generatedAt": "2026-07-27T15:10:37.360Z",
+  "count": 24,
+  "policy": {
+    "class": "分類値のみ",
+    "specialProvisions": "SPコードのみ",
+    "bulk": "BKコードはflexibleBulkContainer（画面B欄）",
+    "un0190": "xを維持"
+  },
+  "records": [
+    {
+      "unNumber": "1438",
+      "sourcePage": 123,
+      "sourceRow": 7,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2"
+      }
+    },
+    {
+      "unNumber": "1495",
+      "sourcePage": 125,
+      "sourceRow": 21,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1",
+          "1",
+          "2",
+          "5"
+        ],
+        "subsidiaryRisk": "- 125",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1",
+          "1",
+          "2",
+          "5"
+        ],
+        "subsidiaryRisk": "- 125",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2"
+      }
+    },
+    {
+      "unNumber": "1942",
+      "sourcePage": 142,
+      "sourceRow": 13,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "BK3"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2 / BK3"
+      }
+    },
+    {
+      "unNumber": "3377",
+      "sourcePage": 206,
+      "sourceRow": 4,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "BK3"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2 / BK3"
+      }
+    },
+    {
+      "unNumber": "3378",
+      "sourcePage": 206,
+      "sourceRow": 5,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2"
+      }
+    },
+    {
+      "unNumber": "3378",
+      "sourcePage": 206,
+      "sourceRow": 6,
+      "before": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "BK2"
+        ],
+        "flexibleBulkContainer": "BK3"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [],
+        "flexibleBulkContainer": "BK2 / BK3"
+      }
+    },
+    {
+      "unNumber": "3500",
+      "sourcePage": 215,
+      "sourceRow": 10,
+      "before": {
+        "class": "2.2 SP362",
+        "labels": [
+          "2.2 SP362"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.2",
+        "labels": [
+          "2.2"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3501",
+      "sourcePage": 215,
+      "sourceRow": 11,
+      "before": {
+        "class": "2.1 SP362",
+        "labels": [
+          "2.1 SP362"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.1",
+        "labels": [
+          "2.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3502",
+      "sourcePage": 215,
+      "sourceRow": 12,
+      "before": {
+        "class": "2.2 SP362",
+        "labels": [
+          "2.2 SP362",
+          "6.1",
+          "3",
+          "6",
+          "2"
+        ],
+        "subsidiaryRisk": "6.1 SP362",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.2",
+        "labels": [
+          "2.2",
+          "6.1"
+        ],
+        "subsidiaryRisk": "6.1",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3503",
+      "sourcePage": 215,
+      "sourceRow": 13,
+      "before": {
+        "class": "2.2 SP362",
+        "labels": [
+          "2.2 SP362",
+          "8",
+          "3",
+          "6",
+          "2"
+        ],
+        "subsidiaryRisk": "8 SP362",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.2",
+        "labels": [
+          "2.2",
+          "8"
+        ],
+        "subsidiaryRisk": "8",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3504",
+      "sourcePage": 215,
+      "sourceRow": 14,
+      "before": {
+        "class": "2.1 SP362",
+        "labels": [
+          "2.1 SP362",
+          "6.1",
+          "3",
+          "6",
+          "2"
+        ],
+        "subsidiaryRisk": "6.1 SP362",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.1",
+        "labels": [
+          "2.1",
+          "6.1"
+        ],
+        "subsidiaryRisk": "6.1",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3505",
+      "sourcePage": 215,
+      "sourceRow": 15,
+      "before": {
+        "class": "2.1 SP362",
+        "labels": [
+          "2.1 SP362",
+          "8",
+          "3",
+          "6",
+          "2"
+        ],
+        "subsidiaryRisk": "8 SP362",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.1",
+        "labels": [
+          "2.1",
+          "8"
+        ],
+        "subsidiaryRisk": "8",
+        "specialProvisions": [
+          "SP274",
+          "SP362"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3537",
+      "sourcePage": 217,
+      "sourceRow": 3,
+      "before": {
+        "class": "2.1 SP391",
+        "labels": [
+          "2.1 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.1",
+        "labels": [
+          "2.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3538",
+      "sourcePage": 217,
+      "sourceRow": 4,
+      "before": {
+        "class": "2.2 SP391",
+        "labels": [
+          "2.2 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.2",
+        "labels": [
+          "2.2"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3539",
+      "sourcePage": 217,
+      "sourceRow": 5,
+      "before": {
+        "class": "2.3 SP391",
+        "labels": [
+          "2.3 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "2.3",
+        "labels": [
+          "2.3"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3540",
+      "sourcePage": 217,
+      "sourceRow": 6,
+      "before": {
+        "class": "3 SP391",
+        "labels": [
+          "3 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "3",
+        "labels": [
+          "3"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3541",
+      "sourcePage": 217,
+      "sourceRow": 7,
+      "before": {
+        "class": "4.1 SP391",
+        "labels": [
+          "4.1 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "4.1",
+        "labels": [
+          "4.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3542",
+      "sourcePage": 217,
+      "sourceRow": 8,
+      "before": {
+        "class": "4.2 SP391",
+        "labels": [
+          "4.2 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "4.2",
+        "labels": [
+          "4.2"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3543",
+      "sourcePage": 217,
+      "sourceRow": 9,
+      "before": {
+        "class": "4.3 SP391",
+        "labels": [
+          "4.3 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "4.3",
+        "labels": [
+          "4.3"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3544",
+      "sourcePage": 217,
+      "sourceRow": 10,
+      "before": {
+        "class": "5.1 SP391",
+        "labels": [
+          "5.1 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "5.1",
+        "labels": [
+          "5.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3545",
+      "sourcePage": 217,
+      "sourceRow": 11,
+      "before": {
+        "class": "5.2 SP391",
+        "labels": [
+          "5.2 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "5.2",
+        "labels": [
+          "5.2"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3546",
+      "sourcePage": 217,
+      "sourceRow": 12,
+      "before": {
+        "class": "6.1 SP391",
+        "labels": [
+          "6.1 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "6.1",
+        "labels": [
+          "6.1"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3547",
+      "sourcePage": 217,
+      "sourceRow": 13,
+      "before": {
+        "class": "8 SP391",
+        "labels": [
+          "8 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "8",
+        "labels": [
+          "8"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    },
+    {
+      "unNumber": "3548",
+      "sourcePage": 217,
+      "sourceRow": 14,
+      "before": {
+        "class": "9 SP391",
+        "labels": [
+          "9 SP391",
+          "3",
+          "9",
+          "1"
+        ],
+        "subsidiaryRisk": "SP391",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      },
+      "after": {
+        "class": "9",
+        "labels": [
+          "9"
+        ],
+        "subsidiaryRisk": "-",
+        "specialProvisions": [
+          "SP274",
+          "SP391"
+        ],
+        "flexibleBulkContainer": "-"
+      }
+    }
+  ]
+}

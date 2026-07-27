@@ -150,13 +150,25 @@
     },
 
     setUserRole(role) {
-      const normalized = ["office-user", "office-admin", "safety-environment-admin"].includes(role) ? role : "office-user";
+      const normalized = ["office-user", "office-admin", "safety-environment-director", "safety-environment-staff", "safety-environment-admin", "guest", "validator"].includes(role) ? role : "office-user";
       localStorage.setItem(KEYS.userRole, normalized);
       return normalized;
     },
 
+    isSafetyEnvironment() {
+      return ["safety-environment-director", "safety-environment-staff", "safety-environment-admin"].includes(this.getUserRole());
+    },
+
     isSafetyEnvironmentAdmin() {
       return this.getUserRole() === "safety-environment-admin";
+    },
+
+    canWriteOperationalData() {
+      return ["office-user", "office-admin", "safety-environment-director", "safety-environment-admin"].includes(this.getUserRole());
+    },
+
+    canDeleteOperationalData() {
+      return ["office-user", "office-admin", "safety-environment-admin"].includes(this.getUserRole());
     },
 
     isAdministrator() {
@@ -198,7 +210,7 @@
         officeName: office.name,
         blockId: office.blockId || "block-01",
         blockName: office.blockName || "第一ブロック",
-        canViewAllOffices: this.isSafetyEnvironmentAdmin(),
+        canViewAllOffices: this.isSafetyEnvironment(),
         canManageOffice: this.isSafetyEnvironmentAdmin() || this.isOfficeAdmin()
       };
     },
@@ -348,24 +360,25 @@
     getApplications(options = {}) {
       const migrated = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       write(KEYS.applications, migrated);
-      const scope = options.scope || (this.isSafetyEnvironmentAdmin() ? "all" : "office");
+      const scope = options.scope || (this.isSafetyEnvironment() ? "all" : "office");
       const officeId = options.officeId || this.getOfficeId();
-      if (scope === "all" && this.isSafetyEnvironmentAdmin()) return migrated;
+      if (scope === "all" && this.isSafetyEnvironment()) return migrated;
       return migrated.filter(item => item.officeId === officeId);
     },
 
     getAllApplications() {
-      return this.isSafetyEnvironmentAdmin() ? this.getApplications({ scope: "all" }) : this.getApplications();
+      return this.isSafetyEnvironment() ? this.getApplications({ scope: "all" }) : this.getApplications();
     },
 
     addApplication(record) {
+      if (!this.canWriteOperationalData()) throw new Error("安全環境室長・安全環境室職員は閲覧専用です。登録・更新は管理者へ依頼してください。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const applicationNumber = String(record.applicationNumber || "").trim();
       if (!applicationNumber) throw new Error("申請番号は必須です。");
 
       const requestedOffice = record.officeId ? org()?.getOfficeById(record.officeId) : null;
       const currentOffice = org()?.getOfficeById(this.getOfficeId()) || defaultOffice();
-      const office = this.isSafetyEnvironmentAdmin() && requestedOffice ? requestedOffice : currentOffice;
+      const office = this.isSafetyEnvironment() && requestedOffice ? requestedOffice : currentOffice;
 
       if (applications.some(item => item.applicationNumber === applicationNumber && item.officeId === office.id)) {
         throw new Error("同じ事業所に同一の申請番号が既に登録されています。");
@@ -393,10 +406,11 @@
     },
 
     updateApplication(id, updates) {
+      if (!this.canWriteOperationalData()) throw new Error("安全環境室長・安全環境室職員は閲覧専用です。登録・更新は管理者へ依頼してください。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = applications.find(item => item.id === id);
       if (!target) return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
 
       const nextNumber = String(updates.applicationNumber ?? target.applicationNumber).trim();
       if (!nextNumber) throw new Error("申請番号は必須です。");
@@ -417,10 +431,11 @@
     },
 
     removeApplication(id) {
+      if (!this.canDeleteOperationalData()) throw new Error("安全環境室長・安全環境室職員は削除できません。削除は事業所管理者またはシステム管理者へ依頼してください。");
       const existing = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = existing.find(item => item.id === id);
       if (!target) return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
       write(KEYS.applications, existing.filter(item => item.id !== id));
       enqueueSync("application", "delete", { id, officeId: target.officeId, serverId: target.serverId || null, serverVersion: target.serverVersion || 1 });
       write(KEYS.photos, this.getPhotos({ scope: "all" }).map(photo => photo.applicationId === id ? { ...photo, applicationId: "", applicationNumber: "" } : photo));
@@ -431,19 +446,19 @@
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const includeDeleted = Boolean(options.includeDeleted);
       const visible = includeDeleted ? photos : photos.filter(item => item.status !== "deleted");
-      const scope = options.scope || (this.isSafetyEnvironmentAdmin() ? "all" : "office");
-      if (scope === "all" && this.isSafetyEnvironmentAdmin()) return visible;
+      const scope = options.scope || (this.isSafetyEnvironment() ? "all" : "office");
+      if (scope === "all" && this.isSafetyEnvironment()) return visible;
       const officeId = options.officeId || this.getOfficeId();
       return visible.filter(item => item.officeId === officeId);
     },
 
     getPhotoAuditLogs(options = {}) {
       const logs = read(KEYS.photoAuditLogs, []);
-      const scope = options.scope || (this.isSafetyEnvironmentAdmin() ? "all" : "office");
+      const scope = options.scope || (this.isSafetyEnvironment() ? "all" : "office");
       const officeId = options.officeId || this.getOfficeId();
       const applicationId = String(options.applicationId || "");
       return logs.filter(item => {
-        if (scope !== "all" || !this.isSafetyEnvironmentAdmin()) {
+        if (scope !== "all" || !this.isSafetyEnvironment()) {
           if (item.officeId !== officeId) return false;
         }
         if (applicationId && item.applicationId !== applicationId) return false;
@@ -478,7 +493,7 @@
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = photos.find(item => item.id === id);
       if (!target) return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
       const before = { ...target };
       target.retentionHold = Boolean(options.hold);
       target.retentionHoldReason = target.retentionHold ? String(options.reason || "").trim() : "";
@@ -2927,6 +2942,7 @@
     },
 
     addPhoto(record) {
+      if (!this.canWriteOperationalData()) throw new Error("この権限では写真を登録できません。");
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const application = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) })).find(item => item.id === record.applicationId);
       const office = application ? org()?.getOfficeById(application.officeId) : org()?.getOfficeById(this.getOfficeId());
@@ -2988,10 +3004,11 @@
     },
 
     updatePhoto(id, updates) {
+      if (!this.canWriteOperationalData()) throw new Error("この権限では写真を編集できません。");
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = photos.find(item => item.id === id);
       if (!target) return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
       const before = { ...target };
       Object.assign(target, {
         applicationId: String(updates.applicationId ?? target.applicationId),
@@ -3011,10 +3028,11 @@
     },
 
     removePhoto(id, options = {}) {
+      if (!this.canDeleteOperationalData()) throw new Error("安全環境室長・安全環境室職員は写真を削除できません。削除は事業所管理者またはシステム管理者へ依頼してください。");
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = photos.find(item => item.id === id);
       if (!target) return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
       if (target.status === "deleted") return false;
       const before = { ...target };
       Object.assign(target, {
@@ -3034,7 +3052,7 @@
       const photos = read(KEYS.photos, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = photos.find(item => item.id === id);
       if (!target || target.status !== "deleted") return false;
-      if (!this.isSafetyEnvironmentAdmin() && target.officeId !== this.getOfficeId()) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
       const before = { ...target };
       Object.assign(target, {
         status: "active",

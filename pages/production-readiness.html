@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="settings">
+<body data-page="settings" data-required-roles="safety-environment-admin">
   <main class="workspace admin-tool-page">
     <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 本番導入・リリース判定</div>
     <div class="page-heading-row">
       <div><h1>本番導入・リリース判定</h1><p>端末、社内API、データ、権限、バックアップ、運用体制をまとめて確認し、承認記録を残します。</p></div>
-      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+      <a class="back-link" href="system-settings.html">← 設定へ戻る</a>
     </div>
 
     <section class="readiness-hero">
@@ -63,7 +63,7 @@
 
     <section class="panel"><div class="panel-heading"><h2>導入・運用資料</h2></div><div class="panel-body admin-link-grid"><a href="../docs/本番導入設定手順書.md">本番導入設定手順書</a><a href="../docs/運用管理手順書.md">運用管理手順書</a><a href="../docs/バックアップ復元手順書.md">バックアップ・復元手順書</a><a href="../docs/社内接続試験チェックリスト.md">社内接続試験チェックリスト</a><a href="../docs/part90-rollout-and-acceptance.md">段階導入・受入判定</a><a href="../docs/part146-production-release-gate.md">第146回リリース判定仕様</a></div></section>
   </main>
-  <script src="../assets/js/api-client.js?v=178"></script>
+  <script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=218"></script>
   <script src="../assets/js/production-readiness.js?v=178"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script src="../assets/js/session-guard.js"></script>

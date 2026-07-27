@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="../assets/css/operations-monitoring.css?v=178">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="settings">
+<body data-page="settings" data-required-roles="safety-environment-admin">
   <main class="workspace operations-page">
     <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 運用監視・障害対応</div>
     <div class="page-heading-row">
       <div><h1>運用監視・障害対応</h1><p>運用開始後の状態確認、障害記録、復旧訓練、定期点検をまとめて管理します。</p></div>
-      <a class="back-link" href="settings.html">← 設定へ戻る</a>
+      <a class="back-link" href="system-settings.html">← 設定へ戻る</a>
     </div>
 
     <section class="operations-summary" aria-label="運用状況概要">
@@ -92,5 +92,5 @@
   <script src="../assets/js/storage.js?v=178"></script>
   <script src="../assets/js/operations-monitoring.js?v=178"></script>
   <script src="../assets/js/session-guard.js"></script>
-</body>
+<script src="../assets/js/role-access.js?v=218"></script></body>
 </html>

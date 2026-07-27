@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>安全環境室長への管理者権限移行</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css">
+  <style>
+    .succession-form{display:grid;gap:14px}.succession-form label{display:grid;gap:6px;font-weight:700}.succession-form input,.succession-form select,.succession-form textarea{width:100%;min-height:42px;padding:9px 11px;border:1px solid var(--app-line);border-radius:8px;background:#fff}.succession-form textarea{min-height:90px;resize:vertical}.succession-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.succession-actions{display:flex;flex-wrap:wrap;gap:8px}.succession-actions button{min-height:42px}.succession-danger{border-color:#b42318!important;color:#b42318!important;background:#fff!important}.succession-history{display:grid;gap:10px}.succession-record{padding:13px;border:1px solid var(--app-line);border-radius:9px;background:#fff}.succession-record header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.succession-record p{margin:6px 0}.status-pill{display:inline-flex;padding:4px 8px;border-radius:999px;background:#eef3f8;font-size:.72rem;font-weight:800}.execution-warning{padding:12px;border-left:4px solid #d99100;background:#fff8e8}.execution-ready{padding:12px;border-left:4px solid #13753b;background:#edf8f1}@media(max-width:720px){.succession-grid{grid-template-columns:1fr}.succession-record header{flex-direction:column}}
+  </style>
+</head>
+<body data-page="admin-succession" data-required-roles="safety-environment-admin">
+<main class="admin-tool-page">
+  <p><a href="system-settings.html">← 設定へ戻る</a></p>
+  <section class="readiness-hero"><div><span id="successionBadge">段階移行</span><h1>安全環境室長への管理者権限移行</h1><p>移行申請、再認証、職制承認、切替予約、監査記録、ロールバック準備を一元管理します。</p></div></section>
+
+  <section class="panel"><div class="panel-heading"><h2>移行方針</h2></div><div class="panel-body">
+    <div class="admin-card-grid">
+      <article class="admin-summary-card"><strong>移行先</strong><span>安全環境室長のみ</span><small>安全環境室職員その他は対象外</small></article>
+      <article class="admin-summary-card"><strong>正式切替</strong><span id="executionState">無効</span><small>クラウド環境の明示設定後に有効化</small></article>
+      <article class="admin-summary-card"><strong>ロールバック</strong><span>7日間</span><small>旧管理者の支援権限を維持</small></article>
+      <article class="admin-summary-card"><strong>移行完了</strong><span>安定稼働後</span><small>安全環境室長本人が完了記録</small></article>
+    </div>
+    <p id="executionNotice" class="execution-warning">正式切替は現在無効です。移行申請と準備記録のみ作成できます。</p>
+  </div></section>
+
+  <section class="panel"><div class="panel-heading"><h2>1. 移行対象と職制承認</h2></div><div class="panel-body">
+    <form id="successionForm" class="succession-form">
+      <label>移行先の安全環境室長
+        <select id="targetUserId" required><option value="">安全環境室長を選択</option></select>
+      </label>
+      <div class="succession-grid">
+        <label>承認者氏名<input id="approverName" maxlength="100" required></label>
+        <label>承認者役職<input id="approverTitle" maxlength="100" required></label>
+        <label>承認日<input id="approvalDate" type="date" required></label>
+        <label>切替予定日時（任意）<input id="scheduledAt" type="datetime-local"></label>
+      </div>
+      <label>備考<textarea id="successionNote" maxlength="1000" placeholder="引継ぎ条件、周知事項、旧管理者の支援期間等"></textarea></label>
+
+      <h3>移行準備チェック</h3>
+      <div class="check-list">
+        <label class="check-row"><input type="checkbox" name="directorRegistered"><strong>安全環境室長アカウント登録済み</strong><span>本人専用ID、確認済みメール、MFAを確認します。</span></label>
+        <label class="check-row"><input type="checkbox" name="trainingCompleted"><strong>管理者教育完了</strong><span>利用者管理、法令更新、監査、バックアップ、障害対応を確認します。</span></label>
+        <label class="check-row"><input type="checkbox" name="parallelOperation"><strong>並行運用確認済み</strong><span>現行管理者の監督下で管理操作を確認します。</span></label>
+        <label class="check-row"><input type="checkbox" name="backupVerified"><strong>バックアップ・復元確認済み</strong><span>移行直前のバックアップと復元手順を確認します。</span></label>
+        <label class="check-row"><input type="checkbox" name="approvalRecorded"><strong>職制上の承認記録あり</strong><span>承認者、承認日、移行予定日を記録します。</span></label>
+        <label class="check-row"><input type="checkbox" name="auditConfirmed"><strong>監査ログ確認済み</strong><span>申請・切替・取消・ロールバックが記録されることを確認します。</span></label>
+      </div>
+      <label>現行管理者の確認用パスワード<input id="administratorPassword" type="password" autocomplete="current-password" required></label>
+      <div class="succession-actions"><button type="submit">移行申請を登録</button><button id="exportSuccession" type="button">移行計画JSONを出力</button></div>
+    </form>
+    <p id="successionStatus" class="admin-status">候補者と準備状況を確認してください。</p>
+  </div></section>
+
+  <section class="panel"><div class="panel-heading"><h2>2. 移行申請・実行履歴</h2></div><div class="panel-body">
+    <div id="successionHistory" class="succession-history"><p>履歴を読み込んでいます。</p></div>
+  </div></section>
+
+  <section class="panel"><div class="panel-heading"><h2>3. 移行後の安定稼働確認</h2></div><div class="panel-body">
+    <p>正式切替後は、履歴欄から安定稼働確認を記録します。ログイン、権限、監査、バックアップ、法令更新、障害対応の6項目を確認し、移行支援期間終了後に安全環境室長本人が移行完了を確定します。</p>
+    <div class="admin-card-grid">
+      <article class="admin-summary-card"><strong>安定稼働確認</strong><span>1回以上</span><small>完了判定の必須条件</small></article>
+      <article class="admin-summary-card"><strong>旧管理者権限</strong><span>別途縮小</span><small>自動削除せず確認記録を残す</small></article>
+      <article class="admin-summary-card"><strong>定期点検</strong><span>90日ごと</span><small>管理者権限と監査状況を確認</small></article>
+    </div>
+  </div></section>
+
+  
+<section class="panel"><div class="panel-heading"><h2>管理者権限の定期点検</h2></div><div class="panel-body">
+  <p>安全環境室長への移行後も、管理者権限の保有状況を定期的に棚卸しし、不要・過大な権限を残さないようにします。</p>
+  <form id="accessReviewForm" class="succession-form">
+    <div class="succession-grid">
+      <label>点検日<input id="accessReviewDate" type="date" required></label>
+      <label>点検範囲<select id="accessReviewScope"><option value="all-admins">全管理者</option><option value="succession-related">移行関係者</option><option value="emergency-accounts">緊急復旧用アカウント</option></select></label>
+      <label>有効な管理者数<input id="activeAdminCount" type="number" min="0" value="1" required></label>
+      <label>未使用・停止候補数<input id="inactiveAccountCount" type="number" min="0" value="0" required></label>
+      <label>過大権限の指摘数<input id="excessivePermissionCount" type="number" min="0" value="0" required></label>
+      <label>次回点検日<input id="nextAccessReviewDate" type="date"></label>
+    </div>
+    <label>点検所見<textarea id="accessReviewFindings" maxlength="2000" placeholder="管理者一覧、最終利用日、役割、MFA、所属等の確認結果"></textarea></label>
+    <label>是正措置<textarea id="accessReviewAction" maxlength="2000" placeholder="権限縮小、利用停止、再教育、期限等"></textarea></label>
+    <div class="succession-actions"><button type="submit">権限点検を記録</button><button type="button" id="exportGovernanceReport">監査レポートJSONを出力</button></div>
+  </form>
+  <div id="accessReviewHistory" class="succession-history"><p>点検履歴を読み込んでいます。</p></div>
+</div></section>
+
+<section class="panel"><div class="panel-heading"><h2>緊急復旧アカウント点検</h2></div><div class="panel-body">
+  <p>通常利用しない緊急復旧用管理者アカウントについて、認証情報・MFA・監査記録・連絡体制を定期確認します。実パスワードは本画面へ記録しません。</p>
+  <form id="recoveryDrillForm" class="succession-form">
+    <div class="succession-grid">
+      <label>点検日<input id="recoveryDrillDate" type="date" required></label>
+      <label>点検種別<select id="recoveryDrillType"><option value="credential-check">認証情報保管確認</option><option value="login-drill">ログイン訓練</option><option value="full-recovery">完全復旧訓練</option></select></label>
+      <label>結果<select id="recoveryDrillResult"><option value="passed">合格</option><option value="conditional">条件付き合格</option><option value="failed">不合格</option></select></label>
+      <label>次回点検日<input id="nextRecoveryDrillDate" type="date"></label>
+    </div>
+    <div class="check-list">
+      <label><input id="emergencyAccountVerified" type="checkbox"> 緊急復旧用アカウントの所在と保管責任者を確認</label>
+      <label><input id="recoveryMfaVerified" type="checkbox"> MFAの利用可能性を確認</label>
+      <label><input id="recoveryAuditVerified" type="checkbox"> 利用時に監査ログが残ることを確認</label>
+      <label><input id="backupContactVerified" type="checkbox"> 代替連絡先・承認者を確認</label>
+    </div>
+    <label>問題点<textarea id="recoveryIssueSummary" maxlength="2000"></textarea></label>
+    <label>是正措置<textarea id="recoveryCorrectiveAction" maxlength="2000"></textarea></label>
+    <div class="succession-actions"><button type="submit">緊急復旧点検を記録</button></div>
+  </form>
+  <div id="recoveryDrillHistory" class="succession-history"><p>点検履歴を読み込んでいます。</p></div>
+</div></section>
+
+<section class="panel"><div class="panel-heading"><h2>正式移行時の安全制御</h2></div><div class="panel-body"><ul>
+    <li>移行先は、有効かつMFA・メール確認済みの「安全環境室長」1名だけです。</li>
+    <li>正式切替では、現行管理者の再認証と確認文「安全環境室長へ移行」を必須とします。</li>
+    <li>切替後、安全環境室長の既存セッションを終了し、新しい権限で再ログインさせます。</li>
+    <li>旧管理者は原則30日間、移行支援のため管理者権限を維持します。</li>
+    <li>切替後7日間は、この画面から安全環境室長の権限を元に戻せます。</li>
+    <li>旧管理者の権限解除は、安定稼働確認と移行完了後に利用者管理で別途実施します。</li>
+    <li>移行完了後7日以内を目安に、旧管理者の権限縮小確認を記録します。</li>
+    <li>緊急復旧用アカウントは通常業務に使用せず、利用時は必ず監査記録を残します。</li>
+  </ul></div></section>
+</main>
+<script src="../assets/js/api-client.js?v=201"></script>
+<script src="../assets/js/role-access.js?v=218"></script>
+<script src="../assets/js/admin-succession.js?v=201"></script>
+<script src="../assets/js/session-guard.js"></script>
+</body></html>

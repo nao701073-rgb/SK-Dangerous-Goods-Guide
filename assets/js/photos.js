@@ -848,7 +848,7 @@
             ${item.status === "deleted" ? `<button data-restore-photo="${escapeHtml(item.id)}" type="button">復元</button>` : `
             <button data-set-representative="${escapeHtml(item.id)}" type="button">${item.representative ? "代表写真を解除" : "代表写真にする"}</button>
             <button data-edit-photo-comment="${escapeHtml(item.id)}" type="button">コメント編集</button>
-            <button data-delete-photo="${escapeHtml(item.id)}" class="danger-action" type="button">削除</button>`}
+            ${window.ISSStorage.canDeleteOperationalData?.() !== false ? `<button data-delete-photo="${escapeHtml(item.id)}" class="danger-action" type="button">削除</button>` : `<span class="record-status">削除不可</span>`}`}
           </div>
         </div>
       </article>

@@ -1,15 +1,7 @@
 {
-  "product": "検査・検品業務サポートシステム",
-  "englishName": "Dangerous Goods Guide",
-  "version": "1.0.0-rc37",
-  "part": 189,
-  "releaseType": "trial-operation-candidate",
-  "releasedAt": "2026-07-27",
-  "roles": [
-    "利用者",
-    "事業所管理者",
-    "管理者"
-  ],
-  "notes": "最新版PDFとCSV／JSONから更新候補を作成し、差分・重複・必須項目を確認できるかんたん更新モードを追加。",
-  "releaseName": "法令・データかんたん更新試作版"
+  "version": "Part 216",
+  "part": 216,
+  "updated": "2026-07-27",
+  "summary": "ユーザー設定とシステム設定を分離し、権限別の設定導線を整理",
+  "updatedAt": "2026-07-28"
 }

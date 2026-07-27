@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { config } from './config.js';
 import { query } from './db.js';
 
-export const OPERATIONAL_ROLES = ['office-user','office-admin','safety-environment-admin'];
+export const OPERATIONAL_ROLES = ['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin'];
 export const VALIDATION_ROLES = ['validator','safety-environment-admin'];
 
 export const ADMIN_ROLES = ['office-admin','safety-environment-admin'];
@@ -48,11 +48,14 @@ export const requireRole = (...roles) => (req, res, next) => roles.includes(req.
 export const requireOperationalRead = (req,res,next) => OPERATIONAL_ROLES.includes(req.user.role)
   ? next() : res.status(403).json({ error: 'ゲスト・検証者アカウントでは申請番号・写真データを閲覧できません。' });
 
-export const requireOperationalWrite = (req,res,next) => OPERATIONAL_ROLES.includes(req.user.role)
-  ? next() : res.status(403).json({ error: 'このアカウントは閲覧専用です。' });
+export const requireOperationalWrite = (req,res,next) => ['office-user','office-admin','safety-environment-director','safety-environment-admin'].includes(req.user.role)
+  ? next() : res.status(403).json({ error: '安全環境室職員は全事業所閲覧専用です。登録・編集はできません。' });
+
+export const requireOperationalDelete = (req,res,next) => ['office-user','office-admin','safety-environment-admin'].includes(req.user.role)
+  ? next() : res.status(403).json({ error: '安全環境室長・安全環境室職員は削除できません。' });
 
 export function officeScope(user, requestedOfficeId) {
-  if (user.role === 'safety-environment-admin') return requestedOfficeId || null;
+  if (['safety-environment-director','safety-environment-staff','safety-environment-admin'].includes(user.role)) return requestedOfficeId || null;
   if (user.role === 'office-user' || user.role === 'office-admin') return user.office_id;
   return '__NO_OPERATIONAL_SCOPE__';
 }

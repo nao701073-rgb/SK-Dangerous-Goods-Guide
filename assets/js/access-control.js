@@ -8,9 +8,12 @@
   const esc = v => String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 
   const fallbackRoles = [
+    { role:"guest",label:"ゲスト",applications:"利用不可",photos:"利用不可",administration:"危険物検索・法令・資料・ユーザー設定" },
     { role:"office-user",label:"事業所利用者",applications:"所属事業所の閲覧・登録・更新",photos:"所属事業所の登録・閲覧",administration:"不可" },
     { role:"office-admin",label:"事業所管理者",applications:"所属事業所の閲覧・登録・更新",photos:"所属事業所の登録・閲覧・削除",administration:"所属事業所の運用管理" },
-    { role:"safety-environment-admin",label:"管理者",applications:"全ブロック・全事業所",photos:"全ブロック・全事業所",administration:"利用者・事業所・上限・監査・検証管理" }
+    { role:"safety-environment-director",label:"安全環境室長",applications:"全ブロック・全事業所の登録・編集（削除不可）",photos:"全ブロック・全事業所の登録・編集（削除不可）",administration:"限定システム設定" },
+    { role:"safety-environment-staff",label:"安全環境室職員",applications:"全ブロック・全事業所の閲覧",photos:"全ブロック・全事業所の閲覧",administration:"閲覧専用" },
+    { role:"safety-environment-admin",label:"システム管理者",applications:"全ブロック・全事業所の閲覧・登録・更新",photos:"全ブロック・全事業所の管理",administration:"利用者・事業所・上限・監査・検証管理" }
   ];
 
   function renderRoles(roles) {

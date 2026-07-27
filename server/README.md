@@ -1,10 +1,10 @@
-# 社内オンラインAPI（本番移行準備版）
+# クラウド対応オンラインAPI（試験運用準備版）
 
 ## 構成
-- Nginx: HTTPS終端、静的ファイル配信、APIリバースプロキシ
+- クラウドWebサービス: HTTPS終端、Node.js/Express API実行
 - Node.js/Express: 認証、権限、申請番号、写真、同期、監査ログ
 - PostgreSQL: 中央データベース
-- Docker volume: 写真・バックアップ保存
+- クラウド永続ディスク: 写真保存（将来はオブジェクトストレージも検討）
 
 ## 実装済み
 - JWTローカル認証と将来のOIDC設定枠
@@ -19,13 +19,13 @@
 - DB・写真バックアップ、復元、整合性確認スクリプト
 - TLS期限確認スクリプト
 
-## 初期起動
-1. `.env.example`を`.env`へコピーし、すべての秘密情報を変更する。
-2. `POSTGRES_PASSWORD`をシェル環境または安全な秘密情報管理から設定する。
-3. 証明書を`nginx/certs/`へ配置する。
-4. `docker compose up -d --build`
-5. `docker compose exec api npm run migrate`
-6. `docker compose exec api npm run seed`
+## クラウド初期起動
+1. `.env.cloud.example`を参考に、クラウドのSecret機能へ環境変数を登録する。
+2. マネージドPostgreSQLの`DATABASE_URL`を設定する。
+3. 写真保存用の永続ディスクを`/var/data`へ割り当てる。
+4. Node.jsコンテナをデプロイする。
+5. `npm run migrate`を実行する。
+6. `npm run seed`を実行する。
 7. `/api/health`を確認する。
 
 詳細は`docs/本番導入設定手順書.md`、`運用管理手順書.md`、`バックアップ復元手順書.md`を参照してください。
@@ -50,3 +50,7 @@ Run migrations including `005_login_id_email_mfa_kawasaki_pilot.sql`. Configure 
 ```bash
 psql "$DATABASE_URL" -f sql/021_photo_purge_deadlines.sql
 ```
+
+
+## Part 192 クラウド運用
+社内サーバーを設置せず、クラウドWebサービス、マネージドPostgreSQL、永続ディスクを使用します。詳細は`docs/クラウド運用_構築手順書.md`を参照してください。

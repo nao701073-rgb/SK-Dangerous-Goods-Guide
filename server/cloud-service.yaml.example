@@ -1,0 +1,27 @@
+# 特定事業者に依存しないクラウド配備設定例
+service:
+  type: web
+  runtime: docker
+  rootDirectory: server
+  dockerfile: Dockerfile
+  healthCheckPath: /api/health
+  portEnvironmentVariable: PORT
+  instances:
+    initial: 1
+    recommendedMaximumForPilot: 2
+  resources:
+    pilot:
+      cpu: 1
+      memory: 1GB
+    future150Users:
+      cpu: 2
+      memory: 2GB
+  persistentDisk:
+    mountPath: /var/data
+    initialSize: 10GB
+  secretsFileTemplate: .env.cloud.example
+  database:
+    engine: PostgreSQL
+    managed: true
+    minimumStorage: 10GB
+    backups: daily

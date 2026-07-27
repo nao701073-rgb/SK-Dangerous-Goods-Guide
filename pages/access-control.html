@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="settings">
+<body data-page="settings" data-required-roles="safety-environment-admin">
   <main class="workspace admin-tool-page">
     <div class="page-breadcrumb">ホーム ＞ 設定 ＞ 権限・共有範囲</div>
-    <div class="page-heading-row"><div><h1>権限・共有範囲</h1><p>事業所利用者、事業所管理者、管理者の閲覧・操作範囲を確認します。</p></div><a class="back-link" href="settings.html">← 設定へ戻る</a></div>
+    <div class="page-heading-row"><div><h1>権限・共有範囲</h1><p>事業所利用者、事業所管理者、管理者の閲覧・操作範囲を確認します。</p></div><a class="back-link" href="system-settings.html">← 設定へ戻る</a></div>
     <section class="panel"><div class="panel-heading"><h2>権限マトリクス</h2><button id="reloadAccessSummary" type="button">再読込</button></div><div class="panel-body"><div id="accessStatus" class="admin-status">読込前</div><div id="roleMatrix" class="role-matrix"></div></div></section>
     <section class="panel"><div class="panel-heading"><h2>事業所別の登録状況</h2></div><div class="panel-body"><div id="officeAccessSummary" class="admin-card-grid"></div></div></section>
     <section class="panel"><div class="panel-heading"><h2>利用者集計</h2></div><div class="panel-body"><div id="userAccessSummary" class="admin-card-grid"></div></div></section>
@@ -21,7 +21,7 @@
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
   <script src="../assets/js/storage.js?v=178"></script>
-  <script src="../assets/js/api-client.js?v=178"></script>
+  <script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=218"></script>
   <script src="../assets/js/access-control.js?v=178"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script src="../assets/js/session-guard.js"></script>

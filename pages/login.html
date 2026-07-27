@@ -9,17 +9,22 @@
 <body><main class="login-wrap"><section class="login-card">
 <div class="login-brand"><img src="../assets/images/sk-brand-logo-v82.png" alt="SK"><div><strong>検査・検品業務サポートシステム</strong><p class="eyebrow">Dangerous Goods Guide</p></div></div>
 <h1>社内オンラインログイン</h1>
-<p class="login-note">管理者から付与されたログインIDとパスワードを入力してください。メール認証による二段階認証は将来実装予定です。</p>
+<p class="login-note">管理者から付与されたログインIDとパスワードを入力してください。メール認証による二段階認証に対応しています。管理者の設定により確認コードの入力が必要になる場合があります。</p>
 <div class="account-note">検査員・安全環境室のほか、検査員以外の社内職員向けに、ゲスト用・検証者用アカウントを発行できます。ゲストは閲覧専用、検証者は閲覧と検証記録に限定されます。</div>
 <form id="loginForm">
-<section id="credentialPanel"><label>ログインID<input id="loginId" type="text" autocomplete="username" required></label><label>パスワード<input id="loginPassword" type="password" autocomplete="current-password" minlength="8" required></label><label style="display:flex;grid-template-columns:auto 1fr;align-items:center;font-weight:400"><input id="rememberLogin" type="checkbox">この端末でログイン状態を保持</label><button type="submit">ログイン</button><button id="forgotPassword" class="secondary" type="button">パスワードを忘れた場合</button></section>
+<section id="credentialPanel"><label>ログインID<input id="loginId" type="text" autocomplete="username" required></label><label>パスワード<input id="loginPassword" type="password" autocomplete="current-password" minlength="8" required></label><label style="display:flex;grid-template-columns:auto 1fr;align-items:center;font-weight:400"><input id="rememberLogin" type="checkbox">この端末でログイン状態を保持</label><button type="submit">ログイン</button><button id="forgotPassword" class="secondary" type="button">パスワードを忘れた場合</button></section><section id="mfaPanel" class="mfa-panel" hidden><p class="login-note">登録メールアドレスへ送信された確認コードを入力してください。</p><label>確認コード<input id="mfaCode" class="mfa-code" inputmode="numeric" autocomplete="one-time-code" maxlength="8"></label><button id="verifyMfa" type="button">確認してログイン</button><button id="resendMfa" class="secondary" type="button">確認コードを再送</button><button id="backToCredentials" class="secondary" type="button">ログイン情報を入力し直す</button></section>
 <div id="loginMessage" class="login-message" aria-live="polite"></div></form><p><a href="settings.html">← 設定画面へ戻る</a></p>
-</section></main>
+</section><p class="login-help"><a href="cloud-connection.html">クラウド接続設定</a></p></main>
 <script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=178"></script><script src="../assets/js/api-client.js?v=178"></script>
 <script>
-(()=>{const $=id=>document.getElementById(id);const message=t=>$('loginMessage').textContent=t;
-$('loginForm').addEventListener('submit',async e=>{e.preventDefault();message('ログイン情報を確認中…');try{const data=await ISSApi.startLogin($('loginId').value,$('loginPassword').value);if(data.mfaRequired){throw new Error('二段階認証は初期実装では使用しません。管理者に設定をご確認ください。');}ISSApi.storeSession(data,$('rememberLogin').checked);message('ログインしました。');location.href='../index.html';}catch(err){message(err.message);}});
-$('forgotPassword').addEventListener('click',()=>message('パスワードの再設定は管理者へ依頼してください。利用者のパスワード変更は管理者画面からのみ行います。メールによる再設定は将来実装予定です。'));
+(()=>{const $=id=>document.getElementById(id);const message=t=>$('loginMessage').textContent=t;let challengeId=null;let remember=false;
+const showMfa=()=>{$('credentialPanel').hidden=true;$('mfaPanel').hidden=false;$('mfaCode').focus();};
+const showCredentials=()=>{challengeId=null;$('mfaPanel').hidden=true;$('credentialPanel').hidden=false;};
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();message('ログイン情報を確認中…');try{remember=$('rememberLogin').checked;const data=await ISSApi.startLogin($('loginId').value,$('loginPassword').value);if(data.mfaRequired){challengeId=data.challengeId;showMfa();message('確認コードを入力してください。');return;}ISSApi.storeSession(data,remember);message('ログインしました。');location.href='../index.html';}catch(err){message(err.message);}});
+$('verifyMfa').addEventListener('click',async()=>{if(!challengeId)return message('ログイン情報を入力し直してください。');message('確認コードを照合中…');try{const data=await ISSApi.verifyMfa(challengeId,$('mfaCode').value.trim());ISSApi.storeSession(data,remember);message('ログインしました。');location.href='../index.html';}catch(err){message(err.message);}});
+$('resendMfa').addEventListener('click',async()=>{if(!challengeId)return;message('確認コードを再送しています…');try{await ISSApi.resendMfa(challengeId);message('確認コードを再送しました。');}catch(err){message(err.message);}});
+$('backToCredentials').addEventListener('click',()=>{showCredentials();message('');});
+$('forgotPassword').addEventListener('click',async()=>{const loginId=$('loginId').value.trim();if(!loginId)return message('ログインIDを入力してから押してください。');message('再設定手続きを受け付けています…');try{await ISSApi.requestPasswordReset(loginId);message('登録メールアドレスがある場合、再設定用の案内を送信しました。');}catch(err){message(err.message);}});
 })();
 </script><script src="../assets/js/online-status.js?v=178"></script>  <script src="../assets/js/session-guard.js"></script>
 </body></html>

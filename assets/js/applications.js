@@ -55,6 +55,20 @@
     message.classList.toggle("is-error", isError);
   }
 
+  const roleLabels = {
+    "safety-environment-director": "安全環境室長｜全事業所登録・編集（削除不可）",
+    "safety-environment-staff": "安全環境室職員｜全事業所閲覧",
+    "safety-environment-admin": "システム管理者｜全事業所管理"
+  };
+
+  function canWrite() {
+    return window.ISSStorage.canWriteOperationalData?.() !== false;
+  }
+
+  function canDelete() {
+    return window.ISSStorage.canDeleteOperationalData?.() !== false;
+  }
+
   function populateOrganizationControls() {
     const offices = window.ISSOrganization.getOfficeOptions();
     const current = window.ISSStorage.getCurrentContext();
@@ -68,16 +82,21 @@
     registrationOffice.value = current.officeId;
 
     const isAdmin = current.canViewAllOffices;
+    const writable = canWrite();
     scopeSelect.value = isAdmin ? "all" : "office";
     scopeSelect.querySelector('option[value="all"]').disabled = !isAdmin;
     officeFilter.disabled = !isAdmin;
-    registrationOffice.disabled = !isAdmin;
-    registrationOfficeField.hidden = !isAdmin;
-    roleBadge.textContent = isAdmin ? "安全環境室｜全事業所閲覧" : `${current.blockName}｜${current.officeName}`;
+    registrationOffice.disabled = !isAdmin || !writable;
+    registrationOfficeField.hidden = !isAdmin || !writable;
+    roleBadge.textContent = roleLabels[current.role] || `${current.blockName}｜${current.officeName}`;
+    form.hidden = !writable;
+    document.getElementById("applicationPhotoSection")?.toggleAttribute("hidden", !writable);
+    if (!writable) showMessage("閲覧専用権限です。全事業所の申請番号と写真を閲覧できます。登録・編集・削除はできません。");
+    else if (!canDelete()) showMessage("安全環境室長は全事業所の申請番号・写真を登録・編集できます。削除はできません。");
   }
 
   function currentApplications() {
-    const isAdmin = window.ISSStorage.isSafetyEnvironmentAdmin();
+    const isAdmin = window.ISSStorage.isSafetyEnvironment();
     if (isAdmin && scopeSelect.value === "all") {
       const all = window.ISSStorage.getApplications({ scope: "all" });
       return officeFilter.value ? all.filter(item => item.officeId === officeFilter.value) : all;
@@ -97,7 +116,7 @@
   }
 
   function renderSummary() {
-    const isAdmin = window.ISSStorage.isSafetyEnvironmentAdmin();
+    const isAdmin = window.ISSStorage.isSafetyEnvironment();
     const summaries = window.ISSStorage.getOfficeApplicationSummary();
     const visible = isAdmin ? summaries : summaries.filter(item => item.officeId === window.ISSStorage.getOfficeId());
     officeSummary.innerHTML = visible.map(item => `
@@ -114,7 +133,7 @@
     form.reset();
     fields.status.value = "active";
     registrationOffice.value = window.ISSStorage.getOfficeId();
-    registrationOffice.disabled = !window.ISSStorage.isSafetyEnvironmentAdmin();
+    registrationOffice.disabled = !window.ISSStorage.isSafetyEnvironment() || !canWrite();
     fields.applicationNumber.disabled = false;
     submitButton.textContent = "登録";
     cancelEditButton.hidden = true;
@@ -149,7 +168,7 @@
       return;
     }
 
-    const allPhotos = window.ISSStorage.getPhotos({ scope: window.ISSStorage.isSafetyEnvironmentAdmin() ? "all" : "office" });
+    const allPhotos = window.ISSStorage.getPhotos({ scope: window.ISSStorage.isSafetyEnvironment() ? "all" : "office" });
     list.innerHTML = applications.map(item => {
       const photoCount = allPhotos.filter(photo => photo.applicationId === item.id).length;
       return `
@@ -170,11 +189,11 @@
           <div><dt>写真</dt><dd>${photoCount}枚</dd></div>
         </dl>
         <p class="application-note">${escapeHtml(item.note || "メモなし")}</p>
-        <div class="management-actions">
+        ${canWrite() ? `<div class="management-actions">
           <button data-select-photo-application="${escapeHtml(item.id)}" type="button">写真を登録</button>
           <button data-edit-application="${escapeHtml(item.id)}" type="button">編集</button>
-          <button data-delete-application="${escapeHtml(item.id)}" class="danger-action" type="button">削除</button>
-        </div>
+          ${canDelete() ? `<button data-delete-application="${escapeHtml(item.id)}" class="danger-action" type="button">削除</button>` : `<span class="record-status">削除不可</span>`}
+        </div>` : `<div class="management-actions"><span class="record-status">閲覧専用</span></div>`}
       </article>`;
     }).join("");
 
@@ -211,7 +230,7 @@
   function exportCsv() {
     const rows = filteredApplications();
     if (!rows.length) return alert("出力できる申請番号がありません。");
-    const photos = window.ISSStorage.getPhotos({ scope: window.ISSStorage.isSafetyEnvironmentAdmin() ? "all" : "office" });
+    const photos = window.ISSStorage.getPhotos({ scope: window.ISSStorage.isSafetyEnvironment() ? "all" : "office" });
     const table = [["ブロック", "事業所", "申請番号", "荷主", "貨物名", "進捗状況", "写真枚数", "メモ", "登録日時", "更新日時"]];
     rows.forEach(item => table.push([
       item.blockName, item.office, item.applicationNumber, item.shipper, item.cargoName,

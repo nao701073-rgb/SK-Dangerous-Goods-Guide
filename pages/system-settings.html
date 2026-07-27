@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>システム設定｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/typography-quality.css?v=187" rel="stylesheet"/>
+</head>
+<body data-page="settings" data-required-roles="office-admin,safety-environment-director,safety-environment-admin">
+<header class="app-header">
+<a aria-label="ホームへ戻る" class="icon-button" href="../index.html" title="ホームへ戻る">⌂</a>
+<div>
+<p class="eyebrow">System Settings</p>
+<h1>システム設定</h1>
+</div>
+</header>
+<main class="workspace settings-page">
+<div class="page-breadcrumb">ホーム ＞ ユーザー設定 ＞ システム設定</div>
+<div class="page-heading-row">
+<div>
+<h1>システム設定</h1>
+<p>利用者、権限、クラウド連携、写真保存、法令更新、監査・運用管理を設定します。</p>
+</div>
+</div><section aria-label="設定区分" class="settings-category-nav">
+<a class="settings-category-card" href="settings.html"><strong>ユーザー設定</strong><span>表示、実寸補正、通知、アカウント、オフライン利用を設定します。</span></a>
+<a class="settings-category-card is-active" href="system-settings.html"><strong>システム設定</strong><span>利用者、権限、クラウド連携、法令更新、監査・運用を管理します。</span></a>
+</section>
+<section aria-hidden="true" class="panel" hidden="hidden">
+<div class="panel-heading">
+<h2>法令・IMDG Code表示</h2>
+</div>
+<div class="panel-body settings-list">
+<div class="settings-row">
+<div>
+<strong>危告示</strong>
+<p>国内法令・危告示は常に主表示します。</p>
+</div>
+<span class="fixed-setting">常時ON</span>
+</div>
+<label class="settings-row settings-row--toggle">
+<div>
+<strong>IMDG Code参照先を表示</strong>
+<p>
+              危告示だけでは具体的内容を確認できない場合に、
+              IMDG Codeの参照章・節・英語原文を表示します。
+            </p>
+</div>
+<span class="switch">
+<input id="showImdgReferences" type="checkbox"/>
+<span class="switch-slider"></span>
+</span>
+</label>
+<div class="settings-row settings-row--layout">
+<div>
+<strong>包装・運送要件の表示形式</strong>
+<p>
+              危険物詳細画面の包装要件、IBC容器、ポータブルタンク、積載方法、隔離などの表示形式を選択します。
+            </p>
+</div>
+<div aria-label="包装・運送要件の表示形式" class="segmented-control" role="group">
+<button data-layout="two-column" id="layoutTwoColumn" type="button">2列表示</button>
+<button data-layout="horizontal" id="layoutHorizontal" type="button">横スクロール</button>
+</div>
+</div>
+</div>
+</section>
+<section aria-hidden="true" class="panel" hidden="hidden">
+<div class="panel-heading"><h2>正式輸送品名・国連番号の実寸補正</h2></div>
+<div class="panel-body settings-list">
+<div class="settings-row settings-row--layout">
+<div><strong>50mm基準線で端末を補正</strong><p>定規を当てて基準線が50mmになるように調整します。保存後は危険物詳細画面で再調整する必要はありません。</p></div>
+<div class="actual-size-setting">
+<div id="actualSizeCalibrationValue">100%</div>
+<div class="actual-size-setting__ruler" id="actualSizeCalibrationRuler"><span>50mm</span></div>
+<div class="segmented-control"><button id="actualSizeMinus" type="button">−</button><button id="actualSizeReset" type="button">100%に戻す</button><button id="actualSizePlus" type="button">＋</button></div>
+<button class="primary-action" id="saveActualSizeCalibration" type="button">実寸補正を保存</button>
+</div>
+</div>
+</div>
+</section>
+<section class="panel">
+<div class="panel-heading">
+<h2>所属・閲覧権限</h2>
+</div>
+<div class="panel-body settings-list">
+<label class="settings-row settings-row--select">
+<div>
+<strong>利用権限</strong>
+<p>ゲストはユーザー設定のみ、事業所利用者は所属事業所のみ、安全環境室は全事業所の申請番号と写真を閲覧できます。</p>
+</div>
+<select id="userRole">
+<option value="guest">ゲスト（検索・法令・資料・ユーザー設定）</option>
+<option value="office-user">事業所利用者</option>
+<option value="office-admin">事業所管理者</option>
+<option value="safety-environment-director">安全環境室長（全事業所登録・編集／削除不可）</option>
+<option value="safety-environment-staff">安全環境室職員（全事業所閲覧）</option>
+<option value="safety-environment-admin">管理者（全事業所管理）</option>
+</select>
+</label>
+<label class="settings-row settings-row--select">
+<div>
+<strong>所属事業所・部署</strong>
+<p>ゲストは所属なし、事業所利用者・事業所管理者は所属事業所を選択します。安全環境室の室長・職員・管理者は「安全環境室（全事業所）」が自動設定されます。</p>
+</div>
+<select id="officeId"></select>
+</label>
+<div class="settings-row">
+<div>
+<strong>統括部署</strong>
+<p>全事業所のデータ閲覧範囲を管理します。</p>
+</div>
+<span class="fixed-setting">安全環境室</span>
+</div>
+<div class="settings-actions">
+<button class="primary-action" id="saveOrganizationContext" type="button">所属・権限を保存</button>
+<a class="secondary-action" href="applications.html">申請番号管理を開く</a>
+</div>
+</div>
+</section>
+<section class="panel" data-roles="safety-environment-director">
+<div class="panel-heading"><h2>安全環境室長向けシステム設定</h2></div>
+<div class="panel-body settings-list">
+<div class="settings-row"><div><strong>現在の管理範囲</strong><p>全事業所の申請番号・関連写真を閲覧できます。現時点では登録、編集、削除および全体設定の変更はできません。</p></div><span class="fixed-setting">全事業所閲覧・設定参照</span></div>
+<div class="settings-row"><div><strong>将来の管理者権限移行</strong><p>職制承認、MFA、引継ぎ、並行運用および監査確認を経て、安全環境室長へシステム管理者権限を移行できる仕様です。</p></div><span class="fixed-setting">移行先候補</span></div>
+<div class="settings-actions"><a class="secondary-action" href="applications.html">全事業所の申請番号を閲覧</a><a class="secondary-action" href="settings.html">ユーザー設定へ戻る</a></div>
+</div>
+</section>
+<section class="panel" data-roles="safety-environment-admin">
+<div class="panel-heading"><h2>運用方式・オンライン連携</h2></div>
+<div class="panel-body settings-list">
+<label class="settings-row settings-row--select">
+<div><strong>運用方式</strong><p>通常はオフライン、必要に応じてクラウドAPIと同期するハイブリッド、常時オンラインを選択できます。</p></div>
+<select id="operationMode">
+<option value="offline">オフライン</option>
+<option value="hybrid">ハイブリッド（オフライン＋同期）</option>
+<option value="online">オンライン</option>
+</select>
+</label>
+<label class="settings-row settings-row--select">
+<div><strong>クラウドAPI接続先</strong><p>本番運用時のAPI接続先を登録します。開発版では同期予定データをキューに保存します。</p></div>
+<input id="serverEndpoint" placeholder="例：https://api.example.com" type="url"/>
+</label>
+<div class="settings-row">
+<div><strong>同期待ち件数</strong><p>ハイブリッド・オンライン時にクラウドAPIへ送信予定の更新件数です。</p></div>
+<span class="fixed-setting" id="syncQueueCount">0件</span>
+</div>
+<div class="settings-actions"><button class="primary-action" id="saveOnlineSettings" type="button">運用方式を保存</button><button class="secondary-action" id="testServerConnection" type="button">接続確認</button><button class="secondary-action" id="runSynchronization" type="button">今すぐ同期</button><button class="secondary-action" id="pullServerData" type="button">クラウドから最新データ取得</button><a class="secondary-action" href="login.html">オンラインログイン</a><a class="secondary-action" href="feedback.html">改善要望・管理者確認</a><a class="secondary-action" data-roles="safety-environment-admin" href="access-control.html">権限・共有範囲</a><a class="secondary-action" data-roles="office-admin,safety-environment-admin" href="user-admin.html">利用者管理</a><a class="secondary-action" data-roles="office-admin,safety-environment-admin" href="security-admin.html">セキュリティ・監査管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="account-security-admin.html">アカウント安全管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="identity-operations-admin.html">認証・試験運用管理</a><a class="settings-link-card" data-required-roles="safety-environment-admin" href="production-identity-admin.html"><strong>正式運用準備・認証管理</strong><span>招待、認証状態、監査、バックアップ、運用開始判定を一括管理します。</span></a><a class="secondary-action" data-roles="safety-environment-admin" href="data-migration.html">データ移行管理</a><a class="secondary-action" data-roles="validator,safety-environment-admin" href="validation-admin.html">社内検証管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="production-readiness.html">本番導入・リリース判定</a><a class="secondary-action" data-roles="safety-environment-admin" href="operations-monitoring.html">運用監視・障害対応</a><a class="secondary-action" data-roles="safety-environment-admin" href="regulation-update-admin.html">法令・データ更新管理</a><a class="settings-link-card" data-roles="safety-environment-admin" href="data-quality-admin.html"><strong>データ品質・公開判定</strong><span>重複、欠損、形式、更新差分を検査し、公開前確認を記録します。</span></a><a class="secondary-action" data-roles="safety-environment-admin" href="system-maintenance.html">システム保守・バックアップ</a><a class="secondary-action" data-roles="safety-environment-admin" href="admin-succession.html">安全環境室長への管理者権限移行準備</a><a class="secondary-action" data-roles="safety-environment-admin" href="admin-governance-dashboard.html">管理運用ダッシュボード</a><a class="settings-link-card" data-roles="safety-environment-admin" href="operations-assurance-admin.html"><strong>運用保証・継続管理</strong><span>利用者異動、障害、復元訓練、運用指標を統合管理します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="integrated-operations-center.html"><strong>統合運用センター</strong><span>利用者、認証、法令更新、障害、バックアップ、監査を横断して確認します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="final-production-readiness.html"><strong>正式運用最終確認</strong><span>ログイン、権限、データ品質、バックアップ、障害対応を横断し、運用開始判定を記録します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="post-launch-admin.html"><strong>運用開始・定着管理</strong><span>初期利用者登録、開始後7・30・90日レビュー、教育、課題を一括管理します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="pilot-launch-admin.html"><strong>クラウド試験運用実行・受入管理</strong><span>初期50名の招待、初回ログイン、権限、性能、バックアップ、受入判定を一括管理します。</span></a></div><div class="fixed-setting" id="onlineConnectionStatus">未接続</div>
+<details class="sync-queue-panel"><summary>同期キュー詳細</summary><div class="sync-queue-actions"><button id="refreshSyncQueue" type="button">再読込</button><button id="clearCompletedSyncQueue" type="button">完了済みを削除</button></div><div id="syncQueueDetails"></div></details>
+</div>
+</section>
+<section class="panel" data-roles="safety-environment-admin">
+<div class="panel-heading"><h2>写真登録上限</h2></div>
+<div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>1申請番号あたり</strong><p>同一申請番号へ登録できる写真枚数です。</p></div><input id="photoLimitPerApplication" max="500" min="1" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>1事業所あたり</strong><p>事業所全体で登録できる写真枚数です。</p></div><input id="photoLimitPerOffice" max="50000" min="1" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>写真1枚の容量</strong><p>アップロードできる1ファイルの最大容量（MB）です。</p></div><input id="photoMaxFileSizeMb" max="100" min="1" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>事業所の保存容量</strong><p>事業所単位の写真保存容量上限（MB）です。</p></div><input id="photoStorageLimitMb" max="100000" min="10" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>写真の標準保存期間</strong><p>撮影日または登録日から整理確認の対象になるまでの日数です。</p></div><input id="photoRetentionDays" max="3650" min="30" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>削除後の保留期間</strong><p>論理削除後、完全削除候補になるまでの日数です。</p></div><input id="photoDeletedGraceDays" max="365" min="1" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>完全削除計画の承認期限</strong><p>計画作成後、事業所管理者または管理者が承認するまでの標準日数です。</p></div><input id="photoPurgeApprovalDays" max="90" min="1" type="number"/></label>
+<label class="settings-row settings-row--select"><div><strong>承認後の実行期限</strong><p>承認後、完全削除を実行するまでの標準日数です。</p></div><input id="photoPurgeExecutionDays" max="90" min="1" type="number"/></label>
+<div class="settings-actions"><button class="primary-action" id="savePhotoPolicy" type="button">写真上限を保存</button></div>
+</div>
+</section>
+<div aria-live="polite" class="settings-message" id="settingsMessage"></div>
+<a class="settings-link" href="cloud-connection.html"><strong>クラウド接続・試験運用設定</strong><span>API接続先、疎通確認、運用準備チェックを行います。</span></a></main>
+<script src="../data/organization-master.js"></script>
+<script src="../assets/js/organization.js"></script>
+<script src="../assets/js/storage.js?v=178"></script>
+<script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=218"></script>
+<script src="../assets/js/sync-manager.js?v=178"></script>
+<script src="../assets/js/settings.js?v=216"></script>
+<script src="../assets/js/online-status.js?v=178"></script>
+<script src="../assets/js/session-guard.js"></script>
+</body>
+</html>
