@@ -971,3 +971,7 @@ body.is-reference-source-modal-open {
     flex: 1 1 180px;
   }
 }
+
+
+/* Part 174: visual source page viewer */
+.reference-source-modal__view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.reference-source-modal__view-tabs[hidden]{display:none}.reference-source-modal__view-tabs button{min-height:40px;padding:0 14px;border:1px solid #9ab8d5;border-radius:9px;background:#fff;color:#075ca8;font-weight:800}.reference-source-modal__view-tabs button.is-active{background:#075ca8;color:#fff}.reference-source-modal__page{display:grid;gap:12px}.reference-source-modal__page[hidden]{display:none}.reference-source-modal__page p{margin:0;color:#48627a;font-size:.78rem;line-height:1.6}.reference-source-modal__page iframe{width:100%;height:min(68vh,760px);border:1px solid #c9d8e6;border-radius:10px;background:#eef3f7}.reference-source-modal__page a{width:fit-content;padding:10px 14px;border:1px solid #8fb4d8;border-radius:9px;color:#075ca8;font-weight:800}@media(max-width:600px){.reference-source-modal__page iframe{height:64vh}.reference-source-modal__view-tabs button{flex:1 1 150px}}

@@ -96,7 +96,16 @@
         <p class="reference-source-modal__translation-note" data-source-modal-translation-note hidden>
           AI仮訳は参考情報です。正式な判断では英語原文と公的資料を確認してください。
         </p>
+        <div class="reference-source-modal__view-tabs" data-source-modal-view-tabs hidden>
+          <button type="button" data-source-modal-text-view class="is-active">条文テキスト</button>
+          <button type="button" data-source-modal-page-view>原文ページ（表・図を含む）</button>
+        </div>
         <pre class="reference-source-modal__text" data-source-modal-text></pre>
+        <section class="reference-source-modal__page" data-source-modal-page hidden>
+          <p>公式PDFの該当ページを表示しています。表、画像、配置を含む原文の見た目を確認できます。</p>
+          <iframe data-source-modal-pdf title="IMDG Code原文ページ"></iframe>
+          <a data-source-modal-pdf-open target="_blank" rel="noopener">PDFを別画面で開く</a>
+        </section>
       </div>
     </section>`;
   document.body.appendChild(sourceModal);
@@ -126,8 +135,8 @@
     sourceModal.querySelector(".reference-source-modal__body").scrollTop = 0;
   }
 
-  function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "" }) {
-    currentSourceModalState = { text, language, provisionalTranslation };
+  function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "", sourcePdfPath = "", sourcePdfPage = "" }) {
+    currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage };
     sourceModal.querySelector("[data-source-modal-eyebrow]").textContent = eyebrow || "Source Provision";
     sourceModal.querySelector("[data-source-modal-title]").textContent = title || "該当規定";
     const noteNode = sourceModal.querySelector("[data-source-modal-note]");
@@ -135,6 +144,19 @@
     noteNode.hidden = !note;
     const toolbar = sourceModal.querySelector("[data-source-modal-toolbar]");
     toolbar.hidden = !(language === "en" && provisionalTranslation);
+    const tabs = sourceModal.querySelector("[data-source-modal-view-tabs]");
+    const pagePane = sourceModal.querySelector("[data-source-modal-page]");
+    const textPane = sourceModal.querySelector("[data-source-modal-text]");
+    const pdfFrame = sourceModal.querySelector("[data-source-modal-pdf]");
+    const pdfOpen = sourceModal.querySelector("[data-source-modal-pdf-open]");
+    const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
+    tabs.hidden = !pdfUrl;
+    pagePane.hidden = true;
+    textPane.hidden = false;
+    sourceModal.querySelector("[data-source-modal-text-view]")?.classList.add("is-active");
+    sourceModal.querySelector("[data-source-modal-page-view]")?.classList.remove("is-active");
+    if (pdfFrame) pdfFrame.src = pdfUrl;
+    if (pdfOpen) { pdfOpen.href = pdfUrl; pdfOpen.hidden = !pdfUrl; }
     renderSourceModalText("original");
     sourceModal.hidden = false;
     document.body.classList.add("is-reference-source-modal-open");
@@ -143,6 +165,19 @@
 
   sourceModal.querySelector("[data-source-modal-translate]")?.addEventListener("click", () => renderSourceModalText("translation"));
   sourceModal.querySelector("[data-source-modal-original]")?.addEventListener("click", () => renderSourceModalText("original"));
+  sourceModal.querySelector("[data-source-modal-text-view]")?.addEventListener("click", () => {
+    sourceModal.querySelector("[data-source-modal-text]").hidden = false;
+    sourceModal.querySelector("[data-source-modal-page]").hidden = true;
+    sourceModal.querySelector("[data-source-modal-text-view]").classList.add("is-active");
+    sourceModal.querySelector("[data-source-modal-page-view]").classList.remove("is-active");
+  });
+  sourceModal.querySelector("[data-source-modal-page-view]")?.addEventListener("click", () => {
+    sourceModal.querySelector("[data-source-modal-text]").hidden = true;
+    sourceModal.querySelector("[data-source-modal-page]").hidden = false;
+    sourceModal.querySelector("[data-source-modal-page-view]").classList.add("is-active");
+    sourceModal.querySelector("[data-source-modal-text-view]").classList.remove("is-active");
+    sourceModal.querySelector("[data-source-modal-page]").scrollIntoView({ block: "start" });
+  });
 
   sourceModal.querySelectorAll("[data-source-modal-close]").forEach(button => button.addEventListener("click", closeSourceModal));
   document.addEventListener("keydown", event => {
