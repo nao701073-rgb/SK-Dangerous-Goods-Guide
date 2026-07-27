@@ -43,6 +43,50 @@
   const normalize = value =>
     String(value ?? "").normalize("NFKC").toLowerCase();
 
+  const sourceModal = document.createElement("div");
+  sourceModal.className = "reference-source-modal";
+  sourceModal.hidden = true;
+  sourceModal.innerHTML = `
+    <div class="reference-source-modal__backdrop" data-source-modal-close></div>
+    <section class="reference-source-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="sourceModalTitle" tabindex="-1">
+      <header class="reference-source-modal__header">
+        <div>
+          <p class="eyebrow" data-source-modal-eyebrow>Source Provision</p>
+          <h2 id="sourceModalTitle" data-source-modal-title>該当規定</h2>
+        </div>
+        <button type="button" data-source-modal-close aria-label="閉じる">×</button>
+      </header>
+      <div class="reference-source-modal__body">
+        <p class="reference-source-modal__note" data-source-modal-note></p>
+        <pre class="reference-source-modal__text" data-source-modal-text></pre>
+      </div>
+    </section>`;
+  document.body.appendChild(sourceModal);
+
+  function closeSourceModal() {
+    sourceModal.hidden = true;
+    document.body.classList.remove("is-reference-source-modal-open");
+  }
+
+  function openSourceModal({ eyebrow, title, note, text, language = "en" }) {
+    sourceModal.querySelector("[data-source-modal-eyebrow]").textContent = eyebrow || "Source Provision";
+    sourceModal.querySelector("[data-source-modal-title]").textContent = title || "該当規定";
+    const noteNode = sourceModal.querySelector("[data-source-modal-note]");
+    noteNode.textContent = note || "";
+    noteNode.hidden = !note;
+    const textNode = sourceModal.querySelector("[data-source-modal-text]");
+    textNode.textContent = text || "該当規定のテキストが登録されていません。";
+    textNode.lang = language;
+    sourceModal.hidden = false;
+    document.body.classList.add("is-reference-source-modal-open");
+    requestAnimationFrame(() => sourceModal.querySelector(".reference-source-modal__dialog")?.focus({ preventScroll: true }));
+  }
+
+  sourceModal.querySelectorAll("[data-source-modal-close]").forEach(button => button.addEventListener("click", closeSourceModal));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !sourceModal.hidden) closeSourceModal();
+  });
+
   const categoryLabels = {
     "domestic-regulation": "国内省令",
     "domestic-notification": "国内告示",
@@ -198,11 +242,10 @@
             </ul>
           </section>
 
-          <a class="reference-open-link"
-             href="../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
-             target="_blank" rel="noopener">
-            IMDG Code原文を開く
-          </a>
+          <button class="reference-open-link" type="button"
+             data-imdg-source-section="${escapeHtml(item.section)}">
+            該当する英語条文を表示
+          </button>
         </div>
       </details>
     `).join("");
@@ -285,6 +328,7 @@
               `<code>${escapeHtml(ref)}</code>`
             ).join("")}
           </div>
+          <button class="reference-open-link" type="button" data-ai-source-id="${escapeHtml(item.id)}">該当規定をウィンドウ表示</button>
           <div class="ai-guide-actions">
             <button type="button" data-ai-guide-complete="${escapeHtml(item.id)}">${state.completed ? "確認済みを解除" : "確認済みにする"}</button>
             <button type="button" data-ai-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "お気に入り解除" : "お気に入り"}</button>
@@ -295,7 +339,34 @@
     `; }).join("");
   }
 
+  imdgList.addEventListener("click", event => {
+    const button = event.target.closest("[data-imdg-source-section]");
+    if (!button) return;
+    const item = imdgClauses.find(entry => entry.section === button.dataset.imdgSourceSection);
+    if (!item) return;
+    openSourceModal({
+      eyebrow: `IMDG Code ${item.section}`,
+      title: item.titleEn || item.titleJa,
+      note: `${item.originalTextLabel || "IMDG Code Amendment 42-24"}。画面内で直接確認できるよう、該当箇所を抽出しています。`,
+      text: item.originalTextEn,
+      language: "en"
+    });
+  });
+
   aiList.addEventListener("click", event => {
+    const sourceButton = event.target.closest("[data-ai-source-id]");
+    if (sourceButton) {
+      const item = summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId);
+      if (!item) return;
+      openSourceModal({
+        eyebrow: "CTU Code 関連規定",
+        title: item.sourceProvisionTitle || item.title,
+        note: item.sourceProvisionNote || "登録済みCTU Code仮訳に基づく関連規定の要点です。",
+        text: item.sourceProvisionTextJa,
+        language: "ja"
+      });
+      return;
+    }
     const complete = event.target.closest("[data-ai-guide-complete]");
     if (complete) { const all=readAiProgress(); const state=all[complete.dataset.aiGuideComplete]||{}; patchAiProgress(complete.dataset.aiGuideComplete,{completed:!state.completed}); renderAiGuides(); return; }
     const favorite = event.target.closest("[data-ai-guide-favorite]");

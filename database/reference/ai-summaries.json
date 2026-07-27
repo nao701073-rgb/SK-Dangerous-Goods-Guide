@@ -37,7 +37,10 @@
         "法令要件とCTU Codeの推奨事項を分けて確認する",
         "貨物・輸送モードに対応する章と付属書を参照する"
       ],
-      "caution": "CTU Codeだけで法令適合を判断しません。"
+      "caution": "CTU Codeだけで法令適合を判断しません。",
+      "sourceProvisionTitle": "CTU Code 1.1 / CTU Code 1.4",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 1.1 / CTU Code 1.4\n\n該当規定の要点\nCTU Codeは、安全な積付け・固縛・開封を支援する実務指針です。国内法令や輸送モード別規則に優先するものではありません。\n\n実務確認項目\n• 法令要件とCTU Codeの推奨事項を分けて確認する\n• 貨物・輸送モードに対応する章と付属書を参照する\n\n注意\nCTU Codeだけで法令適合を判断しません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-basic-check",
@@ -62,7 +65,10 @@
         "床・壁・扉・固縛点の損傷を確認する",
         "残留物、害虫、不要な旧表示を確認する"
       ],
-      "caution": "積付け後では確認できない箇所を優先します。"
+      "caution": "積付け後では確認できない箇所を優先します。",
+      "sourceProvisionTitle": "CTU Code Chapter 3",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 3\n\n該当規定の要点\n作業環境、保護具、CTU本体、床、扉、固縛器具の状態を先に確認し、損傷や汚染があるCTUは使用しません。\n\n実務確認項目\n• 床・壁・扉・固縛点の損傷を確認する\n• 残留物、害虫、不要な旧表示を確認する\n\n注意\n積付け後では確認できない箇所を優先します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-responsibility-chain",
@@ -89,7 +95,10 @@
         "誰が分類・収納・重量確認を行ったか確認する",
         "危険物情報と積付証明の伝達先を確認する"
       ],
-      "caution": "担当者が不明でも責任が消えるわけではありません。"
+      "caution": "担当者が不明でも責任が消えるわけではありません。",
+      "sourceProvisionTitle": "CTU Code Chapter 4",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 4\n\n該当規定の要点\n発荷主は正確な貨物情報、収納者は適切な配置・固定・重量確認、荷送人は書類と情報伝達を担います。\n\n実務確認項目\n• 誰が分類・収納・重量確認を行ったか確認する\n• 危険物情報と積付証明の伝達先を確認する\n\n注意\n担当者が不明でも責任が消えるわけではありません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-load-distribution",
@@ -116,7 +125,10 @@
         "重量物の接地面積と床荷重を確認する",
         "左右・前後の偏荷重と重心位置を確認する"
       ],
-      "caution": "総重量内でも局部床荷重を超える場合があります。"
+      "caution": "総重量内でも局部床荷重を超える場合があります。",
+      "sourceProvisionTitle": "CTU Code 3.3 / CTU Code Chapter 9 / Annex 7",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.3 / CTU Code Chapter 9 / Annex 7\n\n該当規定の要点\n重量物は床面へ均等に分散し、重心を低く中央寄りにします。局部集中荷重や左右・前後の著しい偏りを避けます。\n\n実務確認項目\n• 重量物の接地面積と床荷重を確認する\n• 左右・前後の偏荷重と重心位置を確認する\n\n注意\n総重量内でも局部床荷重を超える場合があります。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-securing",
@@ -143,7 +155,10 @@
         "全方向の移動と転倒を抑えられるか確認する",
         "固縛点・器具の強度と取付状態を確認する"
       ],
-      "caution": "ベルトを結んで短くする使用方法は避けます。"
+      "caution": "ベルトを結んで短くする使用方法は避けます。",
+      "sourceProvisionTitle": "CTU Code 3.5 / Annex 7",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.5 / Annex 7\n\n該当規定の要点\n滑りと転倒を防ぐため、根止め、ラッシング、空隙処理、滑り止めを組み合わせます。過度な締付けは貨物やCTUを損傷します。\n\n実務確認項目\n• 全方向の移動と転倒を抑えられるか確認する\n• 固縛点・器具の強度と取付状態を確認する\n\n注意\nベルトを結んで短くする使用方法は避けます。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-dangerous-goods",
@@ -169,7 +184,10 @@
         "破損・漏れのある容器を収納しない",
         "相性の悪い危険物を同一CTUに収納しない"
       ],
-      "caution": "CTU Codeに加えて危規則・危告示・IMDG Codeを確認します。"
+      "caution": "CTU Codeに加えて危規則・危告示・IMDG Codeを確認します。",
+      "sourceProvisionTitle": "CTU Code 3.4 / CTU Code Chapter 10",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.4 / CTU Code Chapter 10\n\n該当規定の要点\n危険物は容器表示、漏れ、隔離、外部プラカードを確認し、可能な限り扉付近に配置します。\n\n実務確認項目\n• 破損・漏れのある容器を収納しない\n• 相性の悪い危険物を同一CTUに収納しない\n\n注意\nCTU Codeに加えて危規則・危告示・IMDG Codeを確認します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-completion",
@@ -195,7 +213,10 @@
         "総重量と書類記載値を照合する",
         "シール番号とCTU番号を記録する"
       ],
-      "caution": "重量は収納者の施設を出る前に確認します。"
+      "caution": "重量は収納者の施設を出る前に確認します。",
+      "sourceProvisionTitle": "CTU Code 3.6 / CTU Code Chapter 11",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.6 / CTU Code Chapter 11\n\n該当規定の要点\n完了時は総重量、扉の閉鎖、シール、CTU番号、表示、書類を確認し、必要な積付証明を作成します。\n\n実務確認項目\n• 総重量と書類記載値を照合する\n• シール番号とCTU番号を記録する\n\n注意\n重量は収納者の施設を出る前に確認します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-opening",
@@ -221,7 +242,10 @@
         "扉の正面に立たず、貨物圧を警戒する",
         "有害ガスのおそれがあれば測定・換気する"
       ],
-      "caution": "臭いがないことだけで安全とは判断しません。"
+      "caution": "臭いがないことだけで安全とは判断しません。",
+      "sourceProvisionTitle": "CTU Code 3.7 / CTU Code Chapter 12",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.7 / CTU Code Chapter 12\n\n該当規定の要点\n開封前に番号・シール・漏れを確認し、換気後、貨物の崩落を警戒しながら扉を開けます。\n\n実務確認項目\n• 扉の正面に立たず、貨物圧を警戒する\n• 有害ガスのおそれがあれば測定・換気する\n\n注意\n臭いがないことだけで安全とは判断しません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-condensation",
@@ -249,7 +273,10 @@
         "濡れた貨物・床・木材を収納しない",
         "吸湿性貨物と航路の温度差を確認する"
       ],
-      "caution": "乾燥剤だけで結露を完全に防げるとは限りません。"
+      "caution": "乾燥剤だけで結露を完全に防げるとは限りません。",
+      "sourceProvisionTitle": "CTU Code Chapter 5 / Annex 3",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 5 / Annex 3\n\n該当規定の要点\n湿った貨物や梱包材は結露、腐食、カビ、荷崩れの原因になります。貨物水分、温度変化、換気条件を事前に確認します。\n\n実務確認項目\n• 濡れた貨物・床・木材を収納しない\n• 吸湿性貨物と航路の温度差を確認する\n\n注意\n乾燥剤だけで結露を完全に防げるとは限りません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     },
     {
       "id": "ctu-training",
@@ -274,7 +301,10 @@
         "作業内容に対応した教育記録を確認する",
         "固縛器具と計算方法の理解を確認する"
       ],
-      "caution": "経験だけに依存せず、定期的に教育内容を更新します。"
+      "caution": "経験だけに依存せず、定期的に教育内容を更新します。",
+      "sourceProvisionTitle": "CTU Code Chapter 13 / Annex 10",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 13 / Annex 10\n\n該当規定の要点\n収納者には、荷重、固縛、CTU点検、危険物、開封時の危険など、担当業務に応じた訓練が必要です。\n\n実務確認項目\n• 作業内容に対応した教育記録を確認する\n• 固縛器具と計算方法の理解を確認する\n\n注意\n経験だけに依存せず、定期的に教育内容を更新します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"
     }
   ]
 }

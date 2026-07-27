@@ -29,3 +29,6 @@
 
 /* Part 153: place the home button at the left edge on feature pages */
 .app-header{justify-content:flex-start}.app-header>.icon-button{order:-1;flex:0 0 auto}.app-header>div,.app-header>.app-brand{flex:1;min-width:0}
+
+/* Part 171: feedback request menu */
+.side-menu{overflow-y:auto;overscroll-behavior:contain;padding-bottom:max(24px,env(safe-area-inset-bottom))}.side-menu nav{padding-bottom:18px}.side-menu .nav-link{flex-shrink:0}

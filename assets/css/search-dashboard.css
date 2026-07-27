@@ -321,3 +321,6 @@
 .search-preset-toolbar{display:grid;grid-template-columns:minmax(190px,1fr) auto auto auto;gap:8px;align-items:end;padding:10px 12px;border:1px solid #d5e2ee;border-radius:8px;background:#fbfdff}
 .search-preset-toolbar label{display:grid;gap:5px}.search-preset-toolbar label span{font-size:.64rem;font-weight:800;color:#304d69}.search-preset-toolbar select{min-height:36px;border:1px solid #c5d4e3;border-radius:7px;background:#fff;padding:0 9px}.search-preset-toolbar button{min-height:36px;padding:0 11px;border:1px solid #8fb3d8;border-radius:7px;background:#fff;color:var(--app-blue);font-size:.68rem;font-weight:900}.search-preset-toolbar .danger-lite{border-color:#e6b7b3;color:#a9362f}.search-meta-row>div{display:flex;flex-wrap:wrap;gap:6px}
 @media(max-width:760px){.search-preset-toolbar{grid-template-columns:1fr 1fr}.search-preset-toolbar label{grid-column:1/-1}.advanced-search-footer{flex-wrap:wrap}.result-limit-label{width:min(48%,160px)}}
+
+.search-input-help{margin:8px 0 0;color:#60758a;font-size:.9rem;line-height:1.6}
+@media(max-width:640px){.search-input-help{font-size:.78rem;line-height:1.5;margin-top:7px}}

@@ -489,11 +489,7 @@
                         <small>${escapeHtml(label.nameJa)}／等級 ${display(label.class)}</small>
                       </div>
                     `).join("")
-                  : `<div class="label-card label-card--actual">
-                       <div class="label-empty">副標札なし</div>
-                       <strong>副標札</strong>
-                       <small>副次危険性等級なし</small>
-                     </div>`
+                  : ""
               }
 
               ${
@@ -938,6 +934,7 @@
                          <div class="marking-calibration-summary">
                            <span>設定画面で保存した補正値：<strong data-calibration-value>100%</strong></span>
                            <button type="button" data-open-landscape>横画面で実寸比較を開く</button>
+                           <button type="button" class="marking-landscape-close" data-close-landscape hidden aria-label="横画面表示を閉じる">× 閉じる</button>
                          </div>
                          <div class="marking-size-selector" role="tablist" aria-label="文字高さの切替">
                            <button type="button" class="marking-size-selector__button is-active" data-marking-size-option="12">12mm</button>
@@ -1037,12 +1034,42 @@
       const caption = actualSizePanel.querySelector("[data-marking-size-caption]");
       if (label) label.textContent = selectedSize === 6 ? "6mm以上" : "12mm以上";
       if (caption) caption.textContent = selectedSize === 6 ? "小型容器等" : "原則";
-      actualSizePanel.querySelector("[data-open-landscape]")?.addEventListener("click", async () => {
-      actualSizePanel.classList.add("is-landscape-view");
-      try { await actualSizePanel.requestFullscreen?.(); } catch {}
-      try { await screen.orientation?.lock?.("landscape"); } catch {}
-    });
-    document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) actualSizePanel.classList.remove("is-landscape-view"); });
+      const openLandscapeButton = actualSizePanel.querySelector("[data-open-landscape]");
+      const closeLandscapeButton = actualSizePanel.querySelector("[data-close-landscape]");
+
+      const closeLandscapeView = async () => {
+        actualSizePanel.classList.remove("is-landscape-view");
+        document.body.classList.remove("is-marking-landscape-open");
+        if (closeLandscapeButton) closeLandscapeButton.hidden = true;
+        if (openLandscapeButton) openLandscapeButton.hidden = false;
+        try { await screen.orientation?.unlock?.(); } catch {}
+        try {
+          if (document.fullscreenElement === actualSizePanel) await document.exitFullscreen?.();
+        } catch {}
+      };
+
+      openLandscapeButton?.addEventListener("click", async () => {
+        actualSizePanel.classList.add("is-landscape-view");
+        document.body.classList.add("is-marking-landscape-open");
+        if (closeLandscapeButton) closeLandscapeButton.hidden = false;
+        if (openLandscapeButton) openLandscapeButton.hidden = true;
+
+        // iPhone Safariなど画面方向の固定に非対応の環境では、CSSで横画面を再現します。
+        try { await actualSizePanel.requestFullscreen?.(); } catch {}
+        try { await screen.orientation?.lock?.("landscape"); } catch {}
+        actualSizePanel.scrollTop = 0;
+        actualSizePanel.scrollLeft = 0;
+      });
+
+      closeLandscapeButton?.addEventListener("click", closeLandscapeView);
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement && actualSizePanel.classList.contains("is-landscape-view")) {
+          closeLandscapeView();
+        }
+      });
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && actualSizePanel.classList.contains("is-landscape-view")) closeLandscapeView();
+      });
 
     actualSizePanel.querySelectorAll("[data-marking-size-option]").forEach(button => {
         button.classList.toggle("is-active", Number(button.dataset.markingSizeOption) === selectedSize);

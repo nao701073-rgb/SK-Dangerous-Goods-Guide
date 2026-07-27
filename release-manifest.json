@@ -1,20 +1,20 @@
 {
-  "version": "1.0.0-rc17",
-  "part": 165,
+  "version": "1.0.0-rc25",
+  "part": 171,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
-  "fileCount": 674,
-  "totalBytes": 103216668,
+  "fileCount": 689,
+  "totalBytes": 103505458,
   "countsByExtension": {
     ".conf": 1,
-    ".css": 23,
+    ".css": 24,
     ".csv": 6,
     ".example": 1,
-    ".html": 26,
+    ".html": 27,
     ".jpg": 54,
-    ".js": 74,
+    ".js": 75,
     ".json": 60,
-    ".md": 167,
+    ".md": 179,
     ".mjs": 1,
     ".pdf": 6,
     ".png": 193,
@@ -27,6 +27,9 @@
   "qaReport": "docs/part149-static-qa-report.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "検索履歴画面のホーム戻りボタンをホームアイコンへ変更"
+    "メニューに改善要望を追加",
+    "利用者の要望登録・参考画像添付・履歴確認に対応",
+    "管理者の対応状況・回答管理とCSV出力に対応",
+    "ハイブリッド・オンライン運用時は同期キューへ登録"
   ]
 }

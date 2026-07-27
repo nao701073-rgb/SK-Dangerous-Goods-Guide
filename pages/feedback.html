@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>改善要望｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/feedback.css?v=171">
+</head>
+<body data-page="feedback">
+  <header class="app-header">
+    <a class="icon-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div><p class="eyebrow">Feedback & Improvement</p><h1>改善要望</h1></div>
+  </header>
+
+  <main class="feedback-page">
+    <div class="page-breadcrumb">ホーム ＞ 改善要望</div>
+    <section class="feedback-intro">
+      <div><p class="eyebrow">USER FEEDBACK</p><h2>管理者へ要望・不具合を送信</h2><p>追加してほしい機能、操作上の改善、不具合、データや法令内容の訂正などを登録できます。</p></div>
+      <span class="feedback-note">試験運用版</span>
+    </section>
+
+    <section class="feedback-grid">
+      <form id="feedbackForm" class="feedback-card">
+        <div class="feedback-card__heading"><h2>新しい要望を送信</h2><p>必須項目には「必須」と表示しています。</p></div>
+        <div class="feedback-fields">
+          <label><span>種別 <b>必須</b></span><select id="feedbackCategory" required><option value="">選択してください</option><option value="feature">機能追加</option><option value="improvement">操作・表示の改善</option><option value="bug">不具合</option><option value="data">データ・法令内容の訂正</option><option value="performance">速度・容量</option><option value="other">その他</option></select></label>
+          <label><span>優先度</span><select id="feedbackPriority"><option value="normal">通常</option><option value="high">高い</option><option value="urgent">緊急</option></select></label>
+          <label class="feedback-field--wide"><span>件名 <b>必須</b></span><input id="feedbackTitle" maxlength="120" required placeholder="例：危険物詳細画面の標札を大きく表示してほしい"></label>
+          <label class="feedback-field--wide"><span>現状・問題点 <b>必須</b></span><textarea id="feedbackDetail" rows="7" maxlength="3000" required placeholder="どの画面で、どの操作をしたときに、何が起きるかを具体的に記載してください。"></textarea></label>
+          <label class="feedback-field--wide"><span>希望する改善内容</span><textarea id="feedbackExpected" rows="5" maxlength="2000" placeholder="どのようになると使いやすいかを記載してください。"></textarea></label>
+          <label><span>氏名・検査員名</span><input id="feedbackSender" maxlength="80" placeholder="任意"></label>
+          <label><span>所属事業所</span><input id="feedbackOffice" maxlength="80" placeholder="例：川崎事業所"></label>
+          <label class="feedback-field--wide"><span>対象画面</span><input id="feedbackPageUrl" type="url" maxlength="500" placeholder="現在の画面URLを入力、または下のボタンで取得"></label>
+          <div class="feedback-page-actions feedback-field--wide"><button id="useCurrentPage" type="button" class="secondary-button">現在の画面URLを使用</button><small>要望対象の画面を別タブで開いている場合は、そのURLを貼り付けてください。</small></div>
+          <label class="feedback-field--wide"><span>参考画像</span><input id="feedbackImage" type="file" accept="image/jpeg,image/png,image/webp"><small>任意。1枚、2MB以下。送信前にブラウザ内で縮小保存します。</small></label>
+        </div>
+        <label class="feedback-confirm"><input id="feedbackConfirm" type="checkbox" required><span>個人情報・機密情報を必要以上に記載していないことを確認しました。</span></label>
+        <div class="feedback-actions"><button class="feedback-submit" type="submit">管理者へ送信</button><button id="feedbackReset" type="reset" class="secondary-button">入力をクリア</button></div>
+        <p id="feedbackMessage" class="feedback-message" aria-live="polite"></p>
+      </form>
+
+      <section class="feedback-card">
+        <div class="feedback-card__heading"><h2>自分が送信した要望</h2><p>この端末から登録した内容と対応状況を確認できます。</p></div>
+        <div id="feedbackOwnList" class="feedback-list"></div>
+      </section>
+    </section>
+
+    <section id="feedbackAdminPanel" class="feedback-card feedback-admin" hidden>
+      <div class="feedback-card__heading feedback-admin__heading"><div><h2>管理者確認一覧</h2><p>要望の受付、対応方針、完了状況を管理します。</p></div><div class="feedback-admin__tools"><select id="feedbackStatusFilter"><option value="all">すべて</option><option value="submitted">受付済み</option><option value="reviewing">確認中</option><option value="planned">対応予定</option><option value="completed">対応完了</option><option value="rejected">対応見送り</option></select><button id="feedbackExport" type="button" class="secondary-button">CSV出力</button></div></div>
+      <div id="feedbackAdminList" class="feedback-list"></div>
+    </section>
+
+    <aside class="feedback-operation-note"><strong>運用上の注意</strong><p>この試験運用版では、要望は現在のブラウザに保存されます。ハイブリッド・オンライン運用では同期キューにも登録します。正式運用では社内サーバーAPIへ送信し、管理者が全利用者の要望を一元管理する構成を想定しています。</p></aside>
+  </main>
+
+  <script src="../assets/js/storage.js?v=171"></script>
+  <script src="../assets/js/feedback.js?v=171"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

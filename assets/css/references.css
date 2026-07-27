@@ -794,3 +794,135 @@
 
 /* Part 90: AI summary learning progress */
 .ai-learning-progress{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:10px 0 16px;padding:11px 13px;border:1px solid #cddcea;border-radius:9px;background:#f7fbff}.ai-learning-progress>div{display:flex;align-items:baseline;gap:6px;margin-right:auto}.ai-learning-progress strong{font-size:1.05rem;color:#075ca8}.ai-learning-progress span,.ai-learning-progress label{font-size:.72rem;font-weight:700;color:#46627c}.ai-learning-progress label{display:flex;gap:5px;align-items:center}.ai-learning-progress button,.ai-guide-actions button,.training-guide-actions button{min-height:34px;padding:0 10px;border:1px solid #9bbbd9;border-radius:7px;background:#fff;color:#075ca8;font-size:.68rem;font-weight:900}.training-guide-actions,.ai-guide-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.training-guide-note,.ai-guide-note{width:100%;min-height:72px;margin-top:9px;padding:9px;border:1px solid #cbd9e7;border-radius:7px;resize:vertical}.training-guide-card.is-completed>summary,.ai-guide-card.is-completed>summary{background:linear-gradient(90deg,#effaf3,#fff)}.training-guide-card.is-favorite,.ai-guide-card.is-favorite{border-color:#f0b842;box-shadow:0 0 0 2px rgba(240,184,66,.16)}
+
+.reference-open-link[type="button"] {
+  cursor: pointer;
+}
+
+.reference-source-modal[hidden] {
+  display: none;
+}
+
+.reference-source-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 7000;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.reference-source-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 28, 51, .72);
+  backdrop-filter: blur(4px);
+}
+
+.reference-source-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  max-height: min(88vh, 920px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #c9d8e6;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .28);
+}
+
+.reference-source-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  background: #f4f8fc;
+}
+
+.reference-source-modal__header h2 {
+  margin: 4px 0 0;
+  color: var(--navy);
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.reference-source-modal__header button {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #b8c9da;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--navy);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.reference-source-modal__body {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reference-source-modal__note {
+  margin: 0 0 14px;
+  padding: 11px 13px;
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  background: #eef6fc;
+  color: #40566c;
+  font-size: .8rem;
+  line-height: 1.7;
+}
+
+.reference-source-modal__text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  font-family: "Noto Sans", "Segoe UI", Arial, sans-serif;
+  font-size: .86rem;
+  line-height: 1.75;
+  color: #1c3148;
+}
+
+body.is-reference-source-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .reference-source-modal {
+    padding: 0;
+    place-items: stretch;
+  }
+
+  .reference-source-modal__dialog {
+    width: 100%;
+    max-height: 100dvh;
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .reference-source-modal__header {
+    padding: max(12px, env(safe-area-inset-top)) 14px 12px;
+  }
+
+  .reference-source-modal__header h2 {
+    font-size: 1rem;
+  }
+
+  .reference-source-modal__body {
+    padding: 14px 14px calc(22px + env(safe-area-inset-bottom));
+  }
+
+  .reference-source-modal__text {
+    font-size: .8rem;
+    line-height: 1.7;
+  }
+}
