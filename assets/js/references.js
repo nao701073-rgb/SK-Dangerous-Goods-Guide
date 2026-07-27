@@ -43,6 +43,37 @@
   const normalize = value =>
     String(value ?? "").normalize("NFKC").toLowerCase();
 
+  const normalizeProvisionText = value => {
+    const source = String(value ?? "").replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+    const lines = source.split("\n");
+    const cleaned = [];
+    let pendingBlank = false;
+    for (const rawLine of lines) {
+      let line = rawLine.replace(/\t/g, "  ").replace(/[ \u00a0]+$/g, "");
+      if (!line.trim()) {
+        pendingBlank = cleaned.length > 0;
+        continue;
+      }
+      line = line.replace(/^ {8,}/, "").replace(/^ {2,7}(?=\S)/, "");
+      if (pendingBlank && cleaned.length && cleaned[cleaned.length - 1] !== "") cleaned.push("");
+      pendingBlank = false;
+      cleaned.push(line);
+    }
+    return cleaned.join("\n").trim();
+  };
+
+  const buildAiProvisionalTranslation = item => {
+    const points = (item.inspectionPoints || []).map(point => `・${point}`).join("\n");
+    return [
+      `【AI仮訳（参考）】 ${item.section || ""} ${item.titleJa || item.titleEn || ""}`.trim(),
+      "",
+      item.summaryJa || "登録された日本語要約はありません。",
+      points ? "\n実務上の確認事項\n" + points : "",
+      "",
+      "※この表示は逐語訳ではなく、登録済み要約を基にした参考仮訳です。正式な判断では英語原文と公的資料を確認してください。"
+    ].filter(Boolean).join("\n");
+  };
+
   const sourceModal = document.createElement("div");
   sourceModal.className = "reference-source-modal";
   sourceModal.hidden = true;
@@ -58,6 +89,13 @@
       </header>
       <div class="reference-source-modal__body">
         <p class="reference-source-modal__note" data-source-modal-note></p>
+        <div class="reference-source-modal__toolbar" data-source-modal-toolbar hidden>
+          <button type="button" data-source-modal-translate>AI仮訳（参考）を表示</button>
+          <button type="button" data-source-modal-original hidden>英語原文に戻る</button>
+        </div>
+        <p class="reference-source-modal__translation-note" data-source-modal-translation-note hidden>
+          AI仮訳は参考情報です。正式な判断では英語原文と公的資料を確認してください。
+        </p>
         <pre class="reference-source-modal__text" data-source-modal-text></pre>
       </div>
     </section>`;
@@ -68,19 +106,43 @@
     document.body.classList.remove("is-reference-source-modal-open");
   }
 
-  function openSourceModal({ eyebrow, title, note, text, language = "en" }) {
+  let currentSourceModalState = null;
+
+  function renderSourceModalText(mode = "original") {
+    if (!currentSourceModalState) return;
+    const textNode = sourceModal.querySelector("[data-source-modal-text]");
+    const originalButton = sourceModal.querySelector("[data-source-modal-original]");
+    const translateButton = sourceModal.querySelector("[data-source-modal-translate]");
+    const translationNote = sourceModal.querySelector("[data-source-modal-translation-note]");
+    const isTranslation = mode === "translation" && currentSourceModalState.provisionalTranslation;
+    textNode.textContent = isTranslation
+      ? normalizeProvisionText(currentSourceModalState.provisionalTranslation)
+      : normalizeProvisionText(currentSourceModalState.text) || "該当規定のテキストが登録されていません。";
+    textNode.lang = isTranslation ? "ja" : currentSourceModalState.language;
+    textNode.dataset.viewMode = isTranslation ? "translation" : "original";
+    originalButton.hidden = !isTranslation;
+    translateButton.hidden = isTranslation || !currentSourceModalState.provisionalTranslation;
+    translationNote.hidden = !isTranslation;
+    sourceModal.querySelector(".reference-source-modal__body").scrollTop = 0;
+  }
+
+  function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "" }) {
+    currentSourceModalState = { text, language, provisionalTranslation };
     sourceModal.querySelector("[data-source-modal-eyebrow]").textContent = eyebrow || "Source Provision";
     sourceModal.querySelector("[data-source-modal-title]").textContent = title || "該当規定";
     const noteNode = sourceModal.querySelector("[data-source-modal-note]");
     noteNode.textContent = note || "";
     noteNode.hidden = !note;
-    const textNode = sourceModal.querySelector("[data-source-modal-text]");
-    textNode.textContent = text || "該当規定のテキストが登録されていません。";
-    textNode.lang = language;
+    const toolbar = sourceModal.querySelector("[data-source-modal-toolbar]");
+    toolbar.hidden = !(language === "en" && provisionalTranslation);
+    renderSourceModalText("original");
     sourceModal.hidden = false;
     document.body.classList.add("is-reference-source-modal-open");
     requestAnimationFrame(() => sourceModal.querySelector(".reference-source-modal__dialog")?.focus({ preventScroll: true }));
   }
+
+  sourceModal.querySelector("[data-source-modal-translate]")?.addEventListener("click", () => renderSourceModalText("translation"));
+  sourceModal.querySelector("[data-source-modal-original]")?.addEventListener("click", () => renderSourceModalText("original"));
 
   sourceModal.querySelectorAll("[data-source-modal-close]").forEach(button => button.addEventListener("click", closeSourceModal));
   document.addEventListener("keydown", event => {
@@ -349,7 +411,8 @@
       title: item.titleEn || item.titleJa,
       note: `${item.originalTextLabel || "IMDG Code Amendment 42-24"}。画面内で直接確認できるよう、該当箇所を抽出しています。`,
       text: item.originalTextEn,
-      language: "en"
+      language: "en",
+      provisionalTranslation: buildAiProvisionalTranslation(item)
     });
   });
 

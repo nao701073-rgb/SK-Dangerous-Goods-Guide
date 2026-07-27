@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0-rc25",
-  "part": 171,
+  "version": "1.0.0-rc26",
+  "part": 173,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
   "fileCount": 689,
@@ -27,9 +27,8 @@
   "qaReport": "docs/part149-static-qa-report.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "メニューに改善要望を追加",
-    "利用者の要望登録・参考画像添付・履歴確認に対応",
-    "管理者の対応状況・回答管理とCSV出力に対応",
-    "ハイブリッド・オンライン運用時は同期キューへ登録"
+    "IMDG条文モーダルの不要な字下げ・空白を整理",
+    "英語条文を常時左寄せ表示",
+    "AI仮訳（参考）と英語原文の切替機能を追加"
   ]
 }

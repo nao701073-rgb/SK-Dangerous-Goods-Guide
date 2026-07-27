@@ -880,15 +880,55 @@
   line-height: 1.7;
 }
 
+.reference-source-modal__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 14px;
+}
+
+.reference-source-modal__toolbar[hidden] {
+  display: none;
+}
+
+.reference-source-modal__toolbar button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #8fb4d8;
+  border-radius: 10px;
+  background: #fff;
+  color: #075ca8;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.reference-source-modal__translation-note {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-left: 4px solid #c58a00;
+  border-radius: 8px;
+  background: #fff7df;
+  color: #6d5208;
+  font-size: .76rem;
+  line-height: 1.65;
+}
+
 .reference-source-modal__text {
   margin: 0;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: normal;
+  tab-size: 2;
+  text-align: left;
   font-family: "Noto Sans", "Segoe UI", Arial, sans-serif;
   font-size: .86rem;
   line-height: 1.75;
+  letter-spacing: 0;
   color: #1c3148;
+}
+
+.reference-source-modal__text[data-view-mode="original"] {
+  font-family: "Noto Sans", "Segoe UI", Arial, sans-serif;
 }
 
 body.is-reference-source-modal-open {
@@ -923,6 +963,11 @@ body.is-reference-source-modal-open {
 
   .reference-source-modal__text {
     font-size: .8rem;
-    line-height: 1.7;
+    line-height: 1.68;
+    text-align: left;
+  }
+
+  .reference-source-modal__toolbar button {
+    flex: 1 1 180px;
   }
 }

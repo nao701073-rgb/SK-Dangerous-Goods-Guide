@@ -14,11 +14,11 @@
 <section id="credentialPanel"><label>ログインID<input id="loginId" type="text" autocomplete="username" required></label><label>パスワード<input id="loginPassword" type="password" autocomplete="current-password" minlength="8" required></label><label style="display:flex;grid-template-columns:auto 1fr;align-items:center;font-weight:400"><input id="rememberLogin" type="checkbox">この端末でログイン状態を保持</label><button type="submit">ログイン</button><button id="forgotPassword" class="secondary" type="button">パスワードを忘れた場合</button></section>
 <div id="loginMessage" class="login-message" aria-live="polite"></div></form><p><a href="settings.html">← 設定画面へ戻る</a></p>
 </section></main>
-<script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=171"></script><script src="../assets/js/api-client.js?v=171"></script>
+<script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=173"></script><script src="../assets/js/api-client.js?v=173"></script>
 <script>
 (()=>{const $=id=>document.getElementById(id);const message=t=>$('loginMessage').textContent=t;
 $('loginForm').addEventListener('submit',async e=>{e.preventDefault();message('ログイン情報を確認中…');try{const data=await ISSApi.startLogin($('loginId').value,$('loginPassword').value);if(data.mfaRequired){throw new Error('二段階認証は初期実装では使用しません。管理者に設定をご確認ください。');}ISSApi.storeSession(data,$('rememberLogin').checked);message('ログインしました。');location.href='../index.html';}catch(err){message(err.message);}});
 $('forgotPassword').addEventListener('click',()=>message('パスワードの再設定は管理者へ依頼してください。利用者のパスワード変更は管理者画面からのみ行います。メールによる再設定は将来実装予定です。'));
 })();
-</script><script src="../assets/js/online-status.js?v=171"></script>  <script src="../assets/js/session-guard.js"></script>
+</script><script src="../assets/js/online-status.js?v=173"></script>  <script src="../assets/js/session-guard.js"></script>
 </body></html>
