@@ -6,7 +6,7 @@
   <title>法令改正・データ更新管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css">
+  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css?v=189">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="regulations">
@@ -19,6 +19,44 @@
       <span class="status-badge status-badge--blue">管理者向け</span>
       <h2>PDF原本を起点に、確認・承認後にデータベースへ反映</h2>
       <p>危規則、危告示、IMDG Code、その他の国内・国際法令を同じ更新手順で管理します。PDFを追加しただけで本番データを自動上書きせず、原本登録、構造化データ取込、差分確認、承認、公開の順に処理します。</p>
+    </section>
+
+
+    <section class="revision-panel easy-update-panel">
+      <div class="section-heading"><div><p class="eyebrow">Easy Update</p><h2>かんたん更新モード</h2></div></div>
+      <p>最新版PDFと、必要に応じて更新用CSV／JSONを選択すると、ファイル形式、版情報、データ件数、重複、必須項目を確認し、管理者確認用の更新候補を作成します。</p>
+      <div class="easy-update-steps" aria-label="かんたん更新手順">
+        <article><strong>1</strong><span>法令と版を選ぶ</span></article>
+        <article><strong>2</strong><span>PDF・更新データを選ぶ</span></article>
+        <article><strong>3</strong><span>検証して更新候補を出力</span></article>
+      </div>
+      <form id="easyUpdateForm" class="easy-update-form">
+        <label>資料区分<select id="easyRegulation" required>
+          <option value="">選択してください</option>
+          <option value="dangerous-goods-regulations">危規則</option>
+          <option value="dangerous-goods-notification">危告示</option>
+          <option value="radioactive-materials-notification">放告示</option>
+          <option value="imdg-code">IMDG Code</option>
+          <option value="ctu-code">CTU Code</option>
+          <option value="marpol">MARPOL</option>
+          <option value="csc">CSC</option>
+        </select></label>
+        <label>版・改正番号<input id="easyEdition" required placeholder="例：Amendment 43-26／令和○年改正"></label>
+        <label>適用開始日<input id="easyEffectiveFrom" type="date" required></label>
+        <label>更新担当者<input id="easyPreparedBy" required placeholder="氏名または社員番号"></label>
+        <label class="wide">最新版PDF<input id="easyPdf" type="file" accept="application/pdf,.pdf" required><small>PDF原本は版ごとに別名で保存します。同じファイル名での上書きは避けてください。</small></label>
+        <label class="wide">更新用データ（任意）<input id="easyDataset" type="file" accept="application/json,.json,text/csv,.csv"><small>国連番号、包装要件、特別規定などを更新する場合にCSVまたはJSONを選択します。</small></label>
+        <label>識別キー<input id="easyRecordKey" value="id" placeholder="例：unNumber / code / id"></label>
+        <label>旧版データ（任意）<input id="easyBaseline" type="file" accept="application/json,.json,text/csv,.csv"></label>
+        <label class="wide">更新概要<textarea id="easySummary" rows="3" placeholder="主な改正内容、対象条文、別表、UN番号など"></textarea></label>
+        <div class="wide form-actions"><button class="primary-button" type="submit">更新候補を作成</button><button class="secondary-button" type="button" id="resetEasyUpdate">入力をクリア</button></div>
+      </form>
+      <div id="easyUpdateResult" class="easy-update-result" aria-live="polite"></div>
+      <div id="easyUpdateActions" class="form-actions" hidden>
+        <button class="secondary-button" type="button" id="downloadEasyManifest">更新マニフェストJSON</button>
+        <button class="secondary-button" type="button" id="downloadEasyReport">検証結果JSON</button>
+      </div>
+      <div class="easy-update-notice"><strong>重要：</strong>PDFのみを差し替えても、国連番号・包装要件・条文リンク等は自動確定しません。抽出・差分候補を人が原文と照合し、承認済みデータのみ公開します。</div>
     </section>
 
     <section class="workflow-grid" aria-label="更新手順">
@@ -96,7 +134,8 @@
   <script src="../data/regulation-revision-registry.js"></script>
   <script src="../data/regulation-impact-registry.js"></script>
   <script src="../data/regulation-release-registry.js"></script>
-  <script src="../assets/js/regulation-update-admin.js"></script>
+  <script src="../assets/js/easy-regulation-update.js?v=189"></script>
+  <script src="../assets/js/regulation-update-admin.js?v=189"></script>
   <script src="../assets/js/regulation-release-admin.js"></script>
   <script src="../assets/js/system-shell.js"></script>
 </body>

@@ -4,3 +4,23 @@
 .integrity-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:end}.integrity-form label{display:grid;gap:8px;font-weight:700}.integrity-form .form-actions{grid-column:1/-1}.audit-check-list{display:grid;gap:8px;padding-left:0;list-style:none}.audit-check-list li{padding:10px 12px;border:1px solid var(--border-color,#d9e0e8);border-radius:10px}.audit-check-list li.is-failed{border-color:#c83b3b;background:#fff4f4}.audit-hash{word-break:break-all;font-size:.82rem}@media(max-width:800px){.integrity-form{grid-template-columns:1fr}}
 
 .release-form{display:grid;gap:14px;margin:16px 0}.release-form label{display:grid;gap:7px;font-weight:800}.release-form input,.release-form select{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fff;font:inherit}.release-panel .table-wrap{margin-top:18px}@media(min-width:760px){.release-form{grid-template-columns:repeat(2,minmax(0,1fr))}.release-form .form-actions{grid-column:1/-1}}
+
+
+/* Part 189: easy regulation update workflow */
+.easy-update-panel{border-top:5px solid var(--blue)}
+.easy-update-steps{display:grid;gap:10px;margin:18px 0}
+.easy-update-steps article{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface-soft)}
+.easy-update-steps strong{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff}
+.easy-update-steps span{font-weight:800}
+.easy-update-form{display:grid;gap:14px;margin-top:18px}
+.easy-update-form label{display:grid;gap:7px;font-weight:800}
+.easy-update-form input,.easy-update-form select,.easy-update-form textarea{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fff;font:inherit}
+.easy-update-form small{color:var(--muted);font-weight:500;line-height:1.6}
+.easy-update-result{display:none;margin-top:16px;padding:16px;border-radius:12px;border:1px solid var(--border)}
+.easy-update-result.is-ok,.easy-update-result.is-error{display:block}
+.easy-update-result.is-ok{background:#edf8f1;border-color:#acd4ba}
+.easy-update-result.is-error{background:#fff2f1;border-color:#e9b1ab}
+.easy-update-result ul{margin:10px 0 0;padding-left:1.25rem}
+.easy-update-result code{word-break:break-all}
+.easy-update-notice{margin-top:16px;padding:14px;border-left:5px solid #c58a00;border-radius:10px;background:#fff8e6;line-height:1.7}
+@media(min-width:760px){.easy-update-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.easy-update-form{grid-template-columns:repeat(2,minmax(0,1fr))}.easy-update-form .wide{grid-column:1/-1}}

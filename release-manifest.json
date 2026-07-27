@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-rc37",
-  "part": 187,
+  "part": 189,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
   "fileCount": 689,
@@ -27,8 +27,9 @@
   "qaReport": "docs/part149-static-qa-report.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "ホーム画面の説明文の不自然な2行折り返しを解消",
-    "全画面に自然な文章折り返しと日本語禁則処理を適用",
-    "見出し・本文・カード説明の段落表示を整理"
+    "法令・データ更新管理にかんたん更新モードを追加",
+    "PDF SHA-256・CSV/JSON重複・差分候補を自動検証",
+    "更新マニフェストと検証結果をJSON出力",
+    "設定画面から更新管理へ移動できる導線を追加"
   ]
 }
