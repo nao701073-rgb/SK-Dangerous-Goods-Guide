@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-rc37",
-  "part": 184,
+  "part": 185,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
   "fileCount": 689,
@@ -27,8 +27,8 @@
   "qaReport": "docs/part149-static-qa-report.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "最近の検索の各項目から危険物詳細へ直接遷移",
-    "お気に入りの各項目から危険物詳細へ直接遷移",
-    "キーボード操作とフォーカス表示に対応"
+    "ホーム画面の主要機能に「関連資料」カードを追加",
+    "主要機能グリッドから空欄を解消",
+    "関連資料画面へ直接移動できる導線を追加"
   ]
 }

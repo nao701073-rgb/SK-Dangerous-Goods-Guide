@@ -2,7 +2,7 @@
   "product": "検査・検品業務サポートシステム",
   "englishName": "Dangerous Goods Guide",
   "version": "1.0.0-rc37",
-  "part": 184,
+  "part": 185,
   "releaseType": "trial-operation-candidate",
   "releasedAt": "2026-07-27",
   "roles": [
@@ -10,6 +10,6 @@
     "事業所管理者",
     "管理者"
   ],
-  "notes": "ホーム画面の最近の検索・お気に入りから該当する危険物詳細を直接開けるよう改善。",
-  "releaseName": "最近の利用リンク改善版"
+  "notes": "ホーム画面の主要機能に「関連資料」カードを追加し、関連資料画面への導線を改善。",
+  "releaseName": "ホーム画面関連資料追加版"
 }
