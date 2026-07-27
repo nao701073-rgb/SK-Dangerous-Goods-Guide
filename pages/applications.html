@@ -6,7 +6,7 @@
   <title>申請番号管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/photo-management.css?v=174">
+  <link rel="stylesheet" href="../assets/css/photo-management.css?v=178">
   <link rel="stylesheet" href="../assets/css/organization-management.css">
 </head>
 <body data-page="applications">
@@ -516,11 +516,11 @@
 
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
-  <script src="../assets/js/storage.js?v=174"></script>
-  <script src="../assets/js/applications.js?v=174"></script>
-  <script src="../assets/js/photos.js?v=174"></script>
+  <script src="../assets/js/storage.js?v=178"></script>
+  <script src="../assets/js/applications.js?v=178"></script>
+  <script src="../assets/js/photos.js?v=178"></script>
   <script src="../assets/js/system-shell.js"></script>
-  <script src="../assets/js/online-status.js?v=174"></script>
+  <script src="../assets/js/online-status.js?v=178"></script>
   <script>
   (()=>{const buttons=[...document.querySelectorAll("[data-application-section]")];const primary=[...document.querySelectorAll(".application-primary-section")];function show(id){primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});}buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));show("applicationScopeSection");})();
   </script>

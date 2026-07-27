@@ -125,12 +125,16 @@
         </summary>
 
         <div class="training-guide-detail">
+          ${item.plainExplanation ? `<section class="training-guide-explanation"><h4>概要</h4><p>${escapeHtml(item.plainExplanation)}</p></section>` : ""}
+
           <section>
             <h4>重要ポイント</h4>
             <ul>
               ${(item.keyPoints || []).map(point => `<li>${escapeHtml(point)}</li>`).join("")}
             </ul>
           </section>
+
+          ${Array.isArray(item.workflow) && item.workflow.length ? `<section><h4>確認の進め方</h4><ol>${item.workflow.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
 
           <section>
             <h4>検査・検品時の確認ポイント</h4>
@@ -139,6 +143,8 @@
             </ul>
           </section>
 
+          ${Array.isArray(item.commonMistakes) && item.commonMistakes.length ? `<section class="training-guide-mistakes"><h4>よくある見落とし</h4><ul>${item.commonMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>` : ""}
+
           <div class="training-guide-actions">
             <button type="button" data-guide-complete="${escapeHtml(item.id)}">${state.completed ? "確認済みを解除" : "確認済みにする"}</button>
             <button type="button" data-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "お気に入り解除" : "お気に入り"}</button>
@@ -146,7 +152,8 @@
           <label>個人メモ<textarea class="training-guide-note" data-guide-note="${escapeHtml(item.id)}" placeholder="確認事項や社内運用メモ">${escapeHtml(state.note || "")}</textarea></label>
 
           <section>
-            <h4>元資料の図・写真・表</h4>
+            <h4>元資料の図・写真・表の要約</h4>
+            <p class="training-guide-gallery-note">同じページを重複表示せず、元資料から選定した各ページを1枚ずつ掲載しています。画像を押すと拡大でき、文字・数値・凡例・脚注を確認できます。</p>
             <div class="training-guide-gallery">
               ${(item.images || []).map(image => `
                 <figure class="training-guide-figure">
@@ -155,9 +162,14 @@
                           data-image-caption="${escapeHtml(image.caption)}（PDF ${escapeHtml(image.page)}ページ）">
                     <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.caption)}" loading="lazy">
                   </button>
-                  <figcaption>${escapeHtml(image.caption)}<span>PDF ${escapeHtml(image.page)}ページ</span></figcaption>
-                </figure>
-              `).join("")}
+                  <figcaption>
+                    <div class="training-guide-figure-label">元資料ページ</div>
+                    <strong>${escapeHtml(image.caption)}</strong>
+                    <span>PDF ${escapeHtml(image.page)}ページ</span>
+                    <p>${escapeHtml(image.summary || `${image.caption}について、元資料の構成・表示例・判断上のポイントを視覚的に確認できます。`)}</p>
+                    ${Array.isArray(image.checkPoints) && image.checkPoints.length ? `<div class="training-guide-figure-checks"><b>この画像で確認する点</b><ul>${image.checkPoints.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></div>` : ""}
+                  </figcaption>
+                </figure>`).join("")}
             </div>
           </section>
         </div>

@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0-rc27",
-  "part": 174,
+  "version": "1.0.0-rc36",
+  "part": 183,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
   "fileCount": 689,
@@ -27,8 +27,6 @@
   "qaReport": "docs/part149-static-qa-report.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "IMDG条文ウィンドウに原文ページ表示タブを追加",
-    "表・画像・図版・原文レイアウトを公式PDFで確認可能",
-    "19件の関連条文に該当PDFページ情報を登録"
+    "関連資料画面の見出しを「検査・検品業務に関係する資料を整理」へ変更"
   ]
 }

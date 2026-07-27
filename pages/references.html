@@ -6,7 +6,7 @@
   <title>関連資料｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/references.css?v=174">
+  <link rel="stylesheet" href="../assets/css/references.css?v=182">
 </head>
 <body data-page="references">
   <header class="app-header">
@@ -21,18 +21,19 @@
     <section class="reference-search-panel">
       <div>
         <span class="status-badge status-badge--blue">資料レジストリ</span>
-        <h2>検査・検品に関係する資料を整理</h2>
-        <p>危規則、危告示、放告示、CTU Codeおよび収納検査に必要なIMDG Code条文を整理します。</p>
+        <h2>検査・検品業務に関係する資料を整理</h2>
+        <p>検査・検品業務に必要な条文（危規則、危告示、IMDG Code、CTU Code）を整理します。</p>
       </div>
 
       <div class="reference-controls">
         <input id="referenceQuery" type="search" placeholder="資料名・タグで検索">
         <select id="referenceCategory">
           <option value="">すべての分類</option>
-          <option value="domestic-regulation">国内省令</option>
-          <option value="domestic-notification">国内告示</option>
-          <option value="international-code">国際行動規範</option>
-                    <option value="ai-guide">AI要約ガイド</option>
+          <option value="domestic-regulation">危規則</option>
+          <option value="domestic-notification">危告示</option>
+          <option value="international-code">IMDG Code</option>
+          <option value="ctu-code">CTU Code</option>
+          <option value="ai-guide">AI要約ガイド</option>
         </select>
       </div>
     </section>
@@ -44,7 +45,7 @@
       <div class="section-heading training-guide-heading">
         <div>
           <h2>検査・検品業務資料 AI要約 <span id="trainingGuideCount"></span></h2>
-          <p>「IMDGコードに基づく検査・検品業務に関する資料 初版」を、実務で参照しやすい6カテゴリーに整理しています。</p>
+          <p>元資料129ページを6カテゴリーに整理し、背景、判断の流れ、よくある見落とし、検査手順までかみ砕いて説明します。</p>
         </div>
       </div>
 
@@ -97,7 +98,7 @@
           <p class="eyebrow">AI Quick Guide</p>
           <h2>理解しづらい規定のAI要約 <span id="aiGuideCount"></span></h2>
           <p>
-            危規則・危告示の条文やコードだけでは、適用手順や現物確認方法が分かりにくい項目を抽出しています。
+            IMDG Code・CTU Codeのうち、適用手順、例外条件、表・図の読み方、現物確認方法が分かりにくい規定を抽出しています。
           </p>
         </div>
         <a class="source-document-link" href="#referenceList">
@@ -106,7 +107,7 @@
       </div>
 
       <div class="ai-guide-controls">
-        <input id="aiGuideQuery" type="search" placeholder="例：SP274、オーバーパック、隔離、IBC">
+        <input id="aiGuideQuery" type="search" placeholder="例：SP274、少量危険物、隔離、固縛、CTU">
         <select id="aiGuideCategory">
           <option value="">すべてのテーマ</option>
         </select>
@@ -134,13 +135,13 @@
     </aside>
   </main>
 
-  <script src="../data/reference-documents.js?v=174"></script>
-  <script src="../data/imdg-inspection-guide-summary.js?v=174"></script>
-  <script src="../data/ai-reference-summaries.js?v=174"></script>
-  <script src="../data/imdg-container-inspection-clauses.js?v=174"></script>
-  <script src="../assets/js/imdg-inspection-guide.js?v=174"></script>
-  <script src="../assets/js/references.js?v=174"></script>
+  <script src="../data/reference-documents.js?v=182"></script>
+  <script src="../data/imdg-inspection-guide-summary.js?v=182"></script>
+  <script src="../data/ai-reference-summaries.js?v=182"></script>
+  <script src="../data/imdg-container-inspection-clauses.js?v=182"></script>
+  <script src="../assets/js/imdg-inspection-guide.js?v=182"></script>
+  <script src="../assets/js/references.js?v=182"></script>
   <script src="../assets/js/system-shell.js"></script>
-  <script src="../assets/js/online-status.js?v=174"></script>
+  <script src="../assets/js/online-status.js?v=182"></script>
 </body>
 </html>

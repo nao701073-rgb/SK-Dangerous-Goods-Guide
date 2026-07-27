@@ -975,3 +975,20 @@ body.is-reference-source-modal-open {
 
 /* Part 174: visual source page viewer */
 .reference-source-modal__view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.reference-source-modal__view-tabs[hidden]{display:none}.reference-source-modal__view-tabs button{min-height:40px;padding:0 14px;border:1px solid #9ab8d5;border-radius:9px;background:#fff;color:#075ca8;font-weight:800}.reference-source-modal__view-tabs button.is-active{background:#075ca8;color:#fff}.reference-source-modal__page{display:grid;gap:12px}.reference-source-modal__page[hidden]{display:none}.reference-source-modal__page p{margin:0;color:#48627a;font-size:.78rem;line-height:1.6}.reference-source-modal__page iframe{width:100%;height:min(68vh,760px);border:1px solid #c9d8e6;border-radius:10px;background:#eef3f7}.reference-source-modal__page a{width:fit-content;padding:10px 14px;border:1px solid #8fb4d8;border-radius:9px;color:#075ca8;font-weight:800}@media(max-width:600px){.reference-source-modal__page iframe{height:64vh}.reference-source-modal__view-tabs button{flex:1 1 150px}}
+
+
+/* Part 175: related materials full review */
+.training-guide-explanation,.training-guide-mistakes,.ai-guide-mistakes{padding:14px;border-radius:10px;background:#f4f8fc;border-left:4px solid #1f6fb2}.training-guide-mistakes,.ai-guide-mistakes{background:#fff8e8;border-left-color:#c98200}.training-guide-detail ol,.ai-guide-detail ol,.imdg-clause-detail ol{margin:8px 0 0;padding-left:1.4rem;line-height:1.8}.training-guide-detail p,.ai-guide-detail p,.imdg-clause-detail p{text-align:left;white-space:normal;overflow-wrap:anywhere}.reference-source-modal__page-gallery{display:grid;gap:18px}.reference-source-page-figure{margin:0;padding:10px;border:1px solid #c9d8e6;border-radius:10px;background:#eef3f7}.reference-source-page-figure a{display:block;padding:0;border:0}.reference-source-page-figure img{display:block;width:100%;height:auto;margin:0 auto;background:#fff;box-shadow:0 6px 18px rgba(7,42,74,.12)}.reference-source-page-figure figcaption{margin-top:8px;color:#38536f;font-size:.76rem;font-weight:800}.reference-source-modal__text{tab-size:4;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;line-height:1.75}.reference-source-modal__page p{text-align:left}@media(max-width:600px){.reference-source-page-figure{padding:5px}.reference-source-modal__text{font-size:.78rem;line-height:1.65}.training-guide-detail section,.ai-guide-detail section,.imdg-clause-detail section{padding-inline:0}}
+
+
+/* Part 176: source visual summaries and CTU source viewer */
+.training-guide-figure figcaption{display:grid;gap:5px;text-align:left}
+.training-guide-figure figcaption strong{color:#0b3a67;font-size:.82rem;line-height:1.5}
+.training-guide-figure figcaption p{margin:2px 0 0;color:#48627a;font-size:.75rem;line-height:1.65;font-weight:500}
+.reference-source-modal__page iframe{background:#fff}
+@media(max-width:600px){
+  .training-guide-figure figcaption p{font-size:.78rem}
+  .reference-source-modal__page iframe{height:70vh}
+}
+
+.training-guide-gallery-note{margin:0 0 12px;color:#48627a;font-size:.78rem;line-height:1.7}.training-guide-figure.is-detail{background:#f7fbff;border-color:#8fb9df}.training-guide-figure-label{display:inline-flex;width:max-content;margin-bottom:3px;padding:3px 7px;border-radius:999px;background:#eaf3fb;color:#075ca8;font-size:.65rem;font-weight:900}.training-guide-figure.is-detail .training-guide-figure-label{background:#dfefff}.training-guide-figure-checks{margin-top:8px;padding:9px 10px;border-radius:8px;background:#f4f8fc;color:#304b65}.training-guide-figure-checks b{font-size:.72rem}.training-guide-figure-checks ul{margin:5px 0 0;padding-left:1.2rem}.training-guide-figure-checks li{margin:2px 0;font-size:.7rem;line-height:1.5}.training-guide-figure.is-detail .training-guide-image-button img{object-fit:contain;background:#fff}@media(max-width:600px){.training-guide-figure-checks li{font-size:.76rem}.training-guide-gallery-note{font-size:.82rem}}

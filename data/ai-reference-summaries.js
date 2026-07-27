@@ -1,1 +1,1225 @@
-window.AI_REFERENCE_SUMMARIES = {"schemaVersion":"1.0","updatedAt":"2026-07-25","sourceDocument":{"title":"IMDGコードに基づく検査・検品業務に関する資料 初版","fileName":"IMDG_Code_Inspection_Guide_1st_Edition.pdf","originalPath":"../references/originals/IMDG_Code_Inspection_Guide_1st_Edition.pdf","pages":129,"editionNote":"IMDG Code 42-24（2025年9月時点）との整合確認を前提とした業務支援資料"},"selectionPolicy":"CTU Codeのうち、危険物コンテナ収納検査で現場確認に使う項目だけを簡潔に表示する。","disclaimer":"要約は理解補助です。法令適合は危規則、危告示、放告示およびIMDG Code原文で確認してください。","categories":{"ctu":"CTU Code"},"summaries":[{"id":"ctu-purpose","category":"ctu","title":"CTU Codeの位置付け","keywords":["CTU Code","目的","適用範囲"],"sourcePages":[4,5],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 1.1","CTU Code 1.4"],"aiSummary":"CTU Codeは、安全な積付け・固縛・開封を支援する実務指針です。国内法令や輸送モード別規則に優先するものではありません。","inspectionPoints":["法令要件とCTU Codeの推奨事項を分けて確認する","貨物・輸送モードに対応する章と付属書を参照する"],"caution":"CTU Codeだけで法令適合を判断しません。","sourceProvisionTitle":"CTU Code 1.1 / CTU Code 1.4","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 1.1 / CTU Code 1.4\n\n該当規定の要点\nCTU Codeは、安全な積付け・固縛・開封を支援する実務指針です。国内法令や輸送モード別規則に優先するものではありません。\n\n実務確認項目\n• 法令要件とCTU Codeの推奨事項を分けて確認する\n• 貨物・輸送モードに対応する章と付属書を参照する\n\n注意\nCTU Codeだけで法令適合を判断しません。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-basic-check","category":"ctu","title":"積付け前の基本確認","keywords":["積付け前","CTU点検","保護具","固縛器具"],"sourcePages":[11,12],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code Chapter 3"],"aiSummary":"作業環境、保護具、CTU本体、床、扉、固縛器具の状態を先に確認し、損傷や汚染があるCTUは使用しません。","inspectionPoints":["床・壁・扉・固縛点の損傷を確認する","残留物、害虫、不要な旧表示を確認する"],"caution":"積付け後では確認できない箇所を優先します。","sourceProvisionTitle":"CTU Code Chapter 3","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 3\n\n該当規定の要点\n作業環境、保護具、CTU本体、床、扉、固縛器具の状態を先に確認し、損傷や汚染があるCTUは使用しません。\n\n実務確認項目\n• 床・壁・扉・固縛点の損傷を確認する\n• 残留物、害虫、不要な旧表示を確認する\n\n注意\n積付け後では確認できない箇所を優先します。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-responsibility-chain","category":"ctu","title":"責任と情報の連鎖","keywords":["責任","荷送人","収納者","発荷主"],"sourcePages":[13,14,15,16],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code Chapter 4"],"aiSummary":"発荷主は正確な貨物情報、収納者は適切な配置・固定・重量確認、荷送人は書類と情報伝達を担います。","inspectionPoints":["誰が分類・収納・重量確認を行ったか確認する","危険物情報と積付証明の伝達先を確認する"],"caution":"担当者が不明でも責任が消えるわけではありません。","sourceProvisionTitle":"CTU Code Chapter 4","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 4\n\n該当規定の要点\n発荷主は正確な貨物情報、収納者は適切な配置・固定・重量確認、荷送人は書類と情報伝達を担います。\n\n実務確認項目\n• 誰が分類・収納・重量確認を行ったか確認する\n• 危険物情報と積付証明の伝達先を確認する\n\n注意\n担当者が不明でも責任が消えるわけではありません。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-load-distribution","category":"ctu","title":"荷重分布と重心","keywords":["荷重分布","重心","偏荷重","床荷重"],"sourcePages":[11,32],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 3.3","CTU Code Chapter 9","Annex 7"],"aiSummary":"重量物は床面へ均等に分散し、重心を低く中央寄りにします。局部集中荷重や左右・前後の著しい偏りを避けます。","inspectionPoints":["重量物の接地面積と床荷重を確認する","左右・前後の偏荷重と重心位置を確認する"],"caution":"総重量内でも局部床荷重を超える場合があります。","sourceProvisionTitle":"CTU Code 3.3 / CTU Code Chapter 9 / Annex 7","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.3 / CTU Code Chapter 9 / Annex 7\n\n該当規定の要点\n重量物は床面へ均等に分散し、重心を低く中央寄りにします。局部集中荷重や左右・前後の著しい偏りを避けます。\n\n実務確認項目\n• 重量物の接地面積と床荷重を確認する\n• 左右・前後の偏荷重と重心位置を確認する\n\n注意\n総重量内でも局部床荷重を超える場合があります。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-securing","category":"ctu","title":"貨物固定の基本","keywords":["固縛","ラッシング","根止め","摩擦"],"sourcePages":[11,12,32],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 3.5","Annex 7"],"aiSummary":"滑りと転倒を防ぐため、根止め、ラッシング、空隙処理、滑り止めを組み合わせます。過度な締付けは貨物やCTUを損傷します。","inspectionPoints":["全方向の移動と転倒を抑えられるか確認する","固縛点・器具の強度と取付状態を確認する"],"caution":"ベルトを結んで短くする使用方法は避けます。","sourceProvisionTitle":"CTU Code 3.5 / Annex 7","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.5 / Annex 7\n\n該当規定の要点\n滑りと転倒を防ぐため、根止め、ラッシング、空隙処理、滑り止めを組み合わせます。過度な締付けは貨物やCTUを損傷します。\n\n実務確認項目\n• 全方向の移動と転倒を抑えられるか確認する\n• 固縛点・器具の強度と取付状態を確認する\n\n注意\nベルトを結んで短くする使用方法は避けます。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-dangerous-goods","category":"ctu","title":"危険物収納の追加確認","keywords":["危険物","標札","隔離","扉付近"],"sourcePages":[11,34],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 3.4","CTU Code Chapter 10"],"aiSummary":"危険物は容器表示、漏れ、隔離、外部プラカードを確認し、可能な限り扉付近に配置します。","inspectionPoints":["破損・漏れのある容器を収納しない","相性の悪い危険物を同一CTUに収納しない"],"caution":"CTU Codeに加えて危規則・危告示・IMDG Codeを確認します。","sourceProvisionTitle":"CTU Code 3.4 / CTU Code Chapter 10","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.4 / CTU Code Chapter 10\n\n該当規定の要点\n危険物は容器表示、漏れ、隔離、外部プラカードを確認し、可能な限り扉付近に配置します。\n\n実務確認項目\n• 破損・漏れのある容器を収納しない\n• 相性の悪い危険物を同一CTUに収納しない\n\n注意\nCTU Codeに加えて危規則・危告示・IMDG Codeを確認します。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-completion","category":"ctu","title":"積付け完了時の確認","keywords":["総重量","シール","積付証明","完了"],"sourcePages":[12,36],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 3.6","CTU Code Chapter 11"],"aiSummary":"完了時は総重量、扉の閉鎖、シール、CTU番号、表示、書類を確認し、必要な積付証明を作成します。","inspectionPoints":["総重量と書類記載値を照合する","シール番号とCTU番号を記録する"],"caution":"重量は収納者の施設を出る前に確認します。","sourceProvisionTitle":"CTU Code 3.6 / CTU Code Chapter 11","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.6 / CTU Code Chapter 11\n\n該当規定の要点\n完了時は総重量、扉の閉鎖、シール、CTU番号、表示、書類を確認し、必要な積付証明を作成します。\n\n実務確認項目\n• 総重量と書類記載値を照合する\n• シール番号とCTU番号を記録する\n\n注意\n重量は収納者の施設を出る前に確認します。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-opening","category":"ctu","title":"CTUの開封","keywords":["開封","換気","崩落","シール"],"sourcePages":[12,38],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code 3.7","CTU Code Chapter 12"],"aiSummary":"開封前に番号・シール・漏れを確認し、換気後、貨物の崩落を警戒しながら扉を開けます。","inspectionPoints":["扉の正面に立たず、貨物圧を警戒する","有害ガスのおそれがあれば測定・換気する"],"caution":"臭いがないことだけで安全とは判断しません。","sourceProvisionTitle":"CTU Code 3.7 / CTU Code Chapter 12","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.7 / CTU Code Chapter 12\n\n該当規定の要点\n開封前に番号・シール・漏れを確認し、換気後、貨物の崩落を警戒しながら扉を開けます。\n\n実務確認項目\n• 扉の正面に立たず、貨物圧を警戒する\n• 有害ガスのおそれがあれば測定・換気する\n\n注意\n臭いがないことだけで安全とは判断しません。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-condensation","category":"ctu","title":"結露と水分管理","keywords":["結露","湿度","水分","カビ","腐食"],"sourcePages":[4,6,8],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code Chapter 5","Annex 3"],"aiSummary":"湿った貨物や梱包材は結露、腐食、カビ、荷崩れの原因になります。貨物水分、温度変化、換気条件を事前に確認します。","inspectionPoints":["濡れた貨物・床・木材を収納しない","吸湿性貨物と航路の温度差を確認する"],"caution":"乾燥剤だけで結露を完全に防げるとは限りません。","sourceProvisionTitle":"CTU Code Chapter 5 / Annex 3","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 5 / Annex 3\n\n該当規定の要点\n湿った貨物や梱包材は結露、腐食、カビ、荷崩れの原因になります。貨物水分、温度変化、換気条件を事前に確認します。\n\n実務確認項目\n• 濡れた貨物・床・木材を収納しない\n• 吸湿性貨物と航路の温度差を確認する\n\n注意\n乾燥剤だけで結露を完全に防げるとは限りません。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"},{"id":"ctu-training","category":"ctu","title":"収納作業者の教育","keywords":["訓練","教育","収納者","固縛計算"],"sourcePages":[127],"sourceDocument":"CTU Code（仮訳）","imdgRefs":["CTU Code Chapter 13","Annex 10"],"aiSummary":"収納者には、荷重、固縛、CTU点検、危険物、開封時の危険など、担当業務に応じた訓練が必要です。","inspectionPoints":["作業内容に対応した教育記録を確認する","固縛器具と計算方法の理解を確認する"],"caution":"経験だけに依存せず、定期的に教育内容を更新します。","sourceProvisionTitle":"CTU Code Chapter 13 / Annex 10","sourceProvisionTextJa":"登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 13 / Annex 10\n\n該当規定の要点\n収納者には、荷重、固縛、CTU点検、危険物、開封時の危険など、担当業務に応じた訓練が必要です。\n\n実務確認項目\n• 作業内容に対応した教育記録を確認する\n• 固縛器具と計算方法の理解を確認する\n\n注意\n経験だけに依存せず、定期的に教育内容を更新します。","sourceProvisionNote":"国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。"}]};
+window.AI_REFERENCE_SUMMARIES = {
+  "schemaVersion": "1.2",
+  "updatedAt": "2026-07-27",
+  "sourceDocument": {
+    "title": "IMDGコードに基づく検査・検品業務に関する資料 初版",
+    "fileName": "IMDG_Code_Inspection_Guide_1st_Edition.pdf",
+    "originalPath": "../references/originals/IMDG_Code_Inspection_Guide_1st_Edition.pdf",
+    "pages": 129,
+    "editionNote": "IMDG Code 42-24（2025年9月時点）との整合確認を前提とした業務支援資料"
+  },
+  "selectionPolicy": "CTU CodeとIMDG Codeから、検査員が適用判断や現物確認で迷いやすい規定を幅広く抽出し、公式PDFの該当ページとともに表示する。",
+  "disclaimer": "AI要約は理解補助です。正式な判断は危規則、危告示、IMDG Code英語原文、CTU Code公表資料、表・図・脚注を確認してください。",
+  "categories": {
+    "imdg": "IMDG Code",
+    "ctu": "CTU Code"
+  },
+  "summaries": [
+    {
+      "id": "imdg-legal-status",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "適用範囲と強制規定・推奨規定の区別",
+      "keywords": [
+        "適用",
+        "法的地位",
+        "強制",
+        "推奨"
+      ],
+      "sourcePages": [
+        14
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 1.1.1",
+        "1.1.1.5"
+      ],
+      "aiSummary": "IMDG Codeには強制規定と推奨規定が混在します。検査では、対象船舶・貨物・輸送区間を確認し、どの規定が法的義務かを先に整理します。",
+      "inspectionPoints": [
+        "対象となる船舶・貨物・輸送形態を特定する",
+        "推奨規定でも国内法令で義務化されていないか確認する"
+      ],
+      "caution": "「推奨」と書かれていても、国内法令や契約条件により実質的に必須となる場合があります。",
+      "sourceProvisionTitle": "IMDG Code 1.1.1 / 1.1.1.5",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 1.1.1 / 1.1.1.5\n\n概要\nIMDG Codeには強制規定と推奨規定が混在します。検査では、対象船舶・貨物・輸送区間を確認し、どの規定が法的義務かを先に整理します。\n\n現場確認\n• 対象となる船舶・貨物・輸送形態を特定する\n• 推奨規定でも国内法令で義務化されていないか確認する\n\n注意\n「推奨」と書かれていても、国内法令や契約条件により実質的に必須となる場合があります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 14,
+      "expandedSummary": "IMDG Codeには強制規定と推奨規定が混在します。検査では、対象船舶・貨物・輸送区間を確認し、どの規定が法的義務かを先に整理します。",
+      "checkProcedure": [
+        "対象となる船舶・貨物・輸送形態を特定する",
+        "推奨規定でも国内法令で義務化されていないか確認する"
+      ],
+      "commonMistakes": [
+        "「推奨」と書かれていても、国内法令や契約条件により実質的に必須となる場合があります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-prohibited",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "輸送禁止物質の判断",
+      "keywords": [
+        "禁止",
+        "危険な反応",
+        "SP900"
+      ],
+      "sourcePages": [
+        23
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 1.1.3"
+      ],
+      "aiSummary": "通常の輸送条件で爆発、危険な反応、危険な発熱、有毒・腐食性・引火性ガスの放出が起こる物質は、原則として海上輸送できません。",
+      "inspectionPoints": [
+        "SDSと安定性情報から輸送中の反応性を確認する",
+        "危険物リストと特別規定の禁止条件を確認する"
+      ],
+      "caution": "国連番号が存在していても、状態・濃度・安定化条件によって輸送禁止となることがあります。",
+      "sourceProvisionTitle": "IMDG Code 1.1.3",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 1.1.3\n\n概要\n通常の輸送条件で爆発、危険な反応、危険な発熱、有毒・腐食性・引火性ガスの放出が起こる物質は、原則として海上輸送できません。\n\n現場確認\n• SDSと安定性情報から輸送中の反応性を確認する\n• 危険物リストと特別規定の禁止条件を確認する\n\n注意\n国連番号が存在していても、状態・濃度・安定化条件によって輸送禁止となることがあります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 23,
+      "expandedSummary": "通常の輸送条件で爆発、危険な反応、危険な発熱、有毒・腐食性・引火性ガスの放出が起こる物質は、原則として海上輸送できません。",
+      "checkProcedure": [
+        "SDSと安定性情報から輸送中の反応性を確認する",
+        "危険物リストと特別規定の禁止条件を確認する"
+      ],
+      "commonMistakes": [
+        "国連番号が存在していても、状態・濃度・安定化条件によって輸送禁止となることがあります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-training",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "職務別訓練と記録",
+      "keywords": [
+        "訓練",
+        "職務別",
+        "記録"
+      ],
+      "sourcePages": [
+        41
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 1.3.1",
+        "1.3.1.4"
+      ],
+      "aiSummary": "危険物に関わる陸上職員は、担当業務に応じた一般認識、職務別、安全、保安訓練を受け、訓練記録を保持する必要があります。",
+      "inspectionPoints": [
+        "検査担当者の職務に対応した訓練内容を確認する",
+        "訓練日、内容、受講者、更新状況を記録で確認する"
+      ],
+      "caution": "資格名だけでなく、実際に担当する分類・包装・表示・書類・収納業務に対応しているか確認します。",
+      "sourceProvisionTitle": "IMDG Code 1.3.1 / 1.3.1.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 1.3.1 / 1.3.1.4\n\n概要\n危険物に関わる陸上職員は、担当業務に応じた一般認識、職務別、安全、保安訓練を受け、訓練記録を保持する必要があります。\n\n現場確認\n• 検査担当者の職務に対応した訓練内容を確認する\n• 訓練日、内容、受講者、更新状況を記録で確認する\n\n注意\n資格名だけでなく、実際に担当する分類・包装・表示・書類・収納業務に対応しているか確認します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 41,
+      "expandedSummary": "危険物に関わる陸上職員は、担当業務に応じた一般認識、職務別、安全、保安訓練を受け、訓練記録を保持する必要があります。",
+      "checkProcedure": [
+        "検査担当者の職務に対応した訓練内容を確認する",
+        "訓練日、内容、受講者、更新状況を記録で確認する"
+      ],
+      "commonMistakes": [
+        "資格名だけでなく、実際に担当する分類・包装・表示・書類・収納業務に対応しているか確認します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-security",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "保安規定と重大影響危険物",
+      "keywords": [
+        "保安",
+        "重大影響危険物",
+        "セキュリティ"
+      ],
+      "sourcePages": [
+        46
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 1.4"
+      ],
+      "aiSummary": "危険物の盗難・悪用を防ぐため、関係者の識別、アクセス管理、情報管理、重大影響危険物の保安計画が求められます。",
+      "inspectionPoints": [
+        "貨物・書類・保管場所へのアクセス管理を確認する",
+        "重大影響危険物に該当する場合は保安計画を確認する"
+      ],
+      "caution": "安全対策と保安対策は別です。漏えい防止だけでなく、故意の持出しや情報漏えいも確認します。",
+      "sourceProvisionTitle": "IMDG Code Chapter 1.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 1.4\n\n概要\n危険物の盗難・悪用を防ぐため、関係者の識別、アクセス管理、情報管理、重大影響危険物の保安計画が求められます。\n\n現場確認\n• 貨物・書類・保管場所へのアクセス管理を確認する\n• 重大影響危険物に該当する場合は保安計画を確認する\n\n注意\n安全対策と保安対策は別です。漏えい防止だけでなく、故意の持出しや情報漏えいも確認します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 46,
+      "expandedSummary": "危険物の盗難・悪用を防ぐため、関係者の識別、アクセス管理、情報管理、重大影響危険物の保安計画が求められます。",
+      "checkProcedure": [
+        "貨物・書類・保管場所へのアクセス管理を確認する",
+        "重大影響危険物に該当する場合は保安計画を確認する"
+      ],
+      "commonMistakes": [
+        "安全対策と保安対策は別です。漏えい防止だけでなく、故意の持出しや情報漏えいも確認します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-classification",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "分類責任と主危険性・副次危険性",
+      "keywords": [
+        "分類",
+        "主危険性",
+        "副次危険性"
+      ],
+      "sourcePages": [
+        54
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 2.0.0",
+        "2.0.3"
+      ],
+      "aiSummary": "分類は荷送人等の責任で行い、物質の試験結果・組成・性状から主危険性、副次危険性、容器等級を決定します。",
+      "inspectionPoints": [
+        "SDSだけでなく試験・組成根拠を確認する",
+        "主標札と副標札が分類結果と一致するか確認する"
+      ],
+      "caution": "製品名や用途だけで分類せず、輸送時の物理化学的性状に基づいて判断します。",
+      "sourceProvisionTitle": "IMDG Code 2.0.0 / 2.0.3",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 2.0.0 / 2.0.3\n\n概要\n分類は荷送人等の責任で行い、物質の試験結果・組成・性状から主危険性、副次危険性、容器等級を決定します。\n\n現場確認\n• SDSだけでなく試験・組成根拠を確認する\n• 主標札と副標札が分類結果と一致するか確認する\n\n注意\n製品名や用途だけで分類せず、輸送時の物理化学的性状に基づいて判断します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 54,
+      "expandedSummary": "分類は荷送人等の責任で行い、物質の試験結果・組成・性状から主危険性、副次危険性、容器等級を決定します。",
+      "checkProcedure": [
+        "SDSだけでなく試験・組成根拠を確認する",
+        "主標札と副標札が分類結果と一致するか確認する"
+      ],
+      "commonMistakes": [
+        "製品名や用途だけで分類せず、輸送時の物理化学的性状に基づいて判断します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-marine-pollutant",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "海洋汚染物質の判定と表示",
+      "keywords": [
+        "海洋汚染物質",
+        "Pマーク",
+        "環境有害性"
+      ],
+      "sourcePages": [
+        155
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 2.10.3",
+        "5.2.1.6"
+      ],
+      "aiSummary": "海洋汚染物質は水生環境有害性の基準で判定し、危険物リストの表示だけでなく、混合物の組成や濃度限界も確認します。",
+      "inspectionPoints": [
+        "危険物リストのP表示とSDS環境有害性を照合する",
+        "容器・CTUの海洋汚染物質マークを確認する"
+      ],
+      "caution": "危険等級9でない物質でも、海洋汚染物質に該当する場合があります。",
+      "sourceProvisionTitle": "IMDG Code 2.10.3 / 5.2.1.6",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 2.10.3 / 5.2.1.6\n\n概要\n海洋汚染物質は水生環境有害性の基準で判定し、危険物リストの表示だけでなく、混合物の組成や濃度限界も確認します。\n\n現場確認\n• 危険物リストのP表示とSDS環境有害性を照合する\n• 容器・CTUの海洋汚染物質マークを確認する\n\n注意\n危険等級9でない物質でも、海洋汚染物質に該当する場合があります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 155,
+      "expandedSummary": "海洋汚染物質は水生環境有害性の基準で判定し、危険物リストの表示だけでなく、混合物の組成や濃度限界も確認します。",
+      "checkProcedure": [
+        "危険物リストのP表示とSDS環境有害性を照合する",
+        "容器・CTUの海洋汚染物質マークを確認する"
+      ],
+      "commonMistakes": [
+        "危険等級9でない物質でも、海洋汚染物質に該当する場合があります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-psn-selection",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "正式輸送品名の選定",
+      "keywords": [
+        "正式輸送品名",
+        "PSN",
+        "技術名"
+      ],
+      "sourcePages": [
+        560
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 3.1.2"
+      ],
+      "aiSummary": "正式輸送品名は危険物リストに記載された名称を使用し、商品名だけで代用できません。必要な修飾語や技術名を正しい位置に加えます。",
+      "inspectionPoints": [
+        "国連番号と正式輸送品名の組合せを照合する",
+        "括弧書きの技術名や修飾語の要否を確認する"
+      ],
+      "caution": "日本語訳だけでなく、輸送書類では規定された英語の正式輸送品名を確認します。",
+      "sourceProvisionTitle": "IMDG Code 3.1.2",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 3.1.2\n\n概要\n正式輸送品名は危険物リストに記載された名称を使用し、商品名だけで代用できません。必要な修飾語や技術名を正しい位置に加えます。\n\n現場確認\n• 国連番号と正式輸送品名の組合せを照合する\n• 括弧書きの技術名や修飾語の要否を確認する\n\n注意\n日本語訳だけでなく、輸送書類では規定された英語の正式輸送品名を確認します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 560,
+      "expandedSummary": "正式輸送品名は危険物リストに記載された名称を使用し、商品名だけで代用できません。必要な修飾語や技術名を正しい位置に加えます。",
+      "checkProcedure": [
+        "国連番号と正式輸送品名の組合せを照合する",
+        "括弧書きの技術名や修飾語の要否を確認する"
+      ],
+      "commonMistakes": [
+        "日本語訳だけでなく、輸送書類では規定された英語の正式輸送品名を確認します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-nos",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "N.O.S.品名と技術名の補足",
+      "keywords": [
+        "N.O.S.",
+        "SP274",
+        "技術名"
+      ],
+      "sourcePages": [
+        561
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 3.1.2.8",
+        "SP274"
+      ],
+      "aiSummary": "N.O.S.又は包括品名でSP274等が適用される場合、危険性を最も適切に示す技術名・化学族名を括弧内に追記します。",
+      "inspectionPoints": [
+        "技術名が一般に認識された名称か確認する",
+        "混合物では危険性に寄与する成分を確認する"
+      ],
+      "caution": "「混合物」「樹脂」「製品」など曖昧な表現だけでは技術名の要件を満たしません。",
+      "sourceProvisionTitle": "IMDG Code 3.1.2.8 / SP274",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 3.1.2.8 / SP274\n\n概要\nN.O.S.又は包括品名でSP274等が適用される場合、危険性を最も適切に示す技術名・化学族名を括弧内に追記します。\n\n現場確認\n• 技術名が一般に認識された名称か確認する\n• 混合物では危険性に寄与する成分を確認する\n\n注意\n「混合物」「樹脂」「製品」など曖昧な表現だけでは技術名の要件を満たしません。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 561,
+      "expandedSummary": "N.O.S.又は包括品名でSP274等が適用される場合、危険性を最も適切に示す技術名・化学族名を括弧内に追記します。",
+      "checkProcedure": [
+        "技術名が一般に認識された名称か確認する",
+        "混合物では危険性に寄与する成分を確認する"
+      ],
+      "commonMistakes": [
+        "「混合物」「樹脂」「製品」など曖昧な表現だけでは技術名の要件を満たしません。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-dgl-columns",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "危険物リスト18列の読み方",
+      "keywords": [
+        "危険物リスト",
+        "DGL",
+        "列"
+      ],
+      "sourcePages": [
+        556
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 3.2.1"
+      ],
+      "aiSummary": "危険物リストの各列は、分類、包装、特別規定、少量・微量危険物、タンク、EmS、積載、隔離など別々の判断先を示します。",
+      "inspectionPoints": [
+        "対象行を国連番号と品名の両方で特定する",
+        "各コードを対応章へ遡って確認する"
+      ],
+      "caution": "リストのコードだけを見て意味を推測せず、必ず参照先の本文・注記まで確認します。",
+      "sourceProvisionTitle": "IMDG Code 3.2.1",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 3.2.1\n\n概要\n危険物リストの各列は、分類、包装、特別規定、少量・微量危険物、タンク、EmS、積載、隔離など別々の判断先を示します。\n\n現場確認\n• 対象行を国連番号と品名の両方で特定する\n• 各コードを対応章へ遡って確認する\n\n注意\nリストのコードだけを見て意味を推測せず、必ず参照先の本文・注記まで確認します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 556,
+      "expandedSummary": "危険物リストの各列は、分類、包装、特別規定、少量・微量危険物、タンク、EmS、積載、隔離など別々の判断先を示します。",
+      "checkProcedure": [
+        "対象行を国連番号と品名の両方で特定する",
+        "各コードを対応章へ遡って確認する"
+      ],
+      "commonMistakes": [
+        "リストのコードだけを見て意味を推測せず、必ず参照先の本文・注記まで確認します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-special-provisions",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "特別規定SPの適用",
+      "keywords": [
+        "特別規定",
+        "SP",
+        "列6"
+      ],
+      "sourcePages": [
+        753
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 3.3"
+      ],
+      "aiSummary": "特別規定は、特定の物質・濃度・形態・用途に対し、追加要件、適用除外、禁止、品名補足などを定めます。",
+      "inspectionPoints": [
+        "危険物リスト6列のSP番号をすべて確認する",
+        "複数SPの適用条件を個別に照合する"
+      ],
+      "caution": "SPは短いコードでも適用条件が複雑です。一部だけ読んで適用可否を判断しないでください。",
+      "sourceProvisionTitle": "IMDG Code Chapter 3.3",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 3.3\n\n概要\n特別規定は、特定の物質・濃度・形態・用途に対し、追加要件、適用除外、禁止、品名補足などを定めます。\n\n現場確認\n• 危険物リスト6列のSP番号をすべて確認する\n• 複数SPの適用条件を個別に照合する\n\n注意\nSPは短いコードでも適用条件が複雑です。一部だけ読んで適用可否を判断しないでください。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 753,
+      "expandedSummary": "特別規定は、特定の物質・濃度・形態・用途に対し、追加要件、適用除外、禁止、品名補足などを定めます。",
+      "checkProcedure": [
+        "危険物リスト6列のSP番号をすべて確認する",
+        "複数SPの適用条件を個別に照合する"
+      ],
+      "commonMistakes": [
+        "SPは短いコードでも適用条件が複雑です。一部だけ読んで適用可否を判断しないでください。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-limited-quantity",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "少量危険物の適用条件",
+      "keywords": [
+        "少量危険物",
+        "LQ",
+        "3.4"
+      ],
+      "sourcePages": [
+        762
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 3.4"
+      ],
+      "aiSummary": "少量危険物は1内装容器当たりの限度、組合せ容器、総質量、表示、書類等の条件をすべて満たす場合に限り、一部要件が緩和されます。",
+      "inspectionPoints": [
+        "危険物リスト7a列の数量限度を確認する",
+        "内装容器・外装容器・総質量・LQマークを確認する"
+      ],
+      "caution": "少量だから危険物でなくなるわけではありません。条件を一つでも外れると通常規定が適用されます。",
+      "sourceProvisionTitle": "IMDG Code Chapter 3.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 3.4\n\n概要\n少量危険物は1内装容器当たりの限度、組合せ容器、総質量、表示、書類等の条件をすべて満たす場合に限り、一部要件が緩和されます。\n\n現場確認\n• 危険物リスト7a列の数量限度を確認する\n• 内装容器・外装容器・総質量・LQマークを確認する\n\n注意\n少量だから危険物でなくなるわけではありません。条件を一つでも外れると通常規定が適用されます。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 762,
+      "expandedSummary": "少量危険物は1内装容器当たりの限度、組合せ容器、総質量、表示、書類等の条件をすべて満たす場合に限り、一部要件が緩和されます。",
+      "checkProcedure": [
+        "危険物リスト7a列の数量限度を確認する",
+        "内装容器・外装容器・総質量・LQマークを確認する"
+      ],
+      "commonMistakes": [
+        "少量だから危険物でなくなるわけではありません。条件を一つでも外れると通常規定が適用されます。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-excepted-quantity",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "微量危険物の適用条件",
+      "keywords": [
+        "微量危険物",
+        "EQ",
+        "3.5"
+      ],
+      "sourcePages": [
+        788
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 3.5"
+      ],
+      "aiSummary": "微量危険物はEコードで定める極少量の内装容器・外装容器限度、三重包装、試験、表示などを満たす場合に適用されます。",
+      "inspectionPoints": [
+        "危険物リスト7b列のEコードを確認する",
+        "内装容器量、外装容器総量、落下・積重ね要件を確認する"
+      ],
+      "caution": "E0は微量危険物として輸送できません。少量危険物と条件を混同しないでください。",
+      "sourceProvisionTitle": "IMDG Code Chapter 3.5",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 3.5\n\n概要\n微量危険物はEコードで定める極少量の内装容器・外装容器限度、三重包装、試験、表示などを満たす場合に適用されます。\n\n現場確認\n• 危険物リスト7b列のEコードを確認する\n• 内装容器量、外装容器総量、落下・積重ね要件を確認する\n\n注意\nE0は微量危険物として輸送できません。少量危険物と条件を混同しないでください。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 788,
+      "expandedSummary": "微量危険物はEコードで定める極少量の内装容器・外装容器限度、三重包装、試験、表示などを満たす場合に適用されます。",
+      "checkProcedure": [
+        "危険物リスト7b列のEコードを確認する",
+        "内装容器量、外装容器総量、落下・積重ね要件を確認する"
+      ],
+      "commonMistakes": [
+        "E0は微量危険物として輸送できません。少量危険物と条件を混同しないでください。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-packing-general",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "包装の一般要件",
+      "keywords": [
+        "包装",
+        "漏れ",
+        "適合性"
+      ],
+      "sourcePages": [
+        238
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 4.1.1"
+      ],
+      "aiSummary": "容器は通常輸送時の衝撃・振動・温湿度・圧力変化に耐え、内容物と適合し、漏れず、外面に危険な付着がない状態で閉鎖します。",
+      "inspectionPoints": [
+        "容器材質と内容物の適合性を確認する",
+        "閉鎖状態、漏れ、外面付着、空間率を確認する"
+      ],
+      "caution": "UNマーク付き容器でも、内容物・比重・圧力・閉鎖方法が承認条件に合わなければ使用できません。",
+      "sourceProvisionTitle": "IMDG Code 4.1.1",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 4.1.1\n\n概要\n容器は通常輸送時の衝撃・振動・温湿度・圧力変化に耐え、内容物と適合し、漏れず、外面に危険な付着がない状態で閉鎖します。\n\n現場確認\n• 容器材質と内容物の適合性を確認する\n• 閉鎖状態、漏れ、外面付着、空間率を確認する\n\n注意\nUNマーク付き容器でも、内容物・比重・圧力・閉鎖方法が承認条件に合わなければ使用できません。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 238,
+      "expandedSummary": "容器は通常輸送時の衝撃・振動・温湿度・圧力変化に耐え、内容物と適合し、漏れず、外面に危険な付着がない状態で閉鎖します。",
+      "checkProcedure": [
+        "容器材質と内容物の適合性を確認する",
+        "閉鎖状態、漏れ、外面付着、空間率を確認する"
+      ],
+      "commonMistakes": [
+        "UNマーク付き容器でも、内容物・比重・圧力・閉鎖方法が承認条件に合わなければ使用できません。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-packing-instructions",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "包装要件P・IBC・LPの読み方",
+      "keywords": [
+        "Pコード",
+        "IBC",
+        "LP",
+        "包装要件"
+      ],
+      "sourcePages": [
+        241
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 4.1.4"
+      ],
+      "aiSummary": "包装要件は使用可能な内装・外装・単一容器、最大容量・質量、追加規定PP等を表形式で指定します。",
+      "inspectionPoints": [
+        "危険物リスト8列の包装要件を確認する",
+        "容器コード、最大量、追加規定を表の列ごとに照合する"
+      ],
+      "caution": "表の行・列・脚注を読み飛ばすと、容器の種類や最大量を誤ります。",
+      "sourceProvisionTitle": "IMDG Code 4.1.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 4.1.4\n\n概要\n包装要件は使用可能な内装・外装・単一容器、最大容量・質量、追加規定PP等を表形式で指定します。\n\n現場確認\n• 危険物リスト8列の包装要件を確認する\n• 容器コード、最大量、追加規定を表の列ごとに照合する\n\n注意\n表の行・列・脚注を読み飛ばすと、容器の種類や最大量を誤ります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 241,
+      "expandedSummary": "包装要件は使用可能な内装・外装・単一容器、最大容量・質量、追加規定PP等を表形式で指定します。",
+      "checkProcedure": [
+        "危険物リスト8列の包装要件を確認する",
+        "容器コード、最大量、追加規定を表の列ごとに照合する"
+      ],
+      "commonMistakes": [
+        "表の行・列・脚注を読み飛ばすと、容器の種類や最大量を誤ります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-overpack",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "オーバーパックの表示",
+      "keywords": [
+        "オーバーパック",
+        "OVERPACK",
+        "表示"
+      ],
+      "sourcePages": [
+        274
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 5.1.2"
+      ],
+      "aiSummary": "オーバーパック内の容器表示が外から見えない場合、OVERPACK表示と必要なマーク・ラベルを外面に再表示します。",
+      "inspectionPoints": [
+        "内包容器の表示が外から明瞭に見えるか確認する",
+        "OVERPACK文字、UN番号、標札、方向矢印等を確認する"
+      ],
+      "caution": "オーバーパックは新しい容器承認単位ではなく、内包容器の適合性確認も必要です。",
+      "sourceProvisionTitle": "IMDG Code 5.1.2",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 5.1.2\n\n概要\nオーバーパック内の容器表示が外から見えない場合、OVERPACK表示と必要なマーク・ラベルを外面に再表示します。\n\n現場確認\n• 内包容器の表示が外から明瞭に見えるか確認する\n• OVERPACK文字、UN番号、標札、方向矢印等を確認する\n\n注意\nオーバーパックは新しい容器承認単位ではなく、内包容器の適合性確認も必要です。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 274,
+      "expandedSummary": "オーバーパック内の容器表示が外から見えない場合、OVERPACK表示と必要なマーク・ラベルを外面に再表示します。",
+      "checkProcedure": [
+        "内包容器の表示が外から明瞭に見えるか確認する",
+        "OVERPACK文字、UN番号、標札、方向矢印等を確認する"
+      ],
+      "commonMistakes": [
+        "オーバーパックは新しい容器承認単位ではなく、内包容器の適合性確認も必要です。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-package-marks",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "容器包装のマーク・ラベル",
+      "keywords": [
+        "マーク",
+        "ラベル",
+        "容器包装"
+      ],
+      "sourcePages": [
+        279
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 5.2"
+      ],
+      "aiSummary": "容器包装には国連番号、正式輸送品名が必要な場合の表示、標札、副標札、海洋汚染物質マーク、方向矢印などを耐久性・視認性を確保して表示します。",
+      "inspectionPoints": [
+        "書類と容器のUN番号・標札を照合する",
+        "サイズ、色、位置、重なり、耐候性を確認する"
+      ],
+      "caution": "古い表示や無関係な表示は除去・覆い隠しが必要です。",
+      "sourceProvisionTitle": "IMDG Code Chapter 5.2",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 5.2\n\n概要\n容器包装には国連番号、正式輸送品名が必要な場合の表示、標札、副標札、海洋汚染物質マーク、方向矢印などを耐久性・視認性を確保して表示します。\n\n現場確認\n• 書類と容器のUN番号・標札を照合する\n• サイズ、色、位置、重なり、耐候性を確認する\n\n注意\n古い表示や無関係な表示は除去・覆い隠しが必要です。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 279,
+      "expandedSummary": "容器包装には国連番号、正式輸送品名が必要な場合の表示、標札、副標札、海洋汚染物質マーク、方向矢印などを耐久性・視認性を確保して表示します。",
+      "checkProcedure": [
+        "書類と容器のUN番号・標札を照合する",
+        "サイズ、色、位置、重なり、耐候性を確認する"
+      ],
+      "commonMistakes": [
+        "古い表示や無関係な表示は除去・覆い隠しが必要です。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-ctu-placards",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "CTUのプラカードと国連番号表示",
+      "keywords": [
+        "プラカード",
+        "CTU",
+        "国連番号表示"
+      ],
+      "sourcePages": [
+        293
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 5.3"
+      ],
+      "aiSummary": "コンテナ等には積載危険物に応じたプラカード、海洋汚染物質マーク、国連番号等を規定位置に表示します。",
+      "inspectionPoints": [
+        "四側面の必要表示を確認する",
+        "扉開閉や汚れで隠れない位置・耐久性を確認する"
+      ],
+      "caution": "容器の標札とCTUのプラカードは寸法・適用単位が異なります。",
+      "sourceProvisionTitle": "IMDG Code Chapter 5.3",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 5.3\n\n概要\nコンテナ等には積載危険物に応じたプラカード、海洋汚染物質マーク、国連番号等を規定位置に表示します。\n\n現場確認\n• 四側面の必要表示を確認する\n• 扉開閉や汚れで隠れない位置・耐久性を確認する\n\n注意\n容器の標札とCTUのプラカードは寸法・適用単位が異なります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 293,
+      "expandedSummary": "コンテナ等には積載危険物に応じたプラカード、海洋汚染物質マーク、国連番号等を規定位置に表示します。",
+      "checkProcedure": [
+        "四側面の必要表示を確認する",
+        "扉開閉や汚れで隠れない位置・耐久性を確認する"
+      ],
+      "commonMistakes": [
+        "容器の標札とCTUのプラカードは寸法・適用単位が異なります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-document-sequence",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "危険物輸送文書の記載順序",
+      "keywords": [
+        "輸送文書",
+        "記載順序",
+        "基本記載"
+      ],
+      "sourcePages": [
+        298
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 5.4.1.4"
+      ],
+      "aiSummary": "基本記載は通常、国連番号、正式輸送品名、主危険性等級、副次危険性、容器等級の順で、追加情報も規定位置に記載します。",
+      "inspectionPoints": [
+        "基本記載の順序と区切りを確認する",
+        "技術名、海洋汚染物質、引火点等の追加情報を確認する"
+      ],
+      "caution": "必要情報がすべてあっても、品名や追加情報の位置が不適切だと誤解を招きます。",
+      "sourceProvisionTitle": "IMDG Code 5.4.1.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 5.4.1.4\n\n概要\n基本記載は通常、国連番号、正式輸送品名、主危険性等級、副次危険性、容器等級の順で、追加情報も規定位置に記載します。\n\n現場確認\n• 基本記載の順序と区切りを確認する\n• 技術名、海洋汚染物質、引火点等の追加情報を確認する\n\n注意\n必要情報がすべてあっても、品名や追加情報の位置が不適切だと誤解を招きます。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 298,
+      "expandedSummary": "基本記載は通常、国連番号、正式輸送品名、主危険性等級、副次危険性、容器等級の順で、追加情報も規定位置に記載します。",
+      "checkProcedure": [
+        "基本記載の順序と区切りを確認する",
+        "技術名、海洋汚染物質、引火点等の追加情報を確認する"
+      ],
+      "commonMistakes": [
+        "必要情報がすべてあっても、品名や追加情報の位置が不適切だと誤解を招きます。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-packing-certificate",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "コンテナ・車両積付証明",
+      "keywords": [
+        "積付証明",
+        "CTU",
+        "証明書"
+      ],
+      "sourcePages": [
+        303
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 5.4.2"
+      ],
+      "aiSummary": "コンテナ・車両積付証明は、適切なCTU、健全な容器、隔離、固定、表示等を確認して収納したことを証明します。",
+      "inspectionPoints": [
+        "証明者、日付、CTU番号を確認する",
+        "危険物申告書と積付証明の対象貨物を照合する"
+      ],
+      "caution": "署名があっても、実際の収納状態を確認せず形式的に発行してはいけません。",
+      "sourceProvisionTitle": "IMDG Code 5.4.2",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 5.4.2\n\n概要\nコンテナ・車両積付証明は、適切なCTU、健全な容器、隔離、固定、表示等を確認して収納したことを証明します。\n\n現場確認\n• 証明者、日付、CTU番号を確認する\n• 危険物申告書と積付証明の対象貨物を照合する\n\n注意\n署名があっても、実際の収納状態を確認せず形式的に発行してはいけません。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 303,
+      "expandedSummary": "コンテナ・車両積付証明は、適切なCTU、健全な容器、隔離、固定、表示等を確認して収納したことを証明します。",
+      "checkProcedure": [
+        "証明者、日付、CTU番号を確認する",
+        "危険物申告書と積付証明の対象貨物を照合する"
+      ],
+      "commonMistakes": [
+        "署名があっても、実際の収納状態を確認せず形式的に発行してはいけません。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-emergency-info",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "緊急対応情報と書類の可用性",
+      "keywords": [
+        "緊急対応",
+        "EmS",
+        "書類"
+      ],
+      "sourcePages": [
+        304
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 5.4.3",
+        "7.8"
+      ],
+      "aiSummary": "事故時に貨物の危険性と対応方法を迅速に把握できるよう、輸送書類、EmS等の緊急対応情報を利用可能な状態にします。",
+      "inspectionPoints": [
+        "EmSコードと貨物情報を照合する",
+        "緊急時に書類へ即時アクセスできるか確認する"
+      ],
+      "caution": "EmSは一般的な初動指針であり、製品固有のSDSや専門家助言も必要です。",
+      "sourceProvisionTitle": "IMDG Code 5.4.3 / 7.8",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 5.4.3 / 7.8\n\n概要\n事故時に貨物の危険性と対応方法を迅速に把握できるよう、輸送書類、EmS等の緊急対応情報を利用可能な状態にします。\n\n現場確認\n• EmSコードと貨物情報を照合する\n• 緊急時に書類へ即時アクセスできるか確認する\n\n注意\nEmSは一般的な初動指針であり、製品固有のSDSや専門家助言も必要です。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 304,
+      "expandedSummary": "事故時に貨物の危険性と対応方法を迅速に把握できるよう、輸送書類、EmS等の緊急対応情報を利用可能な状態にします。",
+      "checkProcedure": [
+        "EmSコードと貨物情報を照合する",
+        "緊急時に書類へ即時アクセスできるか確認する"
+      ],
+      "commonMistakes": [
+        "EmSは一般的な初動指針であり、製品固有のSDSや専門家助言も必要です。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-stowage",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "積載区分と特別積載規定",
+      "keywords": [
+        "積載",
+        "SWコード",
+        "甲板上"
+      ],
+      "sourcePages": [
+        477
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 7.1"
+      ],
+      "aiSummary": "積載区分、SWコード、温度・熱源・居住区域等の条件により、甲板上・甲板下や船種別の積載可否を判断します。",
+      "inspectionPoints": [
+        "危険物リスト16a列とSWコードを確認する",
+        "船型・旅客数・熱源・換気条件を確認する"
+      ],
+      "caution": "「甲板上可」と「甲板上のみ」は意味が異なります。",
+      "sourceProvisionTitle": "IMDG Code Chapter 7.1",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 7.1\n\n概要\n積載区分、SWコード、温度・熱源・居住区域等の条件により、甲板上・甲板下や船種別の積載可否を判断します。\n\n現場確認\n• 危険物リスト16a列とSWコードを確認する\n• 船型・旅客数・熱源・換気条件を確認する\n\n注意\n「甲板上可」と「甲板上のみ」は意味が異なります。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 477,
+      "expandedSummary": "積載区分、SWコード、温度・熱源・居住区域等の条件により、甲板上・甲板下や船種別の積載可否を判断します。",
+      "checkProcedure": [
+        "危険物リスト16a列とSWコードを確認する",
+        "船型・旅客数・熱源・換気条件を確認する"
+      ],
+      "commonMistakes": [
+        "「甲板上可」と「甲板上のみ」は意味が異なります。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-segregation",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "隔離表・SG・SGGコードの適用",
+      "keywords": [
+        "隔離",
+        "SG",
+        "SGG",
+        "隔離表"
+      ],
+      "sourcePages": [
+        486
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code Chapter 7.2"
+      ],
+      "aiSummary": "危険物同士の反応を防ぐため、等級間隔離表を基礎に、SG・SGGコード、同一物質群、例外・免除を重ねて判断します。",
+      "inspectionPoints": [
+        "両方の危険物の等級・副次危険性を確認する",
+        "隔離表に加えSG・SGG・脚注を確認する"
+      ],
+      "caution": "一方向だけの検索ではなく、両貨物の規定を相互に確認します。",
+      "sourceProvisionTitle": "IMDG Code Chapter 7.2",
+      "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 7.2\n\n概要\n危険物同士の反応を防ぐため、等級間隔離表を基礎に、SG・SGGコード、同一物質群、例外・免除を重ねて判断します。\n\n現場確認\n• 両方の危険物の等級・副次危険性を確認する\n• 隔離表に加えSG・SGG・脚注を確認する\n\n注意\n一方向だけの検索ではなく、両貨物の規定を相互に確認します。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 486,
+      "expandedSummary": "危険物同士の反応を防ぐため、等級間隔離表を基礎に、SG・SGGコード、同一物質群、例外・免除を重ねて判断します。",
+      "checkProcedure": [
+        "両方の危険物の等級・副次危険性を確認する",
+        "隔離表に加えSG・SGG・脚注を確認する"
+      ],
+      "commonMistakes": [
+        "一方向だけの検索ではなく、両貨物の規定を相互に確認します。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "imdg-foodstuffs",
+      "category": "imdg",
+      "sourceType": "imdg",
+      "title": "食品・飼料等からの隔離",
+      "keywords": [
+        "食品",
+        "飼料",
+        "毒物",
+        "隔離"
+      ],
+      "sourcePages": [
+        498
+      ],
+      "sourceDocument": "IMDG Code Amendment 42-24",
+      "imdgRefs": [
+        "IMDG Code 7.3.4"
+      ],
+      "aiSummary": "毒性・感染性・一部腐食性等の危険物は、食品、飼料、食用物、医薬品等への汚染を防ぐため規定の隔離を行います。",
+      "inspectionPoints": [
+        "貨物の用途が食品・飼料・医薬品等に該当するか確認する",
+        "包装状態と隔離方法を確認する"
+      ],
+      "caution": "容器が密閉されていても、規定上の隔離が不要になるとは限りません。",
+      "sourceProvisionTitle": "IMDG Code 7.3.4",
+      "sourceProvisionTextJa": "関連規定：IMDG Code 7.3.4\n\n概要\n毒性・感染性・一部腐食性等の危険物は、食品、飼料、食用物、医薬品等への汚染を防ぐため規定の隔離を行います。\n\n現場確認\n• 貨物の用途が食品・飼料・医薬品等に該当するか確認する\n• 包装状態と隔離方法を確認する\n\n注意\n容器が密閉されていても、規定上の隔離が不要になるとは限りません。",
+      "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
+      "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "sourcePdfPage": 498,
+      "expandedSummary": "毒性・感染性・一部腐食性等の危険物は、食品、飼料、食用物、医薬品等への汚染を防ぐため規定の隔離を行います。",
+      "checkProcedure": [
+        "貨物の用途が食品・飼料・医薬品等に該当するか確認する",
+        "包装状態と隔離方法を確認する"
+      ],
+      "commonMistakes": [
+        "容器が密閉されていても、規定上の隔離が不要になるとは限りません。"
+      ],
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+    },
+    {
+      "id": "ctu-purpose",
+      "category": "ctu",
+      "title": "CTU Codeの位置付け",
+      "keywords": [
+        "CTU Code",
+        "目的",
+        "適用範囲"
+      ],
+      "sourcePages": [
+        4,
+        5
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 1.1",
+        "CTU Code 1.4"
+      ],
+      "aiSummary": "CTU Codeは、安全な積付け・固縛・開封を支援する実務指針です。国内法令や輸送モード別規則に優先するものではありません。",
+      "inspectionPoints": [
+        "法令要件とCTU Codeの推奨事項を分けて確認する",
+        "貨物・輸送モードに対応する章と付属書を参照する"
+      ],
+      "caution": "CTU Codeだけで法令適合を判断しません。",
+      "sourceProvisionTitle": "CTU Code 1.1 / CTU Code 1.4",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 1.1 / CTU Code 1.4\n\n該当規定の要点\nCTU Codeは、安全な積付け・固縛・開封を支援する実務指針です。国内法令や輸送モード別規則に優先するものではありません。\n\n実務確認項目\n• 法令要件とCTU Codeの推奨事項を分けて確認する\n• 貨物・輸送モードに対応する章と付属書を参照する\n\n注意\nCTU Codeだけで法令適合を判断しません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 4
+    },
+    {
+      "id": "ctu-basic-check",
+      "category": "ctu",
+      "title": "積付け前の基本確認",
+      "keywords": [
+        "積付け前",
+        "CTU点検",
+        "保護具",
+        "固縛器具"
+      ],
+      "sourcePages": [
+        11,
+        12
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code Chapter 3"
+      ],
+      "aiSummary": "作業環境、保護具、CTU本体、床、扉、固縛器具の状態を先に確認し、損傷や汚染があるCTUは使用しません。",
+      "inspectionPoints": [
+        "床・壁・扉・固縛点の損傷を確認する",
+        "残留物、害虫、不要な旧表示を確認する"
+      ],
+      "caution": "積付け後では確認できない箇所を優先します。",
+      "sourceProvisionTitle": "CTU Code Chapter 3",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 3\n\n該当規定の要点\n作業環境、保護具、CTU本体、床、扉、固縛器具の状態を先に確認し、損傷や汚染があるCTUは使用しません。\n\n実務確認項目\n• 床・壁・扉・固縛点の損傷を確認する\n• 残留物、害虫、不要な旧表示を確認する\n\n注意\n積付け後では確認できない箇所を優先します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 11
+    },
+    {
+      "id": "ctu-responsibility-chain",
+      "category": "ctu",
+      "title": "責任と情報の連鎖",
+      "keywords": [
+        "責任",
+        "荷送人",
+        "収納者",
+        "発荷主"
+      ],
+      "sourcePages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code Chapter 4"
+      ],
+      "aiSummary": "発荷主は正確な貨物情報、収納者は適切な配置・固定・重量確認、荷送人は書類と情報伝達を担います。",
+      "inspectionPoints": [
+        "誰が分類・収納・重量確認を行ったか確認する",
+        "危険物情報と積付証明の伝達先を確認する"
+      ],
+      "caution": "担当者が不明でも責任が消えるわけではありません。",
+      "sourceProvisionTitle": "CTU Code Chapter 4",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 4\n\n該当規定の要点\n発荷主は正確な貨物情報、収納者は適切な配置・固定・重量確認、荷送人は書類と情報伝達を担います。\n\n実務確認項目\n• 誰が分類・収納・重量確認を行ったか確認する\n• 危険物情報と積付証明の伝達先を確認する\n\n注意\n担当者が不明でも責任が消えるわけではありません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 13
+    },
+    {
+      "id": "ctu-load-distribution",
+      "category": "ctu",
+      "title": "荷重分布と重心",
+      "keywords": [
+        "荷重分布",
+        "重心",
+        "偏荷重",
+        "床荷重"
+      ],
+      "sourcePages": [
+        11,
+        32
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 3.3",
+        "CTU Code Chapter 9",
+        "Annex 7"
+      ],
+      "aiSummary": "重量物は床面へ均等に分散し、重心を低く中央寄りにします。局部集中荷重や左右・前後の著しい偏りを避けます。",
+      "inspectionPoints": [
+        "重量物の接地面積と床荷重を確認する",
+        "左右・前後の偏荷重と重心位置を確認する"
+      ],
+      "caution": "総重量内でも局部床荷重を超える場合があります。",
+      "sourceProvisionTitle": "CTU Code 3.3 / CTU Code Chapter 9 / Annex 7",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.3 / CTU Code Chapter 9 / Annex 7\n\n該当規定の要点\n重量物は床面へ均等に分散し、重心を低く中央寄りにします。局部集中荷重や左右・前後の著しい偏りを避けます。\n\n実務確認項目\n• 重量物の接地面積と床荷重を確認する\n• 左右・前後の偏荷重と重心位置を確認する\n\n注意\n総重量内でも局部床荷重を超える場合があります。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 11
+    },
+    {
+      "id": "ctu-securing",
+      "category": "ctu",
+      "title": "貨物固定の基本",
+      "keywords": [
+        "固縛",
+        "ラッシング",
+        "根止め",
+        "摩擦"
+      ],
+      "sourcePages": [
+        11,
+        12,
+        32
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 3.5",
+        "Annex 7"
+      ],
+      "aiSummary": "滑りと転倒を防ぐため、根止め、ラッシング、空隙処理、滑り止めを組み合わせます。過度な締付けは貨物やCTUを損傷します。",
+      "inspectionPoints": [
+        "全方向の移動と転倒を抑えられるか確認する",
+        "固縛点・器具の強度と取付状態を確認する"
+      ],
+      "caution": "ベルトを結んで短くする使用方法は避けます。",
+      "sourceProvisionTitle": "CTU Code 3.5 / Annex 7",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.5 / Annex 7\n\n該当規定の要点\n滑りと転倒を防ぐため、根止め、ラッシング、空隙処理、滑り止めを組み合わせます。過度な締付けは貨物やCTUを損傷します。\n\n実務確認項目\n• 全方向の移動と転倒を抑えられるか確認する\n• 固縛点・器具の強度と取付状態を確認する\n\n注意\nベルトを結んで短くする使用方法は避けます。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 11
+    },
+    {
+      "id": "ctu-dangerous-goods",
+      "category": "ctu",
+      "title": "危険物収納の追加確認",
+      "keywords": [
+        "危険物",
+        "標札",
+        "隔離",
+        "扉付近"
+      ],
+      "sourcePages": [
+        11,
+        34
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 3.4",
+        "CTU Code Chapter 10"
+      ],
+      "aiSummary": "危険物は容器表示、漏れ、隔離、外部プラカードを確認し、可能な限り扉付近に配置します。",
+      "inspectionPoints": [
+        "破損・漏れのある容器を収納しない",
+        "相性の悪い危険物を同一CTUに収納しない"
+      ],
+      "caution": "CTU Codeに加えて危規則・危告示・IMDG Codeを確認します。",
+      "sourceProvisionTitle": "CTU Code 3.4 / CTU Code Chapter 10",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.4 / CTU Code Chapter 10\n\n該当規定の要点\n危険物は容器表示、漏れ、隔離、外部プラカードを確認し、可能な限り扉付近に配置します。\n\n実務確認項目\n• 破損・漏れのある容器を収納しない\n• 相性の悪い危険物を同一CTUに収納しない\n\n注意\nCTU Codeに加えて危規則・危告示・IMDG Codeを確認します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 11
+    },
+    {
+      "id": "ctu-completion",
+      "category": "ctu",
+      "title": "積付け完了時の確認",
+      "keywords": [
+        "総重量",
+        "シール",
+        "積付証明",
+        "完了"
+      ],
+      "sourcePages": [
+        12,
+        36
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 3.6",
+        "CTU Code Chapter 11"
+      ],
+      "aiSummary": "完了時は総重量、扉の閉鎖、シール、CTU番号、表示、書類を確認し、必要な積付証明を作成します。",
+      "inspectionPoints": [
+        "総重量と書類記載値を照合する",
+        "シール番号とCTU番号を記録する"
+      ],
+      "caution": "重量は収納者の施設を出る前に確認します。",
+      "sourceProvisionTitle": "CTU Code 3.6 / CTU Code Chapter 11",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.6 / CTU Code Chapter 11\n\n該当規定の要点\n完了時は総重量、扉の閉鎖、シール、CTU番号、表示、書類を確認し、必要な積付証明を作成します。\n\n実務確認項目\n• 総重量と書類記載値を照合する\n• シール番号とCTU番号を記録する\n\n注意\n重量は収納者の施設を出る前に確認します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 12
+    },
+    {
+      "id": "ctu-opening",
+      "category": "ctu",
+      "title": "CTUの開封",
+      "keywords": [
+        "開封",
+        "換気",
+        "崩落",
+        "シール"
+      ],
+      "sourcePages": [
+        12,
+        38
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code 3.7",
+        "CTU Code Chapter 12"
+      ],
+      "aiSummary": "開封前に番号・シール・漏れを確認し、換気後、貨物の崩落を警戒しながら扉を開けます。",
+      "inspectionPoints": [
+        "扉の正面に立たず、貨物圧を警戒する",
+        "有害ガスのおそれがあれば測定・換気する"
+      ],
+      "caution": "臭いがないことだけで安全とは判断しません。",
+      "sourceProvisionTitle": "CTU Code 3.7 / CTU Code Chapter 12",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code 3.7 / CTU Code Chapter 12\n\n該当規定の要点\n開封前に番号・シール・漏れを確認し、換気後、貨物の崩落を警戒しながら扉を開けます。\n\n実務確認項目\n• 扉の正面に立たず、貨物圧を警戒する\n• 有害ガスのおそれがあれば測定・換気する\n\n注意\n臭いがないことだけで安全とは判断しません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 12
+    },
+    {
+      "id": "ctu-condensation",
+      "category": "ctu",
+      "title": "結露と水分管理",
+      "keywords": [
+        "結露",
+        "湿度",
+        "水分",
+        "カビ",
+        "腐食"
+      ],
+      "sourcePages": [
+        4,
+        6,
+        8
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code Chapter 5",
+        "Annex 3"
+      ],
+      "aiSummary": "湿った貨物や梱包材は結露、腐食、カビ、荷崩れの原因になります。貨物水分、温度変化、換気条件を事前に確認します。",
+      "inspectionPoints": [
+        "濡れた貨物・床・木材を収納しない",
+        "吸湿性貨物と航路の温度差を確認する"
+      ],
+      "caution": "乾燥剤だけで結露を完全に防げるとは限りません。",
+      "sourceProvisionTitle": "CTU Code Chapter 5 / Annex 3",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 5 / Annex 3\n\n該当規定の要点\n湿った貨物や梱包材は結露、腐食、カビ、荷崩れの原因になります。貨物水分、温度変化、換気条件を事前に確認します。\n\n実務確認項目\n• 濡れた貨物・床・木材を収納しない\n• 吸湿性貨物と航路の温度差を確認する\n\n注意\n乾燥剤だけで結露を完全に防げるとは限りません。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 4
+    },
+    {
+      "id": "ctu-training",
+      "category": "ctu",
+      "title": "収納作業者の教育",
+      "keywords": [
+        "訓練",
+        "教育",
+        "収納者",
+        "固縛計算"
+      ],
+      "sourcePages": [
+        127
+      ],
+      "sourceDocument": "CTU Code（仮訳）",
+      "imdgRefs": [
+        "CTU Code Chapter 13",
+        "Annex 10"
+      ],
+      "aiSummary": "収納者には、荷重、固縛、CTU点検、危険物、開封時の危険など、担当業務に応じた訓練が必要です。",
+      "inspectionPoints": [
+        "作業内容に対応した教育記録を確認する",
+        "固縛器具と計算方法の理解を確認する"
+      ],
+      "caution": "経験だけに依存せず、定期的に教育内容を更新します。",
+      "sourceProvisionTitle": "CTU Code Chapter 13 / Annex 10",
+      "sourceProvisionTextJa": "登録済みの国土交通省公表『CTU Code（仮訳）』における関連箇所：CTU Code Chapter 13 / Annex 10\n\n該当規定の要点\n収納者には、荷重、固縛、CTU点検、危険物、開封時の危険など、担当業務に応じた訓練が必要です。\n\n実務確認項目\n• 作業内容に対応した教育記録を確認する\n• 固縛器具と計算方法の理解を確認する\n\n注意\n経験だけに依存せず、定期的に教育内容を更新します。",
+      "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
+      "sourceType": "ctu",
+      "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
+      "sourcePdfPage": 127
+    }
+  ]
+};

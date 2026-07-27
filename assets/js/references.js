@@ -64,13 +64,16 @@
 
   const buildAiProvisionalTranslation = item => {
     const points = (item.inspectionPoints || []).map(point => `・${point}`).join("\n");
+    const reading = (item.readingGuide || []).map(point => `・${point}`).join("\n");
     return [
-      `【AI仮訳（参考）】 ${item.section || ""} ${item.titleJa || item.titleEn || ""}`.trim(),
+      `【AI解説（参考）】 ${item.section || ""} ${item.titleJa || item.titleEn || ""}`.trim(),
       "",
-      item.summaryJa || "登録された日本語要約はありません。",
-      points ? "\n実務上の確認事項\n" + points : "",
+      "■ 条文の趣旨",
+      item.detailedExplanationJa || item.summaryJa || "登録された日本語解説はありません。",
+      reading ? "\n■ 原文確認の進め方\n" + reading : "",
+      points ? "\n■ 収納検査での確認事項\n" + points : "",
       "",
-      "※この表示は逐語訳ではなく、登録済み要約を基にした参考仮訳です。正式な判断では英語原文と公的資料を確認してください。"
+      "※逐語訳ではありません。表・図・脚注を含む原文ページと英語本文を確認し、国内法令と照合してください。"
     ].filter(Boolean).join("\n");
   };
 
@@ -90,11 +93,11 @@
       <div class="reference-source-modal__body">
         <p class="reference-source-modal__note" data-source-modal-note></p>
         <div class="reference-source-modal__toolbar" data-source-modal-toolbar hidden>
-          <button type="button" data-source-modal-translate>AI仮訳（参考）を表示</button>
+          <button type="button" data-source-modal-translate>AI解説（参考）を表示</button>
           <button type="button" data-source-modal-original hidden>英語原文に戻る</button>
         </div>
         <p class="reference-source-modal__translation-note" data-source-modal-translation-note hidden>
-          AI仮訳は参考情報です。正式な判断では英語原文と公的資料を確認してください。
+          AI解説は理解補助です。正式な判断では英語原文、表・図、脚注および公的資料を確認してください。
         </p>
         <div class="reference-source-modal__view-tabs" data-source-modal-view-tabs hidden>
           <button type="button" data-source-modal-text-view class="is-active">条文テキスト</button>
@@ -102,9 +105,10 @@
         </div>
         <pre class="reference-source-modal__text" data-source-modal-text></pre>
         <section class="reference-source-modal__page" data-source-modal-page hidden>
-          <p>公式PDFの該当ページを表示しています。表、画像、配置を含む原文の見た目を確認できます。</p>
-          <iframe data-source-modal-pdf title="IMDG Code原文ページ"></iframe>
-          <a data-source-modal-pdf-open target="_blank" rel="noopener">PDFを別画面で開く</a>
+          <p>公式PDFの該当ページ画像です。表、図、段組み、脚注を含む原文レイアウトを確認してください。画像を押すと拡大表示できます。</p>
+          <div class="reference-source-modal__page-gallery" data-source-modal-page-gallery></div>
+          <iframe data-source-modal-pdf title="IMDG Code原文ページ" hidden></iframe>
+          <a data-source-modal-pdf-open target="_blank" rel="noopener">公式PDFを別画面で開く</a>
         </section>
       </div>
     </section>`;
@@ -135,8 +139,8 @@
     sourceModal.querySelector(".reference-source-modal__body").scrollTop = 0;
   }
 
-  function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "", sourcePdfPath = "", sourcePdfPage = "" }) {
-    currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage };
+  function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "", sourcePdfPath = "", sourcePdfPage = "", visualPages = [], preferPageView = false }) {
+    currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage, visualPages };
     sourceModal.querySelector("[data-source-modal-eyebrow]").textContent = eyebrow || "Source Provision";
     sourceModal.querySelector("[data-source-modal-title]").textContent = title || "該当規定";
     const noteNode = sourceModal.querySelector("[data-source-modal-note]");
@@ -149,12 +153,24 @@
     const textPane = sourceModal.querySelector("[data-source-modal-text]");
     const pdfFrame = sourceModal.querySelector("[data-source-modal-pdf]");
     const pdfOpen = sourceModal.querySelector("[data-source-modal-pdf-open]");
+    const pageGallery = sourceModal.querySelector("[data-source-modal-page-gallery]");
     const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
-    tabs.hidden = !pdfUrl;
-    pagePane.hidden = true;
-    textPane.hidden = false;
-    sourceModal.querySelector("[data-source-modal-text-view]")?.classList.add("is-active");
-    sourceModal.querySelector("[data-source-modal-page-view]")?.classList.remove("is-active");
+    const hasVisualPages = Array.isArray(visualPages) && visualPages.length > 0;
+    if (pageGallery) {
+      pageGallery.innerHTML = hasVisualPages ? visualPages.map(page => `
+        <figure class="reference-source-page-figure">
+          <a href="${escapeHtml(page.src)}" target="_blank" rel="noopener" aria-label="${escapeHtml(page.caption || `PDF ${page.page}ページ`)}を拡大表示">
+            <img src="${escapeHtml(page.src)}" alt="${escapeHtml(page.caption || `PDF ${page.page}ページ`)}" loading="lazy">
+          </a>
+          <figcaption>${escapeHtml(page.caption || `PDF ${page.page}ページ`)}</figcaption>
+        </figure>`).join("") : "";
+    }
+    tabs.hidden = !(pdfUrl || hasVisualPages);
+    const showPageInitially = Boolean((hasVisualPages || pdfUrl) && preferPageView);
+    pagePane.hidden = !showPageInitially;
+    textPane.hidden = showPageInitially;
+    sourceModal.querySelector("[data-source-modal-text-view]")?.classList.toggle("is-active", !showPageInitially);
+    sourceModal.querySelector("[data-source-modal-page-view]")?.classList.toggle("is-active", showPageInitially);
     if (pdfFrame) pdfFrame.src = pdfUrl;
     if (pdfOpen) { pdfOpen.href = pdfUrl; pdfOpen.hidden = !pdfUrl; }
     renderSourceModalText("original");
@@ -185,9 +201,10 @@
   });
 
   const categoryLabels = {
-    "domestic-regulation": "国内省令",
-    "domestic-notification": "国内告示",
-    "international-code": "国際規則・行動規範",
+    "domestic-regulation": "危規則",
+    "domestic-notification": "危告示",
+    "international-code": "IMDG Code",
+    "ctu-code": "CTU Code",
     "ai-guide": "AI要約ガイド"
   };
 
@@ -301,8 +318,9 @@
           <div class="imdg-clause-number">${escapeHtml(item.section)}</div>
           <div>
             <div class="imdg-clause-meta">
-              <span>${escapeHtml(imdgCategories[item.category] || item.category)}</span>
-              <span>42-24</span>
+              <span>IMDG Code</span>
+              <span>${escapeHtml(item.sourceDocument || imdgData.edition || "IMDG Code Amendment 42-24")}</span>
+              ${item.sourcePdfPage ? `<span>p.${escapeHtml(item.sourcePdfPage)}</span>` : ""}
             </div>
             <h3>${escapeHtml(item.titleJa)}</h3>
             <p lang="en">${escapeHtml(item.titleEn)}</p>
@@ -320,6 +338,9 @@
             <h4>条文の要点</h4>
             <p>${escapeHtml(item.summaryJa)}</p>
           </section>
+
+          ${item.detailedExplanationJa ? `<section><h4>概要</h4><p>${escapeHtml(item.detailedExplanationJa)}</p></section>` : ""}
+          ${Array.isArray(item.readingGuide) ? `<section><h4>原文確認の進め方</h4><ol>${item.readingGuide.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
 
           <section>
             <h4>収納検査で確認する項目</h4>
@@ -341,7 +362,7 @@
 
           <button class="reference-open-link" type="button"
              data-imdg-source-section="${escapeHtml(item.section)}">
-            該当する英語条文を表示
+            原文ページ・英語条文を確認
           </button>
         </div>
       </details>
@@ -405,6 +426,9 @@
         </summary>
 
         <div class="ai-guide-detail">
+          ${item.expandedSummary ? `<section><h4>概要</h4><p>${escapeHtml(item.expandedSummary)}</p></section>` : ""}
+          ${item.whyItMatters ? `<section><h4>なぜ重要か</h4><p>${escapeHtml(item.whyItMatters)}</p></section>` : ""}
+          ${Array.isArray(item.checkProcedure) ? `<section><h4>確認の手順</h4><ol>${item.checkProcedure.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
           <section>
             <h4>現場で確認するポイント</h4>
             <ul>
@@ -413,6 +437,8 @@
               ).join("")}
             </ul>
           </section>
+
+          ${Array.isArray(item.commonMistakes) ? `<section class="ai-guide-mistakes"><h4>よくある誤り</h4><ul>${item.commonMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>` : ""}
 
           <aside class="ai-guide-caution">
             <strong>注意</strong>
@@ -447,7 +473,10 @@
       note: `${item.originalTextLabel || "IMDG Code Amendment 42-24"}。画面内で直接確認できるよう、該当箇所を抽出しています。`,
       text: item.originalTextEn,
       language: "en",
-      provisionalTranslation: buildAiProvisionalTranslation(item)
+      provisionalTranslation: buildAiProvisionalTranslation(item),
+      sourcePdfPath: item.sourcePdfPath,
+      sourcePdfPage: item.sourcePdfPage,
+      visualPages: item.visualPages || []
     });
   });
 
@@ -456,12 +485,18 @@
     if (sourceButton) {
       const item = summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId);
       if (!item) return;
+      const isImdg = item.category === "imdg" || item.sourceType === "imdg";
       openSourceModal({
-        eyebrow: "CTU Code 関連規定",
+        eyebrow: isImdg ? "IMDG Code 関連規定" : "CTU Code 関連規定",
         title: item.sourceProvisionTitle || item.title,
-        note: item.sourceProvisionNote || "登録済みCTU Code仮訳に基づく関連規定の要点です。",
+        note: item.sourceProvisionNote || (isImdg
+          ? "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、判断時は英語原文・表・図・脚注を確認してください。"
+          : "国土交通省公表『CTU Code（仮訳）』の該当ページを表示します。要約は理解補助であり、判断時はPDF本文・図・表・注記を確認してください。"),
         text: item.sourceProvisionTextJa,
-        language: "ja"
+        language: "ja",
+        sourcePdfPath: item.sourcePdfPath || (isImdg ? "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf" : "../references/originals/ctu-code-ja.pdf"),
+        sourcePdfPage: item.sourcePdfPage || (Array.isArray(item.sourcePages) && item.sourcePages.length ? item.sourcePages[0] : ""),
+        preferPageView: true
       });
       return;
     }

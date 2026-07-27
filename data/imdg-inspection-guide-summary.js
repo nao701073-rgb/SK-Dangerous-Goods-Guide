@@ -1,8 +1,8 @@
 window.IMDG_INSPECTION_GUIDE_SUMMARY = {
-  title: "IMDGコードに基づく検査・検品業務に関する資料（初版）AI要約",
-  sourceNote: "横浜大黒事業所で作成された資料を、検査・検品業務で参照しやすい単位に再構成した要約です。原PDF表示機能は設けず、元資料に含まれる図・写真・表を参考画像として掲載します。",
-  caution: "AI要約は理解を補助する参考情報です。実務判断では、危規則・危告示・IMDG Code最新版および所轄官庁の指示を確認してください。",
-  categories: {
+  "title": "IMDGコードに基づく検査・検品業務に関する資料（初版）AI要約",
+  "sourceNote": "元資料129ページを6分野に再構成し、概要、判断の流れ、よくある誤り、現場確認事項を整理します。図・写真・表は、同一ページの重複表示を避け、未掲載だった実務上重要なページを追加しています。各ページは1カードで表示し、クリックして拡大確認できます。",
+  "caution": "AI要約は理解を補助する参考情報です。実務判断では、危規則・危告示・IMDG Code最新版および所轄官庁の指示を確認してください。",
+  "categories": {
     "legal-framework": "法規制と基本体系",
     "general-provisions": "一般規定・訓練・保安",
     "classification": "分類・国連番号・正式輸送品名",
@@ -10,157 +10,951 @@ window.IMDG_INSPECTION_GUIDE_SUMMARY = {
     "consignment": "表示・文書・委託手続き",
     "transport-operations": "積載・隔離・CTU・緊急対応"
   },
-  sections: [
+  "sections": [
     {
-      id: "guide-legal-framework",
-      category: "legal-framework",
-      title: "IMDG Codeの目的、法的枠組み、改正周期",
-      sourcePages: "6-12",
-      summary: "IMDG Codeは、人命保護、海洋汚染防止、危険物の円滑な国際移動を目的とする海上危険物輸送の国際規則です。国連モデル規則を基礎に、SOLAS・MARPOLなどの条約と結び付き、日本では船舶安全法、危規則、危告示などにより国内実施されます。危険物リストを中心に、分類、包装、表示、書類、積載、隔離、緊急対応までを一体的に規定し、原則2年周期で改正されます。",
-      keyPoints: [
+      "id": "guide-legal-framework",
+      "category": "legal-framework",
+      "title": "IMDG Codeの目的、法的枠組み、改正周期",
+      "sourcePages": "6-12",
+      "summary": "IMDG Codeは、人命保護、海洋汚染防止、危険物の円滑な国際移動を目的とする海上危険物輸送の国際規則です。国連モデル規則を基礎に、SOLAS・MARPOLなどの条約と結び付き、日本では船舶安全法、危規則、危告示などにより国内実施されます。危険物リストを中心に、分類、包装、表示、書類、積載、隔離、緊急対応までを一体的に規定し、原則2年周期で改正されます。",
+      "keyPoints": [
         "危険物の分類・識別から船上の積載・隔離まで、サプライチェーン全体が規制対象になる。",
         "国際規則だけでなく、日本国内の危規則・危告示を優先して確認する。",
         "危険物リストは国連番号順で、各列のコードから包装・表示・積載・隔離要件をたどる。",
         "改正の移行年と強制適用年を確認し、使用中の版を明確にする。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "申告された国連番号と正式輸送品名が最新のリストに存在するか。",
         "適用するIMDG Code改正版と国内法令の施行日が一致しているか。",
         "無申告・誤申告・不適切な甲板下積載など重大事故につながる不適合がないか。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-7.jpg", page: 7, caption: "国際規制と国内法令の体系図"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-8.jpg", page: 8, caption: "危険物の形態と危険物標札の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-12.jpg", page: 12, caption: "IMDG Codeの巻構成と対象者"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-13.jpg", page: 13, caption: "改正周期と移行期間の図"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-7.jpg",
+          "page": 7,
+          "caption": "国際規制と国内法令の体系図",
+          "summary": "国際規制と国内法令の体系図は、複数の法令・国際規則・関係者の役割を一つの図で整理したものです。どの規定が上位・補助・実施基準に当たるかを把握し、確認漏れを防ぐために使用します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-8.jpg",
+          "page": 8,
+          "caption": "危険物の形態と危険物標札の例",
+          "summary": "危険物の形態と危険物標札の例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "形状・色・記号・寸法を確認する",
+            "内容物情報や危険性との一致を確認する",
+            "配置、視認性、耐久性、不要表示の残存を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-9.jpg",
+          "page": 9,
+          "caption": "違反時の事故・法的責任の例",
+          "summary": "事故写真と各国の罰則例を通じ、無申告・誤申告が人命、船舶、貨物、事業継続に及ぼす影響を確認します。",
+          "checkPoints": [
+            "事故原因、申告内容、罰則の根拠を分けて確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-11.jpg",
+          "page": 11,
+          "caption": "不適合事例と収納・固定不良の写真",
+          "summary": "火災事故と、ドラム・IBC等の不適切な収納・固定例を示しています。現物の損傷、漏れ、移動防止措置を確認します。",
+          "checkPoints": [
+            "写真の損傷状態、固定不足、危険物申告の有無を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-12.jpg",
+          "page": 12,
+          "caption": "IMDG Codeの巻構成と対象者",
+          "summary": "IMDG Codeの巻構成と対象者は、担当者の職務と必要な教育内容の対応を示します。実際の担当業務に合った訓練が実施され、記録が保存されているかを確認します。",
+          "checkPoints": [
+            "関係者ごとの役割を確認する",
+            "担当業務に必要な教育内容を確認する",
+            "教育記録と更新時期を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-13.jpg",
+          "page": 13,
+          "caption": "改正周期と移行期間の図",
+          "summary": "改正周期と移行期間の図は、改正版の発行、任意適用、強制適用の時期を示します。検査時点で使用すべき版と移行期間の扱いを確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        }
+      ],
+      "plainExplanation": "この章は、危険物輸送の確認を「国連番号だけを見る作業」にしないための全体地図です。危険物の特定、分類、包装、表示、書類、収納、積載、隔離、緊急対応は相互に連動しています。前段階の分類や品名が誤っていると、後続の標札・容器・隔離の判断も連鎖的に誤るため、検査では根拠となる版と法体系を最初に固定します。",
+      "workflow": [
+        "使用する危規則・危告示・IMDG Codeの版と施行日を確認する",
+        "国連番号と正式輸送品名を起点に危険物リストの各列を追う",
+        "国内法令の要件を主として確認し、国内法にない事項をIMDG Codeで補足する",
+        "表示・書類・現物・収納状態が同じ分類結果に基づいているか照合する"
+      ],
+      "commonMistakes": [
+        "旧版のコードや経過措置を現行要件と混同する",
+        "IMDG Codeだけを見て国内法令の追加要件を見落とす",
+        "危険物リストの一つの列だけを確認して包装・積載・隔離を横断確認しない"
       ]
     },
     {
-      id: "guide-general-provisions",
-      category: "general-provisions",
-      title: "適用範囲、法的地位、訓練、保安および放射性物質",
-      sourcePages: "13-24",
-      summary: "IMDG Codeは危険物を運搬する船舶と、その輸送準備を行う陸上関係者に適用されます。所轄官庁は、条件を満たす場合に承認・免除・代替措置を認めることがありますが、関係国の受入れが必要です。業務従事者には職務に応じた訓練が求められ、危険物の悪用防止、重大影響危険物、放射性物質については追加の保安管理が必要です。",
-      keyPoints: [
+      "id": "guide-general-provisions",
+      "category": "general-provisions",
+      "title": "適用範囲、法的地位、訓練、保安および放射性物質",
+      "sourcePages": "13-24",
+      "summary": "IMDG Codeは危険物を運搬する船舶と、その輸送準備を行う陸上関係者に適用されます。所轄官庁は、条件を満たす場合に承認・免除・代替措置を認めることがありますが、関係国の受入れが必要です。業務従事者には職務に応じた訓練が求められ、危険物の悪用防止、重大影響危険物、放射性物質については追加の保安管理が必要です。",
+      "keyPoints": [
         "訓練は一般理解、職務別訓練、安全訓練に分け、担当業務に応じて実施する。",
         "承認・免除は通常要件を外す根拠ではなく、所轄官庁の正式な文書と適用条件が必要。",
         "保安計画、アクセス管理、情報管理、異常時報告などを組織的に整備する。",
         "放射性物質は通常の危険物規定に加え、専用の分類・包装・表示・輸送指数等を確認する。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "検査担当者が必要な教育を受け、記録が維持されているか。",
         "承認書・適用除外文書に対象貨物、期間、条件、発行機関が明記されているか。",
         "コンテナ、保管場所、書類への不正アクセスを防ぐ管理があるか。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-16.jpg", page: 16, caption: "SOLAS・MARPOL・CSCの関係"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-18.jpg", page: 18, caption: "所轄官庁、承認、免除に関する説明"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-21.jpg", page: 21, caption: "訓練と関係者の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-24.jpg", page: 24, caption: "貨物輸送ユニットと放射性物質の例"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-16.jpg",
+          "page": 16,
+          "caption": "SOLAS・MARPOL・CSCの関係",
+          "summary": "SOLAS・MARPOL・CSCの関係は、複数の法令・国際規則・関係者の役割を一つの図で整理したものです。どの規定が上位・補助・実施基準に当たるかを把握し、確認漏れを防ぐために使用します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-17.jpg",
+          "page": 17,
+          "caption": "所轄官庁・承認・免除の整理",
+          "summary": "所轄官庁、所轄当局、承認、免除の役割と適用条件を整理したページです。文書の発行者、対象、期限、条件を確認します。",
+          "checkPoints": [
+            "承認書の発行権限、適用範囲、有効期間を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-18.jpg",
+          "page": 18,
+          "caption": "所轄官庁、承認、免除に関する説明",
+          "summary": "所轄官庁、承認、免除に関する説明を元資料の図・写真・表として示しています。図中の注記、凡例、数値、条件を本文と照合し、検査対象に当てはめて確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-20.jpg",
+          "page": 20,
+          "caption": "定義・測定単位・略語の参照表",
+          "summary": "IMDG Codeで使用する定義、単位、略語を表で確認できます。数値や略語の読み違いを防ぐために使用します。",
+          "checkPoints": [
+            "単位、略語、定義の適用範囲を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-21.jpg",
+          "page": 21,
+          "caption": "訓練と関係者の例",
+          "summary": "訓練と関係者の例は、複数の法令・国際規則・関係者の役割を一つの図で整理したものです。どの規定が上位・補助・実施基準に当たるかを把握し、確認漏れを防ぐために使用します。",
+          "checkPoints": [
+            "関係者ごとの役割を確認する",
+            "担当業務に必要な教育内容を確認する",
+            "教育記録と更新時期を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-23.jpg",
+          "page": 23,
+          "caption": "重大影響危険物の一覧表",
+          "summary": "保安管理を強化すべき重大影響危険物を等級・区分別に示した表です。対象貨物の該当性と追加保安措置を確認します。",
+          "checkPoints": [
+            "対象となる等級・数量基準と保安措置を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-24.jpg",
+          "page": 24,
+          "caption": "貨物輸送ユニットと放射性物質の例",
+          "summary": "貨物輸送ユニットと放射性物質の例を元資料の図・写真・表として示しています。図中の注記、凡例、数値、条件を本文と照合し、検査対象に当てはめて確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        }
+      ],
+      "plainExplanation": "陸上で危険物を分類し、包装し、表示し、コンテナへ収納する人もIMDG Codeの安全連鎖に含まれます。訓練は一律の座学ではなく、実際に担当する業務に応じて内容を変える必要があります。また、承認や免除が提示された場合も「何でも許される文書」ではなく、対象、期間、条件、発行権限を確認して初めて適用できます。",
+      "workflow": [
+        "担当者の職務と必要な訓練項目を対応付ける",
+        "教育日、内容、講師、受講者を記録し更新時期を管理する",
+        "承認・免除文書の発行者、対象貨物、条件、有効期間を確認する",
+        "重大影響危険物や放射性物質では追加の保安・アクセス管理を確認する"
+      ],
+      "commonMistakes": [
+        "受講証だけを見て職務別訓練の内容を確認しない",
+        "承認番号があるだけで適用条件を読まずに受け入れる",
+        "教育記録の保存期間や再教育の要否を管理していない"
       ]
     },
     {
-      id: "guide-classification",
-      category: "classification",
-      title: "危険物の分類、容器等級、海洋汚染物質、国連番号と正式輸送品名",
-      sourcePages: "25-51",
-      summary: "危険物は主危険性に基づき等級1から9に分類され、必要に応じて副次危険性等級が付与されます。危険度に応じて容器等級I・II・IIIが定められ、海洋環境への有害性があるものは海洋汚染物質として扱われます。国連番号と正式輸送品名は輸送手続きの基礎であり、N.O.S.品名では技術名の追記、混合物・廃棄物・サンプルでは適切な修飾語が必要です。",
-      keyPoints: [
+      "id": "guide-classification",
+      "category": "classification",
+      "title": "危険物の分類、容器等級、海洋汚染物質、国連番号と正式輸送品名",
+      "sourcePages": "25-51",
+      "summary": "危険物は主危険性に基づき等級1から9に分類され、必要に応じて副次危険性等級が付与されます。危険度に応じて容器等級I・II・IIIが定められ、海洋環境への有害性があるものは海洋汚染物質として扱われます。国連番号と正式輸送品名は輸送手続きの基礎であり、N.O.S.品名では技術名の追記、混合物・廃棄物・サンプルでは適切な修飾語が必要です。",
+      "keyPoints": [
         "主危険性と副次危険性をSDSや試験結果から正しく決定する。",
         "容器等級は物質の危険度を示し、使用可能な容器や許容数量に影響する。",
         "N.O.S.品名は括弧内に危険性に寄与する技術名を記載する。",
         "少量危険物・微量危険物は適用除外ではなく、専用の数量・包装・表示条件を満たす必要がある。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "危険物明細書、SDS、容器表示の国連番号・正式輸送品名が一致するか。",
         "正標札と副標札が分類結果と一致するか。",
         "海洋汚染物質マーク、技術名、廃棄物・高温物質等の追加記載が必要か。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-26.jpg", page: 26, caption: "危険物分類の概要と輸送形態"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-31.jpg", page: 31, caption: "危険等級の分類表"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-44.jpg", page: 44, caption: "海洋汚染物質マークの例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-47.jpg", page: 47, caption: "国連番号と正式輸送品名の考え方"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-50.jpg", page: 50, caption: "正式輸送品名を補足する表示例"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-26.jpg",
+          "page": 26,
+          "caption": "危険物分類の概要と輸送形態",
+          "summary": "危険物分類の概要と輸送形態を元資料の図・写真・表として示しています。図中の注記、凡例、数値、条件を本文と照合し、検査対象に当てはめて確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-27.jpg",
+          "page": 27,
+          "caption": "危険等級と標札の全体一覧",
+          "summary": "等級1から9までの危険等級と代表的な標札を一覧で確認できます。主危険性と副次危険性の表示を照合します。",
+          "checkPoints": [
+            "等級番号、標札の色・記号、副標札の要否を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-31.jpg",
+          "page": 31,
+          "caption": "危険等級の分類表",
+          "summary": "危険等級の分類表は、条件を縦横の項目で照合する表です。行・列・脚注・例外条件を崩さず読み、対象貨物に該当する交点と追加規定を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-34.jpg",
+          "page": 34,
+          "caption": "高圧ガスの区分と標札例",
+          "summary": "等級2の高圧ガスについて、区分2.1、2.2、2.3の標札例と分類の考え方を確認できます。",
+          "checkPoints": [
+            "ガスの引火性・毒性と標札の組合せを確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-38.jpg",
+          "page": 38,
+          "caption": "酸化性物質・有機過酸化物の標札例",
+          "summary": "等級5.1と5.2の標札及び危険性の違いを確認できます。熱源、汚染、混触危険にも注意します。",
+          "checkPoints": [
+            "5.1と5.2の区別、温度管理、混触防止を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-40.jpg",
+          "page": 40,
+          "caption": "毒物・病毒をうつしやすい物質の標札例",
+          "summary": "等級6.1と6.2の標札及び取扱上の違いを示しています。内容物、表示、漏えい対策を確認します。",
+          "checkPoints": [
+            "6.1と6.2の区別、容器表示、漏えい時対応を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-44.jpg",
+          "page": 44,
+          "caption": "海洋汚染物質マークの例",
+          "summary": "海洋汚染物質マークの例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "形状・色・記号・寸法を確認する",
+            "内容物情報や危険性との一致を確認する",
+            "配置、視認性、耐久性、不要表示の残存を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-45.jpg",
+          "page": 45,
+          "caption": "海洋汚染物質の判定表とマーク",
+          "summary": "海洋汚染物質の判定基準、表示マーク、適用条件をまとめたページです。危険物リストとSDSを照合します。",
+          "checkPoints": [
+            "判定基準、マーク要否、少量時の扱いを確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-47.jpg",
+          "page": 47,
+          "caption": "国連番号と正式輸送品名の考え方",
+          "summary": "国連番号と正式輸送品名の考え方は、国連番号と正式輸送品名を危険物リストから特定・補足する考え方を示します。商品名や略称ではなく、分類・技術名・特別規定を含めて確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-49.jpg",
+          "page": 49,
+          "caption": "正式輸送品名の選定表",
+          "summary": "個別品名、包括品名、N.O.S.品名などの選定関係を表で確認できます。商品名ではなく適切な正式輸送品名を選びます。",
+          "checkPoints": [
+            "品名の種類、技術名追記、特別規定を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-50.jpg",
+          "page": 50,
+          "caption": "正式輸送品名を補足する表示例",
+          "summary": "正式輸送品名を補足する表示例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        }
+      ],
+      "plainExplanation": "分類は、後続するすべての表示・包装・積載判断の出発点です。品名が似ていても濃度、物理状態、安定剤の有無、混合物の性状によって国連番号や副次危険性が変わります。N.O.S.品名では、危険性に寄与する成分を技術名として括弧内に追記し、一般名だけで内容を曖昧にしないことが重要です。",
+      "workflow": [
+        "SDSの組成、物性、輸送情報、試験結果を確認する",
+        "候補となる国連番号と正式輸送品名を比較する",
+        "主危険性、副次危険性、容器等級、海洋汚染物質該当性を決定する",
+        "書類、容器、標札、コンテナ表示へ同じ分類結果が反映されているか確認する"
+      ],
+      "commonMistakes": [
+        "製品名を正式輸送品名として使用する",
+        "N.O.S.品名に必要な技術名を記載しない",
+        "副次危険性や海洋汚染物質マークを見落とす",
+        "少量・微量危険物を完全な規制除外と誤解する"
       ]
     },
     {
-      id: "guide-packaging",
-      category: "packaging",
-      title: "容器包装の選択、国連包装マーク、包装要件、タンク・IBC・バルク",
-      sourcePages: "53-69",
-      summary: "危険物の容器包装は、物質の性状、容器等級、数量、輸送形態に適合するものを選びます。容器は国連試験に合格した設計型式で、国連包装マークにより材質、型式、性能水準、製造年、承認国、製造者などを識別します。危険物リストのP、IBC、LP、T、TP、BK等のコードから、使用可能な容器、追加規定、最大容量、試験条件を確認します。",
-      keyPoints: [
+      "id": "guide-packaging",
+      "category": "packaging",
+      "title": "容器包装の選択、国連包装マーク、包装要件、タンク・IBC・バルク",
+      "sourcePages": "53-69",
+      "summary": "危険物の容器包装は、物質の性状、容器等級、数量、輸送形態に適合するものを選びます。容器は国連試験に合格した設計型式で、国連包装マークにより材質、型式、性能水準、製造年、承認国、製造者などを識別します。危険物リストのP、IBC、LP、T、TP、BK等のコードから、使用可能な容器、追加規定、最大容量、試験条件を確認します。",
+      "keyPoints": [
         "容器と内容物の化学的適合性、充塡率、内圧、温度、閉鎖方法を確認する。",
         "国連包装マークは危険物そのものの使用許可ではなく、容器設計型式の性能証明である。",
         "包装要件コードと追加包装規定をセットで確認する。",
         "IBC、ポータブルタンク、MEGC、バルクコンテナでは検査期限・試験・構造要件も確認する。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "包装コードが危険物リストの指定と一致するか。",
         "国連包装マークが判読でき、容器等級と比重・固体質量・水圧試験等の条件を満たすか。",
         "容器の腐食、変形、漏れ、閉鎖不良、期限切れ検査がないか。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-57.jpg", page: 57, caption: "容器包装と国連試験の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-63.jpg", page: 63, caption: "包装の選択手順とコード表"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-66.jpg", page: 66, caption: "ポータブルタンク・MEGCの規定例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-69.jpg", page: 69, caption: "タンク・バルク輸送形態の例"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-54.jpg",
+          "page": 54,
+          "caption": "容器包装の一般要件と現物例",
+          "summary": "ドラム、缶、箱などの容器例と一般要件を示しています。内容物との適合性、閉鎖、漏れ、損傷を確認します。",
+          "checkPoints": [
+            "材質、閉鎖状態、腐食・変形・漏れを確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-55.jpg",
+          "page": 55,
+          "caption": "容器包装コードの一覧表",
+          "summary": "容器種類とコードの対応表です。包装要件で指定されたコードを現物の容器形態と照合します。",
+          "checkPoints": [
+            "包装コード、材質、容器形式を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-57.jpg",
+          "page": 57,
+          "caption": "容器包装と国連試験の例",
+          "summary": "容器包装と国連試験の例は、使用できる容器・包装・タンク形態と、その選択条件を視覚化しています。材質、容量・質量、性能試験、追加規定、内容物との適合性を本文と照合します。",
+          "checkPoints": [
+            "容器・包装の種類と材質を確認する",
+            "容量・質量・性能水準・試験条件を確認する",
+            "内容物との適合性、閉鎖状態、損傷の有無を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-58.jpg",
+          "page": 58,
+          "caption": "国連包装マークの実例",
+          "summary": "容器に表示された国連包装マークの実例を示しています。刻印・印字の位置、判読性、承認情報を確認します。",
+          "checkPoints": [
+            "UN記号、容器コード、性能水準、製造年を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-59.jpg",
+          "page": 59,
+          "caption": "単一容器・組合せ容器のコード表",
+          "summary": "ドラム、ジェリカン、箱等の写真と包装コード表を併記しています。指定包装との一致を確認します。",
+          "checkPoints": [
+            "容器形態とコード、材質、最大容量を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-62.jpg",
+          "page": 62,
+          "caption": "IBCの国連包装マークと種類",
+          "summary": "IBCの表示例、構造形式、コードを確認できます。定期検査、最大総質量、製造情報も照合します。",
+          "checkPoints": [
+            "IBCコード、最大総質量、検査期限、損傷を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-63.jpg",
+          "page": 63,
+          "caption": "包装の選択手順とコード表",
+          "summary": "包装の選択手順とコード表は、条件を縦横の項目で照合する表です。行・列・脚注・例外条件を崩さず読み、対象貨物に該当する交点と追加規定を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-66.jpg",
+          "page": 66,
+          "caption": "ポータブルタンク・MEGCの規定例",
+          "summary": "ポータブルタンク・MEGCの規定例は、使用できる容器・包装・タンク形態と、その選択条件を視覚化しています。材質、容量・質量、性能試験、追加規定、内容物との適合性を本文と照合します。",
+          "checkPoints": [
+            "容器・包装の種類と材質を確認する",
+            "容量・質量・性能水準・試験条件を確認する",
+            "内容物との適合性、閉鎖状態、損傷の有無を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-67.jpg",
+          "page": 67,
+          "caption": "組合せ容器・救済容器の収納例",
+          "summary": "内装容器を外装容器へ収納する例や緩衝材の状態を写真で確認できます。移動防止と破損防止を確認します。",
+          "checkPoints": [
+            "内装容器の向き、緩衝材、空隙処理、閉鎖を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-68.jpg",
+          "page": 68,
+          "caption": "ポータブルタンク・MEGCの外観例",
+          "summary": "ポータブルタンク、MEGC等の外観と構造例です。タンクコード、表示、付属設備、検査状態を確認します。",
+          "checkPoints": [
+            "タンク形式、付属設備、検査表示、損傷を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-69.jpg",
+          "page": 69,
+          "caption": "タンク・バルク輸送形態の例",
+          "summary": "タンク・バルク輸送形態の例は、使用できる容器・包装・タンク形態と、その選択条件を視覚化しています。材質、容量・質量、性能試験、追加規定、内容物との適合性を本文と照合します。",
+          "checkPoints": [
+            "容器・包装の種類と材質を確認する",
+            "容量・質量・性能水準・試験条件を確認する",
+            "内容物との適合性、閉鎖状態、損傷の有無を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-70.jpg",
+          "page": 70,
+          "caption": "バルクコンテナの形態例",
+          "summary": "フレキシブル・剛性バルクコンテナ等の形態例です。BKコード、構造、閉鎖、内容物適合性を確認します。",
+          "checkPoints": [
+            "BKコード、構造、閉鎖部、漏えい・飛散防止を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        }
+      ],
+      "plainExplanation": "包装コードは「容器の種類を一つ選ぶ記号」ではなく、内装容器、外装容器、最大容量・質量、追加規定、材質適合性、閉鎖方法までを組み合わせて確認する入口です。国連包装マークは容器設計の性能を示しますが、内容物との適合や使用期限まで自動的に保証するものではありません。",
+      "workflow": [
+        "危険物リストのP・IBC・LP・T・TP・BKコードを確認する",
+        "該当する包装要件の表と追加規定を原文レイアウトで確認する",
+        "容器材質、容量、比重、蒸気圧、充填率、閉鎖方法を内容物と照合する",
+        "国連包装マーク、製造年、定期検査、損傷・漏れを現物確認する"
+      ],
+      "commonMistakes": [
+        "包装要件表の列ずれにより別の容器等級の許容量を読む",
+        "国連包装マークがあれば全物質に使用可能と判断する",
+        "追加包装規定や特別規定を確認しない",
+        "閉鎖具の締付け方法やガスケット適合性を確認しない"
       ]
     },
     {
-      id: "guide-consignment",
-      category: "consignment",
-      title: "マーク、ラベル、プラカード、危険物輸送文書とコンテナ収納証明",
-      sourcePages: "72-100",
-      summary: "委託手続きでは、容器包装への国連番号・正式輸送品名・危険物ラベル、オーバーパック表示、少量・微量危険物マーク、リチウム電池マークを適切に表示します。貨物輸送ユニットにはプラカード、国連番号、海洋汚染物質等の必要なマークを所定位置に表示します。危険物輸送文書には規定順序で品名、等級、副次危険性、容器等級、数量等を記載し、コンテナ収納証明を含め、実貨物との一致を確認します。",
-      keyPoints: [
+      "id": "guide-consignment",
+      "category": "consignment",
+      "title": "マーク、ラベル、プラカード、危険物輸送文書とコンテナ収納証明",
+      "sourcePages": "72-100",
+      "summary": "委託手続きでは、容器包装への国連番号・正式輸送品名・危険物ラベル、オーバーパック表示、少量・微量危険物マーク、リチウム電池マークを適切に表示します。貨物輸送ユニットにはプラカード、国連番号、海洋汚染物質等の必要なマークを所定位置に表示します。危険物輸送文書には規定順序で品名、等級、副次危険性、容器等級、数量等を記載し、コンテナ収納証明を含め、実貨物との一致を確認します。",
+      "keyPoints": [
         "ラベル・マークは耐候性、視認性、寸法、位置、重複表示の要否を確認する。",
         "オーバーパック内の表示が外から見えない場合は、外側に再表示しOVERPACKを表示する。",
         "プラカードはCTUの各側面に必要数を表示し、不要となった表示は除去・遮蔽する。",
         "危険物輸送文書の記載順序と追加文言を確認し、容器数・種類・総数量を現物と照合する。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "国連番号、正式輸送品名、標札、海洋汚染物質マークが書類と現物で一致するか。",
         "コンテナ収納証明の署名、日付、収納・固定・隔離の宣言が整っているか。",
         "向き矢印、燻蒸警告、高温物質、環境有害性等の追加表示が必要か。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-74.jpg", page: 74, caption: "容器包装へのマーク・ラベル表示例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-83.jpg", page: 83, caption: "少量危険物・微量危険物の表示表"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-85.jpg", page: 85, caption: "リチウム電池等の表示例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-90.jpg", page: 90, caption: "追加警告マークの例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-94.jpg", page: 94, caption: "危険物輸送文書の記載例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-98.jpg", page: 98, caption: "コンテナ収納証明に関する説明"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-73.jpg",
+          "page": 73,
+          "caption": "マーク・ラベルの不適合例",
+          "summary": "廃棄物表示、海洋汚染物質マーク等の表示例を示しています。誤表示、欠落、不要表示の残存を確認します。",
+          "checkPoints": [
+            "必要表示、サイズ、耐久性、旧表示の除去を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-74.jpg",
+          "page": 74,
+          "caption": "容器包装へのマーク・ラベル表示例",
+          "summary": "容器包装へのマーク・ラベル表示例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-75.jpg",
+          "page": 75,
+          "caption": "オーバーパックの表示例",
+          "summary": "オーバーパック表示と内部容器の標札・国連番号の見え方を示しています。OVERPACK表示の要否を確認します。",
+          "checkPoints": [
+            "内部表示の視認性、OVERPACK表示、方向性矢印を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-76.jpg",
+          "page": 76,
+          "caption": "少量危険物・微量危険物マーク",
+          "summary": "少量危険物及び微量危険物のマーク形状と寸法を示しています。数量条件と包装条件も照合します。",
+          "checkPoints": [
+            "マーク寸法、数量制限、包装条件を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-77.jpg",
+          "page": 77,
+          "caption": "等級1のプラカード適用表",
+          "summary": "火薬類の区分、隔離区分、プラカードの対応を表で確認できます。",
+          "checkPoints": [
+            "区分番号、隔離区分文字、プラカードを確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-83.jpg",
+          "page": 83,
+          "caption": "少量危険物・微量危険物の表示表",
+          "summary": "少量危険物・微量危険物の表示表は、条件を縦横の項目で照合する表です。行・列・脚注・例外条件を崩さず読み、対象貨物に該当する交点と追加規定を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-84.jpg",
+          "page": 84,
+          "caption": "追加マークの実例",
+          "summary": "高温物質、燻蒸、環境有害性、方向性矢印など追加マークの例を示しています。",
+          "checkPoints": [
+            "貨物条件に応じた追加マークの要否と位置を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-85.jpg",
+          "page": 85,
+          "caption": "リチウム電池等の表示例",
+          "summary": "リチウム電池等の表示例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-87.jpg",
+          "page": 87,
+          "caption": "CTUへのプラカード表示位置の写真",
+          "summary": "コンテナ・タンク等へのプラカード表示位置を写真で確認できます。四側面の配置と視認性を確認します。",
+          "checkPoints": [
+            "四側面の表示、遮蔽、損傷、不要表示を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-88.jpg",
+          "page": 88,
+          "caption": "国連番号・正式輸送品名の表示位置",
+          "summary": "コンテナとタンクへの国連番号や正式輸送品名の表示例です。適用条件と表示方法を確認します。",
+          "checkPoints": [
+            "国連番号の高さ、表示位置、正式輸送品名の要否を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-89.jpg",
+          "page": 89,
+          "caption": "高温物質・海洋汚染物質等の追加表示",
+          "summary": "高温物質、海洋汚染物質、その他追加マークの組合せ例を確認できます。",
+          "checkPoints": [
+            "追加表示の条件、組合せ、四側面配置を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-90.jpg",
+          "page": 90,
+          "caption": "追加警告マークの例",
+          "summary": "追加警告マークの例は、必要なマーク・ラベル・標札の形状、組合せ、配置を示した例です。内容物情報との一致、サイズ、視認性、耐久性、不要表示の残存を確認します。",
+          "checkPoints": [
+            "形状・色・記号・寸法を確認する",
+            "内容物情報や危険性との一致を確認する",
+            "配置、視認性、耐久性、不要表示の残存を確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-94.jpg",
+          "page": 94,
+          "caption": "危険物輸送文書の記載例",
+          "summary": "危険物輸送文書の記載例は、危険物輸送文書または収納証明に必要な記載内容と流れを示します。国連番号、正式輸送品名、分類、数量、署名等が現物・申請情報と一致するかを確認します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-98.jpg",
+          "page": 98,
+          "caption": "コンテナ収納証明に関する説明",
+          "summary": "コンテナ収納証明に関する説明は、CTU・船上での配置、固定、隔離、構造安全を示す実務図です。荷重分布、空隙、固縛、扉付近、損傷、隔離距離を現物と照合します。",
+          "checkPoints": [
+            "貨物とCTUの適合性を確認する",
+            "重量配分、固定、隔離、換気条件を確認する",
+            "図中の禁止例・注意例を現物と比較する"
+          ]
+        }
+      ],
+      "plainExplanation": "表示と書類は、事故時に内容物を開封せず識別するための情報です。容器、オーバーパック、コンテナ、危険物輸送文書は、それぞれ表示場所と役割が異なります。検査では個々の表示が存在するかだけでなく、国連番号、正式輸送品名、等級、数量が全媒体で一致しているかを確認します。",
+      "workflow": [
+        "容器の国連番号、正式輸送品名、正標札・副標札を確認する",
+        "オーバーパック内の表示が外から見えるか、再表示とOVERPACK表示が必要か判断する",
+        "CTU四面のプラカード・国連番号・海洋汚染物質マークを確認する",
+        "危険物輸送文書とコンテナ収納証明を現物、個数、数量、シール番号と照合する"
+      ],
+      "commonMistakes": [
+        "不要になった旧標札を残したままにする",
+        "書類の正式輸送品名と容器表示が一致していない",
+        "副標札や海洋汚染物質マークを省略する",
+        "オーバーパックの再表示条件を見落とす"
       ]
     },
     {
-      id: "guide-transport-operations",
-      category: "transport-operations",
-      title: "積載方法、隔離、CTU収納、CSC、事故・火災・医療・港湾対応",
-      sourcePages: "102-128",
-      summary: "輸送業務では、危険物リストの積載方法、SW等の特別規定、隔離表、SG・SGGコードを使って船上の積載位置と危険物相互の隔離を決定します。CTUへの収納では、コンテナの適合性、重量配分、荷崩れ防止、固縛、換気、汚染防止を確認します。事故時にはEmS、MFAG、船舶・港湾の緊急対応手順を参照し、火災、漏えい、曝露に応じた初動を行います。",
-      keyPoints: [
+      "id": "guide-transport-operations",
+      "category": "transport-operations",
+      "title": "積載方法、隔離、CTU収納、CSC、事故・火災・医療・港湾対応",
+      "sourcePages": "102-128",
+      "summary": "輸送業務では、危険物リストの積載方法、SW等の特別規定、隔離表、SG・SGGコードを使って船上の積載位置と危険物相互の隔離を決定します。CTUへの収納では、コンテナの適合性、重量配分、荷崩れ防止、固縛、換気、汚染防止を確認します。事故時にはEmS、MFAG、船舶・港湾の緊急対応手順を参照し、火災、漏えい、曝露に応じた初動を行います。",
+      "keyPoints": [
         "積載区分と特別規定は、貨物の危険性、船型、旅客船・貨物船の別を考慮する。",
         "隔離は等級間の表だけでなく、SG・SGG、同一物質の反応性、食品との隔離も確認する。",
         "CTUは損傷・水密性・床強度・清浄性を確認し、重量を分散し、移動・転倒・圧壊を防止する。",
         "CSC安全承認板と定期検査状態を確認し、異常コンテナを使用しない。",
         "事故対応では物質を特定し、EmS火災・流出手順、MFAG医療措置、港湾通報体制を活用する。"
       ],
-      inspectionPoints: [
+      "inspectionPoints": [
         "積載方法コード、SW、SG、SGGの要件が収納計画に反映されているか。",
         "危険物間・食品間の隔離距離や隔壁条件を満たすか。",
         "貨物の重量配分、固縛、空隙処理、扉付近の荷崩れ防止が適切か。",
         "CSCプレート、次回検査日、構造損傷、床・扉・屋根の状態に問題がないか。"
       ],
-      images: [
-        {src: "../assets/reference-images/imdg-inspection-guide/page-103.jpg", page: 103, caption: "積載方法と船型の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-107.jpg", page: 107, caption: "隔離用語と船上配置の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-111.jpg", page: 111, caption: "隔離表の例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-116.jpg", page: 116, caption: "貨物輸送ユニットの収納例"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-119.jpg", page: 119, caption: "CSCとコンテナ安全確認"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-122.jpg", page: 122, caption: "船上緊急対応手順の説明"},
-        {src: "../assets/reference-images/imdg-inspection-guide/page-126.jpg", page: 126, caption: "港湾区域の危険物取扱表"}
+      "images": [
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-97.jpg",
+          "page": 97,
+          "caption": "危険物の積載状態の写真例",
+          "summary": "倉庫・コンテナ内の積載例を示しています。転倒、移動、荷崩れ、損傷、混触の危険を確認します。",
+          "checkPoints": [
+            "荷姿、重量配分、固定、通路、損傷を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-103.jpg",
+          "page": 103,
+          "caption": "積載方法と船型の例",
+          "summary": "積載方法と船型の例は、CTU・船上での配置、固定、隔離、構造安全を示す実務図です。荷重分布、空隙、固縛、扉付近、損傷、隔離距離を現物と照合します。",
+          "checkPoints": [
+            "貨物とCTUの適合性を確認する",
+            "重量配分、固定、隔離、換気条件を確認する",
+            "図中の禁止例・注意例を現物と比較する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-104.jpg",
+          "page": 104,
+          "caption": "積載区分・積載方法の色分け表",
+          "summary": "積載区分や船種別の取扱いを色分けした表です。対象貨物のコードと船型条件を照合します。",
+          "checkPoints": [
+            "積載区分、船型、甲板上・下の条件を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-107.jpg",
+          "page": 107,
+          "caption": "隔離用語と船上配置の例",
+          "summary": "隔離用語と船上配置の例は、CTU・船上での配置、固定、隔離、構造安全を示す実務図です。荷重分布、空隙、固縛、扉付近、損傷、隔離距離を現物と照合します。",
+          "checkPoints": [
+            "貨物とCTUの適合性を確認する",
+            "重量配分、固定、隔離、換気条件を確認する",
+            "図中の禁止例・注意例を現物と比較する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-108.jpg",
+          "page": 108,
+          "caption": "隔離用語と距離の図解",
+          "summary": "隔離用語ごとの船上配置と距離の考え方を図で示しています。貨物間の隔離方法を確認します。",
+          "checkPoints": [
+            "隔離用語、距離、甲板・隔壁条件を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-109.jpg",
+          "page": 109,
+          "caption": "危険等級別隔離表",
+          "summary": "危険等級同士の隔離関係を色分けしたマトリクス表です。交点と注記を確認します。",
+          "checkPoints": [
+            "対象等級の交点、隔離数字、脚注を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-111.jpg",
+          "page": 111,
+          "caption": "隔離表の例",
+          "summary": "隔離表の例は、条件を縦横の項目で照合する表です。行・列・脚注・例外条件を崩さず読み、対象貨物に該当する交点と追加規定を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-112.jpg",
+          "page": 112,
+          "caption": "SG隔離コード一覧",
+          "summary": "SGコードと適用内容の一覧表です。危険物リストのコードから追加隔離条件を確認します。",
+          "checkPoints": [
+            "SGコード、対象物質、追加隔離条件を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-114.jpg",
+          "page": 114,
+          "caption": "SGG隔離グループ一覧",
+          "summary": "物質群ごとの隔離グループとコードを一覧で確認できます。品名とグループ該当性を照合します。",
+          "checkPoints": [
+            "SGGコード、物質群、品名との一致を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-116.jpg",
+          "page": 116,
+          "caption": "貨物輸送ユニットの収納例",
+          "summary": "貨物輸送ユニットの収納例は、CTU・船上での配置、固定、隔離、構造安全を示す実務図です。荷重分布、空隙、固縛、扉付近、損傷、隔離距離を現物と照合します。",
+          "checkPoints": [
+            "貨物とCTUの適合性を確認する",
+            "重量配分、固定、隔離、換気条件を確認する",
+            "図中の禁止例・注意例を現物と比較する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-118.jpg",
+          "page": 118,
+          "caption": "CTUの点検・収納不良例",
+          "summary": "貨物輸送ユニットの外観点検と収納状態の写真例です。構造損傷、汚染、固定、扉周辺を確認します。",
+          "checkPoints": [
+            "CTU損傷、床・壁、汚染、固定、扉の閉鎖を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-119.jpg",
+          "page": 119,
+          "caption": "CSCとコンテナ安全確認",
+          "summary": "CSCとコンテナ安全確認は、CTU・船上での配置、固定、隔離、構造安全を示す実務図です。荷重分布、空隙、固縛、扉付近、損傷、隔離距離を現物と照合します。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-121.jpg",
+          "page": 121,
+          "caption": "CSC安全承認プレートの確認例",
+          "summary": "CSC安全承認プレートとコンテナ承認情報の例です。有効な検査方式とプレート記載事項を確認します。",
+          "checkPoints": [
+            "承認番号、最大総質量、検査方式、次回検査日を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-122.jpg",
+          "page": 122,
+          "caption": "船上緊急対応手順の説明",
+          "summary": "船上緊急対応手順の説明は、火災・漏えい等の緊急時に取るべき初動と参照情報を整理したものです。対象物質のEmS等と船内・事業所手順を事前に対応付けます。",
+          "checkPoints": [
+            "図・写真・表の主題を確認する",
+            "凡例・注記・数値・条件を確認する",
+            "本文の規定と検査対象を照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-123.jpg",
+          "page": 123,
+          "caption": "船上緊急対応・EmSの参照例",
+          "summary": "危険物事故時の船上対応とEmS参照の考え方を示しています。火災・漏えい時の手順を確認します。",
+          "checkPoints": [
+            "EmSコード、初動、保護具、通報・隔離を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-126.jpg",
+          "page": 126,
+          "caption": "港湾区域の危険物取扱表",
+          "summary": "港湾区域の危険物取扱表は、条件を縦横の項目で照合する表です。行・列・脚注・例外条件を崩さず読み、対象貨物に該当する交点と追加規定を確認します。",
+          "checkPoints": [
+            "表題と適用対象を確認する",
+            "対象となる行と列の交点を確認する",
+            "脚注・例外・追加条件を本文と照合する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-127.jpg",
+          "page": 127,
+          "caption": "港湾区域での危険物取扱い例",
+          "summary": "港湾施設・船舶での危険物取扱い写真と管理事項を示しています。保管、荷役、緊急体制を確認します。",
+          "checkPoints": [
+            "保管場所、荷役設備、火気管理、緊急連絡を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        },
+        {
+          "src": "../assets/reference-images/imdg-inspection-guide/page-129.jpg",
+          "page": 129,
+          "caption": "港湾での火災・漏えい事故例",
+          "summary": "港湾区域の火災・漏えい事例写真です。事故時の初動、区域規制、消防・関係機関との連携を確認します。",
+          "checkPoints": [
+            "発見・通報、立入規制、消火・漏えい対応を確認する",
+            "図・表・写真の注記と本文を照合する",
+            "現物・書類・表示に同じ条件が反映されているか確認する"
+          ]
+        }
+      ],
+      "plainExplanation": "収納・積載・隔離は、輸送中の振動、傾斜、温度変化、漏えい、火災を想定して危険の拡大を防ぐ工程です。隔離表だけで判断せず、個別のSG・SGGコード、食品との隔離、積載特別規定、CTUの構造状態を一体で確認します。",
+      "workflow": [
+        "CTUのCSC表示、構造損傷、床、扉、水密性、清浄性を確認する",
+        "重量配分、重心、空隙、固縛点、ラッシングを確認する",
+        "積載方法、SW、SG、SGGと混載貨物の相互反応性を照合する",
+        "緊急時にEmS・MFAG・通報情報へ直ちにアクセスできる状態を確認する"
+      ],
+      "commonMistakes": [
+        "隔離表だけで同一CTU収納可否を決める",
+        "貨物を固定していても重量偏在や床集中荷重を見落とす",
+        "扉付近の荷崩れや開封時の有害雰囲気を想定しない",
+        "CSCプレートだけ見て実際の構造損傷を確認しない"
       ]
     }
   ]

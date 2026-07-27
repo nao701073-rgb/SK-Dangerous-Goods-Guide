@@ -1,8 +1,8 @@
 {
   "product": "検査・検品業務サポートシステム",
   "englishName": "Dangerous Goods Guide",
-  "version": "1.0.0-rc27",
-  "part": 174,
+  "version": "1.0.0-rc36",
+  "part": 183,
   "releaseType": "trial-operation-candidate",
   "releasedAt": "2026-07-27",
   "roles": [
@@ -10,6 +10,6 @@
     "事業所管理者",
     "管理者"
   ],
-  "notes": "IMDG条文ビューアに、表・図・ページ配置を含む公式PDF該当ページ表示を追加。",
-  "releaseName": "IMDG原文ページ視覚表示対応版"
+  "notes": "関連資料画面の見出しを「検査・検品業務に関係する資料を整理」へ変更。",
+  "releaseName": "関連資料見出し修正版"
 }
