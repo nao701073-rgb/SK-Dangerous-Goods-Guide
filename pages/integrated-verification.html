@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>総合自動検査｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css"><link rel="stylesheet" href="../assets/css/integrated-verification.css">
+</head><body data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="system-settings.html" aria-label="システム設定へ戻る">←</a><div><p class="eyebrow">Integrated Verification</p><h1>総合自動検査</h1></div></header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 総合自動検査</div>
+<section class="readiness-hero"><div><span id="verificationBadge">読込中</span><h2>主要構成を一括検証</h2><p>静的参照、権限、危険物データ、主要画面、JavaScript構文の検査結果を確認します。</p></div><div class="readiness-actions"><button id="downloadVerification" type="button">レポートJSONを保存</button><a href="completion-roadmap.html">完成版統合チェック</a></div></section>
+<section class="verification-summary" id="verificationSummary" aria-live="polite"></section>
+<section class="panel"><div class="panel-heading"><div><h2>自動検査結果</h2><p id="verificationGeneratedAt">検査日時を確認しています。</p></div></div><div class="panel-body"><div class="verification-test-list" id="verificationTests"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>実環境で必要な確認</h2></div><div class="panel-body"><div id="manualVerification" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>実行方法</h2></div><div class="panel-body"><p>最新版の自動検査レポートを作成する場合は、<code>server</code>フォルダで次を実行します。</p><pre><code>npm run verify:integrated</code></pre><p>自動検査が合格しても、クラウド接続、メール、写真保存、実端末、負荷試験は別途確認してください。</p></div></section>
+<div class="settings-message" id="verificationMessage" aria-live="polite"></div></main>
+<script src="../assets/js/role-access.js?v=240"></script><script src="../assets/js/session-guard.js"></script><script src="../assets/js/integrated-verification.js?v=240"></script></body></html>

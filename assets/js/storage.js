@@ -371,7 +371,7 @@
     },
 
     addApplication(record) {
-      if (!this.canWriteOperationalData()) throw new Error("安全環境室長・安全環境室職員は閲覧専用です。登録・更新は管理者へ依頼してください。");
+      if (!this.canWriteOperationalData()) throw new Error("安全環境室職員は閲覧専用です。登録・更新はできません。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const applicationNumber = String(record.applicationNumber || "").trim();
       if (!applicationNumber) throw new Error("申請番号は必須です。");
@@ -406,7 +406,7 @@
     },
 
     updateApplication(id, updates) {
-      if (!this.canWriteOperationalData()) throw new Error("安全環境室長・安全環境室職員は閲覧専用です。登録・更新は管理者へ依頼してください。");
+      if (!this.canWriteOperationalData()) throw new Error("安全環境室職員は閲覧専用です。登録・更新はできません。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = applications.find(item => item.id === id);
       if (!target) return false;

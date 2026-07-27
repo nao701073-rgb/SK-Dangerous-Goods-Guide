@@ -525,5 +525,6 @@
   <script>
   (()=>{const buttons=[...document.querySelectorAll("[data-application-section]")];const primary=[...document.querySelectorAll(".application-primary-section")];function show(id){primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});}buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));show("applicationScopeSection");})();
   </script>
+<script src="../assets/js/usage-tracking.js?v=222"></script>
 </body>
 </html>

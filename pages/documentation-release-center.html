@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文書・リリース統合管理｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+</head><body data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="system-settings.html" aria-label="システム設定へ戻る">←</a><div><p class="eyebrow">Documentation &amp; Release Center</p><h1>文書・リリース統合管理</h1></div></header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 文書・リリース統合管理</div>
+<section class="readiness-hero"><div><span id="releaseBadge">Part 242</span><h2>完成版文書とリリース情報を一元確認</h2><p>仕様書、実施要領書、役割別使用要領書、検証レポート、残課題を一画面で整理します。</p></div><div class="readiness-actions"><button id="downloadReleaseManifest" type="button">リリース構成JSON</button><a href="prototype-completion-review.html">試作完成判定</a></div></section>
+<section class="admin-card-grid" id="documentSummary"></section>
+<section class="panel"><div class="panel-heading"><div><h2>正式文書の更新対象</h2><p>試作完成版へ反映すべき文書を確認します。</p></div><span class="fixed-setting" id="documentProgress">0 / 0</span></div><div class="panel-body"><div id="documentChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><div><h2>リリース構成</h2><p>完成版へ含める主要機能と検証結果です。</p></div></div><div class="panel-body"><div id="releaseComponents" class="admin-link-grid"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>残課題と次の工程</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>文書統合状態</strong><p>全項目完了後に「完成版文書確定」を選択します。</p></div><select id="documentationDecision"><option value="in-progress">更新中</option><option value="review">確認待ち</option><option value="complete">完成版文書確定</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>残課題・引継事項</strong></div><textarea id="documentationNotes" rows="6" placeholder="クラウド配置後の設定、実利用者情報、最終承認など"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>次回確認日</strong></div><input id="documentationReviewDate" type="date"></label>
+<div class="settings-actions"><button class="primary-action" id="saveDocumentationReview" type="button">確認結果を保存</button><a class="secondary-action" href="integrated-verification.html">総合自動検査</a></div><div id="documentationMessage" class="settings-message" aria-live="polite"></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>現行方針</h2></div><div class="panel-body"><ul><li>本システムの利用は任意です。</li><li>ゲストは危険物検索、関連法令、関連資料、ユーザー設定を利用できます。</li><li>安全環境室長は全事業所の申請番号・写真を閲覧、登録、編集できますが、削除はできません。</li><li>システム管理者専用の利用履歴確認機能を備えます。</li><li>透かし表示、スクリーンショット検知・追跡、画面自動保存は現時点では実装しません。</li></ul></div></section>
+</main><script src="../assets/js/role-access.js?v=242"></script><script src="../assets/js/session-guard.js"></script><script src="../assets/js/documentation-release-center.js?v=242"></script></body></html>

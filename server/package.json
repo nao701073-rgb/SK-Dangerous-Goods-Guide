@@ -1,6 +1,6 @@
 {
   "name": "inspection-support-system-api",
-  "version": "2.4.0",
+  "version": "2.7.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -31,7 +31,9 @@
     "data:normalize:fields": "node scripts/normalize-part211-fields.js",
     "pilot:users-template": "node scripts/generate-pilot-user-template.js",
     "pilot:roles": "node scripts/verify-role-matrix.js",
-    "pilot:load": "node scripts/pilot-load-test.js"
+    "pilot:load": "node scripts/pilot-load-test.js",
+    "permissions:audit": "node scripts/verify-role-matrix.js",
+    "verify:integrated": "node ../tools/run-integrated-verification.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

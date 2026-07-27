@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>試作完成判定・残課題管理｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+</head><body data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="system-settings.html" aria-label="システム設定へ戻る">←</a><div><p class="eyebrow">Prototype Completion Review</p><h1>試作完成判定・残課題管理</h1></div></header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 試作完成判定・残課題管理</div>
+<section class="readiness-hero"><div><span id="completionBadge">確認中</span><h2>試作完成の判定と配置後作業を分離</h2><p>コード・画面・権限・データ・運用資料の完成状況と、クラウド配置後に行う作業を区別して管理します。</p></div><div class="readiness-actions"><button id="downloadCompletionReport" type="button">統合レポートJSON</button><a href="integrated-verification.html">総合自動検査</a></div></section>
+<section class="admin-card-grid" id="completionSummary"></section>
+<section class="panel"><div class="panel-heading"><div><h2>試作完成の必須条件</h2><p>配置先に依存しない機能・設計・データ・資料の確認項目です。</p></div><span class="fixed-setting" id="prototypeProgress">0 / 0</span></div><div class="panel-body"><div id="prototypeChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><div><h2>配置先決定後の作業</h2><p>クラウド契約や実利用者情報が確定した後に実施します。未完了でも試作完成判定を妨げません。</p></div><span class="fixed-setting" id="deploymentProgress">0 / 0</span></div><div class="panel-body"><div id="deploymentChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>残課題・判定</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>試作版の判定</strong><p>必須条件がすべて完了した場合のみ「試作完成」を選択できます。</p></div><select id="prototypeDecision"><option value="in-progress">統合確認中</option><option value="conditional">条件付き完成</option><option value="complete">試作完成</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>残課題・引継事項</strong></div><textarea id="completionNotes" rows="6" placeholder="配置先決定後の設定、実利用者登録、実環境試験など"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>次回確認日</strong></div><input id="nextReviewDate" type="date"></label>
+<div class="settings-actions"><button class="primary-action" id="saveCompletionReview" type="button">判定を保存</button><a class="secondary-action" href="completion-roadmap.html">完成版統合チェック</a></div><div id="completionMessage" class="settings-message" aria-live="polite"></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>現在の実装方針</h2></div><div class="panel-body"><ul><li>本システムの利用は任意です。</li><li>透かし表示、スクリーンショット検知・追跡、画面自動保存は現時点では実装しません。</li><li>利用履歴は、不適切利用の確認、セキュリティ、障害調査、運用改善、正当な監査に限定します。</li><li>安全環境室長は全事業所の申請番号・写真を閲覧、登録、編集できますが、削除はできません。</li></ul></div></section>
+</main><script src="../assets/js/role-access.js?v=241"></script><script src="../assets/js/session-guard.js"></script><script src="../assets/js/prototype-completion-review.js?v=241"></script></body></html>

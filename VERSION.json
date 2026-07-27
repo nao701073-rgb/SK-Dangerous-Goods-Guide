@@ -1,7 +1,8 @@
 {
-  "version": "Part 216",
-  "part": 216,
-  "updated": "2026-07-27",
-  "summary": "ユーザー設定とシステム設定を分離し、権限別の設定導線を整理",
+  "name": "SK Dangerous Goods Guide",
+  "part": 242,
+  "version": "Part 242",
+  "releasedAt": "2026-07-28",
+  "summary": "完成版文書・リリース統合管理、正式文書更新対象と配置後作業の一元化",
   "updatedAt": "2026-07-28"
 }

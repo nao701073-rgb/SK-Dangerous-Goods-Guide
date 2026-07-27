@@ -19,7 +19,7 @@
 </div>
 </header>
 <main class="workspace settings-page">
-<div class="page-breadcrumb">ホーム ＞ ユーザー設定 ＞ システム設定</div>
+<div class="page-breadcrumb">ホーム ＞ システム設定</div>
 <div class="page-heading-row">
 <div>
 <h1>システム設定</h1>
@@ -124,7 +124,7 @@
 <section class="panel" data-roles="safety-environment-director">
 <div class="panel-heading"><h2>安全環境室長向けシステム設定</h2></div>
 <div class="panel-body settings-list">
-<div class="settings-row"><div><strong>現在の管理範囲</strong><p>全事業所の申請番号・関連写真を閲覧できます。現時点では登録、編集、削除および全体設定の変更はできません。</p></div><span class="fixed-setting">全事業所閲覧・設定参照</span></div>
+<div class="settings-row"><div><strong>現在の管理範囲</strong><p>全事業所の申請番号・関連写真を閲覧・登録・編集できます。削除およびクラウド接続・法令更新等の全体設定変更はできません。</p></div><span class="fixed-setting">全事業所閲覧・登録・編集</span></div>
 <div class="settings-row"><div><strong>将来の管理者権限移行</strong><p>職制承認、MFA、引継ぎ、並行運用および監査確認を経て、安全環境室長へシステム管理者権限を移行できる仕様です。</p></div><span class="fixed-setting">移行先候補</span></div>
 <div class="settings-actions"><a class="secondary-action" href="applications.html">全事業所の申請番号を閲覧</a><a class="secondary-action" href="settings.html">ユーザー設定へ戻る</a></div>
 </div>
@@ -148,7 +148,64 @@
 <div><strong>同期待ち件数</strong><p>ハイブリッド・オンライン時にクラウドAPIへ送信予定の更新件数です。</p></div>
 <span class="fixed-setting" id="syncQueueCount">0件</span>
 </div>
-<div class="settings-actions"><button class="primary-action" id="saveOnlineSettings" type="button">運用方式を保存</button><button class="secondary-action" id="testServerConnection" type="button">接続確認</button><button class="secondary-action" id="runSynchronization" type="button">今すぐ同期</button><button class="secondary-action" id="pullServerData" type="button">クラウドから最新データ取得</button><a class="secondary-action" href="login.html">オンラインログイン</a><a class="secondary-action" href="feedback.html">改善要望・管理者確認</a><a class="secondary-action" data-roles="safety-environment-admin" href="access-control.html">権限・共有範囲</a><a class="secondary-action" data-roles="office-admin,safety-environment-admin" href="user-admin.html">利用者管理</a><a class="secondary-action" data-roles="office-admin,safety-environment-admin" href="security-admin.html">セキュリティ・監査管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="account-security-admin.html">アカウント安全管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="identity-operations-admin.html">認証・試験運用管理</a><a class="settings-link-card" data-required-roles="safety-environment-admin" href="production-identity-admin.html"><strong>正式運用準備・認証管理</strong><span>招待、認証状態、監査、バックアップ、運用開始判定を一括管理します。</span></a><a class="secondary-action" data-roles="safety-environment-admin" href="data-migration.html">データ移行管理</a><a class="secondary-action" data-roles="validator,safety-environment-admin" href="validation-admin.html">社内検証管理</a><a class="secondary-action" data-roles="safety-environment-admin" href="production-readiness.html">本番導入・リリース判定</a><a class="secondary-action" data-roles="safety-environment-admin" href="operations-monitoring.html">運用監視・障害対応</a><a class="secondary-action" data-roles="safety-environment-admin" href="regulation-update-admin.html">法令・データ更新管理</a><a class="settings-link-card" data-roles="safety-environment-admin" href="data-quality-admin.html"><strong>データ品質・公開判定</strong><span>重複、欠損、形式、更新差分を検査し、公開前確認を記録します。</span></a><a class="secondary-action" data-roles="safety-environment-admin" href="system-maintenance.html">システム保守・バックアップ</a><a class="secondary-action" data-roles="safety-environment-admin" href="admin-succession.html">安全環境室長への管理者権限移行準備</a><a class="secondary-action" data-roles="safety-environment-admin" href="admin-governance-dashboard.html">管理運用ダッシュボード</a><a class="settings-link-card" data-roles="safety-environment-admin" href="operations-assurance-admin.html"><strong>運用保証・継続管理</strong><span>利用者異動、障害、復元訓練、運用指標を統合管理します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="integrated-operations-center.html"><strong>統合運用センター</strong><span>利用者、認証、法令更新、障害、バックアップ、監査を横断して確認します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="final-production-readiness.html"><strong>正式運用最終確認</strong><span>ログイン、権限、データ品質、バックアップ、障害対応を横断し、運用開始判定を記録します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="post-launch-admin.html"><strong>運用開始・定着管理</strong><span>初期利用者登録、開始後7・30・90日レビュー、教育、課題を一括管理します。</span></a><a class="settings-link-card" data-roles="safety-environment-admin" href="pilot-launch-admin.html"><strong>クラウド試験運用実行・受入管理</strong><span>初期50名の招待、初回ログイン、権限、性能、バックアップ、受入判定を一括管理します。</span></a></div><div class="fixed-setting" id="onlineConnectionStatus">未接続</div>
+<div class="settings-actions settings-actions--connection">
+<button class="primary-action" id="saveOnlineSettings" type="button">運用方式を保存</button>
+<button class="secondary-action" id="testServerConnection" type="button">接続確認</button>
+<button class="secondary-action" id="runSynchronization" type="button">今すぐ同期</button>
+<button class="secondary-action" id="pullServerData" type="button">クラウドから最新データ取得</button>
+<a class="secondary-action" href="login.html">オンラインログイン</a>
+</div>
+<div class="system-settings-groups" aria-label="管理機能メニュー">
+<details class="system-settings-group" open>
+<summary><strong>利用者・権限・認証</strong><span>利用者、権限、認証状態、承認手続を管理します。</span></summary>
+<div class="system-settings-link-grid">
+<a data-roles="office-admin,safety-environment-admin" href="user-admin.html"><strong>利用者管理</strong><span>利用者、所属、役割、状態を管理します。</span></a>
+<a data-roles="safety-environment-director,safety-environment-admin" href="access-control.html"><strong>権限・共有範囲・監査</strong><span>役割別の閲覧・操作範囲を確認します。</span></a>
+<a data-roles="office-admin,safety-environment-admin" href="security-admin.html"><strong>セキュリティ・監査管理</strong><span>認証・監査の基本状態を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="account-security-admin.html"><strong>アカウント安全管理</strong><span>ロック、MFA、未設定項目を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="production-identity-admin.html"><strong>正式運用準備・認証管理</strong><span>招待、認証、バックアップ、開始判定を管理します。</span></a>
+<a data-roles="safety-environment-admin" href="access-governance-admin.html"><strong>権限・承認・削除申請管理</strong><span>削除申請、権限変更、棚卸しを管理します。</span></a>
+</div></details>
+<details class="system-settings-group">
+<summary><strong>法令・データ・移行</strong><span>法令更新、品質確認、データ移行を管理します。</span></summary>
+<div class="system-settings-link-grid">
+<a data-roles="safety-environment-admin" href="regulation-update-admin.html"><strong>法令・データ更新管理</strong><span>PDF・構造化データの更新候補を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="data-quality-admin.html"><strong>データ品質・公開判定</strong><span>重複、欠損、形式、差分を検査します。</span></a>
+<a data-roles="safety-environment-admin" href="data-migration.html"><strong>データ移行管理</strong><span>CSV・JSONの取込と移行結果を確認します。</span></a>
+<a data-roles="validator,safety-environment-admin" href="validation-admin.html"><strong>社内検証管理</strong><span>検証結果と確認事項を管理します。</span></a>
+</div></details>
+<details class="system-settings-group">
+<summary><strong>運用・監査・保全</strong><span>障害、バックアップ、監査、継続運用を管理します。</span></summary>
+<div class="system-settings-link-grid">
+<a data-roles="safety-environment-admin" href="operations-monitoring.html"><strong>運用監視・障害対応</strong><span>障害状況と対応履歴を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="system-maintenance.html"><strong>システム保守・バックアップ</strong><span>保守、バックアップ、復元を管理します。</span></a>
+<a data-roles="safety-environment-admin" href="user-activity-admin.html"><strong>利用履歴・不適切利用監視</strong><span>利用者別履歴と監査記録を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="integrated-operations-center.html"><strong>統合運用センター</strong><span>認証、法令、障害、保全を横断確認します。</span></a>
+<a data-roles="safety-environment-admin" href="operations-assurance-admin.html"><strong>運用保証・継続管理</strong><span>異動、障害、復元訓練、運用指標を管理します。</span></a>
+</div></details>
+<details class="system-settings-group">
+<summary><strong>開始・受入・定着</strong><span>試験運用、正式運用、定期点検、改善計画を管理します。</span></summary>
+<div class="system-settings-link-grid">
+<a data-roles="safety-environment-admin" href="pilot-launch-admin.html"><strong>クラウド試験運用実行・受入管理</strong><span>初期50名の試験と受入判定を管理します。</span></a>
+<a data-roles="safety-environment-admin" href="final-production-readiness.html"><strong>正式運用最終確認</strong><span>開始前の重要項目を横断確認します。</span></a>
+<a data-roles="safety-environment-admin" href="production-operations-hub.html"><strong>正式運用統合管理</strong><span>正式運用に必要な管理分野を集約します。</span></a>
+<a data-roles="safety-environment-admin" href="operations-acceptance-admin.html"><strong>運用受入・定期点検</strong><span>受入、是正、改善、年度引継ぎを管理します。</span></a>
+<a data-roles="safety-environment-admin" href="post-launch-admin.html"><strong>運用開始・定着管理</strong><span>開始後7・30・90日の状況を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="completion-roadmap.html"><strong>完成版統合チェック</strong><span>残作業と統合状況を一画面で確認します。</span></a>
+<a data-roles="safety-environment-admin" href="integrated-verification.html"><strong>総合自動検査</strong><span>静的参照、権限、データ品質、構文を一括検査します。</span></a>
+<a data-roles="safety-environment-admin" href="prototype-completion-review.html"><strong>試作完成判定・残課題管理</strong><span>試作完成条件と配置後作業を分けて確認します。</span></a>
+<a data-roles="safety-environment-admin" href="documentation-release-center.html"><strong>文書・リリース統合管理</strong><span>仕様書、要領書、検証資料、リリース構成を確認します。</span></a>
+</div></details>
+<details class="system-settings-group">
+<summary><strong>管理者移行・補助管理</strong><span>管理者移行と補助的な管理画面を確認します。</span></summary>
+<div class="system-settings-link-grid">
+<a data-roles="safety-environment-admin" href="admin-succession.html"><strong>安全環境室長への管理者権限移行</strong><span>移行申請、確認、切替、完了を管理します。</span></a>
+<a data-roles="safety-environment-admin" href="admin-governance-dashboard.html"><strong>管理運用ダッシュボード</strong><span>点検、是正、通知、定期タスクを確認します。</span></a>
+<a data-roles="safety-environment-admin" href="production-readiness.html"><strong>本番導入・リリース判定</strong><span>リリース前の確認結果を記録します。</span></a>
+<a href="feedback.html"><strong>改善要望・管理者確認</strong><span>利用者からの改善要望を確認します。</span></a>
+</div></details>
+</div>
+<div class="fixed-setting" id="onlineConnectionStatus">未接続</div>
 <details class="sync-queue-panel"><summary>同期キュー詳細</summary><div class="sync-queue-actions"><button id="refreshSyncQueue" type="button">再読込</button><button id="clearCompletedSyncQueue" type="button">完了済みを削除</button></div><div id="syncQueueDetails"></div></details>
 </div>
 </section>
@@ -171,10 +228,11 @@
 <script src="../data/organization-master.js"></script>
 <script src="../assets/js/organization.js"></script>
 <script src="../assets/js/storage.js?v=178"></script>
-<script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=218"></script>
+<script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=221"></script>
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
 <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/session-guard.js"></script>
+<script src="../assets/js/usage-tracking.js?v=222"></script>
 </body>
 </html>

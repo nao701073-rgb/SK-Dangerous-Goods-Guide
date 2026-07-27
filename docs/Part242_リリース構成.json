@@ -1,0 +1,33 @@
+{
+  "version": "Part 242",
+  "releasedAt": "2026-07-28",
+  "phase": "prototype-finalization",
+  "summary": "完成版文書・リリース統合管理、正式文書更新対象と配置後作業の一元化",
+  "automaticVerification": {
+    "expectedChecks": 5,
+    "passedChecks": 5,
+    "failedChecks": 0,
+    "status": "passed",
+    "javascriptFilesChecked": 88,
+    "requiredPagesChecked": 16
+  },
+  "dataQuality": {
+    "records": 2725,
+    "errors": 0,
+    "warnings": 0,
+    "releaseDecision": "passed"
+  },
+  "roles": [
+    "guest",
+    "office-user",
+    "office-admin",
+    "safety-environment-director",
+    "safety-environment-staff",
+    "safety-environment-admin"
+  ],
+  "deferredFeatures": [
+    "watermark",
+    "screenshot-detection",
+    "automatic-screen-capture"
+  ]
+}

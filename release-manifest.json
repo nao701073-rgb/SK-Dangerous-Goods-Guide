@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0-rc37",
-  "part": 189,
+  "version": "Part 241",
+  "part": 241,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-27",
   "fileCount": 689,
@@ -31,5 +31,6 @@
     "PDF SHA-256・CSV/JSON重複・差分候補を自動検証",
     "更新マニフェストと検証結果をJSON出力",
     "設定画面から更新管理へ移動できる導線を追加"
-  ]
+  ],
+  "updatedAt": "2026-07-28"
 }

@@ -73,7 +73,7 @@ app.get('/api/runtime', (_req, res) => {
     expectedUsersPilot: 50,
     expectedUsersFuture: 150,
     photoStorage: process.env.PHOTO_STORAGE_PROVIDER || 'persistent-disk',
-    systemVersion: 'Part 215'
+    systemVersion: 'Part 222'
   });
 });
 
@@ -660,7 +660,7 @@ app.get('/api/admin/access-summary', authenticate, requireRole('safety-environme
       { role: 'safety-environment-director', label: '安全環境室長', applications: '全ブロック・全事業所の登録・編集（削除不可）', photos: '全ブロック・全事業所の登録・編集（削除不可）', administration: '限定システム設定' },
       { role: 'safety-environment-staff', label: '安全環境室職員', applications: '全ブロック・全事業所の閲覧', photos: '全ブロック・全事業所の閲覧', administration: '閲覧専用' },
       { role: 'safety-environment-admin', label: 'システム管理者', applications: '全ブロック・全事業所の閲覧・登録・更新', photos: '全ブロック・全事業所の管理', administration: '利用者・事業所・上限・監査・検証管理' },
-      { role: 'guest', label: 'ゲスト', applications: '利用不可', photos: '利用不可', administration: 'ユーザー設定のみ' },
+      { role: 'guest', label: 'ゲスト', applications: '利用不可', photos: '利用不可', administration: '危険物検索・関連法令・関連資料・ユーザー設定' },
       { role: 'validator', label: '検証者（社内職員）', applications: '閲覧不可', photos: '閲覧不可', administration: '危険物・法令・資料の閲覧と検証記録' }
     ],
     users: users.rows,
@@ -1267,6 +1267,320 @@ app.post('/api/admin/pilot-launch/decisions', authenticate, requireRole('safety-
   const {rows}=await query(`INSERT INTO pilot_acceptance_decisions(batch_id,decision,checklist,open_issue_count,decision_reason,next_review_date,decided_by) VALUES($1,$2,$3::jsonb,$4,NULLIF($5,''),$6,$7) RETURNING *`,[d.batchId||null,d.decision,JSON.stringify(d.checklist),d.openIssueCount,d.decisionReason,d.nextReviewDate||null,req.user.id]);
   if(d.batchId&&['continue-pilot','expand-150','ready-for-production'].includes(d.decision))await query(`UPDATE pilot_launch_batches SET status=CASE WHEN $2='ready-for-production' THEN 'completed' ELSE 'running' END,updated_at=now() WHERE id=$1`,[d.batchId,d.decision]);
   await audit(req,'decide','pilot-acceptance',rows[0].id,{decision:d.decision,openIssueCount:d.openIssueCount});res.status(201).json({decision:rows[0]});
+});
+
+
+
+// Part 220: access governance, deletion approval and role review
+app.get('/api/admin/access-governance',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const [d,r,v]=await Promise.all([
+    query(`SELECT x.*,u.display_name requester_name FROM deletion_requests x LEFT JOIN users u ON u.id=x.requested_by ORDER BY x.created_at DESC LIMIT 200`),
+    query(`SELECT x.*,u.display_name,u.role current_user_role FROM role_change_requests x LEFT JOIN users u ON u.id=x.user_id ORDER BY x.created_at DESC LIMIT 200`),
+    query(`SELECT x.*,u.display_name reviewed_by_name FROM access_review_records x LEFT JOIN users u ON u.id=x.reviewed_by ORDER BY x.review_date DESC,x.created_at DESC LIMIT 100`)
+  ]);res.json({deletions:d.rows,roles:r.rows,reviews:v.rows});
+});
+app.post('/api/admin/access-governance/deletion-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({targetType:z.enum(['application','photo']),targetId:z.string().min(1).max(120),officeName:z.string().max(120).optional().default(''),reason:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'削除申請の内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO deletion_requests(target_type,target_id,office_name,reason,requested_by) VALUES($1,$2,NULLIF($3,''),$4,$5) RETURNING *`,[d.targetType,d.targetId,d.officeName,d.reason,req.user.id]);await audit(req,'request-delete',d.targetType,d.targetId,{requestId:rows[0].id});res.status(201).json({request:rows[0]});
+});
+app.post('/api/admin/access-governance/deletion-requests/:id/decision',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({decision:z.enum(['approved','rejected']),note:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'判断内容を確認してください。'});const {rows}=await query(`UPDATE deletion_requests SET status=$1,decision_note=NULLIF($2,''),decided_by=$3,decided_at=now(),updated_at=now() WHERE id=$4 AND status='pending' RETURNING *`,[parsed.data.decision,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認待ちの削除申請が見つかりません。'});await audit(req,parsed.data.decision==='approved'?'approve-delete':'reject-delete',rows[0].target_type,rows[0].target_id,{requestId:rows[0].id});res.json({request:rows[0]});});
+app.post('/api/admin/access-governance/role-change-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({userId:z.string().uuid(),requestedRole:z.enum(['guest','office-user','office-admin','safety-environment-staff','safety-environment-director','safety-environment-admin']),effectiveDate:z.string().date().nullable().optional(),reason:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'権限変更申請の内容を確認してください。'});const {rows:u}=await query(`SELECT role FROM users WHERE id=$1`,[parsed.data.userId]);if(!u[0])return res.status(404).json({error:'利用者が見つかりません。'});if(parsed.data.requestedRole==='safety-environment-admin'&&u[0].role!=='safety-environment-director')return res.status(409).json({error:'システム管理者への移行先は安全環境室長に限定されています。'});const {rows}=await query(`INSERT INTO role_change_requests(user_id,current_role,requested_role,effective_date,reason,requested_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[parsed.data.userId,u[0].role,parsed.data.requestedRole,parsed.data.effectiveDate||null,parsed.data.reason,req.user.id]);await audit(req,'request-role-change','user',parsed.data.userId,{requestId:rows[0].id,requestedRole:parsed.data.requestedRole});res.status(201).json({request:rows[0]});});
+app.post('/api/admin/access-governance/role-change-requests/:id/decision',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({decision:z.enum(['approved','rejected']),note:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'判断内容を確認してください。'});const {rows}=await query(`UPDATE role_change_requests SET status=$1,decision_note=NULLIF($2,''),decided_by=$3,decided_at=now(),updated_at=now() WHERE id=$4 AND status='pending' RETURNING *`,[parsed.data.decision,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認待ちの権限変更申請が見つかりません。'});await audit(req,parsed.data.decision==='approved'?'approve-role-change':'reject-role-change','user',rows[0].user_id,{requestId:rows[0].id,requestedRole:rows[0].requested_role});res.json({request:rows[0]});});
+app.post('/api/admin/access-governance/reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({reviewDate:z.string().date(),targetCount:z.number().int().min(0).max(500),issueCount:z.number().int().min(0).max(500),nextReviewDate:z.string().date().nullable().optional(),notes:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success||parsed.data.issueCount>parsed.data.targetCount)return res.status(400).json({error:'棚卸し結果を確認してください。'});const d=parsed.data;const {rows}=await query(`INSERT INTO access_review_records(review_date,target_count,issue_count,next_review_date,notes,reviewed_by) VALUES($1,$2,$3,$4,NULLIF($5,''),$6) RETURNING *`,[d.reviewDate,d.targetCount,d.issueCount,d.nextReviewDate||null,d.notes,req.user.id]);await audit(req,'record','access-review',rows[0].id,{targetCount:d.targetCount,issueCount:d.issueCount});res.status(201).json({review:rows[0]});});
+
+
+// Part 222: user activity monitoring and inappropriate-use prevention
+app.post('/api/usage-events',authenticate,async(req,res)=>{
+  const schema=z.object({eventType:z.enum(['page-view','interaction','page-leave','search','view','download','print']),feature:z.string().min(1).max(80),pagePath:z.string().max(500).optional().nullable(),targetType:z.string().max(80).optional().nullable(),targetId:z.string().max(200).optional().nullable(),sessionId:z.string().max(100).optional().nullable(),details:z.record(z.any()).optional().default({})});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'利用記録の内容を確認してください。'});const d=parsed.data;
+  await query(`INSERT INTO user_activity_events(user_id,event_type,feature,page_path,target_type,target_id,session_id,details,ip_address,user_agent) VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb,$9,$10)`,[req.user.id,d.eventType,d.feature,d.pagePath||null,d.targetType||null,d.targetId||null,d.sessionId||null,JSON.stringify(d.details||{}),req.ip,req.get('user-agent')||null]);res.status(204).end();
+});
+app.get('/api/admin/user-activity',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({userId:z.string().uuid(),feature:z.string().max(80).optional().default(''),dateFrom:z.string().date().optional(),dateTo:z.string().date().optional(),limit:z.coerce.number().int().min(1).max(2000).default(1000)});const parsed=schema.safeParse(req.query);if(!parsed.success)return res.status(400).json({error:'検索条件を確認してください。'});const d=parsed.data;
+  const {rows:userRows}=await query(`SELECT id,login_id,display_name,role,office_id FROM users WHERE id=$1`,[d.userId]);if(!userRows[0])return res.status(404).json({error:'利用者が見つかりません。'});
+  const params=[d.userId,d.feature||null,d.dateFrom||null,d.dateTo||null,d.limit];
+  const {rows:events}=await query(`SELECT event_type,feature,page_path,target_type,target_id,details,ip_address,user_agent,occurred_at FROM user_activity_events WHERE user_id=$1 AND ($2::text IS NULL OR feature=$2) AND ($3::date IS NULL OR occurred_at >= $3::date) AND ($4::date IS NULL OR occurred_at < $4::date + interval '1 day') ORDER BY occurred_at DESC LIMIT $5`,params);
+  const {rows:auditRows}=await query(`SELECT action AS event_type,CASE WHEN entity_type IN ('application','photo') THEN CASE WHEN entity_type='photo' THEN 'photos' ELSE 'applications' END WHEN entity_type LIKE '%regulation%' THEN 'regulations' WHEN entity_type LIKE '%reference%' THEN 'references' WHEN action LIKE '%login%' THEN 'auth' ELSE 'administration' END feature,NULL::text page_path,entity_type target_type,entity_id target_id,details,ip_address,user_agent,created_at occurred_at FROM audit_logs WHERE user_id=$1 AND ($3::date IS NULL OR created_at >= $3::date) AND ($4::date IS NULL OR created_at < $4::date + interval '1 day') ORDER BY created_at DESC LIMIT $5`,params);
+  const all=[...events,...auditRows].sort((a,b)=>new Date(b.occurred_at)-new Date(a.occurred_at)).slice(0,d.limit);
+  const count=f=>all.filter(x=>f(x)).length;const summary={total:all.length,pageViews:count(x=>x.event_type==='page-view'),searches:count(x=>['dangerous-goods-search','dangerous-goods-detail'].includes(x.feature)),regulationViews:count(x=>['regulations','references'].includes(x.feature)),caseViews:count(x=>['applications','photos'].includes(x.feature))};
+  const {rows:agg}=await query(`SELECT feature,count(*)::int c FROM user_activity_events WHERE user_id=$1 AND occurred_at>=now()-interval '60 minutes' GROUP BY feature`,[d.userId]);const m=Object.fromEntries(agg.map(x=>[x.feature,x.c]));const alerts=[];
+  if((m['dangerous-goods-detail']||0)>=50)alerts.push({severity:'warning',title:'危険物詳細の大量閲覧',summary:`直近60分に${m['dangerous-goods-detail']}件閲覧されています。`,rule:'60分間に50件以上'});
+  if((m.regulations||0)+(m.references||0)>=100)alerts.push({severity:'warning',title:'法令・資料の大量閲覧',summary:`直近60分に${(m.regulations||0)+(m.references||0)}件閲覧されています。`,rule:'60分間に100件以上'});
+  if((m.photos||0)>=30)alerts.push({severity:'critical',title:'写真の大量閲覧',summary:`直近60分に${m.photos}件閲覧されています。`,rule:'60分間に30件以上'});
+  if((m.applications||0)>=80)alerts.push({severity:'warning',title:'申請番号の大量閲覧',summary:`直近60分に${m.applications}件閲覧されています。`,rule:'60分間に80件以上'});
+  await audit(req,'review-user-activity','user',d.userId,{feature:d.feature||'all',dateFrom:d.dateFrom||null,dateTo:d.dateTo||null,resultCount:all.length});
+  res.json({user:userRows[0],summary,alerts,events:all,generatedAt:new Date().toISOString(),notice:'透かし・スクリーンショット追跡は未実装'});
+});
+
+
+// Part 223: daily usage monitoring
+app.get('/api/admin/daily-usage',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({date:z.string().date()});const parsed=schema.safeParse(req.query);if(!parsed.success)return res.status(400).json({error:'対象日を確認してください。'});const reportDate=parsed.data.date;
+  const {rows:featureRows}=await query(`SELECT feature,count(*)::int count FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $1::date + interval '1 day' GROUP BY feature ORDER BY count(*) DESC`,[reportDate]);
+  const {rows:userRows}=await query(`WITH e AS (SELECT user_id,min(occurred_at) first_event_at,max(occurred_at) last_event_at,count(*)::int event_count,jsonb_object_agg(feature,feature_count) feature_counts FROM (SELECT user_id,feature,min(occurred_at) occurred_at,count(*)::int feature_count FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $1::date + interval '1 day' GROUP BY user_id,feature) x GROUP BY user_id), ranked AS (SELECT user_id,array_agg(feature ORDER BY feature_count DESC,feature) FILTER (WHERE rn<=3) top_features FROM (SELECT user_id,feature,feature_count,row_number() OVER(PARTITION BY user_id ORDER BY feature_count DESC,feature) rn FROM (SELECT user_id,feature,count(*)::int feature_count FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $1::date + interval '1 day' GROUP BY user_id,feature) z) q GROUP BY user_id) SELECT u.id,u.login_id,u.display_name,u.role,e.first_event_at,e.last_event_at,e.event_count,COALESCE(r.top_features,ARRAY[]::text[]) top_features,((COALESCE((e.feature_counts->>'photos')::int,0)>=30) OR (COALESCE((e.feature_counts->>'applications')::int,0)>=80) OR (COALESCE((e.feature_counts->>'dangerous-goods-detail')::int,0)>=50) OR (COALESCE((e.feature_counts->>'regulations')::int,0)+COALESCE((e.feature_counts->>'references')::int,0)>=100)) alert_candidate FROM e JOIN users u ON u.id=e.user_id LEFT JOIN ranked r ON r.user_id=e.user_id ORDER BY e.event_count DESC,u.display_name`,[reportDate]);
+  const {rows:loginRows}=await query(`SELECT count(DISTINCT user_id)::int count FROM audit_logs WHERE created_at >= $1::date AND created_at < $1::date + interval '1 day' AND action ILIKE '%login%'`,[reportDate]);
+  const {rows:activeRows}=await query(`SELECT count(*)::int count FROM users WHERE is_active=true`,[]);
+  const totalEvents=featureRows.reduce((n,x)=>n+x.count,0),activeUsers=userRows.length,loginUsers=loginRows[0]?.count||0,alertUsers=userRows.filter(x=>x.alert_candidate).length,inactiveUsers=Math.max(0,(activeRows[0]?.count||0)-activeUsers);
+  const features=Object.fromEntries(featureRows.map(x=>[x.feature,x.count]));const payload={date:reportDate,summary:{activeUsers,totalEvents,loginUsers,alertUsers,inactiveUsers},features,users:userRows,generatedAt:new Date().toISOString()};
+  await audit(req,'review-daily-usage','daily-usage',reportDate,{activeUsers,totalEvents,alertUsers});res.json(payload);
+});
+
+
+
+// Part 224: weekly/monthly usage analytics, alert response and retention governance
+app.get('/api/admin/usage-period',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({period:z.enum(['daily','weekly','monthly']),date:z.string().date()});const parsed=schema.safeParse(req.query);if(!parsed.success)return res.status(400).json({error:'集計条件を確認してください。'});
+  const base=new Date(`${parsed.data.date}T00:00:00Z`);let from=new Date(base),to=new Date(base);
+  if(parsed.data.period==='weekly'){const day=(from.getUTCDay()+6)%7;from.setUTCDate(from.getUTCDate()-day);to=new Date(from);to.setUTCDate(to.getUTCDate()+7)}else if(parsed.data.period==='monthly'){from=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth(),1));to=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth()+1,1))}else{to.setUTCDate(to.getUTCDate()+1)}
+  const fromDate=from.toISOString().slice(0,10),toDate=to.toISOString().slice(0,10);
+  const {rows:featureRows}=await query(`SELECT feature,count(*)::int count FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date GROUP BY feature ORDER BY count(*) DESC`,[fromDate,toDate]);
+  const {rows:userRows}=await query(`WITH counts AS (SELECT user_id,feature,count(*)::int feature_count,count(DISTINCT occurred_at::date)::int active_days FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date GROUP BY user_id,feature), totals AS (SELECT user_id,sum(feature_count)::int event_count,max(active_days)::int active_days,jsonb_object_agg(feature,feature_count) feature_counts FROM counts GROUP BY user_id), ranked AS (SELECT user_id,array_agg(feature ORDER BY feature_count DESC,feature) FILTER (WHERE rn<=3) top_features FROM (SELECT user_id,feature,feature_count,row_number() OVER(PARTITION BY user_id ORDER BY feature_count DESC,feature) rn FROM counts) q GROUP BY user_id) SELECT u.id,u.login_id,u.display_name,u.role,t.active_days,t.event_count,COALESCE(r.top_features,ARRAY[]::text[]) top_features,((COALESCE((t.feature_counts->>'photos')::int,0)>=30) OR (COALESCE((t.feature_counts->>'applications')::int,0)>=80) OR (COALESCE((t.feature_counts->>'dangerous-goods-detail')::int,0)>=50) OR (COALESCE((t.feature_counts->>'regulations')::int,0)+COALESCE((t.feature_counts->>'references')::int,0)>=100)) alert_candidate FROM totals t JOIN users u ON u.id=t.user_id LEFT JOIN ranked r ON r.user_id=t.user_id ORDER BY t.event_count DESC,u.display_name`,[fromDate,toDate]);
+  const {rows:inactiveRows}=await query(`SELECT id,login_id,display_name,role FROM users u WHERE is_active=true AND NOT EXISTS(SELECT 1 FROM user_activity_events e WHERE e.user_id=u.id AND e.occurred_at >= $1::date AND e.occurred_at < $2::date) ORDER BY display_name`,[fromDate,toDate]);
+  const {rows:loginRows}=await query(`SELECT count(DISTINCT user_id)::int count FROM audit_logs WHERE created_at >= $1::date AND created_at < $2::date AND action ILIKE '%login%'`,[fromDate,toDate]);
+  const totalEvents=featureRows.reduce((n,x)=>n+x.count,0),activeUsers=userRows.length,loginUsers=loginRows[0]?.count||0,alertUsers=userRows.filter(x=>x.alert_candidate).length;
+  const payload={period:parsed.data.period,range:{from:fromDate,to:new Date(to.getTime()-86400000).toISOString().slice(0,10)},summary:{activeUsers,totalEvents,loginUsers,alertUsers,inactiveUsers:inactiveRows.length},features:Object.fromEntries(featureRows.map(x=>[x.feature,x.count])),users:userRows,inactiveUsers:inactiveRows,generatedAt:new Date().toISOString()};
+  await audit(req,'review-usage-period','usage-period',`${parsed.data.period}:${fromDate}`,{toDate,activeUsers,totalEvents,alertUsers});res.json(payload);
+});
+app.get('/api/admin/activity-alert-cases',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{const {rows}=await query(`SELECT c.*,u.login_id,u.display_name,r.display_name reviewed_by_name FROM activity_alert_cases c JOIN users u ON u.id=c.user_id LEFT JOIN users r ON r.id=c.reviewed_by ORDER BY c.created_at DESC LIMIT 500`);res.json({cases:rows});});
+app.post('/api/admin/activity-alert-cases',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({userId:z.string().uuid(),ruleCode:z.enum(['bulk-dangerous-goods','bulk-regulations','bulk-applications','bulk-photos','other']),periodLabel:z.string().max(200).optional().default(''),summary:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'対応記録の内容を確認してください。'});const d=parsed.data;const {rows}=await query(`INSERT INTO activity_alert_cases(user_id,rule_code,period_label,summary,created_by) VALUES($1,$2,NULLIF($3,''),$4,$5) RETURNING *`,[d.userId,d.ruleCode,d.periodLabel,d.summary,req.user.id]);await audit(req,'create','activity-alert-case',rows[0].id,{userId:d.userId,ruleCode:d.ruleCode});res.status(201).json({case:rows[0]});});
+app.patch('/api/admin/activity-alert-cases/:id',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({status:z.enum(['open','reviewing','resolved','dismissed']),resolutionNote:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'対応状況を確認してください。'});const {rows}=await query(`UPDATE activity_alert_cases SET status=$1,resolution_note=NULLIF($2,''),reviewed_by=$3,reviewed_at=CASE WHEN $1 IN ('resolved','dismissed') THEN now() ELSE reviewed_at END,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.status,parsed.data.resolutionNote,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'対応記録が見つかりません。'});await audit(req,'update','activity-alert-case',req.params.id,{status:parsed.data.status});res.json({case:rows[0]});});
+app.get('/api/admin/activity-retention-policy',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{const {rows}=await query(`SELECT p.*,u.display_name updated_by_name FROM activity_retention_policy p LEFT JOIN users u ON u.id=p.updated_by WHERE p.id=1`);res.json({policy:rows[0]||null});});
+app.put('/api/admin/activity-retention-policy',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({eventRetentionDays:z.number().int().min(30).max(3650),reportRetentionDays:z.number().int().min(365).max(3650),nextReviewDate:z.string().date().nullable().optional(),note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'保存期間方針を確認してください。'});const d=parsed.data;const {rows}=await query(`INSERT INTO activity_retention_policy(id,event_retention_days,report_retention_days,next_review_date,note,updated_by,updated_at) VALUES(1,$1,$2,$3,NULLIF($4,''),$5,now()) ON CONFLICT(id) DO UPDATE SET event_retention_days=EXCLUDED.event_retention_days,report_retention_days=EXCLUDED.report_retention_days,next_review_date=EXCLUDED.next_review_date,note=EXCLUDED.note,updated_by=EXCLUDED.updated_by,updated_at=now() RETURNING *`,[d.eventRetentionDays,d.reportRetentionDays,d.nextReviewDate||null,d.note,req.user.id]);await audit(req,'update','activity-retention-policy','1',{eventRetentionDays:d.eventRetentionDays,reportRetentionDays:d.reportRetentionDays});res.json({policy:rows[0]});});
+
+
+// Part 227: periodic usage audit review records
+app.get('/api/admin/activity-audit-reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT r.*,u.display_name reviewer_name FROM activity_audit_reviews r JOIN users u ON u.id=r.reviewed_by ORDER BY r.created_at DESC LIMIT 500`);
+  await audit(req,'review','activity-audit-reviews','list',{resultCount:rows.length});res.json({reviews:rows});
+});
+app.post('/api/admin/activity-audit-reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({periodType:z.enum(['daily','weekly','monthly']),periodDate:z.string().date(),conclusion:z.enum(['normal','follow-up','escalated']),summary:z.string().min(1).max(5000),nextAction:z.string().max(5000).optional().default(''),nextReviewDate:z.string().date().nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'監査レビューの内容を確認してください。'});
+  const d=parsed.data,base=new Date(`${d.periodDate}T00:00:00Z`);let from=new Date(base),to=new Date(base);
+  if(d.periodType==='weekly'){const day=(from.getUTCDay()+6)%7;from.setUTCDate(from.getUTCDate()-day);to=new Date(from);to.setUTCDate(to.getUTCDate()+6)}else if(d.periodType==='monthly'){from=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth(),1));to=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth()+1,0))}
+  const fromDate=from.toISOString().slice(0,10),toDate=to.toISOString().slice(0,10),exclusiveTo=new Date(to);exclusiveTo.setUTCDate(exclusiveTo.getUTCDate()+1);
+  const {rows:counts}=await query(`SELECT feature,count(*)::int count,count(DISTINCT user_id)::int users FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date GROUP BY feature ORDER BY feature`,[fromDate,exclusiveTo.toISOString().slice(0,10)]);
+  const snapshot={featureCounts:counts,generatedAt:new Date().toISOString()};
+  const {rows}=await query(`INSERT INTO activity_audit_reviews(period_type,period_from,period_to,conclusion,summary,next_action,next_review_date,snapshot,reviewed_by) VALUES($1,$2,$3,$4,$5,NULLIF($6,''),$7,$8,$9) RETURNING *`,[d.periodType,fromDate,toDate,d.conclusion,d.summary,d.nextAction,d.nextReviewDate||null,JSON.stringify(snapshot),req.user.id]);
+  await audit(req,'create','activity-audit-review',rows[0].id,{periodType:d.periodType,periodFrom:fromDate,periodTo:toDate,conclusion:d.conclusion});res.status(201).json({review:rows[0]});
+});
+
+
+// Part 228: audit approval, monitoring access review, retention preview and report scheduling
+app.patch('/api/admin/activity-audit-reviews/:id/approval',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['approved','returned']),note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});
+  const {rows}=await query(`UPDATE activity_audit_reviews SET approval_status=$1,approval_note=NULLIF($2,''),approved_by=$3,approved_at=now(),updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.status,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'監査レビューが見つかりません。'});
+  await audit(req,parsed.data.status==='approved'?'approve':'return','activity-audit-review',req.params.id,{note:parsed.data.note});res.json({review:rows[0]});
+});
+app.get('/api/admin/activity-monitoring-access-log',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT a.*,u.login_id,u.display_name FROM audit_logs a LEFT JOIN users u ON u.id=a.user_id WHERE a.entity_type IN ('user-activity','daily-usage','usage-period','activity-audit-reviews','activity-audit-review','activity-retention-policy','activity-alert-case') OR a.action IN ('review-user-activity','review-daily-usage','review-usage-period') ORDER BY a.created_at DESC LIMIT 500`);
+  await audit(req,'review','activity-monitoring-access-log','list',{resultCount:rows.length});res.json({logs:rows});
+});
+app.get('/api/admin/activity-retention-preview',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows:policies}=await query(`SELECT * FROM activity_retention_policy WHERE id=1`);const p=policies[0]||{event_retention_days:365,report_retention_days:1095};
+  const {rows:c}=await query(`SELECT (SELECT count(*)::bigint FROM user_activity_events WHERE occurred_at < now()-($1 || ' days')::interval) events,(SELECT count(*)::bigint FROM activity_audit_reviews WHERE created_at < now()-($2 || ' days')::interval) reviews,(SELECT count(*)::bigint FROM activity_alert_cases WHERE created_at < now()-($2 || ' days')::interval) alert_cases`,[String(p.event_retention_days),String(p.report_retention_days)]);
+  const cutoffs={events:new Date(Date.now()-p.event_retention_days*86400000).toISOString().slice(0,10),reports:new Date(Date.now()-p.report_retention_days*86400000).toISOString().slice(0,10)};
+  await audit(req,'preview','activity-retention','current',{cutoffs,counts:c[0]});res.json({policy:p,cutoffs,counts:{events:Number(c[0].events),reviews:Number(c[0].reviews),alertCases:Number(c[0].alert_cases)}});
+});
+app.post('/api/admin/activity-retention-previews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認メモを確認してください。'});
+  const {rows:policies}=await query(`SELECT * FROM activity_retention_policy WHERE id=1`);const p=policies[0]||{event_retention_days:365,report_retention_days:1095};
+  const eventCutoff=new Date(Date.now()-p.event_retention_days*86400000).toISOString().slice(0,10),reportCutoff=new Date(Date.now()-p.report_retention_days*86400000).toISOString().slice(0,10);
+  const {rows:c}=await query(`SELECT (SELECT count(*)::bigint FROM user_activity_events WHERE occurred_at < $1::date) events,(SELECT count(*)::bigint FROM activity_audit_reviews WHERE created_at < $2::date) reviews,(SELECT count(*)::bigint FROM activity_alert_cases WHERE created_at < $2::date) alert_cases`,[eventCutoff,reportCutoff]);
+  const {rows}=await query(`INSERT INTO activity_retention_previews(event_cutoff,report_cutoff,event_count,review_count,alert_case_count,note,created_by) VALUES($1,$2,$3,$4,$5,NULLIF($6,''),$7) RETURNING *`,[eventCutoff,reportCutoff,c[0].events,c[0].reviews,c[0].alert_cases,parsed.data.note,req.user.id]);await audit(req,'create','activity-retention-preview',rows[0].id,{eventCutoff,reportCutoff});res.status(201).json({preview:rows[0]});
+});
+app.get('/api/admin/activity-report-schedules',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const {rows}=await query(`SELECT s.*,u.display_name created_by_name FROM activity_report_schedules s LEFT JOIN users u ON u.id=s.created_by ORDER BY s.created_at DESC`);await audit(req,'review','activity-report-schedules','list',{resultCount:rows.length});res.json({schedules:rows});});
+app.post('/api/admin/activity-report-schedules',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({reportType:z.enum(['weekly','monthly']),deliveryDay:z.number().int().min(1).max(31),reportScope:z.enum(['summary','summary-and-alerts','full-audit']),nextRunDate:z.string().date().nullable().optional(),recipientNote:z.string().max(2000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'定期レポート設定を確認してください。'});const d=parsed.data;const {rows}=await query(`INSERT INTO activity_report_schedules(report_type,delivery_day,report_scope,next_run_date,recipient_note,created_by,updated_by) VALUES($1,$2,$3,$4,NULLIF($5,''),$6,$6) RETURNING *`,[d.reportType,d.deliveryDay,d.reportScope,d.nextRunDate||null,d.recipientNote,req.user.id]);await audit(req,'create','activity-report-schedule',rows[0].id,{reportType:d.reportType});res.status(201).json({schedule:rows[0]});});
+app.patch('/api/admin/activity-report-schedules/:id',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({isEnabled:z.boolean()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'設定内容を確認してください。'});const {rows}=await query(`UPDATE activity_report_schedules SET is_enabled=$1,updated_by=$2,updated_at=now() WHERE id=$3 RETURNING *`,[parsed.data.isEnabled,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'設定が見つかりません。'});await audit(req,'update','activity-report-schedule',req.params.id,{isEnabled:parsed.data.isEnabled});res.json({schedule:rows[0]});});
+
+
+
+// Part 229: audit operations summary, controlled retention requests and report runs
+app.get('/api/admin/activity-audit-operations-summary',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT
+    (SELECT count(*)::int FROM activity_alert_cases WHERE status IN ('open','reviewing')) open_alerts,
+    (SELECT count(*)::int FROM activity_alert_cases WHERE status IN ('open','reviewing') AND due_at IS NOT NULL AND due_at < now()) overdue_alerts,
+    (SELECT count(*)::int FROM activity_audit_reviews WHERE approval_status='pending') pending_reviews,
+    (SELECT count(*)::int FROM activity_retention_disposal_requests WHERE status='pending') pending_disposals,
+    (SELECT count(*)::int FROM activity_report_schedules WHERE is_enabled=true AND next_run_date IS NOT NULL AND next_run_date <= current_date) due_reports`);
+  await audit(req,'review','activity-audit-operations-summary','current',rows[0]);res.json({summary:rows[0]});
+});
+app.get('/api/admin/activity-retention-disposal-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT r.*,u.display_name requested_by_name,d.display_name decided_by_name FROM activity_retention_disposal_requests r JOIN users u ON u.id=r.requested_by LEFT JOIN users d ON d.id=r.decided_by ORDER BY r.requested_at DESC LIMIT 200`);
+  await audit(req,'review','activity-retention-disposal-requests','list',{resultCount:rows.length});res.json({requests:rows});
+});
+app.post('/api/admin/activity-retention-disposal-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reason:z.string().min(1).max(5000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'整理申請の理由を入力してください。'});
+  const {rows:policies}=await query(`SELECT * FROM activity_retention_policy WHERE id=1`);const p=policies[0]||{event_retention_days:365,report_retention_days:1095};
+  const eventCutoff=new Date(Date.now()-p.event_retention_days*86400000).toISOString().slice(0,10),reportCutoff=new Date(Date.now()-p.report_retention_days*86400000).toISOString().slice(0,10);
+  const {rows:c}=await query(`SELECT (SELECT count(*)::bigint FROM user_activity_events WHERE occurred_at < $1::date) events,(SELECT count(*)::bigint FROM activity_audit_reviews WHERE created_at < $2::date) reviews,(SELECT count(*)::bigint FROM activity_alert_cases WHERE created_at < $2::date) alert_cases`,[eventCutoff,reportCutoff]);
+  const {rows}=await query(`INSERT INTO activity_retention_disposal_requests(event_cutoff,report_cutoff,event_count,review_count,alert_case_count,reason,requested_by) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,[eventCutoff,reportCutoff,c[0].events,c[0].reviews,c[0].alert_cases,parsed.data.reason,req.user.id]);
+  await audit(req,'request','activity-retention-disposal',rows[0].id,{eventCutoff,reportCutoff,counts:c[0]});res.status(201).json({request:rows[0]});
+});
+app.patch('/api/admin/activity-retention-disposal-requests/:id/decision',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['approved','rejected','cancelled']),note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'判断内容を確認してください。'});
+  const {rows}=await query(`UPDATE activity_retention_disposal_requests SET status=$1,decision_note=NULLIF($2,''),decided_by=$3,decided_at=now() WHERE id=$4 AND status='pending' RETURNING *`,[parsed.data.status,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認待ちの整理申請が見つかりません。'});
+  await audit(req,parsed.data.status,'activity-retention-disposal',req.params.id,{note:parsed.data.note});res.json({request:rows[0]});
+});
+app.get('/api/admin/activity-report-runs',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT r.*,u.display_name generated_by_name FROM activity_report_runs r JOIN users u ON u.id=r.generated_by ORDER BY r.generated_at DESC LIMIT 200`);await audit(req,'review','activity-report-runs','list',{resultCount:rows.length});res.json({runs:rows});
+});
+app.post('/api/admin/activity-report-runs/generate',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({periodType:z.enum(['weekly','monthly']),periodDate:z.string().date(),reportScope:z.enum(['summary','summary-and-alerts','full-audit'])});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'レポート条件を確認してください。'});
+  const d=parsed.data,base=new Date(`${d.periodDate}T00:00:00Z`);let from=new Date(base),to=new Date(base);if(d.periodType==='weekly'){const day=(from.getUTCDay()+6)%7;from.setUTCDate(from.getUTCDate()-day);to=new Date(from);to.setUTCDate(to.getUTCDate()+6)}else{from=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth(),1));to=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth()+1,0))};const f=from.toISOString().slice(0,10),t=to.toISOString().slice(0,10),ex=new Date(to);ex.setUTCDate(ex.getUTCDate()+1);
+  const {rows:features}=await query(`SELECT feature,count(*)::int events,count(DISTINCT user_id)::int users FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date GROUP BY feature ORDER BY events DESC`,[f,ex.toISOString().slice(0,10)]);
+  const {rows:summary}=await query(`SELECT count(*)::int total_events,count(DISTINCT user_id)::int active_users,count(*) FILTER(WHERE feature='auth')::int auth_events FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date`,[f,ex.toISOString().slice(0,10)]);
+  let alerts=[],reviews=[];if(d.reportScope!=='summary'){({rows:alerts}=await query(`SELECT * FROM activity_alert_cases WHERE created_at >= $1::date AND created_at < $2::date ORDER BY created_at DESC`,[f,ex.toISOString().slice(0,10)]))}if(d.reportScope==='full-audit'){({rows:reviews}=await query(`SELECT * FROM activity_audit_reviews WHERE period_from <= $2::date AND period_to >= $1::date ORDER BY created_at DESC`,[f,t]))}
+  const payload={generatedAt:new Date().toISOString(),period:{from:f,to:t,type:d.periodType},summary:summary[0],features,alerts,reviews,notice:'本システムの利用は任意です。'};
+  const {rows}=await query(`INSERT INTO activity_report_runs(period_type,period_from,period_to,report_scope,report_payload,generated_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[d.periodType,f,t,d.reportScope,JSON.stringify(payload),req.user.id]);await audit(req,'generate','activity-report-run',rows[0].id,{periodType:d.periodType,periodFrom:f,periodTo:t,scope:d.reportScope});res.status(201).json({run:rows[0],report:payload});
+});
+
+
+// Part 230: completion workflow, report approval and monthly management summary
+app.patch('/api/admin/activity-report-runs/:id/approval',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['approved','returned']),note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});
+  const d=parsed.data;const {rows}=await query(`UPDATE activity_report_runs SET approval_status=$1,approved_by=$2,approved_at=now(),approval_note=NULLIF($3,''),status=CASE WHEN $1='approved' THEN 'approved' ELSE 'reviewed' END WHERE id=$4 RETURNING *`,[d.status,req.user.id,d.note,req.params.id]);if(!rows[0])return res.status(404).json({error:'監査レポートが見つかりません。'});
+  await audit(req,d.status,'activity-report-run',req.params.id,{note:d.note});res.json({run:rows[0]});
+});
+app.patch('/api/admin/activity-retention-disposal-requests/:id/execute',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({executionReference:z.string().min(1).max(500),executionNote:z.string().min(1).max(5000),actualDeletion:z.boolean().optional().default(false)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'整理実行記録を確認してください。'});if(parsed.data.actualDeletion)return res.status(400).json({error:'この画面から実データ削除は実行できません。'});
+  const {rows}=await query(`UPDATE activity_retention_disposal_requests SET status='executed',executed_at=now(),executed_by=$1,execution_reference=$2,execution_note=$3 WHERE id=$4 AND status='approved' RETURNING *`,[req.user.id,parsed.data.executionReference,parsed.data.executionNote,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認済みの整理申請が見つかりません。'});
+  await audit(req,'record-execution','activity-retention-disposal',req.params.id,{reference:parsed.data.executionReference,actualDeletion:false});res.json({request:rows[0]});
+});
+app.get('/api/admin/activity-monthly-management-summaries',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT s.*,g.display_name generated_by_name,a.display_name approved_by_name FROM activity_monthly_management_summaries s JOIN users g ON g.id=s.generated_by LEFT JOIN users a ON a.id=s.approved_by ORDER BY summary_month DESC LIMIT 36`);await audit(req,'review','activity-monthly-management-summaries','list',{resultCount:rows.length});res.json({summaries:rows});
+});
+app.post('/api/admin/activity-monthly-management-summaries',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({month:z.string().regex(/^\d{4}-\d{2}$/),conclusion:z.enum(['normal','follow-up','action-required']),managementNote:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'月次サマリーの内容を確認してください。'});const d=parsed.data,from=`${d.month}-01`;const base=new Date(`${from}T00:00:00Z`),to=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth()+1,1));const toDate=to.toISOString().slice(0,10);
+  const {rows:usage}=await query(`SELECT count(*)::int total_events,count(DISTINCT user_id)::int active_users FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date`,[from,toDate]);
+  const {rows:features}=await query(`SELECT feature,count(*)::int events FROM user_activity_events WHERE occurred_at >= $1::date AND occurred_at < $2::date GROUP BY feature ORDER BY events DESC`,[from,toDate]);
+  const {rows:controls}=await query(`SELECT (SELECT count(*)::int FROM activity_alert_cases WHERE created_at >= $1::date AND created_at < $2::date) alert_cases,(SELECT count(*)::int FROM activity_alert_cases WHERE status IN ('open','reviewing')) open_alerts,(SELECT count(*)::int FROM activity_audit_reviews WHERE period_from < $2::date AND period_to >= $1::date) reviews,(SELECT count(*)::int FROM activity_report_runs WHERE period_from < $2::date AND period_to >= $1::date) reports`,[from,toDate]);
+  const payload={month:d.month,generatedAt:new Date().toISOString(),usage:usage[0],features,controls:controls[0],notice:'本システムの利用は任意です。'};
+  const {rows}=await query(`INSERT INTO activity_monthly_management_summaries(summary_month,summary_payload,conclusion,management_note,generated_by) VALUES($1,$2,$3,NULLIF($4,''),$5) ON CONFLICT(summary_month) DO UPDATE SET summary_payload=EXCLUDED.summary_payload,conclusion=EXCLUDED.conclusion,management_note=EXCLUDED.management_note,generated_by=EXCLUDED.generated_by,generated_at=now(),approved_by=NULL,approved_at=NULL,approval_note=NULL RETURNING *`,[from,JSON.stringify(payload),d.conclusion,d.managementNote,req.user.id]);await audit(req,'generate','activity-monthly-management-summary',rows[0].id,{month:d.month,conclusion:d.conclusion});res.status(201).json({summary:rows[0],report:payload});
+});
+app.patch('/api/admin/activity-monthly-management-summaries/:id/approval',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({note:z.string().max(5000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});const {rows}=await query(`UPDATE activity_monthly_management_summaries SET approved_by=$1,approved_at=now(),approval_note=NULLIF($2,'') WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);if(!rows[0])return res.status(404).json({error:'月次サマリーが見つかりません。'});await audit(req,'approve','activity-monthly-management-summary',req.params.id,{note:parsed.data.note});res.json({summary:rows[0]});
+});
+
+
+
+// Part 231: approved audit report distribution and evidence timeline
+app.get('/api/admin/activity-report-distributions',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT d.*,r.period_type,r.period_from,r.period_to,u.display_name distributed_by_name FROM activity_report_distributions d JOIN activity_report_runs r ON r.id=d.report_run_id JOIN users u ON u.id=d.distributed_by ORDER BY d.distributed_at DESC LIMIT 300`);
+  await audit(req,'review','activity-report-distributions','list',{resultCount:rows.length});res.json({distributions:rows});
+});
+app.post('/api/admin/activity-report-distributions',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reportRunId:z.string().uuid(),distributionMethod:z.enum(['secure-download','internal-email','meeting','other']),recipients:z.string().min(1).max(2000),purpose:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布記録を確認してください。'});const d=parsed.data;
+  const approved=await query(`SELECT id FROM activity_report_runs WHERE id=$1 AND approval_status='approved'`,[d.reportRunId]);if(!approved.rows[0])return res.status(409).json({error:'承認済みの監査レポートだけを配布記録の対象にできます。'});
+  const {rows}=await query(`INSERT INTO activity_report_distributions(report_run_id,distribution_method,recipients,purpose,distributed_by) VALUES($1,$2,$3,$4,$5) RETURNING *`,[d.reportRunId,d.distributionMethod,d.recipients,d.purpose,req.user.id]);
+  await audit(req,'record-distribution','activity-report-run',d.reportRunId,{distributionId:rows[0].id,distributionMethod:d.distributionMethod,recipients:d.recipients});res.status(201).json({distribution:rows[0]});
+});
+app.get('/api/admin/activity-audit-evidence',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT a.*,u.login_id,u.display_name FROM audit_logs a LEFT JOIN users u ON u.id=a.user_id WHERE a.entity_type IN ('activity-report-run','activity-monthly-management-summary','activity-audit-review','activity-report-distributions','activity-retention-disposal') OR a.action IN ('generate','approve','return','record-distribution','record-execution') ORDER BY a.created_at DESC LIMIT 500`);
+  await audit(req,'review','activity-audit-evidence','list',{resultCount:rows.length});res.json({logs:rows});
+});
+
+
+
+app.get('/api/admin/operations-acceptance-reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT r.*,u.display_name reviewed_by_name FROM operations_acceptance_reviews r LEFT JOIN users u ON u.id=r.reviewed_by ORDER BY r.review_date DESC,r.created_at DESC LIMIT 100`);
+  await audit(req,'review','operations-acceptance-review','list',{resultCount:rows.length});
+  res.json({reviews:rows});
+});
+app.post('/api/admin/operations-acceptance-reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reviewType:z.enum(['initial','major-update','quarterly','annual']),targetVersion:z.string().max(50).optional().default(''),targetUsers:z.number().int().min(1).max(500),reviewDate:z.string().date(),overallDecision:z.enum(['hold','conditional','accepted']),domainResults:z.record(z.any()),overallNote:z.string().max(3000).optional().default(''),followUpNote:z.string().max(3000).optional().default(''),nextReviewDate:z.string().date().nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'点検記録の内容を確認してください。'});
+  const d=parsed.data;const values=Object.values(d.domainResults||{});if(d.overallDecision==='accepted'&&(values.length<8||values.some(v=>v?.status!=='pass')))return res.status(400).json({error:'正式運用可には全分野の合格が必要です。'});
+  const {rows}=await query(`INSERT INTO operations_acceptance_reviews(review_type,target_version,target_users,review_date,overall_decision,domain_results,overall_note,follow_up_note,next_review_date,reviewed_by) VALUES($1,NULLIF($2,''),$3,$4,$5,$6::jsonb,NULLIF($7,''),NULLIF($8,''),$9,$10) RETURNING *`,[d.reviewType,d.targetVersion,d.targetUsers,d.reviewDate,d.overallDecision,JSON.stringify(d.domainResults),d.overallNote,d.followUpNote,d.nextReviewDate||null,req.user.id]);
+  await audit(req,'create','operations-acceptance-review',rows[0].id,{reviewType:d.reviewType,overallDecision:d.overallDecision,targetUsers:d.targetUsers});res.status(201).json({review:rows[0]});
+});
+
+
+
+// Part 235: operations acceptance approvals, corrective actions and period reporting
+app.get('/api/admin/operations-acceptance-approvals',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT a.*,u.display_name decided_by_name FROM operations_acceptance_approvals a LEFT JOIN users u ON u.id=a.decided_by ORDER BY a.decided_at DESC LIMIT 300`);
+  await audit(req,'review','operations-acceptance-approval','list',{resultCount:rows.length});res.json({approvals:rows});
+});
+app.post('/api/admin/operations-acceptance-approvals',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reviewId:z.string().uuid(),status:z.enum(['pending','approved','returned']),comment:z.string().max(2000).optional().default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});const d=parsed.data;
+  const existing=await query(`SELECT status FROM operations_acceptance_approvals WHERE review_id=$1 ORDER BY decided_at DESC LIMIT 1`,[d.reviewId]);
+  if(existing.rows[0]?.status==='approved')return res.status(409).json({error:'承認済みの確定記録は変更できません。'});
+  const review=await query(`SELECT id FROM operations_acceptance_reviews WHERE id=$1`,[d.reviewId]);if(!review.rows[0])return res.status(404).json({error:'点検記録が見つかりません。'});
+  const {rows}=await query(`INSERT INTO operations_acceptance_approvals(review_id,status,comment,decided_by) VALUES($1,$2,NULLIF($3,''),$4) RETURNING *`,[d.reviewId,d.status,d.comment,req.user.id]);
+  await audit(req,d.status==='approved'?'approve':d.status==='returned'?'return':'review','operations-acceptance-review',d.reviewId,{approvalId:rows[0].id,comment:d.comment});res.status(201).json({approval:rows[0]});
+});
+app.get('/api/admin/operations-acceptance-corrective-actions',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT c.*,u.display_name created_by_name FROM operations_acceptance_corrective_actions c LEFT JOIN users u ON u.id=c.created_by ORDER BY CASE WHEN c.status='completed' THEN 1 ELSE 0 END,c.due_date NULLS LAST,c.created_at DESC LIMIT 500`);
+  await audit(req,'review','operations-acceptance-corrective-action','list',{resultCount:rows.length});res.json({actions:rows});
+});
+app.post('/api/admin/operations-acceptance-corrective-actions',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reviewId:z.string().uuid().nullable().optional(),priority:z.enum(['normal','high','urgent']),dueDate:z.string().date().nullable().optional(),status:z.enum(['open','working','completed']),detail:z.string().min(1).max(2500),completionEvidence:z.string().max(2500).optional().default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'是正対応の内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operations_acceptance_corrective_actions(review_id,priority,due_date,status,detail,completion_evidence,created_by,completed_at) VALUES($1,$2,$3,$4,$5,NULLIF($6,''),$7,CASE WHEN $4='completed' THEN now() ELSE NULL END) RETURNING *`,[d.reviewId||null,d.priority,d.dueDate||null,d.status,d.detail,d.completionEvidence,req.user.id]);
+  await audit(req,'create','operations-acceptance-corrective-action',rows[0].id,{reviewId:d.reviewId||null,priority:d.priority,status:d.status,dueDate:d.dueDate||null});res.status(201).json({action:rows[0]});
+});
+app.patch('/api/admin/operations-acceptance-corrective-actions/:id',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['open','working','completed']),completionEvidence:z.string().max(2500).optional().default(''),dueDate:z.string().date().nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'更新内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`UPDATE operations_acceptance_corrective_actions SET status=$1,completion_evidence=NULLIF($2,''),due_date=COALESCE($3,due_date),completed_at=CASE WHEN $1='completed' THEN COALESCE(completed_at,now()) ELSE NULL END WHERE id=$4 RETURNING *`,[d.status,d.completionEvidence,d.dueDate||null,req.params.id]);
+  if(!rows[0])return res.status(404).json({error:'是正対応が見つかりません。'});await audit(req,'update','operations-acceptance-corrective-action',req.params.id,{status:d.status,dueDate:d.dueDate||null});res.json({action:rows[0]});
+});
+app.get('/api/admin/operations-acceptance-summary',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const year=Math.min(2100,Math.max(2020,Number(req.query.year)||new Date().getFullYear()));const periodType=req.query.periodType==='annual'?'annual':'quarterly';const quarter=Math.min(4,Math.max(1,Number(req.query.quarter)||1));
+  const startMonth=periodType==='annual'?1:(quarter-1)*3+1;const endMonth=periodType==='annual'?12:startMonth+2;
+  const from=`${year}-${String(startMonth).padStart(2,'0')}-01`;const to=new Date(Date.UTC(year,endMonth,0)).toISOString().slice(0,10);
+  const reviewRows=await query(`SELECT r.*,a.status approval_status FROM operations_acceptance_reviews r LEFT JOIN LATERAL (SELECT status FROM operations_acceptance_approvals WHERE review_id=r.id ORDER BY decided_at DESC LIMIT 1) a ON true WHERE r.review_date BETWEEN $1 AND $2 ORDER BY r.review_date`,[from,to]);
+  const correctiveRows=await query(`SELECT c.* FROM operations_acceptance_corrective_actions c LEFT JOIN operations_acceptance_reviews r ON r.id=c.review_id WHERE (r.review_date BETWEEN $1 AND $2) OR c.review_id IS NULL`,[from,to]);
+  const summary={reviewCount:reviewRows.rows.length,approvedCount:reviewRows.rows.filter(x=>x.approval_status==='approved').length,acceptedCount:reviewRows.rows.filter(x=>x.overall_decision==='accepted').length,correctiveCount:correctiveRows.rows.length,openCorrectiveCount:correctiveRows.rows.filter(x=>x.status!=='completed').length,overdueCorrectiveCount:correctiveRows.rows.filter(x=>x.status!=='completed'&&x.due_date&&String(x.due_date).slice(0,10)<new Date().toISOString().slice(0,10)).length};
+  await audit(req,'review','operations-acceptance-period-summary',`${periodType}-${year}-${periodType==='quarterly'?quarter:'all'}`,summary);res.json({period:{periodType,year,quarter:periodType==='quarterly'?quarter:null,from,to},summary,reviews:reviewRows.rows,correctiveActions:correctiveRows.rows});
+});
+app.post('/api/admin/operations-acceptance-period-reports',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({periodType:z.enum(['quarterly','annual']),periodYear:z.number().int().min(2020).max(2100),periodQuarter:z.number().int().min(1).max(4).nullable().optional(),periodFrom:z.string().date(),periodTo:z.string().date(),summary:z.record(z.any())});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'期間レポートを確認してください。'});const d=parsed.data;if(d.periodType==='quarterly'&&!d.periodQuarter)return res.status(400).json({error:'四半期を指定してください。'});
+  const {rows}=await query(`INSERT INTO operations_acceptance_period_reports(period_type,period_year,period_quarter,period_from,period_to,summary,generated_by) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7) ON CONFLICT (period_type,period_year,(COALESCE(period_quarter,0))) DO UPDATE SET period_from=EXCLUDED.period_from,period_to=EXCLUDED.period_to,summary=EXCLUDED.summary,generated_by=EXCLUDED.generated_by,generated_at=now() RETURNING *`,[d.periodType,d.periodYear,d.periodType==='quarterly'?d.periodQuarter:null,d.periodFrom,d.periodTo,JSON.stringify(d.summary),req.user.id]);
+  await audit(req,'generate','operations-acceptance-period-report',rows[0].id,{periodType:d.periodType,periodYear:d.periodYear,periodQuarter:d.periodQuarter||null});res.status(201).json({report:rows[0]});
+});
+
+
+// Part 236: improvement plans and annual closing
+app.get('/api/admin/operations-acceptance-improvement-plans',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT p.*,u.display_name created_by_name FROM operations_acceptance_improvement_plans p LEFT JOIN users u ON u.id=p.created_by ORDER BY CASE WHEN p.status='completed' THEN 1 ELSE 0 END,p.due_date NULLS LAST,p.created_at DESC LIMIT 500`);
+  await audit(req,'review','operations-acceptance-improvement-plan','list',{resultCount:rows.length});res.json({plans:rows});
+});
+app.post('/api/admin/operations-acceptance-improvement-plans',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({reviewId:z.string().uuid().nullable().optional(),category:z.enum(['operation','security','data','training','performance','other']),ownerName:z.string().max(100).optional().default(''),dueDate:z.string().date().nullable().optional(),status:z.enum(['planned','working','completed','carried-over']),detail:z.string().min(1).max(3000),completionEvidence:z.string().max(3000).optional().default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'改善計画の内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operations_acceptance_improvement_plans(review_id,category,owner_name,due_date,status,detail,completion_evidence,created_by,completed_at) VALUES($1,$2,NULLIF($3,''),$4,$5,$6,NULLIF($7,''),$8,CASE WHEN $5='completed' THEN now() ELSE NULL END) RETURNING *`,[d.reviewId||null,d.category,d.ownerName,d.dueDate||null,d.status,d.detail,d.completionEvidence,req.user.id]);
+  await audit(req,'create','operations-acceptance-improvement-plan',rows[0].id,{reviewId:d.reviewId||null,category:d.category,status:d.status,dueDate:d.dueDate||null});res.status(201).json({plan:rows[0]});
+});
+app.patch('/api/admin/operations-acceptance-improvement-plans/:id',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['planned','working','completed','carried-over']),ownerName:z.string().max(100).optional().default(''),dueDate:z.string().date().nullable().optional(),completionEvidence:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'更新内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`UPDATE operations_acceptance_improvement_plans SET status=$1,owner_name=NULLIF($2,''),due_date=$3,completion_evidence=NULLIF($4,''),completed_at=CASE WHEN $1='completed' THEN COALESCE(completed_at,now()) ELSE NULL END,updated_at=now() WHERE id=$5 RETURNING *`,[d.status,d.ownerName,d.dueDate||null,d.completionEvidence,req.params.id]);
+  if(!rows[0])return res.status(404).json({error:'改善計画が見つかりません。'});await audit(req,'update','operations-acceptance-improvement-plan',req.params.id,{status:d.status,dueDate:d.dueDate||null});res.json({plan:rows[0]});
+});
+app.get('/api/admin/operations-acceptance-annual-closings',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT c.*,u.display_name created_by_name FROM operations_acceptance_annual_closings c LEFT JOIN users u ON u.id=c.created_by ORDER BY c.closing_year DESC`);await audit(req,'review','operations-acceptance-annual-closing','list',{resultCount:rows.length});res.json({closings:rows});
+});
+app.post('/api/admin/operations-acceptance-annual-closings',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({closingYear:z.number().int().min(2020).max(2100),overallDecision:z.enum(['stable','observe','improvement-required']),annualSummary:z.record(z.any()),closingNote:z.string().max(4000).optional().default(''),carryOverNote:z.string().max(4000).optional().default(''),nextReviewDate:z.string().date().nullable().optional()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'年度総括の内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operations_acceptance_annual_closings(closing_year,overall_decision,annual_summary,closing_note,carry_over_note,next_review_date,created_by) VALUES($1,$2,$3::jsonb,NULLIF($4,''),NULLIF($5,''),$6,$7) ON CONFLICT (closing_year) DO UPDATE SET overall_decision=EXCLUDED.overall_decision,annual_summary=EXCLUDED.annual_summary,closing_note=EXCLUDED.closing_note,carry_over_note=EXCLUDED.carry_over_note,next_review_date=EXCLUDED.next_review_date,created_by=EXCLUDED.created_by,updated_at=now() RETURNING *`,[d.closingYear,d.overallDecision,JSON.stringify(d.annualSummary),d.closingNote,d.carryOverNote,d.nextReviewDate||null,req.user.id]);
+  await audit(req,'save','operations-acceptance-annual-closing',rows[0].id,{closingYear:d.closingYear,overallDecision:d.overallDecision});res.status(201).json({closing:rows[0]});
+});
+
+
+// Part 237: improvement dashboard, progress history and handoff export
+app.get('/api/admin/operations-acceptance-improvement-dashboard',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT p.*,u.display_name created_by_name FROM operations_acceptance_improvement_plans p LEFT JOIN users u ON u.id=p.created_by ORDER BY CASE WHEN p.status='completed' THEN 1 ELSE 0 END,p.due_date NULLS LAST,p.created_at DESC LIMIT 1000`);
+  const today=new Date().toISOString().slice(0,10);const limit=new Date();limit.setDate(limit.getDate()+30);const soon=limit.toISOString().slice(0,10);
+  const active=rows.filter(x=>x.status!=='completed');const summary={total:rows.length,active:active.length,overdue:active.filter(x=>x.due_date&&String(x.due_date).slice(0,10)<today).length,carriedOver:rows.filter(x=>x.status==='carried-over').length,unassigned:active.filter(x=>!x.owner_name).length,dueWithin30Days:active.filter(x=>x.due_date&&String(x.due_date).slice(0,10)>=today&&String(x.due_date).slice(0,10)<=soon).length};
+  await audit(req,'review','operations-acceptance-improvement-dashboard','summary',summary);res.json({summary,plans:rows});
+});
+app.post('/api/admin/operations-acceptance-improvement-handoffs',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({targetYear:z.number().int().min(2020).max(2100),summary:z.record(z.any()),handoffPayload:z.record(z.any())});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'引継ぎ内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operations_acceptance_handoff_exports(target_year,summary,handoff_payload,generated_by) VALUES($1,$2::jsonb,$3::jsonb,$4) RETURNING *`,[d.targetYear,JSON.stringify(d.summary),JSON.stringify(d.handoffPayload),req.user.id]);
+  await audit(req,'export','operations-acceptance-improvement-handoff',rows[0].id,{targetYear:d.targetYear,summary:d.summary});res.status(201).json({handoff:rows[0]});
 });
 
 app.listen(config.port, () => console.log(`Inspection Support API listening on ${config.port}`));

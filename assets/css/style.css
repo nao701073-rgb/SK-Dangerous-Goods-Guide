@@ -32,3 +32,11 @@
 
 /* Part 171: feedback request menu */
 .side-menu{overflow-y:auto;overscroll-behavior:contain;padding-bottom:max(24px,env(safe-area-inset-bottom))}.side-menu nav{padding-bottom:18px}.side-menu .nav-link{flex-shrink:0}
+
+/* Part 221: settings menu separation */
+.nav-section{display:grid;gap:8px;margin-top:10px;padding-top:12px;border-top:1px solid var(--border)}
+.nav-section__label{padding:0 16px 4px;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.nav-section .nav-link>span:last-child{display:grid;gap:2px;min-width:0}
+.nav-section .nav-link strong{font-size:.88rem}
+.nav-section .nav-link small{color:var(--muted);font-size:.66rem;font-weight:600;line-height:1.35}
+.nav-section .nav-link:hover small,.nav-section .nav-link.active small{color:inherit}
