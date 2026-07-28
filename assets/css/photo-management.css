@@ -439,3 +439,28 @@
 .application-document-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0 1.25rem}.application-document-form__wide{grid-column:1/-1}.application-document-list{display:grid;gap:.8rem}.application-document-card{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--line,#d9e0e7);border-radius:14px;background:#fff}.application-document-card h3{margin:.25rem 0}.application-document-card p{margin:.25rem 0;overflow-wrap:anywhere}.application-document-card.is-cancelled{opacity:.65;background:#f6f7f8}.document-category{display:inline-flex;padding:.2rem .55rem;border-radius:999px;background:#eaf2ff;font-size:.82rem;font-weight:700}@media(max-width:720px){.application-document-form{grid-template-columns:1fr}.application-document-form__wide{grid-column:auto}.application-document-card{flex-direction:column}.application-document-card .management-actions{width:100%}}
 
 .document-version{display:inline-flex;margin-left:.45rem;padding:.16rem .48rem;border-radius:999px;background:#eef3f8;color:#334e68;font-size:.76rem;font-weight:700}.application-document-card.is-cancelled .document-version{opacity:.65}.application-filter-tools select{min-width:150px}
+
+
+/* Part 268: application dashboard, history and duplicate workflow */
+.application-status-summary{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}.application-status-card{display:grid;grid-template-columns:1fr auto auto;align-items:baseline;gap:5px;padding:13px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;text-align:left;color:var(--navy)}.application-status-card strong{font-size:.82rem}.application-status-card span{font-size:1.45rem;font-weight:900}.application-status-card small{font-size:.72rem}.application-status-card.is-active{border-color:#0b5fa5;background:#eef7ff;box-shadow:0 0 0 2px rgba(11,95,165,.1)}.application-history{margin:12px 0;border-top:1px dashed var(--border);padding-top:10px}.application-history summary{cursor:pointer;font-weight:800;color:var(--navy)}.application-history-list{display:grid;gap:7px;margin-top:9px}.application-history-list article{display:grid;grid-template-columns:auto auto 1fr;gap:8px;align-items:center;padding:8px 10px;border-radius:9px;background:#f6f8fa}.application-history-list strong{font-size:.78rem}.application-history-list span,.application-history-list small{font-size:.72rem;color:var(--muted)}.application-history-empty{font-size:.78rem;color:var(--muted)}@media(max-width:800px){.application-status-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.application-history-list article{grid-template-columns:1fr}.application-filter-tools input,.application-filter-tools select{width:100%;min-width:0}}
+
+/* Part 269: 申請一覧の表示設定 */
+.application-display-settings {
+  margin: 0 0 1rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--border-color, #d8dee8);
+  border-radius: .75rem;
+  background: var(--surface-subtle, #f8fafc);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .7rem 1rem;
+}
+.application-display-settings[hidden] { display: none; }
+.application-display-settings strong { width: 100%; }
+.application-display-settings label { display: inline-flex; align-items: center; gap: .35rem; }
+@media (max-width: 720px) {
+  .application-display-settings { align-items: stretch; }
+  .application-display-settings label { width: calc(50% - .5rem); }
+  .application-display-settings button { width: 100%; }
+}

@@ -233,21 +233,16 @@
     "9": "9 有害性物質"
   };
 
-  // 等級は、類別の一括検索と個別等級を分けて表示する。
-  const primaryClassGroups = [
-    {
-      label: "類別をまとめて検索",
-      options: ["4", "5", "6"].map(value => ({ value, label: classOptionLabels[value] }))
-    },
-    {
-      label: "個別等級",
-      options: [
-        "1.1", "1.2", "1.3", "1.4", "1.5", "1.6",
-        "2.1", "2.2", "2.3",
-        "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "6.2", "7", "8", "9"
-      ].map(value => ({ value, label: classOptionLabels[value] }))
-    }
-  ];
+  // 他の詳細検索項目と同じ通常のプルダウン形式で表示する。
+  // 4・5・6は各区分の一括検索、4.1～6.2は個別検索として同じ一覧に並べる。
+  const primaryClassOptions = [
+    "1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6",
+    "2", "2.1", "2.2", "2.3",
+    "3", "4", "4.1", "4.2", "4.3",
+    "5", "5.1", "5.2",
+    "6", "6.1", "6.2",
+    "7", "8", "9"
+  ].map(value => ({ value, label: classOptionLabels[value] }));
 
   // 国内法令上、副次危険性等級として実在する選択肢だけを表示する。
   // 火薬類の副標札は区分1.1～1.6を分けず、共通の「1」1種類とする。
@@ -260,17 +255,9 @@
     ).join(""));
   };
 
-  const populateGroupedClassSelect = (select, groups) => {
-    select.insertAdjacentHTML("beforeend", groups.map(group => `
-      <optgroup label="${escapeHtml(group.label)}">
-        ${group.options.map(option => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("")}
-      </optgroup>
-    `).join(""));
-  };
-
   const formatClassFilterLabel = value => classOptionLabels[normalizeClassValue(value)] || formatSubsidiaryRisk(value);
 
-  populateGroupedClassSelect(fields.class, primaryClassGroups);
+  populateClassSelect(fields.class, primaryClassOptions);
   populateClassSelect(fields.subsidiary, subsidiaryClassOptions);
 
   function currentConditions() {

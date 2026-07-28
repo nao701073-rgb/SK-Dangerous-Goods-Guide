@@ -9,6 +9,7 @@
     userRole: "iss-user-role",
     applications: "iss-applications",
     applicationDocuments: "iss-application-documents",
+    applicationHistory: "iss-application-history",
     photos: "iss-photos",
     photoAuditLogs: "iss-photo-audit-logs",
     showImdgReferences: "iss-show-imdg-references",
@@ -371,6 +372,61 @@
       return this.isSafetyEnvironment() ? this.getApplications({ scope: "all" }) : this.getApplications();
     },
 
+    getApplicationHistory(applicationId) {
+      const application = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) })).find(item => item.id === applicationId);
+      if (!application) return [];
+      if (!this.isSafetyEnvironment() && application.officeId !== this.getOfficeId()) return [];
+      return read(KEYS.applicationHistory, []).filter(item => item.applicationId === applicationId).sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));
+    },
+
+    addApplicationHistory(application, action, before = null, after = null, reason = "") {
+      if (!application?.id) return;
+      const history = read(KEYS.applicationHistory, []);
+      const context = this.getCurrentContext();
+      history.unshift({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        applicationId: application.id,
+        applicationYear: application.applicationYear || "",
+        applicationNumber: application.applicationNumber || "",
+        officeId: application.officeId || context.officeId,
+        office: application.office || context.officeName,
+        action: String(action || "update"),
+        before,
+        after,
+        reason: String(reason || "").trim(),
+        actorRole: this.getUserRole(),
+        actorOffice: context.officeName,
+        createdAt: nowIso()
+      });
+      write(KEYS.applicationHistory, history.slice(0, 5000));
+    },
+
+    duplicateApplication(id) {
+      if (!this.canWriteOperationalData()) throw new Error("閲覧専用権限では案件を複製できません。");
+      const source = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) })).find(item => item.id === id);
+      if (!source) throw new Error("複製元の案件が見つかりません。");
+      if (!this.isSafetyEnvironment() && source.officeId !== this.getOfficeId()) throw new Error("所属事業所以外の案件は複製できません。");
+      return this.addApplication({
+        applicationYear: String(new Date().getFullYear()),
+        numberType: "temporary",
+        officeId: source.officeId,
+        status: "draft",
+        assignee: source.assignee || "",
+        containerNumber: "",
+        vesselName: source.vesselName || "",
+        voyageNumber: source.voyageNumber || "",
+        unNumber: source.unNumber || "",
+        japaneseName: source.japaneseName || "",
+        englishName: source.englishName || "",
+        hazardClass: source.hazardClass || "",
+        subsidiaryHazardClasses: source.subsidiaryHazardClasses || [],
+        packingGroup: source.packingGroup || "",
+        inspectionPlannedDate: source.inspectionPlannedDate || "",
+        caseTitle: source.caseTitle ? `${source.caseTitle}（複製）` : "",
+        note: source.note || ""
+      });
+    },
+
     addApplication(record) {
       if (!this.canWriteOperationalData()) throw new Error("安全環境室職員は閲覧専用です。登録・更新はできません。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
@@ -399,7 +455,7 @@
         applicationDate: String(record.applicationDate || ""), inspectionPlannedDate: String(record.inspectionPlannedDate || ""), inspectionDate: String(record.inspectionDate || ""), caseTitle: String(record.caseTitle || "").trim(), note: String(record.note || "").trim(),
         createdAt: nowIso(), updatedAt: nowIso(), createdByRole: this.getUserRole(), status: ["draft","received","in_progress","completed","cancelled"].includes(record.status) ? record.status : "draft"
       };
-      applications.unshift(application); write(KEYS.applications, applications); enqueueSync("application", "create", application); return application;
+      applications.unshift(application); write(KEYS.applications, applications); this.addApplicationHistory(application, "create", null, application, "新規登録"); enqueueSync("application", "create", application); return application;
     },
 
     updateApplication(id, updates) {
@@ -407,6 +463,7 @@
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
       const target = applications.find(item => item.id === id); if (!target) return false;
       if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
+      const beforeSnapshot = JSON.parse(JSON.stringify(target));
       const applicationYear = String(updates.applicationYear ?? target.applicationYear ?? "").trim();
       if (!/^\d{4}$/.test(applicationYear)) throw new Error("申請年度は4桁の数字で入力してください。");
       const numberType = updates.numberType === "temporary" ? "temporary" : (updates.numberType || target.numberType || "official");
@@ -424,7 +481,7 @@
         subsidiaryHazardClasses:Array.isArray(updates.subsidiaryHazardClasses)?updates.subsidiaryHazardClasses:(target.subsidiaryHazardClasses||[]), packingGroup:String(updates.packingGroup ?? target.packingGroup ?? "").trim(),
         applicationDate:String(updates.applicationDate ?? target.applicationDate ?? ""), inspectionPlannedDate:String(updates.inspectionPlannedDate ?? target.inspectionPlannedDate ?? ""), inspectionDate:String(updates.inspectionDate ?? target.inspectionDate ?? ""), caseTitle:String(updates.caseTitle ?? target.caseTitle ?? "").trim(), note:String(updates.note ?? target.note ?? "").trim(), status:updates.status ?? target.status, updatedAt:nowIso()
       });
-      write(KEYS.applications, applications); enqueueSync("application", "update", target); return true;
+      write(KEYS.applications, applications); this.addApplicationHistory(target, "update", beforeSnapshot, target, String(updates.changeReason || "")); enqueueSync("application", "update", target); return true;
     },
 
     removeApplication(id) {

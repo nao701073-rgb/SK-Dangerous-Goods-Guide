@@ -1,8 +1,8 @@
 {
   "name": "SK Dangerous Goods Guide",
-  "part": 267,
-  "version": "0.267.0",
+  "part": 271,
+  "version": "0.271.0",
   "releasedAt": "2026-07-28",
-  "summary": "添付資料の版管理・分類形式フィルター・案件カードからの資料登録導線を統合",
+  "summary": "申請番号管理の進捗ダッシュボード・年度絞り込み・更新履歴・案件複製を統合",
   "updatedAt": "2026-07-28"
 }
