@@ -229,6 +229,62 @@
 <div class="settings-actions"><button class="primary-action" id="savePhotoPolicy" type="button">写真上限を保存</button></div>
 </div>
 </section>
+<section class="panel" data-roles="office-admin,safety-environment-director,safety-environment-admin">
+<div class="panel-heading"><h2>アクセス情報</h2></div>
+<div class="panel-body settings-list">
+<div class="settings-row settings-row--access">
+<div><strong>システムのトップURL</strong><p>利用者へ案内する場合に使用する、ホーム画面のURLです。</p></div>
+<code class="fixed-setting access-url-value" id="systemTopUrl">確認中</code>
+</div>
+<div class="settings-row settings-row--access">
+<div><strong>現在開いているページ</strong><p>設定画面など、現在表示中のページを直接案内する場合のURLです。</p></div>
+<code class="fixed-setting access-url-value" id="currentAccessUrl">確認中</code>
+</div>
+<div class="settings-row">
+<div><strong>接続方式</strong><p>HTTPS公開、ローカルサーバー、ファイル直接起動などを自動判定します。</p></div>
+<span class="fixed-setting" id="currentAccessMode">確認中</span>
+</div>
+<div class="settings-row">
+<div><strong>共有可否</strong><p>表示中のURLを、ほかの端末から開ける可能性があるかを確認します。</p></div>
+<span class="fixed-setting" id="accessShareability">確認中</span>
+</div>
+<div class="settings-actions settings-actions--access">
+<button class="primary-action" id="copySystemTopUrl" type="button">トップURLをコピー</button>
+<button class="secondary-action" id="copyCurrentAccessUrl" type="button">現在のページURLをコピー</button>
+<button class="secondary-action" id="openSystemTopUrl" type="button">ホームを別タブで開く</button>
+<button class="secondary-action" id="shareCurrentAccessUrl" type="button">トップURLを共有</button>
+</div>
+<p class="settings-note" id="accessUrlNote"></p>
+<div class="access-diagnostics" aria-labelledby="accessDiagnosticsHeading">
+<h3 id="accessDiagnosticsHeading">利用環境の確認</h3>
+<div class="access-diagnostics-grid">
+<div class="access-diagnostic-item"><span>ネットワーク</span><strong id="diagnosticNetwork">確認中</strong></div>
+<div class="access-diagnostic-item"><span>安全な接続</span><strong id="diagnosticSecureContext">確認中</strong></div>
+<div class="access-diagnostic-item"><span>端末内保存</span><strong id="diagnosticStorage">確認中</strong></div>
+<div class="access-diagnostic-item"><span>オフライン機能</span><strong id="diagnosticOffline">確認中</strong></div>
+<div class="access-diagnostic-item"><span>保存容量</span><strong id="diagnosticStorageQuota">確認中</strong></div>
+<div class="access-diagnostic-item"><span>保存保護</span><strong id="diagnosticStoragePersistence">確認中</strong></div>
+<div class="access-diagnostic-item"><span>アプリ表示</span><strong id="diagnosticDisplayMode">確認中</strong></div>
+<div class="access-diagnostic-item"><span>アプリ導入</span><strong id="diagnosticInstallability">確認中</strong></div>
+<div class="access-diagnostic-item"><span>更新状態</span><strong id="diagnosticUpdateStatus">確認中</strong></div>
+<div class="access-diagnostic-item"><span>データ版</span><strong id="diagnosticDataVersion">確認中</strong></div>
+<div class="access-diagnostic-item"><span>オフライン保存</span><strong id="diagnosticCacheStorage">確認中</strong></div>
+<div class="access-diagnostic-item"><span>ブラウザ</span><strong id="diagnosticBrowser">確認中</strong></div>
+<div class="access-diagnostic-item"><span>画面サイズ</span><strong id="diagnosticViewport">確認中</strong></div>
+</div>
+<div class="settings-actions settings-actions--access">
+<button class="secondary-action" id="refreshAccessDiagnostics" type="button">利用環境を再確認</button>
+<button class="secondary-action" id="copyAccessDiagnostics" type="button">確認結果をコピー</button>
+<button class="secondary-action" id="downloadAccessDiagnostics" type="button">確認結果を保存</button>
+<button class="secondary-action" id="requestStoragePersistence" type="button">端末内データを保護</button>
+<button class="secondary-action" id="installApplication" type="button" hidden>アプリとして追加</button>
+<button class="secondary-action" id="checkApplicationUpdate" type="button">オフラインデータを更新確認</button>
+<button class="secondary-action" id="reloadApplication" type="button">システムを再読み込み</button>
+</div>
+<p class="settings-note" id="accessDiagnosticsNote">端末・ブラウザの状態を簡易確認します。サーバー側の稼働状況を保証するものではありません。</p>
+</div>
+</div>
+</section>
 <div aria-live="polite" class="settings-message" id="settingsMessage"></div>
 <a class="settings-link" href="cloud-connection.html"><strong>クラウド接続・試験運用設定</strong><span>API接続先、疎通確認、運用準備チェックを行います。</span></a></main>
 <script src="../data/organization-master.js"></script>
@@ -237,6 +293,7 @@
 <script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=247"></script>
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
+<script src="../assets/js/access-url-tools.js?v=289"></script>
 <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/session-guard.js"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>

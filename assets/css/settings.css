@@ -208,3 +208,54 @@
 /* Part 244: user settings contains only user-specific settings. */
 .settings-category-nav--single{grid-template-columns:1fr}
 .settings-category-nav--single .settings-category-card{cursor:default}
+
+.settings-row--access {
+  align-items: flex-start;
+}
+
+.access-url-value {
+  max-width: 54%;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.fixed-setting.is-warning {
+  background: #fff4dc;
+  color: #7a5600;
+}
+
+.settings-actions--access {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .settings-row--access {
+    display: grid;
+    gap: 10px;
+  }
+  .access-url-value {
+    max-width: 100%;
+    width: 100%;
+    text-align: left;
+  }
+  .settings-actions--access button {
+    width: 100%;
+  }
+}
+
+
+/* Part 285: access environment diagnostics. */
+.access-diagnostics{margin-top:14px;padding-top:14px;border-top:1px solid #d8e2ec}
+.access-diagnostics h3{margin:0 0 10px;color:var(--app-navy);font-size:.9rem}
+.access-diagnostics-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.access-diagnostic-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #d3dee8;border-radius:8px;background:#f8fbfd}
+.access-diagnostic-item span{color:var(--app-muted);font-size:.75rem}
+.access-diagnostic-item strong{font-size:.78rem;text-align:right}
+.access-diagnostic-item strong.is-ok{color:#146c43}
+.access-diagnostic-item strong.is-warning{color:#8a5b00}
+.access-diagnostic-item strong.is-error{color:#a12622}
+@media(max-width:720px){.access-diagnostics-grid{grid-template-columns:1fr}.access-diagnostic-item{align-items:flex-start}}
+
+.access-diagnostic-item strong[title]{cursor:help;text-decoration:underline dotted;text-underline-offset:3px}

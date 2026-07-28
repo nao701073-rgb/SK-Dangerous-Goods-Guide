@@ -992,3 +992,189 @@ body.is-reference-source-modal-open {
 }
 
 .training-guide-gallery-note{margin:0 0 12px;color:#48627a;font-size:.78rem;line-height:1.7}.training-guide-figure.is-detail{background:#f7fbff;border-color:#8fb9df}.training-guide-figure-label{display:inline-flex;width:max-content;margin-bottom:3px;padding:3px 7px;border-radius:999px;background:#eaf3fb;color:#075ca8;font-size:.65rem;font-weight:900}.training-guide-figure.is-detail .training-guide-figure-label{background:#dfefff}.training-guide-figure-checks{margin-top:8px;padding:9px 10px;border-radius:8px;background:#f4f8fc;color:#304b65}.training-guide-figure-checks b{font-size:.72rem}.training-guide-figure-checks ul{margin:5px 0 0;padding-left:1.2rem}.training-guide-figure-checks li{margin:2px 0;font-size:.7rem;line-height:1.5}.training-guide-figure.is-detail .training-guide-image-button img{object-fit:contain;background:#fff}@media(max-width:600px){.training-guide-figure-checks li{font-size:.76rem}.training-guide-gallery-note{font-size:.82rem}}
+
+/* Part 291: related-document navigation and filtering */
+.reference-section-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.reference-section-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+  color: var(--navy);
+  font-size: .82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.reference-section-nav a::after {
+  content: "↓";
+  margin-left: auto;
+  color: var(--blue);
+}
+
+.reference-document-controls {
+  margin: 14px 0 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.reference-document-controls button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-soft);
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.reference-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  min-height: 8px;
+  margin-bottom: 12px;
+}
+
+.reference-active-filters > span {
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.reference-active-filters strong {
+  display: inline-flex;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--navy);
+  font-size: .73rem;
+}
+
+#trainingGuideSection,
+#imdgClauseSection,
+#aiGuideSection,
+#registeredDocumentsSection {
+  scroll-margin-top: 20px;
+}
+
+@media (min-width: 720px) {
+  .reference-section-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .reference-document-controls {
+    grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(140px, 1fr)) auto;
+    align-items: center;
+  }
+}
+
+@media (max-width: 719px) {
+  .reference-section-nav,
+  .reference-document-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Part 292: registered-document filtering and removable condition chips */
+.reference-document-controls {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  align-items: end;
+}
+
+.reference-document-controls button {
+  min-height: 46px;
+}
+
+.reference-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 0;
+}
+
+.reference-active-filters:empty {
+  display: none;
+}
+
+.reference-active-filters > span {
+  color: var(--muted);
+  font-size: .76rem;
+  font-weight: 800;
+}
+
+.reference-active-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--navy);
+  font-size: .74rem;
+  font-weight: 800;
+}
+
+.reference-active-filters button:hover,
+.reference-active-filters button:focus-visible {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+@media (max-width: 719px) {
+  .reference-document-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .reference-document-controls > * {
+    width: 100%;
+  }
+}
+
+
+/* Part 293: registered-document favorites and recent access */
+.reference-card.is-favorite {
+  box-shadow: inset 4px 0 0 var(--blue);
+}
+.reference-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+.reference-favorite-button {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--navy);
+  font-weight: 800;
+}
+.reference-favorite-button[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: var(--surface-soft);
+  color: var(--blue);
+}
+.reference-last-opened {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: .78rem;
+}
+@media (max-width: 719px) {
+  .reference-card-actions > * { width: 100%; text-align: center; }
+}

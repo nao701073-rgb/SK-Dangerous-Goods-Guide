@@ -7,6 +7,7 @@
   const roleBadge = $("currentRoleBadge"), officeSummary = $("officeSummary"), statusSummary = $("applicationStatusSummary"), editingId = $("editingApplicationId");
   const submitButton = $("applicationSubmitButton"), cancelEditButton = $("applicationEditCancel");
   const savedViewSelect = $("savedApplicationView"), displaySettings = $("applicationDisplaySettings");
+  const resultCount = $("applicationResultCount"), activeFilters = $("applicationActiveFilters");
   const unCandidatePanel = $("unCandidatePanel"), unCandidateSelect = $("unCandidateSelect"), unCandidatePreview = $("unCandidatePreview"), unCandidateMessage = $("unCandidateMessage");
   const VIEW_KEY = "iss-application-saved-views-v1", DISPLAY_KEY = "iss-application-display-v1";
   const fields = {
@@ -90,11 +91,30 @@
       return !q||h.includes(q);
     });
     const statusOrder={draft:1,received:2,in_progress:3,completed:4,cancelled:5};
+    const textCompare=(a,b)=>String(a||"").localeCompare(String(b||""),"ja",{numeric:true,sensitivity:"base"});
+    const dateCompare=(a,b)=>String(a||"").localeCompare(String(b||""));
+    const stable=(a,b)=>textCompare(`${a.applicationYear}-${displayNumber(a)}`,`${b.applicationYear}-${displayNumber(b)}`);
     return rows.sort((a,b)=>{
-      if(sortSelect?.value==="year-number-asc")return `${a.applicationYear}-${displayNumber(a)}`.localeCompare(`${b.applicationYear}-${displayNumber(b)}`,"ja",{numeric:true});
-      if(sortSelect?.value==="year-number-desc")return `${b.applicationYear}-${displayNumber(b)}`.localeCompare(`${a.applicationYear}-${displayNumber(a)}`,"ja",{numeric:true});
-      if(sortSelect?.value==="status")return (statusOrder[a.status]||9)-(statusOrder[b.status]||9)||String(b.updatedAt||"").localeCompare(String(a.updatedAt||""));
-      return String(b.updatedAt||b.createdAt||"").localeCompare(String(a.updatedAt||a.createdAt||""));
+      const sort=sortSelect?.value||"updated-desc";
+      let result=0;
+      if(sort==="year-number-asc")result=stable(a,b);
+      else if(sort==="year-number-desc")result=stable(b,a);
+      else if(sort==="updated-asc")result=dateCompare(a.updatedAt||a.createdAt,b.updatedAt||b.createdAt);
+      else if(sort==="application-date-desc")result=dateCompare(b.applicationDate,a.applicationDate);
+      else if(sort==="application-date-asc")result=dateCompare(a.applicationDate,b.applicationDate);
+      else if(sort==="inspection-planned-asc")result=dateCompare(a.inspectionPlannedDate||"9999-12-31",b.inspectionPlannedDate||"9999-12-31");
+      else if(sort==="inspection-planned-desc")result=dateCompare(b.inspectionPlannedDate||"",a.inspectionPlannedDate||"");
+      else if(sort==="inspection-date-desc")result=dateCompare(b.inspectionDate,a.inspectionDate);
+      else if(sort==="inspection-date-asc")result=dateCompare(a.inspectionDate||"9999-12-31",b.inspectionDate||"9999-12-31");
+      else if(sort==="un-asc")result=textCompare(a.unNumber||"9999",b.unNumber||"9999");
+      else if(sort==="un-desc")result=textCompare(b.unNumber||"",a.unNumber||"");
+      else if(sort==="vessel-asc")result=textCompare(a.vesselName||"～",b.vesselName||"～");
+      else if(sort==="vessel-desc")result=textCompare(b.vesselName||"",a.vesselName||"");
+      else if(sort==="assignee-asc")result=textCompare(a.assignee||"～",b.assignee||"～");
+      else if(sort==="assignee-desc")result=textCompare(b.assignee||"",a.assignee||"");
+      else if(sort==="status")result=(statusOrder[a.status]||9)-(statusOrder[b.status]||9)||dateCompare(b.updatedAt||"",a.updatedAt||"");
+      else result=dateCompare(b.updatedAt||b.createdAt||"",a.updatedAt||a.createdAt||"");
+      return result||stable(a,b);
     });
   }
   function renderSummary(){
@@ -115,7 +135,18 @@
     if(!rows.length)return '<p class="application-history-empty">更新履歴はありません。</p>';
     return `<div class="application-history-list">${rows.slice(0,12).map(row=>`<article><strong>${row.action==="create"?"新規登録":"更新"}</strong><span>${escapeHtml(formatDate(row.createdAt))}</span><small>${escapeHtml(row.actorOffice||"")}／${escapeHtml(row.actorRole||"")}${row.reason?`／${escapeHtml(row.reason)}`:""}</small></article>`).join("")}</div>`;
   }
-  function render(){ const apps=filteredApplications(); renderSummary(); if(!apps.length){list.innerHTML='<div class="empty-state"><strong>対象の申請番号は登録されていません</strong><p>表示範囲、進捗状況または検索条件を確認してください。</p></div>';return;}
+  function renderActiveFilters(appCount){
+    if(resultCount)resultCount.textContent=`${appCount}件`;
+    if(!activeFilters)return;
+    const chips=[];
+    if(filter.value.trim())chips.push({key:"query",label:`検索：${filter.value.trim()}`});
+    if(yearFilter.value)chips.push({key:"year",label:`年度：${yearFilter.value}`});
+    if(statusFilter.value)chips.push({key:"status",label:`進捗：${statusLabels[statusFilter.value]||statusFilter.value}`});
+    if(window.ISSStorage.isSafetyEnvironment()&&scopeSelect.value==="all"&&officeFilter.value){const option=officeFilter.selectedOptions[0];chips.push({key:"office",label:`事業所：${option?.textContent||officeFilter.value}`});}
+    activeFilters.innerHTML=chips.map(chip=>`<button type="button" data-clear-application-filter="${chip.key}" aria-label="${escapeHtml(chip.label)}を解除">${escapeHtml(chip.label)} <span aria-hidden="true">×</span></button>`).join("");
+    activeFilters.querySelectorAll("[data-clear-application-filter]").forEach(button=>button.onclick=()=>{const key=button.dataset.clearApplicationFilter;if(key==="query")filter.value="";if(key==="year")yearFilter.value="";if(key==="status")statusFilter.value="";if(key==="office")officeFilter.value="";render();});
+  }
+  function render(){ const apps=filteredApplications(); renderSummary(); renderActiveFilters(apps.length); if(!apps.length){list.innerHTML='<div class="empty-state"><strong>条件に一致する申請案件がありません</strong><p>検索語、申請年度、進捗状況または表示範囲を確認してください。</p><button id="clearEmptyApplicationFilters" type="button">絞り込み条件を解除</button></div>';$('clearEmptyApplicationFilters').onclick=()=>{filter.value="";statusFilter.value="";yearFilter.value="";if(window.ISSStorage.isSafetyEnvironment()&&scopeSelect.value==="all")officeFilter.value="";render();};return;}
     const photos=window.ISSStorage.getPhotos({scope:window.ISSStorage.isSafetyEnvironment()?"all":"office"});
     const documents=window.ISSStorage.getApplicationDocuments?.({scope:window.ISSStorage.isSafetyEnvironment()?"all":"office"})||[];
     const display=getDisplaySettings();

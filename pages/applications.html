@@ -180,13 +180,35 @@
           <input id="applicationFilter" type="search" placeholder="申請番号・コンテナ番号・名称などで検索">
           <select id="applicationYearFilter"><option value="">すべての年度</option></select>
           <select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="draft">下書き</option><option value="received">受付済み</option><option value="in_progress">対応中</option><option value="completed">完了</option><option value="cancelled">取消</option></select>
-          <select id="applicationSort"><option value="updated-desc">更新日の新しい順</option><option value="year-number-desc">年度・番号の降順</option><option value="year-number-asc">年度・番号の昇順</option><option value="status">進捗状況順</option></select>
+          <select id="applicationSort" aria-label="申請案件の並び順">
+            <option value="updated-desc">更新日：新しい順</option>
+            <option value="updated-asc">更新日：古い順</option>
+            <option value="year-number-desc">申請年度・番号：降順</option>
+            <option value="year-number-asc">申請年度・番号：昇順</option>
+            <option value="application-date-desc">申請日：新しい順</option>
+            <option value="application-date-asc">申請日：古い順</option>
+            <option value="inspection-planned-asc">検査予定日：近い順</option>
+            <option value="inspection-planned-desc">検査予定日：遠い順</option>
+            <option value="inspection-date-desc">検査実施日：新しい順</option>
+            <option value="inspection-date-asc">検査実施日：古い順</option>
+            <option value="un-asc">国連番号：昇順</option>
+            <option value="un-desc">国連番号：降順</option>
+            <option value="vessel-asc">船名：昇順</option>
+            <option value="vessel-desc">船名：降順</option>
+            <option value="assignee-asc">担当者：昇順</option>
+            <option value="assignee-desc">担当者：降順</option>
+            <option value="status">進捗状況順</option>
+          </select>
           <select id="savedApplicationView"><option value="">保存した表示条件</option></select>
           <button id="saveApplicationView" type="button">現在の条件を保存</button>
           <button id="resetApplicationFilters" type="button">条件をリセット</button>
           <button id="toggleApplicationDisplaySettings" type="button">表示項目</button>
           <button id="exportApplicationsCsv" type="button">CSV出力</button>
         </div>
+      </div>
+      <div class="application-list-summary" aria-live="polite">
+        <strong id="applicationResultCount">0件</strong>
+        <div id="applicationActiveFilters" class="application-active-filters" aria-label="適用中の絞り込み条件"></div>
       </div>
       <div id="applicationDisplaySettings" class="application-display-settings" hidden>
         <strong>カードに表示する項目</strong>

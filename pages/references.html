@@ -6,7 +6,7 @@
   <title>関連資料｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/references.css?v=182">
+  <link rel="stylesheet" href="../assets/css/references.css?v=292">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="references">
@@ -23,26 +23,21 @@
       <div>
         <span class="status-badge status-badge--blue">資料レジストリ</span>
         <h2>検査・検品業務に関係する資料を整理</h2>
-        <p>検査・検品業務に必要な条文（危規則、危告示、IMDG Code、CTU Code）を整理します。</p>
+        <p>国内法令・国際規則の条文、要約、参考資料を確認します。</p>
       </div>
 
-      <div class="reference-controls">
-        <input id="referenceQuery" type="search" placeholder="資料名・タグで検索">
-        <select id="referenceCategory">
-          <option value="">すべての分類</option>
-          <option value="domestic-regulation">危規則</option>
-          <option value="domestic-notification">危告示</option>
-          <option value="international-code">IMDG Code</option>
-          <option value="ctu-code">CTU Code</option>
-          <option value="ai-guide">AI要約ガイド</option>
-        </select>
-      </div>
+      <nav class="reference-section-nav" aria-label="関連資料内の移動">
+        <a href="#trainingGuideSection">検査・検品業務資料 AI要約</a>
+        <a href="#imdgClauseSection">IMDG関連条文</a>
+        <a href="#aiGuideSection">規定のAI要約</a>
+        <a href="#registeredDocumentsSection">登録資料</a>
+      </nav>
     </section>
 
 
 
 
-    <section class="training-guide-section">
+    <section class="training-guide-section" id="trainingGuideSection">
       <div class="section-heading training-guide-heading">
         <div>
           <h2>検査・検品業務資料 AI要約 <span id="trainingGuideCount"></span></h2>
@@ -67,7 +62,7 @@
       <aside class="training-guide-caution" id="trainingGuideCaution"></aside>
     </section>
 
-    <section class="imdg-clause-section">
+    <section class="imdg-clause-section" id="imdgClauseSection">
       <div class="section-heading imdg-clause-heading">
         <div>
           <p class="eyebrow">IMDG Code 42-24</p>
@@ -93,7 +88,7 @@
       <div id="imdgClauseList" class="imdg-clause-list"></div>
     </section>
 
-    <section class="ai-guide-section">
+    <section class="ai-guide-section" id="aiGuideSection">
       <div class="section-heading ai-guide-heading">
         <div>
           <p class="eyebrow">AI Quick Guide</p>
@@ -117,13 +112,59 @@
       <div id="aiGuideList" class="ai-guide-list"></div>
     </section>
 
-    <section>
+    <section id="registeredDocumentsSection">
       <div class="section-heading">
         <div>
           <p class="eyebrow">Documents</p>
           <h2>登録資料 <span id="referenceCount"></span></h2>
         </div>
       </div>
+      <div class="reference-controls reference-document-controls">
+        <input id="referenceQuery" type="search" placeholder="資料名・ファイル名・タグで検索">
+        <select id="referenceCategory">
+          <option value="">すべての分類</option>
+          <option value="domestic-regulation">危規則</option>
+          <option value="domestic-notification">危告示</option>
+          <option value="international-code">IMDG Code</option>
+          <option value="ctu-code">CTU Code</option>
+        </select>
+        <select id="referenceLanguage">
+          <option value="">すべての言語</option>
+          <option value="ja">日本語</option>
+          <option value="en">英語</option>
+        </select>
+        <select id="referenceFormat">
+          <option value="">すべての形式</option>
+          <option value="pdf">PDF</option>
+          <option value="word">Word</option>
+          <option value="excel">Excel</option>
+          <option value="csv">CSV</option>
+          <option value="text">テキスト</option>
+          <option value="image">画像</option>
+          <option value="other">その他</option>
+        </select>
+        <select id="referenceFavorite">
+          <option value="">すべての資料</option>
+          <option value="favorites">お気に入りのみ</option>
+        </select>
+        <select id="referenceOpened">
+          <option value="">閲覧状況：すべて</option>
+          <option value="opened">閲覧済み</option>
+          <option value="unopened">未閲覧</option>
+        </select>
+        <select id="referenceSort">
+          <option value="recommended">推奨順</option>
+          <option value="recent">最近開いた順</option>
+          <option value="title-asc">資料名 昇順</option>
+          <option value="title-desc">資料名 降順</option>
+          <option value="category">分類順</option>
+          <option value="language">言語順</option>
+          <option value="format">ファイル形式順</option>
+        </select>
+        <button id="referenceReset" type="button">条件をクリア</button>
+        <button id="referenceClearHistory" type="button">閲覧履歴を消去</button>
+      </div>
+      <div id="referenceActiveFilters" class="reference-active-filters" aria-live="polite"></div>
       <div id="referenceList" class="reference-grid"></div>
     </section>
 
@@ -141,7 +182,7 @@
   <script src="../data/ai-reference-summaries.js?v=182"></script>
   <script src="../data/imdg-container-inspection-clauses.js?v=182"></script>
   <script src="../assets/js/imdg-inspection-guide.js?v=182"></script>
-  <script src="../assets/js/references.js?v=182"></script>
+  <script src="../assets/js/references.js?v=294"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>

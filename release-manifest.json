@@ -1,10 +1,10 @@
 {
-  "version": "0.281.0",
-  "part": 281,
+  "version": "0.294.0",
+  "part": 294,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-28",
-  "fileCount": 1118,
-  "totalBytesExcludingManifestAndChecksum": 134912829,
+  "fileCount": 1146,
+  "totalBytesExcludingManifestAndChecksum": 135035081,
   "countsByExtension": {
     ".conf": 1,
     ".css": 41,
@@ -13,9 +13,9 @@
     ".example": 3,
     ".html": 54,
     ".jpg": 194,
-    ".js": 117,
-    ".json": 97,
-    ".md": 282,
+    ".js": 118,
+    ".json": 112,
+    ".md": 294,
     ".mjs": 2,
     ".pdf": 6,
     ".png": 193,
@@ -24,14 +24,20 @@
     ".yml": 1,
     "[none]": 1
   },
-  "qaReport": "docs/0.281.0_総合検証レポート.json",
+  "qaReport": "docs/0.293.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "ホーム画面の主要機能説明を更新",
-    "申請番号管理カードの説明を簡潔化",
-    "表示文言と実装機能の整合性を改善"
+    "登録資料カードにお気に入り登録・解除を追加",
+    "お気に入りのみ絞り込みを追加",
+    "最終閲覧日時表示と最近開いた順を追加",
+    "既存保存データ形式との互換性を維持"
   ],
   "releasedAt": "2026-07-28",
   "updatedAt": "2026-07-28",
-  "summary": "ホーム画面のシステム説明を主要機能に合わせて更新し、申請番号管理カードの説明を簡潔な表現へ統一した。"
+  "summary": "関連資料の閲覧状況管理を拡充した。",
+  "changes": [
+    "閲覧済み・未閲覧の絞り込みを追加",
+    "閲覧状況の条件チップを追加",
+    "お気に入りを保持したまま閲覧履歴のみ消去可能"
+  ]
 }

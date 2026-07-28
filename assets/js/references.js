@@ -18,6 +18,14 @@
 
   const queryInput = document.getElementById("referenceQuery");
   const categorySelect = document.getElementById("referenceCategory");
+  const languageSelect = document.getElementById("referenceLanguage");
+  const formatSelect = document.getElementById("referenceFormat");
+  const favoriteSelect = document.getElementById("referenceFavorite");
+  const openedSelect = document.getElementById("referenceOpened");
+  const sortSelect = document.getElementById("referenceSort");
+  const resetButton = document.getElementById("referenceReset");
+  const clearHistoryButton = document.getElementById("referenceClearHistory");
+  const activeFilters = document.getElementById("referenceActiveFilters");
   const list = document.getElementById("referenceList");
   const count = document.getElementById("referenceCount");
 
@@ -26,6 +34,7 @@
   const aiList = document.getElementById("aiGuideList");
   const aiCount = document.getElementById("aiGuideCount");
   const AI_GUIDE_PROGRESS_KEY = "iss-ai-guide-progress-v1";
+  const REFERENCE_PROGRESS_KEY = "iss-reference-document-progress-v1";
 
   const imdgQueryInput = document.getElementById("imdgClauseQuery");
   const imdgCategorySelect = document.getElementById("imdgClauseCategory");
@@ -204,17 +213,82 @@
     "domestic-regulation": "危規則",
     "domestic-notification": "危告示",
     "international-code": "IMDG Code",
+    "international-convention": "国際条約",
     "ctu-code": "CTU Code",
     "ai-guide": "AI要約ガイド"
   };
 
+  const languageLabels = { ja: "日本語", en: "英語" };
+  const formatLabels = { pdf: "PDF", word: "Word", excel: "Excel", csv: "CSV", text: "テキスト", image: "画像", other: "その他" };
+  const statusLabels = {
+    "primary-law": "法令原典",
+    "primary-source": "原典資料",
+    "ai-summary-available": "AI要約あり",
+    "selected-clauses-registered": "関連条文収録"
+  };
+
+
+  function readReferenceProgress() {
+    try { return JSON.parse(localStorage.getItem(REFERENCE_PROGRESS_KEY) || "{}"); } catch { return {}; }
+  }
+
+  function patchReferenceProgress(id, patch) {
+    const all = readReferenceProgress();
+    all[id] = { favorite: false, lastOpenedAt: "", ...(all[id] || {}), ...patch, updatedAt: new Date().toISOString() };
+    localStorage.setItem(REFERENCE_PROGRESS_KEY, JSON.stringify(all));
+  }
+
+  function formatReferenceOpenedAt(value) {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(date);
+  }
+
+  function getDocumentFormat(doc) {
+    const fileName = String(doc.fileName || doc.filePath || "").toLowerCase();
+    const extension = fileName.includes(".") ? fileName.split(".").pop() : "";
+    if (extension === "pdf") return "pdf";
+    if (["doc", "docx"].includes(extension)) return "word";
+    if (["xls", "xlsx"].includes(extension)) return "excel";
+    if (extension === "csv") return "csv";
+    if (["txt", "md"].includes(extension)) return "text";
+    if (["jpg", "jpeg", "png", "webp", "gif"].includes(extension)) return "image";
+    return "other";
+  }
+
+  function populateReferenceCategories() {
+    if (!categorySelect) return;
+    const existing = new Set(Array.from(categorySelect.options).map(option => option.value));
+    [...new Set(documents.map(doc => doc.category).filter(Boolean))]
+      .sort((a, b) => String(categoryLabels[a] || a).localeCompare(String(categoryLabels[b] || b), "ja"))
+      .forEach(value => {
+        if (existing.has(value)) return;
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = categoryLabels[value] || value;
+        categorySelect.appendChild(option);
+      });
+  }
+
   function renderDocuments() {
     const query = normalize(queryInput.value);
     const category = categorySelect.value;
+    const language = languageSelect?.value || "";
+    const format = formatSelect?.value || "";
+    const favorite = favoriteSelect?.value || "";
+    const opened = openedSelect?.value || "";
+    const sort = sortSelect?.value || "recommended";
+    const progress = readReferenceProgress();
 
     const filtered = documents.filter(doc => {
-      if (category === "ai-guide") return false;
       if (category && doc.category !== category) return false;
+      if (language && normalize(doc.language) !== language) return false;
+      if (format && getDocumentFormat(doc) !== format) return false;
+      if (favorite === "favorites" && !progress[doc.documentId]?.favorite) return false;
+      const hasOpened = Boolean(progress[doc.documentId]?.lastOpenedAt);
+      if (opened === "opened" && !hasOpened) return false;
+      if (opened === "unopened" && hasOpened) return false;
       const haystack = normalize([
         doc.title,
         doc.fileName,
@@ -223,25 +297,63 @@
       return !query || haystack.includes(query);
     });
 
-    filtered.sort((a, b) => Number(a.sortOrder || 999) - Number(b.sortOrder || 999));
+    const byTitle = (a, b) => String(a.title || "").localeCompare(String(b.title || ""), "ja", { numeric: true });
+    if (sort === "recent") filtered.sort((a, b) => {
+      const aTime = Date.parse(progress[a.documentId]?.lastOpenedAt || "") || 0;
+      const bTime = Date.parse(progress[b.documentId]?.lastOpenedAt || "") || 0;
+      return bTime - aTime || byTitle(a, b);
+    });
+    else if (sort === "title-asc") filtered.sort(byTitle);
+    else if (sort === "title-desc") filtered.sort((a, b) => byTitle(b, a));
+    else if (sort === "category") filtered.sort((a, b) => {
+      const categoryCompare = String(categoryLabels[a.category] || a.category).localeCompare(String(categoryLabels[b.category] || b.category), "ja");
+      return categoryCompare || byTitle(a, b);
+    });
+    else if (sort === "language") filtered.sort((a, b) => {
+      const languageCompare = String(languageLabels[a.language] || a.language).localeCompare(String(languageLabels[b.language] || b.language), "ja");
+      return languageCompare || byTitle(a, b);
+    });
+    else if (sort === "format") filtered.sort((a, b) => {
+      const formatCompare = String(formatLabels[getDocumentFormat(a)]).localeCompare(String(formatLabels[getDocumentFormat(b)]), "ja");
+      return formatCompare || byTitle(a, b);
+    });
+    else filtered.sort((a, b) => Number(a.sortOrder || 999) - Number(b.sortOrder || 999));
+
     count.textContent = `${filtered.length}件`;
+    if (activeFilters) {
+      const labels = [];
+      if (language) labels.push({ key: "language", text: `言語：${languageLabels[language] || language}` });
+      if (format) labels.push({ key: "format", text: `形式：${formatLabels[format] || format}` });
+      if (favorite) labels.push({ key: "favorite", text: "お気に入りのみ" });
+      if (opened) labels.push({ key: "opened", text: opened === "opened" ? "閲覧済み" : "未閲覧" });
+      if (sort !== "recommended") labels.push({ key: "sort", text: `並び順：${sortSelect.options[sortSelect.selectedIndex]?.textContent || sort}` });
+      if (queryInput.value.trim()) labels.unshift({ key: "query", text: `検索：${queryInput.value.trim()}` });
+      if (category) labels.splice(queryInput.value.trim() ? 1 : 0, 0, { key: "category", text: `分類：${categoryLabels[category] || category}` });
+      activeFilters.innerHTML = labels.length
+        ? `<span>適用中の条件</span>${labels.map(item => `<button type="button" data-reference-clear="${escapeHtml(item.key)}">${escapeHtml(item.text)} <span aria-hidden="true">×</span></button>`).join("")}`
+        : "";
+    }
 
     if (!filtered.length) {
       list.innerHTML = `
         <div class="empty-state">
           <strong>該当する資料がありません</strong>
-          <p>検索語または分類を変更してください。</p>
+          <p>検索語、分類、言語またはファイル形式を変更してください。</p>
         </div>
       `;
       return;
     }
 
-    list.innerHTML = filtered.map(doc => `
-      <article class="reference-card">
+    list.innerHTML = filtered.map(doc => {
+      const state = progress[doc.documentId] || {};
+      const openedAt = formatReferenceOpenedAt(state.lastOpenedAt);
+      return `
+      <article class="reference-card ${state.favorite ? "is-favorite" : ""}">
         <div class="reference-meta">
           <span>${escapeHtml(categoryLabels[doc.category] || doc.category)}</span>
-          <span>${escapeHtml((doc.language || "").toUpperCase())}</span>
-          <span>${escapeHtml(doc.status || "")}</span>
+          <span>${escapeHtml(languageLabels[doc.language] || (doc.language || "").toUpperCase())}</span>
+          <span>${escapeHtml(formatLabels[getDocumentFormat(doc)])}</span>
+          <span>${escapeHtml(statusLabels[doc.status] || doc.status || "登録資料")}</span>
         </div>
         <h3>${escapeHtml(doc.title)}</h3>
         <p class="reference-file">${escapeHtml(doc.fileName)}</p>
@@ -250,15 +362,17 @@
             `<span class="reference-tag">${escapeHtml(tag)}</span>`
           ).join("")}
         </div>
-        ${
-          doc.filePath
-            ? `<a class="reference-open-link"
+        ${openedAt ? `<p class="reference-last-opened">最終閲覧：${escapeHtml(openedAt)}</p>` : ""}
+        <div class="reference-card-actions">
+          ${doc.filePath
+            ? `<a class="reference-open-link" data-reference-open="${escapeHtml(doc.documentId)}"
                   href="${escapeHtml(doc.filePath)}"
                   target="_blank" rel="noopener">原資料を開く</a>`
-            : ""
-        }
+            : ""}
+          <button type="button" class="reference-favorite-button" data-reference-favorite="${escapeHtml(doc.documentId)}" aria-pressed="${state.favorite ? "true" : "false"}">${state.favorite ? "★ お気に入り解除" : "☆ お気に入り"}</button>
+        </div>
       </article>
-    `).join("");
+    `; }).join("");
   }
 
 
@@ -511,14 +625,62 @@
   });
 
   queryInput.addEventListener("input", renderDocuments);
-  categorySelect.addEventListener("change", () => {
-    if (categorySelect.value === "ai-guide") {
-      document.querySelector(".ai-guide-section")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-      categorySelect.value = "";
+  categorySelect.addEventListener("change", renderDocuments);
+  languageSelect?.addEventListener("change", renderDocuments);
+  formatSelect?.addEventListener("change", renderDocuments);
+  favoriteSelect?.addEventListener("change", renderDocuments);
+  openedSelect?.addEventListener("change", renderDocuments);
+  sortSelect?.addEventListener("change", renderDocuments);
+  list?.addEventListener("click", event => {
+    const favoriteButton = event.target.closest("[data-reference-favorite]");
+    if (favoriteButton) {
+      const id = favoriteButton.dataset.referenceFavorite;
+      const current = readReferenceProgress()[id] || {};
+      patchReferenceProgress(id, { favorite: !current.favorite });
+      renderDocuments();
+      return;
     }
+    const openLink = event.target.closest("[data-reference-open]");
+    if (openLink) patchReferenceProgress(openLink.dataset.referenceOpen, { lastOpenedAt: new Date().toISOString() });
+  });
+  activeFilters?.addEventListener("click", event => {
+    const button = event.target.closest("[data-reference-clear]");
+    if (!button) return;
+    const key = button.dataset.referenceClear;
+    if (key === "query") queryInput.value = "";
+    if (key === "category") categorySelect.value = "";
+    if (key === "language" && languageSelect) languageSelect.value = "";
+    if (key === "format" && formatSelect) formatSelect.value = "";
+    if (key === "favorite" && favoriteSelect) favoriteSelect.value = "";
+    if (key === "opened" && openedSelect) openedSelect.value = "";
+    if (key === "sort" && sortSelect) sortSelect.value = "recommended";
+    renderDocuments();
+  });
+  resetButton?.addEventListener("click", () => {
+    queryInput.value = "";
+    categorySelect.value = "";
+    if (languageSelect) languageSelect.value = "";
+    if (formatSelect) formatSelect.value = "";
+    if (favoriteSelect) favoriteSelect.value = "";
+    if (openedSelect) openedSelect.value = "";
+    if (sortSelect) sortSelect.value = "recommended";
+    renderDocuments();
+    queryInput.focus();
+  });
+
+
+  clearHistoryButton?.addEventListener("click", () => {
+    const progress = readReferenceProgress();
+    const openedCount = Object.values(progress).filter(item => item?.lastOpenedAt).length;
+    if (!openedCount) {
+      window.alert("消去できる閲覧履歴はありません。");
+      return;
+    }
+    if (!window.confirm(`登録資料の閲覧履歴 ${openedCount}件を消去します。お気に入りは残ります。よろしいですか？`)) return;
+    Object.keys(progress).forEach(id => {
+      progress[id] = { ...progress[id], lastOpenedAt: "", updatedAt: new Date().toISOString() };
+    });
+    localStorage.setItem(REFERENCE_PROGRESS_KEY, JSON.stringify(progress));
     renderDocuments();
   });
 
@@ -528,6 +690,7 @@
   imdgQueryInput.addEventListener("input", renderImdgClauses);
   imdgCategorySelect.addEventListener("change", renderImdgClauses);
 
+  populateReferenceCategories();
   populateImdgCategories();
   renderImdgClauses();
   populateAiCategories();

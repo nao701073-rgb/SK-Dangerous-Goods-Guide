@@ -1,6 +1,6 @@
 {
   "systemName": "検査・検品業務サポートシステム",
-  "version": "0.279.0",
+  "version": "0.290.0",
   "offline": true,
   "modules": [
     {
@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part279-search-result-quick-actions",
+  "build": "part294-reference-reading-status",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
