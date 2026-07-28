@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>切替後運用・引継ぎ管理｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/admin-tools.css" rel="stylesheet"/>
+</head>
+<body data-page="post-deployment-operations-admin" data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a><div><p class="eyebrow">Post-deployment Operations</p><h1>切替後運用・引継ぎ管理</h1></div></header>
+<main class="workspace admin-tool-page">
+<div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 切替後運用・引継ぎ管理</div>
+<section class="readiness-hero"><div><span>Part 250</span><h2>運用開始後の安定化と管理引継ぎを一括管理</h2><p>初期監視、問い合わせ、障害対応、バックアップ、法令更新、運用引継ぎを段階的に記録します。</p></div><div class="readiness-actions"><button id="savePostDeployment" type="button">保存</button><button id="exportPostDeployment" type="button">JSON出力</button></div></section>
+<section class="panel"><div class="panel-heading"><h2>対象情報</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>対象環境</strong><p>試験環境、本番環境などを記録します。</p></div><input id="environment" type="text" placeholder="例：クラウド本番環境"/></label>
+<label class="settings-row settings-row--select"><div><strong>対象バージョン</strong><p>運用対象となる版を記録します。</p></div><input id="targetVersion" type="text" value="Part 250"/></label>
+<label class="settings-row settings-row--select"><div><strong>運用開始日</strong><p>実際に利用を開始した日を記録します。</p></div><input id="launchDate" type="date"/></label>
+<label class="settings-row settings-row--select"><div><strong>運用責任者</strong><p>初期安定化と引継ぎの責任者を入力します。</p></div><input id="owner" type="text"/></label>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>初期安定化チェック</h2></div><div class="panel-body"><div id="stabilizationChecklist" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>運用開始後の問い合わせ・障害</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>問い合わせ件数</strong><p>対象期間内に受け付けた件数を記録します。</p></div><input id="inquiryCount" type="number" min="0" value="0"/></label>
+<label class="settings-row settings-row--select"><div><strong>未解決障害件数</strong><p>未解決の障害・不具合件数を記録します。</p></div><input id="openIncidentCount" type="number" min="0" value="0"/></label>
+<label class="settings-row settings-row--select"><div><strong>重大障害件数</strong><p>業務停止や誤判断につながる重大障害件数を記録します。</p></div><input id="criticalIncidentCount" type="number" min="0" value="0"/></label>
+<label class="settings-row settings-row--select"><div><strong>対応状況・傾向</strong><p>問い合わせ内容、暫定対応、再発防止などを記録します。</p></div><textarea id="supportNotes" rows="5"></textarea></label>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>運用引継ぎチェック</h2></div><div class="panel-body"><div id="handoffChecklist" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>安定運用判定</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>判定</strong><p>未確認項目や重大障害がある場合は「継続確認」にします。</p></div><select id="decision"><option value="pending">継続確認</option><option value="stable">安定運用</option><option value="handoff-ready">引継ぎ準備完了</option><option value="handoff-completed">運用引継ぎ完了</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>総括・残課題</strong><p>安定運用の根拠、残課題、次回確認日などを記録します。</p></div><textarea id="summary" rows="6"></textarea></label>
+<div class="fixed-setting" id="postDeploymentStatus">未保存</div>
+</div></section>
+</main>
+<script src="../assets/js/session-guard.js"></script>
+<script src="../assets/js/post-deployment-operations-admin.js"></script>
+</body></html>

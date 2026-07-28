@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-28T02:09:38.592Z",
+  "version": {
+    "name": "SK Dangerous Goods Guide",
+    "part": 249,
+    "version": "Part 249",
+    "releasedAt": "2026-07-28",
+    "summary": "導入・切替・ロールバック準備・運用開始後点検を統合",
+    "updatedAt": "2026-07-28"
+  },
+  "status": "pass",
+  "checks": [
+    {
+      "relative": "index.html",
+      "exists": true,
+      "size": 16709
+    },
+    {
+      "relative": "VERSION.json",
+      "exists": true,
+      "size": 232
+    },
+    {
+      "relative": "release-manifest.json",
+      "exists": true,
+      "size": 937
+    },
+    {
+      "relative": "server/package.json",
+      "exists": true,
+      "size": 2313
+    },
+    {
+      "relative": "server/.env.cloud.example",
+      "exists": true,
+      "size": 1585
+    },
+    {
+      "relative": "server/src/server.js",
+      "exists": true,
+      "size": 207145
+    },
+    {
+      "relative": "server/data/users-pilot-50-template.csv",
+      "exists": true,
+      "size": 4840
+    },
+    {
+      "relative": "docs/Part243_完成版文書更新・統合要領.md",
+      "exists": true,
+      "size": 1284
+    }
+  ],
+  "checklistDigest": "debce2c60303e048b3759d6231be2c69d2b3e50c92369de02853a10abe68ceb6",
+  "note": "外部クラウド接続、メール送信、負荷試験、復元試験は配置環境で別途確認してください。"
+}

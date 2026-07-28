@@ -8,6 +8,7 @@
     officeId: "iss-office-id",
     userRole: "iss-user-role",
     applications: "iss-applications",
+    applicationDocuments: "iss-application-documents",
     photos: "iss-photos",
     photoAuditLogs: "iss-photo-audit-logs",
     showImdgReferences: "iss-show-imdg-references",
@@ -373,61 +374,57 @@
     addApplication(record) {
       if (!this.canWriteOperationalData()) throw new Error("安全環境室職員は閲覧専用です。登録・更新はできません。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
-      const applicationNumber = String(record.applicationNumber || "").trim();
-      if (!applicationNumber) throw new Error("申請番号は必須です。");
-
+      const applicationYear = String(record.applicationYear || "").trim();
+      if (!/^\d{4}$/.test(applicationYear)) throw new Error("申請年度は4桁の数字で入力してください。");
+      const numberType = record.numberType === "temporary" ? "temporary" : "official";
+      let applicationNumber = String(record.applicationNumber || "").trim();
+      let temporaryNumber = "";
+      if (numberType === "official") {
+        if (!/^\d{4,5}$/.test(applicationNumber)) throw new Error("正式申請番号は4桁または5桁の数字で入力してください。");
+        if (applications.some(item => String(item.applicationYear || "") === applicationYear && item.numberType !== "temporary" && item.applicationNumber === applicationNumber)) throw new Error("同じ申請年度・申請番号が全事業所内に既に登録されています。");
+      } else {
+        const seq = applications.filter(item => String(item.applicationYear || "") === applicationYear && item.numberType === "temporary").length + 1;
+        temporaryNumber = `TEMP-${applicationYear}-${String(seq).padStart(6, "0")}`;
+        applicationNumber = temporaryNumber;
+      }
       const requestedOffice = record.officeId ? org()?.getOfficeById(record.officeId) : null;
       const currentOffice = org()?.getOfficeById(this.getOfficeId()) || defaultOffice();
       const office = this.isSafetyEnvironment() && requestedOffice ? requestedOffice : currentOffice;
-
-      if (applications.some(item => item.applicationNumber === applicationNumber && item.officeId === office.id)) {
-        throw new Error("同じ事業所に同一の申請番号が既に登録されています。");
-      }
-
       const application = {
-        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-        applicationNumber,
-        shipper: String(record.shipper || "").trim(),
-        cargoName: String(record.cargoName || "").trim(),
-        officeId: office.id,
-        office: office.name,
-        blockId: office.blockId || "block-01",
-        blockName: office.blockName || "第一ブロック",
-        note: String(record.note || "").trim(),
-        createdAt: nowIso(),
-        updatedAt: nowIso(),
-        createdByRole: this.getUserRole(),
-        status: ["active", "review", "completed", "archived"].includes(record.status) ? record.status : "active"
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`, applicationYear, numberType, applicationNumber, temporaryNumber,
+        officeId: office.id, office: office.name, blockId: office.blockId || "block-01", blockName: office.blockName || "第一ブロック",
+        assignee: String(record.assignee || "").trim(), containerNumber: String(record.containerNumber || "").trim(), vesselName: String(record.vesselName || "").trim(), voyageNumber: String(record.voyageNumber || "").trim(),
+        unNumber: String(record.unNumber || "").trim(), japaneseName: String(record.japaneseName || "").trim(), englishName: String(record.englishName || "").trim(),
+        hazardClass: String(record.hazardClass || "").trim(), subsidiaryHazardClasses: Array.isArray(record.subsidiaryHazardClasses) ? record.subsidiaryHazardClasses : [], packingGroup: String(record.packingGroup || "").trim(),
+        applicationDate: String(record.applicationDate || ""), inspectionPlannedDate: String(record.inspectionPlannedDate || ""), inspectionDate: String(record.inspectionDate || ""), caseTitle: String(record.caseTitle || "").trim(), note: String(record.note || "").trim(),
+        createdAt: nowIso(), updatedAt: nowIso(), createdByRole: this.getUserRole(), status: ["draft","received","in_progress","completed","cancelled"].includes(record.status) ? record.status : "draft"
       };
-      applications.unshift(application);
-      write(KEYS.applications, applications);
-      enqueueSync("application", "create", application);
-      return application;
+      applications.unshift(application); write(KEYS.applications, applications); enqueueSync("application", "create", application); return application;
     },
 
     updateApplication(id, updates) {
       if (!this.canWriteOperationalData()) throw new Error("安全環境室職員は閲覧専用です。登録・更新はできません。");
       const applications = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) }));
-      const target = applications.find(item => item.id === id);
-      if (!target) return false;
+      const target = applications.find(item => item.id === id); if (!target) return false;
       if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
-
-      const nextNumber = String(updates.applicationNumber ?? target.applicationNumber).trim();
-      if (!nextNumber) throw new Error("申請番号は必須です。");
-      if (applications.some(item => item.id !== id && item.officeId === target.officeId && item.applicationNumber === nextNumber)) {
-        throw new Error("同じ事業所に同一の申請番号が既に登録されています。");
-      }
-      Object.assign(target, {
-        applicationNumber: nextNumber,
-        shipper: String(updates.shipper ?? target.shipper).trim(),
-        cargoName: String(updates.cargoName ?? target.cargoName).trim(),
-        note: String(updates.note ?? target.note).trim(),
-        status: updates.status ?? target.status,
-        updatedAt: nowIso()
+      const applicationYear = String(updates.applicationYear ?? target.applicationYear ?? "").trim();
+      if (!/^\d{4}$/.test(applicationYear)) throw new Error("申請年度は4桁の数字で入力してください。");
+      const numberType = updates.numberType === "temporary" ? "temporary" : (updates.numberType || target.numberType || "official");
+      let applicationNumber = String(updates.applicationNumber ?? target.applicationNumber ?? "").trim();
+      let temporaryNumber = target.temporaryNumber || "";
+      if (numberType === "official") {
+        if (!/^\d{4,5}$/.test(applicationNumber)) throw new Error("正式申請番号は4桁または5桁の数字で入力してください。");
+        if (applications.some(item => item.id !== id && String(item.applicationYear || "") === applicationYear && item.numberType !== "temporary" && item.applicationNumber === applicationNumber)) throw new Error("同じ申請年度・申請番号が全事業所内に既に登録されています。");
+      } else if (!temporaryNumber) {
+        temporaryNumber = `TEMP-${applicationYear}-${String(Date.now()).slice(-6)}`; applicationNumber = temporaryNumber;
+      } else applicationNumber = temporaryNumber;
+      Object.assign(target, { applicationYear, numberType, applicationNumber, temporaryNumber,
+        assignee:String(updates.assignee ?? target.assignee ?? "").trim(), containerNumber:String(updates.containerNumber ?? target.containerNumber ?? "").trim(), vesselName:String(updates.vesselName ?? target.vesselName ?? "").trim(), voyageNumber:String(updates.voyageNumber ?? target.voyageNumber ?? "").trim(),
+        unNumber:String(updates.unNumber ?? target.unNumber ?? "").trim(), japaneseName:String(updates.japaneseName ?? target.japaneseName ?? "").trim(), englishName:String(updates.englishName ?? target.englishName ?? "").trim(), hazardClass:String(updates.hazardClass ?? target.hazardClass ?? "").trim(),
+        subsidiaryHazardClasses:Array.isArray(updates.subsidiaryHazardClasses)?updates.subsidiaryHazardClasses:(target.subsidiaryHazardClasses||[]), packingGroup:String(updates.packingGroup ?? target.packingGroup ?? "").trim(),
+        applicationDate:String(updates.applicationDate ?? target.applicationDate ?? ""), inspectionPlannedDate:String(updates.inspectionPlannedDate ?? target.inspectionPlannedDate ?? ""), inspectionDate:String(updates.inspectionDate ?? target.inspectionDate ?? ""), caseTitle:String(updates.caseTitle ?? target.caseTitle ?? "").trim(), note:String(updates.note ?? target.note ?? "").trim(), status:updates.status ?? target.status, updatedAt:nowIso()
       });
-      write(KEYS.applications, applications);
-      enqueueSync("application", "update", target);
-      return true;
+      write(KEYS.applications, applications); enqueueSync("application", "update", target); return true;
     },
 
     removeApplication(id) {
@@ -440,6 +437,95 @@
       enqueueSync("application", "delete", { id, officeId: target.officeId, serverId: target.serverId || null, serverVersion: target.serverVersion || 1 });
       write(KEYS.photos, this.getPhotos({ scope: "all" }).map(photo => photo.applicationId === id ? { ...photo, applicationId: "", applicationNumber: "" } : photo));
       return true;
+    },
+
+
+    getApplicationDocuments(options = {}) {
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      const scope = options.scope || (this.isSafetyEnvironment() ? "all" : "office");
+      const officeId = options.officeId || this.getOfficeId();
+      const includeCancelled = options.includeCancelled === true;
+      const visible = scope === "all" && this.isSafetyEnvironment() ? documents : documents.filter(item => item.officeId === officeId);
+      return includeCancelled ? visible : visible.filter(item => !item.isCancelled);
+    },
+
+    addApplicationDocument(record) {
+      if (!this.canWriteOperationalData()) throw new Error("閲覧専用権限では添付資料を登録できません。");
+      const application = read(KEYS.applications, []).map(item => ({ ...item, ...normalizeOffice(item) })).find(item => item.id === record.applicationId);
+      if (!application) throw new Error("申請案件が見つかりません。");
+      if (!this.isSafetyEnvironment() && application.officeId !== this.getOfficeId()) throw new Error("所属事業所以外の案件には登録できません。");
+      const fileName = String(record.fileName || "").trim();
+      const fileType = String(record.fileType || "").trim();
+      const fileSize = Number(record.fileSize || 0);
+      if (!fileName) throw new Error("ファイル名を確認してください。");
+      if (!Number.isFinite(fileSize) || fileSize <= 0) throw new Error("空のファイルは登録できません。");
+      if (fileSize > 5 * 1024 * 1024) throw new Error("開発版では1ファイル5MB以下にしてください。");
+      const allowed = ["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","text/plain","image/jpeg","image/png","image/webp"];
+      const allowedExtensions = [".pdf",".doc",".docx",".xls",".xlsx",".csv",".txt",".jpg",".jpeg",".png",".webp"];
+      const extension = fileName.includes(".") ? `.${fileName.split(".").pop().toLowerCase()}` : "";
+      if ((fileType && !allowed.includes(fileType)) || (!fileType && !allowedExtensions.includes(extension))) throw new Error("このファイル形式は登録できません。PDF、Excel、Word、CSV、テキスト、JPEG、PNG、WebPを選択してください。");
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      const document = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        applicationId: application.id, applicationYear: application.applicationYear, applicationNumber: application.applicationNumber, temporaryNumber: application.temporaryNumber || "",
+        officeId: application.officeId, office: application.office, blockId: application.blockId, blockName: application.blockName,
+        category: String(record.category || "other"), description: String(record.description || "").trim(),
+        fileName, fileType, fileSize, dataUrl: String(record.dataUrl || ""), versionNumber: 1, rootDocumentId: "", parentDocumentId: "", isLatestVersion: true, changeReason: String(record.changeReason || "").trim(),
+        uploadedBy: String(record.uploadedBy || "利用者").trim(), uploadedAt: nowIso(), updatedAt: nowIso(), isCancelled: false
+      };
+      documents.unshift(document); write(KEYS.applicationDocuments, documents); enqueueSync("application-document", "create", document); return document;
+    },
+
+
+    addApplicationDocumentVersion(parentId, record) {
+      if (!this.canWriteOperationalData()) throw new Error("閲覧専用権限では添付資料を更新できません。");
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      const parent = documents.find(item => item.id === parentId);
+      if (!parent) throw new Error("更新対象の資料が見つかりません。");
+      if (parent.isCancelled) throw new Error("取消済み資料には更新版を登録できません。");
+      if (!this.isSafetyEnvironment() && parent.officeId !== this.getOfficeId()) throw new Error("所属事業所以外の資料は更新できません。");
+      const fileName = String(record.fileName || "").trim();
+      const fileType = String(record.fileType || "").trim();
+      const fileSize = Number(record.fileSize || 0);
+      if (!fileName) throw new Error("ファイル名を確認してください。");
+      if (!Number.isFinite(fileSize) || fileSize <= 0) throw new Error("空のファイルは登録できません。");
+      if (fileSize > 5 * 1024 * 1024) throw new Error("開発版では1ファイル5MB以下にしてください。");
+      const allowed = ["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","text/csv","text/plain","image/jpeg","image/png","image/webp"];
+      const allowedExtensions = [".pdf",".doc",".docx",".xls",".xlsx",".csv",".txt",".jpg",".jpeg",".png",".webp"];
+      const extension = fileName.includes(".") ? `.${fileName.split(".").pop().toLowerCase()}` : "";
+      if ((fileType && !allowed.includes(fileType)) || (!fileType && !allowedExtensions.includes(extension))) throw new Error("このファイル形式は登録できません。");
+      const rootId = parent.rootDocumentId || parent.id;
+      const versions = documents.filter(item => (item.rootDocumentId || item.id) === rootId);
+      const versionNumber = Math.max(...versions.map(item => Number(item.versionNumber || 1)), 0) + 1;
+      versions.forEach(item => { item.isLatestVersion = false; });
+      const document = {
+        ...parent, id: `${Date.now()}-${Math.random().toString(16).slice(2)}`, rootDocumentId: rootId, parentDocumentId: parent.id,
+        category: String(record.category || parent.category || "other"), description: String(record.description || parent.description || "").trim(),
+        changeReason: String(record.changeReason || "").trim(), fileName, fileType, fileSize, dataUrl: String(record.dataUrl || ""),
+        versionNumber, isLatestVersion: true, uploadedBy: String(record.uploadedBy || "利用者").trim(), uploadedAt: nowIso(), updatedAt: nowIso(),
+        isCancelled: false, cancelledAt: "", cancelledBy: "", cancellationReason: ""
+      };
+      documents.unshift(document); write(KEYS.applicationDocuments, documents); enqueueSync("application-document", "create-version", document); return document;
+    },
+
+    cancelApplicationDocument(id, reason = "") {
+      if (!this.canWriteOperationalData()) throw new Error("閲覧専用権限では添付資料を取消できません。");
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      const target = documents.find(item => item.id === id);
+      if (!target) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
+      target.isCancelled = true; target.cancelledAt = nowIso(); target.cancelledBy = this.getUserRole(); target.cancellationReason = String(reason || "").trim(); target.updatedAt = nowIso();
+      write(KEYS.applicationDocuments, documents); enqueueSync("application-document", "update", target); return true;
+    },
+
+    restoreApplicationDocument(id) {
+      if (!this.canWriteOperationalData()) throw new Error("閲覧専用権限では添付資料を復元できません。");
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      const target = documents.find(item => item.id === id);
+      if (!target) return false;
+      if (!this.isSafetyEnvironment() && target.officeId !== this.getOfficeId()) return false;
+      target.isCancelled = false; target.restoredAt = nowIso(); target.updatedAt = nowIso();
+      write(KEYS.applicationDocuments, documents); enqueueSync("application-document", "update", target); return true;
     },
 
     getPhotos(options = {}) {

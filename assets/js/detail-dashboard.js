@@ -36,15 +36,24 @@
     return labelMaster.find(item => normalizeClassValue(item.class) === mainClass) || null;
   };
 
-  const formatSubsidiaryRisk = value => {
-    const normalized = String(value ?? "").normalize("NFKC").trim();
-    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return "なし";
+  const parseSubsidiaryRiskCodes = value => {
+    const normalized = String(value ?? "").normalize("NFKC").toUpperCase().trim();
+    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return [];
 
-    // 検索結果・危険物詳細では、等級欄と表記を揃えて数字だけを表示する。
-    // 日本語名を含む旧データや複数の副次危険性等級にも対応する。
-    const classCodes = normalized.match(/(?:1\.[1-6]|2\.[1-3]|4\.[1-3]|5\.[12]|6\.[12]|[3789])/g) || [];
-    const uniqueCodes = [...new Set(classCodes)];
-    return uniqueCodes.length ? uniqueCodes.join("・") : normalized;
+    // SP番号、注記番号、頁番号を副次危険性等級として誤認しない。
+    const withoutSpecialProvisions = normalized.replace(/SP\s*\d+[A-Z]?/g, " ");
+    const allowed = new Set(["1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]);
+    const tokens = withoutSpecialProvisions
+      .split(/[\s,，、・/／;；()（）]+/)
+      .map(token => token.trim())
+      .filter(token => allowed.has(token))
+      .map(token => /^1(?:\.[1-6])?$/.test(token) ? "1" : token);
+    return [...new Set(tokens)];
+  };
+
+  const formatSubsidiaryRisk = value => {
+    const classCodes = parseSubsidiaryRiskCodes(value);
+    return classCodes.length ? classCodes.join("/") : "なし";
   };
   const display = value => {
     const text = String(value ?? "").trim();
@@ -545,11 +554,6 @@
                 <div class="domestic-field domestic-field--wide">
                   <span>英語名</span>
                   <strong lang="en">${display(record.properShippingName)}</strong>
-                </div>
-
-                <div class="domestic-field">
-                  <span>分類</span>
-                  <strong>${display(record.classification)}</strong>
                 </div>
 
                 <div class="domestic-field">

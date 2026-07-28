@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-27T18:11:50.027Z",
-  "root": "/mnt/data/part242_work/SK-Dangerous-Goods-Guide",
+  "generatedAt": "2026-07-28T10:17:54.726Z",
+  "root": "/mnt/data/sk267_work/SK-Dangerous-Goods-Guide",
   "status": "passed",
   "stats": {
-    "html": 48,
-    "js": 110,
-    "json": 69,
-    "refs": 644,
-    "bytes": 133958434
+    "html": 54,
+    "js": 118,
+    "json": 88,
+    "refs": 701,
+    "bytes": 134945215
   },
   "findingCount": 0,
   "findings": [],
@@ -26,7 +26,7 @@
     },
     {
       "file": "data/un-data.js",
-      "bytes": 3360350
+      "bytes": 3359836
     },
     {
       "file": "references/originals/dangerous-goods-regulations.pdf",

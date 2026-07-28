@@ -6,7 +6,7 @@
   <title>危険物検索｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/search-dashboard.css?v=178">
+  <link rel="stylesheet" href="../assets/css/search-dashboard.css?v=261">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="search">
@@ -57,7 +57,7 @@
         <div class="page-heading-row">
           <div>
             <h1>危険物検索</h1>
-            <p>国連番号または正式品名から危険物情報を検索します。</p>
+            <p>国連番号、日本語名または英語名から危険物情報を検索します。</p>
           </div>
         </div>
 
@@ -82,8 +82,7 @@
               <div id="advancedSearchPanel" class="advanced-search-panel" hidden>
                 <div class="advanced-search-grid">
                   <label><span>国連番号</span><input id="filterUnNumber" inputmode="numeric" placeholder="例：1992"></label>
-                  <label><span>分類</span><select id="filterClassification"><option value="">すべて</option></select></label>
-                  <label><span>等級</span><select id="filterClass"><option value="">すべて</option></select></label>
+                  <label><span>等級</span><select id="filterClass" aria-describedby="filterClassHelp"><option value="">すべて</option></select><small id="filterClassHelp" class="field-help">「類別をまとめて検索」では、等級4・5・6の各区分を一括検索できます。</small></label>
                   <label><span>副次危険性等級</span><select id="filterSubsidiary"><option value="">すべて</option></select></label>
                   <label><span>容器等級</span><select id="filterPackingGroup"><option value="">すべて</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="-">指定なし</option></select></label>
                   <label><span>海洋汚染物質</span><select id="filterMarine"><option value="">すべて</option><option value="yes">別表第1にP表記あり</option><option value="no">別表第1にP表記なし</option></select></label>
@@ -95,7 +94,7 @@
                   <label><span>積載方法・隔離コード</span><input id="filterTransportCode" placeholder="例：SW2、SG35"></label>
                 </div>
                 <div class="advanced-search-footer">
-                  <label class="result-limit-label"><span>並び順</span><select id="resultSort"><option value="un-asc">国連番号 昇順</option><option value="un-desc">国連番号 降順</option><option value="name-ja">日本語品名順</option><option value="class">等級順</option></select></label>
+                  <label class="result-limit-label"><span>並び順</span><select id="resultSort"><option value="un-asc">国連番号 昇順</option><option value="un-desc">国連番号 降順</option><option value="name-ja">日本語名順</option><option value="class">等級順</option></select></label>
                   <label class="result-limit-label"><span>表示件数</span><select id="resultLimit"><option value="40">40件</option><option value="100">100件</option><option value="200">200件</option><option value="all">すべて</option></select></label>
                   <button id="applyAdvancedSearch" type="submit">詳細条件で検索</button>
                 </div>
@@ -129,13 +128,13 @@
   <script src="../data/un-data.js"></script>
   <script src="../data/ems-assignments.js"></script>
   <script src="../data/ems-schedule-master.js"></script>
-  <script src="../data/label-master.js?v=178"></script>
+  <script src="../data/label-master.js?v=261"></script>
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
-  <script src="../assets/js/storage.js?v=178"></script>
+  <script src="../assets/js/storage.js?v=261"></script>
   <script src="../assets/js/ems-resolver.js"></script>
-  <script src="../assets/js/label-resolver.js?v=178"></script>
-  <script src="../assets/js/search-dashboard.js?v=178"></script>
+  <script src="../assets/js/label-resolver.js?v=261"></script>
+  <script src="../assets/js/search-dashboard.js?v=261"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>

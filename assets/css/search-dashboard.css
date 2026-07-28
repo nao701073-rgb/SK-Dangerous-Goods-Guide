@@ -324,3 +324,5 @@
 
 .search-input-help{margin:8px 0 0;color:#60758a;font-size:.9rem;line-height:1.6}
 @media(max-width:640px){.search-input-help{font-size:.78rem;line-height:1.5;margin-top:7px}}
+
+.field-help{display:block;margin-top:5px;color:var(--app-muted,#5e6b78);font-size:.72rem;line-height:1.45;font-weight:600}

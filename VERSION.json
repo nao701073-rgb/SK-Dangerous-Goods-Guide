@@ -1,8 +1,8 @@
 {
   "name": "SK Dangerous Goods Guide",
-  "part": 242,
-  "version": "Part 242",
+  "part": 267,
+  "version": "0.267.0",
   "releasedAt": "2026-07-28",
-  "summary": "完成版文書・リリース統合管理、正式文書更新対象と配置後作業の一元化",
+  "summary": "添付資料の版管理・分類形式フィルター・案件カードからの資料登録導線を統合",
   "updatedAt": "2026-07-28"
 }

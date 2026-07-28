@@ -204,3 +204,7 @@
 .system-settings-link-grid>a strong{font-size:.78rem}.system-settings-link-grid>a span{color:var(--app-muted);font-size:.68rem;line-height:1.5}
 .system-settings-link-grid>a:hover{border-color:#1672bd;box-shadow:0 6px 16px rgba(11,58,103,.09)}
 @media(max-width:760px){.system-settings-link-grid{grid-template-columns:1fr}}
+
+/* Part 244: user settings contains only user-specific settings. */
+.settings-category-nav--single{grid-template-columns:1fr}
+.settings-category-nav--single .settings-category-card{cursor:default}

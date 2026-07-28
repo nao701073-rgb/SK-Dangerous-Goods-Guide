@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>試作完成版サマリー｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+</head><body data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="system-settings.html" aria-label="システム設定へ戻る">←</a><div><p class="eyebrow">Release Candidate Summary</p><h1>試作完成版サマリー</h1></div></header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 試作完成版サマリー</div>
+<section class="readiness-hero"><div><span id="candidateBadge">Part 247</span><h2>試作完成版の構成を最終確認</h2><p>画面、権限、データ、運用機能、文書および配置後作業を一画面で確認します。</p></div><div class="readiness-actions"><a href="integrated-verification.html">総合自動検査</a><a href="documentation-release-center.html">完成版文書</a></div></section>
+<section class="admin-card-grid">
+<article class="admin-summary-card"><strong>役割区分</strong><span>6</span><small>ゲストからシステム管理者まで</small></article>
+<article class="admin-summary-card"><strong>危険物データ</strong><span>2,725</span><small>公開判定合格</small></article>
+<article class="admin-summary-card"><strong>想定利用者</strong><span>50→150</span><small>試験運用から将来拡張</small></article>
+</section>
+<section class="panel"><div class="panel-heading"><div><h2>試作完成版の確認項目</h2><p>確認結果はこの端末に保存できます。</p></div><span class="fixed-setting" id="candidateProgress">0 / 0</span></div><div class="panel-body"><div id="candidateChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>配置先決定後に実施する項目</h2></div><div class="panel-body"><ul>
+<li>クラウド配置先、専用URL、HTTPS、CORSの確定</li><li>認証・招待・パスワード再設定メールの実送信確認</li><li>初期利用者約50名の登録と役割確認</li><li>50名および150名想定の性能試験</li><li>写真保存領域とPostgreSQLのバックアップ・復元試験</li><li>PC・スマートフォンでの実端末確認</li><li>職制承認と利用者への周知</li>
+</ul></div></section>
+<section class="panel"><div class="panel-heading"><h2>現在の確定方針</h2></div><div class="panel-body"><ul>
+<li>本システムの利用は任意です。</li><li>安全環境室長は全事業所の申請番号・写真を閲覧、登録、編集できますが、削除はできません。</li><li>安全環境室職員は全事業所の申請番号・写真を閲覧できます。</li><li>ゲストは危険物検索、関連法令、関連資料およびユーザー設定を利用できます。</li><li>透かし、スクリーンショット検知・追跡、画面自動保存は現時点では実装しません。</li></ul></div></section>
+<section class="panel"><div class="panel-heading"><h2>判定・出力</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>試作完成版の判定</strong></div><select id="candidateDecision"><option value="reviewing">最終確認中</option><option value="conditional">条件付き試作完成</option><option value="complete">試作完成</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>残課題・引継事項</strong></div><textarea id="candidateNotes" rows="5" placeholder="配置後に実施する設定・試験・承認事項"></textarea></label>
+<div class="settings-actions"><button class="primary-action" id="saveCandidate" type="button">確認結果を保存</button><button id="exportCandidate" type="button">JSONを出力</button></div><div id="candidateMessage" class="settings-message" aria-live="polite"></div>
+</div></section>
+</main><script src="../assets/js/role-access.js?v=247"></script><script src="../assets/js/session-guard.js"></script><script src="../assets/js/release-candidate-summary.js?v=247"></script></body></html>

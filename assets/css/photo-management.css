@@ -424,3 +424,18 @@
 
 /* Part 152 application section navigator */
 .application-section-nav{position:sticky;top:0;z-index:12;display:flex;gap:8px;overflow-x:auto;padding:10px;margin-bottom:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 8px 22px rgba(11,58,103,.08)}.application-section-nav button{white-space:nowrap;min-height:42px;padding:0 14px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--navy);font-weight:800}.application-section-nav button.is-active{background:var(--navy);color:#fff}.application-primary-section[hidden]{display:none!important}
+
+/* Part 264: 申請番号管理の任意入力・将来5桁対応 */
+.application-form--expanded{grid-template-columns:repeat(3,minmax(0,1fr));}
+.application-form-note{padding:12px 14px;border-radius:12px;background:#eef6ff;color:#234b6b;font-weight:700;}
+.required-mark{font-size:.72rem;color:#b42318;font-weight:800;}
+.application-form select[multiple]{min-height:132px;padding:8px;}
+.application-optional-meta{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0;}
+.application-optional-meta span{padding:5px 9px;border-radius:999px;background:#f2f5f8;color:#334155;font-size:.78rem;font-weight:700;}
+@media(max-width:920px){.application-form--expanded{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:640px){.application-form--expanded{grid-template-columns:1fr}.application-form--expanded .application-form__wide{grid-column:1}.application-optional-meta{display:grid;grid-template-columns:1fr}.application-optional-meta span{border-radius:9px}}
+
+/* Part 265: application document management */
+.application-document-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0 1.25rem}.application-document-form__wide{grid-column:1/-1}.application-document-list{display:grid;gap:.8rem}.application-document-card{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--line,#d9e0e7);border-radius:14px;background:#fff}.application-document-card h3{margin:.25rem 0}.application-document-card p{margin:.25rem 0;overflow-wrap:anywhere}.application-document-card.is-cancelled{opacity:.65;background:#f6f7f8}.document-category{display:inline-flex;padding:.2rem .55rem;border-radius:999px;background:#eaf2ff;font-size:.82rem;font-weight:700}@media(max-width:720px){.application-document-form{grid-template-columns:1fr}.application-document-form__wide{grid-column:auto}.application-document-card{flex-direction:column}.application-document-card .management-actions{width:100%}}
+
+.document-version{display:inline-flex;margin-left:.45rem;padding:.16rem .48rem;border-radius:999px;background:#eef3f8;color:#334e68;font-size:.76rem;font-weight:700}.application-document-card.is-cancelled .document-version{opacity:.65}.application-filter-tools select{min-width:150px}

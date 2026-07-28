@@ -6,7 +6,7 @@
   <title>申請番号管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/photo-management.css?v=178">
+  <link rel="stylesheet" href="../assets/css/photo-management.css?v=267">
   <link rel="stylesheet" href="../assets/css/organization-management.css">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
@@ -24,6 +24,7 @@
       <button type="button" data-application-section="applicationScopeSection">表示範囲・所属</button>
       <button type="button" data-application-section="applicationRegisterSection">申請番号を登録</button>
       <button type="button" data-application-section="applicationListSection">登録済み申請番号</button>
+      <button type="button" data-application-section="applicationDocumentSection">添付資料を管理</button>
       <button type="button" data-application-section="applicationPhotoSection">申請番号に写真を登録</button>
       <button type="button" data-application-section="all">すべて表示</button>
     </nav>
@@ -60,31 +61,87 @@
         </div>
       </div>
 
-      <form id="applicationForm" class="application-form">
+      <form id="applicationForm" class="application-form application-form--expanded">
         <input id="editingApplicationId" type="hidden">
+        <div class="application-form__wide application-form-note">必須項目は最小限です。案件ごとに分かる範囲だけ入力し、情報は後から追加できます。</div>
         <label>
-          申請番号
-          <input id="applicationNumber" required placeholder="例：KAW-2026-0001">
+          申請年度 <span class="required-mark">必須</span>
+          <input id="applicationYear" inputmode="numeric" maxlength="4" required placeholder="例：2026">
+        </label>
+        <label>
+          番号の登録方法
+          <select id="applicationNumberMode">
+            <option value="official">正式申請番号を入力</option>
+            <option value="temporary">仮番号で登録</option>
+          </select>
+        </label>
+        <label id="officialApplicationNumberField">
+          正式申請番号 <span class="required-mark">必須</span>
+          <input id="applicationNumber" inputmode="numeric" maxlength="5" placeholder="現在4桁・将来5桁対応">
+          <small class="field-help">現在は4桁を標準とし、将来の5桁化にも対応します。先頭の0を保持します。</small>
+        </label>
+        <label id="temporaryApplicationNumberField" hidden>
+          仮番号
+          <input id="temporaryApplicationNumber" readonly placeholder="保存時に自動発行">
         </label>
         <label id="registrationOfficeField">
-          登録先事業所
+          受付事業所 <span class="required-mark">必須</span>
           <select id="registrationOffice"></select>
         </label>
         <label>
-          荷主
-          <input id="shipperName" placeholder="荷主名">
+          進捗状況 <span class="required-mark">必須</span>
+          <select id="applicationStatus">
+            <option value="draft">下書き</option>
+            <option value="received">受付済み</option>
+            <option value="in_progress">対応中</option>
+            <option value="completed">完了</option>
+            <option value="cancelled">取消</option>
+          </select>
+        </label>
+        <label>担当者<input id="applicationAssignee" placeholder="任意"></label>
+        <label>コンテナ番号<input id="containerNumber" placeholder="任意"></label>
+        <label>船名<input id="vesselName" placeholder="任意"></label>
+        <label>航海番号<input id="voyageNumber" placeholder="任意"></label>
+        <label>国連番号<input id="unNumber" inputmode="numeric" maxlength="4" placeholder="任意・例：2218"></label>
+        <label>日本語名<input id="japaneseName" placeholder="任意"></label>
+        <label>英語名<input id="englishName" placeholder="任意"></label>
+        <label>
+          等級
+          <select id="hazardClass">
+            <option value="">未入力</option>
+            <optgroup label="類別をまとめて指定">
+              <option value="4">4 可燃性物質類</option>
+              <option value="5">5 酸化性物質類</option>
+              <option value="6">6 毒物類</option>
+            </optgroup>
+            <optgroup label="個別等級">
+              <option>1.1</option><option>1.2</option><option>1.3</option><option>1.4</option><option>1.5</option><option>1.6</option>
+              <option>2.1</option><option>2.2</option><option>2.3</option><option>3</option>
+              <option>4.1</option><option>4.2</option><option>4.3</option><option>5.1</option><option>5.2</option>
+              <option>6.1</option><option>6.2</option><option>7</option><option>8</option><option>9</option>
+            </optgroup>
+          </select>
         </label>
         <label>
-          貨物名
-          <input id="cargoName" placeholder="貨物名">
+          副次危険性等級
+          <select id="subsidiaryHazardClasses" multiple size="5">
+            <option value="1">1 火薬類</option><option value="2.1">2.1 引火性高圧ガス</option><option value="3">3 引火性液体類</option>
+            <option value="4.1">4.1 可燃性物質</option><option value="4.2">4.2 自然発火性物質</option><option value="4.3">4.3 水反応可燃性物質</option>
+            <option value="5.1">5.1 酸化性物質</option><option value="6.1">6.1 毒物</option><option value="8">8 腐食性物質</option>
+          </select>
+          <small class="field-help">複数選択可。表示は「3/6.1」のように統一します。</small>
         </label>
         <label>
-          進捗状況
-          <select id="applicationStatus"><option value="active">受付・作業中</option><option value="review">確認中</option><option value="completed">完了</option><option value="archived">保管</option></select>
+          容器等級
+          <select id="packingGroup"><option value="">未入力</option><option>I</option><option>II</option><option>III</option><option value="not_applicable">該当なし</option></select>
         </label>
+        <label>申請日<input id="applicationDate" type="date"></label>
+        <label>検査予定日<input id="inspectionPlannedDate" type="date"></label>
+        <label>検査実施日<input id="inspectionDate" type="date"></label>
+        <label class="application-form__wide">案件名・対象概要<input id="caseTitle" placeholder="任意"></label>
         <label class="application-form__wide">
-          メモ
-          <textarea id="applicationNote" rows="3" placeholder="案件に関するメモ"></textarea>
+          備考
+          <textarea id="applicationNote" rows="3" placeholder="任意"></textarea>
         </label>
         <div class="application-form__wide form-actions">
           <button id="applicationSubmitButton" class="primary-action" type="submit">登録</button>
@@ -101,12 +158,45 @@
           <h2>登録済み申請番号</h2>
         </div>
         <div class="application-filter-tools">
-          <input id="applicationFilter" type="search" placeholder="申請番号・荷主・貨物名で検索">
-          <select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="active">受付・作業中</option><option value="review">確認中</option><option value="completed">完了</option><option value="archived">保管</option></select>
+          <input id="applicationFilter" type="search" placeholder="年度・申請番号・コンテナ番号・名称などで検索">
+          <select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="draft">下書き</option><option value="received">受付済み</option><option value="in_progress">対応中</option><option value="completed">完了</option><option value="cancelled">取消</option></select>
           <button id="exportApplicationsCsv" type="button">CSV出力</button>
         </div>
       </div>
       <div id="applicationList" class="application-list"></div>
+    </section>
+
+
+    <section class="management-panel application-primary-section" id="applicationDocumentSection">
+      <div class="management-heading">
+        <div><p class="eyebrow">Application Documents</p><h2>添付資料を管理</h2></div>
+        <div class="application-filter-tools">
+          <input id="documentFilter" type="search" placeholder="申請番号・ファイル名・説明で検索">
+          <select id="documentCategoryFilter"><option value="">すべての資料分類</option><option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option></select>
+          <select id="documentTypeFilter"><option value="">すべての形式</option><option value="pdf">PDF</option><option value="word">Word</option><option value="excel">Excel</option><option value="csv">CSV</option><option value="text">テキスト</option><option value="image">画像</option></select>
+          <label class="check-field"><input id="showCancelledDocuments" type="checkbox"> 取消済みも表示</label>
+        </div>
+      </div>
+      <p class="scope-note">案件ごとに取得できた資料だけを登録できます。資料分類は任意で、未登録の資料があっても案件の保存や完了を妨げません。</p>
+      <form id="applicationDocumentForm" class="application-document-form">
+        <label>申請案件 <select id="documentApplication" required><option value="">選択してください</option></select></label>
+        <label>登録方法
+          <select id="documentRegistrationMode"><option value="new">新しい資料として登録</option><option value="version">既存資料の更新版として登録</option></select>
+        </label>
+        <label id="documentParentField" hidden>更新対象資料
+          <select id="documentParent"><option value="">選択してください</option></select>
+        </label>
+        <label>資料分類
+          <select id="documentCategory">
+            <option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option>
+          </select>
+        </label>
+        <label>ファイル <input id="documentFile" type="file" accept="application/pdf,.pdf,application/msword,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,text/csv,.csv,text/plain,.txt,image/jpeg,.jpg,.jpeg,image/png,.png,image/webp,.webp" multiple required><small class="field-help">PDF、Excel（.xls／.xlsx）、Word（.doc／.docx）、CSV、テキスト、JPEG、PNG、WebPを登録できます。複数ファイルをまとめて選択可能です。開発版では1ファイル5MB以下。実行ファイルや圧縮ファイルは登録できません。</small></label>
+        <label>登録者 <input id="documentUploadedBy" value="利用者"></label>
+        <label class="application-document-form__wide">説明 <textarea id="documentDescription" rows="2" placeholder="任意"></textarea></label>
+        <div class="application-document-form__wide form-actions"><button class="primary-action" type="submit">資料を登録</button><span id="documentMessage" class="form-message"></span></div>
+      </form>
+      <div id="applicationDocumentList" class="application-document-list"></div>
     </section>
 
     <section class="management-panel application-primary-section" id="applicationPhotoSection">
@@ -518,7 +608,8 @@
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
   <script src="../assets/js/storage.js?v=178"></script>
-  <script src="../assets/js/applications.js?v=178"></script>
+  <script src="../assets/js/applications.js?v=267"></script>
+  <script src="../assets/js/application-documents.js?v=267"></script>
   <script src="../assets/js/photos.js?v=178"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>

@@ -20,7 +20,6 @@
 
   const fields = {
     unNumber: document.getElementById("filterUnNumber"),
-    classification: document.getElementById("filterClassification"),
     class: document.getElementById("filterClass"),
     subsidiary: document.getElementById("filterSubsidiary"),
     packingGroup: document.getElementById("filterPackingGroup"),
@@ -48,12 +47,12 @@
     const index = {
       text: normalizeSearchText([
         item.unNumber, item.properShippingName, item.properShippingNameJa,
-        item.classification, item.class, item.packingGroup,
+        item.class, item.packingGroup,
         item.specialProvisions, item.remarks
       ].join(" ")),
       unNumber: String(item.unNumber || "").padStart(4, "0"),
       classValue: normalizeClassValue(item.class),
-      subsidiaryValue: normalizeClassValue(item.subsidiaryRisk),
+      subsidiaryValues: parseSubsidiaryRiskCodes(item.subsidiaryRisk),
       hasLimited: hasValue(item.limitedQuantity),
       hasExcepted: hasValue(item.exceptedQuantity),
       packingCodes: normalizeCode([
@@ -153,15 +152,24 @@
     return labelMaster.find(item => normalizeClassValue(item.class) === mainClass) || null;
   };
 
-  const formatSubsidiaryRisk = value => {
-    const normalized = String(value ?? "").normalize("NFKC").trim();
-    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return "なし";
+  const parseSubsidiaryRiskCodes = value => {
+    const normalized = String(value ?? "").normalize("NFKC").toUpperCase().trim();
+    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return [];
 
-    // 検索結果・危険物詳細では、等級欄と表記を揃えて数字だけを表示する。
-    // 日本語名を含む旧データや複数の副次危険性等級にも対応する。
-    const classCodes = normalized.match(/(?:1\.[1-6]|2\.[1-3]|4\.[1-3]|5\.[12]|6\.[12]|[3789])/g) || [];
-    const uniqueCodes = [...new Set(classCodes)];
-    return uniqueCodes.length ? uniqueCodes.join("・") : normalized;
+    // SP番号、注記番号、頁番号を副次危険性等級として誤認しない。
+    const withoutSpecialProvisions = normalized.replace(/SP\s*\d+[A-Z]?/g, " ");
+    const allowed = new Set(["1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]);
+    const tokens = withoutSpecialProvisions
+      .split(/[\s,，、・/／;；()（）]+/)
+      .map(token => token.trim())
+      .filter(token => allowed.has(token))
+      .map(token => /^1(?:\.[1-6])?$/.test(token) ? "1" : token);
+    return [...new Set(tokens)];
+  };
+
+  const formatSubsidiaryRisk = value => {
+    const classCodes = parseSubsidiaryRiskCodes(value);
+    return classCodes.length ? classCodes.join("/") : "なし";
   };
 
   const normalizeSearchText = value =>
@@ -210,11 +218,14 @@
     "2.2": "2.2 非引火性・非毒性高圧ガス",
     "2.3": "2.3 毒性高圧ガス",
     "3": "3 引火性液体類",
+    "4": "4 可燃性物質類（4.1～4.3）",
     "4.1": "4.1 可燃性物質",
     "4.2": "4.2 自然発火性物質",
     "4.3": "4.3 水反応可燃性物質",
+    "5": "5 酸化性物質類（5.1～5.2）",
     "5.1": "5.1 酸化性物質",
     "5.2": "5.2 有機過酸化物",
+    "6": "6 毒物類（6.1～6.2）",
     "6.1": "6.1 毒物",
     "6.2": "6.2 病毒をうつしやすい物質",
     "7": "7 放射性物質",
@@ -222,31 +233,50 @@
     "9": "9 有害性物質"
   };
 
-  const classOptions = [
-    { value: "1", label: classOptionLabels["1"] },
-    ...["1.1", "1.2", "1.3", "1.4", "1.5", "1.6"].map(value => ({ value, label: classOptionLabels[value] })),
-    { value: "2", label: classOptionLabels["2"] },
-    ...["2.1", "2.2", "2.3"].map(value => ({ value, label: classOptionLabels[value] })),
-    ...["3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "6.2", "7", "8", "9"].map(value => ({ value, label: classOptionLabels[value] }))
+  // 等級は、類別の一括検索と個別等級を分けて表示する。
+  const primaryClassGroups = [
+    {
+      label: "類別をまとめて検索",
+      options: ["4", "5", "6"].map(value => ({ value, label: classOptionLabels[value] }))
+    },
+    {
+      label: "個別等級",
+      options: [
+        "1.1", "1.2", "1.3", "1.4", "1.5", "1.6",
+        "2.1", "2.2", "2.3",
+        "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "6.2", "7", "8", "9"
+      ].map(value => ({ value, label: classOptionLabels[value] }))
+    }
   ];
 
-  const populateClassSelect = select => {
-    select.insertAdjacentHTML("beforeend", classOptions.map(option =>
+  // 国内法令上、副次危険性等級として実在する選択肢だけを表示する。
+  // 火薬類の副標札は区分1.1～1.6を分けず、共通の「1」1種類とする。
+  const subsidiaryClassOptions = ["1", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]
+    .map(value => ({ value, label: classOptionLabels[value] }));
+
+  const populateClassSelect = (select, options) => {
+    select.insertAdjacentHTML("beforeend", options.map(option =>
       `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`
     ).join(""));
   };
 
+  const populateGroupedClassSelect = (select, groups) => {
+    select.insertAdjacentHTML("beforeend", groups.map(group => `
+      <optgroup label="${escapeHtml(group.label)}">
+        ${group.options.map(option => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("")}
+      </optgroup>
+    `).join(""));
+  };
+
   const formatClassFilterLabel = value => classOptionLabels[normalizeClassValue(value)] || formatSubsidiaryRisk(value);
 
-  populateSelect(fields.classification, data.map(item => item.classification));
-  populateClassSelect(fields.class);
-  populateClassSelect(fields.subsidiary);
+  populateGroupedClassSelect(fields.class, primaryClassGroups);
+  populateClassSelect(fields.subsidiary, subsidiaryClassOptions);
 
   function currentConditions() {
     return {
       query: input.value,
       unNumber: fieldValue("unNumber"),
-      classification: fieldValue("classification"),
       class: fieldValue("class"),
       subsidiary: fieldValue("subsidiary"),
       packingGroup: fieldValue("packingGroup"),
@@ -272,13 +302,10 @@
     const index = buildSearchIndex(item);
     if (conditions.queryNormalized && !index.text.includes(conditions.queryNormalized)) return false;
     if (conditions.unNumberNormalized && index.unNumber !== conditions.unNumberNormalized) return false;
-    if (conditions.classification && item.classification !== conditions.classification) return false;
     if (conditions.classNormalized) {
-      if (conditions.classNormalized === "1" ? !index.classValue.startsWith("1.") : conditions.classNormalized === "2" ? !index.classValue.startsWith("2.") : index.classValue !== conditions.classNormalized) return false;
+      if (["1", "2", "4", "5", "6"].includes(conditions.classNormalized) ? !index.classValue.startsWith(`${conditions.classNormalized}.`) : index.classValue !== conditions.classNormalized) return false;
     }
-    if (conditions.subsidiaryNormalized) {
-      if (conditions.subsidiaryNormalized === "1" ? !index.subsidiaryValue.startsWith("1.") : conditions.subsidiaryNormalized === "2" ? !index.subsidiaryValue.startsWith("2.") : index.subsidiaryValue !== conditions.subsidiaryNormalized) return false;
-    }
+    if (conditions.subsidiaryNormalized && !index.subsidiaryValues.includes(conditions.subsidiaryNormalized)) return false;
     if (conditions.packingGroup && String(item.packingGroup || "-") !== conditions.packingGroup) return false;
     if (conditions.marine === "yes" && !item.marinePollutant) return false;
     if (conditions.marine === "no" && item.marinePollutant) return false;
@@ -298,7 +325,6 @@
     const add = (label, value, display = value) => { if (value) labels.push(`${label}: ${display}`); };
     add("キーワード", conditions.query);
     add("国連番号", conditions.unNumber);
-    add("分類", conditions.classification);
     add("等級", conditions.class, conditions.class ? formatClassFilterLabel(conditions.class) : "");
     add("副次危険性等級", conditions.subsidiary, conditions.subsidiary ? formatClassFilterLabel(conditions.subsidiary) : "");
     add("容器等級", conditions.packingGroup);
@@ -310,7 +336,7 @@
     add("EmS", conditions.ems);
     add("積載方法・隔離", conditions.transportCode);
     if (conditions.resultSort && conditions.resultSort !== "un-asc") {
-      const sortLabels = { "un-desc": "国連番号 降順", "name-ja": "日本語品名順", "class": "等級順" };
+      const sortLabels = { "un-desc": "国連番号 降順", "name-ja": "日本語名順", "class": "等級順" };
       add("並び順", conditions.resultSort, sortLabels[conditions.resultSort] || conditions.resultSort);
     }
 
@@ -365,10 +391,10 @@
 
   function exportCurrentResults() {
     if (!lastMatchedRows.length) { alert("出力できる検索結果がありません。"); return; }
-    const header = ["国連番号", "正式輸送品名（日本語）", "正式輸送品名（英語）", "分類", "等級", "副次危険性等級", "容器等級", "EmS"];
+    const header = ["国連番号", "日本語名", "英語名", "等級", "副次危険性等級", "容器等級", "EmS"];
     const lines = [header, ...lastMatchedRows.map(item => {
       const ems = window.EMSResolver?.resolve(item) || {};
-      return [item.unNumber, item.properShippingNameJa, item.properShippingName, item.classification, item.class, formatSubsidiaryRisk(item.subsidiaryRisk), item.packingGroup, ems.combinedCode || item.ems || ""];
+      return [item.unNumber, item.properShippingNameJa, item.properShippingName, item.class, formatSubsidiaryRisk(item.subsidiaryRisk), item.packingGroup, ems.combinedCode || item.ems || ""];
     })].map(row => row.map(csvEscape).join(","));
     const blob = new Blob(["\ufeff" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -407,7 +433,7 @@
           </div>
           <div>
             <span class="result-un">国連番号 ${escapeHtml(item.unNumber)}</span>
-            <h2>${escapeHtml(item.properShippingNameJa || "日本語正式輸送品名未登録")}</h2>
+            <h2>${escapeHtml(item.properShippingNameJa || "日本語名未登録")}</h2>
             <p>${escapeHtml(item.properShippingName || "")}</p>
           </div>
           <div class="result-facts">

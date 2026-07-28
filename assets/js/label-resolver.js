@@ -75,14 +75,20 @@
       const raw = String(record?.subsidiaryRisk ?? "").trim();
       if (!raw || raw === "-" || raw === "なし") return [];
 
-      // A record can contain more than one subsidiary-risk class, for example
-      // "5.1・8", "6.1 8" or "3, 8". Extract every actual dangerous-goods
-      // class and ignore non-class values such as SP numbers and page numbers.
-      const matches = raw.match(/(?:1\.[1-6]|2\.[1-3]|4\.[1-3]|5\.[1-2]|6\.[1-2]|[3789])/g) || [];
-      const uniqueClasses = [...new Set(matches.map(normalize))];
+      // SP番号・注記番号・頁番号を除外し、実在する副次危険性等級だけを抽出する。
+      // 火薬類は区分1.1～1.6にかかわらず、共通の副標札「1」を使用する。
+      const cleaned = raw.normalize("NFKC").toUpperCase().replace(/SP\s*\d+[A-Z]?/g, " ");
+      const allowed = new Set(["1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]);
+      const uniqueClasses = [...new Set(
+        cleaned
+          .split(/[\s,，、・/／;；()（）]+/)
+          .map(value => normalize(value))
+          .filter(value => allowed.has(value))
+          .map(value => /^1(?:\.[1-6])?$/.test(value) ? "1" : value)
+      )];
 
       return uniqueClasses
-        .map(value => withSource(findWithFallback(value)))
+        .map(value => withSource(findExact(value)))
         .filter(Boolean);
     },
 

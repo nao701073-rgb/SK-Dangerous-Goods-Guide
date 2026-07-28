@@ -33,7 +33,8 @@
     "pilot:roles": "node scripts/verify-role-matrix.js",
     "pilot:load": "node scripts/pilot-load-test.js",
     "permissions:audit": "node scripts/verify-role-matrix.js",
-    "verify:integrated": "node ../tools/run-integrated-verification.mjs"
+    "verify:integrated": "node ../tools/run-integrated-verification.mjs",
+    "deployment:preflight": "node scripts/deployment-preflight.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

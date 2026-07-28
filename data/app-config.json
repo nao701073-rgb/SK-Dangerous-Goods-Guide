@@ -1,6 +1,6 @@
 {
   "systemName": "検査・検品業務サポートシステム",
-  "version": "1.0.0-rc1",
+  "version": "0.267.0",
   "offline": true,
   "modules": [
     {
@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part193-cloud-connection-readiness",
+  "build": "part263-hazard-class-filter-consistency",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -248,5 +248,36 @@
       "future": 150
     },
     "connectionSetupPage": true
+  },
+  "hazardClassSearch": {
+    "primaryLabel": "等級",
+    "groupFilters": {
+      "4": [
+        "4.1",
+        "4.2",
+        "4.3"
+      ],
+      "5": [
+        "5.1",
+        "5.2"
+      ],
+      "6": [
+        "6.1",
+        "6.2"
+      ]
+    },
+    "subsidiaryAllowed": [
+      "1",
+      "2.1",
+      "3",
+      "4.1",
+      "4.2",
+      "4.3",
+      "5.1",
+      "6.1",
+      "8"
+    ],
+    "class1SubsidiaryLabel": "1",
+    "multipleSubsidiarySeparator": "/"
   }
 }

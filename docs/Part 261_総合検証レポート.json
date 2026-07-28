@@ -1,0 +1,16 @@
+{
+  "part": 261,
+  "generatedAt": "2026-07-28",
+  "checks": {
+    "label4": true,
+    "label5": true,
+    "label6": true,
+    "help": true,
+    "heading": true,
+    "no_main_1_group": true,
+    "subsidiary_exact": true,
+    "version": true
+  },
+  "passed": true,
+  "summary": "等級4・5・6の一括検索表示と既存等級仕様を検証"
+}

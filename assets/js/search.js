@@ -70,15 +70,24 @@
     return labelMaster.find(item => normalizeClassValue(item.class) === mainClass) || null;
   };
 
-  const formatSubsidiaryRisk = value => {
-    const normalized = String(value ?? "").normalize("NFKC").trim();
-    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return "なし";
+  const parseSubsidiaryRiskCodes = value => {
+    const normalized = String(value ?? "").normalize("NFKC").toUpperCase().trim();
+    if (!normalized || normalized === "-" || normalized === "—" || normalized === "なし") return [];
 
-    // 検索結果・危険物詳細では、等級欄と表記を揃えて数字だけを表示する。
-    // 日本語名を含む旧データや複数の副次危険性等級にも対応する。
-    const classCodes = normalized.match(/(?:1\.[1-6]|2\.[1-3]|4\.[1-3]|5\.[12]|6\.[12]|[3789])/g) || [];
-    const uniqueCodes = [...new Set(classCodes)];
-    return uniqueCodes.length ? uniqueCodes.join("・") : normalized;
+    // SP番号、注記番号、頁番号を副次危険性等級として誤認しない。
+    const withoutSpecialProvisions = normalized.replace(/SP\s*\d+[A-Z]?/g, " ");
+    const allowed = new Set(["1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]);
+    const tokens = withoutSpecialProvisions
+      .split(/[\s,，、・/／;；()（）]+/)
+      .map(token => token.trim())
+      .filter(token => allowed.has(token))
+      .map(token => /^1(?:\.[1-6])?$/.test(token) ? "1" : token);
+    return [...new Set(tokens)];
+  };
+
+  const formatSubsidiaryRisk = value => {
+    const classCodes = parseSubsidiaryRiskCodes(value);
+    return classCodes.length ? classCodes.join("/") : "なし";
   };
   function populateClassFilter() {
     const classes = [...new Set(
@@ -245,13 +254,12 @@
         </div>
 
         <div>
-          <h3>${escapeHtml(item.properShippingNameJa || "日本語品名なし")}</h3>
+          <h3>${escapeHtml(item.properShippingNameJa || "日本語名なし")}</h3>
           <p class="english-name">${escapeHtml(item.properShippingName || "English name unavailable")}</p>
         </div>
 
         <div class="result-meta">
           <span class="meta-chip">等級 ${escapeHtml(item.class || "-")}</span>
-          <span class="meta-chip">${escapeHtml(item.classification || "分類なし")}</span>
           <span class="meta-chip">容器等級 ${escapeHtml(item.packingGroup || "-")}</span>
         </div>
 

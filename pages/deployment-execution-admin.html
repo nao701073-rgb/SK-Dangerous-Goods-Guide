@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>導入・切替実行管理｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/admin-tools.css" rel="stylesheet"/>
+</head>
+<body data-page="deployment-execution-admin" data-required-roles="safety-environment-admin">
+<header class="app-header"><a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a><div><p class="eyebrow">Deployment Execution</p><h1>導入・切替実行管理</h1></div></header>
+<main class="workspace admin-tool-page">
+<div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 導入・切替実行管理</div>
+<section class="readiness-hero"><div><span id="executionBadge">Part 249</span><h2>配置から運用開始後の初期確認までを一括管理</h2><p>設定投入、マイグレーション、初期利用者、切替、ロールバック準備、開始後確認を順番に記録します。</p></div><div class="readiness-actions"><button id="saveExecution" type="button">保存</button><button id="exportExecution" type="button">JSON出力</button></div></section>
+<section class="panel"><div class="panel-heading"><h2>導入基本情報</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>対象環境</strong><p>試験、本番など対象環境を記録します。</p></div><input id="environment" type="text" placeholder="例：クラウド試験環境"/></label>
+<label class="settings-row settings-row--select"><div><strong>対象バージョン</strong><p>配置する版を記録します。</p></div><input id="targetVersion" type="text" value="Part 249"/></label>
+<label class="settings-row settings-row--select"><div><strong>切替予定日時</strong><p>利用者への案内と合わせて設定します。</p></div><input id="switchAt" type="datetime-local"/></label>
+<label class="settings-row settings-row--select"><div><strong>実施責任者</strong><p>切替判断と記録の責任者を入力します。</p></div><input id="owner" type="text"/></label>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>実行フェーズ</h2></div><div class="panel-body"><div id="executionChecklist" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>切替・ロールバック判定</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>現在の判定</strong><p>未確認項目がある場合は「保留」にします。</p></div><select id="decision"><option value="pending">保留</option><option value="go">切替可</option><option value="rollback">ロールバック</option><option value="completed">切替完了</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>判定理由・残課題</strong><p>切替判断、障害、暫定対応、次の担当を記録します。</p></div><textarea id="notes" rows="6"></textarea></label>
+<div class="fixed-setting" id="executionStatus">未保存</div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>運用開始後の初期点検</h2></div><div class="panel-body"><p>開始後1日、7日、30日の確認結果を記録します。</p><div id="postLaunchChecks" class="check-list"></div></div></section>
+</main>
+<script src="../assets/js/session-guard.js"></script>
+<script src="../assets/js/deployment-execution-admin.js"></script>
+</body></html>
