@@ -6,7 +6,7 @@
   <title>危険物検索｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/search-dashboard.css?v=261">
+  <link rel="stylesheet" href="../assets/css/search-dashboard.css?v=278">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="search">
@@ -81,7 +81,7 @@
               </div>
               <div id="advancedSearchPanel" class="advanced-search-panel" hidden>
                 <div class="advanced-search-grid">
-                  <label><span>国連番号</span><input id="filterUnNumber" inputmode="numeric" placeholder="例：1992"></label>
+                  <label><span>国連番号</span><input id="filterUnNumber" inputmode="numeric" maxlength="4" pattern="[0-9]{1,4}" placeholder="例：1992"></label>
                   <label><span>等級</span><select id="filterClass"><option value="">すべて</option></select></label>
                   <label><span>副次危険性等級</span><select id="filterSubsidiary"><option value="">すべて</option></select></label>
                   <label><span>容器等級</span><select id="filterPackingGroup"><option value="">すべて</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="-">指定なし</option></select></label>
@@ -94,7 +94,20 @@
                   <label><span>積載方法・隔離コード</span><input id="filterTransportCode" placeholder="例：SW2、SG35"></label>
                 </div>
                 <div class="advanced-search-footer">
-                  <label class="result-limit-label"><span>並び順</span><select id="resultSort"><option value="un-asc">国連番号 昇順</option><option value="un-desc">国連番号 降順</option><option value="name-ja">日本語名順</option><option value="class">等級順</option></select></label>
+                  <label class="result-limit-label"><span>並び順</span><select id="resultSort">
+                    <option value="un-asc">国連番号 昇順</option>
+                    <option value="un-desc">国連番号 降順</option>
+                    <option value="name-ja-asc">日本語名 昇順</option>
+                    <option value="name-ja-desc">日本語名 降順</option>
+                    <option value="name-en-asc">英語名 昇順</option>
+                    <option value="name-en-desc">英語名 降順</option>
+                    <option value="class-asc">等級 昇順</option>
+                    <option value="class-desc">等級 降順</option>
+                    <option value="packing-group-asc">容器等級 I→III</option>
+                    <option value="packing-group-desc">容器等級 III→I</option>
+                    <option value="subsidiary-asc">副次危険性等級 昇順</option>
+                    <option value="subsidiary-desc">副次危険性等級 降順</option>
+                  </select></label>
                   <label class="result-limit-label"><span>表示件数</span><select id="resultLimit"><option value="40">40件</option><option value="100">100件</option><option value="200">200件</option><option value="all">すべて</option></select></label>
                   <button id="applyAdvancedSearch" type="submit">詳細条件で検索</button>
                 </div>
@@ -105,7 +118,7 @@
         </section>
 
         <div class="search-meta-row">
-          <strong id="resultCount">検索結果</strong>
+          <strong id="resultCount" role="status" aria-live="polite">検索結果</strong>
           <div>
             <button id="favoriteFilter" class="filter-button" type="button">☆ お気に入り</button>
             <button id="historyButton" class="filter-button" type="button">履歴</button>
@@ -134,7 +147,8 @@
   <script src="../assets/js/storage.js?v=261"></script>
   <script src="../assets/js/ems-resolver.js"></script>
   <script src="../assets/js/label-resolver.js?v=261"></script>
-  <script src="../assets/js/search-dashboard.js?v=261"></script>
+  <script src="../data/hazard-class-master.js?v=280"></script>
+  <script src="../assets/js/search-dashboard.js?v=280"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>

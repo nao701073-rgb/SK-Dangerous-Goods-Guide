@@ -1,10 +1,10 @@
 {
-  "version": "Part 263",
-  "part": 262,
+  "version": "0.281.0",
+  "part": 281,
   "releaseType": "trial-operation-candidate",
   "generatedAt": "2026-07-28",
-  "fileCount": 1087,
-  "totalBytes": 134777216,
+  "fileCount": 1118,
+  "totalBytesExcludingManifestAndChecksum": 134912829,
   "countsByExtension": {
     ".conf": 1,
     ".css": 41,
@@ -13,9 +13,9 @@
     ".example": 3,
     ".html": 54,
     ".jpg": 194,
-    ".js": 115,
-    ".json": 85,
-    ".md": 264,
+    ".js": 117,
+    ".json": 97,
+    ".md": 282,
     ".mjs": 2,
     ".pdf": 6,
     ".png": 193,
@@ -24,15 +24,14 @@
     ".yml": 1,
     "[none]": 1
   },
-  "qaReport": "docs/Part 263_総合検証レポート.json",
+  "qaReport": "docs/0.281.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS.txt",
   "notes": [
-    "等級プルダウンを類別一括検索と個別等級にグループ化",
-    "等級4・5・6の一括検索を視覚的に明確化",
-    "利用者向け表記を等級に統一",
-    "副次危険性等級の限定選択肢を維持"
+    "ホーム画面の主要機能説明を更新",
+    "申請番号管理カードの説明を簡潔化",
+    "表示文言と実装機能の整合性を改善"
   ],
+  "releasedAt": "2026-07-28",
   "updatedAt": "2026-07-28",
-  "summary": "等級・副次危険性等級の検索仕様とリリース情報を全体統一",
-  "releasedAt": "2026-07-28"
+  "summary": "ホーム画面のシステム説明を主要機能に合わせて更新し、申請番号管理カードの説明を簡潔な表現へ統一した。"
 }

@@ -1,6 +1,6 @@
 {
   "systemName": "検査・検品業務サポートシステム",
-  "version": "0.269.0",
+  "version": "0.279.0",
   "offline": true,
   "modules": [
     {
@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part268-application-dashboard-history-duplicate",
+  "build": "part279-search-result-quick-actions",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -250,21 +250,13 @@
     "connectionSetupPage": true
   },
   "hazardClassSearch": {
-    "primaryLabel": "等級",
-    "groupFilters": {
-      "4": [
-        "4.1",
-        "4.2",
-        "4.3"
-      ],
-      "5": [
-        "5.1",
-        "5.2"
-      ],
-      "6": [
-        "6.1",
-        "6.2"
-      ]
+    "master": "data/hazard-class-master.js",
+    "groupLabels": {
+      "1": "1．火薬類（1.1～1.6）",
+      "2": "2．高圧ガス（2.1～2.3）",
+      "4": "4．可燃性物質類（4.1～4.3）",
+      "5": "5．酸化性物質類（5.1～5.2）",
+      "6": "6．毒物類（6.1～6.2）"
     },
     "subsidiaryAllowed": [
       "1",
@@ -276,8 +268,6 @@
       "5.1",
       "6.1",
       "8"
-    ],
-    "class1SubsidiaryLabel": "1",
-    "multipleSubsidiarySeparator": "/"
+    ]
   }
 }

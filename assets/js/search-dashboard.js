@@ -38,6 +38,7 @@
   const SEARCH_STATE_KEY = "issDangerousGoodsSearchStateV1";
   const SEARCH_PRESET_KEY = "issDangerousGoodsSearchPresetsV1";
   let lastMatchedRows = [];
+  let lastRenderedCount = 0;
   const searchIndex = new WeakMap();
 
   function buildSearchIndex(item) {
@@ -205,49 +206,17 @@
     return /^(?:1\.[1-6]|2\.[1-3]|3|4\.[1-3]|5\.[12]|6\.[12]|7|8|9)$/.test(normalized);
   };
 
-  const classOptionLabels = {
-    "1": "1．火薬類（1.1～1.6）",
-    "1.1": "1.1 火薬類",
-    "1.2": "1.2 火薬類",
-    "1.3": "1.3 火薬類",
-    "1.4": "1.4 火薬類",
-    "1.5": "1.5 火薬類",
-    "1.6": "1.6 火薬類",
-    "2": "2．高圧ガス（2.1～2.3）",
-    "2.1": "2.1 引火性高圧ガス",
-    "2.2": "2.2 非引火性・非毒性高圧ガス",
-    "2.3": "2.3 毒性高圧ガス",
-    "3": "3 引火性液体類",
-    "4": "4 可燃性物質類（4.1～4.3）",
-    "4.1": "4.1 可燃性物質",
-    "4.2": "4.2 自然発火性物質",
-    "4.3": "4.3 水反応可燃性物質",
-    "5": "5 酸化性物質類（5.1～5.2）",
-    "5.1": "5.1 酸化性物質",
-    "5.2": "5.2 有機過酸化物",
-    "6": "6 毒物類（6.1～6.2）",
-    "6.1": "6.1 毒物",
-    "6.2": "6.2 病毒をうつしやすい物質",
-    "7": "7 放射性物質",
-    "8": "8 腐食性物質",
-    "9": "9 有害性物質"
-  };
-
-  // 他の詳細検索項目と同じ通常のプルダウン形式で表示する。
-  // 4・5・6は各区分の一括検索、4.1～6.2は個別検索として同じ一覧に並べる。
-  const primaryClassOptions = [
-    "1", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6",
-    "2", "2.1", "2.2", "2.3",
-    "3", "4", "4.1", "4.2", "4.3",
-    "5", "5.1", "5.2",
-    "6", "6.1", "6.2",
-    "7", "8", "9"
-  ].map(value => ({ value, label: classOptionLabels[value] }));
-
-  // 国内法令上、副次危険性等級として実在する選択肢だけを表示する。
-  // 火薬類の副標札は区分1.1～1.6を分けず、共通の「1」1種類とする。
-  const subsidiaryClassOptions = ["1", "2.1", "3", "4.1", "4.2", "4.3", "5.1", "6.1", "8"]
-    .map(value => ({ value, label: classOptionLabels[value] }));
+  const hazardClassMaster = window.HAZARD_CLASS_MASTER || {};
+  const classOptionLabels = hazardClassMaster.labels || {};
+  const primaryClassOptions = hazardClassMaster.options
+    ? hazardClassMaster.options(hazardClassMaster.primaryValues || [])
+    : [];
+  const subsidiaryClassOptions = hazardClassMaster.options
+    ? hazardClassMaster.options(hazardClassMaster.subsidiaryValues || []).map(option => ({
+        ...option,
+        label: option.value === "1" ? "1．火薬類" : option.label
+      }))
+    : [];
 
   const populateClassSelect = (select, options) => {
     select.insertAdjacentHTML("beforeend", options.map(option =>
@@ -309,37 +278,73 @@
 
   function renderActiveConditions(conditions) {
     const labels = [];
-    const add = (label, value, display = value) => { if (value) labels.push(`${label}: ${display}`); };
-    add("キーワード", conditions.query);
-    add("国連番号", conditions.unNumber);
-    add("等級", conditions.class, conditions.class ? formatClassFilterLabel(conditions.class) : "");
-    add("副次危険性等級", conditions.subsidiary, conditions.subsidiary ? formatClassFilterLabel(conditions.subsidiary) : "");
-    add("容器等級", conditions.packingGroup);
-    add("海洋汚染物質", conditions.marine, conditions.marine === "yes" ? "別表第1にP表記あり" : "別表第1にP表記なし");
-    add("少量危険物", conditions.limited, conditions.limited === "yes" ? "規定あり" : "規定なし");
-    add("微量危険物", conditions.excepted, conditions.excepted === "yes" ? "規定あり" : "規定なし");
-    add("包装・容器コード", conditions.packingCode);
-    add("備考・特別規定", conditions.specialProvision);
-    add("EmS", conditions.ems);
-    add("積載方法・隔離", conditions.transportCode);
+    const add = (key, label, value, display = value) => {
+      if (value) labels.push({ key, text: `${label}: ${display}` });
+    };
+    add("query", "キーワード", conditions.query);
+    add("unNumber", "国連番号", conditions.unNumber);
+    add("class", "等級", conditions.class, conditions.class ? formatClassFilterLabel(conditions.class) : "");
+    add("subsidiary", "副次危険性等級", conditions.subsidiary, conditions.subsidiary ? formatClassFilterLabel(conditions.subsidiary) : "");
+    add("packingGroup", "容器等級", conditions.packingGroup);
+    add("marine", "海洋汚染物質", conditions.marine, conditions.marine === "yes" ? "別表第1にP表記あり" : "別表第1にP表記なし");
+    add("limited", "少量危険物", conditions.limited, conditions.limited === "yes" ? "規定あり" : "規定なし");
+    add("excepted", "微量危険物", conditions.excepted, conditions.excepted === "yes" ? "規定あり" : "規定なし");
+    add("packingCode", "包装・容器コード", conditions.packingCode);
+    add("specialProvision", "備考・特別規定", conditions.specialProvision);
+    add("ems", "EmS", conditions.ems);
+    add("transportCode", "積載方法・隔離", conditions.transportCode);
     if (conditions.resultSort && conditions.resultSort !== "un-asc") {
-      const sortLabels = { "un-desc": "国連番号 降順", "name-ja": "日本語名順", "class": "等級順" };
-      add("並び順", conditions.resultSort, sortLabels[conditions.resultSort] || conditions.resultSort);
+      const sortLabels = {
+        "un-desc": "国連番号 降順",
+        "name-ja-asc": "日本語名 昇順",
+        "name-ja-desc": "日本語名 降順",
+        "name-en-asc": "英語名 昇順",
+        "name-en-desc": "英語名 降順",
+        "class-asc": "等級 昇順",
+        "class-desc": "等級 降順",
+        "packing-group-asc": "容器等級 I→III",
+        "packing-group-desc": "容器等級 III→I",
+        "subsidiary-asc": "副次危険性等級 昇順",
+        "subsidiary-desc": "副次危険性等級 降順"
+      };
+      add("resultSort", "並び順", conditions.resultSort, sortLabels[conditions.resultSort] || conditions.resultSort);
     }
 
     activeConditions.hidden = labels.length === 0;
     activeConditions.innerHTML = labels.length
-      ? `<strong>適用中の条件</strong><div>${labels.map(label => `<span>${escapeHtml(label)}</span>`).join("")}</div>`
+      ? `<strong>適用中の条件</strong><div>${labels.map(item => `<button type="button" class="condition-chip" data-clear-condition="${escapeHtml(item.key)}" title="この条件を解除">${escapeHtml(item.text)}<span aria-hidden="true">×</span></button>`).join("")}</div>`
       : "";
+  }
+
+  function clearSingleCondition(key) {
+    if (key === "query") input.value = "";
+    else if (fields[key]) fields[key].value = key === "resultSort" ? "un-asc" : key === "resultLimit" ? "40" : "";
+    render();
   }
 
   function sortRows(rows, mode) {
     const copy = [...rows];
     const unValue = item => Number(String(item.unNumber || "").replace(/\D/g, "")) || 0;
+    const jaName = item => String(item.properShippingNameJa || "");
+    const enName = item => String(item.properShippingName || "");
+    const classValue = item => normalizeClassValue(item.class);
+    const subsidiaryValue = item => parseSubsidiaryRiskCodes(item.subsidiaryRisk).join("/");
+    const packingRank = item => ({ I: 1, II: 2, III: 3, "-": 9, "": 9 })[String(item.packingGroup || "-").trim()] ?? 9;
+    const byUnAsc = (a, b) => unValue(a) - unValue(b);
+    const compareText = (a, b, locale = "ja") => a.localeCompare(b, locale, { numeric: true, sensitivity: "base" });
+
     if (mode === "un-desc") return copy.sort((a, b) => unValue(b) - unValue(a));
-    if (mode === "name-ja") return copy.sort((a, b) => String(a.properShippingNameJa || "").localeCompare(String(b.properShippingNameJa || ""), "ja"));
-    if (mode === "class") return copy.sort((a, b) => normalizeClassValue(a.class).localeCompare(normalizeClassValue(b.class), "ja", { numeric: true }) || unValue(a) - unValue(b));
-    return copy.sort((a, b) => unValue(a) - unValue(b));
+    if (mode === "name-ja" || mode === "name-ja-asc") return copy.sort((a, b) => compareText(jaName(a), jaName(b), "ja") || byUnAsc(a, b));
+    if (mode === "name-ja-desc") return copy.sort((a, b) => compareText(jaName(b), jaName(a), "ja") || byUnAsc(a, b));
+    if (mode === "name-en-asc") return copy.sort((a, b) => compareText(enName(a), enName(b), "en") || byUnAsc(a, b));
+    if (mode === "name-en-desc") return copy.sort((a, b) => compareText(enName(b), enName(a), "en") || byUnAsc(a, b));
+    if (mode === "class" || mode === "class-asc") return copy.sort((a, b) => compareText(classValue(a), classValue(b)) || byUnAsc(a, b));
+    if (mode === "class-desc") return copy.sort((a, b) => compareText(classValue(b), classValue(a)) || byUnAsc(a, b));
+    if (mode === "packing-group-asc") return copy.sort((a, b) => packingRank(a) - packingRank(b) || byUnAsc(a, b));
+    if (mode === "packing-group-desc") return copy.sort((a, b) => packingRank(b) - packingRank(a) || byUnAsc(a, b));
+    if (mode === "subsidiary-asc") return copy.sort((a, b) => compareText(subsidiaryValue(a), subsidiaryValue(b)) || byUnAsc(a, b));
+    if (mode === "subsidiary-desc") return copy.sort((a, b) => compareText(subsidiaryValue(b), subsidiaryValue(a)) || byUnAsc(a, b));
+    return copy.sort(byUnAsc);
   }
 
   function readPresets() {
@@ -402,36 +407,67 @@
     renderActiveConditions(conditions);
 
     if (!rows.length) {
-      root.innerHTML = '<div class="panel"><div class="panel-body">該当する危険物がありません。条件を変更して再検索してください。</div></div>';
+      const restrictiveKeys = ["unNumber", "class", "subsidiary", "packingGroup", "marine", "limited", "excepted", "packingCode", "specialProvision", "ems", "transportCode"];
+      const hasAdvancedConditions = restrictiveKeys.some(key => Boolean(conditions[key]));
+      root.innerHTML = `
+        <div class="panel no-results-panel" role="status" aria-live="polite">
+          <div class="panel-body">
+            <h2>該当する危険物がありません</h2>
+            <p>入力内容や絞り込み条件を確認してください。複数の詳細条件を指定している場合は、一部を解除すると見つかることがあります。</p>
+            <div class="no-results-actions">
+              ${hasAdvancedConditions ? '<button type="button" data-no-result-action="clear-advanced">詳細条件だけ解除</button>' : ''}
+              <button type="button" class="advanced-reset" data-no-result-action="clear-all">すべての条件を解除</button>
+            </div>
+          </div>
+        </div>`;
+      saveSearchState();
       return;
     }
 
+    lastRenderedCount = rows.length;
     root.innerHTML = rows.map(item => {
       const ems = window.EMSResolver?.resolve(item) || {};
       const label = window.LabelResolver?.resolvePrimary(item);
       const marineLabel = window.LabelResolver?.resolveMarinePollutant(item);
+      const favorite = Boolean(window.ISSStorage?.isFavorite(item.unNumber));
+      const detailUrl = `dangerous-goods-detail.html?un=${encodeURIComponent(item.unNumber)}&pg=${encodeURIComponent(item.packingGroup || "")}&row=${encodeURIComponent(item.sourceRow || "")}`;
       return `
-        <a class="result-card" href="dangerous-goods-detail.html?un=${encodeURIComponent(item.unNumber)}&pg=${encodeURIComponent(item.packingGroup || "")}&row=${encodeURIComponent(item.sourceRow || "")}">
-          <div class="result-label-stack">
-            <div class="result-label result-label--image">
-              ${label ? `<img src="${escapeHtml(label.src)}" alt="${escapeHtml(label.nameJa)}">` : `<span>${escapeHtml(item.class || "—")}</span>`}
+        <article class="result-card" data-un-number="${escapeHtml(item.unNumber)}">
+          <a class="result-card__main" href="${detailUrl}">
+            <div class="result-label-stack">
+              <div class="result-label result-label--image">
+                ${label ? `<img src="${escapeHtml(label.src)}" alt="${escapeHtml(label.nameJa)}">` : `<span>${escapeHtml(item.class || "—")}</span>`}
+              </div>
+              ${marineLabel ? `<div class="result-label result-label--image result-label--secondary"><img src="${escapeHtml(marineLabel.src)}" alt="${escapeHtml(marineLabel.nameJa)}"></div>` : ""}
             </div>
-            ${marineLabel ? `<div class="result-label result-label--image result-label--secondary"><img src="${escapeHtml(marineLabel.src)}" alt="${escapeHtml(marineLabel.nameJa)}"></div>` : ""}
+            <div>
+              <span class="result-un">国連番号 ${escapeHtml(item.unNumber)}</span>
+              <h2>${escapeHtml(item.properShippingNameJa || "日本語名未登録")}</h2>
+              <p>${escapeHtml(item.properShippingName || "")}</p>
+            </div>
+            <div class="result-facts">
+              <div class="result-fact"><span>等級</span><strong>${escapeHtml(item.class || "—")}</strong></div>
+              <div class="result-fact"><span>容器等級</span><strong>${escapeHtml(item.packingGroup || "—")}</strong></div>
+              <div class="result-fact"><span>副次危険性等級</span><strong>${escapeHtml(formatSubsidiaryRisk(item.subsidiaryRisk))}</strong></div>
+              <div class="result-fact"><span>EmS</span><strong>${escapeHtml(ems.combinedCode || "—")}</strong></div>
+            </div>
+          </a>
+          <div class="result-card__actions" aria-label="国連番号${escapeHtml(item.unNumber)}の操作">
+            <button type="button" data-result-action="favorite" aria-pressed="${favorite}" title="お気に入りを切り替える">${favorite ? "★ お気に入り済み" : "☆ お気に入り"}</button>
+            <button type="button" data-result-action="copy" title="国連番号をコピー">国連番号をコピー</button>
           </div>
-          <div>
-            <span class="result-un">国連番号 ${escapeHtml(item.unNumber)}</span>
-            <h2>${escapeHtml(item.properShippingNameJa || "日本語名未登録")}</h2>
-            <p>${escapeHtml(item.properShippingName || "")}</p>
-          </div>
-          <div class="result-facts">
-            <div class="result-fact"><span>等級</span><strong>${escapeHtml(item.class || "—")}</strong></div>
-            <div class="result-fact"><span>容器等級</span><strong>${escapeHtml(item.packingGroup || "—")}</strong></div>
-            <div class="result-fact"><span>副次危険性等級</span><strong>${escapeHtml(formatSubsidiaryRisk(item.subsidiaryRisk))}</strong></div>
-            <div class="result-fact"><span>EmS</span><strong>${escapeHtml(ems.combinedCode || "—")}</strong></div>
-          </div>
-        </a>`;
+        </article>`;
     }).join("");
     saveSearchState();
+  }
+
+
+  function clearAdvancedConditions() {
+    Object.entries(fields).forEach(([key, field]) => {
+      if (!field || ["resultLimit", "resultSort"].includes(key)) return;
+      field.value = "";
+    });
+    render();
   }
 
   function resetSearch() {
@@ -453,11 +489,16 @@
       mode: "advanced",
       query: input.value,
       conditions: currentConditions(),
-      resultCount: root.querySelectorAll(".result-card").length
+      resultCount: lastMatchedRows.length
     });
   });
 
   input.addEventListener("input", render);
+  fields.unNumber?.addEventListener("input", () => {
+    const normalized = fields.unNumber.value.normalize("NFKC").replace(/\D/g, "").slice(0, 4);
+    if (fields.unNumber.value !== normalized) fields.unNumber.value = normalized;
+    render();
+  });
   Object.values(fields).forEach(field => field?.addEventListener("change", render));
 
   advancedToggle.addEventListener("click", () => {
@@ -470,6 +511,12 @@
 
   resetButton.addEventListener("click", resetSearch);
 
+  activeConditions.addEventListener("click", event => {
+    const button = event.target.closest("[data-clear-condition]");
+    if (!button) return;
+    clearSingleCondition(button.dataset.clearCondition);
+  });
+
   favoriteFilter.addEventListener("click", () => {
     favoritesOnly = !favoritesOnly;
     favoriteFilter.textContent = favoritesOnly ? "★ お気に入りのみ" : "☆ お気に入り";
@@ -477,8 +524,42 @@
   });
 
   root.addEventListener("click", event => {
-    const card = event.target.closest("a.result-card");
-    if (!card) return;
+    const actionButton = event.target.closest("[data-no-result-action]");
+    if (actionButton) {
+      if (actionButton.dataset.noResultAction === "clear-advanced") clearAdvancedConditions();
+      else if (actionButton.dataset.noResultAction === "clear-all") resetSearch();
+      return;
+    }
+    const action = event.target.closest("[data-result-action]");
+    if (action) {
+      const card = action.closest(".result-card");
+      const unNumber = card?.dataset.unNumber || "";
+      const item = data.find(row => String(row.unNumber) === String(unNumber));
+      if (!item) return;
+      if (action.dataset.resultAction === "favorite") {
+        const added = window.ISSStorage?.toggleFavorite(item);
+        action.setAttribute("aria-pressed", String(Boolean(added)));
+        action.textContent = added ? "★ お気に入り済み" : "☆ お気に入り";
+        if (favoritesOnly && !added) render();
+      } else if (action.dataset.resultAction === "copy") {
+        const text = `UN${String(item.unNumber || "").padStart(4, "0")}`;
+        const copy = navigator.clipboard?.writeText ? navigator.clipboard.writeText(text) : Promise.reject(new Error("clipboard unavailable"));
+        copy.then(() => {
+          action.textContent = "コピーしました";
+          setTimeout(() => { action.textContent = "国連番号をコピー"; }, 1400);
+        }).catch(() => {
+          const area = document.createElement("textarea");
+          area.value = text; area.setAttribute("readonly", ""); area.style.position = "fixed"; area.style.opacity = "0";
+          document.body.appendChild(area); area.select();
+          const ok = document.execCommand("copy"); area.remove();
+          action.textContent = ok ? "コピーしました" : "コピーできませんでした";
+          setTimeout(() => { action.textContent = "国連番号をコピー"; }, 1400);
+        });
+      }
+      return;
+    }
+    const cardLink = event.target.closest("a.result-card__main");
+    if (!cardLink) return;
     saveSearchState({ scrollY: window.scrollY || 0 });
   });
 
