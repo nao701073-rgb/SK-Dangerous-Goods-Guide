@@ -7,6 +7,7 @@
   const roleBadge = $("currentRoleBadge"), officeSummary = $("officeSummary"), statusSummary = $("applicationStatusSummary"), editingId = $("editingApplicationId");
   const submitButton = $("applicationSubmitButton"), cancelEditButton = $("applicationEditCancel");
   const savedViewSelect = $("savedApplicationView"), displaySettings = $("applicationDisplaySettings");
+  const unCandidatePanel = $("unCandidatePanel"), unCandidateSelect = $("unCandidateSelect"), unCandidatePreview = $("unCandidatePreview"), unCandidateMessage = $("unCandidateMessage");
   const VIEW_KEY = "iss-application-saved-views-v1", DISPLAY_KEY = "iss-application-display-v1";
   const fields = {
     year: $("applicationYear"), mode: $("applicationNumberMode"), number: $("applicationNumber"), tempNumber: $("temporaryApplicationNumber"),
@@ -36,6 +37,34 @@
   function renderSavedViews(){if(!savedViewSelect)return;const selected=savedViewSelect.value;savedViewSelect.innerHTML='<option value="">保存した表示条件</option>'+getSavedViews().map(v=>`<option value="${escapeHtml(v.id)}">${escapeHtml(v.name)}</option>`).join("")+ (getSavedViews().length?'<option value="__delete__">選択中の条件を削除…</option>':'');if([...savedViewSelect.options].some(o=>o.value===selected))savedViewSelect.value=selected;}
   function currentViewState(){return {query:filter.value,status:statusFilter.value,year:yearFilter.value,sort:sortSelect.value,scope:scopeSelect.value,office:officeFilter.value};}
   function applyViewState(state){if(!state)return;filter.value=state.query||"";statusFilter.value=state.status||"";sortSelect.value=state.sort||"updated-desc";if(window.ISSStorage.isSafetyEnvironment()){scopeSelect.value=state.scope||scopeSelect.value;officeFilter.disabled=scopeSelect.value!=="all";officeFilter.value=state.office||officeFilter.value;}render();if(state.year&&[...yearFilter.options].some(o=>o.value===state.year)){yearFilter.value=state.year;render();}}
+
+
+  const allowedSubsidiaryClasses = new Set(["1","2.1","3","4.1","4.2","4.3","5.1","6.1","8"]);
+  const normalizeUnNumber = value => String(value||"").replace(/\D/g,"").padStart(4,"0").slice(-4);
+  const normalizeSubsidiary = value => String(value||"").split("/").map(v=>v.trim()).filter(Boolean).map(v=>/^1(?:\.[1-6])?$/.test(v)?"1":v).filter(v=>allowedSubsidiaryClasses.has(v)).filter((v,i,a)=>a.indexOf(v)===i);
+  function getUnCandidates(){
+    const un=normalizeUnNumber(fields.unNumber.value);
+    if(!/^\d{4}$/.test(un))return [];
+    return (window.UN_DATABASE||[]).filter(row=>String(row.unNumber||"").padStart(4,"0")===un);
+  }
+  function renderUnCandidate(){
+    const rows=getUnCandidates();
+    if(!rows.length){unCandidatePanel.hidden=false;unCandidateSelect.innerHTML="";unCandidatePreview.innerHTML='<p class="empty-state-inline">該当する候補が見つかりませんでした。</p>';unCandidateMessage.textContent="";return;}
+    unCandidatePanel.hidden=false;
+    unCandidateSelect.innerHTML=rows.map((row,index)=>`<option value="${index}">${escapeHtml(row.properShippingNameJa||row.properShippingName||`UN${row.unNumber}`)}${row.packingGroup&&row.packingGroup!=="-"?`／容器等級${escapeHtml(row.packingGroup)}`:""}</option>`).join("");
+    const update=()=>{const row=rows[Number(unCandidateSelect.value)||0];const subs=normalizeSubsidiary(row.subsidiaryRisk);unCandidatePreview.innerHTML=`<dl><div><dt>日本語名</dt><dd>${escapeHtml(row.properShippingNameJa||"―")}</dd></div><div><dt>英語名</dt><dd>${escapeHtml(row.properShippingName||"―")}</dd></div><div><dt>等級</dt><dd>${escapeHtml(row.class||"―")}</dd></div><div><dt>副次危険性等級</dt><dd>${escapeHtml(subs.join("/")||"―")}</dd></div><div><dt>容器等級</dt><dd>${escapeHtml(row.packingGroup&&row.packingGroup!=="-"?row.packingGroup:"―")}</dd></div></dl>`;};
+    unCandidateSelect.onchange=update;update();unCandidateMessage.textContent=`${rows.length}件の候補があります。`;
+  }
+  function applyUnCandidate(){
+    const rows=getUnCandidates(), row=rows[Number(unCandidateSelect.value)||0];if(!row)return;
+    const enabled=name=>document.querySelector(`[data-un-apply="${name}"]`)?.checked;
+    if(enabled("japaneseName"))fields.japaneseName.value=row.properShippingNameJa||"";
+    if(enabled("englishName"))fields.englishName.value=row.properShippingName||"";
+    if(enabled("hazardClass"))fields.hazardClass.value=row.class||"";
+    if(enabled("subsidiary")){const values=normalizeSubsidiary(row.subsidiaryRisk);[...fields.subsidiary.options].forEach(option=>option.selected=values.includes(option.value));}
+    if(enabled("packingGroup"))fields.packingGroup.value=row.packingGroup&&row.packingGroup!=="-"?row.packingGroup:"";
+    unCandidateMessage.textContent="選択した項目を反映しました。";
+  }
 
   function toggleNumberMode(){ const temp=fields.mode.value==="temporary"; $("officialApplicationNumberField").hidden=temp; $("temporaryApplicationNumberField").hidden=!temp; fields.number.required=!temp; }
   function populateOrganizationControls(){
@@ -107,5 +136,9 @@
   $("resetApplicationDisplaySettings").onclick=()=>{saveDisplaySettings(defaultDisplaySettings);applyDisplaySettingsToControls();render();};
   $("saveApplicationView").onclick=()=>{const name=prompt("この表示条件の名前を入力してください。例：自分の対応中案件");if(!name?.trim())return;const views=getSavedViews();views.push({id:`view-${Date.now()}`,name:name.trim(),state:currentViewState()});setSavedViews(views);showMessage("表示条件を保存しました。");};
   savedViewSelect.onchange=()=>{if(savedViewSelect.value==="__delete__"){const views=getSavedViews();const names=views.map((v,index)=>`${index+1}. ${v.name}`).join("\n");const selected=prompt(`削除する番号を入力してください。\n${names}`);const index=Number(selected)-1;if(Number.isInteger(index)&&views[index]){views.splice(index,1);setSavedViews(views);}else renderSavedViews();return;}const view=getSavedViews().find(v=>v.id===savedViewSelect.value);if(view)applyViewState(view.state);};
+  $("lookupUnData").onclick=renderUnCandidate;
+  $("closeUnCandidate").onclick=()=>{unCandidatePanel.hidden=true;};
+  $("applyUnCandidate").onclick=applyUnCandidate;
+  fields.unNumber.addEventListener("blur",()=>{if(/^\d{4}$/.test(fields.unNumber.value.trim()))renderUnCandidate();});
   populateOrganizationControls();applyDisplaySettingsToControls();renderSavedViews();resetEditMode();render();
 })();

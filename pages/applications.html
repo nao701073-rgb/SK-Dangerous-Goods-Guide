@@ -103,15 +103,31 @@
         <label>コンテナ番号<input id="containerNumber" placeholder="任意"></label>
         <label>船名<input id="vesselName" placeholder="任意"></label>
         <label>航海番号<input id="voyageNumber" placeholder="任意"></label>
-        <label>国連番号<input id="unNumber" inputmode="numeric" maxlength="4" placeholder="任意・例：2218"></label>
+        <label class="un-number-field">国連番号
+          <div class="inline-input-action"><input id="unNumber" inputmode="numeric" maxlength="4" placeholder="任意・例：2218"><button id="lookupUnData" type="button">候補を表示</button></div>
+          <small class="field-help">4桁の国連番号から、日本語名・英語名・等級・副次危険性等級・容器等級を候補表示します。</small>
+        </label>
+        <div id="unCandidatePanel" class="application-form__wide un-candidate-panel" hidden>
+          <div class="un-candidate-panel__heading"><strong>危険物データベースの候補</strong><button id="closeUnCandidate" type="button">閉じる</button></div>
+          <label>候補<select id="unCandidateSelect"></select></label>
+          <div id="unCandidatePreview" class="un-candidate-preview"></div>
+          <div class="un-candidate-options">
+            <label><input type="checkbox" data-un-apply="japaneseName" checked> 日本語名</label>
+            <label><input type="checkbox" data-un-apply="englishName" checked> 英語名</label>
+            <label><input type="checkbox" data-un-apply="hazardClass" checked> 等級</label>
+            <label><input type="checkbox" data-un-apply="subsidiary" checked> 副次危険性等級</label>
+            <label><input type="checkbox" data-un-apply="packingGroup" checked> 容器等級</label>
+          </div>
+          <div class="form-actions"><button id="applyUnCandidate" class="primary-action" type="button">選択した項目を反映</button><span id="unCandidateMessage" class="form-message"></span></div>
+        </div>
         <label>日本語名<input id="japaneseName" placeholder="任意"></label>
         <label>英語名<input id="englishName" placeholder="任意"></label>
         <label>
           等級
           <select id="hazardClass">
             <option value="">未入力</option>
-            <option value="1">1 火薬類</option>
-            <option value="2">2 高圧ガス</option>
+            <option value="1">1．火薬類（1.1～1.6）</option>
+            <option value="2">2．高圧ガス（2.1～2.3）</option>
             <option value="4">4 可燃性物質類</option>
             <option value="5">5 酸化性物質類</option>
             <option value="6">6 毒物類</option>
@@ -621,9 +637,10 @@
   </main>
 
   <script src="../data/organization-master.js"></script>
+  <script src="../data/un-data.js"></script>
   <script src="../assets/js/organization.js"></script>
   <script src="../assets/js/storage.js?v=269"></script>
-  <script src="../assets/js/applications.js?v=269"></script>
+  <script src="../assets/js/applications.js?v=272"></script>
   <script src="../assets/js/application-documents.js?v=269"></script>
   <script src="../assets/js/photos.js?v=178"></script>
   <script src="../assets/js/system-shell.js"></script>

@@ -464,3 +464,6 @@
   .application-display-settings label { width: calc(50% - .5rem); }
   .application-display-settings button { width: 100%; }
 }
+
+/* Part 273: 申請番号管理・等級表記統一 */
+.inline-input-action{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;align-items:center}.inline-input-action button{white-space:nowrap}.un-candidate-panel{border:1px solid #b7cde7;background:#f7fbff;border-radius:12px;padding:1rem;display:grid;gap:.8rem}.un-candidate-panel__heading{display:flex;justify-content:space-between;gap:1rem;align-items:center}.un-candidate-preview dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.5rem;margin:0}.un-candidate-preview dl>div{background:#fff;border:1px solid #d8e4f1;border-radius:8px;padding:.65rem}.un-candidate-preview dt{font-size:.78rem;color:#536b82}.un-candidate-preview dd{margin:.2rem 0 0;font-weight:600;overflow-wrap:anywhere}.un-candidate-options{display:flex;flex-wrap:wrap;gap:.6rem 1rem}.un-candidate-options label{display:flex;align-items:center;gap:.35rem}.empty-state-inline{margin:0;color:#66788a}@media(max-width:720px){.inline-input-action{grid-template-columns:1fr}.inline-input-action button{width:100%}.un-candidate-panel__heading{align-items:flex-start}.un-candidate-preview dl{grid-template-columns:1fr}}
