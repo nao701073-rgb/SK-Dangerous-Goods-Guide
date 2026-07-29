@@ -1,15 +1,15 @@
 {
-  "version": "0.358.0",
-  "part": 358,
+  "version": "0.360.0",
+  "part": 360,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-07-29",
-  "fileCount": 1305,
-  "totalBytesExcludingManifestAndChecksum": 144673437,
-  "qaReport": "docs/0.358.0_総合検証レポート.json",
+  "fileCount": 1309,
+  "totalBytesExcludingManifestAndChecksum": 144696292,
+  "qaReport": "docs/0.360.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 358_更新内容.md",
+  "notes": "docs/Part 360_更新内容.md",
   "releasedAt": "2026-07-29",
   "updatedAt": "2026-07-29",
-  "summary": "AI要約の注意書きを指定文言へ正確に統一し、完全一致の回帰検証を追加した。",
-  "build": "part358-exact-ai-summary-caution-copy"
+  "summary": "システム設定内に管理者向けの利用者簡易登録と初期パスワード自動生成を追加した。",
+  "build": "part360-system-settings-quick-user-registration"
 }

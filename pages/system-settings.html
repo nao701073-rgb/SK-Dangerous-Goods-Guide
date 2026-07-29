@@ -120,6 +120,36 @@
 </div>
 </div>
 </section>
+<section class="panel" data-roles="office-admin,safety-environment-admin" id="quickUserRegistrationPanel">
+<div class="panel-heading"><h2>利用者アカウントの簡易登録</h2></div>
+<div class="panel-body settings-list">
+<p class="settings-note">管理者がログインID、利用者名、権限、所属を入力して登録できます。初期パスワードは自動生成でき、初回ログイン時に利用者本人が変更します。</p>
+<form id="quickUserRegistrationForm" class="quick-user-form">
+<label><span>ログインID</span><input id="quickLoginId" required pattern="[A-Za-z0-9._-]{3,100}" autocomplete="off" placeholder="例：kawasaki.suzuki"></label>
+<label><span>利用者名</span><input id="quickDisplayName" required autocomplete="name" placeholder="例：鈴木 一郎"></label>
+<label><span>権限</span><select id="quickRole" required>
+<option value="office-user">事業所利用者</option>
+<option value="office-admin">事業所管理者</option>
+<option value="safety-environment-staff">安全環境室職員</option>
+<option value="safety-environment-director">安全環境室長</option>
+<option value="safety-environment-admin">システム管理者</option>
+<option value="validator">検証者</option>
+<option value="guest">ゲスト</option>
+</select></label>
+<label><span>所属事業所・部署</span><select id="quickOfficeId" required></select></label>
+<label><span>メールアドレス（任意）</span><input id="quickEmail" type="email" autocomplete="email" placeholder="user@example.co.jp"></label>
+<label class="quick-password-field"><span>初期パスワード</span><span class="quick-password-control"><input id="quickInitialPassword" type="text" required minlength="12" autocomplete="new-password"><button id="generateQuickPassword" type="button">自動生成</button></span><small>12文字以上。英大文字・英小文字・数字・記号を含む仮パスワードを推奨します。</small></label>
+<label class="quick-password-change"><input id="quickRequirePasswordChange" type="checkbox" checked disabled><span>初回ログイン時にパスワード変更を必須にする</span></label>
+<div class="settings-actions"><button class="primary-action" id="registerQuickUser" type="submit">利用者を登録</button><a class="secondary-action" href="user-admin.html">登録済み利用者を管理</a></div>
+</form>
+<div id="quickUserResult" class="quick-user-result" hidden aria-live="polite">
+<strong>利用者を登録しました</strong>
+<p>初期情報はこの画面を閉じる前に利用者へ安全な方法で伝えてください。</p>
+<dl><div><dt>ログインID</dt><dd id="createdQuickLoginId"></dd></div><div><dt>初期パスワード</dt><dd id="createdQuickPassword"></dd></div></dl>
+<div class="settings-actions"><button class="secondary-action" id="copyQuickCredentials" type="button">ID・初期パスワードをコピー</button><button class="secondary-action" id="clearQuickCredentials" type="button">表示を消去</button></div>
+</div>
+</div>
+</section>
 <section class="panel" data-roles="safety-environment-director">
 <div class="panel-heading"><h2>安全環境室長向けシステム設定</h2></div>
 <div class="panel-body settings-list">
@@ -292,6 +322,7 @@
 <script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=247"></script>
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
+<script src="../assets/js/quick-user-registration.js?v=360"></script>
 <script src="../assets/js/access-url-tools.js?v=289"></script>
 <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/session-guard.js"></script>

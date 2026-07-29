@@ -1233,3 +1233,55 @@ body.is-reference-source-modal-open {
 .reference-card.is-overdue{border-color:#b42318;box-shadow:0 0 0 1px rgba(180,35,24,.16)}
 .reference-procedure-status .is-overdue-text{color:#b42318;font-weight:700}
 .reference-due-button{white-space:nowrap}
+
+
+/* Part 359: refine section heading paragraph positioning */
+.references-page .section-heading {
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.references-page .section-heading > div:first-child {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.references-page .section-heading > div:first-child h2 {
+  margin: 0;
+}
+
+.references-page .section-heading > div:first-child p {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .references-page .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 18px;
+  }
+
+  .references-page .section-heading > div:first-child {
+    align-content: start;
+  }
+
+  .references-page .source-document-link,
+  .references-page .reference-open-link {
+    align-self: start;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 899px) {
+  .references-page .section-heading {
+    display: grid;
+    gap: 12px;
+  }
+
+  .references-page .source-document-link,
+  .references-page .reference-open-link {
+    justify-self: start;
+  }
+}

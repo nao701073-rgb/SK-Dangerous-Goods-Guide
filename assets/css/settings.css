@@ -262,3 +262,20 @@
 
 /* Part 309 */
 .appearance-theme-control{flex-wrap:wrap}.appearance-theme-control button{min-width:78px}.appearance-theme-control button.is-active{background:#0b5cab;color:#fff;border-color:#0b5cab}
+
+/* Part 360: quick user registration in system settings */
+.quick-user-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%}
+.quick-user-form>label{display:grid;gap:7px;color:var(--app-navy);font-size:.76rem;font-weight:800}
+.quick-user-form input,.quick-user-form select{width:100%;min-height:44px;padding:0 11px;border:1px solid var(--app-line);border-radius:8px;background:#fff;color:var(--app-navy);font:inherit}
+.quick-user-form small{color:var(--app-muted);font-size:.68rem;font-weight:500;line-height:1.55}
+.quick-password-field,.quick-user-form .settings-actions,.quick-password-change{grid-column:1/-1}
+.quick-password-control{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.quick-password-control button{min-height:44px;padding:0 14px;border:1px solid var(--app-line);border-radius:8px;background:#fff;color:var(--app-blue);font-weight:800}
+.quick-password-change{display:flex!important;grid-template-columns:auto 1fr!important;align-items:center;gap:9px!important}
+.quick-password-change input{width:20px;min-height:20px}
+.quick-user-result{width:100%;margin-top:16px;padding:16px;border:1px solid #8bbde8;border-radius:10px;background:#f2f8fe;color:var(--app-navy)}
+.quick-user-result>strong{font-size:.95rem}.quick-user-result p{color:var(--app-muted);font-size:.75rem;line-height:1.6}
+.quick-user-result dl{display:grid;gap:8px;margin:12px 0}
+.quick-user-result dl div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:9px 10px;border-radius:7px;background:#fff}
+.quick-user-result dt{font-weight:800}.quick-user-result dd{margin:0;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+@media(max-width:760px){.quick-user-form{grid-template-columns:1fr}.quick-password-field,.quick-user-form .settings-actions,.quick-password-change{grid-column:auto}.quick-password-control{grid-template-columns:1fr}.quick-user-result dl div{grid-template-columns:1fr;gap:3px}}
