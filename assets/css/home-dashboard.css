@@ -375,3 +375,114 @@
     transform: none;
   }
 }
+
+
+/* Part 345: bundled dashboard and regulation-card finishing */
+.module-card__content {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.module-card__content h3,
+.module-card__content p {
+  overflow-wrap: anywhere;
+}
+.module-card__icon {
+  flex: 0 0 auto;
+}
+.module-card .text-button {
+  border-radius: 8px;
+}
+.module-card:not(.is-disabled):focus-within .text-button {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 419px) {
+  .module-card {
+    padding: 20px 18px;
+    gap: 14px;
+  }
+  .module-card__icon {
+    width: 76px;
+    height: 76px;
+  }
+  .module-card__icon > svg {
+    width: 58px;
+    height: 58px;
+  }
+  .module-card h3 {
+    font-size: 1.12rem;
+  }
+  .module-card p {
+    font-size: .96rem;
+    line-height: 1.7;
+  }
+}
+
+/* Part 346: real activity data, empty states, and compact navigation finishing */
+.simple-list__empty {
+  min-height: 132px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 22px 14px;
+  text-align: center;
+  border-bottom: 0 !important;
+}
+.simple-list__empty p {
+  margin: 0;
+  color: var(--app-muted, #5f7285);
+  line-height: 1.7;
+}
+.simple-list__empty a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--app-blue, #176fb2);
+  font-weight: 800;
+}
+.simple-list__empty a:hover,
+.simple-list__empty a:focus-visible {
+  background: var(--app-blue-light, #eaf4fc);
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.simple-list__link small {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 679px) {
+  .info-panel {
+    padding: 18px 16px;
+  }
+  .simple-list__link {
+    min-height: 58px;
+    padding: 12px 6px;
+  }
+  .bottom-nav {
+    min-height: calc(70px + env(safe-area-inset-bottom));
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+  .bottom-nav__item {
+    min-width: 0;
+    min-height: 52px;
+    border-radius: 10px;
+  }
+  .bottom-nav__item:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+  .bottom-nav__item small {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -16,7 +16,11 @@ const checks=[
  ['著作権表記',html.includes('© 2026 Shin Nihon Kentei Kyokai All rights reserved.')],
  ['公式SKロゴ',html.includes('sk-brand-logo-v82.png')],
  ['認証通信タイムアウト',html.includes('AUTH_TIMEOUT_MS=20000')&&html.includes('withAuthTimeout')],
- ['パスワード再設定の二重送信防止',html.includes("button.textContent='送信中…'")&&html.includes("button.disabled=true")]
+ ['パスワード再設定の二重送信防止',html.includes("button.textContent='送信中…'")&&html.includes("button.disabled=true")],
+ ['港湾背景画像',css.includes('login-port-background.jpg')],
+ ['ガラス調ログインカード',css.includes('backdrop-filter: blur(20px)')&&css.includes('border-radius: 26px')],
+ ['夕方・夜の暗色カード',css.includes('[data-login-time="evening"] .login-card')&&css.includes('[data-login-time="night"] .login-card')],
+ ['スマートフォン最適化',css.includes('@media (max-width: 700px)')&&css.includes('background-position: 58% center')]
 ];
 const failed=checks.filter(([,ok])=>!ok).map(([name])=>name);
 console.log(JSON.stringify({status:failed.length?'failed':'passed',checked:checks.length,failed},null,2));

@@ -26,3 +26,149 @@ body.login-production{min-height:100dvh}
 /* Part 328: MFA input, expiry and resend guidance */
 .mfa-destination{margin:10px 0 4px;padding:10px 12px;border-radius:9px;background:rgba(56,170,255,.1);border:1px solid rgba(100,196,255,.28);color:#d9f1ff;font-size:.82rem;overflow-wrap:anywhere}
 .mfa-status{min-height:1.3em;margin:7px 0;color:#b9d8ec;font-size:.78rem;text-align:center}.mfa-code::placeholder{color:rgba(159,184,207,.55);letter-spacing:.28rem}.mfa-panel button:disabled{cursor:not-allowed;opacity:.55}
+
+/* Part 347: restore photorealistic port login design */
+.login-scene {
+  background:
+    linear-gradient(180deg, rgba(223, 242, 255, .08), rgba(4, 28, 61, .26)),
+    url("../images/login-port-background.jpg") center center / cover no-repeat;
+  transform: scale(1.015);
+  transition: filter .55s ease, background-color .55s ease;
+}
+.login-scene::before {
+  inset: -2%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(4,22,50,.24)),
+    radial-gradient(circle at 50% 15%, rgba(255,255,255,.2), transparent 38%);
+}
+.terminal-silhouette,
+.terminal-lights { display: none; }
+.login-production[data-login-time="morning"] .login-scene {
+  filter: brightness(1.08) saturate(.96) contrast(.98) hue-rotate(-4deg);
+}
+.login-production[data-login-time="day"] .login-scene {
+  filter: brightness(1.12) saturate(1.03) contrast(1.01);
+}
+.login-production[data-login-time="evening"] .login-scene {
+  filter: brightness(.76) saturate(1.28) contrast(1.08) sepia(.12) hue-rotate(-12deg);
+}
+.login-production[data-login-time="night"] .login-scene {
+  filter: brightness(.42) saturate(1.2) contrast(1.18) hue-rotate(5deg);
+}
+.login-wrap {
+  align-items: center;
+  padding: max(24px, env(safe-area-inset-top)) 24px max(22px, env(safe-area-inset-bottom));
+}
+.login-shell { width: min(620px, 100%); }
+.login-brand-logo {
+  width: 132px;
+  height: 132px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 0 22px rgba(27,126,255,.36));
+}
+.login-title {
+  color: #082f67;
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  text-shadow: 0 1px 12px rgba(255,255,255,.68);
+  white-space: nowrap;
+}
+.login-shell > .login-description,
+.login-card > .login-note,
+.login-card > .account-note,
+.login-help { display: none; }
+.login-card {
+  margin-top: 26px;
+  padding: 34px 42px 30px;
+  border: 1px solid rgba(255,255,255,.84);
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(223,235,250,.64));
+  box-shadow: 0 28px 68px rgba(5,32,70,.28), inset 0 1px 0 rgba(255,255,255,.86);
+  backdrop-filter: blur(20px) saturate(1.18);
+  -webkit-backdrop-filter: blur(20px) saturate(1.18);
+  color: #0b376c;
+}
+.login-card h1 {
+  margin-bottom: 22px;
+  color: #0a356a;
+  font-size: 1.8rem;
+}
+.login-card label { color: #0c376d; font-size: 1rem; }
+.login-card input {
+  min-height: 58px;
+  border: 1px solid rgba(62,106,162,.4);
+  background: rgba(255,255,255,.56);
+  color: #0b315e;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+}
+.login-card input::placeholder { color: rgba(41,75,112,.62); }
+.password-toggle {
+  color: #174f8d !important;
+  background: rgba(255,255,255,.44) !important;
+  border-color: rgba(62,106,162,.3) !important;
+}
+.login-card button:not(.password-toggle) {
+  min-height: 60px;
+  border-radius: 11px;
+  font-size: 1.08rem;
+  box-shadow: 0 12px 24px rgba(7,93,211,.24);
+}
+.login-card button.secondary {
+  min-height: 42px;
+  margin-top: 14px;
+  color: #0677d8;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.login-footer {
+  margin-top: 24px;
+  color: #fff;
+  font-size: .84rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,.75);
+}
+.login-production[data-login-time="evening"] .login-title,
+.login-production[data-login-time="night"] .login-title { color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.65); }
+.login-production[data-login-time="evening"] .login-card,
+.login-production[data-login-time="night"] .login-card {
+  color: #fff;
+  border-color: rgba(200,224,255,.64);
+  background: linear-gradient(145deg, rgba(7,26,58,.82), rgba(18,48,88,.7));
+  box-shadow: 0 28px 72px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.login-production[data-login-time="evening"] .login-card h1,
+.login-production[data-login-time="night"] .login-card h1,
+.login-production[data-login-time="evening"] .login-card label,
+.login-production[data-login-time="night"] .login-card label { color: #fff; }
+.login-production[data-login-time="evening"] .login-card input,
+.login-production[data-login-time="night"] .login-card input {
+  border-color: rgba(190,218,247,.46);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+.login-production[data-login-time="evening"] .login-card input::placeholder,
+.login-production[data-login-time="night"] .login-card input::placeholder { color: rgba(220,235,249,.64); }
+.login-production[data-login-time="evening"] .password-toggle,
+.login-production[data-login-time="night"] .password-toggle { color:#d7ecff!important; background:rgba(255,255,255,.08)!important; }
+@media (max-width: 700px) {
+  .login-wrap { place-items: start center; padding-inline: 14px; }
+  .login-shell { margin: auto 0; }
+  .login-brand-logo { width: 104px; height: 104px; margin-bottom: 12px; }
+  .login-title { font-size: clamp(1.45rem, 6vw, 1.9rem); white-space: normal; line-height: 1.35; }
+  .login-card { margin-top: 18px; padding: 27px 22px 24px; border-radius: 22px; }
+  .login-card h1 { font-size: 1.55rem; }
+  .login-card input { min-height: 56px; font-size: 16px; }
+  .login-footer { margin-top: 18px; }
+  .login-scene { background-position: 58% center; }
+}
+@media (max-height: 760px) and (min-width: 701px) {
+  .login-brand-logo { width: 96px; height: 96px; margin-bottom: 8px; }
+  .login-title { font-size: 1.75rem; }
+  .login-card { margin-top: 14px; padding: 24px 34px 22px; }
+  .login-card h1 { margin-bottom: 12px; }
+  .login-card label { margin: 10px 0; }
+  .login-card input { min-height: 50px; }
+  .login-card button:not(.password-toggle) { min-height: 50px; }
+}
