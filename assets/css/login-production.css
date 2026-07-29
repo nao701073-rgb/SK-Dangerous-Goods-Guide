@@ -172,3 +172,180 @@ body.login-production{min-height:100dvh}
   .login-card input { min-height: 50px; }
   .login-card button:not(.password-toggle) { min-height: 50px; }
 }
+
+
+/* Part 348: preserve official SK logo proportions */
+.login-brand-logo,
+.login-success__logo img {
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center;
+}
+.login-brand-logo {
+  max-width: 100%;
+  height: auto;
+}
+.login-success__logo {
+  aspect-ratio: 1 / 1;
+}
+
+
+/* Part 349: robust logo geometry and compact-viewport login layout */
+.login-brand-logo {
+  inline-size: clamp(92px, 8vw, 126px);
+  block-size: auto;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  margin-inline: auto;
+  contain: layout paint;
+}
+.login-success__logo,
+.login-success__logo img {
+  inline-size: 132px;
+  block-size: 132px;
+  aspect-ratio: 1 / 1;
+}
+.login-brand-logo,
+.login-success__logo img {
+  transform-origin: center;
+  image-rendering: auto;
+}
+@supports not (aspect-ratio: 1 / 1) {
+  .login-brand-logo { height: clamp(92px, 8vw, 126px); }
+  .login-success__logo,
+  .login-success__logo img { width: 132px; height: 132px; }
+}
+@media (max-width: 700px) {
+  .login-brand-logo { inline-size: clamp(88px, 24vw, 108px); }
+}
+@media (max-height: 720px) and (min-width: 701px) {
+  body.login-production { overflow-y: auto; }
+  .login-wrap { align-items: start; padding-top: max(18px, env(safe-area-inset-top)); }
+  .login-shell { margin-block: 0; }
+  .login-brand-logo { inline-size: 84px; margin-bottom: 6px; }
+  .login-description { margin-block: 8px 12px; }
+  .login-card { margin-top: 10px; }
+}
+@media (orientation: landscape) and (max-height: 560px) {
+  .login-wrap { display: block; min-height: 100dvh; padding-block: max(14px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-bottom)); }
+  .login-shell { margin-inline: auto; }
+}
+
+
+/* Part 350: final SK logo geometry and login visual stability */
+.login-brand {
+  inline-size: clamp(92px, 8vw, 126px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  overflow: visible;
+  flex: 0 0 auto;
+}
+.login-brand-logo {
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0 !important;
+  object-fit: contain !important;
+  object-position: 50% 50%;
+  aspect-ratio: 1 / 1;
+}
+.login-success__logo {
+  inline-size: 132px;
+  block-size: 132px;
+  aspect-ratio: 1 / 1;
+  overflow: visible;
+}
+.login-success__logo img {
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  object-fit: contain !important;
+  aspect-ratio: 1 / 1;
+}
+.login-scene {
+  will-change: filter;
+  backface-visibility: hidden;
+}
+.login-card {
+  isolation: isolate;
+}
+@media (max-width: 700px) {
+  .login-brand { inline-size: clamp(88px, 24vw, 108px); margin-bottom: 12px; }
+}
+@media (max-height: 720px) and (min-width: 701px) {
+  .login-brand { inline-size: 84px; margin-bottom: 6px; }
+}
+@media (prefers-contrast: more) {
+  .login-card { border-width: 2px; }
+  .login-title, .login-card h1, .login-card label { text-shadow: none; }
+}
+
+
+/* Part 351: dedicated time-of-day port backgrounds and pre-paint theme selection */
+:root[data-login-time="morning"] .login-scene,
+.login-production[data-login-time="morning"] .login-scene {
+  background-image: linear-gradient(180deg, rgba(240,248,255,.05), rgba(7,38,73,.20)), url("../images/login-port-morning.jpg");
+  filter: none;
+}
+:root[data-login-time="day"] .login-scene,
+.login-production[data-login-time="day"] .login-scene {
+  background-image: linear-gradient(180deg, rgba(229,246,255,.04), rgba(5,31,67,.22)), url("../images/login-port-day.jpg");
+  filter: none;
+}
+:root[data-login-time="evening"] .login-scene,
+.login-production[data-login-time="evening"] .login-scene {
+  background-image: linear-gradient(180deg, rgba(72,38,92,.12), rgba(4,20,52,.38)), url("../images/login-port-evening.jpg");
+  filter: none;
+}
+:root[data-login-time="night"] .login-scene,
+.login-production[data-login-time="night"] .login-scene {
+  background-image: linear-gradient(180deg, rgba(5,20,51,.10), rgba(1,10,30,.46)), url("../images/login-port-night.jpg");
+  filter: none;
+}
+.login-scene {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media (max-width: 700px) {
+  .login-scene { background-position: 62% center; }
+}
+@media (orientation: landscape) and (max-height: 560px) {
+  .login-scene { background-position: center 58%; }
+}
+
+
+/* Part 352: stable background loading, responsive crop and graceful fallback */
+.login-scene {
+  opacity: 1;
+  transition: opacity .28s ease, background-image .32s ease, background-position .32s ease;
+}
+.login-production[data-login-background-ready="fallback"] .login-scene {
+  background-image: linear-gradient(180deg, var(--login-sky-1), var(--login-sky-2) 52%, #06162f 100%);
+}
+.login-production[data-login-background-ready="fallback"] .terminal-silhouette,
+.login-production[data-login-background-ready="fallback"] .terminal-lights { display: block; }
+.login-production[data-login-background-ready="true"] .terminal-silhouette,
+.login-production[data-login-background-ready="true"] .terminal-lights { opacity: .16; }
+.login-production[data-login-time="morning"] .login-scene { background-position: 54% center; }
+.login-production[data-login-time="day"] .login-scene { background-position: 50% center; }
+.login-production[data-login-time="evening"] .login-scene { background-position: 56% center; }
+.login-production[data-login-time="night"] .login-scene { background-position: 58% center; }
+@media (max-width: 700px) {
+  .login-production[data-login-time="morning"] .login-scene { background-position: 64% center; }
+  .login-production[data-login-time="day"] .login-scene { background-position: 61% center; }
+  .login-production[data-login-time="evening"] .login-scene { background-position: 66% center; }
+  .login-production[data-login-time="night"] .login-scene { background-position: 68% center; }
+  .login-card { width: min(100%, 520px); }
+}
+@media (max-width: 420px) {
+  .login-wrap { padding-inline: 12px; }
+  .login-card { padding-inline: 18px; }
+  .login-title { max-width: 12em; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-scene { transition: none; }
+}

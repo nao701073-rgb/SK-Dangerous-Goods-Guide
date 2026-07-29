@@ -1,15 +1,15 @@
 {
-  "version": "0.347.0",
-  "part": 347,
+  "version": "0.352.0",
+  "part": 352,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-07-29",
-  "fileCount": 1271,
-  "totalBytesExcludingManifestAndChecksum": 135797568,
-  "qaReport": "docs/0.347.0_総合検証レポート.json",
+  "fileCount": 1286,
+  "totalBytesExcludingManifestAndChecksum": 137266517,
+  "qaReport": "docs/0.352.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 347_更新内容.md",
+  "notes": "docs/Part 352_更新内容.md",
   "releasedAt": "2026-07-29",
   "updatedAt": "2026-07-29",
-  "summary": "ログイン画面を参考イメージに近い港湾実景調へ戻し、時間帯別の色調とPC・スマートフォン表示を最適化した。",
-  "build": "part347-port-photo-login-design-restoration"
+  "summary": "時間帯別港湾背景の読込・切替・代替表示・端末別トリミングをまとめて安定化した。",
+  "build": "part352-login-background-loading-and-responsive-crop"
 }

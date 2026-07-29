@@ -1,7 +1,7 @@
 {
-  "part": 347,
-  "version": "0.347.0",
-  "name": "Port Photo Login Design Restoration",
+  "part": 352,
+  "version": "0.352.0",
+  "name": "Login Background Loading and Responsive Crop Stabilization",
   "updatedAt": "2026-07-29",
-  "build": "part347-port-photo-login-design-restoration"
+  "build": "part352-login-background-loading-and-responsive-crop"
 }
