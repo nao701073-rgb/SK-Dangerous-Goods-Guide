@@ -31,6 +31,7 @@
 
   const loginUrl = () => location.pathname.includes("/pages/") ? "login.html" : "pages/login.html";
   const settingsUrl = () => location.pathname.includes("/pages/") ? "system-settings.html" : "pages/system-settings.html";
+  const homeUrl = () => location.pathname.includes("/pages/") ? "../index.html" : "index.html";
   const currentStoredUser = () => window.ISSApi?.getUser?.() || null;
   const requiredRoles = () => String(document.body.dataset.requiredRoles || "").split(",").map(v => v.trim()).filter(Boolean);
   const isPublicPage = () => ["login", "activate-account", "reset-password"].includes(document.body.dataset.page || "");
@@ -133,10 +134,11 @@
     const roleNames = orderedRoles
       .map(role => ROLE_LABELS[role] || (role === "guest-user-settings-only" ? "ユーザー設定" : role))
       .join("、");
-    const returnUrl = user?.role === "guest"
-      ? (location.pathname.includes("/pages/") ? "settings.html" : "pages/settings.html")
-      : settingsUrl();
-    document.body.innerHTML = `<main class="workspace"><section class="panel" role="alert"><div class="panel-heading"><h1>この画面を利用する権限がありません</h1></div><div class="panel-body"><p>この画面は ${roleNames} のみ利用できます。</p><p><a class="secondary-action" href="${returnUrl}">設定画面へ戻る</a></p></div></section></main>`;
+    const returnUrl = homeUrl();
+    document.title = "権限がありません｜検査・検品業務サポートシステム";
+    document.body.className = "access-denied-page";
+    document.body.innerHTML = `<main class="workspace access-denied-workspace" id="mainContent"><section class="panel access-denied-panel" role="alert" aria-live="assertive" aria-labelledby="accessDeniedTitle" aria-describedby="accessDeniedDescription"><div class="panel-heading"><h1 id="accessDeniedTitle" tabindex="-1">この画面を利用する権限がありません</h1></div><div class="panel-body"><p id="accessDeniedDescription" class="access-denied-description">この画面は ${roleNames} のみ利用できます。</p><p class="access-denied-actions"><a class="secondary-action access-denied-return" href="${returnUrl}">ホームに戻る</a></p></div></section></main>`;
+    requestAnimationFrame(() => document.getElementById("accessDeniedTitle")?.focus());
   }
 
   async function resolveUser() {

@@ -49,3 +49,92 @@ html[data-app-theme="dark"]{--navy:#112f52;--navy-dark:#091d35;--blue:#5aaeea;--
 html[data-app-theme="dark"] body,html[data-app-theme="dark"] .workspace{background:var(--surface-soft);color:var(--text)}
 html[data-app-theme="dark"] .module-card,html[data-app-theme="dark"] .info-panel,html[data-app-theme="dark"] .page-card,html[data-app-theme="dark"] .panel,html[data-app-theme="dark"] .panel-body,html[data-app-theme="dark"] input,html[data-app-theme="dark"] select,html[data-app-theme="dark"] textarea{background:var(--surface);color:var(--text);border-color:var(--border)}
 html[data-app-theme="dark"] .bottom-nav{background:rgba(16,36,58,.96)}
+
+/* Part 333: 権限エラー画面 */
+.access-denied-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: #eef4fa;
+}
+
+.access-denied-workspace {
+  width: min(100% - 32px, 960px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-inline: auto;
+  padding-block: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom));
+  display: grid;
+  align-content: start;
+}
+
+.access-denied-panel {
+  overflow: hidden;
+  border: 1px solid #cfdeec;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(18, 56, 91, 0.08);
+}
+
+.access-denied-panel .panel-heading {
+  padding: 24px 20px;
+  border-bottom: 1px solid #d8e4ef;
+}
+
+.access-denied-panel .panel-heading h1 {
+  margin: 0;
+  color: #082d50;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  line-height: 1.35;
+}
+
+.access-denied-panel .panel-heading h1:focus {
+  outline: 3px solid #1677d2;
+  outline-offset: 4px;
+}
+
+.access-denied-panel .panel-body {
+  padding: 28px 20px 30px;
+}
+
+.access-denied-description {
+  margin: 0;
+  color: #123b61;
+  line-height: 1.9;
+}
+
+.access-denied-actions {
+  margin: 18px 0 0;
+}
+
+.access-denied-return {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.access-denied-return:focus-visible {
+  outline: 3px solid #1677d2;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .access-denied-workspace {
+    width: min(100% - 20px, 960px);
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .access-denied-panel .panel-heading,
+  .access-denied-panel .panel-body {
+    padding-inline: 16px;
+  }
+
+  .access-denied-return {
+    width: 100%;
+  }
+}

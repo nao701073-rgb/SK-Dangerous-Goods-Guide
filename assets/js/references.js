@@ -152,7 +152,6 @@
     <section class="reference-source-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="sourceModalTitle" tabindex="-1">
       <header class="reference-source-modal__header">
         <div>
-          <p class="eyebrow" data-source-modal-eyebrow>Source Provision</p>
           <h2 id="sourceModalTitle" data-source-modal-title>該当規定</h2>
         </div>
         <button type="button" data-source-modal-close aria-label="閉じる">×</button>

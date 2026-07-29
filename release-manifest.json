@@ -1,15 +1,15 @@
 {
-  "version": "0.331.0",
-  "part": 331,
+  "version": "0.344.0",
+  "part": 344,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-07-29",
-  "fileCount": 1234,
-  "totalBytesExcludingManifestAndChecksum": 135304190,
-  "qaReport": "docs/0.331.0_総合検証レポート.json",
+  "fileCount": 1262,
+  "totalBytesExcludingManifestAndChecksum": 135404808,
+  "qaReport": "docs/0.344.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 331_更新内容.md",
+  "notes": "docs/Part 344_更新内容.md",
   "releasedAt": "2026-07-29",
   "updatedAt": "2026-07-29",
-  "summary": "権限エラー画面の表示順を、利用可能な権限の案内、設定画面へ戻るの順に統一した。",
-  "build": "part331-access-denied-message-order"
+  "summary": "主要機能カード全体を操作可能にし、マウス・タッチ・キーボード操作をまとめて改善した。",
+  "build": "part344-major-function-card-usability-package"
 }

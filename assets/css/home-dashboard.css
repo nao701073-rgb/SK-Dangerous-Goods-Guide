@@ -117,3 +117,261 @@
     white-space: normal;
   }
 }
+
+
+/* Part 337: future module card consistency */
+.module-card__icon > svg {
+  width: 58px;
+  height: 58px;
+  display: block;
+  flex: 0 0 auto;
+}
+.module-card.is-disabled {
+  cursor: default;
+}
+.module-card.is-disabled .coming-soon {
+  margin-top: auto;
+}
+@media (max-width: 479px) {
+  .module-card__icon > svg {
+    width: 52px;
+    height: 52px;
+  }
+}
+@media (forced-colors: active) {
+  .module-card__icon {
+    border: 1px solid CanvasText;
+  }
+  .module-card.is-disabled {
+    opacity: 1;
+  }
+}
+
+
+/* Part 338: major-function card action alignment and touch targets */
+.module-card {
+  display: flex;
+  flex-direction: column;
+}
+.module-card > div:nth-child(2) {
+  min-width: 0;
+}
+.module-card .text-button,
+.module-card .coming-soon {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: auto;
+}
+.module-card .text-button {
+  padding-block: 10px;
+}
+.module-card .coming-soon {
+  padding-block: 8px;
+}
+@media (max-width: 479px) {
+  .module-card {
+    min-height: auto;
+  }
+  .module-card .text-button,
+  .module-card .coming-soon {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Part 339: future-module status clarity */
+.module-card.is-disabled {
+  border-style: solid;
+  background: color-mix(in srgb, var(--app-surface, #ffffff) 94%, var(--app-navy, #0b3a67) 6%);
+  user-select: none;
+}
+.module-card.is-disabled:hover {
+  transform: none;
+  box-shadow: var(--app-shadow) !important;
+}
+.module-card.is-disabled .coming-soon {
+  gap: 7px;
+  padding-inline: 12px;
+  border: 1px solid color-mix(in srgb, var(--app-navy, #0b3a67) 22%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--app-navy, #0b3a67) 8%, transparent);
+  color: var(--app-navy, #0b3a67);
+  font-weight: 700;
+}
+.module-card.is-disabled .coming-soon::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .7;
+  flex: 0 0 auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .module-card {
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .module-card.is-disabled .coming-soon {
+    border: 1px solid GrayText;
+    color: GrayText;
+    background: Canvas;
+  }
+}
+
+
+/* Part 340: readable major-function cards on compact screens */
+@media (max-width: 1199px) {
+  .module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .module-card {
+    min-height: 238px;
+    padding: 22px;
+    gap: 16px;
+  }
+
+  .module-card__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 11px !important;
+  }
+
+  .module-card__icon > svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .module-card h3 {
+    font-size: 1.12rem;
+    line-height: 1.45;
+  }
+
+  .module-card p {
+    font-size: .98rem;
+    line-height: 1.75;
+  }
+
+  .module-card .text-button,
+  .module-card .coming-soon {
+    font-size: .94rem;
+  }
+}
+
+@media (max-width: 699px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .module-card {
+    min-height: 224px;
+    padding: 22px 20px;
+  }
+
+  .module-card__icon {
+    width: 68px;
+    height: 68px;
+  }
+
+  .module-card__icon > svg {
+    width: 52px;
+    height: 52px;
+  }
+
+  .module-card h3 {
+    font-size: 1.18rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* Part 342: enlarge icon tiles and inner illustrations for clearer recognition */
+.module-card__icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 14px !important;
+}
+.module-card__icon > svg {
+  width: 66px;
+  height: 66px;
+}
+@media (max-width: 1199px) {
+  .module-card__icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 13px !important;
+  }
+
+  .module-card__icon > svg {
+    width: 60px;
+    height: 60px;
+  }
+}
+@media (max-width: 699px) {
+  .module-card__icon {
+    width: 84px;
+    height: 84px;
+  }
+
+  .module-card__icon > svg {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+
+/* Part 344: make available major-function cards easier to open */
+.module-card:not(.is-disabled) {
+  position: relative;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.module-card:not(.is-disabled):hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--app-blue, #176fb2) 42%, var(--app-border, #d6e0ea));
+  box-shadow: 0 14px 30px rgba(11, 58, 103, .12);
+}
+.module-card:not(.is-disabled):focus-within {
+  outline: 3px solid color-mix(in srgb, var(--app-blue, #176fb2) 70%, white);
+  outline-offset: 3px;
+  border-color: var(--app-blue, #176fb2);
+}
+.module-card:not(.is-disabled) .text-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.module-card:not(.is-disabled) .text-button:focus-visible {
+  outline: none;
+}
+.module-card:not(.is-disabled) .text-button {
+  position: static;
+}
+.module-card.is-disabled {
+  position: relative;
+}
+@media (hover: none) {
+  .module-card:not(.is-disabled):hover {
+    transform: none;
+    box-shadow: var(--app-shadow);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .module-card:not(.is-disabled) {
+    transition: none;
+  }
+  .module-card:not(.is-disabled):hover {
+    transform: none;
+  }
+}

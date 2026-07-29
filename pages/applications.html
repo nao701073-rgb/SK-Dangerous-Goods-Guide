@@ -14,7 +14,6 @@
 <body data-page="applications" data-required-roles="office-user,office-admin,safety-environment-director,safety-environment-staff,safety-environment-admin">
   <header class="app-header">
     <div>
-      <p class="eyebrow">Application Management</p>
       <h1>申請番号管理</h1>
     </div>
     <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
@@ -23,7 +22,6 @@
   <main class="main-content photo-page application-support-mode">
     <section class="application-support-intro" aria-labelledby="applicationSupportTitle">
       <div>
-        <p class="eyebrow">Support Function</p>
         <h2 id="applicationSupportTitle">社内既存システムを補完する簡易管理</h2>
         <p>正式な申請番号管理は社内既存システムで行います。この画面では、申請番号に関連する<strong>写真・簡易メモ・添付資料</strong>を分かりやすく整理します。</p>
       </div>
@@ -35,7 +33,6 @@
     </section>
     <section id="applicationRoleMode" class="application-role-mode" aria-labelledby="applicationRoleModeTitle">
       <div>
-        <p class="eyebrow">Permission Mode</p>
         <h2 id="applicationRoleModeTitle">権限に応じた補完機能</h2>
         <p id="applicationRoleModeDescription">ログイン中の権限を確認しています。</p>
       </div>
@@ -54,7 +51,7 @@
     </nav>
     <section class="management-panel application-primary-section application-quick-section" id="applicationQuickSection">
       <div class="management-heading">
-        <div><p class="eyebrow">Quick Support</p><h2>申請番号に補完情報を追加</h2></div>
+        <div><h2>申請番号に補完情報を追加</h2></div>
       </div>
       <p class="scope-note">社内既存システムの申請番号を選び、メモ・写真・添付資料を追加します。複雑な進捗設定はありません。</p>
       <div class="application-quick-grid">
@@ -77,7 +74,6 @@
     <section class="management-panel organization-context-panel application-support-optional" id="applicationScopeSection" hidden>
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Organization Scope</p>
           <h2>表示範囲・所属</h2>
         </div>
         <span id="currentRoleBadge" class="scope-badge"></span>
@@ -103,7 +99,6 @@
     <section class="management-panel application-primary-section" id="applicationRegisterSection">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">New Application</p>
           <h2>メモ・基本情報を登録</h2>
         </div>
       </div>
@@ -220,7 +215,6 @@
     <section class="management-panel application-primary-section" id="applicationListSection">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Applications</p>
           <h2>登録済みの補完情報</h2>
         </div>
         <div class="application-filter-tools">
@@ -275,7 +269,7 @@
 
     <section class="management-panel application-primary-section" id="applicationDocumentSection">
       <div class="management-heading">
-        <div><p class="eyebrow">Application Documents</p><h2>添付資料を管理</h2></div>
+        <div><h2>添付資料を管理</h2></div>
         <div class="application-filter-tools">
           <input id="documentFilter" type="search" placeholder="申請番号・ファイル名・説明で検索">
           <select id="documentCategoryFilter"><option value="">すべての資料分類</option><option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option></select>
@@ -308,7 +302,6 @@
     <section class="management-panel application-primary-section" id="applicationPhotoSection">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Application Photos</p>
           <h2>関連写真を登録</h2>
         </div>
       </div>
@@ -383,7 +376,6 @@
     <section class="management-panel application-essential-section" id="applicationRegisteredPhotosSection">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Registered Photos</p>
           <h2>申請番号別の登録写真</h2>
         </div>
         <div class="photo-filter-row">
@@ -401,7 +393,6 @@
     <section class="management-panel">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Photo Audit Trail</p>
           <h2>写真操作履歴</h2>
         </div>
         <div class="photo-filter-row">
@@ -419,7 +410,6 @@
     <section class="management-panel">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Photo Retention</p>
           <h2>写真の保存期間・保全管理</h2>
         </div>
         <div class="photo-filter-row">
@@ -446,7 +436,6 @@
     <section class="management-panel">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Photo Purge Approval</p>
           <h2>写真の完全削除計画・承認</h2>
         </div>
         <div class="management-actions">
@@ -475,7 +464,7 @@
 
     <section class="management-panel">
       <div class="management-heading">
-        <div><p class="eyebrow">Certificate Ledger</p><h2>完全削除証明書台帳</h2></div>
+        <div><h2>完全削除証明書台帳</h2></div>
         <button id="exportPhotoPurgeCertificateLedger" type="button">台帳CSV出力</button>
       </div>
       <p class="scope-note">証明書ID、申請番号、事業所、実行者、実行日、検証状態から削除証明書を検索・照合できます。</p>
@@ -495,7 +484,7 @@
 
     <section class="management-panel">
       <div class="management-heading">
-        <div><p class="eyebrow">Monthly Reconciliation</p><h2>削除証明書の月次集計・照合</h2></div>
+        <div><h2>削除証明書の月次集計・照合</h2></div>
         <div class="management-actions">
           <button id="exportPhotoPurgeMonthlyCsv" type="button">月次CSV出力</button>
           <button id="exportPhotoPurgeMonthlyJson" type="button">月次報告JSON</button>
@@ -515,7 +504,7 @@
 
     <section class="management-panel">
       <div class="management-heading">
-        <div><p class="eyebrow">Audit Detection Rules</p><h2>アクセス監査ルール設定</h2></div>
+        <div><h2>アクセス監査ルール設定</h2></div>
         <div class="management-actions">
           <button id="simulateCorrectiveEvidenceAuditRules" type="button">変更前にシミュレーション</button>
           <button id="createCorrectiveEvidenceAuditRuleProposal" type="button">変更申請を作成</button>
@@ -550,7 +539,7 @@
       <div id="correctiveEvidenceAuditSimulation" class="audit-rule-simulation"></div>
       <div id="correctiveEvidenceAuditRuleProposalList" class="audit-rule-history"></div>
       <div class="management-heading audit-rule-ledger-heading">
-        <div><p class="eyebrow">Application Ledger</p><h3>変更申請の処理台帳・適用証明</h3></div>
+        <div><h3>変更申請の処理台帳・適用証明</h3></div>
         <div class="management-actions">
           <button id="exportAuditRuleProposalLedgerCsv" type="button">処理台帳CSV</button>
           <button id="exportAuditRuleCertificatesJson" type="button">適用証明一括JSON</button>
@@ -565,7 +554,7 @@
       </div>
       <div id="auditRuleCertificateVerificationResult" class="audit-rule-simulation"></div>
       <div class="management-heading audit-rule-ledger-heading">
-        <div><p class="eyebrow">Corrective Actions</p><h3>適用証明の要確認・是正処置</h3></div>
+        <div><h3>適用証明の要確認・是正処置</h3></div>
         <div class="management-actions"><button id="exportAuditRuleCertificateCorrectiveCsv" type="button">是正処置CSV</button></div>
       </div>
       <p class="scope-note">月次照合で検出した検証不合格、申請未照合、ID重複について、原因・担当者・期限・対応結果・別担当者による完了確認に加え、再発防止策の効果確認、効果不十分時の再是正、再是正後の再評価と案件クローズまで管理します。</p>
@@ -583,7 +572,7 @@
       <div id="auditRuleCertificateMonthlyIssues" class="certificate-corrective-list"></div>
       <div id="auditRuleCertificateCorrectiveList" class="certificate-corrective-list"></div>
       <div class="management-heading audit-rule-ledger-heading">
-        <div><p class="eyebrow">Case Closure Archive</p><h3>案件クローズ証明・アーカイブ台帳</h3></div>
+        <div><h3>案件クローズ証明・アーカイブ台帳</h3></div>
         <div class="management-actions"><button id="exportCaseClosureCertificatesJson" type="button">証明書一括JSON</button><button id="exportCaseClosureCertificatesCsv" type="button">台帳CSV</button></div>
       </div>
       <div class="certificate-corrective-tools">
@@ -594,7 +583,7 @@
       <div id="caseClosureCertificateSummary" class="photo-purge-notification-summary"></div>
       <div id="caseClosureCertificateList" class="certificate-corrective-list"></div>
       <div class="management-heading audit-rule-ledger-heading">
-        <div><p class="eyebrow">Case Reopen Requests</p><h3>案件再開申請</h3></div>
+        <div><h3>案件再開申請</h3></div>
       </div>
       <p class="scope-note">新事実、再発、判断根拠の変更などが判明した場合は、クローズ証明を削除せず、再開申請を作成して別担当者の承認を受けます。再調査、追加是正、再評価、再クローズまでの期限と処理状況を一括管理します。</p>
       <div id="caseReopenWorkflowSummary" class="photo-purge-notification-summary"></div>
@@ -624,7 +613,7 @@
 
     <section class="management-panel">
       <div class="management-heading">
-        <div><p class="eyebrow">Evidence Access Audit</p><h2>証拠資料アクセス監査</h2></div>
+        <div><h2>証拠資料アクセス監査</h2></div>
         <div class="management-actions">
           <button id="runCorrectiveEvidenceAudit" type="button">設定時間を監査</button>
           <button id="exportCorrectiveEvidenceAuditCsv" type="button">監査所見CSV</button>
@@ -642,7 +631,7 @@
 
     <section class="management-panel">
       <div class="management-heading">
-        <div><p class="eyebrow">Corrective Action Dashboard</p><h2>是正処置の進捗・期限管理</h2></div>
+        <div><h2>是正処置の進捗・期限管理</h2></div>
         <div class="management-actions">
           <button id="exportPhotoPurgeCorrectiveCsv" type="button">是正処置CSV出力</button>
           <button id="exportPhotoPurgeCorrectiveMonthlyJson" type="button">月次報告JSON</button>
@@ -672,7 +661,6 @@
     <section class="management-panel">
       <div class="management-heading">
         <div>
-          <p class="eyebrow">Certificate Verification</p>
           <h2>完全削除証明書の検証</h2>
         </div>
       </div>
@@ -692,7 +680,6 @@
       <article class="photo-viewer-card">
         <header class="photo-viewer-card__header">
           <div>
-            <p class="eyebrow">Photo Viewer</p>
             <h3 id="photoViewerTitle">登録写真</h3>
           </div>
           <button id="photoViewerClose" class="secondary-link" type="button">閉じる</button>

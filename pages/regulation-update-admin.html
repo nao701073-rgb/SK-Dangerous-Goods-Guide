@@ -11,7 +11,7 @@
 </head>
 <body data-page="regulations" data-required-roles="safety-environment-admin">
   <header class="app-header">
-    <div><p class="eyebrow">Regulatory Revision Management</p><h1>法令改正・データ更新管理</h1></div>
+    <div><h1>法令改正・データ更新管理</h1></div>
     <a class="icon-button" href="regulations.html" aria-label="関連法令へ戻る">←</a>
   </header>
   <main class="main-content revision-page">
@@ -23,7 +23,7 @@
 
 
     <section class="revision-panel easy-update-panel">
-      <div class="section-heading"><div><p class="eyebrow">Easy Update</p><h2>かんたん更新モード</h2></div></div>
+      <div class="section-heading"><div><h2>かんたん更新モード</h2></div></div>
       <p>最新版PDFと、必要に応じて更新用CSV／JSONを選択すると、ファイル形式、版情報、データ件数、重複、必須項目を確認し、管理者確認用の更新候補を作成します。</p>
       <div class="easy-update-steps" aria-label="かんたん更新手順">
         <article><strong>1</strong><span>法令と版を選ぶ</span></article>
@@ -67,7 +67,7 @@
     </section>
 
     <section class="revision-panel">
-      <div class="section-heading"><div><p class="eyebrow">New Revision</p><h2>改正版の登録準備</h2></div></div>
+      <div class="section-heading"><div><h2>改正版の登録準備</h2></div></div>
       <form id="revisionForm" class="revision-form">
         <label>法令・規則<select id="regulationId" required></select></label>
         <label>版・改正番号<input id="editionLabel" required placeholder="例：令和8年国土交通省令第○号 / Amendment 43-26"></label>
@@ -94,7 +94,7 @@
     </section>
 
     <section class="revision-panel integrity-panel">
-      <div class="section-heading"><div><p class="eyebrow">Integrity Audit</p><h2>公開版の整合性再監査</h2></div></div>
+      <div class="section-heading"><div><h2>公開版の整合性再監査</h2></div></div>
       <p>保存済みの更新マニフェスト、原本PDF、構造化データを選択し、登録時のSHA-256・件数・識別キーと現在のファイルを照合します。</p>
       <div class="integrity-form">
         <label>更新マニフェスト<input id="auditManifest" type="file" accept="application/json,.json"></label>
@@ -106,7 +106,7 @@
     </section>
 
     <section class="revision-panel release-panel">
-      <div class="section-heading"><div><p class="eyebrow">Release Gate</p><h2>公開判定・公開計画</h2></div></div>
+      <div class="section-heading"><div><h2>公開判定・公開計画</h2></div></div>
       <p>整合性監査、承認者分離、影響確認、適用開始日、ロールバック先を一括確認し、条件を満たした更新だけ公開計画を作成します。</p>
       <div class="release-form">
         <label>更新マニフェスト<input id="releaseManifest" type="file" accept="application/json,.json"></label>
@@ -121,7 +121,7 @@
     </section>
 
     <section class="revision-panel">
-      <div class="section-heading"><div><p class="eyebrow">Revision Ledger</p><h2>改正・公開履歴</h2></div></div>
+      <div class="section-heading"><div><h2>改正・公開履歴</h2></div></div>
       <div class="table-wrap"><table><thead><tr><th>法令</th><th>版</th><th>適用期間</th><th>状態</th><th>原本</th><th>対象データ</th></tr></thead><tbody id="revisionRows"></tbody></table></div>
     </section>
 

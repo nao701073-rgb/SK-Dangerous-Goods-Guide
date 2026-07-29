@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part329-login-mfa-network-stability-regression-guard",
+  "build": "part340-responsive-major-card-readability",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -297,5 +297,14 @@
     ],
     "successAnimation": "login-success-only",
     "copyright": "© 2026 Shin Nihon Kentei Kyokai All rights reserved."
+  },
+  "futureModuleCards": {
+    "statusLabel": "将来実装",
+    "ariaDisabled": true,
+    "iconSize": {
+      "desktop": 30,
+      "mobile": 28
+    },
+    "forcedColorsSupported": true
   }
 }
