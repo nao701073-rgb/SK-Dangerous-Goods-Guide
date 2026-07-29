@@ -27,7 +27,7 @@ const checks=[
  ['背景切替の動作抑制対応',css.includes('Part 352: stable background loading')&&css.includes('@media (prefers-reduced-motion: reduce)')],
  ['初回描画前の時間帯判定',html.includes('document.documentElement.dataset.loginTime=t')&&html.includes('login-port-${t}.jpg')],
  ['時間帯別港湾背景4種', ['morning','day','evening','night'].every(name=>css.includes(`login-port-${name}.jpg`))],
- ['ログインCSSキャッシュ更新',html.includes('login-production.css?v=352')],
+ ['ログインCSSキャッシュ更新',html.includes('login-production.css?v=355')],
  ['港湾背景画像',css.includes('login-port-background.jpg')],
  ['ガラス調ログインカード',css.includes('backdrop-filter: blur(20px)')&&css.includes('border-radius: 26px')],
  ['夕方・夜の暗色カード',css.includes('[data-login-time="evening"] .login-card')&&css.includes('[data-login-time="night"] .login-card')],
@@ -35,7 +35,24 @@ const checks=[
  ['ロゴ画像の正方形寸法属性',html.includes('width="700" height="700"')&&html.includes('sk-brand-logo-square-v348.png')],
  ['ロゴ縦横比の堅牢化',css.includes('Part 349: robust logo geometry')&&css.includes('aspect-ratio: 1 / 1')&&css.includes('object-fit: contain')],
  ['短い画面高のスクロール対応',css.includes('@media (max-height: 720px)')&&css.includes('overflow-y: auto')],
- ['横向き端末の表示対応',css.includes('@media (orientation: landscape) and (max-height: 560px)')]
+ ['横向き端末の表示対応',css.includes('@media (orientation: landscape) and (max-height: 560px)')],
+ ['実景背景時の旧シルエット非表示',css.includes('Part 353: final port-scene clarity')&&css.includes('data-login-background-ready=\"true\"')&&css.includes('display: none')],
+ ['背景上の可読性補助レイヤー',css.includes('.login-scene::after')&&css.includes('linear-gradient(90deg')],
+ ['入力欄フォーカス強調',css.includes('.login-card input:focus')&&css.includes('box-shadow: 0 0 0 4px')],
+ ['ログインCSSキャッシュ355',html.includes('login-production.css?v=355')],
+ ['入力欄アイコン',html.includes('login-field--user')&&html.includes('login-field--password')&&css.includes('Part 354: production login form clarity')],
+ ['チェックボックス専用表示',html.includes('class="remember-login"')&&css.includes('.remember-login input')],
+ ['ログイン案内の関連付け',html.includes('id="credentialGuidance"')&&html.includes('aria-describedby="credentialGuidance"')],
+ ['入力キーヒント',html.includes('enterkeyhint="next"')&&html.includes('enterkeyhint="go"')],
+ ['状態メッセージ種別',html.includes('data-state="idle"')&&html.includes('node.dataset.state=resolved')&&css.includes('.login-message[data-state="success"]')&&css.includes('.login-message[data-state="error"]')],
+ ['認証中スピナー',html.includes("classList.toggle('is-busy',busy)")&&css.includes('@keyframes loginSpinner')],
+ ['認証中入力固定',html.includes('credentialControls.forEach')&&html.includes('control.disabled=busy')],
+ ['横向き低画面対応',css.includes('@media (max-height: 620px) and (orientation: landscape)')],
+ ['自動入力表示対応',css.includes('input:-webkit-autofill')],
+ ['フォーム見出し関連付け',html.includes('aria-labelledby="loginCardTitle"')&&html.includes('id="loginCardTitle"')],
+ ['MFA見出し関連付け',html.includes('aria-labelledby="mfaTitle"')&&html.includes('id="mfaTitle"')],
+ ['JavaScript無効時案内',html.includes('class="login-noscript"')],
+ ['強制カラーモード入力対応',css.includes('@media (forced-colors: active)')]
 ];
 const failed=checks.filter(([,ok])=>!ok).map(([name])=>name);
 console.log(JSON.stringify({status:failed.length?'failed':'passed',checked:checks.length,failed},null,2));

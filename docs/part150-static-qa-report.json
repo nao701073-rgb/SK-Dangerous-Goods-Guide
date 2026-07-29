@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-29T11:34:34.167Z",
-  "root": "/mnt/data/work351/SK-Dangerous-Goods-Guide",
+  "generatedAt": "2026-07-29T13:16:43.593Z",
+  "root": "/mnt/data/work357/SK-Dangerous-Goods-Guide",
   "status": "passed",
   "stats": {
     "html": 56,
-    "js": 129,
-    "json": 171,
+    "js": 131,
+    "json": 177,
     "refs": 733,
-    "bytes": 137550133
+    "bytes": 144960380
   },
   "findingCount": 0,
   "findings": [],
@@ -31,6 +31,22 @@
     {
       "file": "references/originals/dangerous-goods-regulations.pdf",
       "bytes": 1973645
+    },
+    {
+      "file": "assets/images/login-port-day.jpg",
+      "bytes": 1791324
+    },
+    {
+      "file": "assets/images/login-port-morning.jpg",
+      "bytes": 1748708
+    },
+    {
+      "file": "assets/images/login-port-evening.jpg",
+      "bytes": 1654267
+    },
+    {
+      "file": "assets/images/login-port-night.jpg",
+      "bytes": 1428074
     },
     {
       "file": "images/guides/package-marking-un1224-guide.png",

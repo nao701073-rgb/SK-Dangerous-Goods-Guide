@@ -77,6 +77,8 @@ const syntaxCheck = {
 const tests = [
   run('静的ファイル・参照検査', process.execPath, ['../tools/qa-static.mjs'], serverDir),
   run('ログイン仕様回帰検証', process.execPath, ['../tools/verify-login-contract.mjs'], serverDir),
+  run('ログイン視覚資産検証', process.execPath, ['../tools/verify-login-visual-assets.mjs'], serverDir),
+  run('表示文言統一検証', process.execPath, ['../tools/verify-copy-contract.mjs'], serverDir),
   run('権限エラー画面仕様検証', process.execPath, ['../tools/verify-access-denied-contract.mjs'], serverDir),
   run('主要機能アイコン仕様検証', process.execPath, ['../tools/verify-home-icon-contract.mjs'], serverDir),
   run('日本語見出し統一検証', process.execPath, ['../tools/verify-japanese-heading-contract.mjs'], serverDir),
