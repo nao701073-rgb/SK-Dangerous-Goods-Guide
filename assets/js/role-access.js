@@ -157,7 +157,6 @@
 
   async function initialize() {
     if (isPublicPage()) return;
-    const endpointConfigured = Boolean(window.ISSApi?.isConfigured?.());
     const authenticated = Boolean(window.ISSApi?.isAuthenticated?.());
     const passwordChangeRequired = Boolean(window.ISSApi?.isPasswordChangeRequired?.());
     if (authenticated && passwordChangeRequired && !location.pathname.endsWith("/pages/change-password.html")) {
@@ -166,23 +165,21 @@
     }
 
     let authenticationRequired = true;
-    if (endpointConfigured) {
-      try {
-        const policy = await window.ISSApi.accessPolicy();
-        authenticationRequired = policy?.authenticationRequired !== false;
-        document.documentElement.dataset.authenticationRequired = authenticationRequired ? "true" : "false";
-      } catch (error) {
-        console.warn("ログイン設定を取得できないため、ログイン必須として動作します。", error);
-      }
+    try {
+      const policy = await window.ISSApi.accessPolicy();
+      authenticationRequired = policy?.authenticationRequired !== false;
+      document.documentElement.dataset.authenticationRequired = authenticationRequired ? "true" : "false";
+    } catch (error) {
+      console.warn("ログイン設定を取得できないため、ログイン必須として動作します。", error);
     }
-    if (endpointConfigured && !authenticated && authenticationRequired) {
+    if (!authenticated && authenticationRequired) {
       const returnTo = encodeURIComponent(location.pathname + location.search + location.hash);
-      location.replace(`${loginUrl()}?returnTo=${returnTo}`);
+      location.replace(`${loginUrl()}?next=${returnTo}`);
       return;
     }
 
     let user = await resolveUser();
-    if (endpointConfigured && !authenticated && !authenticationRequired) {
+    if (!authenticated && !authenticationRequired) {
       user = { role:"guest", displayName:"未ログイン閲覧者", officeId:null, authenticationOptional:true };
       document.documentElement.dataset.authenticationOptionalGuest = "true";
     }

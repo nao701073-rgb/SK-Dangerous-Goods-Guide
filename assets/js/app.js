@@ -28,11 +28,29 @@
   };
 
   const getContext = () => {
+    const authenticatedUser = window.ISSApi?.getUser?.() || {};
     const storageContext = window.ISSStorage?.getCurrentContext?.() || {};
-    return {
-      officeName: storageContext.officeName || localStorage.getItem("iss-office-name") || "所属事業所",
-      userName: storageContext.userName || storageContext.displayName || localStorage.getItem("iss-current-user-name") || "利用者"
-    };
+    const officeName = authenticatedUser.officeName
+      || authenticatedUser.office_name
+      || storageContext.officeName
+      || localStorage.getItem("iss-office-name")
+      || "";
+    const userName = authenticatedUser.displayName
+      || authenticatedUser.display_name
+      || authenticatedUser.name
+      || storageContext.userName
+      || storageContext.displayName
+      || localStorage.getItem("iss-current-user-name")
+      || "";
+    return { officeName: String(officeName).trim(), userName: String(userName).trim() };
+  };
+
+  const favoriteTitle = ({ officeName, userName }) => {
+    const normalizedName = userName.replace(/さん$/, "");
+    if (officeName && normalizedName) return `${officeName}　${normalizedName}さんのお気に入り`;
+    if (normalizedName) return `${normalizedName}さんのお気に入り`;
+    if (officeName) return `${officeName}　利用者のお気に入り`;
+    return "利用者のお気に入り";
   };
 
   const recentItems = () => (window.ISSStorage?.getSearchHistory?.() || [])
@@ -73,7 +91,7 @@
   function refreshActivityPanels() {
     const context = getContext();
     const title = document.getElementById("favoritePanelTitle");
-    if (title) title.textContent = `${context.officeName} ${context.userName}のお気に入り`;
+    if (title) title.textContent = favoriteTitle(context);
 
     renderList("recentSearchList", recentItems(), "まだ検索履歴はありません。", "pages/dangerous-goods-search.html", "危険物を検索");
     renderList("favoriteList", favoriteItems(), "お気に入りはまだ登録されていません。", "pages/dangerous-goods-search.html", "危険物を検索");
@@ -116,6 +134,6 @@
   refreshActivityPanels();
   window.addEventListener("pageshow", refreshActivityPanels);
   window.addEventListener("storage", event => {
-    if (["iss-search-history", "iss-favorites", "iss-current-user-name", "iss-office-name"].includes(event.key)) refreshActivityPanels();
+    if (["iss-search-history", "iss-favorites", "iss-current-user-name", "iss-office-name", "iss-api-user"].includes(event.key)) refreshActivityPanels();
   });
 })();

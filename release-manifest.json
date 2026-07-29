@@ -1,15 +1,15 @@
 {
-  "version": "0.362.0",
-  "part": 362,
+  "version": "0.368.0",
+  "part": 368,
   "releaseType": "production-operation-candidate",
-  "generatedAt": "2026-07-29",
-  "fileCount": 1316,
-  "totalBytesExcludingManifestAndChecksum": 144722901,
-  "qaReport": "docs/0.362.0_総合検証レポート.json",
+  "generatedAt": "2026-07-30",
+  "fileCount": 1332,
+  "totalBytesExcludingManifestAndChecksum": 156394501,
+  "qaReport": "docs/0.363.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 362_更新内容.md",
-  "releasedAt": "2026-07-29",
-  "updatedAt": "2026-07-29",
-  "summary": "関連資料画面の全セクション説明文へ、広い画面での一行表示と狭い画面での自然改行を共通適用した。",
-  "build": "part362-responsive-copy-all-reference-sections"
+  "notes": "docs/Part 368_更新内容.md",
+  "releasedAt": "2026-07-30",
+  "updatedAt": "2026-07-30",
+  "summary": "業務システム向けの高解像度港湾背景に統一し、既存SKロゴを維持したままPC・スマートフォン双方のログイン画面を最適化した。",
+  "build": "part368-responsive-login"
 }

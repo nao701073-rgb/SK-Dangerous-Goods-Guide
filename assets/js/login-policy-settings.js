@@ -4,7 +4,7 @@
   const status=document.getElementById("authenticationPolicyStatus");
   const save=document.getElementById("saveAuthenticationPolicy");
   if(!toggle||!status||!save||!window.ISSApi)return;
-  const render=value=>{toggle.checked=Boolean(value);status.textContent=value?"ログイン必須":"ログイン任意（閲覧専用）";};
+  const render=value=>{toggle.checked=Boolean(value);status.textContent=value?"ログイン必須":"ログイン任意（閲覧専用）";if(window.ISSApi?.isLocalMode?.()){toggle.checked=true;toggle.disabled=true;save.disabled=true;status.textContent="ログイン必須（ローカル固定）";}};
   const load=async()=>{
     status.textContent="確認中";
     try{const data=await window.ISSApi.accessPolicy();render(data.authenticationRequired!==false);}

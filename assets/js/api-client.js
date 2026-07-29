@@ -3,9 +3,102 @@
   const TOKEN_KEY = "iss-api-token";
   const USER_KEY = "iss-api-user";
   const PASSWORD_CHANGE_KEY = "iss-password-change-required";
+  const LOCAL_USERS_KEY = "iss-local-auth-users-v367";
+  const LOCAL_ACCESS_POLICY_KEY = "iss-local-access-policy-v365";
+  const LOCAL_AUDIT_KEY = "iss-local-auth-audit-v365";
   const normalizeBase = value => String(value || "").trim().replace(/\/$/, "");
   const endpoint = () => normalizeBase(window.ISSStorage?.getServerEndpoint?.() || localStorage.getItem("iss-server-endpoint") || "");
   const token = () => sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || "";
+  const usesRemote = () => Boolean(endpoint());
+  const nowIso = () => new Date().toISOString();
+  const safeJsonParse = (value, fallback) => { try { return JSON.parse(value); } catch { return fallback; } };
+  const sanitize = value => String(value || "").trim();
+  const defaultPassword = "TempPass!2026";
+
+  const defaultLocalUsers = () => {
+    const offices = window.ISSOrganization?.getOfficeOptions?.() || [];
+    const officeId = id => offices.find(item => item.id === id)?.id || offices[0]?.id || null;
+    return [
+      { id:"local-user-001", login_id:"yamamoto", loginId:"yamamoto", display_name:"山本", displayName:"山本", role:"safety-environment-staff", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-002", login_id:"ninomiya", loginId:"ninomiya", display_name:"二ノ宮", displayName:"二ノ宮", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-004", login_id:"narutake", loginId:"narutake", display_name:"成竹", displayName:"成竹", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-005", login_id:"koyama", loginId:"koyama", display_name:"小山", displayName:"小山", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-006", login_id:"konaka", loginId:"konaka", display_name:"小中", displayName:"小中", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-007", login_id:"awazaki", loginId:"awazaki", display_name:"粟崎", displayName:"粟崎", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-008", login_id:"takashima", loginId:"takashima", display_name:"高嶋", displayName:"高嶋", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-010", login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者", role:"safety-environment-admin", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-011", login_id:"validator", loginId:"validator", display_name:"検証用アカウント", displayName:"検証用アカウント", role:"validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-012", login_id:"guest", loginId:"guest", display_name:"ゲストアカウント", displayName:"ゲストアカウント", role:"guest", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
+    ];
+  };
+
+  const ensureLocalUsers = () => {
+    let users = safeJsonParse(localStorage.getItem(LOCAL_USERS_KEY), null);
+    if (!Array.isArray(users) || !users.length) {
+      users = defaultLocalUsers();
+      localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+    }
+    return users.map(user => ({ ...user, login_id: user.login_id || user.loginId, loginId: user.loginId || user.login_id, display_name: user.display_name || user.displayName, displayName: user.displayName || user.display_name, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, active: user.active !== false, passwordChangeRequired: Boolean(user.passwordChangeRequired) }));
+  };
+  const saveLocalUsers = users => localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+  const ensureLocalAccessPolicy = () => {
+    const stored = safeJsonParse(localStorage.getItem(LOCAL_ACCESS_POLICY_KEY), null);
+    if (stored && typeof stored.authenticationRequired === "boolean") return stored;
+    const policy = { authenticationRequired: true, updatedAt: nowIso(), source: "local" };
+    localStorage.setItem(LOCAL_ACCESS_POLICY_KEY, JSON.stringify(policy));
+    return policy;
+  };
+  const saveLocalAccessPolicy = policy => localStorage.setItem(LOCAL_ACCESS_POLICY_KEY, JSON.stringify(policy));
+  const getLocalOffices = () => (window.ISSOrganization?.getOfficeOptions?.() || []).map(office => ({ office_id: office.id, office_name: office.name, block_id: office.blockId, block_name: office.blockName, code: office.code || "" }));
+  const enrichUser = user => {
+    const office = getLocalOffices().find(item => item.office_id === (user.office_id ?? user.officeId));
+    return { ...user, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, office_name: office?.office_name || (user.office_id || user.officeId ? "所属未設定" : "全社"), officeName: office?.office_name || (user.office_id || user.officeId ? "所属未設定" : "全社"), block_name: office?.block_name || (user.office_id || user.officeId ? "" : "安全環境室"), blockName: office?.block_name || (user.office_id || user.officeId ? "" : "安全環境室") };
+  };
+  const publicUser = user => {
+    const enriched = enrichUser(user);
+    return {
+      id: enriched.id,
+      login_id: enriched.login_id || enriched.loginId,
+      loginId: enriched.login_id || enriched.loginId,
+      display_name: enriched.display_name || enriched.displayName,
+      displayName: enriched.display_name || enriched.displayName,
+      role: enriched.role,
+      office_id: enriched.office_id,
+      officeId: enriched.office_id,
+      office_name: enriched.office_name,
+      officeName: enriched.office_name,
+      block_name: enriched.block_name,
+      blockName: enriched.block_name,
+      email: enriched.email || null,
+      active: enriched.active !== false,
+      locked_until: enriched.locked_until || null,
+      last_login_at: enriched.last_login_at || null,
+      mfa_required: Boolean(enriched.mfa_required)
+    };
+  };
+  const currentStoredUser = () => safeJsonParse(localStorage.getItem(USER_KEY), null);
+  const currentLocalUserRecord = () => {
+    const current = currentStoredUser();
+    if (!current?.id) return null;
+    return ensureLocalUsers().find(item => item.id === current.id) || null;
+  };
+  const saveCurrentUserSnapshot = record => { if (record) localStorage.setItem(USER_KEY, JSON.stringify(publicUser(record))); };
+  const pushAudit = entry => {
+    const parsed = safeJsonParse(localStorage.getItem(LOCAL_AUDIT_KEY), []);
+    const items = Array.isArray(parsed) ? parsed : [];
+    items.unshift({ id:`audit-${Date.now()}-${Math.random().toString(16).slice(2,8)}`, at: nowIso(), ...entry });
+    localStorage.setItem(LOCAL_AUDIT_KEY, JSON.stringify(items.slice(0, 300)));
+  };
+  const requireAdminRole = () => {
+    const user = currentStoredUser();
+    if (!user || !["office-admin", "safety-environment-admin"].includes(user.role)) throw new Error("管理者権限が必要です。");
+    return user;
+  };
+  const assertCanManageTargetRole = (actor, role) => {
+    if (actor.role === "office-admin" && role !== "office-user") throw new Error("事業所管理者は事業所利用者のみ管理できます。");
+  };
 
   async function request(path, options = {}) {
     const base = endpoint();
@@ -26,6 +119,8 @@
   window.ISSApi = {
     request,
     getEndpoint: endpoint,
+    usesRemoteAuth: () => usesRemote(),
+    isLocalMode: () => !usesRemote(),
     isConfigured: () => Boolean(endpoint()),
     isAuthenticated: () => Boolean(token()),
     getUser: () => {
@@ -33,12 +128,28 @@
     },
     clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); },
     async startLogin(loginId, password) {
-      return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
+      if (usesRemote()) return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
+      const loginValue = sanitize(loginId).toLowerCase();
+      const passwordValue = String(password || "");
+      const users = ensureLocalUsers();
+      const target = users.find(user => String(user.login_id || user.loginId || "").toLowerCase() === loginValue);
+      if (!target) throw new Error("ログインIDまたはパスワードが正しくありません。");
+      if (target.active === false) throw new Error("このアカウントは無効化されています。管理者へお問い合わせください。");
+      if (target.locked_until && new Date(target.locked_until).getTime() > Date.now()) throw new Error("このアカウントは一時的にロックされています。");
+      if (String(target.password || "") !== passwordValue) throw new Error("ログインIDまたはパスワードが正しくありません。");
+      target.failed_attempts = 0;
+      target.locked_until = null;
+      target.last_login_at = nowIso();
+      saveLocalUsers(users);
+      pushAudit({ action: "login", loginId: target.login_id || target.loginId, role: target.role });
+      return { token: `local.${target.id}.${Date.now()}`, user: publicUser(target), passwordChangeRequired: Boolean(target.passwordChangeRequired) };
     },
     async verifyMfa(challengeId, code) {
+      if (!usesRemote()) throw new Error("ローカル認証では確認コードは不要です。");
       return request("/auth/mfa/verify", { method: "POST", body: JSON.stringify({ challengeId, code }) });
     },
     async resendMfa(challengeId) {
+      if (!usesRemote()) throw new Error("ローカル認証では確認コードは不要です。");
       return request("/auth/mfa/resend", { method: "POST", body: JSON.stringify({ challengeId }) });
     },
     storeSession(data, remember = false) {
@@ -56,20 +167,40 @@
       return data.user;
     },
     activateAccount: (token, newPassword) => request("/auth/activate", { method: "POST", body: JSON.stringify({ token, newPassword }) }),
-    requestPasswordReset: loginId => request("/auth/request-password-reset", { method: "POST", body: JSON.stringify({ loginId }) }),
-    resetPassword: (token, newPassword) => request("/auth/reset-password", { method: "POST", body: JSON.stringify({ token, newPassword }) }),
-    changePassword: (currentPassword, newPassword) => request("/auth/change-password", { method: "POST", body: JSON.stringify({ currentPassword, newPassword }) }),
+    requestPasswordReset: loginId => {
+      if (usesRemote()) return request("/auth/request-password-reset", { method: "POST", body: JSON.stringify({ loginId }) });
+      const user = ensureLocalUsers().find(item => String(item.login_id || item.loginId).toLowerCase() === String(loginId || "").trim().toLowerCase());
+      if (!user) throw new Error("該当するログインIDが見つかりません。");
+      return Promise.resolve({ accepted: true, localMode: true });
+    },
+    resetPassword: (tokenValue, newPassword) => usesRemote() ? request("/auth/reset-password", { method: "POST", body: JSON.stringify({ token: tokenValue, newPassword }) }) : Promise.reject(new Error("ローカル運用では、システム管理者がパスワードを再設定します。")),
+    changePassword: (currentPassword, newPassword) => {
+      if (usesRemote()) return request("/auth/change-password", { method: "POST", body: JSON.stringify({ currentPassword, newPassword }) });
+      const current = currentLocalUserRecord();
+      if (!current) return Promise.reject(new Error("ログイン情報を取得できませんでした。"));
+      if (String(current.password || "") !== String(currentPassword || "")) return Promise.reject(new Error("現在のパスワードが正しくありません。"));
+      if (String(newPassword || "").length < 8) return Promise.reject(new Error("新しいパスワードは8文字以上で入力してください。"));
+      const users = ensureLocalUsers();
+      const target = users.find(item => item.id === current.id);
+      target.password = String(newPassword);
+      target.passwordChangeRequired = false;
+      target.updated_at = nowIso();
+      saveLocalUsers(users);
+      saveCurrentUserSnapshot(target);
+      pushAudit({ action: "change-password", loginId: target.login_id || target.loginId, role: target.role });
+      return Promise.resolve({ ok: true });
+    },
     finishPasswordChange() { this.clearPasswordChangeRequired(); this.clearSession(); },
     isPasswordChangeRequired: () => localStorage.getItem(PASSWORD_CHANGE_KEY) === "1",
     clearPasswordChangeRequired: () => localStorage.removeItem(PASSWORD_CHANGE_KEY),
     health: () => request("/health"),
     runtime: () => request("/runtime"),
-    accessPolicy: () => request("/system/access-policy"),
-    updateAccessPolicy: payload => request("/admin/system/access-policy", { method:"PUT", body:JSON.stringify(payload) }),
-    me: () => request("/auth/me"),
+    accessPolicy: () => usesRemote() ? request("/system/access-policy") : Promise.resolve(ensureLocalAccessPolicy()),
+    updateAccessPolicy: payload => { if (usesRemote()) return request("/admin/system/access-policy", { method:"PUT", body:JSON.stringify(payload) }); requireAdminRole(); const policy = { authenticationRequired: payload?.authenticationRequired !== false, updatedAt: nowIso(), source: "local" }; saveLocalAccessPolicy(policy); pushAudit({ action: "update-access-policy", role: currentStoredUser()?.role || "unknown" }); return Promise.resolve(policy); },
+    me: () => usesRemote() ? request("/auth/me") : Promise.resolve({ user: currentStoredUser() }),
     securityEvents: limit => request(`/auth/security-events?${new URLSearchParams({limit: limit || 50})}`),
     logoutAllSessions: () => request('/auth/logout-all', { method:'POST', body:JSON.stringify({}) }),
-    organizations: () => request("/organizations"),
+    organizations: () => usesRemote() ? request("/organizations") : Promise.resolve({ headquarters: window.ISSOrganization?.getHeadquarters?.() || {}, blocks: window.ISSOrganization?.getBlocks?.() || [], offices: getLocalOffices() }),
     listApplications: params => request(`/applications?${new URLSearchParams(params || {})}`),
     createApplication: payload => request("/applications", { method: "POST", body: JSON.stringify(payload) }),
     updateApplication: (id, payload) => request(`/applications/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(payload) }),
@@ -82,17 +213,117 @@
     accessSummary: () => request("/admin/access-summary"),
     preflight: () => request("/admin/preflight"),
     auditLogs: params => request(`/admin/audit-logs?${new URLSearchParams(typeof params === 'object' ? params : {limit: params || 200})}`),
-    forceLogoutUser: id => request(`/admin/users/${encodeURIComponent(id)}/force-logout`, { method:'POST', body:JSON.stringify({}) }),
-    adminUsers: params => request(`/admin/users?${new URLSearchParams(params || {})}`),
+    forceLogoutUser: id => usesRemote() ? request(`/admin/users/${encodeURIComponent(id)}/force-logout`, { method:'POST', body:JSON.stringify({}) }) : Promise.resolve({ ok:true }),
+    adminUsers: params => {
+      if (usesRemote()) return request(`/admin/users?${new URLSearchParams(params || {})}`);
+      const actor = requireAdminRole();
+      const page = Math.max(1, Number(params?.page || 1));
+      const pageSize = Math.max(1, Number(params?.pageSize || 25));
+      const search = String(params?.search || "").trim().toLowerCase();
+      const role = String(params?.role || "").trim();
+      const status = String(params?.status || "").trim();
+      let users = ensureLocalUsers().map(publicUser);
+      if (actor.role === "office-admin") users = users.filter(user => user.role === "office-user" && user.office_id === actor.officeId);
+      if (search) users = users.filter(user => [user.login_id, user.display_name, user.office_name, user.role].join(" ").toLowerCase().includes(search));
+      if (role) users = users.filter(user => user.role === role);
+      if (status === "active") users = users.filter(user => user.active);
+      if (status === "inactive") users = users.filter(user => !user.active);
+      const total = users.length;
+      const pageCount = Math.max(1, Math.ceil(total / pageSize));
+      const safePage = Math.min(page, pageCount);
+      const start = (safePage - 1) * pageSize;
+      return Promise.resolve({ page: safePage, pageCount, total, users: users.slice(start, start + pageSize) });
+    },
     accountSecurityDashboard: params => request(`/admin/account-security?${new URLSearchParams(params || {})}`),
     previewAccountSecurityBaseline: () => request('/admin/account-security/baseline?preview=true'),
     applyAccountSecurityBaseline: () => request('/admin/account-security/baseline', { method:'POST' }),
     applyUserSecurityPolicy: id => request(`/admin/users/${encodeURIComponent(id)}/security-policy`, { method:'PUT', body: JSON.stringify({ applyBaseline:true }) }),
     reviewUserSecurity: id => request(`/admin/users/${encodeURIComponent(id)}/security-review`, { method:'POST' }),
-    createAdminUser: payload => request('/admin/users', { method: 'POST', body: JSON.stringify(payload) }),
-    setAdminUserStatus: (id, active) => request(`/admin/users/${encodeURIComponent(id)}/status`, { method: 'PUT', body: JSON.stringify({ active }) }),
-    setAdminUserPassword: (id, newPassword, administratorPassword) => request(`/admin/users/${encodeURIComponent(id)}/password`, { method: 'PUT', body: JSON.stringify({ newPassword, administratorPassword }) }),
-    unlockAdminUser: id => request(`/admin/users/${encodeURIComponent(id)}/unlock`, { method: 'PUT', body: JSON.stringify({}) }),
+    createAdminUser: payload => {
+      if (usesRemote()) return request('/admin/users', { method: 'POST', body: JSON.stringify(payload) });
+      const actor = requireAdminRole();
+      const role = String(payload?.role || 'office-user');
+      assertCanManageTargetRole(actor, role);
+      const loginId = sanitize(payload?.loginId);
+      const displayName = sanitize(payload?.displayName);
+      const initialPassword = String(payload?.initialPassword || '');
+      if (!loginId) return Promise.reject(new Error('ログインIDを入力してください。'));
+      if (!displayName) return Promise.reject(new Error('利用者名を入力してください。'));
+      if (initialPassword.length < 8) return Promise.reject(new Error('初期パスワードは8文字以上で入力してください。'));
+      const users = ensureLocalUsers();
+      if (users.some(user => String(user.login_id || user.loginId).toLowerCase() === loginId.toLowerCase())) return Promise.reject(new Error('そのログインIDは既に使われています。'));
+      const officeId = actor.role === 'office-admin' ? actor.officeId : (payload?.officeId || null);
+      const record = { id:`local-user-${Date.now()}`, login_id:loginId, loginId, display_name:displayName, displayName, role, office_id: officeId, officeId, email: sanitize(payload?.email), password: initialPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired: payload?.passwordChangeRequired !== false, last_login_at:null, mfa_required:false };
+      users.push(record);
+      saveLocalUsers(users);
+      pushAudit({ action: 'create-user', actor: actor.loginId || actor.login_id, target: loginId, role });
+      return Promise.resolve({ user: publicUser(record) });
+    },
+    updateAdminUser: (id, payload) => {
+      if (usesRemote()) return request(`/admin/users/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(payload) });
+      const actor = requireAdminRole();
+      const users = ensureLocalUsers();
+      const target = users.find(user => user.id === id);
+      if (!target) return Promise.reject(new Error('対象利用者が見つかりません。'));
+      const nextRole = String(payload?.role || target.role);
+      assertCanManageTargetRole(actor, nextRole);
+      if (actor.role === 'office-admin' && target.office_id !== actor.officeId) return Promise.reject(new Error('他事業所の利用者は変更できません。'));
+      const nextLoginId = sanitize(payload?.loginId || target.login_id || target.loginId);
+      if (users.some(user => user.id !== id && String(user.login_id || user.loginId).toLowerCase() === nextLoginId.toLowerCase())) return Promise.reject(new Error('そのログインIDは既に使われています。'));
+      target.login_id = nextLoginId; target.loginId = nextLoginId;
+      target.display_name = sanitize(payload?.displayName || target.display_name || target.displayName); target.displayName = target.display_name;
+      target.role = nextRole;
+      target.office_id = actor.role === 'office-admin' ? actor.officeId : (payload?.officeId ?? target.office_id ?? null);
+      target.officeId = target.office_id;
+      target.updated_at = nowIso();
+      saveLocalUsers(users);
+      if ((currentStoredUser()?.id || '') === target.id) saveCurrentUserSnapshot(target);
+      pushAudit({ action: 'update-user', actor: actor.loginId || actor.login_id, target: target.login_id, role: target.role });
+      return Promise.resolve({ user: publicUser(target) });
+    },
+    setAdminUserStatus: (id, active) => {
+      if (usesRemote()) return request(`/admin/users/${encodeURIComponent(id)}/status`, { method: 'PUT', body: JSON.stringify({ active }) });
+      const actor = requireAdminRole();
+      const users = ensureLocalUsers();
+      const target = users.find(user => user.id === id);
+      if (!target) return Promise.reject(new Error('対象利用者が見つかりません。'));
+      if (actor.role === 'office-admin' && target.office_id !== actor.officeId) return Promise.reject(new Error('他事業所の利用者は変更できません。'));
+      target.active = Boolean(active);
+      saveLocalUsers(users);
+      if ((currentStoredUser()?.id || '') === target.id) saveCurrentUserSnapshot(target);
+      return Promise.resolve({ user: publicUser(target) });
+    },
+    setAdminUserPassword: (id, newPassword, administratorPassword) => {
+      if (usesRemote()) return request(`/admin/users/${encodeURIComponent(id)}/password`, { method: 'PUT', body: JSON.stringify({ newPassword, administratorPassword }) });
+      const actor = requireAdminRole();
+      const actorRecord = currentLocalUserRecord();
+      if (!actorRecord || String(actorRecord.password || '') !== String(administratorPassword || '')) return Promise.reject(new Error('管理者パスワードが正しくありません。'));
+      if (String(newPassword || '').length < 8) return Promise.reject(new Error('新しいパスワードは8文字以上で入力してください。'));
+      const users = ensureLocalUsers();
+      const target = users.find(user => user.id === id);
+      if (!target) return Promise.reject(new Error('対象利用者が見つかりません。'));
+      if (actor.role === 'office-admin' && target.office_id !== actor.officeId) return Promise.reject(new Error('他事業所の利用者は変更できません。'));
+      target.password = String(newPassword);
+      target.passwordChangeRequired = false;
+      target.locked_until = null;
+      target.failed_attempts = 0;
+      saveLocalUsers(users);
+      if ((currentStoredUser()?.id || '') === target.id) saveCurrentUserSnapshot(target);
+      pushAudit({ action: 'set-password', actor: actor.loginId || actor.login_id, target: target.login_id || target.loginId });
+      return Promise.resolve({ user: publicUser(target) });
+    },
+    unlockAdminUser: id => {
+      if (usesRemote()) return request(`/admin/users/${encodeURIComponent(id)}/unlock`, { method: 'PUT', body: JSON.stringify({}) });
+      const actor = requireAdminRole();
+      const users = ensureLocalUsers();
+      const target = users.find(user => user.id === id);
+      if (!target) return Promise.reject(new Error('対象利用者が見つかりません。'));
+      if (actor.role === 'office-admin' && target.office_id !== actor.officeId) return Promise.reject(new Error('他事業所の利用者は変更できません。'));
+      target.locked_until = null;
+      target.failed_attempts = 0;
+      saveLocalUsers(users);
+      return Promise.resolve({ user: publicUser(target) });
+    },
     createOffice: payload => request('/admin/offices', { method: 'POST', body: JSON.stringify(payload) }),
     createValidationSampleData: () => request('/admin/validation/sample-data', { method: 'POST', body: JSON.stringify({}) }),
     validationTemplate: () => request('/admin/validation/template'),

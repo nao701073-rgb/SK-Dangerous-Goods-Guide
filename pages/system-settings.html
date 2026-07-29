@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="ja">
-<head>
+<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>システム設定｜検査・検品業務サポートシステム</title>
@@ -89,21 +89,21 @@
 <label class="settings-row settings-row--select">
 <div>
 <strong>利用権限</strong>
-<p>ゲストはユーザー設定のみ、事業所利用者は所属事業所のみ、安全環境室は全事業所の申請番号と写真を閲覧できます。</p>
+<p>ゲストはユーザー設定のみ、一般利用者は所属事業所のみ、安全環境室は全事業所の申請番号と写真を閲覧できます。</p>
 </div>
 <select id="userRole">
 <option value="guest">ゲスト（検索・法令・資料・ユーザー設定）</option>
-<option value="office-user">事業所利用者</option>
+<option value="office-user">一般利用者</option>
 <option value="office-admin">事業所管理者</option>
 <option value="safety-environment-director">安全環境室長（全事業所登録・編集／削除不可）</option>
-<option value="safety-environment-staff">安全環境室職員（全事業所閲覧）</option>
+<option value="safety-environment-staff">安全環境室（全事業所閲覧）</option>
 <option value="safety-environment-admin">管理者（全事業所管理）</option>
 </select>
 </label>
 <label class="settings-row settings-row--select">
 <div>
 <strong>所属事業所・部署</strong>
-<p>ゲストは所属なし、事業所利用者・事業所管理者は所属事業所を選択します。安全環境室の室長・職員・管理者は「安全環境室（全事業所）」が自動設定されます。</p>
+<p>ゲストは所属なし、一般利用者・事業所管理者は所属事業所を選択します。安全環境室の室長・職員・管理者は「安全環境室（全事業所）」が自動設定されます。</p>
 </div>
 <select id="officeId"></select>
 </label>
@@ -140,9 +140,9 @@
 <label><span>ログインID</span><input id="quickLoginId" required pattern="[A-Za-z0-9._-]{3,100}" autocomplete="off" placeholder="例：kawasaki.suzuki"></label>
 <label><span>利用者名</span><input id="quickDisplayName" required autocomplete="name" placeholder="例：鈴木 一郎"></label>
 <label><span>権限</span><select id="quickRole" required>
-<option value="office-user">事業所利用者</option>
+<option value="office-user">一般利用者</option>
 <option value="office-admin">事業所管理者</option>
-<option value="safety-environment-staff">安全環境室職員</option>
+<option value="safety-environment-staff">安全環境室</option>
 <option value="safety-environment-director">安全環境室長</option>
 <option value="safety-environment-admin">システム管理者</option>
 <option value="validator">検証者</option>
@@ -331,7 +331,7 @@
 <script src="../data/organization-master.js"></script>
 <script src="../assets/js/organization.js"></script>
 <script src="../assets/js/storage.js?v=178"></script>
-<script src="../assets/js/api-client.js?v=178"></script><script src="../assets/js/role-access.js?v=247"></script>
+<script src="../assets/js/api-client.js?v=365"></script><script src="../assets/js/role-access.js?v=365"></script>
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
 <script src="../assets/js/quick-user-registration.js?v=360"></script>

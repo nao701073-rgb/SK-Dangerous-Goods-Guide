@@ -507,6 +507,37 @@ async function managedTarget(req,res){
   return target;
 }
 
+app.put('/api/admin/users/:id', authenticate, requireAdministrator, async (req,res)=>{
+  const schema=z.object({
+    loginId:z.string().regex(/^[A-Za-z0-9._-]{3,100}$/),
+    displayName:z.string().min(1).max(100),
+    role:z.enum(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator']),
+    officeId:z.string().nullable().optional()
+  });
+  const parsed=schema.safeParse(req.body);
+  if(!parsed.success) return res.status(400).json({error:'ログインID・表示名・権限・所属を確認してください。'});
+  const target=await managedTarget(req,res); if(!target)return;
+  const data=parsed.data;
+  if(req.user.role==='office-admin'){
+    data.role='office-user'; data.officeId=req.user.office_id;
+  }
+  if(target.id===req.user.id && data.role!==target.role) return res.status(400).json({error:'自分自身の権限はこの画面では変更できません。'});
+  if(['office-user','office-admin'].includes(data.role) && !data.officeId) return res.status(400).json({error:'検査員・事業所管理者には所属事業所が必要です。'});
+  if(data.role==='office-admin'){
+    const {rows:existing}=await query(`SELECT id,display_name FROM users WHERE office_id=$1 AND role='office-admin' AND active=true AND id<>$2 LIMIT 1`,[data.officeId,target.id]);
+    if(existing[0]) return res.status(409).json({error:`この事業所には有効な事業所管理者「${existing[0].display_name}」が既に登録されています。`});
+  }
+  const accountCategory=data.role==='guest'?'staff-guest':data.role==='validator'?'staff-validator':data.role==='safety-environment-admin'?'safety-environment-admin':data.role==='safety-environment-director'?'safety-environment-director':data.role==='safety-environment-staff'?'safety-environment-staff':data.role==='office-admin'?'office-director':'inspector';
+  try{
+    const {rows}=await query(`UPDATE users SET login_id=lower($1),display_name=$2,role=$3,account_category=$4,office_id=$5,token_version=CASE WHEN role<>$3 THEN token_version+1 ELSE token_version END,updated_at=now() WHERE id=$6 RETURNING id,login_id,display_name,role,office_id,active`,[data.loginId,data.displayName,data.role,accountCategory,['office-user','office-admin'].includes(data.role)?data.officeId:null,target.id]);
+    await audit(req,'update','user',target.id,{loginId:data.loginId,displayName:data.displayName,role:data.role,officeId:data.officeId||null});
+    res.json({user:rows[0]});
+  }catch(error){
+    if(error.code==='23505') return res.status(409).json({error:'同じログインIDの利用者が登録されています。'});
+    throw error;
+  }
+});
+
 app.put('/api/admin/users/:id/password', authenticate, requireAdministrator, async (req, res) => {
   const schema = z.object({ newPassword: z.string().min(8).max(300), administratorPassword:z.string().min(1).max(300) });
   const parsed = schema.safeParse(req.body);
