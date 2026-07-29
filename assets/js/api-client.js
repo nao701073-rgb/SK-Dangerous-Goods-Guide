@@ -64,6 +64,8 @@
     clearPasswordChangeRequired: () => localStorage.removeItem(PASSWORD_CHANGE_KEY),
     health: () => request("/health"),
     runtime: () => request("/runtime"),
+    accessPolicy: () => request("/system/access-policy"),
+    updateAccessPolicy: payload => request("/admin/system/access-policy", { method:"PUT", body:JSON.stringify(payload) }),
     me: () => request("/auth/me"),
     securityEvents: limit => request(`/auth/security-events?${new URLSearchParams({limit: limit || 50})}`),
     logoutAllSessions: () => request('/auth/logout-all', { method:'POST', body:JSON.stringify({}) }),

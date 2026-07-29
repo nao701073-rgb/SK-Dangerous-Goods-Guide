@@ -165,13 +165,27 @@
       return;
     }
 
-    if (endpointConfigured && !authenticated) {
+    let authenticationRequired = true;
+    if (endpointConfigured) {
+      try {
+        const policy = await window.ISSApi.accessPolicy();
+        authenticationRequired = policy?.authenticationRequired !== false;
+        document.documentElement.dataset.authenticationRequired = authenticationRequired ? "true" : "false";
+      } catch (error) {
+        console.warn("ログイン設定を取得できないため、ログイン必須として動作します。", error);
+      }
+    }
+    if (endpointConfigured && !authenticated && authenticationRequired) {
       const returnTo = encodeURIComponent(location.pathname + location.search + location.hash);
       location.replace(`${loginUrl()}?returnTo=${returnTo}`);
       return;
     }
 
-    const user = await resolveUser();
+    let user = await resolveUser();
+    if (endpointConfigured && !authenticated && !authenticationRequired) {
+      user = { role:"guest", displayName:"未ログイン閲覧者", officeId:null, authenticationOptional:true };
+      document.documentElement.dataset.authenticationOptionalGuest = "true";
+    }
     const roles = requiredRoles();
     if (user?.role === "guest" && !isGuestAllowedPage()) {
       showAccessDenied(user, ["guest-user-settings-only"]);

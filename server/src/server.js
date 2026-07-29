@@ -77,6 +77,30 @@ app.get('/api/runtime', (_req, res) => {
   });
 });
 
+
+async function readAccessPolicy() {
+  try {
+    const { rows } = await query(`SELECT setting_value FROM system_runtime_settings WHERE setting_key='access_policy'`);
+    return { authenticationRequired: rows[0]?.setting_value?.authenticationRequired !== false };
+  } catch {
+    return { authenticationRequired:true };
+  }
+}
+
+app.get('/api/system/access-policy', async (_req,res) => {
+  res.json(await readAccessPolicy());
+});
+
+app.put('/api/admin/system/access-policy', authenticate, requireRole('safety-environment-admin'), async (req,res) => {
+  const schema=z.object({authenticationRequired:z.boolean()});
+  const parsed=schema.safeParse(req.body);
+  if(!parsed.success)return res.status(400).json({error:'ログイン設定を確認してください。'});
+  const value={authenticationRequired:parsed.data.authenticationRequired};
+  await query(`INSERT INTO system_runtime_settings(setting_key,setting_value,updated_by,updated_at) VALUES('access_policy',$1::jsonb,$2,now()) ON CONFLICT(setting_key) DO UPDATE SET setting_value=excluded.setting_value,updated_by=excluded.updated_by,updated_at=now()`,[JSON.stringify(value),req.user.id]);
+  await audit(req,'update','system-access-policy','access_policy',value);
+  res.json(value);
+});
+
 app.post('/api/auth/login', async (req, res) => {
   if (!config.allowLocalAuth) return res.status(403).json({ error: 'ローカル認証は無効です。社内認証を利用してください。' });
   const schema = z.object({ loginId: z.string().min(1).max(100), password: z.string().min(1).max(300) });

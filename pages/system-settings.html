@@ -120,6 +120,18 @@
 </div>
 </div>
 </section>
+<section class="panel" data-roles="safety-environment-admin" id="loginPolicyPanel">
+<div class="panel-heading"><h2>ログイン機能</h2></div>
+<div class="panel-body settings-list">
+<label class="settings-row settings-row--toggle">
+<div><strong>ログインを必須にする</strong><p>通常運用ではONにします。OFFにした場合、未ログイン利用者は危険物検索、詳細、関連法令、関連資料を閲覧専用で利用できます。申請番号、写真、利用者管理、システム設定などの業務・管理データは引き続きログインが必要です。</p></div>
+<span class="switch"><input id="authenticationRequired" type="checkbox" checked><span class="switch-slider"></span></span>
+</label>
+<div class="settings-row"><div><strong>現在の公開範囲</strong><p>ログインを任意にしても、未ログイン時はゲスト相当の閲覧範囲に限定されます。</p></div><span class="fixed-setting" id="authenticationPolicyStatus">確認中</span></div>
+<div class="settings-actions"><button class="primary-action" id="saveAuthenticationPolicy" type="button">ログイン設定を保存</button><a class="secondary-action" href="login.html">ログイン画面を確認</a></div>
+<p class="settings-note">設定をOFFにしてもログイン画面は残るため、管理者や登録利用者は通常どおりログインできます。</p>
+</div>
+</section>
 <section class="panel" data-roles="office-admin,safety-environment-admin" id="quickUserRegistrationPanel">
 <div class="panel-heading"><h2>利用者アカウントの簡易登録</h2></div>
 <div class="panel-body settings-list">
@@ -323,6 +335,7 @@
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
 <script src="../assets/js/quick-user-registration.js?v=360"></script>
+<script src="../assets/js/login-policy-settings.js?v=361"></script>
 <script src="../assets/js/access-url-tools.js?v=289"></script>
 <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/session-guard.js"></script>

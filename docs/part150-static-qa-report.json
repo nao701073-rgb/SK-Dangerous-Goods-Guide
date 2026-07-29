@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-29T13:46:55.727Z",
-  "root": "/mnt/data/work359/SK-Dangerous-Goods-Guide",
+  "generatedAt": "2026-07-29T14:15:43.472Z",
+  "root": "/mnt/data/work361/SK-Dangerous-Goods-Guide",
   "status": "passed",
   "stats": {
     "html": 56,
-    "js": 133,
-    "json": 178,
-    "refs": 735,
-    "bytes": 144983342
+    "js": 135,
+    "json": 180,
+    "refs": 737,
+    "bytes": 145011521
   },
   "findingCount": 0,
   "findings": [],

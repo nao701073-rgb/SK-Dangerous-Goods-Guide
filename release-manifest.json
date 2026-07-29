@@ -1,15 +1,15 @@
 {
-  "version": "0.360.0",
-  "part": 360,
+  "version": "0.362.0",
+  "part": 362,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-07-29",
-  "fileCount": 1309,
-  "totalBytesExcludingManifestAndChecksum": 144696292,
-  "qaReport": "docs/0.360.0_総合検証レポート.json",
+  "fileCount": 1316,
+  "totalBytesExcludingManifestAndChecksum": 144722901,
+  "qaReport": "docs/0.362.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 360_更新内容.md",
+  "notes": "docs/Part 362_更新内容.md",
   "releasedAt": "2026-07-29",
   "updatedAt": "2026-07-29",
-  "summary": "システム設定内に管理者向けの利用者簡易登録と初期パスワード自動生成を追加した。",
-  "build": "part360-system-settings-quick-user-registration"
+  "summary": "関連資料画面の全セクション説明文へ、広い画面での一行表示と狭い画面での自然改行を共通適用した。",
+  "build": "part362-responsive-copy-all-reference-sections"
 }
