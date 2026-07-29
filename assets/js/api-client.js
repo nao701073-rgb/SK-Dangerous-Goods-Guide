@@ -2,6 +2,7 @@
   "use strict";
   const TOKEN_KEY = "iss-api-token";
   const USER_KEY = "iss-api-user";
+  const PASSWORD_CHANGE_KEY = "iss-password-change-required";
   const normalizeBase = value => String(value || "").trim().replace(/\/$/, "");
   const endpoint = () => normalizeBase(window.ISSStorage?.getServerEndpoint?.() || localStorage.getItem("iss-server-endpoint") || "");
   const token = () => sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || "";
@@ -30,7 +31,7 @@
     getUser: () => {
       try { return JSON.parse(localStorage.getItem(USER_KEY) || "null"); } catch { return null; }
     },
-    clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); },
+    clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); },
     async startLogin(loginId, password) {
       return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
     },
@@ -44,6 +45,8 @@
       if (!data?.token) throw new Error("認証トークンを取得できませんでした。");
       (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, data.token);
       localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      if (data.passwordChangeRequired) localStorage.setItem(PASSWORD_CHANGE_KEY, "1");
+      else localStorage.removeItem(PASSWORD_CHANGE_KEY);
       return data.user;
     },
     async login(loginId, password, remember = false) {
@@ -55,9 +58,15 @@
     activateAccount: (token, newPassword) => request("/auth/activate", { method: "POST", body: JSON.stringify({ token, newPassword }) }),
     requestPasswordReset: loginId => request("/auth/request-password-reset", { method: "POST", body: JSON.stringify({ loginId }) }),
     resetPassword: (token, newPassword) => request("/auth/reset-password", { method: "POST", body: JSON.stringify({ token, newPassword }) }),
+    changePassword: (currentPassword, newPassword) => request("/auth/change-password", { method: "POST", body: JSON.stringify({ currentPassword, newPassword }) }),
+    finishPasswordChange() { this.clearPasswordChangeRequired(); this.clearSession(); },
+    isPasswordChangeRequired: () => localStorage.getItem(PASSWORD_CHANGE_KEY) === "1",
+    clearPasswordChangeRequired: () => localStorage.removeItem(PASSWORD_CHANGE_KEY),
     health: () => request("/health"),
     runtime: () => request("/runtime"),
     me: () => request("/auth/me"),
+    securityEvents: limit => request(`/auth/security-events?${new URLSearchParams({limit: limit || 50})}`),
+    logoutAllSessions: () => request('/auth/logout-all', { method:'POST', body:JSON.stringify({}) }),
     organizations: () => request("/organizations"),
     listApplications: params => request(`/applications?${new URLSearchParams(params || {})}`),
     createApplication: payload => request("/applications", { method: "POST", body: JSON.stringify(payload) }),

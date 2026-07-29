@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "reportName": "0.320.0 総合検証レポート",
+  "generatedAt": "2026-07-28T22:36:02.424Z",
+  "systemVersion": "0.320.0",
+  "versionMetadata": {
+    "part": 320,
+    "version": "0.320.0",
+    "name": "Application Support Quick Workflow",
+    "updatedAt": "2026-07-29",
+    "build": "part320-application-support-quick-workflow"
+  },
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 5,
+    "passedCount": 5,
+    "failedCount": 0,
+    "javascriptFilesChecked": 99,
+    "requiredPagesChecked": 16,
+    "dangerousGoodsDataSha256": "6a04cb4ce84e1b71869bb3324ca971f9c9450064f66fb49790e1cf9a4ea20ebd"
+  },
+  "tests": [
+    {
+      "name": "静的ファイル・参照検査",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-07-28T22:36:00.224Z",
+      "finishedAt": "2026-07-28T22:36:02.364Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"findingCount\": 0,\n  \"stats\": {\n    \"html\": 56,\n    \"js\": 122,\n    \"json\": 139,\n    \"refs\": 728,\n    \"bytes\": 135487008\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "name": "役割別権限マトリクス",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-07-28T22:36:02.364Z",
+      "finishedAt": "2026-07-28T22:36:02.391Z",
+      "stdout": "OK guest: {\"applicationScope\":\"none\",\"applicationsRead\":false,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":false,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-user: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-admin: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"own-office\"}\nOK safety-environment-director: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"systemSettingsMode\":\"limited\"}\nOK safety-environment-staff: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK safety-environment-admin: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"all-offices\"}\nrole permission validation passed; report=/mnt/data/sk320_work/SK-Dangerous-Goods-Guide/docs/Part219_役割別権限監査レポート.json",
+      "stderr": ""
+    },
+    {
+      "name": "危険物データ公開判定",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-07-28T22:36:02.391Z",
+      "finishedAt": "2026-07-28T22:36:02.420Z",
+      "stdout": "公開判定: 合格",
+      "stderr": ""
+    },
+    {
+      "name": "主要画面・構成ファイル",
+      "status": "passed",
+      "missing": []
+    },
+    {
+      "name": "JavaScript構文検査",
+      "status": "passed",
+      "checkedFiles": 99,
+      "failures": []
+    }
+  ],
+  "manualVerificationRequired": [
+    "クラウドAPIへの実接続と認証メール送信",
+    "50名・150名を想定した実環境負荷試験",
+    "実端末でのPC・スマートフォン表示確認",
+    "写真保存領域のバックアップ・復元試験",
+    "初期利用者・所属・役割の実データ確認"
+  ],
+  "notes": [
+    "本レポートはソース一式に対する自動検査結果です。",
+    "クラウド契約や外部サービスを必要とする試験は、配置先決定後に実施します。",
+    "透かし表示、スクリーンショット検知・追跡、画面自動保存は未実装です。"
+  ]
+}

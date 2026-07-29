@@ -40,3 +40,12 @@
 .nav-section .nav-link strong{font-size:.88rem}
 .nav-section .nav-link small{color:var(--muted);font-size:.66rem;font-weight:600;line-height:1.35}
 .nav-section .nav-link:hover small,.nav-section .nav-link.active small{color:inherit}
+
+
+/* Part 309: user-selectable post-login appearance. Login page is intentionally excluded. */
+html[data-app-theme="bright"]{--navy:#0758a6;--navy-dark:#064684;--blue:#2088d8;--blue-light:#eef8ff;--surface:#fff;--surface-soft:#f8fbfe;--border:#d8e8f5;--text:#132130;--muted:#597084;--shadow:0 14px 35px rgba(10,86,157,.09)}
+html[data-app-theme="calm"]{--navy:#36566f;--navy-dark:#294457;--blue:#557f9f;--blue-light:#eef3f6;--surface:#fcfdfd;--surface-soft:#eef2f4;--border:#d2dde3;--text:#22313c;--muted:#657681;--shadow:0 14px 35px rgba(47,74,93,.09)}
+html[data-app-theme="dark"]{--navy:#112f52;--navy-dark:#091d35;--blue:#5aaeea;--blue-light:#17314d;--surface:#10243a;--surface-soft:#091a2b;--border:#2a4660;--text:#edf6ff;--muted:#b2c3d2;--warning-bg:#493b13;--warning-text:#ffe08a;--shadow:0 14px 35px rgba(0,0,0,.3);color-scheme:dark}
+html[data-app-theme="dark"] body,html[data-app-theme="dark"] .workspace{background:var(--surface-soft);color:var(--text)}
+html[data-app-theme="dark"] .module-card,html[data-app-theme="dark"] .info-panel,html[data-app-theme="dark"] .page-card,html[data-app-theme="dark"] .panel,html[data-app-theme="dark"] .panel-body,html[data-app-theme="dark"] input,html[data-app-theme="dark"] select,html[data-app-theme="dark"] textarea{background:var(--surface);color:var(--text);border-color:var(--border)}
+html[data-app-theme="dark"] .bottom-nav{background:rgba(16,36,58,.96)}

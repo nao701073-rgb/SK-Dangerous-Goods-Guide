@@ -1,6 +1,6 @@
 {
   "systemName": "検査・検品業務サポートシステム",
-  "version": "0.290.0",
+  "version": "0.329.0",
   "offline": true,
   "modules": [
     {
@@ -49,7 +49,7 @@
       "status": "future"
     }
   ],
-  "build": "part294-reference-reading-status",
+  "build": "part329-login-mfa-network-stability-regression-guard",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -269,5 +269,33 @@
       "6.1",
       "8"
     ]
+  },
+  "part": 309,
+  "loginAppearance": {
+    "scope": "login-screen-only",
+    "timeThemes": [
+      {
+        "id": "morning",
+        "start": "06:00",
+        "end": "10:00"
+      },
+      {
+        "id": "day",
+        "start": "10:00",
+        "end": "16:00"
+      },
+      {
+        "id": "evening",
+        "start": "16:00",
+        "end": "19:00"
+      },
+      {
+        "id": "night",
+        "start": "19:00",
+        "end": "06:00"
+      }
+    ],
+    "successAnimation": "login-success-only",
+    "copyright": "© 2026 Shin Nihon Kentei Kyokai All rights reserved."
   }
 }

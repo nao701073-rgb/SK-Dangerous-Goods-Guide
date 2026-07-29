@@ -6,11 +6,12 @@
   <title>申請番号管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/photo-management.css?v=269">
+  <link rel="stylesheet" href="../assets/css/photo-management.css?v=321">
+  <link rel="stylesheet" href="../assets/css/application-role-mode.css?v=321">
   <link rel="stylesheet" href="../assets/css/organization-management.css">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="applications">
+<body data-page="applications" data-required-roles="office-user,office-admin,safety-environment-director,safety-environment-staff,safety-environment-admin">
   <header class="app-header">
     <div>
       <p class="eyebrow">Application Management</p>
@@ -19,16 +20,61 @@
     <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
   </header>
 
-  <main class="main-content photo-page">
+  <main class="main-content photo-page application-support-mode">
+    <section class="application-support-intro" aria-labelledby="applicationSupportTitle">
+      <div>
+        <p class="eyebrow">Support Function</p>
+        <h2 id="applicationSupportTitle">社内既存システムを補完する簡易管理</h2>
+        <p>正式な申請番号管理は社内既存システムで行います。この画面では、申請番号に関連する<strong>写真・簡易メモ・添付資料</strong>を分かりやすく整理します。</p>
+      </div>
+      <ul>
+        <li>必要な情報だけ登録</li>
+        <li>複雑な期限・承認管理なし</li>
+        <li>写真と資料を申請番号に紐付け</li>
+      </ul>
+    </section>
+    <section id="applicationRoleMode" class="application-role-mode" aria-labelledby="applicationRoleModeTitle">
+      <div>
+        <p class="eyebrow">Permission Mode</p>
+        <h2 id="applicationRoleModeTitle">権限に応じた補完機能</h2>
+        <p id="applicationRoleModeDescription">ログイン中の権限を確認しています。</p>
+      </div>
+      <dl>
+        <div><dt>現在の権限</dt><dd id="applicationRoleName">確認中</dd></div>
+        <div><dt>対象範囲</dt><dd id="applicationRoleScope">確認中</dd></div>
+        <div><dt>利用できる操作</dt><dd id="applicationRoleActions">確認中</dd></div>
+      </dl>
+    </section>
     <nav class="application-section-nav" aria-label="申請番号管理の項目">
-      <button type="button" data-application-section="applicationScopeSection">表示範囲・所属</button>
-      <button type="button" data-application-section="applicationRegisterSection">申請番号を登録</button>
-      <button type="button" data-application-section="applicationListSection">登録済み申請番号</button>
-      <button type="button" data-application-section="applicationDocumentSection">添付資料を管理</button>
-      <button type="button" data-application-section="applicationPhotoSection">申請番号に写真を登録</button>
-      <button type="button" data-application-section="all">すべて表示</button>
+      <button type="button" data-application-section="applicationQuickSection">かんたん登録</button>
+      <button type="button" data-application-section="applicationListSection">登録済み</button>
+      <button type="button" data-application-section="applicationDocumentSection">添付資料</button>
+      <button type="button" data-application-section="applicationPhotoSection">関連写真</button>
+      <button type="button" data-application-section="applicationRegisterSection">基本情報</button>
     </nav>
-    <section class="management-panel organization-context-panel application-primary-section" id="applicationScopeSection">
+    <section class="management-panel application-primary-section application-quick-section" id="applicationQuickSection">
+      <div class="management-heading">
+        <div><p class="eyebrow">Quick Support</p><h2>申請番号に補完情報を追加</h2></div>
+      </div>
+      <p class="scope-note">社内既存システムの申請番号を選び、メモ・写真・添付資料を追加します。複雑な進捗設定はありません。</p>
+      <div class="application-quick-grid">
+        <label>申請番号
+          <select id="quickApplicationSelect"><option value="">選択してください</option></select>
+        </label>
+        <label class="application-quick-memo">簡易メモ
+          <textarea id="quickApplicationMemo" rows="3" maxlength="2000" placeholder="現場で確認した内容や引継ぎ事項など"></textarea>
+        </label>
+      </div>
+      <div class="application-quick-actions">
+        <button id="quickSaveMemo" class="primary-action" type="button">メモを保存</button>
+        <button id="quickAddPhoto" type="button">写真を追加</button>
+        <button id="quickAddDocument" type="button">添付資料を追加</button>
+        <button id="quickCreateApplication" type="button">申請番号を新規登録</button>
+        <span id="quickApplicationMessage" class="form-message" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="management-panel organization-context-panel application-support-optional" id="applicationScopeSection" hidden>
       <div class="management-heading">
         <div>
           <p class="eyebrow">Organization Scope</p>
@@ -50,21 +96,22 @@
         </label>
       </div>
       <div id="officeSummary" class="office-summary-grid"></div>
-      <div id="applicationStatusSummary" class="application-status-summary" aria-label="進捗状況別件数"></div>
-      <p class="scope-note">進捗状況の件数を選択すると、該当案件だけを絞り込めます。安全環境室の権限では、全ブロック・全事業所を横断して閲覧できます。</p>
+      <div id="applicationStatusSummary" class="application-status-summary" aria-label="進捗状況別件数" hidden></div>
+      <p class="scope-note">社内既存システムの申請番号を手掛かりに、補完情報を確認します。権限に応じて所属事業所または全事業所を表示します。</p>
     </section>
 
     <section class="management-panel application-primary-section" id="applicationRegisterSection">
       <div class="section-heading">
         <div>
           <p class="eyebrow">New Application</p>
-          <h2>申請番号を登録</h2>
+          <h2>メモ・基本情報を登録</h2>
         </div>
       </div>
 
       <form id="applicationForm" class="application-form application-form--expanded">
         <input id="editingApplicationId" type="hidden">
-        <div class="application-form__wide application-form-note">必須項目は最小限です。案件ごとに分かる範囲だけ入力し、情報は後から追加できます。</div>
+        <div class="application-form__wide application-form-note">申請年度と申請番号を登録し、必要に応じて簡易メモを追加します。詳細情報の入力は任意です。</div>
+        <div class="application-form__wide application-simple-actions"><button id="toggleApplicationDetails" type="button" aria-expanded="false">詳細項目を表示</button><small>通常は申請番号とメモだけで登録できます。</small></div>
         <label>
           申請年度 <span class="required-mark">必須</span>
           <input id="applicationYear" inputmode="numeric" maxlength="4" required placeholder="例：2026">
@@ -89,8 +136,8 @@
           受付事業所 <span class="required-mark">必須</span>
           <select id="registrationOffice"></select>
         </label>
-        <label>
-          進捗状況 <span class="required-mark">必須</span>
+        <label data-application-detail-field hidden>
+          進捗状況
           <select id="applicationStatus">
             <option value="draft">下書き</option>
             <option value="received">受付済み</option>
@@ -99,7 +146,7 @@
             <option value="cancelled">取消</option>
           </select>
         </label>
-        <label>担当者<input id="applicationAssignee" placeholder="任意"></label>
+        <label data-application-detail-field hidden>担当者<input id="applicationAssignee" placeholder="任意"></label>
         <label>コンテナ番号<input id="containerNumber" placeholder="任意"></label>
         <label>船名<input id="vesselName" placeholder="任意"></label>
         <label>航海番号<input id="voyageNumber" placeholder="任意"></label>
@@ -174,11 +221,12 @@
       <div class="management-heading">
         <div>
           <p class="eyebrow">Applications</p>
-          <h2>登録済み申請番号</h2>
+          <h2>登録済みの補完情報</h2>
         </div>
         <div class="application-filter-tools">
-          <input id="applicationFilter" type="search" placeholder="申請番号・コンテナ番号・名称などで検索">
+          <input id="applicationFilter" type="search" placeholder="申請番号・メモで検索">
           <select id="applicationYearFilter"><option value="">すべての年度</option></select>
+          <details class="application-advanced-tools"><summary>詳細な絞り込み</summary><div>
           <select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="draft">下書き</option><option value="received">受付済み</option><option value="in_progress">対応中</option><option value="completed">完了</option><option value="cancelled">取消</option></select>
           <select id="applicationSort" aria-label="申請案件の並び順">
             <option value="updated-desc">更新日：新しい順</option>
@@ -204,6 +252,7 @@
           <button id="resetApplicationFilters" type="button">条件をリセット</button>
           <button id="toggleApplicationDisplaySettings" type="button">表示項目</button>
           <button id="exportApplicationsCsv" type="button">CSV出力</button>
+          </div></details>
         </div>
       </div>
       <div class="application-list-summary" aria-live="polite">
@@ -260,7 +309,7 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">Application Photos</p>
-          <h2>申請番号に写真を登録</h2>
+          <h2>関連写真を登録</h2>
         </div>
       </div>
 
@@ -331,7 +380,7 @@
       </form>
     </section>
 
-    <section class="management-panel">
+    <section class="management-panel application-essential-section" id="applicationRegisteredPhotosSection">
       <div class="management-heading">
         <div>
           <p class="eyebrow">Registered Photos</p>
@@ -667,13 +716,76 @@
   <script src="../data/un-data.js"></script>
   <script src="../assets/js/organization.js"></script>
   <script src="../assets/js/storage.js?v=269"></script>
-  <script src="../assets/js/applications.js?v=276"></script>
+  <script src="../assets/js/api-client.js?v=321"></script>
+  <script src="../assets/js/role-access.js?v=321"></script>
+  <script src="../assets/js/application-role-mode.js?v=321"></script>
+  <script src="../assets/js/applications.js?v=321"></script>
   <script src="../assets/js/application-documents.js?v=269"></script>
   <script src="../assets/js/photos.js?v=178"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script>
-  (()=>{const buttons=[...document.querySelectorAll("[data-application-section]")];const primary=[...document.querySelectorAll(".application-primary-section")];function show(id){primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});}buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));show("applicationScopeSection");})();
+  (()=>{
+    const buttons=[...document.querySelectorAll("[data-application-section]")];
+    const primary=[...document.querySelectorAll(".application-primary-section")];
+    function show(id){
+      primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);
+      buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));
+      if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));
+
+    const optionalIds=["applicationAssignee","containerNumber","vesselName","voyageNumber","unNumber","japaneseName","englishName","hazardClass","subsidiaryHazardClasses","packingGroup","applicationDate","inspectionPlannedDate","inspectionDate","caseTitle"];
+    const optionalFields=[...optionalIds.map(id=>document.getElementById(id)?.closest("label")),...document.querySelectorAll("[data-application-detail-field]")].filter(Boolean);
+    const candidatePanel=document.getElementById("unCandidatePanel");
+    const detailButton=document.getElementById("toggleApplicationDetails");
+    function setDetailVisibility(expanded){
+      optionalFields.forEach(field=>field.hidden=!expanded);
+      if(!expanded&&candidatePanel)candidatePanel.hidden=true;
+      detailButton?.setAttribute("aria-expanded",String(expanded));
+      if(detailButton)detailButton.textContent=expanded?"詳細項目を閉じる":"詳細項目を表示";
+    }
+    detailButton?.addEventListener("click",()=>setDetailVisibility(detailButton.getAttribute("aria-expanded")!=="true"));
+    setDetailVisibility(false);
+
+    const registeredPhotos=document.getElementById("applicationRegisteredPhotosSection");
+    let passedEssential=false;
+    document.querySelectorAll("main > section.management-panel").forEach(section=>{
+      if(section===registeredPhotos){passedEssential=true;return;}
+      if(passedEssential&&!section.classList.contains("application-primary-section")){
+        section.hidden=true;
+        section.dataset.simplifiedHidden="true";
+      }
+    });
+    const quickSelect=document.getElementById("quickApplicationSelect");
+    const quickMemo=document.getElementById("quickApplicationMemo");
+    const quickMessage=document.getElementById("quickApplicationMessage");
+    const displayNumber=item=>item.numberType==="temporary"?(item.temporaryNumber||item.applicationNumber):item.applicationNumber;
+    function refreshQuickApplications(){
+      if(!quickSelect||!window.ISSStorage)return;
+      const selected=quickSelect.value;
+      const apps=window.ISSStorage.getApplications?.({scope:window.ISSStorage.isSafetyEnvironment?.()?"all":"office"})||[];
+      quickSelect.innerHTML='<option value="">選択してください</option>'+apps.sort((a,b)=>String(b.updatedAt||"").localeCompare(String(a.updatedAt||""))).map(item=>`<option value="${item.id}">${item.applicationYear||""}年度・${displayNumber(item)||""}${item.note?"（メモあり）":""}</option>`).join("");
+      if([...quickSelect.options].some(option=>option.value===selected))quickSelect.value=selected;
+      quickSelect.dispatchEvent(new Event("change"));
+    }
+    quickSelect?.addEventListener("change",()=>{
+      const item=(window.ISSStorage.getApplications?.({scope:window.ISSStorage.isSafetyEnvironment?.()?"all":"office"})||[]).find(app=>app.id===quickSelect.value);
+      if(quickMemo)quickMemo.value=item?.note||"";
+      if(quickMessage)quickMessage.textContent="";
+    });
+    document.getElementById("quickSaveMemo")?.addEventListener("click",()=>{
+      if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";quickMessage.classList.add("is-error");return;}
+      try{window.ISSStorage.updateApplication(quickSelect.value,{note:quickMemo.value});quickMessage.textContent="簡易メモを保存しました。";quickMessage.classList.remove("is-error");window.dispatchEvent(new CustomEvent("iss:applications-changed"));}
+      catch(error){quickMessage.textContent=error.message||"メモを保存できませんでした。";quickMessage.classList.add("is-error");}
+    });
+    document.getElementById("quickAddPhoto")?.addEventListener("click",()=>{if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";return;}const target=document.getElementById("photoApplication");if(target){target.value=quickSelect.value;target.dispatchEvent(new Event("change",{bubbles:true}));}show("applicationPhotoSection");});
+    document.getElementById("quickAddDocument")?.addEventListener("click",()=>{if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";return;}const target=document.getElementById("documentApplication");if(target){target.value=quickSelect.value;target.dispatchEvent(new Event("change",{bubbles:true}));}show("applicationDocumentSection");});
+    document.getElementById("quickCreateApplication")?.addEventListener("click",()=>show("applicationRegisterSection"));
+    window.addEventListener("iss:applications-changed",refreshQuickApplications);
+    refreshQuickApplications();
+    show("applicationQuickSection");
+  })();
   </script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
 </body>

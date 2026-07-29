@@ -37,6 +37,41 @@
       </div>
     </section>
 
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>本番運用開始手続き</h2><p>開始前確認から移行、公開、初動確認までを段階ごとに記録します。</p></div><span id="cutoverProgressText" class="fixed-setting">0 / 0</span></div>
+      <div class="panel-body">
+        <div class="hub-progress" aria-hidden="true"><span id="cutoverProgressBar"></span></div>
+        <form id="cutoverChecklistForm" class="hub-checklist"></form>
+        <div class="readiness-actions hub-cutover-actions">
+          <button id="exportCutoverReport" type="button">開始手続き記録JSON出力</button>
+          <button id="resetCutoverChecklist" type="button">開始手続きを初期化</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>開始承認記録</h2><p>本番公開の判断、実施予定日時、責任者および差戻し条件を記録します。</p></div></div>
+      <div class="panel-body">
+        <form id="cutoverApprovalForm" class="admin-form-grid">
+          <label>開始判断
+            <select id="cutoverDecision">
+              <option value="hold">保留</option>
+              <option value="conditional">条件付き開始可</option>
+              <option value="approved">開始承認</option>
+              <option value="rollback">差戻し</option>
+            </select>
+          </label>
+          <label>本番開始予定日時<input id="cutoverAt" type="datetime-local"></label>
+          <label>実施責任者<input id="cutoverOwner" type="text" maxlength="120" placeholder="氏名または役職"></label>
+          <label>立会確認者<input id="cutoverWitness" type="text" maxlength="120" placeholder="氏名または役職"></label>
+          <label class="admin-form-wide">開始条件・差戻し条件<textarea id="cutoverConditions" rows="4" maxlength="3000" placeholder="未完了事項、許容条件、差戻し判断基準を記録"></textarea></label>
+          <div class="admin-form-wide readiness-actions"><button type="submit">開始承認記録を保存</button></div>
+        </form>
+        <p id="cutoverSavedStatus" class="admin-status">未保存</p>
+      </div>
+    </section>
+
     <section class="panel">
       <div class="panel-heading"><div><h2>運用責任者記録</h2><p>確認時点の所見と次回確認予定を端末内へ保存します。</p></div></div>
       <div class="panel-body">
@@ -66,8 +101,8 @@
     </section>
   </main>
   <script src="../assets/js/api-client.js"></script>
-  <script src="../assets/js/role-access.js?v=232"></script>
-  <script src="../assets/js/production-operations-hub.js?v=232"></script>
+  <script src="../assets/js/role-access.js?v=308"></script>
+  <script src="../assets/js/production-operations-hub.js?v=308"></script>
   <script src="../assets/js/session-guard.js"></script>
 </body>
 </html>

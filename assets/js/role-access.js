@@ -11,12 +11,20 @@
     "validator": "検証者"
   };
 
+  const ACCESS_ROLE_DISPLAY_ORDER = [
+    "office-admin",
+    "office-user",
+    "safety-environment-director",
+    "safety-environment-staff",
+    "safety-environment-admin"
+  ];
+
   const PERMISSIONS = {
-    "office-user": { applicationsRead:true, applicationsWrite:true, photosRead:true, photosWrite:true },
-    "office-admin": { applicationsRead:true, applicationsWrite:true, photosRead:true, photosWrite:true, officeUsers:true },
-    "safety-environment-director": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemSettings:true },
-    "safety-environment-staff": { applicationsRead:true, applicationsAllOffices:true, photosRead:true, photosAllOffices:true, readOnly:true },
-    "safety-environment-admin": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemAdmin:true },
+    "office-user": { applicationsRead:true, applicationsWrite:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true },
+    "office-admin": { applicationsRead:true, applicationsWrite:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, officeUsers:true },
+    "safety-environment-director": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemSettings:true },
+    "safety-environment-staff": { applicationsRead:true, applicationsAllOffices:true, applicationNotesRead:true, applicationDocumentsRead:true, photosRead:true, photosAllOffices:true, readOnly:true },
+    "safety-environment-admin": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemAdmin:true },
     "guest": { userSettings:true, dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true },
     "validator": { referenceRead:true, validation:true }
   };
@@ -59,6 +67,17 @@
 
   function roleAllowed(user, roles) {
     return !roles.length || Boolean(user && roles.includes(user.role));
+  }
+
+  function hideUnavailableNavigation(user) {
+    const canReadApplications = Boolean(PERMISSIONS[user?.role]?.applicationsRead);
+    document.querySelectorAll("a[href*='applications.html'], [data-nav='applications']").forEach(node => {
+      const target = node.closest?.(".module-card, .nav-item, li") || node;
+      target.hidden = !canReadApplications;
+      target.setAttribute("aria-hidden", canReadApplications ? "false" : "true");
+      if (!canReadApplications) target.setAttribute("tabindex", "-1");
+      else target.removeAttribute("tabindex");
+    });
   }
 
   function applyRoleVisibility(user) {
@@ -105,7 +124,19 @@
   }
 
   function showAccessDenied(user, roles) {
-    document.body.innerHTML = `<main class="workspace"><section class="panel"><div class="panel-heading"><h1>この画面を利用する権限がありません</h1></div><div class="panel-body"><p>現在の権限：<strong>${ROLE_LABELS[user?.role] || "未認証"}</strong></p><p>この画面は ${roles.map(r => ROLE_LABELS[r] || (r === "guest-user-settings-only" ? "ユーザー設定" : r)).join("、")} のみ利用できます。</p><p><a class="secondary-action" href="${user?.role === "guest" ? (location.pathname.includes("/pages/") ? "settings.html" : "pages/settings.html") : settingsUrl()}">設定画面へ戻る</a></p></div></section></main>`;
+    const orderedRoles = roles.includes("guest-user-settings-only")
+      ? roles
+      : [
+          ...ACCESS_ROLE_DISPLAY_ORDER.filter(role => roles.includes(role)),
+          ...roles.filter(role => !ACCESS_ROLE_DISPLAY_ORDER.includes(role))
+        ];
+    const roleNames = orderedRoles
+      .map(role => ROLE_LABELS[role] || (role === "guest-user-settings-only" ? "ユーザー設定" : role))
+      .join("、");
+    const returnUrl = user?.role === "guest"
+      ? (location.pathname.includes("/pages/") ? "settings.html" : "pages/settings.html")
+      : settingsUrl();
+    document.body.innerHTML = `<main class="workspace"><section class="panel" role="alert"><div class="panel-heading"><h1>この画面を利用する権限がありません</h1></div><div class="panel-body"><p>この画面は ${roleNames} のみ利用できます。</p><p><a class="secondary-action" href="${returnUrl}">設定画面へ戻る</a></p></div></section></main>`;
   }
 
   async function resolveUser() {
@@ -126,6 +157,11 @@
     if (isPublicPage()) return;
     const endpointConfigured = Boolean(window.ISSApi?.isConfigured?.());
     const authenticated = Boolean(window.ISSApi?.isAuthenticated?.());
+    const passwordChangeRequired = Boolean(window.ISSApi?.isPasswordChangeRequired?.());
+    if (authenticated && passwordChangeRequired && !location.pathname.endsWith("/pages/change-password.html")) {
+      location.href = location.pathname.includes("/pages/") ? "change-password.html" : "pages/change-password.html";
+      return;
+    }
 
     if (endpointConfigured && !authenticated) {
       const returnTo = encodeURIComponent(location.pathname + location.search + location.hash);
@@ -144,6 +180,7 @@
       return;
     }
     applyRoleVisibility(user);
+    hideUnavailableNavigation(user);
     applyGuestHomeView(user);
     lockAuthenticatedOrganizationSettings(user);
     document.dispatchEvent(new CustomEvent("iss-role-ready", { detail: { user, permissions: PERMISSIONS[user?.role] || {} } }));

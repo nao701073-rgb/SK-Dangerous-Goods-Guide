@@ -1,8 +1,7 @@
 {
-  "name": "SK Dangerous Goods Guide",
-  "part": 294,
-  "version": "0.294.0",
-  "releasedAt": "2026-07-28",
-  "summary": "関連資料に閲覧済み・未閲覧の絞り込みと、閲覧履歴のみを消去する機能を追加した。",
-  "updatedAt": "2026-07-28"
+  "part": 331,
+  "version": "0.331.0",
+  "name": "Access Denied Message Order",
+  "updatedAt": "2026-07-29",
+  "build": "part331-access-denied-message-order"
 }

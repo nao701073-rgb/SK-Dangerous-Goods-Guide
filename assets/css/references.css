@@ -1178,3 +1178,58 @@ body.is-reference-source-modal-open {
 @media (max-width: 719px) {
   .reference-card-actions > * { width: 100%; text-align: center; }
 }
+
+
+/* Part 295: registered-document summary and bulk actions */
+.reference-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.reference-summary button {
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--navy);
+  text-align: left;
+}
+.reference-summary button span { display: block; color: var(--muted); font-size: .76rem; font-weight: 800; }
+.reference-summary button strong { display: block; margin-top: 4px; font-size: 1.15rem; }
+.reference-summary button:hover, .reference-summary button:focus-visible { border-color: var(--blue); color: var(--blue); }
+@media (max-width: 719px) { .reference-summary { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+.reference-card.is-review {
+  border-color: #d39b19;
+  box-shadow: 0 0 0 2px rgba(211,155,25,.12);
+}
+.reference-note-preview {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface-soft);
+  color: var(--navy) !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.reference-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.reference-card-actions button {
+  min-height: 38px;
+}
+
+.reference-procedure-status span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--muted-text, #5b6472);
+  font-size: 0.82rem;
+}
+
+/* Part 303: confirmation due-date management */
+.reference-card.is-overdue{border-color:#b42318;box-shadow:0 0 0 1px rgba(180,35,24,.16)}
+.reference-procedure-status .is-overdue-text{color:#b42318;font-weight:700}
+.reference-due-button{white-space:nowrap}

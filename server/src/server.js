@@ -73,7 +73,7 @@ app.get('/api/runtime', (_req, res) => {
     expectedUsersPilot: 50,
     expectedUsersFuture: 150,
     photoStorage: process.env.PHOTO_STORAGE_PROVIDER || 'persistent-disk',
-    systemVersion: 'Part 222'
+    systemVersion: 'Part 311'
   });
 });
 
@@ -162,10 +162,28 @@ app.post('/api/auth/request-password-reset', async (req,res) => {
 app.post('/api/auth/reset-password', async (req,res) => {
   const schema=z.object({token:z.string().min(20),newPassword:z.string().min(1).max(300)});const parsed=schema.safeParse(req.body);
   if(!parsed.success) return res.status(400).json({error:'再設定情報を確認してください。'});const errors=validatePassword(parsed.data.newPassword);if(errors.length)return res.status(400).json({error:`パスワードには${errors.join('・')}が必要です。`});
-  const {rows}=await query(`SELECT t.id token_id,u.id user_id FROM account_tokens t JOIN users u ON u.id=t.user_id WHERE t.token_hash=$1 AND t.token_type='password-reset' AND t.consumed_at IS NULL AND t.expires_at>now()`,[hashText(parsed.data.token)]);if(!rows[0])return res.status(400).json({error:'再設定リンクが無効または期限切れです。'});const hash=await bcrypt.hash(parsed.data.newPassword,12);await transaction(async client=>{await client.query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,failed_login_count=0,locked_until=NULL WHERE id=$2',[hash,rows[0].user_id]);await client.query('UPDATE account_tokens SET consumed_at=now() WHERE id=$1',[rows[0].token_id]);});res.status(204).end();
+  const {rows}=await query(`SELECT t.id token_id,u.id user_id FROM account_tokens t JOIN users u ON u.id=t.user_id WHERE t.token_hash=$1 AND t.token_type='password-reset' AND t.consumed_at IS NULL AND t.expires_at>now()`,[hashText(parsed.data.token)]);if(!rows[0])return res.status(400).json({error:'再設定リンクが無効または期限切れです。'});const hash=await bcrypt.hash(parsed.data.newPassword,12);await transaction(async client=>{await client.query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,failed_login_count=0,locked_until=NULL,token_version=COALESCE(token_version,1)+1 WHERE id=$2',[hash,rows[0].user_id]);await client.query('UPDATE account_tokens SET consumed_at=now() WHERE id=$1',[rows[0].token_id]);});res.status(204).end();
 });
 
 app.get('/api/auth/me', authenticate, (req, res) => res.json({ user: publicUser(req.user) }));
+
+app.get('/api/auth/security-events', authenticate, async (req, res) => {
+  const limit = Math.min(Math.max(Number(req.query.limit || 50), 1), 100);
+  const { rows } = await query(`SELECT id,event_type,ip_address::text ip_address,user_agent,details,created_at
+    FROM account_security_events WHERE user_id=$1
+    ORDER BY created_at DESC LIMIT $2`, [req.user.id, limit]);
+  const { rows: users } = await query(`SELECT login_id,display_name,email,role,office_id,last_login_at,password_changed_at,mfa_required,mfa_last_verified_at,token_version
+    FROM users WHERE id=$1`, [req.user.id]);
+  res.json({ account: users[0] || null, events: rows });
+});
+
+app.post('/api/auth/logout-all', authenticate, async (req, res) => {
+  await query('UPDATE users SET token_version=COALESCE(token_version,1)+1,last_forced_logout_at=now(),updated_at=now() WHERE id=$1', [req.user.id]);
+  await query(`INSERT INTO account_security_events(user_id,event_type,actor_user_id,ip_address,user_agent,details)
+    VALUES($1,'force-logout',$1,$2,$3,$4::jsonb)`, [req.user.id, req.ip || null, req.get('user-agent') || null, JSON.stringify({ scope:'all-sessions', requestedBy:'self' })]).catch(()=>{});
+  await audit(req, 'self-force-logout', 'user', req.user.id, { scope:'all-sessions' });
+  res.status(204).end();
+});
 
 app.post('/api/auth/change-password' , authenticate, async (req, res) => {
   const schema = z.object({ currentPassword: z.string().min(1).max(300), newPassword: z.string().min(1).max(300) });
@@ -176,7 +194,9 @@ app.post('/api/auth/change-password' , authenticate, async (req, res) => {
   const { rows } = await query('SELECT password_hash FROM users WHERE id=$1', [req.user.id]);
   if (!rows[0] || !(await bcrypt.compare(parsed.data.currentPassword, rows[0].password_hash))) return res.status(401).json({ error: '現在のパスワードが正しくありません。' });
   const hash = await bcrypt.hash(parsed.data.newPassword, 12);
-  await query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,updated_at=now() WHERE id=$2', [hash, req.user.id]);
+  await query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,updated_at=now(),token_version=COALESCE(token_version,1)+1 WHERE id=$2', [hash, req.user.id]);
+  await query(`INSERT INTO account_security_events(user_id,event_type,actor_user_id,ip_address,user_agent,details)
+    VALUES($1,'password-changed',$1,$2,$3,$4::jsonb)`, [req.user.id, req.ip || null, req.get('user-agent') || null, JSON.stringify({ source:'authenticated-change' })]).catch(()=>{});
   await audit(req, 'change-password', 'user', req.user.id);
   res.status(204).end();
 });

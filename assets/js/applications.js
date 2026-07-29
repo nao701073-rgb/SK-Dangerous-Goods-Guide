@@ -174,5 +174,5 @@
   $("closeUnCandidate").onclick=()=>{unCandidatePanel.hidden=true;};
   $("applyUnCandidate").onclick=applyUnCandidate;
   fields.unNumber.addEventListener("blur",()=>{if(/^\d{4}$/.test(fields.unNumber.value.trim()))renderUnCandidate();});
-  populateOrganizationControls();applyDisplaySettingsToControls();renderSavedViews();resetEditMode();render();
+  populateOrganizationControls();applyDisplaySettingsToControls();renderSavedViews();resetEditMode();const requestedParams=new URLSearchParams(location.search),requestedStatus=requestedParams.get("status"),requestedQuery=requestedParams.get("query"),requestedSort=requestedParams.get("sort");if(requestedStatus&&statusLabels[requestedStatus])statusFilter.value=requestedStatus;if(requestedQuery)filter.value=requestedQuery;if(requestedSort&&[...sortSelect.options].some(option=>option.value===requestedSort))sortSelect.value=requestedSort;render();
 })();
