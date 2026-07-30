@@ -1582,7 +1582,7 @@
     if (titleNode) titleNode.textContent = title || "国内法令 該当条文";
     if (body) body.innerHTML = `
       <section class="domestic-law-fullscreen__bundle-section">
-        <iframe src="${escapeHtml(pdfPath)}#page=1&zoom=page-fit" title="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"></iframe>
+        <iframe src="${escapeHtml(pdfPath)}#page=1&zoom=page-width" title="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"></iframe>
       </section>`;
     domesticLawFullscreen.hidden = false;
     document.body.classList.add("is-domestic-law-fullscreen-open");
