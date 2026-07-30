@@ -3023,3 +3023,40 @@ body.is-marking-landscape-open {
     max-width: 100%;
   }
 }
+
+
+/* Part 410: all dangerous goods — sequential full-screen domestic law pages */
+.modal-reference-link--button{font-family:inherit;cursor:pointer}
+.domestic-law-fullscreen[hidden]{display:none}
+.domestic-law-fullscreen{position:fixed;inset:0;z-index:13000;display:grid;background:#fff}
+.domestic-law-fullscreen__backdrop{position:absolute;inset:0;background:rgba(7,28,52,.86)}
+.domestic-law-fullscreen__dialog{position:relative;width:100vw;height:100dvh;display:grid;grid-template-rows:auto 1fr;background:#eef3f8;overflow:hidden}
+.domestic-law-fullscreen__header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 16px;border-bottom:1px solid #cbd8e5;background:#fff}
+.domestic-law-fullscreen__header span{display:block;color:#4b657e;font-size:.72rem;font-weight:800}
+.domestic-law-fullscreen__header h2{margin:3px 0 0;color:#0b3a67;font-size:1rem}
+.domestic-law-fullscreen__header button{flex:0 0 44px;width:44px;height:44px;border:1px solid #adc2d7;border-radius:50%;background:#fff;color:#0b3a67;font-size:1.35rem;cursor:pointer}
+.domestic-law-fullscreen__body{min-height:0;overflow:auto;scroll-snap-type:y proximity;padding:12px;display:grid;gap:14px}
+.domestic-law-fullscreen__page-section{min-height:calc(100dvh - 92px);display:grid;grid-template-rows:auto 1fr;scroll-snap-align:start;border:1px solid #cbd8e5;border-radius:12px;overflow:hidden;background:#fff}
+.domestic-law-fullscreen__page-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-bottom:1px solid #d8e2ec;background:#f4f8fc;color:#183e64}
+.domestic-law-fullscreen__page-heading strong{font-size:.82rem}
+.domestic-law-fullscreen__page-heading a{padding:7px 10px;border:1px solid #9ab8d5;border-radius:999px;color:#075ca8;font-size:.72rem;font-weight:800;text-decoration:none;white-space:nowrap}
+.domestic-law-fullscreen__page-section iframe{display:block;width:100%;height:100%;min-height:calc(100dvh - 145px);border:0;background:#fff}
+body.is-domestic-law-fullscreen-open{overflow:hidden}
+@media(max-width:600px){.domestic-law-fullscreen__header{padding:10px 12px}.domestic-law-fullscreen__header h2{font-size:.92rem}.domestic-law-fullscreen__body{padding:0;gap:8px}.domestic-law-fullscreen__page-section{min-height:calc(100dvh - 69px);border-radius:0;border-inline:0}.domestic-law-fullscreen__page-heading{align-items:flex-start}.domestic-law-fullscreen__page-heading strong{font-size:.76rem}.domestic-law-fullscreen__page-heading a{font-size:.68rem;padding:6px 8px}.domestic-law-fullscreen__page-section iframe{min-height:calc(100dvh - 125px)}}
+
+/* Part 412: full-screen continuous domestic law viewer trigger */
+.domestic-law-open-button{display:inline-flex;align-items:center;justify-content:center;margin-top:14px;min-height:44px;padding:10px 16px;border:1px solid #8fb4d8;border-radius:10px;background:#fff;color:#075ca8;font-weight:800;cursor:pointer}
+.domestic-law-open-button:hover,.domestic-law-open-button:focus-visible{background:#eef6fd;border-color:#4f91c9}
+@media(max-width:640px){.domestic-law-open-button{width:100%;text-align:center}}
+
+/* Part 414: domestic law continuous image viewer */
+.domestic-law-fullscreen__page-section{min-height:auto;display:block;scroll-snap-align:start}
+.domestic-law-fullscreen__image-wrap{padding:12px;background:#dce5ee;overflow:auto;text-align:center}
+.domestic-law-fullscreen__image-wrap img{display:block;width:min(100%,1100px);height:auto;margin:0 auto;background:#fff;box-shadow:0 4px 18px rgba(7,42,74,.18)}
+.domestic-law-fullscreen__page-section iframe{display:none!important}
+@media(max-width:600px){.domestic-law-fullscreen__image-wrap{padding:0}.domestic-law-fullscreen__image-wrap img{width:100%;box-shadow:none}.domestic-law-fullscreen__page-section{min-height:auto}}
+
+/* Part 415: combined domestic-law excerpt PDF */
+.domestic-law-fullscreen__bundle-section{height:100%;min-height:0;background:#222}
+.domestic-law-fullscreen__bundle-section iframe{display:block!important;width:100%;height:100%;min-height:calc(100dvh - 72px);border:0;background:#fff}
+@media(max-width:600px){.domestic-law-fullscreen__bundle-section iframe{min-height:calc(100dvh - 65px)}}
