@@ -4,7 +4,7 @@
   const HISTORY_KEY="iss-overpack-print-history-v3";
   const state={records:[],pages:[],labels:[]};
   const COMBINED_RECORDS_PER_PAGE=2;
-  const TEXT_ONLY_RECORDS_PER_PAGE=4;
+  const TEXT_ONLY_RECORDS_PER_PAGE=1;
   const PLACARDS_PER_PAGE=4;
   const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const normalizeUn=value=>String(value||"").normalize("NFKC").replace(/\bUN\s*/gi,"").replace(/\D/g,"").slice(-4).padStart(4,"0");
@@ -116,7 +116,7 @@
     return errors;
   }
   function makePage(content,type,index,total){
-    return `<section class="print-page ${$("cutLines").checked?'cut-lines':''}" data-page-type="${type}">${content}<footer class="print-footer"><span>オーバーパック標札・品名等の表示作成ツール</span><span>${index}/${total}</span></footer></section>`;
+    return `<section class="print-page ${$("cutLines").checked?'cut-lines':''}" data-page-type="${type}">${content}<footer class="print-footer"><span>オーバーパック表示用作成ツール</span><span>${index}/${total}</span></footer></section>`;
   }
   function emptyPlacardCell(){ return '<div class="placard-item placard-item--empty"><span>空き</span></div>'; }
   function placardGrid(labels){
@@ -141,6 +141,8 @@
     const contents=[];
     const wantOverpack=$("includeOverpack").checked && (mode==="combined"||mode==="overpack"||mode==="placards"||mode==="names");
     const wantNames=$("includeNames").checked && (mode==="combined"||mode==="names");
+    const firstPageSetting = $("firstPageNameCount") ? $("firstPageNameCount").value : "auto";
+    const firstPageLimit = firstPageSetting === "auto" ? 1 : Math.max(0, Number(firstPageSetting || 0));
 
     if(mode==="overpack"){
       contents.push({type:"overpack",html:`<div class="text-only-sheet text-only-sheet--overpack">${overpackBanner(true)}</div>`});
@@ -148,61 +150,108 @@
     }
 
     if(mode==="names"){
-      const recordGroups=chunk(records, TEXT_ONLY_RECORDS_PER_PAGE);
-      (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
-        contents.push({type:"names",html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"full")}</div>`});
+      records.forEach((record,index)=>{
+        contents.push({type:"names",html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack&&index===0)}${nameList([record],"full")}</div>`});
       });
+      if(!records.length){
+        contents.push({type:"names",html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack)}${nameList([],"full")}</div>`});
+      }
       return contents;
     }
 
     if(mode==="placards"){
       const labelGroups=chunk(labels,PLACARDS_PER_PAGE);
-      (labelGroups.length?labelGroups:[[]]).forEach(group=>{
-        contents.push({type:"placards",html:`<div class="placard-only-sheet">${placardGrid(group)}${overpackBanner(false)}</div>`});
+      (labelGroups.length?labelGroups:[[]]).forEach((group,index)=>{
+        contents.push({type:"placards",html:`<div class="placard-only-sheet">${placardGrid(group)}${overpackBanner(wantOverpack&&index===0)}</div>`});
       });
       return contents;
     }
 
-    // combined mode: top 2x2 placard grid, lower blank area for OVERPACK / UN / proper shipping names.
     const labelGroups=chunk(labels, PLACARDS_PER_PAGE);
-    const recordGroups=chunk(records, COMBINED_RECORDS_PER_PAGE);
+    let recordIndex = 0;
+    let overpackPlaced = false;
 
-    if(labelGroups.length === 0){
-      (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
+    if(labelGroups.length){
+      labelGroups.forEach((group,groupIndex)=>{
+        const showOverpack = wantOverpack && !overpackPlaced;
+        const inlineRecords = [];
+        const inlineLimit = groupIndex === 0 ? firstPageLimit : 0;
+        if(wantNames && inlineLimit > 0){
+          for(let i=0; i<inlineLimit && recordIndex < records.length; i+=1){
+            inlineRecords.push(records[recordIndex]);
+            recordIndex += 1;
+          }
+        }
         contents.push({
-          type:"combined-text-only",
-          html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"full")}</div>`
+          type:"combined-labels",
+          html:`<div class="combined-sheet combined-sheet--top-grid"><section class="combined-sheet__labels">${placardGrid(group)}</section><section class="combined-sheet__bottom">${overpackBanner(showOverpack)}${inlineRecords.length ? nameList(inlineRecords,"bottom") : ''}</section></div>`
         });
+        if(showOverpack) overpackPlaced = true;
       });
-      return contents;
+    } else if(wantOverpack || wantNames) {
+      const firstRecords = [];
+      const take = wantNames ? Math.max(1, firstPageLimit || 1) : 0;
+      for(let i=0; i<take && recordIndex < records.length; i+=1){
+        firstRecords.push(records[recordIndex]);
+        recordIndex += 1;
+      }
+      contents.push({
+        type:"combined-first",
+        html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack && !overpackPlaced)}${firstRecords.length ? nameList(firstRecords,"full") : ''}</div>`
+      });
+      if(wantOverpack) overpackPlaced = true;
     }
 
-    labelGroups.forEach((group,index)=>{
-      const recordGroup = wantNames ? (recordGroups[index] || []) : [];
+    while(wantNames && recordIndex < records.length){
       contents.push({
-        type:"combined",
-        html:`<div class="combined-sheet combined-sheet--top-grid"><section class="combined-sheet__labels">${placardGrid(group)}</section><section class="combined-sheet__bottom">${overpackBanner(wantOverpack&&index===0)}${nameList(recordGroup,"bottom")}</section></div>`
+        type:"combined-name",
+        html:`<div class="text-only-sheet text-only-sheet--single-record"><div class="continuation-note">続き</div>${nameList([records[recordIndex]],"full")}</div>`
       });
-    });
+      recordIndex += 1;
+    }
 
-    if(wantNames && recordGroups.length > labelGroups.length){
-      recordGroups.slice(labelGroups.length).forEach((group,extraIndex)=>{
-        contents.push({
-          type:"combined-overflow",
-          html:`<div class="text-only-sheet text-only-sheet--continuation">${overpackBanner(false)}<div class="continuation-note">続き</div>${nameList(group,"full")}</div>`
-        });
-      });
+    if(wantOverpack && !overpackPlaced){
+      contents.push({type:"combined-overpack",html:`<div class="text-only-sheet text-only-sheet--overpack">${overpackBanner(true)}</div>`});
     }
     return contents;
+  }
+  function assessLayout(){
+    const pages=[...document.querySelectorAll('.print-page')];
+    const details=[];
+    let ok=true;
+    pages.forEach((page,idx)=>{
+      page.classList.remove('print-page--overflow');
+      const pageOk = page.scrollHeight <= page.clientHeight + 1 && page.scrollWidth <= page.clientWidth + 1;
+      details.push({page:idx+1, ok:pageOk});
+      if(!pageOk){
+        ok=false;
+        page.classList.add('print-page--overflow');
+      }
+    });
+    state.layoutCheck={ok,details};
+    const el=$("layoutCheck");
+    if(!el) return;
+    if(!pages.length){
+      el.className='layout-check layout-check--neutral';
+      el.textContent='プレビュー更新後に、A4収まり確認結果をここへ表示します。';
+    } else if(ok){
+      el.className='layout-check layout-check--ok';
+      el.textContent=`A4収まり確認：このページはA4内に収まっています。対象 ${pages.length} ページすべてOKです。`;
+    } else {
+      const bad=details.filter(x=>!x.ok).map(x=>x.page).join('、');
+      el.className='layout-check layout-check--warn';
+      el.textContent=`A4収まり確認：ページ ${bad} でA4範囲からはみ出す可能性があります。表示件数や内容を調整してください。`;
+    }
   }
   function buildPreview(){
     const errors=validate(); const contents=state.records.length?buildPageContents():[]; state.labels=selectedLabels();
     state.pages=contents; $("pageSummary").textContent=`${contents.length}ページ`;$("placardSummary").textContent=`標札・マーク${state.labels.length}種類`;
-    $("printPreview").innerHTML=contents.length?contents.map((page,index)=>makePage(page.html,page.type,index+1,contents.length)).join(""):'<div class="preview-placeholder">照合結果を確認すると、ここにA4プレビューが表示されます。</div>';
-    $("printButton").disabled=Boolean(errors.length)||!$("confirmFinal").checked||!contents.length;
-    const currentMessages=[...document.querySelectorAll("#globalMessages .message")].map(x=>x.textContent);
+    $("printPreview").innerHTML=contents.length?contents.map((page,index)=>makePage(page.html,page.type,index+1,contents.length)).join(''):'<div class="preview-placeholder">照合結果を確認すると、ここにA4プレビューが表示されます。</div>';
+    $("printButton").disabled=!contents.length;
+    const currentMessages=[...document.querySelectorAll('#globalMessages .message')].map(x=>x.textContent);
     const newErrors=errors.filter(text=>!currentMessages.includes(text));
-    if(newErrors.length) renderMessages(newErrors.map(text=>({type:"error",text})));
+    if(newErrors.length) renderMessages(newErrors.map(text=>({type:'error',text})));
+    assessLayout();
     fitPreview();
   }
   function fitPreview(){
@@ -225,8 +274,24 @@
     const items=history();
     $("historyList").innerHTML=items.length?items.map(item=>`<div class="history-item"><div><strong>${esc(item.uns.map(x=>`UN${x}`).join("、"))}</strong><span>${esc(item.office)}／${esc(item.user)}／${item.pages}ページ</span></div><span>${new Date(item.printedAt).toLocaleString("ja-JP")}</span></div>`).join(""):'<p class="empty-state">印刷履歴はまだありません。</p>';
   }
-  function print(){const errors=validate();if(errors.length)return alert(errors.join("\n"));if(!$("confirmFinal").checked)return alert("印刷内容の最終確認にチェックしてください。");saveHistory();window.print();}
-  ["includeOverpack","includeNames","includeMarine","includeLimited","cutLines","confirmFinal","layoutMode"].forEach(id=>$(id).addEventListener("change",buildPreview));
+  function print(){
+    const errors=validate();
+    if(errors.length){alert(errors.join("\n"));return;}
+    const layoutMessage = state.layoutCheck.ok
+      ? "A4収まり確認：このページはA4内に収まっています。印刷を続行しますか？"
+      : "A4収まり確認：一部のページではみ出す可能性があります。内容を確認してから印刷してください。続行しますか？";
+    if(!confirm(layoutMessage)) return;
+    if(!$("confirmFinal").checked){
+      const proceed = confirm("印刷内容を最終確認したチェックが未選択です。このまま印刷を続けますか？");
+      if(!proceed){
+        $("confirmFinal").focus();
+        $("confirmFinal").scrollIntoView({behavior:"smooth",block:"center"});
+        return;
+      }
+    }
+    saveHistory();window.print();
+  }
+  ["includeOverpack","includeNames","includeMarine","includeLimited","cutLines","confirmFinal","layoutMode","firstPageNameCount"].forEach(id=>$(id).addEventListener("change",buildPreview));
   $("resolveButton").addEventListener("click",resolve);$("refreshPreview").addEventListener("click",buildPreview);$("printButton").addEventListener("click",print);
   $("clearButton").addEventListener("click",()=>{$("unInput").value="";state.records=[];renderMessages([]);renderResults();buildPreview();});
   $("loadExample").addEventListener("click",()=>{$("unInput").value="UN1170\nUN3082\nUN1760";resolve();});

@@ -5,15 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b3a67">
-  <title>オーバーパック標札・品名等の表示作成ツール｜検査・検品業務サポートシステム</title>
+  <title>オーバーパック表示用作成ツール｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=390">
+  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=396">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="overpack-label-tool">
   <header class="app-header">
-    <div><h1>オーバーパック標札・品名等の表示作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4ラベル用紙へ配置します。少量危険物は、文字なしのマークのみを表示します。</p></div>
+    <div><h1>オーバーパック表示用作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4ラベル用紙へ配置します。少量危険物は、文字なしのマークのみを表示します。</p></div>
     <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
   </header>
 
@@ -40,7 +40,7 @@
           <label><input id="includeMarine" type="checkbox">海洋汚染物質マーク</label>
           <label><input id="includeLimited" type="checkbox">少量危険物マーク</label>
           <label><input id="cutLines" type="checkbox" checked>切り取り線</label>
-          <label><input id="confirmFinal" type="checkbox">印刷内容を最終確認した</label>
+          <label><input id="confirmFinal" type="checkbox">印刷内容を最終確認した（未チェックの場合は印刷時に案内します）</label>
         </div>
         <label for="layoutMode">出力レイアウト</label>
         <select id="layoutMode"><option value="combined">必要表示をA4一枚へ集約（収まらない場合は分割）</option><option value="placards">標札・マークのみ</option><option value="names">国連番号・英語品名のみ</option><option value="overpack">OVERPACK表示のみ</option></select>
@@ -71,7 +71,7 @@
   <script src="../data/un-data.js?v=372"></script>
   <script src="../data/label-master.js?v=372"></script>
   <script src="../assets/js/office-feature-gates.js?v=382"></script>
-  <script src="../assets/js/overpack-label-tool.js?v=392"></script>
+  <script src="../assets/js/overpack-label-tool.js?v=396"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
   <script src="../assets/js/usage-tracking.js?v=222"></script>

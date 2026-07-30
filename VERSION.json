@@ -1,8 +1,8 @@
 {
-  "part": 388,
-  "version": "0.388.0",
-  "name": "Optional N.O.S. Technical Name Update",
+  "part": 395,
+  "version": "0.395.0",
+  "name": "Unified 100mm Label Frame Update",
   "updatedAt": "2026-07-30",
-  "build": "part388-auth-session-unification",
-  "changeSummary": "オーバーパック標札・品名等の表示作成で、N.O.S.品名の技術名入力を任意化。未入力でも印刷可能。入力時のみ正式品名の後に括弧書きで追加。"
+  "build": "part395-unified-label-frame-normalization",
+  "changeSummary": "全危険物標札、海洋汚染物質、少量危険物の印刷専用画像を同一基準で再生成し、外枠から外枠まで100mmになるよう余白と外周を統一。"
 }
