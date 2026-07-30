@@ -120,7 +120,7 @@
   }
   function emptyPlacardCell(){ return '<div class="placard-item placard-item--empty"><span>空き</span></div>'; }
   function placardGrid(labels){
-    const cells=[...labels.map(label=>`<div class="placard-item print-item"><img src="../images/labels/${esc(label.file)}" alt="${esc(label.nameJa)}"></div>` )];
+    const cells=[...labels.map(label=>`<div class="placard-item print-item"><img src="../images/labels/overpack-square/${esc(label.file)}" alt="${esc(label.nameJa)}"></div>` )];
     while(cells.length<PLACARDS_PER_PAGE) cells.push(emptyPlacardCell());
     return `<div class="placard-grid">${cells.join("")}</div>`;
   }
@@ -150,7 +150,7 @@
     if(mode==="names"){
       const recordGroups=chunk(records, TEXT_ONLY_RECORDS_PER_PAGE);
       (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
-        contents.push({type:"names",html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"text")}</div>`});
+        contents.push({type:"names",html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"full")}</div>`});
       });
       return contents;
     }
@@ -171,7 +171,7 @@
       (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
         contents.push({
           type:"combined-text-only",
-          html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"text")}</div>`
+          html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"full")}</div>`
         });
       });
       return contents;
@@ -189,7 +189,7 @@
       recordGroups.slice(labelGroups.length).forEach((group,extraIndex)=>{
         contents.push({
           type:"combined-overflow",
-          html:`<div class="text-only-sheet text-only-sheet--continuation">${overpackBanner(false)}<div class="continuation-note">続き</div>${nameList(group,"text")}</div>`
+          html:`<div class="text-only-sheet text-only-sheet--continuation">${overpackBanner(false)}<div class="continuation-note">続き</div>${nameList(group,"full")}</div>`
         });
       });
     }
