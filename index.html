@@ -7,7 +7,7 @@
   <title>検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/system-layout.css">
-  <link rel="stylesheet" href="assets/css/home-dashboard.css?v=346">
+  <link rel="stylesheet" href="assets/css/home-dashboard.css?v=369">
   <link rel="stylesheet" href="assets/css/typography-quality.css?v=187">
 </head>
 <body>
@@ -17,6 +17,13 @@
       <span class="app-brand__mark"><img src="assets/images/sk-brand-logo-v82.png" alt="SK"></span>
       <div><h1>検査・検品業務サポートシステム</h1></div>
     </div>
+    <button id="homeLogoutButton" class="home-logout-button" type="button" aria-label="ログアウト" title="ログアウト">
+      <svg class="home-logout-button__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M10 5H6.8A1.8 1.8 0 0 0 5 6.8v10.4A1.8 1.8 0 0 0 6.8 19H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.5 8.5 18 12l-3.5 3.5M18 12H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="home-logout-button__label">ログアウト</span>
+    </button>
   </header>
 
   <aside id="sideMenu" class="side-menu" aria-label="メインメニュー">
@@ -82,7 +89,8 @@
   <script src="assets/js/storage.js?v=217"></script>
   <script src="assets/js/api-client.js?v=217"></script>
   <script src="assets/js/role-access.js?v=323"></script>
-  <script src="assets/js/app.js?v=366"></script>
+  <script src="assets/js/app.js?v=369"></script>
+  <script src="assets/js/home-logout.js?v=369"></script>
   <script src="assets/js/online-status.js?v=217"></script>
 <script src="assets/js/usage-tracking.js?v=222"></script>
 </body>

@@ -1,7 +1,8 @@
 {
-  "part": 368,
-  "version": "0.368.0",
+  "part": 369,
+  "version": "0.369.0",
   "name": "Responsive Business Login Background",
   "updatedAt": "2026-07-30",
-  "build": "part368-responsive-login"
+  "build": "part368-responsive-login",
+  "changeSummary": "ホーム画面の共通ヘッダー右上にログアウトボタンを追加。"
 }

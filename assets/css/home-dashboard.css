@@ -486,3 +486,73 @@
     white-space: nowrap;
   }
 }
+
+
+/* Part 369: ホーム画面ログアウト */
+.home-logout-button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0 14px;
+  border: 1px solid #b9cce0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0b4f8a;
+  font: inherit;
+  font-size: .84rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(11, 58, 103, .06);
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease;
+}
+.home-logout-button:hover {
+  border-color: #0b5cab;
+  background: #edf6ff;
+  color: #073b78;
+}
+.home-logout-button:focus-visible {
+  outline: 3px solid rgba(24, 115, 200, .28);
+  outline-offset: 2px;
+}
+.home-logout-button:disabled {
+  cursor: wait;
+  opacity: .66;
+}
+.home-logout-button__icon {
+  width: 21px;
+  height: 21px;
+  display: block;
+  flex: 0 0 auto;
+}
+@media (max-width: 620px) {
+  .home-logout-button {
+    width: 42px;
+    min-width: 42px;
+    padding: 0;
+    border-radius: 10px;
+  }
+  .home-logout-button__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+@media (max-width: 390px) {
+  .app-header .app-brand h1 {
+    max-width: 10.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
