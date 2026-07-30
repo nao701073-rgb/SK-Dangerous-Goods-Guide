@@ -28,7 +28,9 @@ const validationAccounts = [
   ['suzuki','鈴木 システム管理者','safety-environment-admin',null,'Admin-363!'],
   ['ito','伊藤 ゲスト','guest',null,'Guest-363!'],
   ['kobayashi','小林 検証者','validator',null,'Validator-363!'],
-  ['revision-validator','改正検証者用アカウント','revision-validator',null,'TempPass!2026']
+  ['revision-validator','改正検証者用アカウント','revision-validator',null,'TempPass!2026'],
+  ['daikoku.sato','佐藤','office-user','office-yokohama-daikoku','TempPass!2026'],
+  ['daikoku.ueki','植木','office-user','office-yokohama-daikoku','TempPass!2026']
 ];
 if (process.env.DISABLE_VALIDATION_ACCOUNTS !== 'true') {
   for (const [validationLoginId, displayName, role, officeId, temporaryPassword] of validationAccounts) {
@@ -39,7 +41,7 @@ if (process.env.DISABLE_VALIDATION_ACCOUNTS !== 'true') {
       ON CONFLICT(login_id) DO UPDATE SET display_name=excluded.display_name,role=excluded.role,account_category=excluded.account_category,office_id=excluded.office_id,active=true`,
       [validationLoginId,displayName,hash,role,category,officeId]);
   }
-  console.log('Validation accounts checked: ooura, sato, yamamoto, tanaka, suzuki, ito, kobayashi');
+  console.log('Validation accounts checked: ooura, sato, yamamoto, tanaka, suzuki, ito, kobayashi, revision-validator, daikoku.sato, daikoku.ueki');
 }
 
 await pool.end();

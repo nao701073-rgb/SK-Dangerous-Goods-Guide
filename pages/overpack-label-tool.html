@@ -8,7 +8,7 @@
   <title>オーバーパック表示用作成ツール｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=396">
+  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=401">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="overpack-label-tool">
@@ -45,6 +45,9 @@
         <label for="layoutMode">出力レイアウト</label>
         <select id="layoutMode"><option value="combined">必要表示をA4一枚へ集約（収まらない場合は分割）</option><option value="placards">標札・マークのみ</option><option value="names">国連番号・英語品名のみ</option><option value="overpack">OVERPACK表示のみ</option></select>
         <p class="field-help">標札類は100mm×100mmで、主標札→副標札→海洋汚染物質→少量危険物の固定順に、A4縦の上部へ2列×2段で最大4枚配置します。標札が4枚を超える場合は2ページ目以降へ同じ順番で続けます。各ページの空きスペースにはOVERPACKを先頭に、国連番号・英語品名を入力順で配置し、収まらない表示は次ページへ続けます。表示文字は14mm設定です。</p>
+        <label for="firstPageNameCount">1ページ目下部の表示件数</label>
+        <select id="firstPageNameCount"><option value="auto" selected>自動（推奨）</option><option value="0">表示しない</option><option value="1">1件まで表示</option><option value="2">2件まで表示</option></select>
+        <p class="field-help">1ページ目の下部へ、OVERPACKの下に国連番号・英語品名を何件まで表示するか選択できます。自動ではA4縦297mm内に収まりやすい件数を採用します。国連番号と品名は1つのまとまりとして扱い、途中で切りません。2ページ目以降は各セットの高さを自動計算し、A4の縦方向へ入る分だけ複数件を詰めて表示します。下部スペースが限られる場合は品名を優先し、OVERPACKは次ページへ回して余計な空白を減らします。</p>
       </section>
     </section>
 
@@ -57,6 +60,7 @@
     <section class="panel preview-panel">
       <div class="panel-heading preview-heading"><div><span class="step-number">4</span><h2>印刷プレビュー</h2></div><div class="preview-actions"><button id="refreshPreview" class="secondary-button" type="button">プレビュー更新</button><button id="printButton" type="button" disabled>印刷・PDF保存</button></div></div>
       <div class="preview-summary"><span id="pageSummary">0ページ</span><span id="placardSummary">標札0種類</span><span>A4縦／主標札→副標札→海洋汚染物質→少量危険物／下部にOVERPACK・UN番号・品名</span></div>
+      <div id="layoutCheck" class="layout-check layout-check--neutral">プレビュー更新後に、A4収まり確認結果をここへ表示します。</div>
       <div id="printPreview" class="print-preview"><div class="preview-placeholder">照合結果を確認すると、ここにA4プレビューが表示されます。</div></div>
     </section>
 
@@ -71,7 +75,7 @@
   <script src="../data/un-data.js?v=372"></script>
   <script src="../data/label-master.js?v=372"></script>
   <script src="../assets/js/office-feature-gates.js?v=382"></script>
-  <script src="../assets/js/overpack-label-tool.js?v=396"></script>
+  <script src="../assets/js/overpack-label-tool.js?v=401"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
   <script src="../assets/js/usage-tracking.js?v=222"></script>

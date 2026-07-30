@@ -4,7 +4,7 @@
   const HISTORY_KEY="iss-overpack-print-history-v3";
   const state={records:[],pages:[],labels:[]};
   const COMBINED_RECORDS_PER_PAGE=2;
-  const TEXT_ONLY_RECORDS_PER_PAGE=1;
+  const TEXT_ONLY_RECORDS_PER_PAGE=8;
   const PLACARDS_PER_PAGE=4;
   const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const normalizeUn=value=>String(value||"").normalize("NFKC").replace(/\bUN\s*/gi,"").replace(/\D/g,"").slice(-4).padStart(4,"0");
@@ -134,6 +134,62 @@
     if(!records.length) return `<div class="mark-panel-empty">このページに表示する国連番号・品名はありません。</div>`;
     return `<div class="name-list name-list--${mode}">${records.map(nameCard).join("")}</div>`;
   }
+
+  function estimateWrappedLines(text, charsPerLine=22){
+    const words=String(text||"").trim().split(/\s+/).filter(Boolean);
+    if(!words.length) return 1;
+    let lines=1;
+    let used=0;
+    words.forEach(word=>{
+      const length=Math.max(1,word.length);
+      if(used===0){
+        used=Math.min(length,charsPerLine);
+        if(length>charsPerLine) lines+=Math.ceil(length/charsPerLine)-1;
+      }else if(used+1+length<=charsPerLine){
+        used+=1+length;
+      }else{
+        lines+=1;
+        used=Math.min(length,charsPerLine);
+        if(length>charsPerLine) lines+=Math.ceil(length/charsPerLine)-1;
+      }
+    });
+    return lines;
+  }
+  function estimateRecordHeightMm(record){
+    const name=printableName(record);
+    const nameLines=estimateWrappedLines(name,22);
+    // UN番号1行 + 品名行 + 余白・枠。実寸18mm文字を前提に余裕を持たせる。
+    return 31 + (nameLines*20);
+  }
+  function packRecordsByHeight(records,{capacityMm=250,gapMm=4,maxItems=8}={}){
+    const pages=[];
+    let current=[];
+    let used=0;
+    records.forEach(record=>{
+      const height=estimateRecordHeightMm(record);
+      const extra=current.length?gapMm:0;
+      if(current.length && (used+extra+height>capacityMm || current.length>=maxItems)){
+        pages.push(current);
+        current=[];
+        used=0;
+      }
+      current.push(record);
+      used+=(used?gapMm:0)+height;
+    });
+    if(current.length) pages.push(current);
+    return pages;
+  }
+  function shouldDeferRecordToNextPage(record,{showOverpack=false,onLabelPage=false}={}){
+    if(!record) return false;
+    const text = `UN${record.un} ${printableName(record)}`.trim();
+    const length = text.length;
+    const words = printableName(record).split(/\s+/).filter(Boolean).length;
+    // 標札ページ下部は高さが限られるため、OVERPACKを表示する場合はUN番号・品名を次ページへ送る。
+    if(onLabelPage && showOverpack) return true;
+    // 標札ページで長い品名は途中で切れやすいため、まとまりごと次ページへ送る。
+    if(onLabelPage && (length > 18 || words > 2)) return true;
+    return false;
+  }
   function buildPageContents(){
     const mode=$("layoutMode").value;
     const labels=selectedLabels();
@@ -150,12 +206,14 @@
     }
 
     if(mode==="names"){
-      records.forEach((record,index)=>{
-        contents.push({type:"names",html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack&&index===0)}${nameList([record],"full")}</div>`});
+      const capacity=wantOverpack?215:250;
+      const groups=packRecordsByHeight(records,{capacityMm:capacity,maxItems:TEXT_ONLY_RECORDS_PER_PAGE});
+      (groups.length?groups:[[]]).forEach((group,index)=>{
+        contents.push({
+          type:"names",
+          html:`<div class="text-only-sheet text-only-sheet--packed">${overpackBanner(wantOverpack&&index===0)}${nameList(group,"full")}</div>`
+        });
       });
-      if(!records.length){
-        contents.push({type:"names",html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack)}${nameList([],"full")}</div>`});
-      }
       return contents;
     }
 
@@ -167,50 +225,54 @@
       return contents;
     }
 
-    const labelGroups=chunk(labels, PLACARDS_PER_PAGE);
-    let recordIndex = 0;
-    let overpackPlaced = false;
+    const labelGroups=chunk(labels,PLACARDS_PER_PAGE);
+    let recordIndex=0;
+    let pendingOverpack=wantOverpack;
 
     if(labelGroups.length){
       labelGroups.forEach((group,groupIndex)=>{
-        const showOverpack = wantOverpack && !overpackPlaced;
-        const inlineRecords = [];
-        const inlineLimit = groupIndex === 0 ? firstPageLimit : 0;
-        if(wantNames && inlineLimit > 0){
-          for(let i=0; i<inlineLimit && recordIndex < records.length; i+=1){
-            inlineRecords.push(records[recordIndex]);
-            recordIndex += 1;
+        const inlineRecords=[];
+        const inlineLimit=groupIndex===0?firstPageLimit:0;
+        if(wantNames && inlineLimit>0){
+          for(let i=0;i<inlineLimit && recordIndex<records.length;i+=1){
+            const candidate=records[recordIndex];
+            if(shouldDeferRecordToNextPage(candidate,{showOverpack:false,onLabelPage:true})) break;
+            inlineRecords.push(candidate);
+            recordIndex+=1;
           }
         }
+        // 品名を配置できた場合は品名を優先し、OVERPACKは後続ページへ送る。
+        const showOverpack=pendingOverpack && inlineRecords.length===0;
         contents.push({
           type:"combined-labels",
-          html:`<div class="combined-sheet combined-sheet--top-grid"><section class="combined-sheet__labels">${placardGrid(group)}</section><section class="combined-sheet__bottom">${overpackBanner(showOverpack)}${inlineRecords.length ? nameList(inlineRecords,"bottom") : ''}</section></div>`
+          html:`<div class="combined-sheet combined-sheet--top-grid"><section class="combined-sheet__labels">${placardGrid(group)}</section><section class="combined-sheet__bottom">${inlineRecords.length?nameList(inlineRecords,"bottom"):''}${overpackBanner(showOverpack)}</section></div>`
         });
-        if(showOverpack) overpackPlaced = true;
+        if(showOverpack) pendingOverpack=false;
       });
-    } else if(wantOverpack || wantNames) {
-      const firstRecords = [];
-      const take = wantNames ? Math.max(1, firstPageLimit || 1) : 0;
-      for(let i=0; i<take && recordIndex < records.length; i+=1){
-        firstRecords.push(records[recordIndex]);
-        recordIndex += 1;
-      }
-      contents.push({
-        type:"combined-first",
-        html:`<div class="text-only-sheet text-only-sheet--single-record">${overpackBanner(wantOverpack && !overpackPlaced)}${firstRecords.length ? nameList(firstRecords,"full") : ''}</div>`
-      });
-      if(wantOverpack) overpackPlaced = true;
     }
 
-    while(wantNames && recordIndex < records.length){
-      contents.push({
-        type:"combined-name",
-        html:`<div class="text-only-sheet text-only-sheet--single-record"><div class="continuation-note">続き</div>${nameList([records[recordIndex]],"full")}</div>`
+    const remaining=wantNames?records.slice(recordIndex):[];
+    if(remaining.length){
+      const firstCapacity=pendingOverpack?215:250;
+      const firstGroups=packRecordsByHeight(remaining,{capacityMm:firstCapacity,maxItems:TEXT_ONLY_RECORDS_PER_PAGE});
+      firstGroups.forEach((group,index)=>{
+        const showOverpack=pendingOverpack && index===0;
+        contents.push({
+          type:"combined-name",
+          html:`<div class="text-only-sheet text-only-sheet--packed">${index>0?'<div class="continuation-note">続き</div>':''}${nameList(group,"full")}${overpackBanner(showOverpack)}</div>`
+        });
+        if(showOverpack) pendingOverpack=false;
       });
-      recordIndex += 1;
+    }else if(!labelGroups.length && (pendingOverpack||wantNames)){
+      const groups=packRecordsByHeight(records,{capacityMm:pendingOverpack?215:250,maxItems:TEXT_ONLY_RECORDS_PER_PAGE});
+      (groups.length?groups:[[]]).forEach((group,index)=>{
+        const showOverpack=pendingOverpack&&index===0;
+        contents.push({type:"combined-first",html:`<div class="text-only-sheet text-only-sheet--packed">${nameList(group,"full")}${overpackBanner(showOverpack)}</div>`});
+        if(showOverpack) pendingOverpack=false;
+      });
     }
 
-    if(wantOverpack && !overpackPlaced){
+    if(pendingOverpack){
       contents.push({type:"combined-overpack",html:`<div class="text-only-sheet text-only-sheet--overpack">${overpackBanner(true)}</div>`});
     }
     return contents;
@@ -291,7 +353,7 @@
     }
     saveHistory();window.print();
   }
-  ["includeOverpack","includeNames","includeMarine","includeLimited","cutLines","confirmFinal","layoutMode","firstPageNameCount"].forEach(id=>$(id).addEventListener("change",buildPreview));
+  ["includeOverpack","includeNames","includeMarine","includeLimited","cutLines","confirmFinal","layoutMode","firstPageNameCount"].forEach(id=>{const element=$(id);if(element)element.addEventListener("change",buildPreview);});
   $("resolveButton").addEventListener("click",resolve);$("refreshPreview").addEventListener("click",buildPreview);$("printButton").addEventListener("click",print);
   $("clearButton").addEventListener("click",()=>{$("unInput").value="";state.records=[];renderMessages([]);renderResults();buildPreview();});
   $("loadExample").addEventListener("click",()=>{$("unInput").value="UN1170\nUN3082\nUN1760";resolve();});
