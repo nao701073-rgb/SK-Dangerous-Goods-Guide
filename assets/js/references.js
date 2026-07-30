@@ -130,7 +130,6 @@
   };
 
   const buildAiProvisionalTranslation = item => {
-    const points = (item.inspectionPoints || []).map(point => `・${point}`).join("\n");
     const reading = (item.readingGuide || []).map(point => `・${point}`).join("\n");
     return [
       `【AI解説（参考）】 ${item.section || ""} ${item.titleJa || item.titleEn || ""}`.trim(),
@@ -138,7 +137,6 @@
       "■ 条文の趣旨",
       item.detailedExplanationJa || item.summaryJa || "登録された日本語解説はありません。",
       reading ? "\n■ 原文確認の進め方\n" + reading : "",
-      points ? "\n■ 収納検査での確認事項\n" + points : "",
       "",
       "※逐語訳ではありません。表・図・脚注を含む原文ページと英語本文を確認し、国内法令と照合してください。"
     ].filter(Boolean).join("\n");
@@ -152,6 +150,7 @@
     <section class="reference-source-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="sourceModalTitle" tabindex="-1">
       <header class="reference-source-modal__header">
         <div>
+          <span class="reference-source-modal__eyebrow" data-source-modal-eyebrow>該当規定</span>
           <h2 id="sourceModalTitle" data-source-modal-title>該当規定</h2>
         </div>
         <button type="button" data-source-modal-close aria-label="閉じる">×</button>
@@ -171,14 +170,65 @@
         </div>
         <pre class="reference-source-modal__text" data-source-modal-text></pre>
         <section class="reference-source-modal__page" data-source-modal-page hidden>
-          <p>公式PDFの該当ページ画像です。表、図、段組み、脚注を含む原文レイアウトを確認してください。画像を押すと拡大表示できます。</p>
+          <p>公式PDFの該当ページ画像です。表、図、段組み、脚注を含む原文レイアウトを確認してください。画像を押すと拡大表示できます。PDFはクリックまたはタップで全画面表示できます。</p>
           <div class="reference-source-modal__page-gallery" data-source-modal-page-gallery></div>
-          <iframe data-source-modal-pdf title="IMDG Code原文ページ" hidden></iframe>
-          <a data-source-modal-pdf-open target="_blank" rel="noopener">公式PDFを別画面で開く</a>
+          <div class="reference-source-modal__page-frame-wrap" data-source-modal-frame-wrap hidden>
+            <iframe data-source-modal-pdf title="IMDG Code原文ページ" hidden></iframe>
+            <button type="button" class="reference-source-modal__page-expand-cover" data-source-modal-fullscreen-open aria-label="原文PDFを全画面表示">
+              <span>クリック / タップで全画面表示</span>
+            </button>
+          </div>
+          <div class="reference-source-modal__page-actions">
+            <button type="button" class="reference-source-modal__page-action" data-source-modal-fullscreen-open>全画面で表示</button>
+            <a data-source-modal-pdf-open target="_blank" rel="noopener">公式PDFを別画面で開く</a>
+          </div>
         </section>
       </div>
     </section>`;
   document.body.appendChild(sourceModal);
+  const sourceFullscreenModal = document.createElement("div");
+  sourceFullscreenModal.className = "reference-source-fullscreen";
+  sourceFullscreenModal.hidden = true;
+  sourceFullscreenModal.innerHTML = `
+    <div class="reference-source-fullscreen__backdrop" data-source-fullscreen-close></div>
+    <section class="reference-source-fullscreen__dialog" role="dialog" aria-modal="true" aria-labelledby="sourceFullscreenTitle" tabindex="-1">
+      <header class="reference-source-fullscreen__header">
+        <div>
+          <span class="reference-source-fullscreen__eyebrow">原文PDF 全画面表示</span>
+          <h2 id="sourceFullscreenTitle" data-source-fullscreen-title>原文PDF</h2>
+        </div>
+        <div class="reference-source-fullscreen__actions">
+          <a data-source-fullscreen-open target="_blank" rel="noopener">別画面で開く</a>
+          <button type="button" data-source-fullscreen-close aria-label="閉じる">×</button>
+        </div>
+      </header>
+      <div class="reference-source-fullscreen__body">
+        <iframe data-source-fullscreen-pdf title="原文PDF 全画面表示"></iframe>
+      </div>
+    </section>`;
+  document.body.appendChild(sourceFullscreenModal);
+
+  function closeSourceFullscreen() {
+    const pdfFrame = sourceFullscreenModal.querySelector("[data-source-fullscreen-pdf]");
+    if (pdfFrame) pdfFrame.src = "";
+    sourceFullscreenModal.hidden = true;
+    document.body.classList.remove("is-reference-source-fullscreen-open");
+  }
+
+  function openSourceFullscreen(pdfUrl, title) {
+    if (!pdfUrl) return;
+    const frame = sourceFullscreenModal.querySelector("[data-source-fullscreen-pdf]");
+    const titleNode = sourceFullscreenModal.querySelector("[data-source-fullscreen-title]");
+    const openLink = sourceFullscreenModal.querySelector("[data-source-fullscreen-open]");
+    if (frame) frame.src = pdfUrl;
+    if (titleNode) titleNode.textContent = title || "原文PDF";
+    if (openLink) openLink.href = pdfUrl;
+    sourceFullscreenModal.hidden = false;
+    document.body.classList.add("is-reference-source-fullscreen-open");
+    requestAnimationFrame(() => {
+      sourceFullscreenModal.querySelector(".reference-source-fullscreen__dialog")?.focus({ preventScroll: true });
+    });
+  }
 
   function closeSourceModal() {
     sourceModal.hidden = true;
@@ -206,8 +256,9 @@
   }
 
   function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "", sourcePdfPath = "", sourcePdfPage = "", visualPages = [], preferPageView = false }) {
-    currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage, visualPages };
-    sourceModal.querySelector("[data-source-modal-eyebrow]").textContent = eyebrow || "Source Provision";
+    currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage, visualPages, pdfUrl, title: title || "該当規定" };
+    const eyebrowNode = sourceModal.querySelector("[data-source-modal-eyebrow]");
+    if (eyebrowNode) eyebrowNode.textContent = eyebrow || "該当規定";
     sourceModal.querySelector("[data-source-modal-title]").textContent = title || "該当規定";
     const noteNode = sourceModal.querySelector("[data-source-modal-note]");
     noteNode.textContent = note || "";
@@ -220,6 +271,7 @@
     const pdfFrame = sourceModal.querySelector("[data-source-modal-pdf]");
     const pdfOpen = sourceModal.querySelector("[data-source-modal-pdf-open]");
     const pageGallery = sourceModal.querySelector("[data-source-modal-page-gallery]");
+    const pageFrameWrap = sourceModal.querySelector("[data-source-modal-frame-wrap]");
     const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
     const hasVisualPages = Array.isArray(visualPages) && visualPages.length > 0;
     if (pageGallery) {
@@ -231,13 +283,17 @@
           <figcaption>${escapeHtml(page.caption || `PDF ${page.page}ページ`)}</figcaption>
         </figure>`).join("") : "";
     }
-    tabs.hidden = !(pdfUrl || hasVisualPages);
-    const showPageInitially = Boolean((hasVisualPages || pdfUrl) && preferPageView);
+    if (pageFrameWrap) pageFrameWrap.hidden = !pdfUrl;
+    tabs.hidden = Boolean(pdfUrl || hasVisualPages);
+    const showPageInitially = Boolean(hasVisualPages || pdfUrl);
     pagePane.hidden = !showPageInitially;
     textPane.hidden = showPageInitially;
     sourceModal.querySelector("[data-source-modal-text-view]")?.classList.toggle("is-active", !showPageInitially);
     sourceModal.querySelector("[data-source-modal-page-view]")?.classList.toggle("is-active", showPageInitially);
-    if (pdfFrame) pdfFrame.src = pdfUrl;
+    if (pdfFrame) {
+      pdfFrame.src = pdfUrl;
+      pdfFrame.hidden = !pdfUrl;
+    }
     if (pdfOpen) { pdfOpen.href = pdfUrl; pdfOpen.hidden = !pdfUrl; }
     renderSourceModalText("original");
     sourceModal.hidden = false;
@@ -262,8 +318,22 @@
   });
 
   sourceModal.querySelectorAll("[data-source-modal-close]").forEach(button => button.addEventListener("click", closeSourceModal));
+  sourceModal.querySelectorAll("[data-source-modal-fullscreen-open]").forEach(button => button.addEventListener("click", () => {
+    if (!currentSourceModalState?.pdfUrl) return;
+    openSourceFullscreen(currentSourceModalState.pdfUrl, currentSourceModalState.title);
+  }));
+  sourceFullscreenModal.querySelectorAll("[data-source-fullscreen-close]").forEach(button => button.addEventListener("click", closeSourceFullscreen));
+  sourceModal.addEventListener("click", event => {
+    const imageLink = event.target.closest(".reference-source-page-figure a");
+    if (!imageLink) return;
+    event.preventDefault();
+    const imageTitle = imageLink.getAttribute("aria-label") || imageLink.querySelector("img")?.alt || "原文ページ画像";
+    window.open(imageLink.href, "_blank", "noopener");
+  });
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !sourceModal.hidden) closeSourceModal();
+    if (event.key !== "Escape") return;
+    if (!sourceFullscreenModal.hidden) { closeSourceFullscreen(); return; }
+    if (!sourceModal.hidden) closeSourceModal();
   });
 
   const categoryLabels = {
@@ -683,15 +753,6 @@
           ${item.detailedExplanationJa ? `<section><h4>概要</h4><p>${escapeHtml(item.detailedExplanationJa)}</p></section>` : ""}
           ${Array.isArray(item.readingGuide) ? `<section><h4>原文確認の進め方</h4><ol>${item.readingGuide.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
 
-          <section>
-            <h4>収納検査で確認する項目</h4>
-            <ul>
-              ${(item.inspectionPoints || []).map(point =>
-                `<li>${escapeHtml(point)}</li>`
-              ).join("")}
-            </ul>
-          </section>
-
           <section class="imdg-domestic-reference">
             <h4>関連する国内法令</h4>
             <ul>
@@ -770,14 +831,6 @@
           ${item.expandedSummary ? `<section><h4>概要</h4><p>${escapeHtml(item.expandedSummary)}</p></section>` : ""}
           ${item.whyItMatters ? `<section><h4>なぜ重要か</h4><p>${escapeHtml(item.whyItMatters)}</p></section>` : ""}
           ${Array.isArray(item.checkProcedure) ? `<section><h4>確認の手順</h4><ol>${item.checkProcedure.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
-          <section>
-            <h4>現場で確認するポイント</h4>
-            <ul>
-              ${(item.inspectionPoints || []).map(point =>
-                `<li>${escapeHtml(point)}</li>`
-              ).join("")}
-            </ul>
-          </section>
 
           ${Array.isArray(item.commonMistakes) ? `<section class="ai-guide-mistakes"><h4>よくある誤り</h4><ul>${item.commonMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>` : ""}
 
@@ -802,48 +855,73 @@
     `; }).join("");
   }
 
+  function openImdgPdf(item) {
+    if (!item) return;
+    const sourcePdfPath = item.excerptPdfPath || item.sourcePdfPath;
+    const sourcePdfPage = item.excerptPdfPath ? 1 : item.sourcePdfPage;
+    const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
+    if (pdfUrl) {
+      openSourceFullscreen(pdfUrl, `IMDG Code ${item.section} ${item.titleEn || item.titleJa || ""}`.trim());
+      return;
+    }
+    openSourceModal({
+      eyebrow: `IMDG Code ${item.section}`,
+      title: item.titleEn || item.titleJa,
+      note: `${item.originalTextLabel || "IMDG Code Amendment 42-24"} 原文の該当箇所です。`,
+      text: item.originalTextEn,
+      language: "en",
+      provisionalTranslation: buildAiProvisionalTranslation(item),
+      preferPageView: false
+    });
+  }
+
   imdgList.addEventListener("click", event => {
+    const summary = event.target.closest(".imdg-clause-card > summary");
+    if (summary) {
+      event.preventDefault();
+      const card = summary.closest(".imdg-clause-card");
+      const section = card?.querySelector("[data-imdg-source-section]")?.dataset.imdgSourceSection;
+      openImdgPdf(imdgClauses.find(entry => entry.section === section));
+      return;
+    }
     const button = event.target.closest("[data-imdg-source-section]");
     if (!button) return;
     const item = imdgClauses.find(entry => entry.section === button.dataset.imdgSourceSection);
     if (!item) return;
-    openSourceModal({
-      eyebrow: `IMDG Code ${item.section}`,
-      title: item.titleEn || item.titleJa,
-      note: `${item.originalTextLabel || "IMDG Code Amendment 42-24"}。画面内で直接確認できるよう、該当箇所を抽出しています。`,
-      text: item.originalTextEn,
-      language: "en",
-      provisionalTranslation: buildAiProvisionalTranslation(item),
-      sourcePdfPath: item.sourcePdfPath,
-      sourcePdfPage: item.sourcePdfPage,
-      visualPages: item.visualPages || []
-    });
+    openImdgPdf(item);
   });
 
-  aiList.addEventListener("click", event => {
-    const sourceButton = event.target.closest("[data-ai-source-id]");
-    if (sourceButton) {
-      const item = summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId);
-      if (!item) return;
-      const isImdg = item.category === "imdg" || item.sourceType === "imdg";
-      openSourceModal({
-        eyebrow: isImdg ? "IMDG Code 関連規定" : "CTU Code 関連規定",
-        title: item.sourceProvisionTitle || item.title,
-        note: item.sourceProvisionNote || (isImdg
-          ? "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、判断時は英語原文・表・図・脚注を確認してください。"
-          : "国土交通省公表『CTU Code（仮訳）』の該当ページを表示します。要約は理解補助であり、判断時はPDF本文・図・表・注記を確認してください。"),
-        text: item.sourceProvisionTextJa,
-        language: "ja",
-        sourcePdfPath: item.sourcePdfPath || (isImdg ? "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf" : "../references/originals/ctu-code-ja.pdf"),
-        sourcePdfPage: item.sourcePdfPage || (Array.isArray(item.sourcePages) && item.sourcePages.length ? item.sourcePages[0] : ""),
-        preferPageView: true
-      });
+  function openAiSourcePdf(item) {
+    if (!item) return;
+    const isImdg = item.category === "imdg" || item.sourceType === "imdg";
+    const sourcePdfPath = item.excerptPdfPath || item.sourcePdfPath || (isImdg ? "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf" : "../references/originals/ctu-code-ja.pdf");
+    const sourcePdfPage = item.excerptPdfPath ? 1 : (item.sourcePdfPage || (Array.isArray(item.sourcePages) && item.sourcePages.length ? item.sourcePages[0] : ""));
+    const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
+    if (pdfUrl) {
+      openSourceFullscreen(pdfUrl, item.sourceProvisionTitle || item.title || "関連規定");
       return;
     }
-    const complete = event.target.closest("[data-ai-guide-complete]");
-    if (complete) { const all=readAiProgress(); const state=all[complete.dataset.aiGuideComplete]||{}; patchAiProgress(complete.dataset.aiGuideComplete,{completed:!state.completed}); renderAiGuides(); return; }
-    const favorite = event.target.closest("[data-ai-guide-favorite]");
-    if (favorite) { const all=readAiProgress(); const state=all[favorite.dataset.aiGuideFavorite]||{}; patchAiProgress(favorite.dataset.aiGuideFavorite,{favorite:!state.favorite}); renderAiGuides(); }
+    openSourceModal({
+      eyebrow: isImdg ? "IMDG Code 関連規定" : "CTU Code 関連規定",
+      title: item.sourceProvisionTitle || item.title,
+      note: item.sourceProvisionNote || "関連規定の原文です。",
+      text: item.sourceProvisionTextJa,
+      language: "ja"
+    });
+  }
+
+  aiList.addEventListener("click", event => {
+    const summary = event.target.closest(".ai-guide-card > summary");
+    if (summary) {
+      event.preventDefault();
+      const card = summary.closest(".ai-guide-card");
+      const item = summaries.find(entry => entry.id === card?.dataset.aiGuideId);
+      openAiSourcePdf(item);
+      return;
+    }
+    const sourceButton = event.target.closest("[data-ai-source-id]");
+    if (!sourceButton) return;
+    openAiSourcePdf(summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId));
   });
   aiList.addEventListener("change", event => {
     const note=event.target.closest("[data-ai-guide-note]");

@@ -1,0 +1,27 @@
+const fs=require('fs'),path=require('path'),vm=require('vm');
+const root=path.resolve(__dirname,'..');
+const sandbox={window:{}};vm.createContext(sandbox);
+const files=['data/imdg-container-inspection-clauses.js','data/ai-reference-summaries.js','data/imdg-inspection-guide-summary.js'];
+for(const file of files) vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),sandbox,{filename:file});
+const clauses=sandbox.window.IMDG_CONTAINER_INSPECTION_CLAUSES?.clauses||[];
+const ai=sandbox.window.AI_REFERENCE_SUMMARIES?.summaries||[];
+const training=sandbox.window.IMDG_INSPECTION_GUIDE_SUMMARY?.sections||[];
+const errors=[];
+const requireFields=(items,fields,label)=>items.forEach((item,index)=>fields.forEach(field=>{const value=item[field];if(value==null||value===''||(Array.isArray(value)&&!value.length))errors.push(`${label}[${index}] ${field} missing`)}));
+requireFields(clauses,['section','titleJa','titleEn','summaryJa'],'clause');
+requireFields(ai,['id','title','aiSummary','sourceProvisionTitle','sourceProvisionTextJa'],'ai');
+requireFields(training,['id','title','summary'],'training');
+const duplicates=(items,key)=>items.map(x=>x[key]).filter((v,i,a)=>a.indexOf(v)!==i);
+if(duplicates(clauses,'section').length)errors.push('duplicate clause section');
+if(duplicates(ai,'id').length)errors.push('duplicate ai id');
+if(duplicates(training,'id').length)errors.push('duplicate training id');
+function checkPath(value,label){if(!value)return;const rel=String(value).replace(/^\.\.\//,'');const full=path.join(root,rel);if(!fs.existsSync(full))errors.push(`${label} file not found: ${value}`)}
+clauses.forEach((x,i)=>{checkPath(x.sourcePdfPath,`clause[${i}]`);(x.visualPages||[]).forEach((p,j)=>checkPath(p.src,`clause[${i}].visualPages[${j}]`))});
+ai.forEach((x,i)=>checkPath(x.sourcePdfPath,`ai[${i}]`));
+training.forEach((x,i)=>(x.images||[]).forEach((p,j)=>checkPath(p.src,`training[${i}].images[${j}]`)));
+const referencesHtml=fs.readFileSync(path.join(root,'pages/references.html'),'utf8');
+for(const required of ['reference-detail-windows.js?v=403','references.js?v=403','references.css?v=403'])if(!referencesHtml.includes(required))errors.push(`references.html missing ${required}`);
+const referencesJs=fs.readFileSync(path.join(root,'assets/js/references.js'),'utf8');
+if(referencesJs.includes('sourceModal.querySelector("[data-source-modal-eyebrow]").textContent'))errors.push('unsafe eyebrow access remains');
+console.log(JSON.stringify({counts:{clauses:clauses.length,aiSummaries:ai.length,trainingGuides:training.length,totalDetailWindows:clauses.length+ai.length+training.length},errors},null,2));
+process.exit(errors.length?1:0);

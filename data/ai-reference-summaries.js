@@ -53,7 +53,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "「推奨」と書かれていても、国内法令や契約条件により実質的に必須となる場合があります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-legal-status.pdf",
+      "excerptSourcePages": [
+        14
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-prohibited",
@@ -91,7 +96,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "国連番号が存在していても、状態・濃度・安定化条件によって輸送禁止となることがあります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-prohibited.pdf",
+      "excerptSourcePages": [
+        23
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-training",
@@ -130,7 +140,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "資格名だけでなく、実際に担当する分類・包装・表示・書類・収納業務に対応しているか確認します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-training.pdf",
+      "excerptSourcePages": [
+        41
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-security",
@@ -168,7 +183,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "安全対策と保安対策は別です。漏えい防止だけでなく、故意の持出しや情報漏えいも確認します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-security.pdf",
+      "excerptSourcePages": [
+        46
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-classification",
@@ -207,7 +227,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "製品名や用途だけで分類せず、輸送時の物理化学的性状に基づいて判断します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-classification.pdf",
+      "excerptSourcePages": [
+        54
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-marine-pollutant",
@@ -246,7 +271,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "危険等級9でない物質でも、海洋汚染物質に該当する場合があります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-marine-pollutant.pdf",
+      "excerptSourcePages": [
+        155
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-psn-selection",
@@ -284,7 +314,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "日本語訳だけでなく、輸送書類では規定された英語の正式輸送品名を確認します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-psn-selection.pdf",
+      "excerptSourcePages": [
+        560
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-nos",
@@ -323,7 +358,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "「混合物」「樹脂」「製品」など曖昧な表現だけでは技術名の要件を満たしません。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-nos.pdf",
+      "excerptSourcePages": [
+        561
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-dgl-columns",
@@ -361,7 +401,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "リストのコードだけを見て意味を推測せず、必ず参照先の本文・注記まで確認します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-dgl-columns.pdf",
+      "excerptSourcePages": [
+        556
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-special-provisions",
@@ -399,7 +444,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "SPは短いコードでも適用条件が複雑です。一部だけ読んで適用可否を判断しないでください。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-special-provisions.pdf",
+      "excerptSourcePages": [
+        753
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-limited-quantity",
@@ -437,7 +487,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "少量だから危険物でなくなるわけではありません。条件を一つでも外れると通常規定が適用されます。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-limited-quantity.pdf",
+      "excerptSourcePages": [
+        762
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-excepted-quantity",
@@ -475,7 +530,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "E0は微量危険物として輸送できません。少量危険物と条件を混同しないでください。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-excepted-quantity.pdf",
+      "excerptSourcePages": [
+        788
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-packing-general",
@@ -513,7 +573,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "UNマーク付き容器でも、内容物・比重・圧力・閉鎖方法が承認条件に合わなければ使用できません。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-packing-general.pdf",
+      "excerptSourcePages": [
+        238
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-packing-instructions",
@@ -552,7 +617,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "表の行・列・脚注を読み飛ばすと、容器の種類や最大量を誤ります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-packing-instructions.pdf",
+      "excerptSourcePages": [
+        241
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-overpack",
@@ -590,7 +660,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "オーバーパックは新しい容器承認単位ではなく、内包容器の適合性確認も必要です。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-overpack.pdf",
+      "excerptSourcePages": [
+        274
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-package-marks",
@@ -628,7 +703,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "古い表示や無関係な表示は除去・覆い隠しが必要です。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-package-marks.pdf",
+      "excerptSourcePages": [
+        279
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-ctu-placards",
@@ -666,7 +746,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "容器の標札とCTUのプラカードは寸法・適用単位が異なります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-ctu-placards.pdf",
+      "excerptSourcePages": [
+        293
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-document-sequence",
@@ -704,7 +789,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "必要情報がすべてあっても、品名や追加情報の位置が不適切だと誤解を招きます。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-document-sequence.pdf",
+      "excerptSourcePages": [
+        298
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-packing-certificate",
@@ -742,7 +832,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "署名があっても、実際の収納状態を確認せず形式的に発行してはいけません。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-packing-certificate.pdf",
+      "excerptSourcePages": [
+        303
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-emergency-info",
@@ -781,7 +876,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "EmSは一般的な初動指針であり、製品固有のSDSや専門家助言も必要です。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-emergency-info.pdf",
+      "excerptSourcePages": [
+        304
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-stowage",
@@ -819,7 +919,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "「甲板上可」と「甲板上のみ」は意味が異なります。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-stowage.pdf",
+      "excerptSourcePages": [
+        477
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-segregation",
@@ -858,7 +963,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "一方向だけの検索ではなく、両貨物の規定を相互に確認します。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-segregation.pdf",
+      "excerptSourcePages": [
+        486
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "imdg-foodstuffs",
@@ -897,7 +1007,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "commonMistakes": [
         "容器が密閉されていても、規定上の隔離が不要になるとは限りません。"
       ],
-      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。"
+      "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
+      "excerptPdfPath": "../references/excerpts/ai-imdg-foodstuffs.pdf",
+      "excerptSourcePages": [
+        498
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-purpose",
@@ -928,7 +1043,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 4
+      "sourcePdfPage": 4,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-purpose.pdf",
+      "excerptSourcePages": [
+        4,
+        5
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-basic-check",
@@ -959,7 +1080,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11
+      "sourcePdfPage": 11,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-basic-check.pdf",
+      "excerptSourcePages": [
+        11,
+        12
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-responsibility-chain",
@@ -992,7 +1119,15 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 13
+      "sourcePdfPage": 13,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-responsibility-chain.pdf",
+      "excerptSourcePages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-load-distribution",
@@ -1025,7 +1160,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11
+      "sourcePdfPage": 11,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-load-distribution.pdf",
+      "excerptSourcePages": [
+        11,
+        32
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-securing",
@@ -1058,7 +1199,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11
+      "sourcePdfPage": 11,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-securing.pdf",
+      "excerptSourcePages": [
+        11,
+        12,
+        32
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-dangerous-goods",
@@ -1090,7 +1238,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11
+      "sourcePdfPage": 11,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-dangerous-goods.pdf",
+      "excerptSourcePages": [
+        11,
+        34
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-completion",
@@ -1122,7 +1276,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 12
+      "sourcePdfPage": 12,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-completion.pdf",
+      "excerptSourcePages": [
+        12,
+        36
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-opening",
@@ -1154,7 +1314,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 12
+      "sourcePdfPage": 12,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-opening.pdf",
+      "excerptSourcePages": [
+        12,
+        38
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-condensation",
@@ -1188,7 +1354,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 4
+      "sourcePdfPage": 4,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-condensation.pdf",
+      "excerptSourcePages": [
+        4,
+        6,
+        8
+      ],
+      "excerptPdfPage": 1
     },
     {
       "id": "ctu-training",
@@ -1219,7 +1392,12 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 127
+      "sourcePdfPage": 127,
+      "excerptPdfPath": "../references/excerpts/ai-ctu-training.pdf",
+      "excerptSourcePages": [
+        127
+      ],
+      "excerptPdfPage": 1
     }
   ]
 };
