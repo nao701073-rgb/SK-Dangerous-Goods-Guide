@@ -67,11 +67,11 @@
     return [
       { id:"local-user-001", login_id:"yamamoto", loginId:"yamamoto", display_name:"山本", displayName:"山本", role:"safety-environment-staff", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-002", login_id:"ninomiya", loginId:"ninomiya", display_name:"二ノ宮", displayName:"二ノ宮", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-004", login_id:"narutake", loginId:"narutake", display_name:"成竹", displayName:"成竹", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-004", login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-005", login_id:"koyama", loginId:"koyama", display_name:"小山", displayName:"小山", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-006", login_id:"konaka", loginId:"konaka", display_name:"小中", displayName:"小中", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-007", login_id:"awazaki", loginId:"awazaki", display_name:"粟崎", displayName:"粟崎", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-007", login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-008", login_id:"takashima", loginId:"takashima", display_name:"高嶋", displayName:"高嶋", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-010", login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者", role:"safety-environment-admin", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
@@ -91,6 +91,45 @@
     } else {
       const defaults = defaultLocalUsers();
       let changed = false;
+
+      // Part 409: 川崎事業所利用者の権限・読み・ログインIDを既存端末にも反映する。
+      const migrateUser = (predicate, updates) => {
+        const user = users.find(predicate);
+        if (!user) return;
+        Object.assign(user, updates);
+        changed = true;
+      };
+      migrateUser(user => user.id === "local-user-003" || String(user.login_id || user.loginId || "").toLowerCase() === "sato", {
+        login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin",
+        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+      });
+      migrateUser(user => user.id === "local-user-004" || ["narutake","naritake"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
+        login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user",
+        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+      });
+      migrateUser(user => user.id === "local-user-007" || ["awazaki","awasaki"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
+        login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user",
+        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+      });
+
+      // 現在ログイン中の利用者情報も即時更新する。
+      const current = safeJsonParse(localStorage.getItem(USER_KEY), null);
+      if (current?.id) {
+        const migrated = users.find(user => user.id === current.id);
+        if (migrated) {
+          localStorage.setItem(USER_KEY, JSON.stringify({
+            ...current,
+            login_id:migrated.login_id || migrated.loginId,
+            loginId:migrated.loginId || migrated.login_id,
+            display_name:migrated.display_name || migrated.displayName,
+            displayName:migrated.displayName || migrated.display_name,
+            role:migrated.role,
+            office_id:migrated.office_id ?? migrated.officeId ?? null,
+            officeId:migrated.officeId ?? migrated.office_id ?? null
+          }));
+        }
+      }
+
       defaults.forEach(defaultUser => {
         if (!users.some(user => (user.login_id || user.loginId) === defaultUser.login_id)) {
           users.push(defaultUser);

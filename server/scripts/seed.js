@@ -22,7 +22,9 @@ if (email && password) {
 
 const validationAccounts = [
   ['ooura','大浦 検査員','office-user','office-kawasaki','Kensa-363!'],
-  ['sato','佐藤 事業所管理者','office-admin','office-yokohama','Office-363!'],
+  ['sato','佐藤 事業所管理者','office-admin','office-kawasaki','TempPass!2026'],
+  ['naritake','成竹（なりたけ）','office-user','office-kawasaki','TempPass!2026'],
+  ['awasaki','粟崎（あわさき）','office-user','office-kawasaki','TempPass!2026'],
   ['yamamoto','山本 安全環境室長','safety-environment-director',null,'Director-363!'],
   ['tanaka','田中 安全環境室職員','safety-environment-staff',null,'Staff-363!'],
   ['suzuki','鈴木 システム管理者','safety-environment-admin',null,'Admin-363!'],
@@ -41,7 +43,7 @@ if (process.env.DISABLE_VALIDATION_ACCOUNTS !== 'true') {
       ON CONFLICT(login_id) DO UPDATE SET display_name=excluded.display_name,role=excluded.role,account_category=excluded.account_category,office_id=excluded.office_id,active=true`,
       [validationLoginId,displayName,hash,role,category,officeId]);
   }
-  console.log('Validation accounts checked: ooura, sato, yamamoto, tanaka, suzuki, ito, kobayashi, revision-validator, daikoku.sato, daikoku.ueki');
+  console.log('Validation accounts checked: ooura, sato, naritake, awasaki, yamamoto, tanaka, suzuki, ito, kobayashi, revision-validator, daikoku.sato, daikoku.ueki');
 }
 
 await pool.end();

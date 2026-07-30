@@ -11,7 +11,7 @@
 <noscript><p class="login-noscript">この画面を利用するにはJavaScriptを有効にしてください。</p></noscript>
 <p class="login-footer">© 2026 Shin Nihon Kentei Kyokai All rights reserved.</p></div></main>
 <div id="loginSuccess" class="login-success" aria-hidden="true"><div class="login-success__flash"></div><div class="login-success__logo"><img src="../assets/images/sk-brand-logo-square-v348.png" srcset="../assets/images/sk-brand-logo-square-v348.png 1x, ../assets/images/sk-brand-logo-square-2x-v357.png 2x" width="700" height="700" alt="" decoding="async"></div></div>
-<script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=178"></script><script src="../assets/js/api-client.js?v=388"></script>
+<script src="../data/organization-master.js"></script><script src="../assets/js/organization.js"></script><script src="../assets/js/storage.js?v=178"></script><script src="../assets/js/api-client.js?v=409"></script>
 <script>
 (()=>{const $=id=>document.getElementById(id);const message=(text,state)=>{const node=$('loginMessage');node.textContent=text;const resolved=state||(text.includes('ログインしました')||text.includes('回復しました')||text.includes('送信しました')||text.includes('変更しました')?'success':text.includes('確認中')||text.includes('照合中')||text.includes('再送しています')||text.includes('受け付けています')?'progress':text?'error':'idle');node.dataset.state=resolved;};let challengeId=null;let remember=false;let transitionStarted=false;let mfaExpiresAt=null;let mfaTimer=null;let resendTimer=null;let mfaVerifying=false;let resendInProgress=false;let challengeVersion=0;
 const params=new URLSearchParams(location.search);

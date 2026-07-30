@@ -1,8 +1,8 @@
 {
-  "part": 395,
-  "version": "0.395.0",
-  "name": "Unified 100mm Label Frame Update",
+  "part": 409,
+  "version": "0.409.0",
+  "name": "Kawasaki User Account Corrections",
   "updatedAt": "2026-07-30",
-  "build": "part395-unified-label-frame-normalization",
-  "changeSummary": "全危険物標札、海洋汚染物質、少量危険物の印刷専用画像を同一基準で再生成し、外枠から外枠まで100mmになるよう余白と外周を統一。"
+  "build": "part409-kawasaki-user-account-corrections",
+  "changeSummary": "川崎事業所の佐藤を事業所管理者へ変更し、成竹の読み・IDをなりたけ／naritake、粟崎の読み・IDをあわさき／awasakiへ訂正。既存ローカルデータの自動移行にも対応。"
 }
