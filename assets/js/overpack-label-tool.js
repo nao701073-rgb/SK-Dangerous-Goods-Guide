@@ -73,7 +73,7 @@
         state.records.push(resolved);
       }
     });
-    if(state.records.some(item=>item.nos)) messages.push({type:"warning",text:"N.O.S.品名があります。該当する技術名を英語で入力し、最終確認してください。"});
+    if(state.records.some(item=>item.nos)) messages.push({type:"warning",text:"N.O.S.品名があります。技術名は必要に応じて英語で入力してください（任意）。未入力でも印刷できます。"});
     if(state.records.length) messages.push({type:"info",text:`${state.records.length}件を照合しました。英語品名の候補と標札を確認してください。`});
     renderMessages(messages); renderResults(); buildPreview();
   }
@@ -83,25 +83,34 @@
     if(!state.records.length){$("resultList").innerHTML='<p class="empty-state">照合できる危険物データがありません。</p>';return;}
     $("resultList").innerHTML=state.records.map((item,index)=>{
       const record=item.record; const labelText=item.labels.map(x=>x.class||x.nameJa).join(" / ")||"未登録";
-      return `<article class="result-card" data-index="${index}"><div class="result-card__head"><div><h3>UN${esc(item.un)}</h3><p>${esc(record.properShippingNameJa||"日本語名未登録（確認画面のみ）")}</p></div><span class="status-tag">データ照合済み</span></div><div class="result-card__body"><div><strong>印刷する英語品名</strong><div class="candidate-list">${item.candidates.map(candidate=>`<label class="candidate-option"><input type="radio" name="candidate-${index}" value="${esc(candidate.value)}" ${candidate.value===item.selected?'checked':''}><span>${esc(candidate.value)}<small>${candidate.preferred?'括弧外を優先':'括弧内の候補'}</small></span></label>`).join("")}</div></div><div class="record-facts"><div class="fact"><span>主・副標札</span><strong>${esc(labelText)}</strong></div><div class="fact"><span>容器等級</span><strong>${esc(record.packingGroup||"―")}</strong></div><div class="fact"><span>海洋汚染物質</span><strong>${record.marinePollutant?'該当':'非該当'}</strong></div><div class="fact"><span>少量危険物上限</span><strong>${esc(record.limitedQuantity||"―")}</strong></div></div>${item.nos?`<div class="technical-block"><label for="technical-${index}">技術名（英語・必須）</label><input id="technical-${index}" class="technical-input" data-technical-index="${index}" value="${esc(item.technicalName)}" placeholder="例：TOLUENE, XYLENE"><p class="field-help">印刷時は正式品名の直後に括弧書きします。商品名だけではなく、危険性に主として起因する技術名を確認してください。</p></div>`:""}</div></article>`;
+      return `<article class="result-card" data-index="${index}"><div class="result-card__head"><div><h3>UN${esc(item.un)}</h3><p>${esc(record.properShippingNameJa||"日本語名未登録（確認画面のみ）")}</p></div><span class="status-tag">データ照合済み</span></div><div class="result-card__body"><div><strong>印刷する英語品名</strong><div class="candidate-list">${item.candidates.map(candidate=>`<label class="candidate-option"><input type="radio" name="candidate-${index}" value="${esc(candidate.value)}" ${candidate.value===item.selected?'checked':''}><span>${esc(candidate.value)}<small>${candidate.preferred?'括弧外を優先':'括弧内の候補'}</small></span></label>`).join("")}</div></div><div class="record-facts"><div class="fact"><span>主・副標札</span><strong>${esc(labelText)}</strong></div><div class="fact"><span>容器等級</span><strong>${esc(record.packingGroup||"―")}</strong></div><div class="fact"><span>海洋汚染物質</span><strong>${record.marinePollutant?'該当':'非該当'}</strong></div><div class="fact"><span>少量危険物上限</span><strong>${esc(record.limitedQuantity||"―")}</strong></div></div>${item.nos?`<div class="technical-block"><label for="technical-${index}">技術名（英語・任意）</label><input id="technical-${index}" class="technical-input" data-technical-index="${index}" value="${esc(item.technicalName)}" placeholder="例：TOLUENE, XYLENE"><p class="field-help">入力した場合は、印刷時に正式品名の直後へ括弧書きで追加します。入力しない場合は正式品名のみ印刷します。</p></div>`:""}</div></article>`;
     }).join("");
     $("resultList").querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener("change",event=>{const card=event.target.closest(".result-card");state.records[Number(card.dataset.index)].selected=event.target.value;buildPreview();}));
     $("resultList").querySelectorAll("[data-technical-index]").forEach(input=>input.addEventListener("input",event=>{state.records[Number(event.target.dataset.technicalIndex)].technicalName=event.target.value.trim();buildPreview();}));
   }
   function selectedLabels(){
-    const map=new Map();
-    state.records.filter(x=>x.include).forEach(item=>item.labels.forEach(label=>map.set(label.id,label)));
-    if($("includeMarine").checked){const label=labelMaster().find(x=>x.id==="marine-pollutant");if(label)map.set(label.id,label);}
-    if($("includeLimited").checked){const label=labelMaster().find(x=>x.id==="limited-quantity");if(label)map.set(label.id,label);}
-    return [...map.values()];
+    // 固定順：主標札 → 副標札 → 海洋汚染物質 → 少量危険物。
+    // 同一標札は最初の出現だけを残し、入力されたUN番号の順序を維持する。
+    const ordered=[];
+    const seen=new Set();
+    const pushUnique=label=>{
+      if(!label?.id || seen.has(label.id)) return;
+      seen.add(label.id);
+      ordered.push(label);
+    };
+    const included=state.records.filter(item=>item.include);
+    included.forEach(item=>pushUnique(item.labels[0]));
+    included.forEach(item=>item.labels.slice(1).forEach(pushUnique));
+    if($("includeMarine").checked) pushUnique(labelMaster().find(item=>item.id==="marine-pollutant"));
+    if($("includeLimited").checked) pushUnique(labelMaster().find(item=>item.id==="limited-quantity"));
+    return ordered;
   }
-  function printableName(item){const tech=item.technicalName.trim();return `${item.selected}${item.nos&&tech?` (${tech})`:""}`.trim();}
+  function printableName(item){const tech=item.technicalName.trim().toUpperCase();const base=String(item.selected||"").toUpperCase();return `${base}${item.nos&&tech?` (${tech})`:""}`.trim();}
   function validate(){
     const errors=[];
     if(!state.records.length) errors.push("危険物データを照合してください。");
     state.records.forEach(item=>{
       if(!item.selected) errors.push(`UN${item.un}の英語品名を選択してください。`);
-      if(item.nos&&!item.technicalName.trim()) errors.push(`UN${item.un}の技術名を英語で入力してください。`);
       if(!item.labels.length) errors.push(`UN${item.un}の標札データがありません。`);
     });
     return errors;
@@ -140,8 +149,8 @@
 
     if(mode==="names"){
       const recordGroups=chunk(records, TEXT_ONLY_RECORDS_PER_PAGE);
-      (recordGroups.length?recordGroups:[[]]).forEach(group=>{
-        contents.push({type:"names",html:`<div class="text-only-sheet">${overpackBanner(wantOverpack)}${nameList(wantNames?group:[],"text")}</div>`});
+      (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
+        contents.push({type:"names",html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"text")}</div>`});
       });
       return contents;
     }
@@ -149,20 +158,39 @@
     if(mode==="placards"){
       const labelGroups=chunk(labels,PLACARDS_PER_PAGE);
       (labelGroups.length?labelGroups:[[]]).forEach(group=>{
-        contents.push({type:"placards",html:`<div class="placard-only-sheet">${placardGrid(group)}${overpackBanner(wantOverpack)}</div>`});
+        contents.push({type:"placards",html:`<div class="placard-only-sheet">${placardGrid(group)}${overpackBanner(false)}</div>`});
       });
       return contents;
     }
 
-    const labelGroups=chunk(labels,PLACARDS_PER_PAGE);
-    const recordGroups=chunk(records,COMBINED_RECORDS_PER_PAGE);
-    const total=Math.max(labelGroups.length||1, wantNames?(recordGroups.length||1):1);
-    for(let i=0;i<total;i++){
-      const labelGroup=labelGroups[i]||[];
-      const recordGroup=wantNames?(recordGroups[i]||[]):[];
+    // combined mode: top 2x2 placard grid, lower blank area for OVERPACK / UN / proper shipping names.
+    const labelGroups=chunk(labels, PLACARDS_PER_PAGE);
+    const recordGroups=chunk(records, COMBINED_RECORDS_PER_PAGE);
+
+    if(labelGroups.length === 0){
+      (recordGroups.length?recordGroups:[[]]).forEach((group,index)=>{
+        contents.push({
+          type:"combined-text-only",
+          html:`<div class="text-only-sheet">${overpackBanner(wantOverpack&&index===0)}${nameList(wantNames?group:[],"text")}</div>`
+        });
+      });
+      return contents;
+    }
+
+    labelGroups.forEach((group,index)=>{
+      const recordGroup = wantNames ? (recordGroups[index] || []) : [];
       contents.push({
         type:"combined",
-        html:`<div class="combined-sheet"><section class="combined-sheet__labels">${placardGrid(labelGroup)}</section><section class="combined-sheet__text">${overpackBanner(wantOverpack)}${nameList(recordGroup,"combined")}</section></div>`
+        html:`<div class="combined-sheet combined-sheet--top-grid"><section class="combined-sheet__labels">${placardGrid(group)}</section><section class="combined-sheet__bottom">${overpackBanner(wantOverpack&&index===0)}${nameList(recordGroup,"bottom")}</section></div>`
+      });
+    });
+
+    if(wantNames && recordGroups.length > labelGroups.length){
+      recordGroups.slice(labelGroups.length).forEach((group,extraIndex)=>{
+        contents.push({
+          type:"combined-overflow",
+          html:`<div class="text-only-sheet text-only-sheet--continuation">${overpackBanner(false)}<div class="continuation-note">続き</div>${nameList(group,"text")}</div>`
+        });
       });
     }
     return contents;

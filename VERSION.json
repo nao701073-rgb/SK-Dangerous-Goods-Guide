@@ -1,8 +1,8 @@
 {
-  "part": 384,
-  "version": "0.384.0",
-  "name": "System-wide Search and Overpack Access Update",
+  "part": 388,
+  "version": "0.388.0",
+  "name": "Optional N.O.S. Technical Name Update",
   "updatedAt": "2026-07-30",
-  "build": "part384-rebuilt-system-wide-search",
-  "changeSummary": "ホームの検索を横断検索へ拡張。危険物、法令、資料、申請番号、機能・設定を権限に応じて検索可能。Part382のオーバーパック表示作成の事業所・権限制御とA4縦4標札レイアウトを維持。"
+  "build": "part388-auth-session-unification",
+  "changeSummary": "オーバーパック標札・品名等の表示作成で、N.O.S.品名の技術名入力を任意化。未入力でも印刷可能。入力時のみ正式品名の後に括弧書きで追加。"
 }

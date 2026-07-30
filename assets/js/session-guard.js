@@ -24,7 +24,7 @@
   let countdownTimer=0;
   let dialog;
 
-  const currentToken=()=>sessionStorage.getItem("iss-api-token")||localStorage.getItem("iss-api-token")||"";
+  const currentToken=()=>sessionStorage.getItem("iss-api-token")||localStorage.getItem("iss-api-token")||window.ISSAuthBridge?.currentAuth?.()?.token||"";
   const hasSession=()=>Boolean(currentToken());
   const getTimeoutMinutes=()=>{
     const value=Number(localStorage.getItem(TIMEOUT_KEY)||DEFAULT_MINUTES);
@@ -115,13 +115,25 @@
   };
   const schedule=()=>{
     clearTimers();
+    try{window.ISSAuthBridge?.restore?.();}catch(_e){}
     if(!hasSession()) return;
     const timeoutMs=getTimeoutMinutes()*60000;
     const warningMs=Math.min(WARNING_MINUTES*60000,Math.max(30000,timeoutMs/3));
     const last=normalizeSessionActivity();
     const elapsed=Math.max(0,Date.now()-last);
     const remaining=timeoutMs-elapsed;
-    if(remaining<=0){logout("idle-timeout");return;}
+    if(remaining<=0){
+      // A page transition is user activity. Never expire a valid session while
+      // a newly opened internal page is still restoring its authentication state.
+      if(typeof performance!=="undefined"&&performance.now()<15000){
+        localStorage.setItem(ACTIVITY_KEY,String(Date.now()));
+        localStorage.setItem(SESSION_STARTED_KEY,localStorage.getItem(SESSION_STARTED_KEY)||String(Date.now()));
+        localStorage.setItem(SESSION_TOKEN_KEY,currentToken());
+        schedule();
+        return;
+      }
+      logout("idle-timeout");return;
+    }
     if(remaining<=warningMs){showWarning();}
     else warningTimer=setTimeout(showWarning,remaining-warningMs);
     logoutTimer=setTimeout(()=>logout("idle-timeout"),remaining);

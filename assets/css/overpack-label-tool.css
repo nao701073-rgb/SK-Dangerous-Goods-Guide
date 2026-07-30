@@ -54,22 +54,22 @@ body{background:var(--tool-bg)}
 .print-preview{overflow:auto;padding:18px;background:#d8e0e8;border-radius:12px}
 .print-page{position:relative;box-sizing:border-box;width:210mm;min-height:297mm;margin:0 auto 18px;padding:5mm 5mm 8mm;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2);display:grid;grid-template-rows:1fr auto;gap:4mm}
 .print-page.cut-lines .print-item{outline:1px dashed #8b8b8b;outline-offset:1.5mm}
-.combined-sheet,.placard-only-sheet,.text-only-sheet{display:flex;flex-direction:column;gap:4mm;min-height:278mm}
+.combined-sheet,.placard-only-sheet,.text-only-sheet{display:flex;flex-direction:column;gap:4mm;min-height:278mm}.combined-sheet--top-grid{justify-content:flex-start}
 .placard-grid{width:200mm;margin:0 auto;display:grid;grid-template-columns:repeat(2,100mm);grid-template-rows:repeat(2,100mm);gap:0}
-.placard-item{width:100mm;height:100mm;display:grid;place-items:center;box-sizing:border-box}
-.placard-item img{display:block;width:100mm;height:100mm;object-fit:contain}
+.placard-item{width:100mm;height:100mm;display:grid;place-items:center;box-sizing:border-box;overflow:hidden;background:#fff}
+.placard-item img{display:block;width:100mm;height:100mm;object-fit:contain;transform:rotate(-45deg) scale(1.42);transform-origin:center center}
 .placard-item--empty{border:1mm dashed #9aa8b3;color:#607486;font-weight:700;background:#fbfdff}
-.combined-sheet__text{display:grid;grid-template-rows:auto 1fr;gap:4mm;min-height:72mm}
+.combined-sheet__labels{display:block}.combined-sheet__bottom{display:grid;grid-template-rows:auto 1fr;gap:4mm;min-height:70mm;align-content:start}.continuation-note{padding:3mm 4mm;border:0.6mm solid #9aa8b3;background:#f6f8fb;color:#44596d;font-weight:700;text-align:center}
 .text-only-sheet{justify-content:flex-start}
 .text-only-sheet--overpack{justify-content:center}
 .mark-line{border:1.2mm solid #000;padding:4mm;font-family:Arial,sans-serif;background:#fff;display:flex;align-items:center;justify-content:center;min-height:20mm}
-.mark-line__text{font-size:12mm;line-height:1;font-weight:900;letter-spacing:.6mm}
+.mark-line__text{font-size:14mm;line-height:1;font-weight:900;letter-spacing:.6mm}
 .name-list{display:grid;gap:4mm}
-.name-list--combined{grid-template-columns:1fr}
+.name-list--combined,.name-list--bottom{grid-template-columns:1fr}
 .name-list--text{grid-template-columns:1fr 1fr}
-.name-record{border:1.2mm solid #000;padding:4mm;font-family:Arial,sans-serif;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3mm;min-height:24mm}
-.name-record__un{font-size:12mm;line-height:1;font-weight:900}
-.name-record__name{font-size:12mm;line-height:1.08;font-weight:800;overflow-wrap:anywhere;word-break:break-word}
+.name-record{border:1.2mm solid #000;padding:4mm;font-family:Arial,sans-serif;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:3mm;min-height:24mm}.name-list--bottom .name-record{min-height:28mm}
+.name-record__un{font-size:14mm;line-height:1;font-weight:900}
+.name-record__name{font-size:14mm;line-height:1.08;font-weight:800;text-transform:uppercase;overflow-wrap:anywhere;word-break:break-word}
 .mark-panel-empty{padding:8mm;border:1mm dashed #9aa8b3;color:#607486;text-align:center;background:#fbfdff}
 .print-footer{font-size:3mm;color:#444;display:flex;justify-content:space-between}
 .history-list{display:grid;gap:8px}

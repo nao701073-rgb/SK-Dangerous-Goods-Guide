@@ -9,6 +9,10 @@
   const WRITE_PREFIX=PREFIXES[0];
   const HASH_KEY="issauth";
   const LOCAL_ACCESS_POLICY_KEY="iss-local-access-policy-v365";
+  const ACTIVITY_KEY="iss-last-activity";
+  const SESSION_STARTED_KEY="iss-session-started-at";
+  const SESSION_TOKEN_KEY="iss-session-token-fingerprint";
+  const LOGOUT_REASON_KEY="iss-session-logout-reason";
   const OPTIONAL_VIEW_PAGES=new Set(["index.html","dangerous-goods-search.html","dangerous-goods-detail.html","regulations.html","references.html"]);
 
   const safeGet=(storage,key)=>{try{return storage.getItem(key)||"";}catch(_e){return "";}};
@@ -35,6 +39,15 @@
     const passwordChangeRequired=safeGet(localStorage,PASSWORD_CHANGE_KEY)==="1"||Boolean(bridge.passwordChangeRequired);
     return {token,user,passwordChangeRequired,updatedAt:bridge.updatedAt||new Date().toISOString()};
   };
+  const refreshSessionClock=token=>{
+    if(!token)return;
+    const now=Date.now();
+    safeSet(localStorage,ACTIVITY_KEY,String(now));
+    const storedToken=safeGet(localStorage,SESSION_TOKEN_KEY);
+    if(storedToken!==String(token)||!safeGet(localStorage,SESSION_STARTED_KEY)) safeSet(localStorage,SESSION_STARTED_KEY,String(now));
+    safeSet(localStorage,SESSION_TOKEN_KEY,String(token));
+    safeRemove(localStorage,LOGOUT_REASON_KEY);
+  };
   const persistAuth=data=>{
     if(!data?.token)return false;
     const normalized={token:String(data.token),user:data.user||null,passwordChangeRequired:Boolean(data.passwordChangeRequired),updatedAt:data.updatedAt||new Date().toISOString()};
@@ -43,6 +56,7 @@
     if(normalized.user)safeSet(localStorage,USER_KEY,JSON.stringify(normalized.user));
     if(normalized.passwordChangeRequired)safeSet(localStorage,PASSWORD_CHANGE_KEY,"1");else safeRemove(localStorage,PASSWORD_CHANGE_KEY);
     writeWindowBridge(normalized);
+    refreshSessionClock(normalized.token);
     return true;
   };
   const consumeHashBridge=()=>{
@@ -70,7 +84,7 @@
   const isInternalTarget=target=>location.protocol==="file:"?target.protocol==="file:":target.origin===location.origin;
   const withAuthFragment=url=>{
     try{
-      const auth=currentAuth();
+      const auth={...currentAuth(),updatedAt:new Date().toISOString()};
       if(!auth.token)return url;
       const target=new URL(url,location.href);
       if(!isInternalTarget(target))return url;
@@ -100,7 +114,7 @@
     try{if(PREFIXES.some(prefix=>String(window.name||"").startsWith(prefix)))window.name="";}catch(_e){}
   };
 
-  window.ISSAuthBridge={restore,persistAuth,currentAuth,withAuthFragment,navigate,decorateAll,clear};
+  window.ISSAuthBridge={restore,persistAuth,currentAuth,withAuthFragment,navigate,decorateAll,clear,refreshSessionClock};
   restore();
 
   document.addEventListener("click",event=>{

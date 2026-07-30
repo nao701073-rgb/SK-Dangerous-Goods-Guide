@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +8,18 @@
   <title>オーバーパック標札・品名等の表示作成ツール｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=373">
+  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=390">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="overpack-label-tool">
   <header class="app-header">
-    <div><h1>オーバーパック標札・品名等の表示作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4ラベル用紙へ配置します。</p></div>
+    <div><h1>オーバーパック標札・品名等の表示作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4ラベル用紙へ配置します。少量危険物は、文字なしのマークのみを表示します。</p></div>
     <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
   </header>
 
   <main class="main-content overpack-tool-page">
     <section class="tool-intro">
-      <div><span class="status-badge status-badge--blue">横浜大黒事業所向け機能</span><h2>複数の危険物表示を一括作成</h2><p>標札を重複排除し、A4縦（210×297mm）に100mm角標札を最大4枚配置し、余白にOVERPACK・国連番号・英語品名を配置します。</p></div>
+      <div><span class="status-badge status-badge--blue">横浜大黒事業所向け機能</span><h2>複数の危険物表示を一括作成</h2><p>標札を重複排除し、A4縦（210×297mm）の上部に、主標札、副標札、海洋汚染物質、少量危険物の順で100mm角表示を2列×2段に配置します。下の空きスペースにはOVERPACK、国連番号・英語品名を入力順で配置し、収まらない内容は2ページ目以降へ続けます。</p></div>
       <aside><strong>印刷前の確認</strong><p>表示内容と適用条件は、実際の貨物、包装状態、SDS、適用法令および最新版原文で最終確認してください。</p></aside>
     </section>
 
@@ -44,7 +44,7 @@
         </div>
         <label for="layoutMode">出力レイアウト</label>
         <select id="layoutMode"><option value="combined">必要表示をA4一枚へ集約（収まらない場合は分割）</option><option value="placards">標札・マークのみ</option><option value="names">国連番号・英語品名のみ</option><option value="overpack">OVERPACK表示のみ</option></select>
-        <p class="field-help">標札は100mm×100mm、OVERPACK・国連番号・英語品名の文字高さは12mm以上を基準として出力します。A4縦（210×297mm）1ページに標札を最大4枚配置し、収まらない場合は自動で2ページ目以降を作成します。</p>
+        <p class="field-help">標札類は100mm×100mmで、主標札→副標札→海洋汚染物質→少量危険物の固定順に、A4縦の上部へ2列×2段で最大4枚配置します。標札が4枚を超える場合は2ページ目以降へ同じ順番で続けます。各ページの空きスペースにはOVERPACKを先頭に、国連番号・英語品名を入力順で配置し、収まらない表示は次ページへ続けます。表示文字は14mm設定です。</p>
       </section>
     </section>
 
@@ -56,7 +56,7 @@
 
     <section class="panel preview-panel">
       <div class="panel-heading preview-heading"><div><span class="step-number">4</span><h2>印刷プレビュー</h2></div><div class="preview-actions"><button id="refreshPreview" class="secondary-button" type="button">プレビュー更新</button><button id="printButton" type="button" disabled>印刷・PDF保存</button></div></div>
-      <div class="preview-summary"><span id="pageSummary">0ページ</span><span id="placardSummary">標札0種類</span><span>A4縦／標札100mm角／文字高さ12mm基準</span></div>
+      <div class="preview-summary"><span id="pageSummary">0ページ</span><span id="placardSummary">標札0種類</span><span>A4縦／主標札→副標札→海洋汚染物質→少量危険物／下部にOVERPACK・UN番号・品名</span></div>
       <div id="printPreview" class="print-preview"><div class="preview-placeholder">照合結果を確認すると、ここにA4プレビューが表示されます。</div></div>
     </section>
 
@@ -65,13 +65,13 @@
       <div id="historyList" class="history-list"></div>
     </section>
 
-    <aside class="safety-note"><strong>重要</strong><p>本ツールは表示作成を補助するものです。自動抽出された標札、海洋汚染物質、少量危険物、正式品名および技術名の適否をシステムだけで確定しないでください。データ不足またはN.O.S.品名の技術名未入力時は印刷を停止します。</p></aside>
+    <aside class="safety-note"><strong>重要</strong><p>本ツールは表示作成を補助するものです。自動抽出された標札、海洋汚染物質、少量危険物、正式品名および技術名の適否をシステムだけで確定しないでください。データ不足時は印刷を停止します。N.O.S.品名の技術名は任意入力とし、未入力の場合は正式品名のみ印刷します。印字品名は文字高さ確保のため英大文字で出力します。</p></aside>
   </main>
 
   <script src="../data/un-data.js?v=372"></script>
   <script src="../data/label-master.js?v=372"></script>
   <script src="../assets/js/office-feature-gates.js?v=382"></script>
-  <script src="../assets/js/overpack-label-tool.js?v=382"></script>
+  <script src="../assets/js/overpack-label-tool.js?v=385"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
   <script src="../assets/js/usage-tracking.js?v=222"></script>
