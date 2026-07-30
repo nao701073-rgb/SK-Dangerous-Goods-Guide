@@ -152,7 +152,7 @@
     },
 
     setUserRole(role) {
-      const normalized = ["office-user", "office-admin", "safety-environment-director", "safety-environment-staff", "safety-environment-admin", "guest", "validator"].includes(role) ? role : "office-user";
+      const normalized = ["office-user", "office-admin", "safety-environment-director", "safety-environment-staff", "safety-environment-admin", "guest", "validator", "revision-validator"].includes(role) ? role : "office-user";
       localStorage.setItem(KEYS.userRole, normalized);
       return normalized;
     },

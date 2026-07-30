@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>システム設定｜検査・検品業務サポートシステム</title>
 <link href="../assets/css/style.css" rel="stylesheet"/>
 <link href="../assets/css/system-layout.css" rel="stylesheet"/>
-<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css?v=379" rel="stylesheet"/>
 <link href="../assets/css/typography-quality.css?v=187" rel="stylesheet"/>
 </head>
 <body data-page="settings" data-required-roles="office-admin,safety-environment-director,safety-environment-admin">
@@ -24,10 +25,7 @@
 <h1>システム設定</h1>
 <p>利用者、権限、クラウド連携、写真保存、法令更新、監査・運用管理を設定します。</p>
 </div>
-</div><section aria-label="設定区分" class="settings-category-nav">
-<a class="settings-category-card" href="settings.html"><strong>ユーザー設定</strong><span>表示、実寸補正、通知、アカウント、オフライン利用を設定します。</span></a>
-<a class="settings-category-card is-active" href="system-settings.html"><strong>システム設定</strong><span>利用者、権限、クラウド連携、法令更新、監査・運用を管理します。</span></a>
-</section>
+</div>
 <section aria-hidden="true" class="panel" hidden="hidden">
 <div class="panel-heading">
 <h2>国内法令・IMDG Code表示</h2>
@@ -145,7 +143,7 @@
 <option value="safety-environment-staff">安全環境室</option>
 <option value="safety-environment-director">安全環境室長</option>
 <option value="safety-environment-admin">システム管理者</option>
-<option value="validator">検証者</option>
+<option value="validator">検証者</option><option value="revision-validator">改正検証者</option>
 <option value="guest">ゲスト</option>
 </select></label>
 <label><span>所属事業所・部署</span><select id="quickOfficeId" required></select></label>
@@ -154,6 +152,19 @@
 <label class="quick-password-change"><input id="quickRequirePasswordChange" type="checkbox" checked disabled><span>初回ログイン時にパスワード変更を必須にする</span></label>
 <div class="settings-actions"><button class="primary-action" id="registerQuickUser" type="submit">利用者を登録</button><a class="secondary-action" href="user-admin.html">登録済み利用者を管理</a></div>
 </form>
+<section class="csv-user-import" aria-labelledby="csvUserImportTitle">
+<div class="csv-user-import__heading">
+<div><h3 id="csvUserImportTitle">CSVによる利用者一括登録</h3><p>CSVを選択して内容を検証後、複数の利用者をまとめて登録します。登録前にエラー行を確認できます。</p></div>
+<button class="secondary-action" id="downloadUserCsvTemplate" type="button">CSVひな型をダウンロード</button>
+</div>
+<div class="csv-user-import__controls">
+<label><span>利用者登録CSV</span><input id="userCsvFile" type="file" accept=".csv,text/csv"></label>
+<div class="settings-actions"><button class="secondary-action" id="validateUserCsv" type="button">CSVを検証</button><button class="primary-action" id="importUserCsv" type="button" disabled>検証済み利用者を登録</button><button class="secondary-action" id="clearUserCsv" type="button">選択を解除</button><button class="secondary-action" id="downloadUserCsvResults" type="button" hidden>登録結果CSVをダウンロード</button></div>
+</div>
+<p class="settings-note">必須列：login_id、display_name、role、office_id、initial_password。emailは任意です。initial_passwordを空欄にすると安全な仮パスワードを自動生成します。初回パスワード変更は全利用者で必須です。</p>
+<div id="userCsvSummary" class="csv-user-summary" hidden aria-live="polite"></div>
+<div id="userCsvPreview" class="csv-user-preview" hidden><div class="table-wrap"><table><thead><tr><th>行</th><th>ログインID</th><th>利用者名</th><th>権限</th><th>所属</th><th>判定</th></tr></thead><tbody id="userCsvPreviewBody"></tbody></table></div></div>
+</section>
 <div id="quickUserResult" class="quick-user-result" hidden aria-live="polite">
 <strong>利用者を登録しました</strong>
 <p>初期情報はこの画面を閉じる前に利用者へ安全な方法で伝えてください。</p>
@@ -210,7 +221,8 @@
 <details class="system-settings-group">
 <summary><strong>法令・データ・移行</strong><span>法令更新、品質確認、データ移行を管理します。</span></summary>
 <div class="system-settings-link-grid">
-<a data-roles="safety-environment-admin" href="regulation-update-admin.html"><strong>法令・データ更新管理</strong><span>PDF・構造化データの更新候補を確認します。</span></a>
+<a data-roles="safety-environment-admin" href="regulation-update-admin.html"><strong>法令・データ更新管理</strong><span>PDF・構造化データの更新候補、CSVひな型、検証・承認・反映を管理します。</span></a>
+<a data-roles="safety-environment-admin,safety-environment-director,safety-environment-staff" href="revision-preview.html"><strong>改正検証プレビュー</strong><span>改正検証者が確認する公開前データと検証結果を確認します。</span></a>
 <a data-roles="safety-environment-admin" href="data-quality-admin.html"><strong>データ品質・公開判定</strong><span>重複、欠損、形式、差分を検査します。</span></a>
 <a data-roles="safety-environment-admin" href="data-migration.html"><strong>データ移行管理</strong><span>CSV・JSONの取込と移行結果を確認します。</span></a>
 <a data-roles="validator,safety-environment-admin" href="validation-admin.html"><strong>社内検証管理</strong><span>検証結果と確認事項を管理します。</span></a>
@@ -331,11 +343,12 @@
 <script src="../data/organization-master.js"></script>
 <script src="../assets/js/organization.js"></script>
 <script src="../assets/js/storage.js?v=178"></script>
-<script src="../assets/js/api-client.js?v=365"></script><script src="../assets/js/role-access.js?v=365"></script>
+<script src="../assets/js/api-client.js?v=379"></script><script src="../assets/js/role-access.js?v=379"></script>
 <script src="../assets/js/sync-manager.js?v=178"></script>
 <script src="../assets/js/settings.js?v=216"></script>
-<script src="../assets/js/quick-user-registration.js?v=360"></script>
-<script src="../assets/js/login-policy-settings.js?v=361"></script>
+<script src="../assets/js/quick-user-registration.js?v=379"></script>
+<script src="../assets/js/csv-user-import.js?v=379"></script>
+<script src="../assets/js/login-policy-settings.js?v=378"></script>
 <script src="../assets/js/access-url-tools.js?v=289"></script>
 <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/session-guard.js"></script>

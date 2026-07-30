@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>国内法令・国際規則｜検査・検品業務サポートシステム</title>
@@ -45,7 +46,7 @@
       <div id="internationalRegulations" class="regulation-grid"></div>
     </section>
 
-    <section class="regulation-section">
+    <section class="regulation-section" data-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator,revision-validator">
       <article class="cross-reference-card">
         <h2>法令改正・データ更新管理</h2>
         <p>新しい危規則、危告示、IMDG Code、その他の法令PDFを版管理し、差分確認・承認後にデータベースへ反映します。</p>
@@ -53,7 +54,7 @@
       </article>
     </section>
 
-    <section class="regulation-section">
+    <section class="regulation-section" data-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator,revision-validator">
       <article class="cross-reference-card">
         <h2>案件判定根拠スナップショット</h2>
         <p>案件時点で採用した法令版、原本PDF、構造化データ、判定根拠を固定保存し、改正後も当時の判断を再現します。</p>
@@ -61,7 +62,7 @@
       </article>
     </section>
 
-    <section class="regulation-section">
+    <section class="regulation-section" data-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator,revision-validator">
       <article class="cross-reference-card">
         <h2>国内法令・IMDG Code対照</h2>
         <p>危告示に記載されたコードとIMDG Codeの参照先を確認します。</p>
@@ -83,10 +84,13 @@
     </section>
   </main>
 
+  <script src="../assets/js/storage.js?v=370"></script>
+  <script src="../assets/js/api-client.js?v=381"></script>
+  <script src="../assets/js/role-access.js?v=381"></script>
   <script src="../data/regulation-registry.js"></script>
   <script src="../assets/js/regulations.js"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
-</body>
+<script src="../assets/js/query-prefill.js?v=371"></script></body>
 </html>

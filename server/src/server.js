@@ -429,7 +429,7 @@ const adminUserSchema = z.object({
   loginId: z.string().regex(/^[A-Za-z0-9._-]{3,100}$/),
   email: z.string().email().nullable().optional(),
   displayName: z.string().min(1).max(100),
-  role: z.enum(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator']),
+  role: z.enum(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator','revision-validator']),
   officeId: z.string().nullable().optional(),
   initialPassword: z.string().min(8).max(300)
 });
@@ -454,7 +454,7 @@ app.get('/api/admin/users', authenticate, requireAdministrator, async (req, res)
     const p=push(`%${search.toLowerCase()}%`);
     where.push(`(lower(u.login_id) LIKE ${p} OR lower(u.display_name) LIKE ${p} OR lower(COALESCE(u.email,'')) LIKE ${p})`);
   }
-  if(role && ['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator'].includes(role)) where.push(`u.role=${push(role)}`);
+  if(role && ['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator','revision-validator'].includes(role)) where.push(`u.role=${push(role)}`);
   if(status==='active') where.push('u.active=true');
   if(status==='inactive') where.push('u.active=false');
   if(status==='locked') where.push('u.locked_until>now()');
@@ -482,7 +482,7 @@ app.post('/api/admin/users', authenticate, requireAdministrator, async (req, res
     const { rows: existingManagers } = await query(`SELECT id,display_name,login_id FROM users WHERE office_id=$1 AND role='office-admin' AND active=true LIMIT 1`, [data.officeId]);
     if (existingManagers[0]) return res.status(409).json({ error: `この事業所には有効な事業所管理者（事業所長）アカウント「${existingManagers[0].display_name}」が既に登録されています。交代時は旧アカウントを無効化してから登録してください。` });
   }
-  const accountCategory = data.role === 'guest' ? 'staff-guest' : data.role === 'validator' ? 'staff-validator' : data.role === 'safety-environment-admin' ? 'safety-environment-admin' : data.role === 'safety-environment-director' ? 'safety-environment-director' : data.role === 'safety-environment-staff' ? 'safety-environment-staff' : data.role === 'office-admin' ? 'office-director' : 'inspector';
+  const accountCategory = data.role === 'guest' ? 'staff-guest' : data.role === 'validator' ? 'staff-validator' : data.role === 'revision-validator' ? 'staff-validator' : data.role === 'safety-environment-admin' ? 'safety-environment-admin' : data.role === 'safety-environment-director' ? 'safety-environment-director' : data.role === 'safety-environment-staff' ? 'safety-environment-staff' : data.role === 'office-admin' ? 'office-director' : 'inspector';
   const passwordErrors = validatePassword(data.initialPassword);
   if (passwordErrors.length) return res.status(400).json({ error: `初期パスワードには${passwordErrors.join('・')}が必要です。` });
   const hash = await bcrypt.hash(data.initialPassword, 12);
@@ -511,7 +511,7 @@ app.put('/api/admin/users/:id', authenticate, requireAdministrator, async (req,r
   const schema=z.object({
     loginId:z.string().regex(/^[A-Za-z0-9._-]{3,100}$/),
     displayName:z.string().min(1).max(100),
-    role:z.enum(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator']),
+    role:z.enum(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator','revision-validator']),
     officeId:z.string().nullable().optional()
   });
   const parsed=schema.safeParse(req.body);
@@ -527,7 +527,7 @@ app.put('/api/admin/users/:id', authenticate, requireAdministrator, async (req,r
     const {rows:existing}=await query(`SELECT id,display_name FROM users WHERE office_id=$1 AND role='office-admin' AND active=true AND id<>$2 LIMIT 1`,[data.officeId,target.id]);
     if(existing[0]) return res.status(409).json({error:`この事業所には有効な事業所管理者「${existing[0].display_name}」が既に登録されています。`});
   }
-  const accountCategory=data.role==='guest'?'staff-guest':data.role==='validator'?'staff-validator':data.role==='safety-environment-admin'?'safety-environment-admin':data.role==='safety-environment-director'?'safety-environment-director':data.role==='safety-environment-staff'?'safety-environment-staff':data.role==='office-admin'?'office-director':'inspector';
+  const accountCategory=data.role==='guest'?'staff-guest':data.role==='validator'?'staff-validator':data.role==='revision-validator'?'staff-validator':data.role==='safety-environment-admin'?'safety-environment-admin':data.role==='safety-environment-director'?'safety-environment-director':data.role==='safety-environment-staff'?'safety-environment-staff':data.role==='office-admin'?'office-director':'inspector';
   try{
     const {rows}=await query(`UPDATE users SET login_id=lower($1),display_name=$2,role=$3,account_category=$4,office_id=$5,token_version=CASE WHEN role<>$3 THEN token_version+1 ELSE token_version END,updated_at=now() WHERE id=$6 RETURNING id,login_id,display_name,role,office_id,active`,[data.loginId,data.displayName,data.role,accountCategory,['office-user','office-admin'].includes(data.role)?data.officeId:null,target.id]);
     await audit(req,'update','user',target.id,{loginId:data.loginId,displayName:data.displayName,role:data.role,officeId:data.officeId||null});
@@ -803,7 +803,7 @@ app.post('/api/admin/import', authenticate, requireAdministrator, async (req,res
           const passwordErrors=validatePassword(String(row.initialPassword||'')); if(passwordErrors.length) throw new Error(`パスワード要件: ${passwordErrors.join('・')}`);
           const hash=await bcrypt.hash(String(row.initialPassword),12);
           await client.query(`INSERT INTO users(login_id,email,password_hash,display_name,role,office_id,account_category,must_change_password,active)
-            VALUES($1,NULLIF($2,''),$3,$4,$5,NULLIF($6,''),CASE WHEN $5 IN ('guest','validator') THEN 'internal-viewer' ELSE 'inspector' END,true,true)`,[String(row.loginId).trim(),row.email||'',hash,row.displayName,row.role,row.officeId||null]);
+            VALUES($1,NULLIF($2,''),$3,$4,$5,NULLIF($6,''),CASE WHEN $5 IN ('guest','validator','revision-validator') THEN 'internal-viewer' ELSE 'inspector' END,true,true)`,[String(row.loginId).trim(),row.email||'',hash,row.displayName,row.role,row.officeId||null]);
         } else {
           if(req.user.role!=='safety-environment-admin') throw new Error('事業所追加は安全環境室管理者のみ実行できます。');
           await client.query(`INSERT INTO blocks(id,name,active) VALUES($1,$2,true) ON CONFLICT(id) DO UPDATE SET name=EXCLUDED.name`,[row.blockId,row.blockName]);

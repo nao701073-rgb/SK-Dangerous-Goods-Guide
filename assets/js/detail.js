@@ -87,9 +87,12 @@
     <section class="detail-hero">
       <div class="detail-hero__top">
         <span class="un-number">UN${escapeHtml(item.unNumber)}</span>
-        <button id="detailFavoriteButton" class="detail-favorite-button ${favorite ? "is-favorite" : ""}" type="button">
-          ${favorite ? "★ お気に入り登録済み" : "☆ お気に入り登録"}
-        </button>
+        <div class="detail-hero__actions">
+          ${window.ISSFeatureAccess?.canUseOverpack?.() ? `<a class="detail-favorite-button" href="overpack-label-tool.html?un=${encodeURIComponent(item.unNumber)}">オーバーパック標札・品名等の表示作成に追加</a>` : ""}
+          <button id="detailFavoriteButton" class="detail-favorite-button ${favorite ? "is-favorite" : ""}" type="button">
+            ${favorite ? "★ お気に入り登録済み" : "☆ お気に入り登録"}
+          </button>
+        </div>
       </div>
       <h2>${escapeHtml(item.properShippingNameJa)}</h2>
       <p>${escapeHtml(item.properShippingName)}</p>

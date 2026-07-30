@@ -263,3 +263,4 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+.detail-hero__actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.detail-hero__actions .detail-favorite-button{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}@media(max-width:640px){.detail-hero__top{align-items:flex-start}.detail-hero__actions{width:100%;justify-content:stretch}.detail-hero__actions .detail-favorite-button{flex:1 1 100%}}

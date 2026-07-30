@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>案件判定根拠スナップショット｜検査・検品業務サポートシステム</title>
@@ -9,7 +10,7 @@
   <link rel="stylesheet" href="../assets/css/regulation-update-admin.css">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="regulations">
+<body data-page="regulations" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator,revision-validator">
   <header class="app-header">
     <div><h1>案件判定根拠スナップショット</h1></div>
     <a class="icon-button" href="regulations.html" aria-label="関連法令へ戻る">←</a>
@@ -54,10 +55,12 @@
       <p>スナップショットは法令判断そのものを自動化するものではありません。検査員が確認した根拠を、後日説明できる状態で固定するための記録です。未承認版、適用期間が重複した版、基準日に該当しない版は採用できません。</p>
     </section>
   </main>
-  <script src="../data/regulation-registry.js"></script>
+  <script src="../assets/js/storage.js?v=370"></script><script src="../assets/js/api-client.js?v=381"></script><script src="../assets/js/role-access.js?v=381"></script>
+<script src="../data/regulation-registry.js"></script>
   <script src="../data/regulation-revision-registry.js"></script>
   <script src="../assets/js/regulation-evidence-snapshot.js"></script>
   <script src="../assets/js/system-shell.js"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
+
 </body>
 </html>

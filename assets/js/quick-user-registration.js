@@ -25,6 +25,7 @@
     "safety-environment-director",
     "safety-environment-admin",
     "validator",
+    "revision-validator",
     "guest"
   ]);
 

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>法令改正・データ更新管理｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css?v=189">
+  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css?v=380">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body data-page="regulations" data-required-roles="safety-environment-admin">
+<body data-page="regulations" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator">
   <header class="app-header">
     <div><h1>法令改正・データ更新管理</h1></div>
     <a class="icon-button" href="regulations.html" aria-label="関連法令へ戻る">←</a>
@@ -57,6 +58,26 @@
         <button class="secondary-button" type="button" id="downloadEasyReport">検証結果JSON</button>
       </div>
       <div class="easy-update-notice"><strong>重要：</strong>PDFのみを差し替えても、国連番号・包装要件・条文リンク等は自動確定しません。抽出・差分候補を人が原文と照合し、承認済みデータのみ公開します。</div>
+    </section>
+
+
+    <section class="revision-panel structured-update-panel" id="structuredUpdateCenter">
+      <div class="section-heading"><div><h2>構造化データ更新センター</h2><p>更新対象ごとのCSVひな型をダウンロードし、CSVまたはJSONを検証・承認して反映します。</p></div></div>
+      <div class="template-download-grid" id="structuredTemplateGrid" aria-label="更新用ひな型"></div>
+      <div class="structured-update-form">
+        <label>更新対象<select id="structuredDatasetType"><option value="">選択してください</option></select></label>
+        <label>版・改正番号<input id="structuredEdition" placeholder="例：Amendment 43-26／令和8年改正"></label>
+        <label>適用開始日<input id="structuredEffectiveFrom" type="date"></label>
+        <label>更新担当者<input id="structuredPreparedBy" placeholder="氏名または社員番号"></label>
+        <label class="wide">更新用CSV／JSON<input id="structuredDatasetFile" type="file" accept=".csv,.json,text/csv,application/json"></label>
+        <label class="wide">更新概要<textarea id="structuredSummary" rows="3" placeholder="更新内容、根拠PDF、該当頁、対象UN番号など"></textarea></label>
+        <label class="confirm-row wide"><input id="structuredOriginalChecked" type="checkbox">PDF原文・版番号・適用開始日と照合した</label>
+        <div class="wide form-actions"><button class="primary-button" type="button" id="validateStructuredDataset">ファイルを検証</button><button class="secondary-button" type="button" id="stageStructuredDataset" disabled>更新候補として保存</button><button class="secondary-button" type="button" id="applyStructuredDataset" disabled>承認済みデータを反映</button></div>
+      </div>
+      <div id="structuredValidationResult" class="validation-result" aria-live="polite"></div>
+      <div id="structuredPreview" class="structured-preview"></div>
+      <div class="structured-history-wrap"><h3>構造化データ更新履歴</h3><div class="table-wrap"><table><thead><tr><th>更新日時</th><th>対象</th><th>版</th><th>件数</th><th>状態</th><th>担当者</th></tr></thead><tbody id="structuredHistoryRows"></tbody></table></div></div>
+      <div class="easy-update-notice"><strong>安全設計：</strong>検証だけでは本番データへ反映しません。更新候補を保存し、原文照合チェック後に「承認済みデータを反映」を実行します。削除を含む全件置換は件数警告を表示します。</div>
     </section>
 
     <section class="workflow-grid" aria-label="更新手順">
@@ -135,9 +156,10 @@
   <script src="../data/regulation-impact-registry.js"></script>
   <script src="../data/regulation-release-registry.js"></script>
   <script src="../assets/js/easy-regulation-update.js?v=189"></script>
+  <script src="../assets/js/structured-data-update-center.js?v=380"></script>
   <script src="../assets/js/regulation-update-admin.js?v=189"></script>
   <script src="../assets/js/regulation-release-admin.js"></script>
   <script src="../assets/js/system-shell.js"></script>
-<script src="../assets/js/role-access.js?v=365"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/role-access.js?v=381"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
 </body>
 </html>

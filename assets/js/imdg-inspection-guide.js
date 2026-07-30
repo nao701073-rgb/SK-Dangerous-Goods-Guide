@@ -145,9 +145,8 @@
 
           ${Array.isArray(item.commonMistakes) && item.commonMistakes.length ? `<section class="training-guide-mistakes"><h4>よくある見落とし</h4><ul>${item.commonMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>` : ""}
 
-          <div class="training-guide-actions">
-            <button type="button" data-guide-complete="${escapeHtml(item.id)}">${state.completed ? "確認済みを解除" : "確認済みにする"}</button>
-            <button type="button" data-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "お気に入り解除" : "お気に入り"}</button>
+          <div class="training-guide-actions training-guide-actions--simple">
+            <button type="button" data-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "★ お気に入り解除" : "☆ お気に入り"}</button>
           </div>
           <label>個人メモ<textarea class="training-guide-note" data-guide-note="${escapeHtml(item.id)}" placeholder="確認事項や社内運用メモ">${escapeHtml(state.note || "")}</textarea></label>
 

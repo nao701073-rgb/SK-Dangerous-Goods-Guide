@@ -591,16 +591,10 @@
         </div>
         ${openedAt ? `<p class="reference-last-opened">最終閲覧：${escapeHtml(openedAt)}</p>` : ""}
         ${state.note ? `<p class="reference-note-preview">メモ：${escapeHtml(state.note)}</p>` : ""}
-        <p class="reference-procedure-status">確認手続き：<strong>${procedureLabels[procedureStatus]}</strong>${procedureStatus === "in-progress" && state.procedureStartedAt ? `<span>開始：${escapeHtml(formatReferenceOpenedAt(state.procedureStartedAt))}</span><span>経過：${procedureElapsedDays}日</span>` : ""}${dueDate ? `<span class="${isOverdue ? "is-overdue-text" : ""}">期限：${escapeHtml(dueDate)}（${escapeHtml(dueInfo.label)}）</span>` : ""}${procedureStatus === "completed" && state.procedureCompletedAt ? `<span>完了：${escapeHtml(formatReferenceOpenedAt(state.procedureCompletedAt))}</span>` : ""}</p>
-        <div class="reference-card-actions">
+        <div class="reference-card-actions reference-card-actions--simple">
           ${doc.filePath
-            ? `<a class="reference-open-link" data-reference-open="${escapeHtml(doc.documentId)}"
-                  href="${escapeHtml(doc.filePath)}"
-                  target="_blank" rel="noopener">原資料を開く</a>`
+            ? `<a class="reference-open-link" data-reference-open="${escapeHtml(doc.documentId)}" href="${escapeHtml(doc.filePath)}" target="_blank" rel="noopener">資料を開く</a>`
             : ""}
-          <button type="button" class="reference-procedure-button" data-reference-procedure="${escapeHtml(doc.documentId)}">${procedureStatus === "unconfirmed" ? "確認を開始" : procedureStatus === "in-progress" ? "確認済みにする" : "未確認に戻す"}</button>
-          <button type="button" class="reference-review-button" data-reference-review="${escapeHtml(doc.documentId)}" aria-pressed="${state.review ? "true" : "false"}">${state.review ? "確認済みにする" : "要確認"}</button>
-          <button type="button" class="reference-due-button" data-reference-due="${escapeHtml(doc.documentId)}">確認期限</button>
           <button type="button" class="reference-note-button" data-reference-note="${escapeHtml(doc.documentId)}">メモ</button>
           <button type="button" class="reference-favorite-button" data-reference-favorite="${escapeHtml(doc.documentId)}" aria-pressed="${state.favorite ? "true" : "false"}">${state.favorite ? "★ お気に入り解除" : "☆ お気に入り"}</button>
         </div>
@@ -757,7 +751,7 @@
     aiList.innerHTML = filtered.map(item => {
       const state = readAiProgress()[item.id] || {};
       return `
-      <details class="ai-guide-card ${state.completed ? "is-completed" : ""} ${state.favorite ? "is-favorite" : ""}" data-ai-guide-id="${escapeHtml(item.id)}">
+      <details class="ai-guide-card ${state.favorite ? "is-favorite" : ""}" data-ai-guide-id="${escapeHtml(item.id)}">
         <summary>
           <div>
             <div class="ai-guide-card-meta">
@@ -799,9 +793,8 @@
             ).join("")}
           </div>
           <button class="reference-open-link" type="button" data-ai-source-id="${escapeHtml(item.id)}">該当規定をウィンドウ表示</button>
-          <div class="ai-guide-actions">
-            <button type="button" data-ai-guide-complete="${escapeHtml(item.id)}">${state.completed ? "確認済みを解除" : "確認済みにする"}</button>
-            <button type="button" data-ai-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "お気に入り解除" : "お気に入り"}</button>
+          <div class="ai-guide-actions ai-guide-actions--simple">
+            <button type="button" data-ai-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "★ お気に入り解除" : "☆ お気に入り"}</button>
           </div>
           <label>個人メモ<textarea class="ai-guide-note" data-ai-guide-note="${escapeHtml(item.id)}" placeholder="条文確認や社内運用メモ">${escapeHtml(state.note || "")}</textarea></label>
         </div>

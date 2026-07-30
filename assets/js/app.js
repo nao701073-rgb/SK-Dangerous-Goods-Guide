@@ -42,10 +42,12 @@
       || storageContext.displayName
       || localStorage.getItem("iss-current-user-name")
       || "";
-    return { officeName: String(officeName).trim(), userName: String(userName).trim() };
+    const role = authenticatedUser.role || storageContext.role || "";
+    return { officeName: String(officeName).trim(), userName: String(userName).trim(), role: String(role).trim() };
   };
 
-  const favoriteTitle = ({ officeName, userName }) => {
+  const favoriteTitle = ({ officeName, userName, role }) => {
+    if (role === "safety-environment-admin") return "システム管理者さんのお気に入り";
     const normalizedName = userName.replace(/さん$/, "");
     if (officeName && normalizedName) return `${officeName}　${normalizedName}さんのお気に入り`;
     if (normalizedName) return `${normalizedName}さんのお気に入り`;

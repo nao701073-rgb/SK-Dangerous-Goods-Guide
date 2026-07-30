@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>社内検証管理｜検査・検品業務サポートシステム</title>
@@ -42,7 +43,7 @@
         <form id="userForm" class="panel-body form-grid">
           <label><span>ログインID</span><input id="userLoginId" required placeholder="例：kawasaki.n.oura"></label><label><span>初期パスワード</span><input id="userInitialPassword" type="password" minlength="8" required placeholder="管理者が任意に設定"></label><label><span>メールアドレス（将来の二段階認証用・任意）</span><input id="userEmail" type="email" placeholder="name@company.co.jp"></label>
           <label><span>表示名</span><input id="userDisplayName" required placeholder="川崎事業所 検証利用者"></label>
-          <label><span>権限</span><select id="userRole"><option value="office-user">検査員</option><option value="office-admin">事業所管理者</option><option value="safety-environment-admin">管理者</option><option value="guest">ゲスト（社内職員・閲覧専用）</option><option value="validator">検証者（社内職員・閲覧＋検証記録）</option></select></label>
+          <label><span>権限</span><select id="userRole"><option value="office-user">検査員</option><option value="office-admin">事業所管理者</option><option value="safety-environment-admin">管理者</option><option value="guest">ゲスト（社内職員・閲覧専用）</option><option value="validator">検証者（社内職員・閲覧＋検証記録）</option><option value="revision-validator">改正検証者（公開前更新候補の確認）</option></select></label>
           <label><span>所属事業所</span><select id="userOfficeId"></select></label>
           <p class="form-note full-width">初期実装では、管理者が設定したログインIDとパスワードでログインします。メール認証・二段階認証は将来実装予定です。初期パスワードは利用者へ安全な方法で通知してください。</p>
           <button class="primary-action full-width" type="submit">利用者を登録</button>
@@ -84,7 +85,7 @@
     <div id="validationMessage" class="validation-message" aria-live="polite"></div>
   </main>
   <script src="../assets/js/storage.js?v=178"></script>
-  <script src="../assets/js/api-client.js?v=365"></script><script src="../assets/js/role-access.js?v=365"></script>
+  <script src="../assets/js/api-client.js?v=381"></script><script src="../assets/js/role-access.js?v=381"></script>
   <script src="../assets/js/validation-admin.js?v=178"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script src="../assets/js/session-guard.js"></script>

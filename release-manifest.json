@@ -1,15 +1,16 @@
 {
-  "version": "0.368.0",
-  "part": 368,
+  "version": "0.381.0",
+  "part": 381,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-07-30",
-  "fileCount": 1332,
-  "totalBytesExcludingManifestAndChecksum": 156394501,
+  "fileCount": 1351,
+  "totalBytesExcludingManifestAndChecksum": 156470777,
   "qaReport": "docs/0.363.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/Part 368_更新内容.md",
+  "notes": "docs/Part 381_更新内容.md",
   "releasedAt": "2026-07-30",
   "updatedAt": "2026-07-30",
-  "summary": "業務システム向けの高解像度港湾背景に統一し、既存SKロゴを維持したままPC・スマートフォン双方のログイン画面を最適化した。",
-  "build": "part368-responsive-login"
+  "summary": "改正検証者アカウントと公開前データの先行検証環境を追加。",
+  "build": "part381-revision-validation-preview",
+  "changeSummary": "改正検証者専用アカウントと公開前更新候補の先行プレビューを追加。更新候補は改正検証者だけに一時反映し、検証合格前の本番反映を禁止。検証結果、メモ、確認日時、確認者を記録する。"
 }

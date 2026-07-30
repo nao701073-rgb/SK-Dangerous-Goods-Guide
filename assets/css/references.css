@@ -1353,3 +1353,14 @@ body.is-reference-source-modal-open {
     justify-self: start;
   }
 }
+
+/* Part 370: simplified material actions */
+.reference-document-controls--simple{display:grid;grid-template-columns:minmax(0,2fr) minmax(150px,1fr) minmax(150px,1fr) auto;gap:10px;align-items:end}
+.reference-card-actions--simple{display:flex;flex-wrap:wrap;gap:8px}
+.reference-card-actions--simple>*{flex:1 1 140px;min-height:42px}
+@media(max-width:720px){.reference-document-controls--simple{grid-template-columns:1fr}.reference-card-actions--simple{display:grid;grid-template-columns:1fr 1fr}.reference-card-actions--simple .reference-open-link{grid-column:1/-1}}
+
+.reference-personal-functions-note{font-size:.82rem;color:#4f6f89;font-weight:700}
+.training-guide-actions--simple,.ai-guide-actions--simple{display:flex;justify-content:flex-end}
+.training-guide-actions--simple button,.ai-guide-actions--simple button{min-width:160px}
+@media(max-width:600px){.ai-learning-progress--simple{display:flex;flex-wrap:wrap;gap:10px}.training-guide-actions--simple button,.ai-guide-actions--simple button{width:100%;min-width:0}}

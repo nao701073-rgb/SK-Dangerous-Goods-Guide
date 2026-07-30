@@ -88,7 +88,7 @@
       "safety-environment-staff":"全事業所の閲覧専用",
       "safety-environment-admin":"システム全体の管理",
       "guest":"検索・法令・資料の限定利用",
-      "validator":"検証・確認専用"
+      "validator":"検証・確認専用","revision-validator":"改正検証専用"
     };
     return modes[user?.role] || "通常利用";
   }

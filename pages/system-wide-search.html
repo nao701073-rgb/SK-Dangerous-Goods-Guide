@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>システム横断検索｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/system-wide-search.css?v=384">
+</head>
+<body data-page="system-wide-search">
+  <header class="app-header"><div><h1>システム横断検索</h1><p>利用権限の範囲内で、危険物・法令・資料・申請番号・機能・設定をまとめて検索します。</p></div><a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a></header>
+  <main class="main-content global-search-page">
+    <section class="global-search-panel">
+      <form id="globalSearchForm" role="search">
+        <label for="globalSearchQuery">検索キーワード</label>
+        <div class="global-search-row"><input id="globalSearchQuery" type="search" autocomplete="off" placeholder="国連番号、品名、標札、包装要件、法令名、資料名、申請番号、機能名"><button type="submit">検索</button></div>
+        <div class="global-search-scopes" aria-label="検索対象">
+          <label><input type="radio" name="globalScope" value="all" checked>すべて</label>
+          <label><input type="radio" name="globalScope" value="dangerous">危険物</label>
+          <label><input type="radio" name="globalScope" value="regulations">法令</label>
+          <label><input type="radio" name="globalScope" value="references">資料</label>
+          <label data-permission="applicationsRead"><input type="radio" name="globalScope" value="applications">申請番号</label>
+          <label><input type="radio" name="globalScope" value="features">機能・設定</label>
+        </div>
+      </form>
+    </section>
+    <section class="global-result-section">
+      <div class="global-result-heading"><div><h2>検索結果</h2><p id="globalSearchSummary">キーワードを入力してください。</p></div><div id="globalSearchCounts" class="global-search-counts"></div></div>
+      <div id="globalSearchResults" class="global-search-results"><p class="global-empty">検索対象を選択し、キーワードを入力してください。</p></div>
+    </section>
+  </main>
+  <script src="../data/un-data.js?v=384"></script>
+  <script src="../data/regulation-registry.js?v=384"></script>
+  <script src="../data/reference-documents.js?v=384"></script>
+  <script src="../data/organization-master.js"></script>
+  <script src="../assets/js/organization.js"></script>
+  <script src="../assets/js/storage.js?v=217"></script>
+  <script src="../assets/js/api-client.js?v=381"></script>
+  <script src="../assets/js/role-access.js?v=381"></script>
+  <script src="../assets/js/office-feature-gates.js?v=382"></script>
+  <script src="../assets/js/system-wide-search.js?v=384"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

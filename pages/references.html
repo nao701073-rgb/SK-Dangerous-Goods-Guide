@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>関連資料｜検査・検品業務サポートシステム</title>
@@ -50,11 +51,11 @@
           <option value="">すべてのカテゴリー</option>
         </select>
       </div>
-      <div class="ai-learning-progress">
-        <div><strong id="trainingGuideProgress">0 / 0</strong><span>確認済み</span></div>
-        <label><input id="trainingGuideUnreadOnly" type="checkbox"> 未確認のみ</label>
+      <div class="ai-learning-progress ai-learning-progress--simple">
         <label><input id="trainingGuideFavoriteOnly" type="checkbox"> お気に入りのみ</label>
-        <button id="exportTrainingNotes" type="button">確認記録をCSV出力</button>
+        <span id="trainingGuideProgress" class="reference-personal-functions-note">個人機能：メモ・お気に入り</span>
+        <input id="trainingGuideUnreadOnly" type="checkbox" hidden aria-hidden="true">
+        <button id="exportTrainingNotes" type="button" hidden aria-hidden="true">確認記録をCSV出力</button>
       </div>
 
       <div id="trainingGuideList" class="training-guide-list"></div>
@@ -115,91 +116,12 @@
           <h2>登録資料 <span id="referenceCount"></span></h2>
         </div>
       </div>
-      <div id="referenceSummary" class="reference-summary" aria-label="登録資料の集計"></div>
-      <div class="reference-controls reference-document-controls">
+      <div id="referenceSummary" class="reference-summary" aria-label="登録資料の集計" hidden></div>
+      <div class="reference-controls reference-document-controls reference-document-controls--simple">
         <input id="referenceQuery" type="search" placeholder="資料名・ファイル名・タグで検索">
-        <select id="referenceCategory">
-          <option value="">すべての分類</option>
-          <option value="domestic-regulation">危規則</option>
-          <option value="domestic-notification">危告示</option>
-          <option value="international-code">IMDG Code</option>
-          <option value="ctu-code">CTU Code</option>
-        </select>
-        <select id="referenceLanguage">
-          <option value="">すべての言語</option>
-          <option value="ja">日本語</option>
-          <option value="en">英語</option>
-        </select>
-        <select id="referenceFormat">
-          <option value="">すべての形式</option>
-          <option value="pdf">PDF</option>
-          <option value="word">Word</option>
-          <option value="excel">Excel</option>
-          <option value="csv">CSV</option>
-          <option value="text">テキスト</option>
-          <option value="image">画像</option>
-          <option value="other">その他</option>
-        </select>
-        <select id="referenceFavorite">
-          <option value="">すべての資料</option>
-          <option value="favorites">お気に入りのみ</option>
-        </select>
-        <select id="referenceOpened">
-          <option value="">閲覧状況：すべて</option>
-          <option value="opened">閲覧済み</option>
-          <option value="unopened">未閲覧</option>
-        </select>
-        <select id="referenceProcedure"><option value="">確認手続き：すべて</option><option value="unconfirmed">未確認</option><option value="in-progress">確認中</option><option value="completed">確認済み</option></select>
-        <select id="referenceProcedureAge"><option value="">確認中期間：すべて</option><option value="7">7日以上</option><option value="30">30日以上</option><option value="90">90日以上</option></select>
-        <select id="referenceProcedureDue"><option value="">確認期限：すべて</option><option value="unset">期限未設定</option><option value="set">期限設定済み</option><option value="overdue">期限超過</option><option value="today">本日期限</option><option value="3">3日以内</option><option value="7">7日以内</option><option value="14">14日以内</option><option value="30">30日以内</option></select>
-        <select id="referenceReview">
-          <option value="">確認状態：すべて</option>
-          <option value="review">要確認のみ</option>
-          <option value="noted">メモあり</option>
-        </select>
-        <select id="referenceOpenedPeriod">
-          <option value="">閲覧時期：すべて</option>
-          <option value="today">本日閲覧</option>
-          <option value="7">過去7日以内</option>
-          <option value="30">過去30日以内</option>
-          <option value="90">過去90日以内</option>
-        </select>
-        <select id="referenceSort">
-          <option value="recommended">推奨順</option>
-          <option value="recent">最近開いた順</option>
-          <option value="favorite-first">お気に入り優先</option>
-          <option value="review-first">要確認を優先</option>
-          <option value="procedure">確認手続き順</option>
-          <option value="procedure-oldest">確認開始が古い順</option>
-          <option value="procedure-newest">確認開始が新しい順</option>
-          <option value="due-urgency">期限の緊急度順</option>
-          <option value="due-date">確認期限が近い順</option>
-          <option value="note-recent">メモ更新順</option>
-          <option value="title-asc">資料名 昇順</option>
-          <option value="title-desc">資料名 降順</option>
-          <option value="category">分類順</option>
-          <option value="language">言語順</option>
-          <option value="format">ファイル形式順</option>
-        </select>
+        <select id="referenceCategory"><option value="">すべての分類</option><option value="domestic-regulation">危規則</option><option value="domestic-notification">危告示</option><option value="international-code">IMDG Code</option><option value="ctu-code">CTU Code</option></select>
+        <select id="referenceFavorite"><option value="">すべての資料</option><option value="favorites">お気に入りのみ</option></select>
         <button id="referenceReset" type="button">条件をクリア</button>
-        <button id="referenceExportCsv" type="button">一覧をCSV出力</button>
-        <button id="referenceExportDueReport" type="button">期限レポートをCSV出力</button>
-        <button id="referencePrint" type="button">一覧を印刷</button>
-        <button id="referencePrintDueReport" type="button">期限一覧を印刷</button>
-        <button id="referenceClearFavorites" type="button">お気に入りを解除</button>
-        <button id="referenceBulkProcedureStart" type="button">表示中を確認中へ</button>
-        <button id="referenceBulkProcedureComplete" type="button">表示中を確認済みへ</button>
-        <button id="referenceBulkProcedureReset" type="button">表示中を未確認へ</button>
-        <button id="referenceBulkDueSet" type="button">表示中に確認期限を設定</button>
-        <button id="referenceBulkDue7" type="button">表示中の期限を7日後</button>
-        <button id="referenceBulkDue30" type="button">表示中の期限を30日後</button>
-        <button id="referenceBulkDue90" type="button">表示中の期限を90日後</button>
-        <button id="referenceBulkDueClear" type="button">表示中の確認期限を解除</button>
-        <button id="referenceClearReviews" type="button">要確認を一括解除</button>
-        <button id="referenceClearNotes" type="button">メモを一括削除</button>
-        <button id="referenceExportProgress" type="button">個人設定をJSON出力</button>
-        <label class="reference-import-label">個人設定をJSON読込<input id="referenceImportProgress" type="file" accept="application/json,.json" hidden></label>
-        <button id="referenceClearHistory" type="button">閲覧履歴を消去</button>
       </div>
       <div id="referenceActiveFilters" class="reference-active-filters" aria-live="polite"></div>
       <div id="referenceList" class="reference-grid"></div>
@@ -219,9 +141,9 @@
   <script src="../data/ai-reference-summaries.js?v=182"></script>
   <script src="../data/imdg-container-inspection-clauses.js?v=182"></script>
   <script src="../assets/js/imdg-inspection-guide.js?v=182"></script>
-  <script src="../assets/js/references.js?v=307"></script>
+  <script src="../assets/js/references.js?v=370"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
-</body>
+<script src="../assets/js/query-prefill.js?v=371"></script></body>
 </html>

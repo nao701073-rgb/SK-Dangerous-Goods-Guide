@@ -556,3 +556,41 @@
     white-space: nowrap;
   }
 }
+
+/* Part 371: simplified role-aware home */
+.home-search-card {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(360px, 1.15fr);
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid var(--app-line, #cbd9e7);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--app-shadow, 0 8px 24px rgba(11,58,103,.08));
+}
+.home-search-card__heading h2 { margin: 10px 0 6px; }
+.home-search-card__heading p { margin: 0; color: #48627a; }
+.home-unified-search { min-width: 0; }
+.home-unified-search > label { display:block; margin-bottom:8px; font-weight:700; }
+.home-unified-search__row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; }
+.home-unified-search__row input { width:100%; min-height:50px; padding:0 15px; border:1px solid #9fb6cc; border-radius:10px; font-size:16px; }
+.home-unified-search__row button { min-width:112px; min-height:50px; padding:0 20px; border:0; border-radius:10px; background:#0b5da8; color:#fff; font-weight:700; cursor:pointer; }
+.home-search-destinations { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:12px; }
+.home-search-destinations label { display:flex; align-items:center; gap:6px; min-height:32px; font-size:.92rem; }
+.home-search-destinations input { width:18px; height:18px; }
+.module-card[hidden], #homeActivitySection[hidden], .nav-link[hidden], .bottom-nav__item[hidden] { display:none !important; }
+.module-card p { max-width: 42ch; }
+.simple-list__link { min-height: 58px; }
+@media (max-width: 820px) {
+  .home-search-card { grid-template-columns:1fr; gap:18px; padding:18px; }
+  .home-unified-search__row { grid-template-columns:1fr; }
+  .home-unified-search__row button { width:100%; }
+  .home-search-destinations { display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; }
+}
+@media (max-width: 480px) {
+  .home-search-card { border-radius:12px; padding:16px; }
+  .home-search-destinations { grid-template-columns:1fr; }
+  .module-grid { grid-template-columns:1fr !important; }
+  .module-card { min-height:auto; }
+}

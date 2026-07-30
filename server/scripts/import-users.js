@@ -29,12 +29,12 @@ function parseCsv(text) {
   return rows.filter(r=>r.some(v=>v.trim())).map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]??'').trim()])));
 }
 
-const allowedRoles = new Set(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator']);
+const allowedRoles = new Set(['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator','revision-validator']);
 const roleCategory = role => ({
   'office-user':'inspector','office-admin':'office-director',
   'safety-environment-director':'safety-environment-director',
   'safety-environment-staff':'safety-environment-staff',
-  'safety-environment-admin':'safety-environment-admin',guest:'staff-guest',validator:'staff-validator'
+  'safety-environment-admin':'safety-environment-admin',guest:'staff-guest',validator:'staff-validator','revision-validator':'staff-validator'
 })[role];
 const generatePassword=()=>`Sk!${crypto.randomBytes(9).toString('base64url')}9a`;
 
@@ -51,7 +51,7 @@ for(let i=0;i<records.length;i++){
   if(!(r.display_name||'').trim()) errors.push(`行${line}: display_nameが必要です。`);
   if(!allowedRoles.has(role)) errors.push(`行${line}: roleが不正です。`);
   if(['office-user','office-admin'].includes(role) && !offices.has(officeId)) errors.push(`行${line}: 有効なoffice_idが必要です。`);
-  if(['safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator'].includes(role) && officeId) errors.push(`行${line}: このroleではoffice_idを空欄にしてください。`);
+  if(['safety-environment-director','safety-environment-staff','safety-environment-admin','guest','validator','revision-validator'].includes(role) && officeId) errors.push(`行${line}: このroleではoffice_idを空欄にしてください。`);
   const password=r.initial_password || generatePassword();
   prepared.push({...r,loginId,role,officeId,password});
 }

@@ -3,6 +3,9 @@
   const TOKEN_KEY = "iss-api-token";
   const USER_KEY = "iss-api-user";
   const PASSWORD_CHANGE_KEY = "iss-password-change-required";
+  const ACTIVITY_KEY = "iss-last-activity";
+  const SESSION_STARTED_KEY = "iss-session-started-at";
+  const SESSION_TOKEN_KEY = "iss-session-token-fingerprint";
   const LOCAL_USERS_KEY = "iss-local-auth-users-v367";
   const LOCAL_ACCESS_POLICY_KEY = "iss-local-access-policy-v365";
   const LOCAL_AUDIT_KEY = "iss-local-auth-audit-v365";
@@ -14,6 +17,49 @@
   const safeJsonParse = (value, fallback) => { try { return JSON.parse(value); } catch { return fallback; } };
   const sanitize = value => String(value || "").trim();
   const defaultPassword = "TempPass!2026";
+  const AUTH_BRIDGE_PREFIXES = ["ISS_AUTH_BRIDGE_V3:", "ISS_AUTH_BRIDGE_V2:", "ISS_AUTH_BRIDGE_V1:"];
+  const AUTH_BRIDGE_PREFIX = AUTH_BRIDGE_PREFIXES[0];
+  const readAuthBridge = () => {
+    if (window.ISSAuthBridge?.currentAuth) {
+      const current = window.ISSAuthBridge.currentAuth();
+      if (current?.token) return current;
+    }
+    try {
+      const raw = String(window.name || "");
+      const prefix = AUTH_BRIDGE_PREFIXES.find(item => raw.startsWith(item));
+      if (!prefix) return null;
+      const value = JSON.parse(raw.slice(prefix.length));
+      return value && typeof value === "object" ? value : null;
+    } catch { return null; }
+  };
+  const writeAuthBridge = value => {
+    if (window.ISSAuthBridge?.persistAuth && value?.token) {
+      window.ISSAuthBridge.persistAuth(value);
+      return;
+    }
+    try { window.name = AUTH_BRIDGE_PREFIX + JSON.stringify(value || {}); } catch {}
+  };
+  const clearAuthBridge = () => {
+    if (window.ISSAuthBridge?.clear) { window.ISSAuthBridge.clear(); return; }
+    try { if (AUTH_BRIDGE_PREFIXES.some(prefix => String(window.name || "").startsWith(prefix))) window.name = ""; } catch {}
+  };
+  const syncAuthBridge = () => {
+    const currentToken = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || "";
+    if (!currentToken) return;
+    let currentUser = null;
+    try { currentUser = JSON.parse(localStorage.getItem(USER_KEY) || "null"); } catch {}
+    writeAuthBridge({ token: currentToken, user: currentUser, passwordChangeRequired: localStorage.getItem(PASSWORD_CHANGE_KEY) === "1", updatedAt: nowIso() });
+  };
+  const restoreAuthBridge = () => {
+    const bridge = readAuthBridge();
+    if (!bridge?.token) return;
+    localStorage.setItem(TOKEN_KEY, String(bridge.token));
+    sessionStorage.setItem(TOKEN_KEY, String(bridge.token));
+    if (bridge.user) localStorage.setItem(USER_KEY, JSON.stringify(bridge.user));
+    if (bridge.passwordChangeRequired) localStorage.setItem(PASSWORD_CHANGE_KEY, "1");
+    else localStorage.removeItem(PASSWORD_CHANGE_KEY);
+  };
+  restoreAuthBridge();
 
   const defaultLocalUsers = () => {
     const offices = window.ISSOrganization?.getOfficeOptions?.() || [];
@@ -30,7 +76,8 @@
       { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-010", login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者", role:"safety-environment-admin", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-011", login_id:"validator", loginId:"validator", display_name:"検証用アカウント", displayName:"検証用アカウント", role:"validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-012", login_id:"guest", loginId:"guest", display_name:"ゲストアカウント", displayName:"ゲストアカウント", role:"guest", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
+      { id:"local-user-012", login_id:"guest", loginId:"guest", display_name:"ゲストアカウント", displayName:"ゲストアカウント", role:"guest", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-013", login_id:"revision-validator", loginId:"revision-validator", display_name:"改正検証者用アカウント", displayName:"改正検証者用アカウント", role:"revision-validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
     ];
   };
 
@@ -39,6 +86,16 @@
     if (!Array.isArray(users) || !users.length) {
       users = defaultLocalUsers();
       localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+    } else {
+      const defaults = defaultLocalUsers();
+      let changed = false;
+      defaults.forEach(defaultUser => {
+        if (!users.some(user => (user.login_id || user.loginId) === defaultUser.login_id)) {
+          users.push(defaultUser);
+          changed = true;
+        }
+      });
+      if (changed) localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
     }
     return users.map(user => ({ ...user, login_id: user.login_id || user.loginId, loginId: user.loginId || user.login_id, display_name: user.display_name || user.displayName, displayName: user.displayName || user.display_name, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, active: user.active !== false, passwordChangeRequired: Boolean(user.passwordChangeRequired) }));
   };
@@ -124,9 +181,12 @@
     isConfigured: () => Boolean(endpoint()),
     isAuthenticated: () => Boolean(token()),
     getUser: () => {
-      try { return JSON.parse(localStorage.getItem(USER_KEY) || "null"); } catch { return null; }
+      try {
+        const stored = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+        return stored || readAuthBridge()?.user || null;
+      } catch { return readAuthBridge()?.user || null; }
     },
-    clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); },
+    clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); localStorage.removeItem(ACTIVITY_KEY); localStorage.removeItem(SESSION_STARTED_KEY); localStorage.removeItem(SESSION_TOKEN_KEY); clearAuthBridge(); },
     async startLogin(loginId, password) {
       if (usesRemote()) return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
       const loginValue = sanitize(loginId).toLowerCase();
@@ -154,10 +214,22 @@
     },
     storeSession(data, remember = false) {
       if (!data?.token) throw new Error("認証トークンを取得できませんでした。");
-      (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, data.token);
+      localStorage.setItem(TOKEN_KEY, data.token);
+      if (remember) sessionStorage.setItem(TOKEN_KEY, data.token);
+      else sessionStorage.removeItem(TOKEN_KEY);
       localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       if (data.passwordChangeRequired) localStorage.setItem(PASSWORD_CHANGE_KEY, "1");
       else localStorage.removeItem(PASSWORD_CHANGE_KEY);
+      // A successful login always starts a fresh inactivity window.
+      // Without this reset, an old activity timestamp from a previous session can
+      // cause session-guard.js to log the user out immediately after navigation.
+      const sessionStartedAt = Date.now();
+      localStorage.setItem(ACTIVITY_KEY, String(sessionStartedAt));
+      localStorage.setItem(SESSION_STARTED_KEY, String(sessionStartedAt));
+      localStorage.setItem(SESSION_TOKEN_KEY, String(data.token));
+      localStorage.removeItem("iss-session-logout-reason");
+      syncAuthBridge();
+      window.ISSAuthBridge?.decorateAll?.();
       return data.user;
     },
     async login(loginId, password, remember = false) {

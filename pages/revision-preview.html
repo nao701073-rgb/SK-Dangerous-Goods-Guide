@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="../assets/js/auth-bootstrap.js?v=377"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>改正検証プレビュー｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css">
+  <link rel="stylesheet" href="../assets/css/revision-preview.css?v=381">
+  <script src="../assets/js/structured-data-overrides.js?v=381"></script>
+</head>
+<body data-page="revision-preview" data-required-roles="revision-validator,safety-environment-admin,safety-environment-director,safety-environment-staff">
+  <header class="app-header"><div><h1>改正検証プレビュー</h1><p>公開前の更新候補を反映した状態で、検索・法令・資料・表示機能を先行確認します。</p></div><a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a></header>
+  <main class="main-content revision-preview-page">
+    <section class="preview-alert"><strong>本番未反映</strong><p>この画面と改正検証者アカウントの各機能には、更新候補データが一時的に反映されます。一般利用者が参照する本番データは変更されません。</p></section>
+    <section class="panel"><div class="panel-heading"><h2>更新候補一覧</h2><button id="reloadPreview" type="button">再読込</button></div><div id="candidateList" class="candidate-list"></div></section>
+    <section class="panel"><div class="panel-heading"><h2>確認する機能</h2></div><div class="preview-link-grid">
+      <a href="dangerous-goods-search.html"><strong>危険物検索</strong><span>国連番号、品名、等級、標札、容器等級を確認</span></a>
+      <a href="dangerous-goods-search.html?query=UN1170"><strong>代表データ検索</strong><span>代表的な国連番号で更新内容を確認</span></a>
+      <a href="regulations.html"><strong>関連法令</strong><span>版情報、条文、改正履歴を確認</span></a>
+      <a href="imdg-cross-reference.html"><strong>国内法令・IMDG対照</strong><span>対照データと条文リンクを確認</span></a>
+      <a href="references.html"><strong>関連資料</strong><span>関連資料との参照関係を確認</span></a>
+      <a data-feature="overpack-label" href="overpack-label-tool.html"><strong>オーバーパック標札・品名等の表示作成</strong><span>標札、OVERPACK、国連番号、英語品名の表示内容を確認</span></a>
+    </div></section>
+    <section class="panel"><div class="panel-heading"><h2>検証記録</h2></div><div id="reviewEditor" class="review-editor"><p>更新候補を選択してください。</p></div></section>
+  </main>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/api-client.js?v=381"></script>
+  <script src="../assets/js/role-access.js?v=381"></script>
+  <script src="../assets/js/revision-preview.js?v=381"></script>
+  <script src="../assets/js/office-feature-gates.js?v=382"></script>
+  <script src="../assets/js/session-guard.js"></script>
+</body>
+</html>

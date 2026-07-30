@@ -14,6 +14,8 @@
   const ACTIVITY_KEY="iss-last-activity";
   const TIMEOUT_KEY="iss-session-idle-minutes";
   const LOGOUT_REASON_KEY="iss-session-logout-reason";
+  const SESSION_STARTED_KEY="iss-session-started-at";
+  const SESSION_TOKEN_KEY="iss-session-token-fingerprint";
   const DEFAULT_MINUTES=30;
   const WARNING_MINUTES=2;
   const ALLOWED_MINUTES=new Set([15,30,60,120]);
@@ -22,7 +24,8 @@
   let countdownTimer=0;
   let dialog;
 
-  const hasSession=()=>Boolean(sessionStorage.getItem("iss-api-token")||localStorage.getItem("iss-api-token"));
+  const currentToken=()=>sessionStorage.getItem("iss-api-token")||localStorage.getItem("iss-api-token")||"";
+  const hasSession=()=>Boolean(currentToken());
   const getTimeoutMinutes=()=>{
     const value=Number(localStorage.getItem(TIMEOUT_KEY)||DEFAULT_MINUTES);
     return ALLOWED_MINUTES.has(value)?value:DEFAULT_MINUTES;
@@ -63,6 +66,12 @@
     try{window.ISSApi?.clearSession?.()}catch(_e){}
     sessionStorage.removeItem("iss-api-token");
     localStorage.removeItem("iss-api-token");
+    localStorage.removeItem("iss-api-user");
+    localStorage.removeItem("iss-password-change-required");
+    localStorage.removeItem(ACTIVITY_KEY);
+    localStorage.removeItem(SESSION_STARTED_KEY);
+    localStorage.removeItem(SESSION_TOKEN_KEY);
+    try{window.ISSAuthBridge?.clear?.();if(/^ISS_AUTH_BRIDGE_V[123]:/.test(String(window.name||"")))window.name="";}catch(_e){}
     localStorage.setItem(LOGOUT_REASON_KEY,reason||"idle-timeout");
     location.href=`${loginPath()}?timeout=1`;
   };
@@ -85,13 +94,32 @@
     clearInterval(countdownTimer);
     countdownTimer=setInterval(update,1000);
   };
+  const normalizeSessionActivity=()=>{
+    if(!hasSession()) return Date.now();
+    const now=Date.now();
+    const token=currentToken();
+    const storedToken=localStorage.getItem(SESSION_TOKEN_KEY)||"";
+    const sessionStarted=Number(localStorage.getItem(SESSION_STARTED_KEY)||0);
+    let last=Number(localStorage.getItem(ACTIVITY_KEY)||0);
+    const invalidLast=!Number.isFinite(last)||last<=0||last>now+60000;
+    const newSession=storedToken!==token||!Number.isFinite(sessionStarted)||sessionStarted<=0;
+    const predatesSession=!invalidLast&&sessionStarted>0&&last<sessionStarted;
+    if(invalidLast||newSession||predatesSession){
+      last=now;
+      localStorage.setItem(ACTIVITY_KEY,String(now));
+      localStorage.setItem(SESSION_STARTED_KEY,String(now));
+      localStorage.setItem(SESSION_TOKEN_KEY,token);
+      localStorage.removeItem(LOGOUT_REASON_KEY);
+    }
+    return last;
+  };
   const schedule=()=>{
     clearTimers();
     if(!hasSession()) return;
     const timeoutMs=getTimeoutMinutes()*60000;
     const warningMs=Math.min(WARNING_MINUTES*60000,Math.max(30000,timeoutMs/3));
-    const last=Number(localStorage.getItem(ACTIVITY_KEY)||Date.now());
-    const elapsed=Date.now()-last;
+    const last=normalizeSessionActivity();
+    const elapsed=Math.max(0,Date.now()-last);
     const remaining=timeoutMs-elapsed;
     if(remaining<=0){logout("idle-timeout");return;}
     if(remaining<=warningMs){showWarning();}
@@ -118,6 +146,6 @@
   });
   addEventListener("visibilitychange",()=>{if(!document.hidden)schedule()});
   addEventListener("pageshow",schedule);
-  if(hasSession()&&!localStorage.getItem(ACTIVITY_KEY)) localStorage.setItem(ACTIVITY_KEY,String(Date.now()));
+  if(hasSession()) normalizeSessionActivity();
   schedule();
 })();

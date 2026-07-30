@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=363"></script>
+<head><script src="../assets/js/auth-bootstrap.js?v=378"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>国内法令・IMDG Code｜検査・検品業務サポートシステム</title>
@@ -9,7 +10,7 @@
   <link rel="stylesheet" href="../assets/css/imdg-cross-reference.css">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
-<body>
+<body data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator,revision-validator">
   <main class="workspace cross-reference-page">
     <div class="page-heading-row">
       <div>
@@ -45,10 +46,12 @@
     </aside>
   </main>
 
-  <script src="../data/imdg-cross-reference.js?v=178"></script>
+  <script src="../assets/js/storage.js?v=370"></script><script src="../assets/js/api-client.js?v=381"></script><script src="../assets/js/role-access.js?v=381"></script>
+<script src="../data/imdg-cross-reference.js?v=178"></script>
   <script src="../assets/js/imdg-cross-reference-resolver.js?v=178"></script>
   <script src="../assets/js/imdg-cross-reference-page.js?v=178"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
+
 </body>
 </html>

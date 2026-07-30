@@ -568,7 +568,9 @@
   historyButton.addEventListener("click", () => {
     const history = window.ISSStorage?.getSearchHistory?.() || [];
     const latest = history[0];
-    input.value = latest?.query || latest || "";
+    const requestedQuery = new URLSearchParams(location.search).get("query") || sessionStorage.getItem("iss-home-search-query") || "";
+    input.value = requestedQuery || latest?.query || latest || "";
+    if (requestedQuery) sessionStorage.removeItem("iss-home-search-query");
     if (latest?.conditions) {
       Object.entries(latest.conditions).forEach(([key, value]) => {
         if (key === "query") return;

@@ -1,8 +1,8 @@
 {
-  "part": 369,
-  "version": "0.369.0",
-  "name": "Responsive Business Login Background",
+  "part": 384,
+  "version": "0.384.0",
+  "name": "System-wide Search and Overpack Access Update",
   "updatedAt": "2026-07-30",
-  "build": "part368-responsive-login",
-  "changeSummary": "ホーム画面の共通ヘッダー右上にログアウトボタンを追加。"
+  "build": "part384-rebuilt-system-wide-search",
+  "changeSummary": "ホームの検索を横断検索へ拡張。危険物、法令、資料、申請番号、機能・設定を権限に応じて検索可能。Part382のオーバーパック表示作成の事業所・権限制御とA4縦4標札レイアウトを維持。"
 }

@@ -3,7 +3,7 @@ import { config } from './config.js';
 import { query } from './db.js';
 
 export const OPERATIONAL_ROLES = ['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin'];
-export const VALIDATION_ROLES = ['validator','safety-environment-admin'];
+export const VALIDATION_ROLES = ['validator','revision-validator','safety-environment-admin'];
 
 export const ADMIN_ROLES = ['office-admin','safety-environment-admin'];
 

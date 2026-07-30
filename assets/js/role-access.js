@@ -8,7 +8,8 @@
     "safety-environment-staff": "安全環境室職員",
     "safety-environment-admin": "システム管理者",
     "guest": "ゲスト",
-    "validator": "検証者"
+    "validator": "検証者",
+    "revision-validator": "改正検証者"
   };
 
   const ACCESS_ROLE_DISPLAY_ORDER = [
@@ -26,13 +27,26 @@
     "safety-environment-staff": { applicationsRead:true, applicationsAllOffices:true, applicationNotesRead:true, applicationDocumentsRead:true, photosRead:true, photosAllOffices:true, readOnly:true },
     "safety-environment-admin": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemAdmin:true },
     "guest": { userSettings:true, dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true },
-    "validator": { referenceRead:true, validation:true }
+    "validator": { referenceRead:true, validation:true },
+    "revision-validator": { dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true, revisionPreview:true, validation:true }
   };
 
   const loginUrl = () => location.pathname.includes("/pages/") ? "login.html" : "pages/login.html";
   const settingsUrl = () => location.pathname.includes("/pages/") ? "system-settings.html" : "pages/system-settings.html";
   const homeUrl = () => location.pathname.includes("/pages/") ? "../index.html" : "index.html";
-  const currentStoredUser = () => window.ISSApi?.getUser?.() || null;
+  const currentStoredUser = () => {
+    const apiUser = window.ISSApi?.getUser?.();
+    if (apiUser) return apiUser;
+    try {
+      const stored = JSON.parse(localStorage.getItem("iss-api-user") || "null");
+      if (stored) return stored;
+    } catch (_e) {}
+    try {
+      const prefix = "ISS_AUTH_BRIDGE_V1:";
+      if (String(window.name || "").startsWith(prefix)) return JSON.parse(String(window.name).slice(prefix.length))?.user || null;
+    } catch (_e) {}
+    return null;
+  };
   const requiredRoles = () => String(document.body.dataset.requiredRoles || "").split(",").map(v => v.trim()).filter(Boolean);
   const isPublicPage = () => ["login", "activate-account", "reset-password"].includes(document.body.dataset.page || "");
 
@@ -157,7 +171,7 @@
 
   async function initialize() {
     if (isPublicPage()) return;
-    const authenticated = Boolean(window.ISSApi?.isAuthenticated?.());
+    const authenticated = Boolean(window.ISSApi?.isAuthenticated?.() || sessionStorage.getItem("iss-api-token") || localStorage.getItem("iss-api-token"));
     const passwordChangeRequired = Boolean(window.ISSApi?.isPasswordChangeRequired?.());
     if (authenticated && passwordChangeRequired && !location.pathname.endsWith("/pages/change-password.html")) {
       location.href = location.pathname.includes("/pages/") ? "change-password.html" : "pages/change-password.html";
@@ -166,7 +180,7 @@
 
     let authenticationRequired = true;
     try {
-      const policy = await window.ISSApi.accessPolicy();
+      const policy = window.ISSApi?.accessPolicy ? await window.ISSApi.accessPolicy() : { authenticationRequired:true };
       authenticationRequired = policy?.authenticationRequired !== false;
       document.documentElement.dataset.authenticationRequired = authenticationRequired ? "true" : "false";
     } catch (error) {
