@@ -30,6 +30,7 @@
         <a href="#trainingGuideSection">検査・検品業務資料 AI要約</a>
         <a href="#imdgClauseSection">IMDG関連条文</a>
         <a href="#aiGuideSection">規定のAI要約</a>
+        <a href="#registeredDocumentsSection">登録資料</a>
       </nav>
     </section>
 
@@ -94,6 +95,9 @@
             IMDG Code・CTU Codeのうち、適用条件、特別規定、表・図の読み方、確認方法が分かりにくい規定を抽出しています。
           </p>
         </div>
+        <a class="source-document-link" href="#referenceList">
+          登録資料を確認
+        </a>
       </div>
 
       <div class="ai-guide-controls">
@@ -106,21 +110,38 @@
       <div id="aiGuideList" class="ai-guide-list"></div>
     </section>
 
+    <section id="registeredDocumentsSection">
+      <div class="section-heading">
+        <div>
+          <h2>登録資料 <span id="referenceCount"></span></h2>
+        </div>
+      </div>
+      <div id="referenceSummary" class="reference-summary" aria-label="登録資料の集計" hidden></div>
+      <div class="reference-controls reference-document-controls reference-document-controls--simple">
+        <input id="referenceQuery" type="search" placeholder="資料名・ファイル名・タグで検索">
+        <select id="referenceCategory"><option value="">すべての分類</option><option value="domestic-regulation">危規則</option><option value="domestic-notification">危告示</option><option value="international-code">IMDG Code</option><option value="ctu-code">CTU Code</option></select>
+        <select id="referenceFavorite"><option value="">すべての資料</option><option value="favorites">お気に入りのみ</option></select>
+        <button id="referenceReset" type="button">条件をクリア</button>
+      </div>
+      <div id="referenceActiveFilters" class="reference-active-filters" aria-live="polite"></div>
+      <div id="referenceList" class="reference-grid"></div>
+    </section>
+
     <aside class="data-notice">
       <strong>資料の扱い</strong>
       <p>
-        危規則、危告示、放告示、IMDG Code、CTU CodeおよびMARPOLの原典は「関連法令」で確認してください。
-        この画面では、関連条文と理解補助のAI要約のみを表示します。
+        関連資料は参考資料として登録します。検索結果や解説を実務判断に使用する場合は、
+        原本、改訂版、適用日および公的原典を確認してください。
       </p>
     </aside>
   </main>
 
-  <script src="../data/reference-documents.js?v=424"></script>
+  <script src="../data/reference-documents.js?v=182"></script>
   <script src="../data/imdg-inspection-guide-summary.js?v=182"></script>
   <script src="../data/ai-reference-summaries.js?v=405"></script>
   <script src="../data/imdg-container-inspection-clauses.js?v=405"></script>
   <script src="../assets/js/imdg-inspection-guide.js?v=182"></script>
-  <script src="../assets/js/references.js?v=424"></script>
+  <script src="../assets/js/references.js?v=408"></script>
   <script src="../assets/js/reference-detail-windows.js?v=408"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
