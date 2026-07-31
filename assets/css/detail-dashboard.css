@@ -3052,7 +3052,7 @@ body.is-domestic-law-fullscreen-open{overflow:hidden}
 /* Part 414: domestic law continuous image viewer */
 .domestic-law-fullscreen__page-section{min-height:auto;display:block;scroll-snap-align:start}
 .domestic-law-fullscreen__image-wrap{padding:12px;background:#dce5ee;overflow:auto;text-align:center}
-.domestic-law-fullscreen__image-wrap img{display:block;width:min(100%,1100px);height:auto;margin:0 auto;background:#fff;box-shadow:0 4px 18px rgba(7,42,74,.18)}
+.domestic-law-fullscreen__image-wrap img{display:block;width:100%;max-width:none;height:auto;margin:0 auto;background:#fff;box-shadow:0 4px 18px rgba(7,42,74,.18)}
 .domestic-law-fullscreen__page-section iframe{display:none!important}
 @media(max-width:600px){.domestic-law-fullscreen__image-wrap{padding:0}.domestic-law-fullscreen__image-wrap img{width:100%;box-shadow:none}.domestic-law-fullscreen__page-section{min-height:auto}}
 
@@ -3060,3 +3060,56 @@ body.is-domestic-law-fullscreen-open{overflow:hidden}
 .domestic-law-fullscreen__bundle-section{height:100%;min-height:0;background:#222}
 .domestic-law-fullscreen__bundle-section iframe{display:block!important;width:100%;height:100%;min-height:calc(100dvh - 72px);border:0;background:#fff}
 @media(max-width:600px){.domestic-law-fullscreen__bundle-section iframe{min-height:calc(100dvh - 65px)}}
+
+
+/* Part 417: domestic-law bundle mobile readability and broader access */
+.domestic-law-fullscreen__bundle-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#f4f8fc;border-bottom:1px solid #cbd8e5;color:#34516d;font-size:.76rem;font-weight:700}
+.domestic-law-fullscreen__bundle-toolbar a{padding:7px 10px;border:1px solid #9ab8d5;border-radius:999px;background:#fff;color:#075ca8;text-decoration:none;white-space:nowrap}
+.domestic-law-fullscreen__bundle-mobile-image{display:none;width:100%;height:auto;background:#fff}
+.data-table .domestic-law-open-button{margin-top:10px;width:100%;font-size:.74rem}
+@media(max-width:600px){
+  .domestic-law-fullscreen__bundle-section{height:auto;min-height:100%;background:#fff;overflow:auto}
+  .domestic-law-fullscreen__bundle-section iframe{display:none!important}
+  .domestic-law-fullscreen__bundle-mobile-image{display:block}
+  .domestic-law-fullscreen__bundle-toolbar{position:sticky;top:0;z-index:2;align-items:flex-start;flex-direction:column;padding:9px 10px}
+  .domestic-law-fullscreen__bundle-toolbar a{width:100%;text-align:center}
+}
+
+/* Part 418: bundle order and mobile fallback */
+.domestic-law-fullscreen__bundle-toolbar>div{display:grid;gap:3px}.domestic-law-fullscreen__bundle-toolbar strong{color:#173f66;font-size:.78rem}.domestic-law-fullscreen__bundle-toolbar span{display:block;font-size:.7rem;font-weight:600}.domestic-law-fullscreen__bundle-section iframe.is-mobile-fallback{display:block!important;min-height:calc(100dvh - 150px)}
+@media(max-width:600px){.domestic-law-fullscreen__bundle-toolbar strong{font-size:.72rem}.domestic-law-fullscreen__bundle-toolbar span{font-size:.66rem}}
+
+
+/* Part 419: mobile-friendly enlargement for tables, figures and annotations */
+.domestic-law-fullscreen__image-button{display:block;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in;text-align:left}
+.domestic-law-fullscreen__image-button img{display:block;width:100%;max-width:none;height:auto;margin:0 auto;background:#fff}
+.domestic-law-fullscreen__image-button:focus-visible{outline:3px solid #6daee8;outline-offset:-3px}
+.domestic-law-fullscreen__image-hint{margin:0;padding:9px 12px;background:#f4f8fc;color:#48627a;font-size:.72rem;line-height:1.55;text-align:center}
+.domestic-law-fullscreen__bundle-mobile-button{display:none;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in;position:relative}
+.domestic-law-fullscreen__bundle-mobile-button span{position:sticky;bottom:12px;display:block;width:max-content;max-width:calc(100% - 24px);margin:-48px auto 12px;padding:8px 12px;border-radius:999px;background:rgba(7,42,74,.82);color:#fff;font-size:.72rem;font-weight:800;pointer-events:none}
+@media(max-width:600px){
+  .domestic-law-fullscreen__bundle-mobile-button{display:block}
+  .domestic-law-fullscreen__bundle-mobile-image{display:block;width:100%;height:auto}
+  .domestic-law-fullscreen__image-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .domestic-law-fullscreen__image-button{min-width:100%}
+  .domestic-law-fullscreen__image-hint{position:sticky;left:0;text-align:left}
+  .pdf-image-lightbox__body{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+}
+
+/* Part 420: unify all domestic-law previews to the same readable full-width format */
+.domestic-law-fullscreen__page-section{background:#fff}
+.domestic-law-fullscreen__image-wrap{padding:10px 12px 0;background:#eef3f8}
+.domestic-law-fullscreen__image-hint{border-top:1px solid #d8e2ec}
+@media(max-width:600px){.domestic-law-fullscreen__image-wrap{padding:0;background:#fff}.domestic-law-fullscreen__image-hint{text-align:center}}
+
+/* Part 421: 国内法令プレビューをページ切替式に変更して見やすくする */
+.domestic-law-fullscreen__nav{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;padding:4px 0 0;background:#eef3f8}
+.domestic-law-fullscreen__nav-button{padding:8px 12px;border:1px solid #b8cce0;border-radius:999px;background:#fff;color:#355676;font-size:.74rem;font-weight:800;cursor:pointer}
+.domestic-law-fullscreen__nav-button.is-active{background:#0b5cab;border-color:#0b5cab;color:#fff}
+.domestic-law-fullscreen__panels{display:grid;gap:12px}
+.domestic-law-fullscreen__page-section[hidden]{display:none!important}
+@media(max-width:600px){
+  .domestic-law-fullscreen__nav{padding:8px 8px 0;gap:6px;background:#eef3f8}
+  .domestic-law-fullscreen__nav-button{font-size:.68rem;padding:7px 10px}
+  .domestic-law-fullscreen__panels{gap:8px}
+}

@@ -64,20 +64,21 @@
   const logout=reason=>{
     clearTimers();
     try{window.ISSApi?.clearSession?.()}catch(_e){}
+    const currentSessionToken=sessionStorage.getItem("iss-api-token")||"";
     sessionStorage.removeItem("iss-api-token");
-    localStorage.removeItem("iss-api-token");
+    if(currentSessionToken && localStorage.getItem("iss-api-token")===currentSessionToken) localStorage.removeItem("iss-api-token");
     localStorage.removeItem("iss-api-user");
     localStorage.removeItem("iss-password-change-required");
-    localStorage.removeItem(ACTIVITY_KEY);
-    localStorage.removeItem(SESSION_STARTED_KEY);
-    localStorage.removeItem(SESSION_TOKEN_KEY);
+    sessionStorage.removeItem(ACTIVITY_KEY);
+    sessionStorage.removeItem(SESSION_STARTED_KEY);
+    sessionStorage.removeItem(SESSION_TOKEN_KEY);
     try{window.ISSAuthBridge?.clear?.();if(/^ISS_AUTH_BRIDGE_V[123]:/.test(String(window.name||"")))window.name="";}catch(_e){}
-    localStorage.setItem(LOGOUT_REASON_KEY,reason||"idle-timeout");
+    sessionStorage.setItem(LOGOUT_REASON_KEY,reason||"idle-timeout");
     location.href=`${loginPath()}?timeout=1`;
   };
   const showWarning=()=>{
     if(!hasSession()) return;
-    const last=Number(localStorage.getItem(ACTIVITY_KEY)||Date.now());
+    const last=Number(sessionStorage.getItem(ACTIVITY_KEY)||Date.now());
     const deadline=last+getTimeoutMinutes()*60000;
     const target=ensureDialog();
     if(!target.open) target.showModal();
@@ -98,18 +99,18 @@
     if(!hasSession()) return Date.now();
     const now=Date.now();
     const token=currentToken();
-    const storedToken=localStorage.getItem(SESSION_TOKEN_KEY)||"";
-    const sessionStarted=Number(localStorage.getItem(SESSION_STARTED_KEY)||0);
-    let last=Number(localStorage.getItem(ACTIVITY_KEY)||0);
+    const storedToken=sessionStorage.getItem(SESSION_TOKEN_KEY)||"";
+    const sessionStarted=Number(sessionStorage.getItem(SESSION_STARTED_KEY)||0);
+    let last=Number(sessionStorage.getItem(ACTIVITY_KEY)||0);
     const invalidLast=!Number.isFinite(last)||last<=0||last>now+60000;
     const newSession=storedToken!==token||!Number.isFinite(sessionStarted)||sessionStarted<=0;
     const predatesSession=!invalidLast&&sessionStarted>0&&last<sessionStarted;
     if(invalidLast||newSession||predatesSession){
       last=now;
-      localStorage.setItem(ACTIVITY_KEY,String(now));
-      localStorage.setItem(SESSION_STARTED_KEY,String(now));
-      localStorage.setItem(SESSION_TOKEN_KEY,token);
-      localStorage.removeItem(LOGOUT_REASON_KEY);
+      sessionStorage.setItem(ACTIVITY_KEY,String(now));
+      sessionStorage.setItem(SESSION_STARTED_KEY,String(now));
+      sessionStorage.setItem(SESSION_TOKEN_KEY,token);
+      sessionStorage.removeItem(LOGOUT_REASON_KEY);
     }
     return last;
   };
@@ -126,9 +127,9 @@
       // A page transition is user activity. Never expire a valid session while
       // a newly opened internal page is still restoring its authentication state.
       if(typeof performance!=="undefined"&&performance.now()<15000){
-        localStorage.setItem(ACTIVITY_KEY,String(Date.now()));
-        localStorage.setItem(SESSION_STARTED_KEY,localStorage.getItem(SESSION_STARTED_KEY)||String(Date.now()));
-        localStorage.setItem(SESSION_TOKEN_KEY,currentToken());
+        sessionStorage.setItem(ACTIVITY_KEY,String(Date.now()));
+        sessionStorage.setItem(SESSION_STARTED_KEY,sessionStorage.getItem(SESSION_STARTED_KEY)||String(Date.now()));
+        sessionStorage.setItem(SESSION_TOKEN_KEY,currentToken());
         schedule();
         return;
       }
@@ -141,7 +142,7 @@
   const touch=(force=false)=>{
     if(!hasSession()) return;
     if(dialog?.open&&!force) return;
-    localStorage.setItem(ACTIVITY_KEY,String(Date.now()));
+    sessionStorage.setItem(ACTIVITY_KEY,String(Date.now()));
     if(dialog?.open) dialog.close();
     schedule();
   };
@@ -154,7 +155,7 @@
   };
   ["click","keydown","touchstart","pointerdown","scroll"].forEach(type=>addEventListener(type,onActivity,{passive:true}));
   addEventListener("storage",event=>{
-    if([ACTIVITY_KEY,TIMEOUT_KEY,"iss-api-token"].includes(event.key)) schedule();
+    if([TIMEOUT_KEY,"iss-api-token"].includes(event.key)) schedule();
   });
   addEventListener("visibilitychange",()=>{if(!document.hidden)schedule()});
   addEventListener("pageshow",schedule);

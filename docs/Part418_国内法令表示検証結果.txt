@@ -1,0 +1,37 @@
+Part 418 国内法令表示検証結果
+
+1. 対象危険物件数
+- UN_DATABASE: 2,725件
+
+2. 分類根拠の対応状況
+- 火薬類
+- 高圧ガス
+- 引火性液体類
+- 可燃性物質類
+- 酸化性物質類
+- 毒物類
+- 腐食性物質
+- 有害性物質
+- 放射性物質等
+- 未対応分類: 0件
+
+3. 標札表示用結合資料
+- 危規則 第8条
+- 危規則 第9条
+- 危告示 第7条の2
+- 収録順を全画面ウィンドウ内に明示
+
+4. 参照ファイル確認
+- references/excerpts/domestic-bundles/label-display-domestic-laws.pdf: 存在確認済み
+- assets/domestic-law-bundles/label-display-domestic-laws.png: 存在確認済み
+- references/originals/dangerous-goods-regulations.pdf: 存在確認済み
+- references/originals/dangerous-goods-notification.pdf: 存在確認済み
+- references/originals/radioactive-materials-notification.pdf: 存在確認済み
+
+5. スマートフォン対策
+- スマホでは縦長画像を優先表示
+- 縦長画像の読み込みに失敗した場合、結合PDFへ自動切替
+- 結合PDFを別画面で開くリンクを維持
+
+6. JavaScript確認
+- assets/js/detail-dashboard.js: node --check正常

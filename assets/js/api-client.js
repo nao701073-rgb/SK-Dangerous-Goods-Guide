@@ -61,25 +61,28 @@
   };
   restoreAuthBridge();
 
-  const defaultLocalUsers = () => {
+  const resolveOfficeId = id => {
     const offices = window.ISSOrganization?.getOfficeOptions?.() || [];
-    const officeId = id => offices.find(item => item.id === id)?.id || offices[0]?.id || null;
+    return offices.find(item => item.id === id)?.id || offices[0]?.id || null;
+  };
+
+  const defaultLocalUsers = () => {
     return [
       { id:"local-user-001", login_id:"yamamoto", loginId:"yamamoto", display_name:"山本", displayName:"山本", role:"safety-environment-staff", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-002", login_id:"ninomiya", loginId:"ninomiya", display_name:"二ノ宮", displayName:"二ノ宮", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-004", login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-005", login_id:"koyama", loginId:"koyama", display_name:"小山", displayName:"小山", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-006", login_id:"konaka", loginId:"konaka", display_name:"小中", displayName:"小中", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-007", login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-008", login_id:"takashima", loginId:"takashima", display_name:"高嶋", displayName:"高嶋", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-002", login_id:"ninomiya", loginId:"ninomiya", display_name:"二ノ宮", displayName:"二ノ宮", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-004", login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-005", login_id:"koyama", loginId:"koyama", display_name:"小山", displayName:"小山", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-006", login_id:"konaka", loginId:"konaka", display_name:"小中", displayName:"小中", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-007", login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-008", login_id:"takashima", loginId:"takashima", display_name:"高嶋", displayName:"高嶋", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-010", login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者", role:"safety-environment-admin", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-011", login_id:"validator", loginId:"validator", display_name:"検証用アカウント", displayName:"検証用アカウント", role:"validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-012", login_id:"guest", loginId:"guest", display_name:"ゲストアカウント", displayName:"ゲストアカウント", role:"guest", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
       { id:"local-user-013", login_id:"revision-validator", loginId:"revision-validator", display_name:"改正検証者用アカウント", displayName:"改正検証者用アカウント", role:"revision-validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-014", login_id:"daikoku.sato", loginId:"daikoku.sato", display_name:"佐藤", displayName:"佐藤", role:"office-user", office_id:officeId("office-yokohama-daikoku"), officeId:officeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-015", login_id:"daikoku.ueki", loginId:"daikoku.ueki", display_name:"植木", displayName:"植木", role:"office-user", office_id:officeId("office-yokohama-daikoku"), officeId:officeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
+      { id:"local-user-014", login_id:"daikoku.sato", loginId:"daikoku.sato", display_name:"佐藤", displayName:"佐藤", role:"office-user", office_id:resolveOfficeId("office-yokohama-daikoku"), officeId:resolveOfficeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
+      { id:"local-user-015", login_id:"daikoku.ueki", loginId:"daikoku.ueki", display_name:"植木", displayName:"植木", role:"office-user", office_id:resolveOfficeId("office-yokohama-daikoku"), officeId:resolveOfficeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
     ];
   };
 
@@ -101,16 +104,28 @@
       };
       migrateUser(user => user.id === "local-user-003" || String(user.login_id || user.loginId || "").toLowerCase() === "sato", {
         login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin",
-        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
       });
       migrateUser(user => user.id === "local-user-004" || ["narutake","naritake"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
         login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user",
-        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
       });
       migrateUser(user => user.id === "local-user-007" || ["awazaki","awasaki"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
         login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user",
-        office_id:officeId("office-kawasaki"), officeId:officeId("office-kawasaki")
+        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
       });
+
+      // Part 422: 管理者の旧ロック情報・無効状態をローカル端末上で自動復旧する。
+      // パスワードが既に設定されている場合は変更しない。
+      const localAdministrator = users.find(user => user.id === "local-user-010" || String(user.login_id || user.loginId || "").toLowerCase() === "administrator");
+      if (localAdministrator) {
+        Object.assign(localAdministrator, {
+          login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者",
+          role:"safety-environment-admin", active:true, locked_until:null, failed_attempts:0
+        });
+        if (!String(localAdministrator.password || "")) localAdministrator.password = defaultPassword;
+        changed = true;
+      }
 
       // 現在ログイン中の利用者情報も即時更新する。
       const current = safeJsonParse(localStorage.getItem(USER_KEY), null);
@@ -227,7 +242,7 @@
         return stored || readAuthBridge()?.user || null;
       } catch { return readAuthBridge()?.user || null; }
     },
-    clearSession() { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); localStorage.removeItem(ACTIVITY_KEY); localStorage.removeItem(SESSION_STARTED_KEY); localStorage.removeItem(SESSION_TOKEN_KEY); clearAuthBridge(); },
+    clearSession() { const current=sessionStorage.getItem(TOKEN_KEY)||""; sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(ACTIVITY_KEY); sessionStorage.removeItem(SESSION_STARTED_KEY); sessionStorage.removeItem(SESSION_TOKEN_KEY); if(current && localStorage.getItem(TOKEN_KEY)===current) localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); clearAuthBridge(); },
     async startLogin(loginId, password) {
       if (usesRemote()) return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
       const loginValue = sanitize(loginId).toLowerCase();
@@ -255,9 +270,11 @@
     },
     storeSession(data, remember = false) {
       if (!data?.token) throw new Error("認証トークンを取得できませんでした。");
-      localStorage.setItem(TOKEN_KEY, data.token);
-      if (remember) sessionStorage.setItem(TOKEN_KEY, data.token);
-      else sessionStorage.removeItem(TOKEN_KEY);
+      // Part 422: 各タブ・各端末のセッションを独立させる。
+      // sessionStorageを主とし、別端末・別タブのログインで現在のセッションを上書きしない。
+      sessionStorage.setItem(TOKEN_KEY, data.token);
+      if (remember) localStorage.setItem(TOKEN_KEY, data.token);
+      else if (localStorage.getItem(TOKEN_KEY) === data.token) localStorage.removeItem(TOKEN_KEY);
       localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       if (data.passwordChangeRequired) localStorage.setItem(PASSWORD_CHANGE_KEY, "1");
       else localStorage.removeItem(PASSWORD_CHANGE_KEY);
@@ -265,10 +282,10 @@
       // Without this reset, an old activity timestamp from a previous session can
       // cause session-guard.js to log the user out immediately after navigation.
       const sessionStartedAt = Date.now();
-      localStorage.setItem(ACTIVITY_KEY, String(sessionStartedAt));
-      localStorage.setItem(SESSION_STARTED_KEY, String(sessionStartedAt));
-      localStorage.setItem(SESSION_TOKEN_KEY, String(data.token));
-      localStorage.removeItem("iss-session-logout-reason");
+      sessionStorage.setItem(ACTIVITY_KEY, String(sessionStartedAt));
+      sessionStorage.setItem(SESSION_STARTED_KEY, String(sessionStartedAt));
+      sessionStorage.setItem(SESSION_TOKEN_KEY, String(data.token));
+      sessionStorage.removeItem("iss-session-logout-reason");
       syncAuthBridge();
       window.ISSAuthBridge?.decorateAll?.();
       return data.user;

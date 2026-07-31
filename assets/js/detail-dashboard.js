@@ -411,7 +411,8 @@
     "酸化性物質類": ["危規則 第2条第1号ホ(1)・(2)", "危告示 第2条第5項・第6項"],
     "毒物類": ["危規則 第2条第1号ヘ(1)・(2)", "危告示 第2条第7項・第8項"],
     "腐食性物質": ["危規則 第2条第1号チ", "危告示 第2条第9項"],
-    "有害性物質": ["危規則 第2条第1号リ", "危告示 第2条第10項"]
+    "有害性物質": ["危規則 第2条第1号リ", "危告示 第2条第10項"],
+    "放射性物質等": ["危規則 第2条第1号ト(1)・(2)", "放告示 第1条の2"]
   };
 
   const classificationReferences = classificationReferenceMap[record.classification] || [
@@ -977,6 +978,7 @@
                 ${packageMarkingLegalReferences.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
                 <li>${escapeHtml(`IMDG Code ${packageMarkingDetail?.imdgReference?.section || "5.2.1.1"}`)}</li>
               </ul>
+              ${renderDomesticLawButton("package-marking", "品名・国連番号表示の国内法令を全画面で続けて表示")}
             </div>
           </div>
         </article>
@@ -988,7 +990,7 @@
               <tr><th>EmS</th><td>${display(ems.combinedCode)}</td></tr>
               <tr><th>海洋汚染物質</th><td>${escapeHtml(marinePollutantStatus.legal)}</td></tr>
               <tr><th>特別規定</th><td>${escapeHtml(specialProvisionCode)}</td></tr>
-              <tr><th>国内法令</th><td>${classificationReferences.map(item => escapeHtml(item)).join("<br>")}</td></tr>
+              <tr><th>国内法令</th><td>${classificationReferences.map(item => escapeHtml(item)).join("<br>")}${renderDomesticLawButton("classification", "分類根拠の国内法令を全画面表示")}</td></tr>
             </table>
           </div>
         </article>
@@ -1471,19 +1473,51 @@
 
   const uniquePageList = values => [...new Set((values || []).map(Number).filter(Number.isFinite))];
 
-  const buildDomesticLawPageSection = ({ title, pdfPath, page, law }) => {
-    const kind = law === "危規則" || String(pdfPath || "").includes("regulations") ? "regulation" : "notification";
+  const buildDomesticLawPageSection = ({ title, pdfPath, page, law, panelId = "", active = false }) => {
+    const kind = law === "危規則" || String(pdfPath || "").includes("regulations")
+      ? "regulation"
+      : law === "放告示" || String(pdfPath || "").includes("radioactive")
+        ? "radioactive"
+        : "notification";
     const imagePath = `../assets/domestic-law-pages/${kind}/page-${page}.png`;
     return `
-      <section class="domestic-law-fullscreen__page-section">
+      <section class="domestic-law-fullscreen__page-section" data-domestic-law-panel="${escapeHtml(panelId)}" ${active ? '' : 'hidden'}>
         <div class="domestic-law-fullscreen__page-heading">
           <strong>${escapeHtml(title)}</strong>
           <a href="${escapeHtml(pdfPath)}#page=${escapeHtml(page)}" target="_blank" rel="noopener">原文PDFを開く</a>
         </div>
         <div class="domestic-law-fullscreen__image-wrap">
-          <img src="${escapeHtml(imagePath)}" alt="${escapeHtml(title)}" loading="lazy">
+          <button type="button" class="domestic-law-fullscreen__image-button" data-pdf-image-expand="${escapeHtml(imagePath)}" data-pdf-image-page="${escapeHtml(title)}" aria-label="${escapeHtml(title)}の表・図・本文を全画面拡大">
+            <img src="${escapeHtml(imagePath)}" alt="${escapeHtml(title)}" loading="lazy">
+          </button>
+          <p class="domestic-law-fullscreen__image-hint">表・図・細かい注記は、画像をタップすると全画面で拡大できます。</p>
         </div>
       </section>`;
+  };
+
+  const renderDomesticLawPageDeck = sections => {
+    if (!sections.length) {
+      return '<p class="reference-pending">該当する原文ページを特定できませんでした。</p>';
+    }
+    const normalized = sections.map((section, index) => ({
+      ...section,
+      panelId: `domestic-law-panel-${index + 1}`,
+      navLabel: section.navLabel || `${section.law || '資料'} ${section.page}p`
+    }));
+    return `
+      <div class="domestic-law-fullscreen__nav" role="tablist" aria-label="国内法令ページ選択">
+        ${normalized.map((section, index) => `
+          <button
+            type="button"
+            class="domestic-law-fullscreen__nav-button ${index === 0 ? 'is-active' : ''}"
+            data-domestic-law-nav="${escapeHtml(section.panelId)}"
+            role="tab"
+            aria-selected="${index === 0 ? 'true' : 'false'}"
+          >${escapeHtml(section.navLabel)}</button>`).join('')}
+      </div>
+      <div class="domestic-law-fullscreen__panels">
+        ${normalized.map((section, index) => buildDomesticLawPageSection({ ...section, panelId: section.panelId, active: index === 0 })).join('')}
+      </div>`;
   };
 
 
@@ -1498,7 +1532,7 @@
     { law: "危規則", pattern: /第16条・第21条/, pages: [["第16条",15],["第21条",19]] },
     { law: "危規則", pattern: /第2条第1号[イロ]/, pages: [["第2条",2,"../references/excerpts/domestic/regulation-article-2.pdf"]] },
     { law: "危規則", pattern: /第2条第1号[ハニ]/, pages: [["第2条",2,"../references/excerpts/domestic/regulation-article-2.pdf"]] },
-    { law: "危規則", pattern: /第2条第1号[ホヘチリ]/, pages: [["第2条",3,"../references/excerpts/domestic/regulation-article-2.pdf"]] },
+    { law: "危規則", pattern: /第2条第1号[ホヘチリト]/, pages: [["第2条",3,"../references/excerpts/domestic/regulation-article-2.pdf"]] },
     { law: "危規則", pattern: /第8条第2項/, pages: [["第8条第2項",4]] },
     { law: "危規則", pattern: /第8条第1項|第8条/, pages: [["第8条",4,"../references/excerpts/domestic/regulation-article-8.pdf"]] },
     { law: "危規則", pattern: /第9条/, pages: [["第9条",5,"../references/excerpts/domestic/regulation-article-9.pdf"]] },
@@ -1535,7 +1569,8 @@
     { law: "危告示", pattern: /第25条の4/, pages: [["第25条の4",21]] },
     { law: "危告示", pattern: /第25条の5/, pages: [["第25条の5",23]] },
     { law: "危告示", pattern: /第25条の6の3/, pages: [["第25条の6の3",25]] },
-    { law: "危告示", pattern: /第25条の6/, pages: [["第25条の6",24]] }
+    { law: "危告示", pattern: /第25条の6/, pages: [["第25条の6",24]] },
+    { law: "放告示", pattern: /第1条の2/, pages: [["第1条の2",1]] }
   ];
 
   const resolveDomesticLawTargets = references => {
@@ -1543,7 +1578,7 @@
     const seen = new Set();
     (references || []).forEach(reference => {
       const value = String(reference || "").replace(/\u3000/g," ").trim();
-      const law = value.startsWith("危規則") ? "危規則" : value.startsWith("危告示") ? "危告示" : "";
+      const law = value.startsWith("危規則") ? "危規則" : value.startsWith("危告示") ? "危告示" : value.startsWith("放告示") ? "放告示" : "";
       if (!law) return;
       const rule = domesticLawPageRules.find(item => item.law === law && item.pattern.test(value));
       if (!rule) return;
@@ -1560,9 +1595,10 @@
   const openDomesticLawByReferences = ({ title, references, includeSourcePage = true }) => {
     const regulationPdf = "../references/originals/dangerous-goods-regulations.pdf";
     const notificationPdf = "../references/originals/dangerous-goods-notification.pdf";
+    const radioactivePdf = "../references/originals/radioactive-materials-notification.pdf";
     const sections = resolveDomesticLawTargets(references).map(target => buildDomesticLawPageSection({
       title: `${target.law} ${target.label}（該当箇所のみ）`,
-      pdfPath: target.law === "危規則" ? regulationPdf : notificationPdf,
+      pdfPath: target.law === "危規則" ? regulationPdf : target.law === "放告示" ? radioactivePdf : notificationPdf,
       page: target.page,
       law: target.law
     }));
@@ -1570,7 +1606,7 @@
     const titleNode = domesticLawFullscreen.querySelector("[data-domestic-law-title]");
     const body = domesticLawFullscreen.querySelector("[data-domestic-law-body]");
     if (titleNode) titleNode.textContent = title;
-    if (body) body.innerHTML = sections.join("") || '<p class="reference-pending">該当する原文ページを特定できませんでした。</p>';
+    if (body) body.innerHTML = renderDomesticLawPageDeck(sections);
     domesticLawFullscreen.hidden = false;
     document.body.classList.add("is-domestic-law-fullscreen-open");
     requestAnimationFrame(() => domesticLawFullscreen.querySelector(".domestic-law-fullscreen__dialog")?.focus({preventScroll:true}));
@@ -1580,10 +1616,28 @@
     const titleNode = domesticLawFullscreen.querySelector("[data-domestic-law-title]");
     const body = domesticLawFullscreen.querySelector("[data-domestic-law-body]");
     if (titleNode) titleNode.textContent = title || "国内法令 該当条文";
+    const isLabelBundle = String(pdfPath || "").includes("label-display-domestic-laws.pdf");
+    const mobileImage = isLabelBundle ? "../assets/domestic-law-bundles/label-display-domestic-laws.png" : "";
     if (body) body.innerHTML = `
       <section class="domestic-law-fullscreen__bundle-section">
-        <iframe src="${escapeHtml(pdfPath)}#page=1&zoom=page-width" title="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"></iframe>
+        <div class="domestic-law-fullscreen__bundle-toolbar">
+          <div>
+            <strong>収録順：危規則 第8条 → 危規則 第9条 → 危告示 第7条の2</strong>
+            <span>危規則・危告示の該当条文を1つのPDFに結合しています。</span>
+          </div>
+          <a href="${escapeHtml(pdfPath)}" target="_blank" rel="noopener">結合PDFを別画面で開く</a>
+        </div>
+        <iframe data-domestic-law-bundle-frame src="${escapeHtml(pdfPath)}#page=1&zoom=page-width" title="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"></iframe>
+        ${mobileImage ? `<button type="button" class="domestic-law-fullscreen__bundle-mobile-button" data-pdf-image-expand="${escapeHtml(mobileImage)}" data-pdf-image-page="${escapeHtml(title || '国内法令 該当条文')}" aria-label="結合資料の表・図・本文を全画面拡大"><img class="domestic-law-fullscreen__bundle-mobile-image" data-domestic-law-bundle-image src="${escapeHtml(mobileImage)}" alt="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"><span>表・図をタップして拡大</span></button>` : ""}
       </section>`;
+    const mobileBundleImage = body?.querySelector("[data-domestic-law-bundle-image]");
+    const bundleFrame = body?.querySelector("[data-domestic-law-bundle-frame]");
+    mobileBundleImage?.addEventListener("error", () => {
+      mobileBundleImage.hidden = true;
+      const mobileButton = mobileBundleImage.closest(".domestic-law-fullscreen__bundle-mobile-button");
+      if (mobileButton) mobileButton.hidden = true;
+      if (bundleFrame) bundleFrame.classList.add("is-mobile-fallback");
+    }, { once: true });
     domesticLawFullscreen.hidden = false;
     document.body.classList.add("is-domestic-law-fullscreen-open");
     requestAnimationFrame(() => domesticLawFullscreen.querySelector(".domestic-law-fullscreen__dialog")?.focus({preventScroll:true}));
@@ -1626,13 +1680,34 @@
     const title = domesticLawFullscreen.querySelector("[data-domestic-law-title]");
     const body = domesticLawFullscreen.querySelector("[data-domestic-law-body]");
     if (title) title.textContent = `${reference.code || "国内法令"} 関連条文・別表`;
-    if (body) body.innerHTML = sections.join("") || '<p class="reference-pending">表示対象の原文ページを特定できませんでした。</p>';
+    if (body) body.innerHTML = renderDomesticLawPageDeck(sections);
     domesticLawFullscreen.hidden = false;
     document.body.classList.add("is-domestic-law-fullscreen-open");
     requestAnimationFrame(() => domesticLawFullscreen.querySelector(".domestic-law-fullscreen__dialog")?.focus({ preventScroll: true }));
   };
 
   domesticLawFullscreen.querySelectorAll("[data-domestic-law-close]").forEach(button => button.addEventListener("click", closeDomesticLawFullscreen));
+  domesticLawFullscreen.addEventListener("click", event => {
+    const navButton = event.target.closest("[data-domestic-law-nav]");
+    if (navButton) {
+      event.preventDefault();
+      const targetId = navButton.dataset.domesticLawNav || "";
+      domesticLawFullscreen.querySelectorAll("[data-domestic-law-nav]").forEach(button => {
+        const isActive = button === navButton;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+      domesticLawFullscreen.querySelectorAll("[data-domestic-law-panel]").forEach(panel => {
+        panel.hidden = panel.dataset.domesticLawPanel !== targetId;
+      });
+      domesticLawFullscreen.querySelector(".domestic-law-fullscreen__body")?.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    const expandButton = event.target.closest("[data-pdf-image-expand]");
+    if (!expandButton) return;
+    event.preventDefault();
+    openPdfImageLightbox(expandButton.dataset.pdfImageExpand || "", expandButton.dataset.pdfImagePage || "");
+  });
   root.querySelectorAll("[data-domestic-law-group]").forEach(button => {
     button.addEventListener("click", () => {
       const group = button.dataset.domesticLawGroup;
@@ -1640,6 +1715,22 @@
         openDomesticLawBundlePdf({
           title: `UN${record.unNumber} 標札表示の国内法令`,
           pdfPath: "../references/excerpts/domestic-bundles/label-display-domestic-laws.pdf"
+        });
+        return;
+      }
+      if (group === "package-marking") {
+        openDomesticLawByReferences({
+          title: `UN${record.unNumber} 品名・国連番号表示の国内法令`,
+          references: packageMarkingLegalReferences,
+          includeSourcePage: false
+        });
+        return;
+      }
+      if (group === "classification") {
+        openDomesticLawByReferences({
+          title: `UN${record.unNumber} 分類根拠の国内法令`,
+          references: classificationReferences,
+          includeSourcePage: false
         });
         return;
       }
