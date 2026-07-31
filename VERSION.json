@@ -1,8 +1,8 @@
 {
-  "part": 409,
-  "version": "0.409.0",
+  "part": 426,
+  "version": "0.426.0",
   "name": "Kawasaki User Account Corrections",
-  "updatedAt": "2026-07-30",
+  "updatedAt": "2026-07-31",
   "build": "part409-kawasaki-user-account-corrections",
   "changeSummary": "川崎事業所の佐藤を事業所管理者へ変更し、成竹の読み・IDをなりたけ／naritake、粟崎の読み・IDをあわさき／awasakiへ訂正。既存ローカルデータの自動移行にも対応。"
 }
