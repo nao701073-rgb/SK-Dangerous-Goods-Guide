@@ -1,8 +1,263 @@
-(()=>{"use strict";const $=id=>document.getElementById(id);const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));const roleLabel=r=>({"office-user":"一般利用者","office-admin":"事業所管理者（事業所長）","safety-environment-director":"安全環境室長","safety-environment-staff":"安全環境室","safety-environment-admin":"システム管理者",guest:"ゲスト",validator:"検証者","revision-validator":"改正検証者"})[r]||r;let me=null,offices=[],page=1,pageCount=1,currentUsers=[];
-const roleNeedsOffice=r=>["office-user","office-admin"].includes(r);const fillOfficeOptions=select=>{select.innerHTML=offices.map(o=>`<option value="${esc(o.office_id)}">${esc(o.block_name)}｜${esc(o.office_name)}</option>`).join("")};
-async function init(){if(!ISSApi.isAuthenticated())return location.href="login.html";me=ISSApi.getUser();if(!["office-admin","safety-environment-admin"].includes(me?.role)){alert("管理者権限が必要です。");return location.href="../index.html"}const org=await ISSApi.organizations();offices=org.offices||[];fillOfficeOptions(officeId);fillOfficeOptions(editOfficeId);if(me.role==="office-admin"){role.innerHTML='<option value="office-user">検査員</option>';editRole.innerHTML='<option value="office-user">検査員</option>';officeId.value=me.officeId;officeId.disabled=true;editOfficeId.disabled=true}await load()}
-async function load(){status.textContent="読込中…";try{const d=await ISSApi.adminUsers({page,pageSize:25,search:userSearch.value.trim(),role:roleFilter.value,status:statusFilter.value});currentUsers=d.users||[];page=d.page||1;pageCount=d.pageCount||1;users.innerHTML=currentUsers.map(u=>`<tr><td>${esc(u.display_name)}</td><td>${esc(u.login_id)}</td><td>${esc(roleLabel(u.role))}</td><td>${esc(u.block_name?`${u.block_name}｜${u.office_name}`:"全社")}</td><td>${u.active?"有効":"無効"}${u.locked_until?"／ロック中":""}${u.mfa_required?"／MFA":""}</td><td>${u.last_login_at?new Date(u.last_login_at).toLocaleString("ja-JP"):"未ログイン"}</td><td><button data-edit="${u.id}">ID・権限変更</button> <button data-pass="${u.id}" data-name="${esc(u.display_name)}">PASS変更</button> <button data-status="${u.id}" data-active="${u.active}">${u.active?"無効化":"有効化"}</button>${u.locked_until?` <button data-unlock="${u.id}">ロック解除</button>`:""}</td></tr>`).join("")||'<tr><td colspan="7">該当する利用者はいません。</td></tr>';status.textContent=`全${d.total||0}名中 ${currentUsers.length}名を表示`;pageInfo.textContent=`${page} / ${pageCount}ページ`;prevPage.disabled=page<=1;nextPage.disabled=page>=pageCount}catch(e){status.textContent=e.message}}
-userForm.onsubmit=async e=>{e.preventDefault();try{await ISSApi.createAdminUser({loginId:loginId.value,displayName:displayName.value,initialPassword:initialPassword.value,role:role.value,officeId:officeId.value||null,email:email.value||null});e.target.reset();if(me.role==="office-admin")officeId.value=me.officeId;page=1;await load();alert("利用者を登録しました。")}catch(err){alert(err.message)}};
-users.onclick=async e=>{const edit=e.target.closest("[data-edit]");if(edit){const u=currentUsers.find(x=>x.id===edit.dataset.edit);if(!u)return;editUserId.value=u.id;editLoginId.value=u.login_id;editDisplayName.value=u.display_name;editRole.value=u.role;editOfficeId.value=u.office_id||offices[0]?.office_id||"";editOfficeId.disabled=me.role==="office-admin"||!roleNeedsOffice(u.role);editDialog.showModal();return}const p=e.target.closest("[data-pass]");if(p){targetUserId.value=p.dataset.pass;passwordTarget.textContent=`${p.dataset.name} のパスワードを変更します。`;newPassword.value="";administratorPassword.value="";passwordDialog.showModal();return}const s=e.target.closest("[data-status]");if(s){if(!confirm("利用者状態を変更しますか？"))return;try{await ISSApi.setAdminUserStatus(s.dataset.status,s.dataset.active!=="true");await load()}catch(err){alert(err.message)}return}const u=e.target.closest("[data-unlock]");if(u){try{await ISSApi.unlockAdminUser(u.dataset.unlock);await load()}catch(err){alert(err.message)}}};
-editForm.onsubmit=async e=>{e.preventDefault();try{await ISSApi.updateAdminUser(editUserId.value,{loginId:editLoginId.value.trim(),displayName:editDisplayName.value.trim(),role:editRole.value,officeId:roleNeedsOffice(editRole.value)?editOfficeId.value:null});editDialog.close();await load();alert("ログインID・表示名・権限を変更しました。権限変更時は対象利用者の既存セッションも更新されます。")}catch(err){alert(err.message)}};
-passwordForm.onsubmit=async e=>{e.preventDefault();try{await ISSApi.setAdminUserPassword(targetUserId.value,newPassword.value,administratorPassword.value);passwordDialog.close();await load();alert("パスワードを変更しました。")}catch(err){alert(err.message)}};filterForm.onsubmit=e=>{e.preventDefault();page=1;load()};prevPage.onclick=()=>{if(page>1){page--;load()}};nextPage.onclick=()=>{if(page<pageCount){page++;load()}};reload.onclick=load;role.onchange=()=>{officeId.disabled=me.role==="office-admin"||!roleNeedsOffice(role.value)};editRole.onchange=()=>{editOfficeId.disabled=me.role==="office-admin"||!roleNeedsOffice(editRole.value)};init().catch(e=>alert(e.message))})();
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+  const roleLabel = role => ({
+    "office-user": "一般利用者",
+    "office-admin": "事業所管理者（事業所長）",
+    "safety-environment-director": "安全環境室長",
+    "safety-environment-staff": "安全環境室",
+    "safety-environment-admin": "システム管理者",
+    guest: "ゲスト",
+    validator: "検証者",
+    "revision-validator": "改正検証者"
+  })[role] || role || "—";
+
+  const elements = {
+    userForm: $("userForm"),
+    loginId: $("loginId"),
+    displayName: $("displayName"),
+    initialPassword: $("initialPassword"),
+    role: $("role"),
+    officeId: $("officeId"),
+    email: $("email"),
+    reload: $("reload"),
+    filterForm: $("filterForm"),
+    userSearch: $("userSearch"),
+    roleFilter: $("roleFilter"),
+    statusFilter: $("statusFilter"),
+    status: $("status"),
+    users: $("users"),
+    pageInfo: $("pageInfo"),
+    prevPage: $("prevPage"),
+    nextPage: $("nextPage"),
+    editDialog: $("editDialog"),
+    editForm: $("editForm"),
+    editUserId: $("editUserId"),
+    editLoginId: $("editLoginId"),
+    editDisplayName: $("editDisplayName"),
+    editRole: $("editRole"),
+    editOfficeId: $("editOfficeId"),
+    passwordDialog: $("passwordDialog"),
+    passwordForm: $("passwordForm"),
+    passwordTarget: $("passwordTarget"),
+    targetUserId: $("targetUserId"),
+    newPassword: $("newPassword"),
+    administratorPassword: $("administratorPassword")
+  };
+
+  let me = null;
+  let offices = [];
+  let page = 1;
+  let pageCount = 1;
+  let currentUsers = [];
+
+  const roleNeedsOffice = role => ["office-user", "office-admin"].includes(role);
+  const formatLastLogin = value => {
+    if (!value) return '<span class="last-login-never">未ログイン</span>';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return esc(value);
+    return `<time datetime="${esc(date.toISOString())}">${esc(date.toLocaleString("ja-JP", {
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit"
+    }))}</time>`;
+  };
+
+  const fillOfficeOptions = select => {
+    if (!select) return;
+    select.innerHTML = offices.length
+      ? offices.map(office => `<option value="${esc(office.office_id)}">${esc(office.block_name || "")}｜${esc(office.office_name || "所属未設定")}</option>`).join("")
+      : '<option value="">所属事業所を取得できません</option>';
+  };
+
+  const renderUsers = data => {
+    currentUsers = Array.isArray(data.users) ? data.users : [];
+    page = Number(data.page || 1);
+    pageCount = Number(data.pageCount || 1);
+
+    elements.users.innerHTML = currentUsers.length
+      ? currentUsers.map(user => `
+        <tr>
+          <td>${esc(user.display_name || user.displayName || "—")}</td>
+          <td><code>${esc(user.login_id || user.loginId || "—")}</code></td>
+          <td>${esc(roleLabel(user.role))}</td>
+          <td>${esc(user.block_name ? `${user.block_name}｜${user.office_name || "所属未設定"}` : (user.office_name || "全社"))}</td>
+          <td><span class="user-state ${user.active ? "is-active" : "is-inactive"}">${user.active ? "有効" : "無効"}</span>${user.locked_until ? '<span class="user-state is-locked">ロック中</span>' : ""}${user.mfa_required ? '<span class="user-state">MFA</span>' : ""}</td>
+          <td>${formatLastLogin(user.last_login_at || user.lastLoginAt || user.last_login || user.lastLogin)}</td>
+          <td>
+            <button type="button" data-edit="${esc(user.id)}">ID・権限変更</button>
+            <button type="button" data-pass="${esc(user.id)}" data-name="${esc(user.display_name || user.displayName || "利用者")}">PASS変更</button>
+            <button type="button" data-status="${esc(user.id)}" data-active="${user.active ? "true" : "false"}">${user.active ? "無効化" : "有効化"}</button>
+            ${user.locked_until ? `<button type="button" data-unlock="${esc(user.id)}">ロック解除</button>` : ""}
+          </td>
+        </tr>`).join("")
+      : '<tr><td colspan="7">該当する利用者はいません。</td></tr>';
+
+    elements.status.textContent = `全${Number(data.total || 0)}名中 ${currentUsers.length}名を表示`;
+    elements.pageInfo.textContent = `${page} / ${pageCount}ページ`;
+    elements.prevPage.disabled = page <= 1;
+    elements.nextPage.disabled = page >= pageCount;
+  };
+
+  async function load() {
+    elements.status.textContent = "利用者情報を読み込んでいます…";
+    elements.users.innerHTML = '<tr><td colspan="7">読込中…</td></tr>';
+    try {
+      const data = await window.ISSApi.adminUsers({
+        page,
+        pageSize: 25,
+        search: elements.userSearch.value.trim(),
+        role: elements.roleFilter.value,
+        status: elements.statusFilter.value
+      });
+      renderUsers(data || {});
+    } catch (error) {
+      const message = error?.message || "利用者情報を取得できませんでした。";
+      try {
+        const fallbackUsers = window.ISSApi?.localAdminUsersSnapshot?.() || [];
+        renderUsers({ page: 1, pageCount: 1, total: fallbackUsers.length, users: fallbackUsers });
+        elements.status.textContent = `ローカル保存データから ${fallbackUsers.length}名を表示しています。`;
+      } catch (fallbackError) {
+        const fallbackMessage = fallbackError?.message || message;
+        elements.status.textContent = fallbackMessage;
+        elements.users.innerHTML = `<tr><td colspan="7" class="user-load-error"><strong>利用者一覧を取得できませんでした。</strong><br>${esc(fallbackMessage)}<br><button type="button" data-retry-users>再試行</button></td></tr>`;
+        elements.pageInfo.textContent = "—";
+        elements.prevPage.disabled = true;
+        elements.nextPage.disabled = true;
+      }
+    }
+  }
+
+  async function init() {
+    if (!window.ISSApi?.isAuthenticated?.()) {
+      location.href = "login.html";
+      return;
+    }
+    me = window.ISSApi.getUser();
+    if (!["office-admin", "safety-environment-admin"].includes(me?.role)) {
+      alert("管理者権限が必要です。");
+      location.href = "../index.html";
+      return;
+    }
+
+    let organization = { offices: [] };
+    try {
+      organization = await window.ISSApi.organizations();
+    } catch (error) {
+      console.warn("所属事業所の取得に失敗しました。利用者一覧の表示を継続します。", error);
+    }
+    offices = Array.isArray(organization?.offices) ? organization.offices : [];
+    fillOfficeOptions(elements.officeId);
+    fillOfficeOptions(elements.editOfficeId);
+
+    if (me.role === "office-admin") {
+      elements.role.innerHTML = '<option value="office-user">検査員</option>';
+      elements.editRole.innerHTML = '<option value="office-user">検査員</option>';
+      elements.officeId.value = me.officeId || me.office_id || "";
+      elements.officeId.disabled = true;
+      elements.editOfficeId.disabled = true;
+    }
+    await load();
+  }
+
+  elements.userForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    try {
+      await window.ISSApi.createAdminUser({
+        loginId: elements.loginId.value,
+        displayName: elements.displayName.value,
+        initialPassword: elements.initialPassword.value,
+        role: elements.role.value,
+        officeId: elements.officeId.value || null,
+        email: elements.email.value || null
+      });
+      event.currentTarget.reset();
+      if (me.role === "office-admin") elements.officeId.value = me.officeId || me.office_id || "";
+      page = 1;
+      await load();
+      alert("利用者を登録しました。");
+    } catch (error) { alert(error.message); }
+  });
+
+  elements.users.addEventListener("click", async event => {
+    if (event.target.closest("[data-retry-users]")) { await load(); return; }
+    const editButton = event.target.closest("[data-edit]");
+    if (editButton) {
+      const user = currentUsers.find(item => item.id === editButton.dataset.edit);
+      if (!user) return;
+      elements.editUserId.value = user.id;
+      elements.editLoginId.value = user.login_id || user.loginId || "";
+      elements.editDisplayName.value = user.display_name || user.displayName || "";
+      elements.editRole.value = user.role;
+      elements.editOfficeId.value = user.office_id || user.officeId || offices[0]?.office_id || "";
+      elements.editOfficeId.disabled = me.role === "office-admin" || !roleNeedsOffice(user.role);
+      elements.editDialog.showModal();
+      return;
+    }
+    const passwordButton = event.target.closest("[data-pass]");
+    if (passwordButton) {
+      elements.targetUserId.value = passwordButton.dataset.pass;
+      elements.passwordTarget.textContent = `${passwordButton.dataset.name} のパスワードを変更します。`;
+      elements.newPassword.value = "";
+      elements.administratorPassword.value = "";
+      elements.passwordDialog.showModal();
+      return;
+    }
+    const statusButton = event.target.closest("[data-status]");
+    if (statusButton) {
+      if (!confirm("利用者状態を変更しますか？")) return;
+      try {
+        await window.ISSApi.setAdminUserStatus(statusButton.dataset.status, statusButton.dataset.active !== "true");
+        await load();
+      } catch (error) { alert(error.message); }
+      return;
+    }
+    const unlockButton = event.target.closest("[data-unlock]");
+    if (unlockButton) {
+      try {
+        await window.ISSApi.unlockAdminUser(unlockButton.dataset.unlock);
+        await load();
+      } catch (error) { alert(error.message); }
+    }
+  });
+
+  elements.editForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    try {
+      await window.ISSApi.updateAdminUser(elements.editUserId.value, {
+        loginId: elements.editLoginId.value.trim(),
+        displayName: elements.editDisplayName.value.trim(),
+        role: elements.editRole.value,
+        officeId: roleNeedsOffice(elements.editRole.value) ? elements.editOfficeId.value : null
+      });
+      elements.editDialog.close();
+      await load();
+      alert("ログインID・表示名・権限を変更しました。");
+    } catch (error) { alert(error.message); }
+  });
+
+  elements.passwordForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    try {
+      await window.ISSApi.setAdminUserPassword(elements.targetUserId.value, elements.newPassword.value, elements.administratorPassword.value);
+      elements.passwordDialog.close();
+      await load();
+      alert("パスワードを変更しました。");
+    } catch (error) { alert(error.message); }
+  });
+
+  elements.filterForm.addEventListener("submit", event => { event.preventDefault(); page = 1; load(); });
+  elements.prevPage.addEventListener("click", () => { if (page > 1) { page -= 1; load(); } });
+  elements.nextPage.addEventListener("click", () => { if (page < pageCount) { page += 1; load(); } });
+  elements.reload.addEventListener("click", load);
+  elements.role.addEventListener("change", () => { elements.officeId.disabled = me.role === "office-admin" || !roleNeedsOffice(elements.role.value); });
+  elements.editRole.addEventListener("change", () => { elements.editOfficeId.disabled = me.role === "office-admin" || !roleNeedsOffice(elements.editRole.value); });
+
+  init().catch(error => {
+    const message = error?.message || "利用者管理の初期化に失敗しました。";
+    elements.status.textContent = message;
+    elements.users.innerHTML = `<tr><td colspan="7" class="user-load-error">${esc(message)}</td></tr>`;
+  });
+})();

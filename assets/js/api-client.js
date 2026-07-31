@@ -153,7 +153,10 @@
       });
       if (changed) localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
     }
-    return users.map(user => ({ ...user, login_id: user.login_id || user.loginId, loginId: user.loginId || user.login_id, display_name: user.display_name || user.displayName, displayName: user.displayName || user.display_name, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, active: user.active !== false, passwordChangeRequired: Boolean(user.passwordChangeRequired) }));
+    return users.map(user => {
+      const loginAt = resolveLastLoginAt(user);
+      return { ...user, login_id: user.login_id || user.loginId, loginId: user.loginId || user.login_id, display_name: user.display_name || user.displayName, displayName: user.displayName || user.display_name, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, active: user.active !== false, passwordChangeRequired: Boolean(user.passwordChangeRequired), last_login_at: loginAt, lastLoginAt: loginAt };
+    });
   };
   const saveLocalUsers = users => localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
   const ensureLocalAccessPolicy = () => {
@@ -187,7 +190,8 @@
       email: enriched.email || null,
       active: enriched.active !== false,
       locked_until: enriched.locked_until || null,
-      last_login_at: enriched.last_login_at || null,
+      last_login_at: resolveLastLoginAt(enriched),
+      lastLoginAt: resolveLastLoginAt(enriched),
       mfa_required: Boolean(enriched.mfa_required)
     };
   };
@@ -203,6 +207,36 @@
     const items = Array.isArray(parsed) ? parsed : [];
     items.unshift({ id:`audit-${Date.now()}-${Math.random().toString(16).slice(2,8)}`, at: nowIso(), ...entry });
     localStorage.setItem(LOCAL_AUDIT_KEY, JSON.stringify(items.slice(0, 300)));
+  };
+
+  const latestLoginFromAudit = loginId => {
+    const normalized = String(loginId || "").toLowerCase();
+    if (!normalized) return null;
+    const parsed = safeJsonParse(localStorage.getItem(LOCAL_AUDIT_KEY), []);
+    const items = Array.isArray(parsed) ? parsed : [];
+    const times = items
+      .filter(item => item && item.action === "login" && String(item.loginId || item.login_id || item.target || "").toLowerCase() === normalized)
+      .map(item => item.at || item.created_at || item.timestamp || null)
+      .filter(Boolean)
+      .map(value => new Date(value))
+      .filter(date => !Number.isNaN(date.getTime()))
+      .sort((a, b) => b.getTime() - a.getTime());
+    return times[0]?.toISOString() || null;
+  };
+
+  const resolveLastLoginAt = user => {
+    const candidates = [
+      user?.last_login_at,
+      user?.lastLoginAt,
+      user?.last_login,
+      user?.lastLogin,
+      latestLoginFromAudit(user?.login_id || user?.loginId)
+    ].filter(Boolean);
+    const dates = candidates
+      .map(value => new Date(value))
+      .filter(date => !Number.isNaN(date.getTime()))
+      .sort((a, b) => b.getTime() - a.getTime());
+    return dates[0]?.toISOString() || null;
   };
   const requireAdminRole = () => {
     const user = currentStoredUser();
@@ -255,9 +289,12 @@
       if (String(target.password || "") !== passwordValue) throw new Error("ログインIDまたはパスワードが正しくありません。");
       target.failed_attempts = 0;
       target.locked_until = null;
-      target.last_login_at = nowIso();
+      const loginAt = nowIso();
+      target.last_login_at = loginAt;
+      target.lastLoginAt = loginAt;
+      target.updated_at = loginAt;
       saveLocalUsers(users);
-      pushAudit({ action: "login", loginId: target.login_id || target.loginId, role: target.role });
+      pushAudit({ action: "login", loginId: target.login_id || target.loginId, role: target.role, at: loginAt });
       return { token: `local.${target.id}.${Date.now()}`, user: publicUser(target), passwordChangeRequired: Boolean(target.passwordChangeRequired) };
     },
     async verifyMfa(challengeId, code) {
@@ -344,6 +381,15 @@
     preflight: () => request("/admin/preflight"),
     auditLogs: params => request(`/admin/audit-logs?${new URLSearchParams(typeof params === 'object' ? params : {limit: params || 200})}`),
     forceLogoutUser: id => usesRemote() ? request(`/admin/users/${encodeURIComponent(id)}/force-logout`, { method:'POST', body:JSON.stringify({}) }) : Promise.resolve({ ok:true }),
+    localAdminUsersSnapshot: () => {
+      const actor = requireAdminRole();
+      let users = ensureLocalUsers().map(publicUser);
+      if (actor.role === "office-admin") {
+        const actorOfficeId = actor.officeId ?? actor.office_id ?? null;
+        users = users.filter(user => user.role === "office-user" && (user.office_id ?? user.officeId ?? null) === actorOfficeId);
+      }
+      return users;
+    },
     adminUsers: params => {
       if (usesRemote()) return request(`/admin/users?${new URLSearchParams(params || {})}`);
       const actor = requireAdminRole();
@@ -353,7 +399,10 @@
       const role = String(params?.role || "").trim();
       const status = String(params?.status || "").trim();
       let users = ensureLocalUsers().map(publicUser);
-      if (actor.role === "office-admin") users = users.filter(user => user.role === "office-user" && user.office_id === actor.officeId);
+      if (actor.role === "office-admin") {
+        const actorOfficeId = actor.officeId ?? actor.office_id ?? null;
+        users = users.filter(user => user.role === "office-user" && (user.office_id ?? user.officeId ?? null) === actorOfficeId);
+      }
       if (search) users = users.filter(user => [user.login_id, user.display_name, user.office_name, user.role].join(" ").toLowerCase().includes(search));
       if (role) users = users.filter(user => user.role === role);
       if (status === "active") users = users.filter(user => user.active);
