@@ -75,7 +75,7 @@
       const section = document.createElement("section");
       section.id = "guestAccessNotice";
       section.className = "panel guest-access-notice";
-      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、申請番号管理、申請書確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。検索履歴・お気に入り、システム設定、各種管理画面は利用できません。</p></div>`;
+      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、申請番号管理、申請書確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。</p></div>`;
       main.prepend(section);
     }
   }

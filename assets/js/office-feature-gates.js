@@ -41,6 +41,11 @@
       node.hidden = !allowed;
       node.setAttribute('aria-hidden', allowed ? 'false' : 'true');
     });
+    const supportSection = document.getElementById('supportToolsSection');
+    if (supportSection) {
+      const visibleCards = [...supportSection.querySelectorAll('.module-card')].filter(card => !card.hidden && card.getAttribute('aria-hidden') !== 'true');
+      supportSection.hidden = visibleCards.length === 0;
+    }
   }
 
   function renderDenied() {

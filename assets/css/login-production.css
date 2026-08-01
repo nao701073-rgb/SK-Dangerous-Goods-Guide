@@ -77,6 +77,12 @@ body.login-production {
   line-height: 1.7;
   text-shadow: none;
 }
+.login-description span {
+  white-space: nowrap;
+}
+.login-description-break {
+  display: block;
+}
 
 .login-card {
   box-sizing: border-box;
@@ -369,4 +375,9 @@ body.login-production {
 @media (prefers-reduced-motion: reduce) {
   .login-card button,
   .login-success { transition: none; }
+}
+
+@media (max-width: 560px) {
+  .login-description span { white-space: normal; }
+  .login-description-break { display: none; }
 }

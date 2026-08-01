@@ -40,6 +40,13 @@
       document.querySelectorAll('a[href*="search-history"], .bottom-nav__item[href*="search-history"]').forEach(node => node.hidden = true);
     }
 
+    // 利用権限のある業務支援ツールがない場合は、見出しを含む欄全体を表示しない。
+    const supportSection = document.getElementById("supportToolsSection");
+    if (supportSection) {
+      const visibleSupportCards = [...supportSection.querySelectorAll(".module-card")].filter(card => !card.hidden && card.getAttribute("aria-hidden") !== "true");
+      supportSection.hidden = visibleSupportCards.length === 0;
+    }
+
     // 一般利用者のホームは日常利用機能を優先し、管理系リンクはメニュー側に集約する。
     const managementRoles = ["office-admin","safety-environment-director","safety-environment-staff","safety-environment-admin","validator","revision-validator"];
     document.body.classList.toggle("home-has-management-role", managementRoles.includes(currentRole));
