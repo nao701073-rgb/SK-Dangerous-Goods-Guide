@@ -144,9 +144,9 @@
     const massPerPackage=totalMass/count;
     const grossTotal=numberValue(g.grossWeight);
     const grossPerPackage=Number.isFinite(grossTotal)?grossTotal/count:NaN;
-    const grossPerPackageHtml=Number.isFinite(grossTotal)?`<br><strong>1容器当たり総質量 ${formatNumber(grossPerPackage)} kg</strong>`:'';
+    const grossPerPackageHtml=Number.isFinite(grossTotal)?`<br><span class="quantity-highlight">1容器当たり総質量 ${formatNumber(grossPerPackage)} kg</span>`:'';
     const grossTotalHtml=Number.isFinite(grossTotal)?`<br><strong>申請総質量（G/W） ${formatNumber(grossTotal)} kg</strong>`:'';
-    const common=`<strong>個数 ${formatNumber(count)}個</strong><br><strong>1容器当たり正味質量 ${formatNumber(massPerPackage)} kg</strong>${grossPerPackageHtml}<br><strong>申請総正味質量（N/W） ${escapeHtml(raw)} kg</strong>${grossTotalHtml}`;
+    const common=`<span class="quantity-highlight">個数 ${formatNumber(count)}個</span><br><span class="quantity-highlight">1容器当たり正味質量 ${formatNumber(massPerPackage)} kg</span>${grossPerPackageHtml}<br><strong>申請総正味質量（N/W） ${escapeHtml(raw)} kg</strong>${grossTotalHtml}`;
     if(state==='liquid'||state==='gas'){
       return {html:common,unit:'',state,value:NaN,totalMass,count,massPerPackage,grossTotal,grossPerPackage};
     }
@@ -203,7 +203,7 @@
       }
 
       blocks.push(`<div class="limit-block limited-quantity-block">
-        <span>少量危険物</span>
+        <span class="limited-quantity-label">少量危険物</span>
         <ul>
           <li>内装容器1個当たりの上限：<strong>${limitedInner}</strong></li>
           <li>外装容器1個当たりの総質量上限：<strong>30 kg</strong></li>
@@ -285,7 +285,7 @@
     const summarySection=$('summarySection');
     if(summarySection)summarySection.hidden=false;
     $('summaryGrid').innerHTML=`<div class="summary-item"><span>ファイル</span><strong>${escapeHtml(file.name)}</strong></div><div class="summary-item"><span>シート数</span><strong>${new Set(rows.map(r=>r.sheet)).size}</strong></div><div class="summary-item"><span>抽出国連番号件数</span><strong>${goods.length}</strong></div><div class="summary-item"><span>法令接続</span><strong>${db.length?'接続済み':'未接続'}</strong></div>`;
-    $('goodsBody').innerHTML=goods.length?goods.map((g,i)=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return `<tr><td>${i+1}</td><td><strong>${g.un}</strong><br><small>${escapeHtml(g.sheet)} ${g.row}行</small></td><td>${escapeHtml(g.source)}</td><td>${g.pg||'ー'}</td><td>${g.container||'内装・外装容器とも要確認'}</td><td>${q.html}${g.limited?'<br><span class="status-chip">少量危険物</span>':''}</td><td>${r.html}</td></tr>`}).join(''):'<tr><td colspan="7">国連番号を抽出できませんでした。申請書の様式または記載内容を確認してください。</td></tr>';
+    $('goodsBody').innerHTML=goods.length?goods.map((g,i)=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return `<tr><td>${i+1}</td><td><strong>${g.un}</strong><br><small>${escapeHtml(g.sheet)} ${g.row}行</small></td><td>${escapeHtml(g.source)}</td><td>${g.pg||'ー'}</td><td>${g.container||'内装・外装容器とも要確認'}</td><td>${q.html}</td><td>${r.html}</td></tr>`}).join(''):'<tr><td colspan="7">国連番号を抽出できませんでした。申請書の様式または記載内容を確認してください。</td></tr>';
     const rawText=$('rawText');
     if(rawText)rawText.textContent=rows.map(r=>`[${r.sheet} ${r.row}行] ${r.text}`).join('\n');
     const resultPayload={fileName:file.name,checkedAt:new Date().toISOString(),goods:goods.map(g=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return {un:g.un,name:g.source,packingGroup:g.pg,container:g.container,count:g.count,netWeight:g.netWeight,grossWeight:g.grossWeight,limited:g.limited,allowedQuantityOrMass:r.status}})};
