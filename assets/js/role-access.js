@@ -26,7 +26,7 @@
     "safety-environment-director": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemSettings:true },
     "safety-environment-staff": { applicationsRead:true, applicationsAllOffices:true, applicationNotesRead:true, applicationDocumentsRead:true, photosRead:true, photosAllOffices:true, readOnly:true },
     "safety-environment-admin": { applicationsRead:true, applicationsWrite:true, applicationsAllOffices:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, photosAllOffices:true, systemAdmin:true },
-    "guest": { userSettings:true, dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true },
+    "guest": { applicationsRead:true, applicationsWrite:true, applicationNotesRead:true, applicationNotesWrite:true, applicationDocumentsRead:true, applicationDocumentsWrite:true, photosRead:true, photosWrite:true, dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true, userSettings:true },
     "validator": { referenceRead:true, validation:true },
     "revision-validator": { dangerousGoodsSearch:true, regulationsRead:true, referencesRead:true, revisionPreview:true, validation:true }
   };
@@ -53,19 +53,19 @@
   const isHomePage = () => !location.pathname.includes("/pages/") && (location.pathname.endsWith("/") || location.pathname.endsWith("/index.html"));
   const isGuestAllowedPage = () => isHomePage() || [
     "user-settings", "login", "activate-account", "reset-password",
-    "search", "detail", "regulations", "references", "label-catalog", "ems", "imdg-cross-reference"
+    "search", "detail", "applications", "application-verification", "ctu-securing-calculator", "regulations", "references", "label-catalog", "ems", "imdg-cross-reference"
   ].includes(document.body.dataset.page || "");
 
   function applyGuestHomeView(user) {
     if (user?.role !== "guest" || !isHomePage()) return;
-    const allowedHrefs = ["dangerous-goods-search.html", "regulations.html", "references.html", "settings.html"];
+    const allowedHrefs = ["dangerous-goods-search.html", "applications.html", "application-verification.html", "ctu-securing-calculator.html", "regulations.html", "references.html", "settings.html"];
     document.querySelectorAll(".module-card").forEach(card => {
       const href = card.querySelector("a[href]")?.getAttribute("href") || "";
       const allowed = allowedHrefs.some(value => href.includes(value));
       card.hidden = !allowed;
       card.setAttribute("aria-hidden", allowed ? "false" : "true");
     });
-    document.querySelectorAll(".activity-grid, [href*='applications.html'], [href*='search-history.html'], [href*='favorites.html'], [href*='system-settings.html']").forEach(node => {
+    document.querySelectorAll(".activity-grid, [href*='search-history.html'], [href*='favorites.html'], [href*='system-settings.html']").forEach(node => {
       const card = node.closest?.(".module-card") || node;
       card.hidden = true;
       card.setAttribute("aria-hidden", "true");
@@ -75,7 +75,7 @@
       const section = document.createElement("section");
       section.id = "guestAccessNotice";
       section.className = "panel guest-access-notice";
-      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、関連法令、関連資料およびユーザー設定を利用できます。申請番号管理、写真、検索履歴・お気に入り、システム設定、各種管理画面は利用できません。</p></div>`;
+      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、申請番号管理、申請書確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。検索履歴・お気に入り、システム設定、各種管理画面は利用できません。</p></div>`;
       main.prepend(section);
     }
   }
