@@ -11,7 +11,7 @@ const checks = [
   ['コンテナ開口部表現', source.includes('M17 5h3v3')],
   ['左右の固縛材', source.includes('M7.2 16.8 9 10.5M16.8 16.8 15 10.5')],
   ['パレット貨物', source.includes('M8.4 17h7.2v2H8.4z')],
-  ['コンテナ内貨物の説明', source.includes('コンテナ内貨物の重量と固縛資材から、参考固縛力を算定します。')],
+  ['コンテナ内貨物の説明', source.includes('コンテナ内貨物の重量と固縛資材から、参考固縛力を算出します。')],
   ['将来実装カードの無効状態', source.includes('aria-disabled="true"') && source.includes('aria-describedby="cargoLashingDescription cargoLashingStatus"')],
   ['装飾SVGの支援技術除外', source.includes('aria-hidden="true" focusable="false"')],
   ['旧計算機アイコンを不使用', !source.includes('data-icon="calc"')],
