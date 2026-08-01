@@ -5,7 +5,7 @@
   "modules": [
     {
       "id": "dangerous-goods",
-      "name": "危険物検索・解説",
+      "name": "危険物検索",
       "status": "active"
     },
     {
@@ -36,11 +36,11 @@
     {
       "id": "ctu-code",
       "name": "CTU Code",
-      "status": "future"
+      "status": "active"
     },
     {
       "id": "securing-calculation",
-      "name": "固縛力参考算定",
+      "name": "固縛力参考算出",
       "status": "future"
     },
     {

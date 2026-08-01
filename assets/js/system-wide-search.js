@@ -17,7 +17,7 @@
 
   function featureCatalog(){
     const items=[
-      {title:"危険物検索・解説",description:"国連番号、英語品名、日本語品名、等級、標札、容器等級、包装要件、特別規定、EmSを検索します。",keywords:"危険物 UN 国連番号 品名 標札 容器等級 包装 特別規定 EmS",url:"dangerous-goods-search.html"},
+      {title:"危険物検索",description:"国連番号、英語品名、日本語品名、等級、標札、容器等級、包装要件、特別規定、EmSを検索します。",keywords:"危険物 UN 国連番号 品名 標札 容器等級 包装 特別規定 EmS",url:"dangerous-goods-search.html"},
       {title:"関連法令",description:"国内法令、国際規則、版情報、改正履歴、条文を参照します。",keywords:"法令 国内法令 IMDG Code 条文 改正 版",url:"regulations.html"},
       {title:"関連資料",description:"原典PDF、参考資料、要約、検査資料を参照します。",keywords:"資料 PDF 原典 参考資料 要約",url:"references.html"},
       {title:"検索履歴",description:"過去に検索した危険物やキーワードを確認します。",keywords:"履歴 最近 検索",url:"search-history.html",roles:["office-user","office-admin","safety-environment-director","safety-environment-staff","safety-environment-admin","validator","revision-validator"]},

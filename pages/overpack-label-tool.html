@@ -8,19 +8,19 @@
   <title>オーバーパック表示用作成ツール｜検査・検品業務サポートシステム</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=401">
+  <link rel="stylesheet" href="../assets/css/overpack-label-tool.css?v=448">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="overpack-label-tool">
   <header class="app-header">
-    <div><h1>オーバーパック表示用作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4ラベル用紙へ配置します。少量危険物は、文字なしのマークのみを表示します。</p></div>
+    <div><h1>オーバーパック表示用作成ツール</h1><p>国連番号から必要な標札、OVERPACK、英語品名を抽出し、A4用紙へ配置します。標札は貼付位置を確認するための白黒見本として出力します。</p></div>
     <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">⌂</a>
   </header>
 
   <main class="main-content overpack-tool-page">
     <section class="tool-intro">
       <div><span class="status-badge status-badge--blue">横浜大黒事業所向け機能</span><h2>複数の危険物表示を一括作成</h2><p>標札を重複排除し、A4縦（210×297mm）の上部に、主標札、副標札、海洋汚染物質、少量危険物の順で100mm角表示を2列×2段に配置します。下の空きスペースにはOVERPACK、国連番号・英語品名を入力順で配置し、収まらない内容は2ページ目以降へ続けます。</p></div>
-      <aside><strong>印刷前の確認</strong><p>表示内容と適用条件は、実際の貨物、包装状態、SDS、適用法令および最新版原文で最終確認してください。</p></aside>
+      <aside><strong>印刷前の確認</strong><p>標札部分は配置確認用の見本です。印刷後、各枠へ社内規定の対海水性標札を上貼りしてください。国連番号・英語品名はそのまま使用できます。</p></aside>
     </section>
 
     <section class="tool-grid">
@@ -59,7 +59,7 @@
 
     <section class="panel preview-panel">
       <div class="panel-heading preview-heading"><div><span class="step-number">4</span><h2>印刷プレビュー</h2></div><div class="preview-actions"><button id="refreshPreview" class="secondary-button" type="button">プレビュー更新</button><button id="printButton" type="button" disabled>印刷・PDF保存</button></div></div>
-      <div class="preview-summary"><span id="pageSummary">0ページ</span><span id="placardSummary">標札0種類</span><span>A4縦／主標札→副標札→海洋汚染物質→少量危険物／下部にOVERPACK・UN番号・品名</span></div>
+      <div class="preview-summary"><span id="pageSummary">0ページ</span><span id="placardSummary">標札0種類</span><span>A4縦／標札は白黒の配置見本／下部にOVERPACK・UN番号・品名</span></div>
       <div id="layoutCheck" class="layout-check layout-check--neutral">プレビュー更新後に、A4収まり確認結果をここへ表示します。</div>
       <div id="printPreview" class="print-preview"><div class="preview-placeholder">照合結果を確認すると、ここにA4プレビューが表示されます。</div></div>
     </section>
@@ -69,13 +69,13 @@
       <div id="historyList" class="history-list"></div>
     </section>
 
-    <aside class="safety-note"><strong>重要</strong><p>本ツールは表示作成を補助するものです。自動抽出された標札、海洋汚染物質、少量危険物、正式品名および技術名の適否をシステムだけで確定しないでください。データ不足時は印刷を停止します。N.O.S.品名の技術名は任意入力とし、未入力の場合は正式品名のみ印刷します。印字品名は英大文字で統一し、UN番号・品名・OVERPACKは実文字高12mm以上を確保するため18mm設定で出力します。印刷時は倍率100％を使用してください。</p></aside>
+    <aside class="safety-note"><strong>重要</strong><p>本ツールは表示作成を補助するものです。印刷プレビュー内の標札・マークは貼付位置を示す白黒見本であり、実際の標札として使用できません。印刷後、各標札枠へ社内規定の対海水性標札を上貼りしてください。国連番号、英語品名およびOVERPACK表示は上貼り不要です。自動抽出された標札、海洋汚染物質、少量危険物、正式品名および技術名の適否をシステムだけで確定しないでください。データ不足時は印刷を停止します。N.O.S.品名の技術名は任意入力とし、未入力の場合は正式品名のみ印刷します。印字品名は英大文字で統一し、UN番号・品名・OVERPACKは実文字高12mm以上を確保するため18mm設定で出力します。印刷時は倍率100％を使用してください。</p></aside>
   </main>
 
   <script src="../data/un-data.js?v=372"></script>
   <script src="../data/label-master.js?v=372"></script>
   <script src="../assets/js/office-feature-gates.js?v=382"></script>
-  <script src="../assets/js/overpack-label-tool.js?v=401"></script>
+  <script src="../assets/js/overpack-label-tool.js?v=448"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=182"></script>
   <script src="../assets/js/usage-tracking.js?v=222"></script>

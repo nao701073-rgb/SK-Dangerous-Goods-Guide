@@ -213,7 +213,13 @@
       </form>
     </section>
 
-    <section class="management-panel application-primary-section" id="applicationListSection">
+    
+<section class="management-panel application-primary-section" id="applicationResultSection">
+  <div class="management-heading"><div><h2>確認・算出結果</h2><p>危険物申請書確認と固縛力参考算出の登録履歴を表示します。</p></div></div>
+  <label>申請番号<select id="linkedResultApplicationSelect"><option value="">申請番号を選択してください</option></select></label>
+  <div id="linkedApplicationResults"><p>申請番号を選択すると登録結果を表示します。</p></div>
+</section>
+<section class="management-panel application-primary-section" id="applicationListSection">
       <div class="management-heading">
         <div>
           <h2>登録済みの補完情報</h2>
@@ -707,7 +713,9 @@
   <script src="../assets/js/api-client.js?v=423"></script>
   <script src="../assets/js/role-access.js?v=388"></script>
   <script src="../assets/js/application-role-mode.js?v=321"></script>
-  <script src="../assets/js/applications.js?v=321"></script>
+  <script src="../assets/js/applications.js?v=445"></script>
+<script src="../assets/js/application-result-link.js?v=445"></script>
+<script src="../assets/js/application-results-view.js?v=445"></script>
   <script src="../assets/js/application-documents.js?v=269"></script>
   <script src="../assets/js/photos.js?v=178"></script>
   <script src="../assets/js/system-shell.js"></script>

@@ -5,7 +5,7 @@ const root = resolve(new URL('..', import.meta.url).pathname);
 const source = readFileSync(resolve(root, 'index.html'), 'utf8');
 const css = readFileSync(resolve(root, 'assets/css/home-dashboard.css'), 'utf8');
 const checks = [
-  ['固縛力参考算定カード', source.includes('>固縛力参考算定</h3>')],
+  ['固縛力参考算出カード', source.includes('>固縛力参考算出</h3>')],
   ['貨物固縛アイコン識別子', source.includes('data-icon="cargo-lashing"')],
   ['コンテナ内枠', source.includes('M4 19V5h16v14H4Z')],
   ['コンテナ開口部表現', source.includes('M17 5h3v3')],

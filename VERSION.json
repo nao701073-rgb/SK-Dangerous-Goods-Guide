@@ -1,8 +1,6 @@
 {
-  "part": 426,
-  "version": "0.426.0",
-  "name": "Kawasaki User Account Corrections",
-  "updatedAt": "2026-07-31",
-  "build": "part409-kawasaki-user-account-corrections",
-  "changeSummary": "川崎事業所の佐藤を事業所管理者へ変更し、成竹の読み・IDをなりたけ／naritake、粟崎の読み・IDをあわさき／awasakiへ訂正。既存ローカルデータの自動移行にも対応。"
+  "version": "0.455.0",
+  "part": 455,
+  "date": "2026-08-01",
+  "summary": "旧形式Excel申請書（.xls）の複数方式読み込みに対応"
 }

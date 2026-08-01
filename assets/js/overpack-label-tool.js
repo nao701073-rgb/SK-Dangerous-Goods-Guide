@@ -119,8 +119,15 @@
     return `<section class="print-page ${$("cutLines").checked?'cut-lines':''}" data-page-type="${type}">${content}<footer class="print-footer"><span>オーバーパック表示用作成ツール</span><span>${index}/${total}</span></footer></section>`;
   }
   function emptyPlacardCell(){ return '<div class="placard-item placard-item--empty"><span>空き</span></div>'; }
+  const originallyMonochromeLabelIds=new Set([
+    "class2.3","class6.1","class6.2","class7","class8","class9","class9-lithium",
+    "marine-pollutant","limited-quantity","excepted-quantity"
+  ]);
   function placardGrid(labels){
-    const cells=[...labels.map(label=>`<div class="placard-item print-item"><img src="../images/labels/overpack-square/${esc(label.file)}" alt="${esc(label.nameJa)}"></div>` )];
+    const cells=[...labels.map(label=>{
+      const previewClass=originallyMonochromeLabelIds.has(String(label.id))?" placard-item--original-monochrome":"";
+      return `<div class="placard-item print-item${previewClass}"><img src="../images/labels/overpack-square/${esc(label.file)}" alt="${esc(label.nameJa)}"></div>`;
+    })];
     while(cells.length<PLACARDS_PER_PAGE) cells.push(emptyPlacardCell());
     return `<div class="placard-grid">${cells.join("")}</div>`;
   }

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="../assets/js/auth-bootstrap.js?v=439"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>固縛力参考算出｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <style>
+    :root{--navy:#103b66;--line:#d5dde7;--soft:#f4f7fa;--ok:#16704a;--ng:#a12424;--warn:#8a5a00}
+    body{background:#eef3f7;color:#17212b;margin:0}
+    .calc-shell{max-width:1180px;margin:0 auto;padding:18px}
+    .hero{background:linear-gradient(135deg,#103b66,#17608c);color:#fff;border-radius:18px;padding:22px;box-shadow:0 8px 24px #103b6622}
+    .hero h1{margin:0 0 8px;font-size:clamp(1.45rem,3vw,2.2rem)}
+    .hero p{margin:0;line-height:1.7}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .btn{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;padding:10px 14px;font-weight:700;text-decoration:none;cursor:pointer}
+    .btn.primary{background:var(--navy);color:#fff}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 4px 16px #1b334812}
+    .panel h2{font-size:1.2rem;margin:0 0 14px;color:var(--navy)}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    label{display:block;font-weight:700;font-size:.9rem;margin-bottom:5px}
+    input,select{width:100%;box-sizing:border-box;border:1px solid #aebbc9;border-radius:9px;padding:10px;font-size:16px;background:#fff}
+    .hint{font-size:.82rem;color:#5c6875;line-height:1.55;margin-top:5px}
+    .dir-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .dir-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft)}
+    .dir-card h3{margin:0 0 10px;font-size:1rem}
+    .lashing-row{display:grid;grid-template-columns:1.25fr .75fr .8fr .8fr .8fr .8fr auto;gap:8px;align-items:end;border-top:1px solid var(--line);padding:10px 0}
+    .lashing-row:first-child{border-top:0}
+    .result-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .metric{border-radius:12px;padding:14px;background:var(--soft);border:1px solid var(--line)}
+    .metric strong{display:block;font-size:1.25rem;margin-top:5px}
+    .status-ok{color:var(--ok)} .status-ng{color:var(--ng)} .status-warn{color:var(--warn)}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{border:1px solid var(--line);padding:9px;text-align:right}
+    th:first-child,td:first-child{text-align:left}
+    th{background:#edf3f8;color:#173a5e}
+    .notice{border-left:5px solid #c27a00;background:#fff7e4;padding:12px 14px;border-radius:8px;line-height:1.65}
+    .formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f2f5f8;padding:8px;border-radius:8px;overflow:auto}
+    @media(max-width:850px){.grid,.grid.three,.dir-grid,.result-summary{grid-template-columns:1fr 1fr}.lashing-row{grid-template-columns:1fr 1fr}.lashing-row .wide{grid-column:1/-1}}
+    @media(max-width:520px){.grid,.grid.three,.dir-grid,.result-summary{grid-template-columns:1fr}.calc-shell{padding:10px}.panel{padding:14px}.lashing-row{grid-template-columns:1fr}}
+
+    .photo-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);gap:16px}
+    .photo-stage{position:relative;background:#111;border-radius:14px;overflow:hidden;min-height:280px;display:flex;align-items:center;justify-content:center}
+    .photo-stage canvas{max-width:100%;height:auto;display:block;touch-action:none;cursor:crosshair}
+    .photo-placeholder{color:#fff;padding:30px;text-align:center;line-height:1.7}
+    .photo-controls{display:grid;gap:10px}
+    .photo-status{padding:10px;border-radius:9px;background:#eef5fb;border:1px solid #c7d8e8;line-height:1.55}
+    .camera-input{position:absolute;inline-size:1px;block-size:1px;opacity:0;overflow:hidden}
+    .camera-label{display:inline-flex;align-items:center;justify-content:center}
+    .mode-active{background:#103b66!important;color:#fff!important}
+    @media(max-width:850px){.photo-grid{grid-template-columns:1fr}}
+
+    @media print{.top-actions,.no-print{display:none!important}.panel,.hero{box-shadow:none;break-inside:avoid}body{background:#fff}}
+  </style>
+</head>
+<body>
+<main class="calc-shell">
+  <section class="hero">
+    <h1>固縛力参考算出</h1>
+    <p>CTUコードに基づき、貨物に作用する水平力、摩擦抵抗、根止め・固縛器具の有効固縛力を方向別に比較し、必要固縛力を参考値として算出します。</p>
+  </section>
+  <div class="top-actions">
+    <a class="btn" href="../index.html">← ホーム</a>
+    <button class="btn primary" id="calcBtn">算定する</button>
+    <button class="btn" onclick="window.print()">結果を印刷</button>
+    <a class="btn" href="../references/originals/ctu-code-ja.pdf#page=101" target="_blank" rel="noopener">CTUコード Annex 7 原文</a>
+  </div>
+
+  <section class="panel">
+    <h2>1. 貨物・輸送条件</h2>
+    <div class="grid">
+      <div><label for="mass">貨物質量（t）</label><input id="mass" type="number" min="0" step="0.001" value="5"></div>
+      <div><label for="mu">摩擦係数 μ</label><input id="mu" type="number" min="0" max="1" step="0.01" value="0.30"><div class="hint">実際の接触材の組合せを確認</div></div>
+      <div><label for="width">貨物幅（m）</label><input id="width" type="number" min="0" step="0.01" value="1.2"></div>
+      <div><label for="length">貨物長さ（m）</label><input id="length" type="number" min="0" step="0.01" value="1.2"></div>
+      <div><label for="height">重心高さ（m）</label><input id="height" type="number" min="0" step="0.01" value="0.8"></div>
+      <div><label for="cz">鉛直加速度係数 c<sub>z</sub></label><input id="cz" type="number" min="0" step="0.01" value="1.0"></div>
+      <div><label for="route">輸送条件メモ</label><input id="route" type="text" value="海上・道路の厳しい条件を採用"></div>
+      <div><label for="refNo">案件番号</label><input id="refNo" type="text" placeholder="任意"></div>
+    </div>
+    <div class="notice" style="margin-top:14px">加速度係数は輸送モード・航路・海域に応じてCTU Code Chapter 5の該当値を入力してください。複合輸送では、最も厳しい区間の値を使用します。</div>
+  </section>
+
+
+  <section class="panel">
+    <h2>2. 写真による入力補助</h2>
+    <div class="photo-grid">
+      <div class="photo-stage" id="photoStage">
+        <div class="photo-placeholder" id="photoPlaceholder">現場写真を撮影またはアップロードしてください。<br>画像上の2点を指定して、固縛角度や寸法を測定できます。</div>
+        <canvas id="photoCanvas" hidden></canvas>
+      </div>
+      <div class="photo-controls">
+        <input class="camera-input" id="cameraInput" type="file" accept="image/*" capture="environment">
+        <label class="btn primary camera-label" for="cameraInput">カメラで撮影</label>
+        <input class="camera-input" id="photoInput" type="file" accept="image/*">
+        <label class="btn camera-label" for="photoInput">写真をアップロード</label>
+        <button class="btn" id="angleMode" type="button">固縛角度を測る</button>
+        <button class="btn" id="scaleMode" type="button">基準寸法を設定</button>
+        <button class="btn" id="measureMode" type="button">長さを測る</button>
+        <button class="btn" id="clearMarks" type="button">測定点を消去</button>
+        <div>
+          <label for="referenceLength">基準となる実寸（m）</label>
+          <input id="referenceLength" type="number" min="0" step="0.001" placeholder="例：パレット幅 1.1">
+          <div class="hint">既知寸法の両端を2点指定して縮尺を設定します。</div>
+        </div>
+        <div class="photo-status" id="photoStatus">写真は未選択です。</div>
+        <div>
+          <label for="visibleLashings">写真で確認した固縛本数</label>
+          <input id="visibleLashings" type="number" min="0" step="1" placeholder="目視確認">
+          <button class="btn" id="applyCount" type="button" style="margin-top:8px">先頭の固縛器具へ反映</button>
+        </div>
+      </div>
+    </div>
+    <div class="notice" style="margin-top:14px">写真から確認できる項目を入力補助として利用します。貨物質量、重心高さ、摩擦係数、MSL・STF、固縛点強度は、銘板・仕様書・現場確認値を入力してください。</div>
+  </section>
+
+  <section class="panel">
+    <h2>3. 方向別の加速度・根止め抵抗</h2>
+    <div class="dir-grid">
+      <div class="dir-card"><h3>前方</h3><label>水平係数 c</label><input id="cForward" type="number" step="0.01" value="0.8"><label>根止め等（kN）</label><input id="bForward" type="number" step="0.1" value="0"></div>
+      <div class="dir-card"><h3>後方</h3><label>水平係数 c</label><input id="cRear" type="number" step="0.01" value="0.5"><label>根止め等（kN）</label><input id="bRear" type="number" step="0.1" value="0"></div>
+      <div class="dir-card"><h3>左方向</h3><label>水平係数 c</label><input id="cLeft" type="number" step="0.01" value="0.5"><label>根止め等（kN）</label><input id="bLeft" type="number" step="0.1" value="0"></div>
+      <div class="dir-card"><h3>右方向</h3><label>水平係数 c</label><input id="cRight" type="number" step="0.01" value="0.5"><label>根止め等（kN）</label><input id="bRight" type="number" step="0.1" value="0"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>4. 固縛器具</h2>
+    <div class="hint">直接固縛：有効力＝本数×MSL×cos（鉛直角）×方向寄与率。トップオーバー：摩擦増加分＝本数×1.8×STF×μ。</div>
+    <div id="lashings"></div>
+    <button class="btn no-print" id="addLashing" type="button">＋ 固縛器具を追加</button>
+  </section>
+
+  <section class="panel">
+    <h2>5. 算定結果</h2>
+    <div id="overall" class="notice">入力後、「算定する」を押してください。</div>
+    <div id="metrics" class="result-summary" style="margin-top:14px"></div>
+    <div style="overflow:auto"><table id="resultTable"><thead><tr><th>方向</th><th>作用力</th><th>摩擦抵抗</th><th>根止め</th><th>固縛</th><th>合計抵抗</th><th>余裕</th><th>判定</th></tr></thead><tbody></tbody></table></div>
+    <h3>転倒確認（簡易）</h3>
+    <div id="tipResult"></div>
+  </section>
+
+  <section class="panel">
+    <h2>算定根拠・注意事項</h2>
+    <p class="formula">作用力 F = m × 9.81 × c</p>
+    <p class="formula">摩擦抵抗 Fμ = μ × m × 9.81 × max(0, 1 − |1 − cz|)</p>
+    <p>本ツールはCTU Code Annex 7の力の釣合いの考え方を用いた確認補助です。固縛点、貨物側取付部、器具のうち最も弱い部分のMSLを使用し、角部損傷、荷重分担、緩み、局部強度を現場で確認してください。CTU Codeは非強制的な国際実務コードであり、船社・荷主・国内規則・承認された計算方法がある場合は、それを優先してください。</p>
+    <p><a href="../references/originals/ctu-code-ja.pdf#page=85" target="_blank" rel="noopener">ラッシング材とMSL（Annex 7, 2.4）</a> ／ <a href="../references/originals/ctu-code-ja.pdf#page=100" target="_blank" rel="noopener">固縛方法（Annex 7, 4.3）</a> ／ <a href="../references/originals/ctu-code-ja.pdf#page=101" target="_blank" rel="noopener">固縛配置の評価（Annex 7, 4.4）</a></p>
+  </section>
+
+<section class="card no-print" id="ctuRegistrationSection">
+  <h2>算出結果を申請番号管理へ登録</h2>
+  <p>現在の入力条件、方向別算出結果、判定および算出日時を、申請番号に履歴として保存します。</p>
+  <label>登録先の申請番号<select id="ctuApplicationSelect"><option value="">申請番号を選択してください</option></select></label>
+  <button class="btn" id="saveCtuResult" type="button">申請番号管理に登録</button>
+  <p id="ctuRegistrationMessage" aria-live="polite"></p>
+</section>
+</main>
+<script src="../assets/js/storage.js?v=445"></script>
+<script src="../assets/js/application-result-link.js?v=445"></script>
+<script>
+const $=id=>document.getElementById(id);
+let rowId=0;
+let latestCtuResult=null;
+function addRow(data={}){
+  const id=++rowId, div=document.createElement('div');
+  div.className='lashing-row'; div.dataset.id=id;
+  div.innerHTML=`
+    <div class="wide"><label>方式</label><select class="type"><option value="direct">直接固縛</option><option value="topover">トップオーバー</option></select></div>
+    <div><label>本数</label><input class="count" type="number" min="0" step="1" value="${data.count||2}"></div>
+    <div><label>MSL（kN）</label><input class="msl" type="number" min="0" step="0.1" value="${data.msl||20}"></div>
+    <div><label>STF（kN）</label><input class="stf" type="number" min="0" step="0.1" value="${data.stf||2}"></div>
+    <div><label>鉛直角（°）</label><input class="angle" type="number" min="0" max="90" step="1" value="${data.angle||45}"></div>
+    <div><label>方向寄与率（%）</label><input class="share" type="number" min="0" max="100" step="1" value="${data.share||100}"></div>
+    <button class="btn remove no-print" type="button">削除</button>`;
+  div.querySelector('.type').value=data.type||'direct';
+  div.querySelector('.remove').onclick=()=>div.remove();
+  $('lashings').appendChild(div);
+}
+addRow({type:'direct',count:2,msl:20,angle:45,share:100});
+$('addLashing').onclick=()=>addRow();
+
+function n(id){return Number($(id).value)||0}
+function lashingCapacity(mu){
+ let direct=0, top=0;
+ document.querySelectorAll('.lashing-row').forEach(r=>{
+   const type=r.querySelector('.type').value;
+   const count=Number(r.querySelector('.count').value)||0;
+   const angle=(Number(r.querySelector('.angle').value)||0)*Math.PI/180;
+   const share=(Number(r.querySelector('.share').value)||0)/100;
+   if(type==='direct'){
+     const msl=Number(r.querySelector('.msl').value)||0;
+     direct += count*msl*Math.cos(angle)*share;
+   } else {
+     const stf=Number(r.querySelector('.stf').value)||0;
+     top += count*1.8*stf*mu;
+   }
+ });
+ return {direct,top,total:direct+top};
+}
+function calc(){
+ const m=n('mass'), mu=n('mu'), cz=n('cz'), g=9.81;
+ if(m<=0){alert('貨物質量を入力してください');return}
+ const verticalFactor=Math.max(0,1-Math.abs(1-cz));
+ const friction=mu*m*g*verticalFactor;
+ const lash=lashingCapacity(mu);
+ const dirs=[
+  ['前方',n('cForward'),n('bForward'),n('length')],
+  ['後方',n('cRear'),n('bRear'),n('length')],
+  ['左方向',n('cLeft'),n('bLeft'),n('width')],
+  ['右方向',n('cRight'),n('bRight'),n('width')]
+ ];
+ let allOk=true, worst=Infinity, rows='';
+ dirs.forEach(([name,c,blocking,base])=>{
+   const force=m*g*c, resistance=friction+blocking+lash.total, margin=resistance-force, ok=margin>=0;
+   allOk=allOk&&ok; worst=Math.min(worst,margin);
+   rows+=`<tr><td>${name}</td><td>${force.toFixed(1)} kN</td><td>${friction.toFixed(1)} kN</td><td>${blocking.toFixed(1)} kN</td><td>${lash.total.toFixed(1)} kN</td><td>${resistance.toFixed(1)} kN</td><td class="${ok?'status-ok':'status-ng'}">${margin.toFixed(1)} kN</td><td class="${ok?'status-ok':'status-ng'}"><strong>${ok?'充足':'不足'}</strong></td></tr>`;
+ });
+ $('resultTable').querySelector('tbody').innerHTML=rows;
+ $('overall').className='notice '+(allOk?'status-ok':'status-ng');
+ $('overall').innerHTML=allOk?'<strong>滑動防止力は、入力した全方向で充足しています。</strong>':'<strong>固縛力が不足する方向があります。配置・本数・MSL・根止めを見直してください。</strong>';
+ $('metrics').innerHTML=`
+ <div class="metric">摩擦抵抗<strong>${friction.toFixed(1)} kN</strong></div>
+ <div class="metric">直接固縛<strong>${lash.direct.toFixed(1)} kN</strong></div>
+ <div class="metric">トップオーバー効果<strong>${lash.top.toFixed(1)} kN</strong></div>
+ <div class="metric">最小余裕<strong class="${worst>=0?'status-ok':'status-ng'}">${worst.toFixed(1)} kN</strong></div>`;
+ const h=n('height'), w=n('width'), l=n('length');
+ let tip='';
+ if(h<=0||w<=0||l<=0){tip='<p class="status-warn">寸法または重心高さが未入力のため転倒確認を行えません。</p>'}
+ else{
+   tip='<table><thead><tr><th>方向</th><th>必要比 c/cz</th><th>安定比（半幅又は半長さ）/重心高さ</th><th>判定</th></tr></thead><tbody>';
+   dirs.forEach(([name,c,,base])=>{
+     const demand=cz>0?c/cz:Infinity, stable=(base/2)/h, ok=stable>=demand;
+     tip+=`<tr><td>${name}</td><td>${demand.toFixed(3)}</td><td>${stable.toFixed(3)}</td><td class="${ok?'status-ok':'status-ng'}"><strong>${ok?'自立安定':'転倒対策要'}</strong></td></tr>`;
+   });
+   tip+='</tbody></table><p class="hint">転倒対策要の場合は、固縛器具の取付高さ・水平方向成分・モーメント腕を含む詳細計算が必要です。</p>';
+ }
+ $('tipResult').innerHTML=tip;
+ latestCtuResult={inputs:{mass:m,mu,cz,height:h,width:w,length:l,cForward:n('cForward'),cRear:n('cRear'),cLeft:n('cLeft'),cRight:n('cRight'),bForward:n('bForward'),bRear:n('bRear'),bLeft:n('bLeft'),bRight:n('bRight')},lashing:lash,friction,worstMargin:worst,overall:allOk?'充足':'不足',directions:dirs.map(([name,c,blocking])=>{const force=m*g*c,resistance=friction+blocking+lash.total;return{name,force,friction,blocking,lashing:lash.total,resistance,margin:resistance-force,status:resistance-force>=0?'充足':'不足'}})};
+}
+
+const photoCanvas=$('photoCanvas'), ctx=photoCanvas.getContext('2d');
+let photoImage=null, photoMode='angle', photoPoints=[], pxPerMeter=null, photoMarks=[];
+function setPhotoMode(mode){photoMode=mode;photoPoints=[];['angleMode','scaleMode','measureMode'].forEach(id=>$(id).classList.remove('mode-active'));const map={angle:'angleMode',scale:'scaleMode',measure:'measureMode'};$(map[mode]).classList.add('mode-active');const labels={angle:'固縛角度：画像上の固縛器具の両端を2点指定してください。',scale:'基準寸法：既知寸法の両端を2点指定してください。',measure:'長さ測定：測りたい区間の両端を2点指定してください。'};$('photoStatus').textContent=labels[mode];}
+function loadPhoto(file){if(!file)return;if(!file.type.startsWith('image/')){alert('画像ファイルを選択してください。');return}const img=new Image();img.onload=()=>{photoImage=img;const s=Math.min(1,1200/img.width);photoCanvas.width=Math.round(img.width*s);photoCanvas.height=Math.round(img.height*s);photoCanvas.hidden=false;$('photoPlaceholder').hidden=true;photoMarks=[];photoPoints=[];pxPerMeter=null;drawPhoto();setPhotoMode('angle');};img.src=URL.createObjectURL(file);}
+function drawPhoto(){if(!photoImage)return;ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);ctx.drawImage(photoImage,0,0,photoCanvas.width,photoCanvas.height);ctx.lineWidth=4;ctx.font='bold 20px sans-serif';photoMarks.forEach(m=>{ctx.strokeStyle=m.color;ctx.fillStyle=m.color;ctx.beginPath();ctx.moveTo(m.a.x,m.a.y);ctx.lineTo(m.b.x,m.b.y);ctx.stroke();[m.a,m.b].forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill()});ctx.fillText(m.label,(m.a.x+m.b.x)/2+8,(m.a.y+m.b.y)/2-8);});}
+function canvasPoint(ev){const r=photoCanvas.getBoundingClientRect();const x=(ev.clientX-r.left)*photoCanvas.width/r.width;const y=(ev.clientY-r.top)*photoCanvas.height/r.height;return{x,y};}
+function handlePhotoPoint(ev){if(!photoImage)return;const p=canvasPoint(ev);photoPoints.push(p);if(photoPoints.length<2){$('photoStatus').textContent='1点目を指定しました。2点目を指定してください。';return}const[a,b]=photoPoints,dx=b.x-a.x,dy=b.y-a.y,px=Math.hypot(dx,dy);if(photoMode==='angle'){let angle=Math.abs(Math.atan2(dy,dx)*180/Math.PI);if(angle>90)angle=180-angle;angle=Number(angle.toFixed(1));photoMarks.push({a,b,label:angle+'°',color:'#00e0ff'});$('photoStatus').innerHTML='固縛角度：<strong>'+angle+'°</strong>。先頭の固縛器具へ反映しました。';const first=document.querySelector('.lashing-row .angle');if(first)first.value=angle;}else if(photoMode==='scale'){const real=Number($('referenceLength').value);if(real<=0){$('photoStatus').textContent='基準となる実寸（m）を入力してください。';photoPoints=[];return}pxPerMeter=px/real;photoMarks.push({a,b,label:real+' m 基準',color:'#ffd400'});$('photoStatus').innerHTML='縮尺を設定しました：<strong>'+pxPerMeter.toFixed(1)+' px/m</strong>';}else{if(!pxPerMeter){$('photoStatus').textContent='先に基準寸法を設定してください。';photoPoints=[];return}const meters=px/pxPerMeter;photoMarks.push({a,b,label:meters.toFixed(3)+' m',color:'#68ff7c'});$('photoStatus').innerHTML='測定長さ：<strong>'+meters.toFixed(3)+' m</strong>。必要な入力欄へ転記してください。';}photoPoints=[];drawPhoto();}
+$('cameraInput').onchange=e=>loadPhoto(e.target.files[0]);$('photoInput').onchange=e=>loadPhoto(e.target.files[0]);$('angleMode').onclick=()=>setPhotoMode('angle');$('scaleMode').onclick=()=>setPhotoMode('scale');$('measureMode').onclick=()=>setPhotoMode('measure');$('clearMarks').onclick=()=>{photoMarks=[];photoPoints=[];pxPerMeter=null;drawPhoto();$('photoStatus').textContent='測定点を消去しました。';};$('applyCount').onclick=()=>{const count=Number($('visibleLashings').value)||0;const first=document.querySelector('.lashing-row .count');if(first){first.value=count;$('photoStatus').textContent='固縛本数を先頭の固縛器具へ反映しました。';}};photoCanvas.addEventListener('click',handlePhotoPoint);
+
+$('calcBtn').onclick=calc;
+window.addEventListener('DOMContentLoaded',()=>{window.ISSApplicationResults?.fillSelect($('ctuApplicationSelect'));});
+$('saveCtuResult').onclick=()=>{try{if(!latestCtuResult)calc();const row=window.ISSApplicationResults.save($('ctuApplicationSelect').value,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`;}catch(e){$('ctuRegistrationMessage').textContent=e.message||'登録できませんでした。';}};
+calc();
+</script>
+</body></html>
