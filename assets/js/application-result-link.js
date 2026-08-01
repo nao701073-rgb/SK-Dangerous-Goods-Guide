@@ -11,6 +11,13 @@
     select.innerHTML='<option value="">申請番号を選択してください</option>'+applications().map(a=>`<option value="${a.id}">${a.applicationYear||''}-${a.applicationNumber||''}${a.caseTitle?'｜'+a.caseTitle:''}</option>`).join('');
     if([...select.options].some(o=>o.value===current))select.value=current;
   }
+  function createApplication(fields={}){
+    if(!window.ISSStorage?.addApplication)throw new Error('申請番号管理機能を読み込めませんでした。');
+    const year=String(fields.applicationYear||new Date().getFullYear()).trim();
+    const number=String(fields.applicationNumber||'').trim();
+    if(!number)throw new Error('新規登録する申請番号を入力してください。');
+    return window.ISSStorage.addApplication({applicationYear:year,numberType:'official',applicationNumber:number,status:'in_progress',caseTitle:String(fields.caseTitle||'').trim(),note:String(fields.note||'').trim()});
+  }
   function save(applicationId,type,title,payload){
     const app=applications().find(a=>a.id===applicationId); if(!app)throw new Error('登録先の申請番号を選択してください。');
     const rows=read(); const authUser=user();
@@ -18,5 +25,5 @@
     rows.unshift(row); write(rows); window.dispatchEvent(new CustomEvent('iss:application-results-changed')); return row;
   }
   function get(applicationId){return read().filter(r=>!applicationId||r.applicationId===applicationId)}
-  window.ISSApplicationResults={fillSelect,save,get,read};
+  window.ISSApplicationResults={fillSelect,createApplication,save,get,read};
 })();

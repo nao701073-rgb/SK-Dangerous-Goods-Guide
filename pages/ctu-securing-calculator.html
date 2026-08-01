@@ -53,6 +53,9 @@
     .mode-active{background:#103b66!important;color:#fff!important}
     @media(max-width:850px){.photo-grid{grid-template-columns:1fr}}
 
+    .result-registration-panel{width:100%;box-sizing:border-box;margin:22px auto 0;padding:24px;}
+    .registration-existing,.quick-registration{margin-top:18px}.registration-action-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}.registration-action-row select{width:100%;min-height:44px}.quick-registration{border-top:1px solid var(--line);padding-top:18px}.quick-registration h3{margin:0 0 6px;color:var(--navy)}.quick-registration-grid{display:grid;grid-template-columns:160px 220px minmax(240px,1fr);gap:12px;margin:14px 0}.registration-message{min-height:1.5em;margin:14px 0 0;font-weight:700;color:var(--navy)}
+    @media(max-width:760px){.registration-action-row,.quick-registration-grid{grid-template-columns:1fr}.registration-action-row button,.quick-registration>button{width:100%}}
     @media print{.top-actions,.no-print{display:none!important}.panel,.hero{box-shadow:none;break-inside:avoid}body{background:#fff}}
   </style>
 </head>
@@ -151,16 +154,28 @@
     <p><a href="../references/originals/ctu-code-ja.pdf#page=85" target="_blank" rel="noopener">ラッシング材とMSL（Annex 7, 2.4）</a> ／ <a href="../references/originals/ctu-code-ja.pdf#page=100" target="_blank" rel="noopener">固縛方法（Annex 7, 4.3）</a> ／ <a href="../references/originals/ctu-code-ja.pdf#page=101" target="_blank" rel="noopener">固縛配置の評価（Annex 7, 4.4）</a></p>
   </section>
 
-<section class="card no-print" id="ctuRegistrationSection">
+<section class="panel no-print result-registration-panel" id="ctuRegistrationSection">
   <h2>算出結果を申請番号管理へ登録</h2>
   <p>現在の入力条件、方向別算出結果、判定および算出日時を、申請番号に履歴として保存します。</p>
-  <label>登録先の申請番号<select id="ctuApplicationSelect"><option value="">申請番号を選択してください</option></select></label>
-  <button class="btn" id="saveCtuResult" type="button">申請番号管理に登録</button>
-  <p id="ctuRegistrationMessage" aria-live="polite"></p>
+  <div class="registration-existing">
+    <label for="ctuApplicationSelect">登録済みの申請番号を選択</label>
+    <div class="registration-action-row"><select id="ctuApplicationSelect"><option value="">申請番号を選択してください</option></select><button class="btn" id="saveCtuResult" type="button">申請番号管理に登録</button></div>
+  </div>
+  <div class="quick-registration">
+    <h3>申請番号を新規登録して保存</h3>
+    <p>申請番号管理に未登録の場合は、ここで申請番号を作成し、算出結果を続けて保存できます。</p>
+    <div class="quick-registration-grid">
+      <label>申請年度<input id="ctuNewApplicationYear" inputmode="numeric" maxlength="4"></label>
+      <label>申請番号<input id="ctuNewApplicationNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"></label>
+      <label>案件名（任意）<input id="ctuNewCaseTitle" maxlength="100" placeholder="例：固縛力参考算出"></label>
+    </div>
+    <button class="btn" id="createAndSaveCtuResult" type="button">新規登録して算出結果を保存</button>
+  </div>
+  <p id="ctuRegistrationMessage" class="registration-message" aria-live="polite"></p>
 </section>
 </main>
 <script src="../assets/js/storage.js?v=445"></script>
-<script src="../assets/js/application-result-link.js?v=445"></script>
+<script src="../assets/js/application-result-link.js?v=458"></script>
 <script>
 const $=id=>document.getElementById(id);
 let rowId=0;
@@ -252,8 +267,9 @@ function handlePhotoPoint(ev){if(!photoImage)return;const p=canvasPoint(ev);phot
 $('cameraInput').onchange=e=>loadPhoto(e.target.files[0]);$('photoInput').onchange=e=>loadPhoto(e.target.files[0]);$('angleMode').onclick=()=>setPhotoMode('angle');$('scaleMode').onclick=()=>setPhotoMode('scale');$('measureMode').onclick=()=>setPhotoMode('measure');$('clearMarks').onclick=()=>{photoMarks=[];photoPoints=[];pxPerMeter=null;drawPhoto();$('photoStatus').textContent='測定点を消去しました。';};$('applyCount').onclick=()=>{const count=Number($('visibleLashings').value)||0;const first=document.querySelector('.lashing-row .count');if(first){first.value=count;$('photoStatus').textContent='固縛本数を先頭の固縛器具へ反映しました。';}};photoCanvas.addEventListener('click',handlePhotoPoint);
 
 $('calcBtn').onclick=calc;
-window.addEventListener('DOMContentLoaded',()=>{window.ISSApplicationResults?.fillSelect($('ctuApplicationSelect'));});
+window.addEventListener('DOMContentLoaded',()=>{window.ISSApplicationResults?.fillSelect($('ctuApplicationSelect'));const year=$('ctuNewApplicationYear');if(year)year.value=String(new Date().getFullYear());});
 $('saveCtuResult').onclick=()=>{try{if(!latestCtuResult)calc();const row=window.ISSApplicationResults.save($('ctuApplicationSelect').value,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`;}catch(e){$('ctuRegistrationMessage').textContent=e.message||'登録できませんでした。';}};
+$('createAndSaveCtuResult').onclick=()=>{try{if(!latestCtuResult)calc();const app=window.ISSApplicationResults.createApplication({applicationYear:$('ctuNewApplicationYear').value,applicationNumber:$('ctuNewApplicationNumber').value,caseTitle:$('ctuNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('ctuApplicationSelect'));$('ctuApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、算出結果を保存しました。`;}catch(e){$('ctuRegistrationMessage').textContent=e.message||'新規登録できませんでした。';}};
 calc();
 </script>
 </body></html>

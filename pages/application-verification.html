@@ -7,7 +7,7 @@
   <title>申請書確認</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/application-verification.css?v=457">
+  <link rel="stylesheet" href="../assets/css/application-verification.css?v=458">
 
 <style id="part442-application-verification-layout">
   .verification-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -67,6 +67,19 @@
   .p200-permit{margin-top:8px;padding:9px 10px;border-radius:8px;background:#fff3cd;border:1px solid #ead38d;line-height:1.55;}
 </style>
 
+<style id="part458-registration-layout">
+.result-registration-panel{width:min(100%,1180px);box-sizing:border-box;margin:22px auto 0;padding:24px;}
+.registration-existing,.quick-registration{margin-top:18px;}
+.registration-action-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;}
+.registration-action-row select{width:100%;min-height:44px;}
+.registration-action-row button,.quick-registration button{min-height:44px;padding:10px 16px;}
+.quick-registration{border-top:1px solid #d8e2ec;padding-top:18px;}
+.quick-registration h3{margin:0 0 6px;color:#173a5e;}
+.quick-registration-grid{display:grid;grid-template-columns:160px 220px minmax(240px,1fr);gap:12px;margin:14px 0;}
+.quick-registration-grid input{width:100%;box-sizing:border-box;}
+.registration-message{min-height:1.5em;margin:14px 0 0;font-weight:700;color:#173a5e;}
+@media(max-width:760px){.result-registration-panel{padding:18px 14px}.registration-action-row,.quick-registration-grid{grid-template-columns:1fr}.registration-action-row button,.quick-registration button{width:100%}}
+</style>
 </head>
 <body>
 <header class="app-header">
@@ -100,11 +113,24 @@
 
 
   
-<section class="panel" id="verificationRegistrationSection" hidden>
+<section class="panel result-registration-panel" id="verificationRegistrationSection" hidden>
   <h2>確認結果を申請番号管理へ登録</h2>
-  <p>抽出した対象危険物、許容容量・許容質量および確認状況を、申請番号管理へ履歴として保存します。未登録の申請番号は、その場で新規登録できます。</p>
-  <div class="form-row"><label>登録先の申請番号<select id="verificationApplicationSelect"><option value="">申請番号を選択してください</option></select></label><button id="saveVerificationResult" type="button">申請番号管理に登録</button></div>
-  <p id="verificationRegistrationMessage" aria-live="polite"></p>
+  <p>抽出した対象危険物、許容容量・許容質量および確認状況を、申請番号管理へ履歴として保存します。</p>
+  <div class="registration-existing">
+    <label for="verificationApplicationSelect">登録済みの申請番号を選択</label>
+    <div class="registration-action-row"><select id="verificationApplicationSelect"><option value="">申請番号を選択してください</option></select><button id="saveVerificationResult" type="button">申請番号管理に登録</button></div>
+  </div>
+  <div class="quick-registration">
+    <h3>申請番号を新規登録して保存</h3>
+    <p>申請番号管理に未登録の場合は、ここで申請番号を作成し、確認結果を続けて保存できます。</p>
+    <div class="quick-registration-grid">
+      <label>申請年度<input id="verificationNewApplicationYear" inputmode="numeric" maxlength="4"></label>
+      <label>申請番号<input id="verificationNewApplicationNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"></label>
+      <label class="quick-registration-title">案件名（任意）<input id="verificationNewCaseTitle" maxlength="100" placeholder="例：危険物申請書確認"></label>
+    </div>
+    <button id="createAndSaveVerificationResult" type="button">新規登録して確認結果を保存</button>
+  </div>
+  <p id="verificationRegistrationMessage" class="registration-message" aria-live="polite"></p>
 </section>
 </main>
 <script src="../data/un-data.js?v=434"></script>
@@ -112,7 +138,7 @@
 <script src="../data/domestic-code-page-ranges.js?v=456"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="../assets/js/storage.js?v=445"></script>
-<script src="../assets/js/application-result-link.js?v=445"></script>
-<script src="../assets/js/application-verification.js?v=457"></script>
+<script src="../assets/js/application-result-link.js?v=458"></script>
+<script src="../assets/js/application-verification.js?v=458"></script>
 </body>
 </html>
