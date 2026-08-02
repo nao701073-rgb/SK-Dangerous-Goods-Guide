@@ -627,8 +627,8 @@
       clearSelectedState();
       return;
     }
-    if (!String(file.type || "").startsWith("image/")) {
-      showMessage("画像ファイルを選択してください。", true);
+    if (!window.ISSImageFormats?.isSupportedImageFile(file)) {
+      showMessage("JPEG、PNG、WebP、HEICまたはHEIF形式の画像を選択してください。", true);
       clearSelectedState();
       return;
     }
@@ -639,12 +639,15 @@
 
     try {
       previewPlaceholder.hidden = false;
-      previewPlaceholder.textContent = "画像を最適化しています…";
+      previewPlaceholder.textContent = /\.(heic|heif)$/i.test(file.name) || /image\/(heic|heif)/i.test(file.type || "")
+        ? "HEIC／HEIF画像をJPEGへ変換しています…"
+        : "画像を最適化しています…";
       preview.hidden = true;
 
-      const metadata = await extractPhotoMetadata(file);
+      const prepared = await window.ISSImageFormats.prepareImageFile(file, { quality:0.92 });
+      const metadata = await extractPhotoMetadata(prepared.file);
       const [optimized, fingerprint] = await Promise.all([
-        optimizeImage(file, metadata),
+        optimizeImage(prepared.file, metadata),
         digestFile(file)
       ]);
 
@@ -670,9 +673,10 @@
       const reduction = file.size > 0 ? Math.max(0, Math.round((1 - selectedFileSize / file.size) * 100)) : 0;
       const dimensions = selectedWidth && selectedHeight ? `／${selectedWidth}×${selectedHeight}px` : "";
       const duplicateText = selectedDuplicate ? "／同一写真の登録候補あり" : "";
+      const conversionText = prepared.converted ? "／HEIC・HEIFからJPEGへ変換済み" : "";
       showMessage((resizeSelect?.value || "auto") === "original"
-        ? `元サイズ相当で保存準備完了：${beforeMb}MB → ${afterMb}MB／EXIF除去済み${dimensions}${duplicateText}`
-        : `自動圧縮完了：${beforeMb}MB → ${afterMb}MB（${reduction}%削減）${dimensions}${duplicateText}`,
+        ? `元サイズ相当で保存準備完了：${beforeMb}MB → ${afterMb}MB／EXIF除去済み${conversionText}${dimensions}${duplicateText}`
+        : `自動圧縮完了：${beforeMb}MB → ${afterMb}MB（${reduction}%削減）${conversionText}${dimensions}${duplicateText}`,
       Boolean(selectedDuplicate));
       renderPolicy();
     } catch (error) {

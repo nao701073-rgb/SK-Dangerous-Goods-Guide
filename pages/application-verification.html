@@ -104,10 +104,11 @@
       <input id="fileInput" type="file" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
     </div>
     <div id="fileStatus" class="file-status" aria-live="polite">申請書が選択されていません。</div>
+    <div class="notice notice--info" style="margin-top:12px"><strong>Excel申請書の取扱い</strong><p>Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。解析後に一時データを破棄します。申請番号管理へ登録する場合は、画面で確認した結果情報だけを保存します。</p></div>
   </section>
 
   <section id="summarySection" class="verification-card" hidden>
-    <div class="section-title-row"><h3>読取り結果</h3><button id="clearButton" class="secondary-button" type="button">別の申請書を読み込む</button></div>
+    <div class="section-title-row"><h3>読取り結果</h3><button id="clearButton" class="secondary-button" type="button">取込データを消去／別の申請書を読み込む</button></div>
     <div id="summaryGrid" class="summary-grid"></div>
     <div class="notice notice--warning"><strong>確認上の注意</strong><p>「検査対象」が対象の行だけを読み取り、申請容器に対する許容容量または許容質量を表示します。液体は原則L、固体は原則kgで表示し、性状または容器区分を一意に判断できない場合は両方の候補を表示します。組合せ容器および少量危険物は、内装容器の種類・容量・個数を申請書から判別できないため、現場確認とします。</p></div>
     <div class="table-wrap"><div class="verification-table-wrap"><table class="verification-table"><thead><tr><th>No.</th><th>国連番号</th><th>品名・原文</th><th>容器等級</th><th>容器コード</th><th>申請数量</th><th>許容容量・許容質量</th></tr></thead><tbody id="goodsBody"></tbody></table></div></div>
@@ -138,10 +139,10 @@
 </main>
 <script src="../data/un-data.js?v=434"></script>
 <script src="../data/domestic-packing-quantity-profiles.js?v=434"></script>
-<script src="../data/domestic-code-page-ranges.js?v=456"></script>
+<script src="../data/domestic-code-page-ranges.js?v=468"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="../assets/js/storage.js?v=445"></script>
 <script src="../assets/js/application-result-link.js?v=458"></script>
-<script src="../assets/js/application-verification.js?v=458"></script>
+<script src="../assets/js/application-verification.js?v=481"></script>
 </body>
 </html>

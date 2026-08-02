@@ -20,8 +20,14 @@ clauses.forEach((x,i)=>{checkPath(x.sourcePdfPath,`clause[${i}]`);(x.visualPages
 ai.forEach((x,i)=>checkPath(x.sourcePdfPath,`ai[${i}]`));
 training.forEach((x,i)=>(x.images||[]).forEach((p,j)=>checkPath(p.src,`training[${i}].images[${j}]`)));
 const referencesHtml=fs.readFileSync(path.join(root,'pages/references.html'),'utf8');
-for(const required of ['reference-detail-windows.js?v=403','references.js?v=403','references.css?v=403'])if(!referencesHtml.includes(required))errors.push(`references.html missing ${required}`);
+for(const required of ['reference-detail-windows.js?v=475','references.js?v=475','references.css?v=475'])if(!referencesHtml.includes(required))errors.push(`references.html missing ${required}`);
 const referencesJs=fs.readFileSync(path.join(root,'assets/js/references.js'),'utf8');
 if(referencesJs.includes('sourceModal.querySelector("[data-source-modal-eyebrow]").textContent'))errors.push('unsafe eyebrow access remains');
+if(referencesJs.includes('event.target.closest(".imdg-clause-card > summary")'))errors.push('IMDG summary still bypasses common detail window');
+if(referencesJs.includes('event.target.closest(".ai-guide-card > summary")'))errors.push('AI summary still bypasses common detail window');
+const detailWindowJs=fs.readFileSync(path.join(root,'assets/js/reference-detail-windows.js'),'utf8');
+for(const selector of ['.training-guide-card','.imdg-clause-card','.ai-guide-card'])if(!detailWindowJs.includes(selector))errors.push(`common detail selector missing: ${selector}`);
+const referencesCss=fs.readFileSync(path.join(root,'assets/css/references.css'),'utf8');
+for(const marker of ['Part 475: 関連資料の共通読解表示','reference-detail-window__content--imdg','reference-detail-window__content--ai','word-break: normal'])if(!referencesCss.includes(marker))errors.push(`Part475 CSS marker missing: ${marker}`);
 console.log(JSON.stringify({counts:{clauses:clauses.length,aiSummaries:ai.length,trainingGuides:training.length,totalDetailWindows:clauses.length+ai.length+training.length},errors},null,2));
 process.exit(errors.length?1:0);

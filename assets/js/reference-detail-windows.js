@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const selectors = [".training-guide-card"];
+  const selectors = [".training-guide-card", ".imdg-clause-card", ".ai-guide-card"];
   const modal = document.createElement("div");
   modal.className = "reference-detail-window";
   modal.hidden = true;
@@ -28,6 +28,8 @@
   };
 
   function categoryFor(card) {
+    if (card.matches(".imdg-clause-card")) return "IMDG関連条文";
+    if (card.matches(".ai-guide-card")) return "規定のAI要約";
     return "検査・検品業務資料 AI要約";
   }
 
@@ -49,7 +51,7 @@
         node.addEventListener("click", event => {
           event.preventDefault();
           event.stopPropagation();
-          const isSourceOpen = node.matches("[data-imdg-source-section], [data-ai-source-id]");
+          const isSourceOpen = node.matches("[data-imdg-source-section], [data-ai-source-id], [data-image-src]");
           if (isSourceOpen) {
             modal.hidden = true;
             document.body.classList.remove("is-reference-detail-window-open");
@@ -71,6 +73,9 @@
     eyebrow.textContent = categoryFor(card);
     const clone = detail.cloneNode(true);
     clone.classList.add("reference-detail-window__content");
+    if (card.matches(".imdg-clause-card")) clone.classList.add("reference-detail-window__content--imdg");
+    if (card.matches(".ai-guide-card")) clone.classList.add("reference-detail-window__content--ai");
+    if (card.matches(".training-guide-card")) clone.classList.add("reference-detail-window__content--training");
     clone.hidden = false;
     clone.querySelectorAll("[hidden]").forEach(el => el.hidden = false);
     body.replaceChildren(clone);
@@ -82,7 +87,7 @@
   }
 
   document.addEventListener("click", event => {
-    const summary = event.target.closest(".training-guide-card > summary");
+    const summary = event.target.closest(".training-guide-card > summary, .imdg-clause-card > summary, .ai-guide-card > summary");
     if (!summary) return;
     const card = summary.parentElement;
     if (!selectors.some(selector => card.matches(selector))) return;
@@ -92,7 +97,7 @@
 
   document.addEventListener("keydown", event => {
     if (event.key === "Escape" && !modal.hidden) close();
-    if ((event.key === "Enter" || event.key === " ") && event.target.matches(".training-guide-card > summary")) {
+    if ((event.key === "Enter" || event.key === " ") && event.target.matches(".training-guide-card > summary, .imdg-clause-card > summary, .ai-guide-card > summary")) {
       event.preventDefault();
       open(event.target.parentElement, event.target);
     }

@@ -2,7 +2,29 @@
   'use strict';
   const $=id=>document.getElementById(id);
   const dropZone=$('dropZone'), input=$('fileInput'), status=$('fileStatus');
+  let transientBuffer=null;
+  let transientWorkbook=null;
   const normalize=s=>String(s??'').replace(/\s+/g,' ').trim();
+  function secureEraseBuffer(buffer){
+    if(!buffer)return;
+    try{new Uint8Array(buffer).fill(0)}catch(_e){}
+  }
+  function disposeWorkbook(workbook){
+    if(!workbook)return;
+    try{
+      if(workbook.Sheets&&typeof workbook.Sheets==='object'){
+        Object.keys(workbook.Sheets).forEach(name=>{try{delete workbook.Sheets[name]}catch(_e){workbook.Sheets[name]=null}});
+      }
+      if(Array.isArray(workbook.SheetNames))workbook.SheetNames.length=0;
+    }catch(_e){}
+  }
+  function purgeTransientExcel(){
+    disposeWorkbook(transientWorkbook);
+    secureEraseBuffer(transientBuffer);
+    transientWorkbook=null;
+    transientBuffer=null;
+    if(input)input.value='';
+  }
   const escapeHtml=s=>String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
   const romanToPg=s=>{const t=String(s||'').toUpperCase().replace(/\s/g,'');if(/(?:PG|容器等級)?I{3}(?!I)/.test(t))return 'III';if(/(?:PG|容器等級)?II(?!I)/.test(t))return 'II';if(/(?:PG|容器等級)?I(?!I)/.test(t))return 'I';return ''};
   const db=Array.isArray(window.UN_DATABASE)?window.UN_DATABASE:[];
@@ -287,8 +309,12 @@
     $('summaryGrid').innerHTML=`<div class="summary-item"><span>ファイル</span><strong>${escapeHtml(file.name)}</strong></div><div class="summary-item"><span>シート数</span><strong>${new Set(rows.map(r=>r.sheet)).size}</strong></div><div class="summary-item"><span>抽出国連番号件数</span><strong>${goods.length}</strong></div><div class="summary-item"><span>法令接続</span><strong>${db.length?'接続済み':'未接続'}</strong></div>`;
     $('goodsBody').innerHTML=goods.length?goods.map((g,i)=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return `<tr><td>${i+1}</td><td><strong>${g.un}</strong><br><small>${escapeHtml(g.sheet)} ${g.row}行</small></td><td>${escapeHtml(g.source)}</td><td>${g.pg||'ー'}</td><td>${g.container||'内装・外装容器とも要確認'}</td><td>${q.html}</td><td>${r.html}</td></tr>`}).join(''):'<tr><td colspan="7">国連番号を抽出できませんでした。申請書の様式または記載内容を確認してください。</td></tr>';
     const rawText=$('rawText');
-    if(rawText)rawText.textContent=rows.map(r=>`[${r.sheet} ${r.row}行] ${r.text}`).join('\n');
-    const resultPayload={fileName:file.name,checkedAt:new Date().toISOString(),goods:goods.map(g=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return {un:g.un,name:g.source,packingGroup:g.pg,container:g.container,count:g.count,netWeight:g.netWeight,grossWeight:g.grossWeight,limited:g.limited,allowedQuantityOrMass:r.status}})};
+    if(rawText)rawText.textContent='Excel申請書の原文データは保存しません。';
+    const resultPayload={
+      source:'Excel申請書（原本未保存）',
+      checkedAt:new Date().toISOString(),
+      goods:goods.map(g=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return {un:g.un,name:g.source,packingGroup:g.pg,container:g.container,count:g.count,netWeight:g.netWeight,grossWeight:g.grossWeight,limited:g.limited,allowedQuantityOrMass:r.status}})
+    };
     window.dispatchEvent(new CustomEvent('iss:application-verification-result',{detail:resultPayload}));
   }
   function arrayBufferToBinary(buffer){
@@ -304,7 +330,7 @@
     ];
     let lastError=null;
     for(const attempt of attempts){
-      try{const wb=attempt();if(wb&&Array.isArray(wb.SheetNames)&&wb.SheetNames.length)return wb;}catch(error){lastError=error;console.warn('Excel read attempt failed',fileName,error);}
+      try{const wb=attempt();if(wb&&Array.isArray(wb.SheetNames)&&wb.SheetNames.length)return wb;}catch(error){lastError=error;console.warn('Excel read attempt failed',error?.message||error);}
     }
     throw lastError||new Error('ワークブックを読み取れませんでした。');
   }
@@ -314,22 +340,45 @@
       setStatus('Excel解析機能を読み込めませんでした。ページを再読み込みしてから、もう一度お試しください。','error');
       return;
     }
-    setStatus(`${file.name} を解析しています…`);
+    purgeTransientExcel();
+    setStatus(`${file.name} を端末内で解析しています…`);
+    let rows=[];
+    let goods=[];
     try{
-      const data=await file.arrayBuffer();
-      const wb=readWorkbookWithFallback(data,file.name);
-      const rows=parseRows(wb);
+      transientBuffer=await file.arrayBuffer();
+      transientWorkbook=readWorkbookWithFallback(transientBuffer,file.name);
+      rows=parseRows(transientWorkbook);
       if(!rows.length)throw new Error('申請書内の文字情報を読み取れませんでした。');
-      const goods=extractGoods(rows);
+      goods=extractGoods(rows);
       render(file,rows,goods);
-      setStatus(`${file.name} を読み込み、既存の国内法令データと照合しました。${goods.length}件の国連番号を抽出しました。`,'success');
+      setStatus(`${file.name} を読み込み、既存の国内法令データと照合しました。${goods.length}件の国連番号を抽出しました。Excel原本は保存せず、一時解析データを破棄しました。`,'success');
     }catch(e){
-      console.error(e);
       const detail=(e&&e.message)?`（${e.message}）`:'';
       setStatus(`申請書を読み取れませんでした${detail}。旧形式の .xls も含めて複数の読み込み方式を試しました。ファイルをExcelで開ける場合は、内容を変更せず保存し直してから再度お試しください。`,'error');
+    }finally{
+      if(Array.isArray(rows))rows.length=0;
+      if(Array.isArray(goods))goods.length=0;
+      purgeTransientExcel();
     }
   }
-  ['dragenter','dragover'].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.add('is-dragover')}));['dragleave','drop'].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.remove('is-dragover')}));dropZone.addEventListener('drop',e=>handle(e.dataTransfer.files[0]));dropZone.addEventListener('click',e=>{if(e.target.id!=='selectFileButton')input.click()});$('selectFileButton').addEventListener('click',e=>{e.stopPropagation();input.click()});dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});input.addEventListener('change',()=>handle(input.files[0]));$('clearButton').addEventListener('click',()=>{input.value='';const summarySection=$('summarySection');if(summarySection)summarySection.hidden=true;const rawSection=$('rawSection');if(rawSection)rawSection.hidden=true;setStatus('申請書が選択されていません。');window.scrollTo({top:0,behavior:'smooth'})});
+  ['dragenter','dragover'].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.add('is-dragover')}));
+  ['dragleave','drop'].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.remove('is-dragover')}));
+  dropZone.addEventListener('drop',e=>handle(e.dataTransfer.files[0]));
+  dropZone.addEventListener('click',e=>{if(e.target.id!=='selectFileButton')input.click()});
+  $('selectFileButton').addEventListener('click',e=>{e.stopPropagation();input.click()});
+  dropZone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});
+  input.addEventListener('change',()=>handle(input.files[0]));
+  $('clearButton').addEventListener('click',()=>{
+    purgeTransientExcel();
+    const summarySection=$('summarySection');if(summarySection)summarySection.hidden=true;
+    const rawSection=$('rawSection');if(rawSection)rawSection.hidden=true;
+    $('summaryGrid').innerHTML='';$('goodsBody').innerHTML='';
+    window.dispatchEvent(new CustomEvent('iss:application-verification-cleared'));
+    setStatus('取込データを消去しました。Excel原本は保存されていません。');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  window.addEventListener('pagehide',purgeTransientExcel);
+  window.addEventListener('beforeunload',purgeTransientExcel);
 
   document.addEventListener('input',e=>{
     if(!e.target.classList.contains('package-marking-limit'))return;
@@ -358,6 +407,7 @@
   'use strict';
   const $=id=>document.getElementById(id); let latest=null;
   window.addEventListener('iss:application-verification-result',e=>{latest=e.detail; const sec=$('verificationRegistrationSection'); if(sec)sec.hidden=false; window.ISSApplicationResults?.fillSelect($('verificationApplicationSelect'));});
+  window.addEventListener('iss:application-verification-cleared',()=>{latest=null;const sec=$('verificationRegistrationSection');if(sec)sec.hidden=true;const msg=$('verificationRegistrationMessage');if(msg)msg.textContent='';});
   document.addEventListener('DOMContentLoaded',()=>{
     const year=$('verificationNewApplicationYear'); if(year)year.value=String(new Date().getFullYear());
     $('saveVerificationResult')?.addEventListener('click',()=>{const msg=$('verificationRegistrationMessage');try{if(!latest)throw new Error('先にExcel申請書を解析してください。');const row=window.ISSApplicationResults.save($('verificationApplicationSelect').value,'dangerous-goods-verification','申請書確認結果',latest);msg.textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`;}catch(e){msg.textContent=e.message||'登録できませんでした。';}});

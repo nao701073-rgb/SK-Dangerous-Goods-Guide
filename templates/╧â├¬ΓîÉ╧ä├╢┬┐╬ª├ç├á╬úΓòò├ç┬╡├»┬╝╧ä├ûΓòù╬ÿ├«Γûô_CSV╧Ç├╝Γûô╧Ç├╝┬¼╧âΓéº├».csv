@@ -1,3 +1,0 @@
-login_id,display_name,role,office_id,email,initial_password
-kawasaki.suzuki,鈴木 一郎,office-user,OFFICE_ID,suzuki@example.co.jp,TempPass!2026
-guest.sample,ゲスト利用者,guest,,,TempPass!2026

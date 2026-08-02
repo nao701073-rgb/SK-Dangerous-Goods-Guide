@@ -1,0 +1,33 @@
+{
+  "part": 474,
+  "verifiedAt": "2026-08-02",
+  "scope": "危険物詳細から選択できる国内法令・IMDG Code参照コード",
+  "dangerousGoodsRows": 2725,
+  "usedCodeCount": 594,
+  "domesticOriginalMissing": [],
+  "pageMappingMissing": [],
+  "checks": {
+    "javascriptSyntax": "passed",
+    "allUsedCodesResolved": "passed",
+    "allUsedCodesHaveDomesticOriginal": "passed",
+    "p110Range": "passed",
+    "p112Subsections": "passed",
+    "p114Range": "passed",
+    "p132Range": "passed",
+    "p200Pages298to307": "passed",
+    "sg72aToSg72d": "passed",
+    "portableTankAdditionalT33ToTP33": "passed"
+  },
+  "displayPolicy": {
+    "domesticOriginal": "原文の用語・文言を変更せず表示",
+    "packingInstructions": "P002を基準とした表形式。画面幅が狭い場合は表を横スクロール",
+    "otherTabularCodes": "原文の列・改行を保持し横スクロール",
+    "proseCodes": "自然な折返しで表示",
+    "p200": "現在開いている国連番号の該当行と掲載ページだけを表示",
+    "aiSummary": "長文条文のみ。原文とは別配色。固有名詞・法令用語は原文表記を維持"
+  },
+  "knownLegacyStaticQaFindings": {
+    "count": 13,
+    "description": "既存の文書公開・運用管理画面が参照する未収録手順書・docx。今回のコード詳細改修とは無関係。"
+  }
+}

@@ -876,14 +876,6 @@
   }
 
   imdgList.addEventListener("click", event => {
-    const summary = event.target.closest(".imdg-clause-card > summary");
-    if (summary) {
-      event.preventDefault();
-      const card = summary.closest(".imdg-clause-card");
-      const section = card?.querySelector("[data-imdg-source-section]")?.dataset.imdgSourceSection;
-      openImdgPdf(imdgClauses.find(entry => entry.section === section));
-      return;
-    }
     const button = event.target.closest("[data-imdg-source-section]");
     if (!button) return;
     const item = imdgClauses.find(entry => entry.section === button.dataset.imdgSourceSection);
@@ -911,14 +903,6 @@
   }
 
   aiList.addEventListener("click", event => {
-    const summary = event.target.closest(".ai-guide-card > summary");
-    if (summary) {
-      event.preventDefault();
-      const card = summary.closest(".ai-guide-card");
-      const item = summaries.find(entry => entry.id === card?.dataset.aiGuideId);
-      openAiSourcePdf(item);
-      return;
-    }
     const sourceButton = event.target.closest("[data-ai-source-id]");
     if (!sourceButton) return;
     openAiSourcePdf(summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId));

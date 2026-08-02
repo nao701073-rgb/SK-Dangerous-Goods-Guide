@@ -70,13 +70,19 @@
     return codes.length ? [...new Set(codes)].join(" ") : "—";
   };
 
+  const normalizeCodeToken = value => String(value ?? "").normalize("NFKC").trim().toUpperCase();
+  const isReferenceCodeToken = value => {
+    const token = normalizeCodeToken(value);
+    return /^(?:[A-E]|(?:P|PP|LP|L|IBC|B|T|TP|SP|SW|ES|SG|SGG|BK|H)[A-Z0-9.-]+)$/.test(token);
+  };
+
   const splitCodeTokens = (...values) =>
     [...new Set(
       values
         .flatMap(value => Array.isArray(value) ? value : [value])
         .flatMap(value => String(value ?? "").normalize("NFKC").trim().split(/\s+/))
-        .map(value => value.trim().toUpperCase())
-        .filter(value => value && value !== "-" && value !== "—" && /[A-Z0-9]/.test(value))
+        .map(normalizeCodeToken)
+        .filter(value => value && value !== "-" && value !== "—" && isReferenceCodeToken(value))
     )];
 
   const parseStowage = value => {
@@ -116,9 +122,22 @@
   };
 
   const renderInlineCode = value => {
-    const codes = splitCodeTokens(value);
-    if (!codes.length) return display(value);
-    return renderCodeLinks(codes);
+    const raw = String(value ?? "").normalize("NFKC").trim();
+    if (!raw || raw === "-" || raw === "—") return "—";
+
+    const parts = raw.split(/(\s+)/);
+    let hasReferenceCode = false;
+    const html = parts.map(part => {
+      if (/^\s+$/.test(part)) return " ";
+      const token = normalizeCodeToken(part);
+      if (isReferenceCodeToken(token)) {
+        hasReferenceCode = true;
+        return `<button type="button" class="code-chip-link" data-code-detail="${escapeHtml(token)}">${escapeHtml(part)}</button>`;
+      }
+      return `<span class="code-chip-qualifier">${escapeHtml(part)}</span>`;
+    }).join("");
+
+    return hasReferenceCode ? `<div class="code-chip-links code-chip-links--inline">${html}</div>` : display(value);
   };
 
   const renderStowageSummary = stowageInfo => {
@@ -284,6 +303,8 @@
     window.ExceptedQuantityResolver?.resolve(record) || null;
   const packageMarkingDetail =
     window.PackageMarkingResolver?.resolve(record) || null;
+  const actualPsnCandidates = extractActualPsnCandidates(record.properShippingName);
+  const actualPsnDefault = actualPsnCandidates[0] || String(record.properShippingName || "").trim();
   const subsidiary = record.subsidiaryRisk && record.subsidiaryRisk !== "-"
     ? record.subsidiaryRisk
     : "なし";
@@ -346,6 +367,23 @@
   const segregationCodeEntries = codeReferenceEntries.filter(entry =>
     ["stowage", "segregation"].includes(entry.categoryId)
   );
+
+  const normalizeActualPsnCandidate = value => String(value || "")
+    .normalize("NFKC")
+    .replace(/\s+/g, " ")
+    .replace(/^[\s,;:／/+-]+|[\s,;:／/+-]+$/g, "")
+    .trim();
+
+  const extractActualPsnCandidates = value => {
+    const source = String(value || "").normalize("NFKC");
+    const matches = source.match(/[A-Z0-9][A-Z0-9\s.,'’／/+\-]*/g) || [];
+    const candidates = matches
+      .map(normalizeActualPsnCandidate)
+      .filter(candidate => candidate && /[A-Z]/.test(candidate))
+      .filter(candidate => !/^(?:OR|AND)$/.test(candidate));
+    const unique = [...new Set(candidates)];
+    return unique.length ? unique : [normalizeActualPsnCandidate(source) || "正式輸送品名を確認してください"];
+  };
 
   function normalizeName(value) {
     return String(value || "")
@@ -949,6 +987,12 @@
                            <button type="button" data-open-landscape>横画面で実寸比較を開く</button>
                            <button type="button" class="marking-landscape-close" data-close-landscape hidden aria-label="横画面表示を閉じる">× 閉じる</button>
                          </div>
+                         ${actualPsnCandidates.length > 1 ? `<label class="marking-psn-selector">
+                           <span>表示する正式輸送品名</span>
+                           <select data-actual-psn-select aria-label="実寸比較に表示する正式輸送品名">
+                             ${actualPsnCandidates.map((candidate, index) => `<option value="${escapeHtml(candidate)}"${index === 0 ? " selected" : ""}>${escapeHtml(candidate)}</option>`).join("")}
+                           </select>
+                         </label>` : ""}
                          <div class="marking-size-selector" role="tablist" aria-label="文字高さの切替">
                            <button type="button" class="marking-size-selector__button is-active" data-marking-size-option="12">12mm</button>
                            <button type="button" class="marking-size-selector__button" data-marking-size-option="6">6mm</button>
@@ -960,8 +1004,8 @@
                                <span data-marking-size-caption>原則</span>
                              </div>
                              <div class="marking-actual-size__sample-board">
-                               <div class="marking-actual-size__sample-line" data-actual-size="12" data-actual-psn>${display(packageMarkingDetail?.nos?.placeholderDisplay || record.properShippingName)}</div>
                                <div class="marking-actual-size__sample-line marking-actual-size__sample-line--un" data-actual-size="12" data-actual-un>UN${display(record.unNumber)}</div>
+                               <div class="marking-actual-size__sample-line marking-actual-size__sample-line--psn" data-actual-size="12" data-actual-psn>${escapeHtml(actualPsnDefault)}</div>
                              </div>
                            </div>
                          </div>
@@ -1093,6 +1137,12 @@
     };
     actualSizePanel.querySelectorAll("[data-marking-size-option]").forEach(button => {
       button.addEventListener("click", () => updateMarkingSizeMode(Number(button.dataset.markingSizeOption)));
+    });
+    const actualPsnSelect = actualSizePanel.querySelector("[data-actual-psn-select]");
+    actualPsnSelect?.addEventListener("change", () => {
+      actualSizePanel.querySelectorAll("[data-actual-psn]").forEach(sample => {
+        sample.textContent = actualPsnSelect.value;
+      });
     });
     updateMarkingSizeMode(selectedSize);
   }
@@ -1263,35 +1313,44 @@
     .map(line => line.replace(/\s+$/g, "").replace(/^\s+/g, ""))
     .join("\n");
 
-  const normalizeDomesticOriginalForSummary = value => {
-    const lines = String(value || "")
-      .normalize("NFKC")
-      .replace(/（船舶による危険物の運送基準等を定める告示）/g, "")
-      .replace(/-\s*\d+\s*-/g, "")
-      .split(/\r?\n/)
-      .map(line => line.replace(/\s+$/g, ""))
-      .filter(line => line.trim());
+  const cleanDomesticOriginalForDisplay = value => String(value || "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\f/g, "\n")
+    .replace(/^\s+|\s+$/g, "");
 
+  const isLongDomesticProvision = (value, reference = {}) => {
+    const source = cleanDomesticOriginalForDisplay(value);
+    if (!source) return false;
+    const compactLength = source.replace(/\s/g, "").length;
+    const meaningfulLines = source.split("\n").filter(line => line.trim()).length;
+    const numberedItems = (source.match(/(?:^|\n)\s*(?:\(\d+\)|（\d+）|\d+[\.、\s]|注\s*\d*|備考\s*\d*)/g) || []).length;
+    const pages = Array.isArray(reference?.domesticOriginalPages)
+      ? reference.domesticOriginalPages.filter(Boolean).length
+      : (reference?.domesticOriginalPageEnd && reference?.domesticOriginalPageEnd !== reference?.domesticOriginalPage ? 2 : 1);
+    return compactLength >= 700 || meaningfulLines >= 14 || numberedItems >= 7 || pages >= 2;
+  };
+
+  const buildDomesticSummaryBlocks = value => {
+    const source = cleanDomesticOriginalForDisplay(value);
+    if (!source) return [];
+    const pageNoisePattern = /^[-－ー\s]*\d+[-－ー\s]*$|^（船舶による危険物の運送基準等を定める告示）$/;
+    const startsNewBlock = value => /^(?:[A-Z]{1,4}\d+[A-Z]?(?:\([a-z0-9]+\))?\s+|\(\d+\)|（\d+）|\d+[\.、\s]|注\s*\d*|備考\s*\d*|[一二三四五六七八九十]+\s+)/i.test(value);
+    const lines = source.split("\n").map(line => line.replace(/[ \t]+$/g, ""));
     const blocks = [];
     let current = "";
-    const startsNewBlock = line => {
-      const trimmed = line.trim();
-      return /^(?:[A-Z]{1,4}\d+[A-Z]?\s+|\(\d+\)|（\d+）|\d+[\.、\s]|注\s*\d+|備考\s*\d+|[一二三四五六七八九十]+\s+)/.test(trimmed);
+    const flush = () => {
+      const value = current.trim();
+      if (value) blocks.push(value);
+      current = "";
     };
-    const looksLikeTableRow = line => {
-      const trimmed = line.trim();
-      const withoutIndent = line.replace(/^\s+/, "");
-      return /\S\s{3,}\S/.test(withoutIndent) && !/[。！？]$/.test(trimmed) && trimmed.length < 100;
-    };
-
     lines.forEach(line => {
       const trimmed = line.trim();
-      if (!trimmed) return;
-      if (startsNewBlock(line) || looksLikeTableRow(line)) {
-        if (current) blocks.push(current.trim());
-        current = trimmed;
+      if (!trimmed) {
+        flush();
         return;
       }
+      if (pageNoisePattern.test(trimmed)) return;
+      if (startsNewBlock(trimmed)) flush();
       if (!current) {
         current = trimmed;
         return;
@@ -1299,93 +1358,355 @@
       const needsSpace = /[A-Za-z0-9]$/.test(current) && /^[A-Za-z0-9]/.test(trimmed);
       current += `${needsSpace ? " " : ""}${trimmed}`;
     });
-    if (current) blocks.push(current.trim());
-
-    return blocks
-      .map(block => block.replace(/\s{2,}/g, " ").trim())
-      .filter(block => block.length >= 4);
+    flush();
+    return blocks.filter(block => block.length >= 4);
   };
 
-  const stripDuplicateCodePrefix = (block, code) => {
-    const normalizedCode = String(code || "").normalize("NFKC").trim().toUpperCase();
-    let value = String(block || "").normalize("NFKC").trim();
-    if (!normalizedCode || !value) return value;
-    const upperValue = value.toUpperCase();
-    if (upperValue === normalizedCode) return "";
-    if (upperValue.startsWith(`${normalizedCode} `) || upperValue.startsWith(`${normalizedCode}:`) || upperValue.startsWith(`${normalizedCode}：`)) {
-      value = value.slice(normalizedCode.length).replace(/^[\s:：]+/, "").trim();
-    }
-    return value;
+  const classifyDomesticSummaryBlock = block => {
+    const value = String(block || "");
+    const rules = [
+      { key: "prohibition", label: "禁止・制限", pattern: /してはならない|使用できない|できない|禁止|限る|限り|超えてはならない|認められない/ },
+      { key: "approval", label: "承認・許可・確認", pattern: /地方運輸局長|承認|許可|確認|検査|試験|証明/ },
+      { key: "container", label: "容器・容量・質量・構造", pattern: /容器|IBC|ポータブルタンク|小型容器|大型容器|容量|質量|圧力|充塡|構造|閉鎖装置|包装/ },
+      { key: "transport", label: "運送・積載・収納・隔離", pattern: /運送|積載|積付|収納|隔離|貨物輸送ユニット|船倉|甲板/ },
+      { key: "exception", label: "注記・例外", pattern: /^(?:注|備考)|ただし|除く|例外|この場合/ },
+      { key: "scope", label: "適用対象・条件", pattern: /国連番号|危険物|場合|について|に関して|適用|該当|容器等級/ }
+    ];
+    return rules.find(rule => rule.pattern.test(value)) || { key: "other", label: "その他の重要事項" };
   };
 
-  const summarizeDomesticOriginal = (value, code) => {
-    const blocks = normalizeDomesticOriginalForSummary(value)
-      .map(block => stripDuplicateCodePrefix(block, code))
-      .filter(Boolean);
+  const summarizeDomesticOriginal = (value, reference = {}) => {
+    if (!isLongDomesticProvision(value, reference)) return null;
+    const code = String(reference?.code || "該当コード");
+    const blocks = buildDomesticSummaryBlocks(value);
     if (!blocks.length) return null;
 
-    const numberedBlocks = blocks.filter(block => /^(?:\(\d+\)|（\d+）|\d+[\.、\s])/.test(block));
-    const noteBlocks = blocks.filter(block => /^(?:注\s*\d+|備考\s*\d+)/.test(block));
-    const introductoryBlocks = blocks.filter(block =>
-      !numberedBlocks.includes(block) &&
-      !noteBlocks.includes(block) &&
-      !/^部分\s+色彩/.test(block) &&
-      !/^(?:地|線|記号)\s+/.test(block)
-    );
-
-    const priorityPatterns = [
-      /してはならない|できない|禁止|限る|必要|なければならない|危険物に該当しない/,
-      /適合|承認|確認|収納|積載|運送|表示|隔離|温度|容量|質量|試験|保護|落下/,
-      /国連番号|容器等級|IBC|ポータブルタンク|小型容器|大型容器|リチウム/
-    ];
-
-    let selected;
-    if (numberedBlocks.length && numberedBlocks.length <= 12) {
-      selected = [...introductoryBlocks.slice(0, 1), ...numberedBlocks, ...noteBlocks.slice(0, 4)];
-    } else {
-      const ranked = blocks
-        .map((block, index) => ({
-          block,
-          index,
-          score: priorityPatterns.reduce((score, pattern, patternIndex) => score + (pattern.test(block) ? (4 - patternIndex) : 0), 0)
-        }))
-        .sort((a, b) => b.score - a.score || a.index - b.index);
-      selected = ranked.slice(0, 8).sort((a, b) => a.index - b.index).map(item => item.block);
-    }
-
-    const deduped = [];
-    selected.forEach(block => {
-      if (!block) return;
-      if (deduped.some(existing => existing === block)) return;
-      deduped.push(block);
+    const groupMap = new Map();
+    blocks.forEach(block => {
+      const category = classifyDomesticSummaryBlock(block);
+      if (!groupMap.has(category.key)) groupMap.set(category.key, { key: category.key, label: category.label, items: [] });
+      const group = groupMap.get(category.key);
+      if (group.items.length < 4 && !group.items.includes(block)) group.items.push(block);
     });
 
+    const orderedKeys = ["scope", "prohibition", "container", "transport", "approval", "exception", "other"];
+    const orderedGroups = orderedKeys
+      .map(key => groupMap.get(key))
+      .filter(Boolean)
+      .map(group => ({ ...group, items: group.items.slice(0, 4) }))
+      .filter(group => group.items.length)
+      .slice(0, 6);
+
     return {
-      title: `${code || "該当コード"}の国内法令原文テキストAI要約`,
-      bullets: deduped,
-      caution: "自動要約です。複数ページに続く条文は改ページ後の本文も結合して要約しています。表、図、注記および適用条件を含む正式な内容は、上の原文ページ画像と最新版の本文で確認してください。"
+      title: `${code} 国内法令原文テキストAI要約`,
+      groups: orderedGroups,
+      caution: "長文条文の理解補助として、原文中の文を項目別に抜き出しています。固有名詞・法令用語・容器名・コード名は原文の表記を維持しています。正式な判断は、国内法令原文、表、図、注記および最新版の本文で確認してください。"
     };
   };
 
-  const renderDomesticSummaryBullet = item => {
+  const renderDomesticSummaryItem = item => {
     const value = String(item || "").trim();
     const match = value.match(/^(\(\d+\)|（\d+）|\d+)(?:[\.、]?\s*)([\s\S]*)$/);
     if (!match || !match[2]) return `<li><span class="domestic-ai-summary__text">${escapeHtml(value)}</span></li>`;
     return `<li class="domestic-ai-summary__numbered"><span class="domestic-ai-summary__number">${escapeHtml(match[1])}</span><span class="domestic-ai-summary__text">${escapeHtml(match[2].trim())}</span></li>`;
   };
 
-  const renderDomesticAiSummary = (originalText, code) => {
-    const summary = summarizeDomesticOriginal(originalText, code);
+  const renderDomesticAiSummary = (originalText, reference) => {
+    const summary = summarizeDomesticOriginal(originalText, reference);
     if (!summary) return "";
     return `
-      <section class="domestic-ai-summary">
+      <section class="domestic-ai-summary domestic-ai-summary--long-provision">
         <div class="domestic-ai-summary__heading">
-          <span class="domestic-ai-summary__badge">AI</span>
-          <strong>${escapeHtml(summary.title)}</strong>
+          <span class="domestic-ai-summary__badge">AI要約</span>
+          <div>
+            <strong>${escapeHtml(summary.title)}</strong>
+            <span>長文条文のみ表示</span>
+          </div>
         </div>
-        <ul>${summary.bullets.map(renderDomesticSummaryBullet).join("")}</ul>
-        <p>${escapeHtml(summary.caution)}</p>
+        <div class="domestic-ai-summary__groups">
+          ${summary.groups.map(group => `
+            <section class="domestic-ai-summary__group">
+              <h4>${escapeHtml(group.label)}</h4>
+              <ul>${group.items.map(renderDomesticSummaryItem).join("")}</ul>
+            </section>`).join("")}
+        </div>
+        <p class="domestic-ai-summary__caution">${escapeHtml(summary.caution)}</p>
       </section>`;
+  };
+
+  const codeHeadingPattern = /^(P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?(?:\([a-z0-9]+\))?\b/i;
+  const sourcePageNoisePattern = /^[-－ー\s]*\d+[-－ー\s]*$|^（船舶による危険物の運送基準等を定める告示）$/;
+
+  const isTabularDomesticOriginal = value => {
+    const source = cleanDomesticOriginalForDisplay(value);
+    if (!source) return false;
+    if (/内装容器の種類|中間容器の種類|外装容器の種類|許容容量|許容質量|国連番号\s+品\s*名|旅客船以外の船舶/.test(source)) return true;
+    const lines = source.split("\n").filter(line => line.trim());
+    const alignedLines = lines.filter(line => (line.match(/\s{2,}/g) || []).length >= 2 && line.trim().length >= 18).length;
+    return alignedLines >= 3 && alignedLines / Math.max(lines.length, 1) >= 0.18;
+  };
+
+  const repairProseSoftWraps = value => {
+    const lines = cleanDomesticOriginalForDisplay(value).split("\n");
+    const output = [];
+    lines.forEach(rawLine => {
+      const line = rawLine.replace(/[ \t]+$/g, "");
+      const trimmed = line.trim();
+      if (!trimmed) {
+        if (output.length && output[output.length - 1] !== "") output.push("");
+        return;
+      }
+      if (sourcePageNoisePattern.test(trimmed)) return;
+      const isIndentedContinuation = /^\s{3,}\S/.test(line);
+      const startsStructuredItem = /^(?:\(?\d+\)?|（\d+）|注\s*\d*|備考\s*\d*|[A-Z]{1,4}\d+)/i.test(trimmed);
+      const previous = output[output.length - 1] || "";
+      const previousCanJoin = previous && !/[。！？：:；;）)】」』]$/.test(previous.trim());
+      if (isIndentedContinuation && !startsStructuredItem && previousCanJoin) {
+        const needsSpace = /[A-Za-z0-9]$/.test(previous) && /^[A-Za-z0-9]/.test(trimmed);
+        output[output.length - 1] = `${previous}${needsSpace ? " " : ""}${trimmed}`;
+      } else {
+        output.push(trimmed);
+      }
+    });
+    return output.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  };
+
+  const prepareDomesticOriginalSource = originalText => {
+    const source = cleanDomesticOriginalForDisplay(originalText);
+    const tabular = isTabularDomesticOriginal(source);
+    return {
+      source: tabular ? source : repairProseSoftWraps(source),
+      tabular
+    };
+  };
+
+  const domesticDisplayWidth = value => [...String(value || "")].reduce((width, char) => {
+    const codePoint = char.codePointAt(0) || 0;
+    const isWide =
+      codePoint >= 0x1100 && (
+        codePoint <= 0x115f || codePoint === 0x2329 || codePoint === 0x232a ||
+        (codePoint >= 0x2e80 && codePoint <= 0xa4cf) ||
+        (codePoint >= 0xac00 && codePoint <= 0xd7a3) ||
+        (codePoint >= 0xf900 && codePoint <= 0xfaff) ||
+        (codePoint >= 0xfe10 && codePoint <= 0xfe19) ||
+        (codePoint >= 0xfe30 && codePoint <= 0xfe6f) ||
+        (codePoint >= 0xff00 && codePoint <= 0xff60) ||
+        (codePoint >= 0xffe0 && codePoint <= 0xffe6)
+      );
+    return width + (isWide ? 2 : 1);
+  }, 0);
+
+  const domesticDisplayColumn = (line, search, fromIndex = 0) => {
+    const index = String(line || "").indexOf(search, fromIndex);
+    return index < 0 ? -1 : domesticDisplayWidth(String(line).slice(0, index));
+  };
+
+  const domesticSliceByDisplayColumn = (line, start, end = Number.POSITIVE_INFINITY) => {
+    let width = 0;
+    let output = "";
+    for (const char of String(line || "")) {
+      const charWidth = domesticDisplayWidth(char);
+      const next = width + charWidth;
+      if (next > start && width < end) output += char;
+      width = next;
+      if (width >= end) break;
+    }
+    return output.trim();
+  };
+
+  const mergeDomesticCellFragments = fragments => {
+    const values = fragments.map(item => String(item || "").trim()).filter(Boolean);
+    if (!values.length) return "—";
+    let output = values[0];
+    values.slice(1).forEach(next => {
+      const previous = output.trimEnd();
+      const joinWithoutSpace =
+        /[一-龯々ぁ-んァ-ヶー]$/.test(previous) &&
+        /^[一-龯々ぁ-んァ-ヶー。、）)]/.test(next) &&
+        !/[。、；;：:]$/.test(previous);
+      const joinWithSpace = /[A-Za-z0-9]$/.test(previous) && /^[A-Za-z0-9]/.test(next);
+      output = `${previous}${joinWithoutSpace ? "" : joinWithSpace ? " " : "\n"}${next}`;
+    });
+    return output;
+  };
+
+  const renderDomesticCell = value => escapeHtml(String(value || "—")).replaceAll("\n", "<br>");
+
+  const splitDomesticCodeSections = source => {
+    const lines = cleanDomesticOriginalForDisplay(source).split("\n");
+    const sections = [];
+    let current = null;
+    const flush = () => {
+      if (!current) return;
+      current.lines = current.lines.filter(line => !sourcePageNoisePattern.test(line.trim()));
+      sections.push(current);
+      current = null;
+    };
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      const heading = trimmed.match(/^((?:P|LP|IBC|T)\d+[A-Z]?(?:\([a-z0-9]+\))?)$/i);
+      if (heading) {
+        flush();
+        current = { title: heading[1], lines: [] };
+        return;
+      }
+      if (!current) current = { title: "", lines: [] };
+      current.lines.push(line);
+    });
+    flush();
+    return sections;
+  };
+
+  const parsePackingTableSection = section => {
+    const lines = section.lines || [];
+    const headerIndex = lines.findIndex(line =>
+      line.includes("内装容器の種類") &&
+      line.includes("外装容器の種類") &&
+      /許容容量|許容質量/.test(line)
+    );
+    if (headerIndex < 0) return null;
+    const header = lines[headerIndex];
+    const firstIndex = header.indexOf("内装容器の種類");
+    const secondIndex = header.indexOf("中間容器の種類");
+    const thirdIndex = header.indexOf("外装容器の種類");
+    const fourthIndex = Math.max(header.lastIndexOf("外装容器の許容容量又は許容質量"), header.lastIndexOf("許容容量又は許容質量"));
+    if ([firstIndex, secondIndex, thirdIndex, fourthIndex].some(index => index < 0)) return null;
+    const noteIndex = lines.findIndex((line, index) => index > headerIndex && /^\s*注(?:\s|$)/.test(line));
+    const bodyEnd = noteIndex >= 0 ? noteIndex : lines.length;
+    const bodyLines = lines.slice(headerIndex + 1, bodyEnd).filter(line => line.trim() && !sourcePageNoisePattern.test(line.trim()));
+
+    const locateSeparatedChunks = line => {
+      const chunks = [];
+      let cursor = 0;
+      String(line || "").split(/(\s{2,})/).forEach(part => {
+        if (!part) return;
+        if (/^\s{2,}$/.test(part)) {
+          cursor += part.length;
+          return;
+        }
+        const leading = (part.match(/^\s+/) || [""])[0].length;
+        const text = part.trim();
+        if (text) chunks.push({ text, column: cursor + leading });
+        cursor += part.length;
+      });
+      return chunks;
+    };
+
+    const headerStarts = [firstIndex, secondIndex, thirdIndex, fourthIndex];
+    const boundaries = [
+      (headerStarts[0] + headerStarts[1]) / 2,
+      (headerStarts[1] + headerStarts[2]) / 2,
+      (headerStarts[2] + headerStarts[3]) / 2
+    ];
+    const resolveColumn = column => column < boundaries[0] ? 0 : column < boundaries[1] ? 1 : column < boundaries[2] ? 2 : 3;
+    const capacityPattern = /^(.*?)(?:\s+)(\d[\d,.]*(?:\.\d+)?\s*(?:kg|g|L|mL|MPa)|使用禁止|[xｘ])$/i;
+    const physicalRows = bodyLines.map(line => {
+      const cells = ["", "", "", ""];
+      locateSeparatedChunks(line).forEach(chunk => {
+        const index = resolveColumn(chunk.column);
+        cells[index] = cells[index] ? `${cells[index]} ${chunk.text}` : chunk.text;
+      });
+      for (let index = 2; index >= 1 && !cells[3]; index -= 1) {
+        const match = cells[index].match(capacityPattern);
+        if (match && match[1].trim()) {
+          cells[index] = match[1].trim();
+          cells[3] = match[2].trim();
+        }
+      }
+      return cells;
+    }).filter(cells => cells.some(Boolean));
+
+    const rows = [];
+    let group = [[], [], [], []];
+    let groupHasValue = false;
+    const flush = () => {
+      if (!groupHasValue) return;
+      rows.push(group.map(mergeDomesticCellFragments));
+      group = [[], [], [], []];
+      groupHasValue = false;
+    };
+    physicalRows.forEach(cells => {
+      const capacity = cells[3];
+      if (capacity && groupHasValue && group[3].some(Boolean)) flush();
+      cells.forEach((cell, index) => {
+        if (cell) {
+          group[index].push(cell);
+          groupHasValue = true;
+        }
+      });
+    });
+    flush();
+
+    const repairCrossRowWrap = columnIndex => {
+      for (let index = 1; index < rows.length; index += 1) {
+        const previous = String(rows[index - 1][columnIndex] || "");
+        const current = String(rows[index][columnIndex] || "");
+        if (!previous || previous === "—" || !current || current === "—") continue;
+        if (/[。、，,；;：:）)]$/.test(previous.trim()) || !/[一-龯々ぁ-んァ-ヶー]$/.test(previous.trim()) || !/^[ぁ-んァ-ヶー]/.test(current.trim())) continue;
+        const boundary = current.search(/[。、，,；;：:）)]/);
+        const continuationEnd = boundary >= 0 ? boundary + 1 : current.length;
+        const continuation = current.slice(0, continuationEnd).trim();
+        const remainder = current.slice(continuationEnd).trim();
+        rows[index - 1][columnIndex] = `${previous.trimEnd()}${continuation}`;
+        rows[index][columnIndex] = remainder || "—";
+      }
+    };
+    repairCrossRowWrap(0);
+    repairCrossRowWrap(1);
+    if (!rows.length) return null;
+
+    const noteLines = noteIndex >= 0 ? lines.slice(noteIndex) : [];
+    return {
+      title: section.title,
+      rows,
+      notes: repairProseSoftWraps(noteLines.join("\n"))
+    };
+  };
+
+  const renderStructuredPackingOriginal = (originalText, label) => {
+    const source = cleanDomesticOriginalForDisplay(originalText);
+    if (!/^P\d/i.test(source.trim())) return "";
+    const parsed = splitDomesticCodeSections(source)
+      .map(parsePackingTableSection)
+      .filter(Boolean);
+    if (!parsed.length) return "";
+    return `
+      <section class="domestic-original-verbatim domestic-original-verbatim--structured">
+        <div class="domestic-original-verbatim__heading">${escapeHtml(label)}</div>
+        <div class="domestic-structured-original">
+          ${parsed.map(section => `
+            <section class="domestic-source-section">
+              ${section.title ? `<h4>${escapeHtml(section.title)}</h4>` : ""}
+              <div class="domestic-source-table-scroll" tabindex="0">
+                <table class="domestic-source-table">
+                  <thead><tr><th>内装容器の種類</th><th>中間容器の種類</th><th>外装容器の種類</th><th>外装容器の許容容量又は許容質量</th></tr></thead>
+                  <tbody>${section.rows.map(row => `<tr>${row.map(cell => `<td>${renderDomesticCell(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+                </table>
+              </div>
+              ${section.notes ? `<div class="domestic-source-notes"><strong>注</strong><p>${escapeHtml(section.notes.replace(/^\s*注\s*/, "")).replaceAll("\n", "<br>")}</p></div>` : ""}
+            </section>`).join("")}
+        </div>
+      </section>`;
+  };
+
+  const renderVerbatimDomesticOriginal = (originalText, { label = "原文テキスト", compact = false } = {}) => {
+    const structured = renderStructuredPackingOriginal(originalText, label);
+    if (structured) return structured;
+    const prepared = prepareDomesticOriginalSource(originalText);
+    if (!prepared.source) return "";
+    return `
+      <section class="domestic-original-verbatim${compact ? " domestic-original-verbatim--compact" : ""}">
+        <div class="domestic-original-verbatim__heading">${escapeHtml(label)}</div>
+        <div class="domestic-original-verbatim__scroll" tabindex="0" aria-label="${escapeHtml(label)}">
+          <pre class="domestic-original-verbatim__text ${prepared.tabular ? "is-tabular" : "is-prose"}">${escapeHtml(prepared.source)}</pre>
+        </div>
+      </section>`;
+  };
+
+  const buildExactPdfPageUrl = (pdfPath, page) => {
+    const source = String(pdfPath || "");
+    const doc = source.includes("regulations") ? "regulation" : source.includes("radioactive") ? "radioactive" : "notification";
+    return `pdf-page-viewer.html?doc=${encodeURIComponent(doc)}&page=${encodeURIComponent(page || 1)}`;
   };
 
   const renderDomesticPageVisual = (pages, pdfPath) => {
@@ -1393,14 +1714,14 @@
     if (!pageList.length) return "";
     return pageList.map(page => {
       const imagePath = `../assets/pdf-page-images/dangerous-goods-notification/page-${encodeURIComponent(page)}.png`;
-      const anchor = `#page=${page}`;
+      const exactPageUrl = buildExactPdfPageUrl(pdfPath, page);
       return `
         <div class="pdf-preview-wrap pdf-preview-wrap--image">
           <div class="pdf-preview-toolbar">
             <span class="pdf-preview-title">原文ページの図表・イラスト表示（PDF ${escapeHtml(page)}ページ）</span>
             <div class="pdf-preview-actions">
               <button type="button" class="modal-reference-link pdf-image-expand-button" data-pdf-image-expand="${imagePath}" data-pdf-image-page="${escapeHtml(page)}">画像を拡大</button>
-              <a class="modal-reference-link" href="${escapeHtml(pdfPath || "")}${anchor}" target="_blank" rel="noopener">PDF ${escapeHtml(page)}ページを開く</a>
+              <a class="modal-reference-link" href="${escapeHtml(exactPageUrl)}" target="_blank" rel="noopener">PDF ${escapeHtml(page)}ページを開く</a>
             </div>
           </div>
           <button type="button" class="pdf-page-image-button" data-pdf-image-expand="${imagePath}" data-pdf-image-page="${escapeHtml(page)}" aria-label="PDF ${escapeHtml(page)}ページ画像を拡大表示">
@@ -1484,7 +1805,7 @@
       <section class="domestic-law-fullscreen__page-section" data-domestic-law-panel="${escapeHtml(panelId)}" ${active ? '' : 'hidden'}>
         <div class="domestic-law-fullscreen__page-heading">
           <strong>${escapeHtml(title)}</strong>
-          <a href="${escapeHtml(pdfPath)}#page=${escapeHtml(page)}" target="_blank" rel="noopener">原文PDFを開く</a>
+          <a href="${escapeHtml(buildExactPdfPageUrl(pdfPath, page))}" target="_blank" rel="noopener">原文PDFを開く</a>
         </div>
         <div class="domestic-law-fullscreen__image-wrap">
           <button type="button" class="domestic-law-fullscreen__image-button" data-pdf-image-expand="${escapeHtml(imagePath)}" data-pdf-image-page="${escapeHtml(title)}" aria-label="${escapeHtml(title)}の表・図・本文を全画面拡大">
@@ -1739,31 +2060,194 @@
       openDomesticLawByReferences({title,references,includeSourcePage:false});
     });
   });
+
+  const normalizeDetailCode = value => String(value || "")
+    .normalize("NFKC")
+    .trim()
+    .toUpperCase()
+    .replace(/^又は/, "")
+    .replace(/^[（(]+|[）)]+$/g, "")
+    .replace(/[、,]+$/g, "");
+
+  const parseTopLevelCodeHeading = line => {
+    if (!line || /^\s/.test(line)) return null;
+    const match = String(line).match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?\b/i);
+    if (!match) return null;
+    return {
+      base: normalizeDetailCode(match[1]),
+      subsection: match[2] ? String(match[2]).toLowerCase() : "",
+      full: normalizeDetailCode(match[0])
+    };
+  };
+
+  const extractExactCodeSection = (value, code) => {
+    const source = cleanDomesticOriginalForDisplay(value);
+    if (!source) return "";
+    const target = normalizeDetailCode(code);
+    if (!target) return source;
+    const targetMatch = target.match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?$/i);
+    if (!targetMatch) return source;
+    const targetBase = normalizeDetailCode(targetMatch[1]);
+    const targetSubsection = targetMatch[2] ? String(targetMatch[2]).toLowerCase() : "";
+    const lines = source.split("\n");
+    let start = -1;
+    let end = lines.length;
+    for (let index = 0; index < lines.length; index += 1) {
+      const heading = parseTopLevelCodeHeading(lines[index]);
+      if (!heading) continue;
+      const isTarget = heading.base === targetBase && (!targetSubsection || heading.subsection === targetSubsection);
+      if (start < 0 && isTarget) {
+        start = index;
+        continue;
+      }
+      if (start >= 0) {
+        if (targetSubsection) {
+          if (heading.base !== targetBase || heading.subsection !== targetSubsection) {
+            end = index;
+            break;
+          }
+        } else if (heading.base !== targetBase) {
+          end = index;
+          break;
+        }
+      }
+    }
+    if (start < 0) return source;
+    return lines.slice(start, end).join("\n").trim();
+  };
+
+  const extractP200CurrentEntry = reference => {
+    const text = cleanDomesticOriginalForDisplay(reference?.domesticOriginal || "");
+    if (!text || !record?.unNumber) return "";
+    const un = String(record.unNumber).padStart(4, "0");
+    const lines = text.split("\n");
+    const start = lines.findIndex(line => new RegExp(`^\\s*${un}(?:\\s|$)`).test(line));
+    if (start < 0) return "";
+    const selected = [lines[start]];
+    for (let index = start + 1; index < lines.length; index += 1) {
+      const line = lines[index];
+      if (/^\s*\d{4}(?:\s|$)/.test(line)) {
+        const joined = selected.join("\n");
+        const openCount = (joined.match(/[（(]/g) || []).length;
+        const closeCount = (joined.match(/[）)]/g) || []).length;
+        if (openCount > closeCount) {
+          const cells = line.trim().split(/\s{2,}/).filter(Boolean);
+          const tail = cells[cells.length - 1] || "";
+          if (/[）)]$/.test(tail) && /(?:L|kg|MPa|容器)/i.test(tail)) selected.push(`      ${tail}`);
+        }
+        break;
+      }
+      if (sourcePageNoisePattern.test(line.trim())) continue;
+      selected.push(line);
+    }
+    return selected.join("\n").trim();
+  };
+
+  const findP200CurrentPage = reference => {
+    if (reference?.code !== "P200" || !record?.unNumber) return null;
+    const raw = String(reference.domesticOriginal || "").replace(/\r\n?/g, "\n");
+    const un = String(record.unNumber).padStart(4, "0");
+    const segments = raw.split(/\f/);
+    const pages = Array.isArray(reference.domesticOriginalPages) && reference.domesticOriginalPages.length
+      ? reference.domesticOriginalPages
+      : [reference.domesticOriginalPage || 298];
+    const index = segments.findIndex(segment => new RegExp(`(?:^|\\n)\\s*${un}(?:\\s|$)`).test(segment));
+    return index >= 0 ? (pages[index] || pages[0] || null) : (pages[0] || null);
+  };
+
+  const extractContextualCodeText = reference => {
+    if (!reference) return "";
+    if (reference.code === "P200" && record?.unNumber) {
+      return extractP200CurrentEntry(reference);
+    }
+    return extractExactCodeSection(reference.domesticOriginal || "", reference.code);
+  };
+
+  const getCodeDisplayPages = reference => {
+    if (reference?.code === "P200" && record?.unNumber) {
+      const page = findP200CurrentPage(reference);
+      return page ? [page] : (reference.domesticOriginalPages || [reference.domesticOriginalPage]);
+    }
+    return reference?.domesticOriginalPages || [reference?.domesticOriginalPage];
+  };
+
+  const renderP200Context = (reference, contextual) => {
+    const un = String(record?.unNumber || "").padStart(4, "0");
+    const source = String(contextual || "");
+    const permitRequired = /(?:^|\s)[xｘ](?:\s|$)/i.test(source);
+    const capacity = source.match(/\d[\d,]*(?:\.\d+)?\s*L(?:（[^）]*）)?/i)?.[0] || "";
+    const pressure = source.match(/\d+(?:\.\d+)?\s*MPa/i)?.[0] || "";
+    return `<div class="p200-current-entry" aria-label="P200 国連番号${escapeHtml(un)}の該当内容">
+      <div class="p200-current-entry__title">P200 国連番号${escapeHtml(un)}の該当内容</div>
+      <dl class="p200-current-entry__summary">
+        <div><dt>国連番号</dt><dd>${escapeHtml(un)}</dd></div>
+        <div><dt>品名</dt><dd>${escapeHtml(record?.properShippingNameJa || record?.properShippingName || "原文参照")}</dd></div>
+        ${pressure ? `<div><dt>最大圧力等</dt><dd>${escapeHtml(pressure)}</dd></div>` : ""}
+        ${capacity ? `<div><dt>許容容量</dt><dd>${escapeHtml(capacity)}</dd></div>` : ""}
+        ${permitRequired
+          ? `<div class="is-wide is-warning"><dt>許可条件</dt><dd>表中「x」は、地方運輸局長の許可が必要であることを示します。社内既存システムの許可証データベースに登録された許可内容を確認してください。</dd></div>`
+          : `<div class="is-wide"><dt>確認事項</dt><dd>容器、定数、最大圧力、許容容量又は許容質量は、下記の国連番号${escapeHtml(un)}の原文該当行及び注記を確認してください。</dd></div>`}
+      </dl>
+      ${renderVerbatimDomesticOriginal(contextual, { label: `危告示別表第1 P200 国連番号${un}の該当行`, compact: true })}
+      <p class="p200-current-entry__note">現在開いている危険物の国連番号に該当する原文だけを表示しています。前後の国連番号は表示しません。</p>
+    </div>`;
+  };
+
+  const renderCodeExplanation = (reference, contextual = extractContextualCodeText(reference)) => {
+    const isP200 = reference.code === "P200" && record?.unNumber;
+    const title = isP200
+      ? `${reference.code}（国連番号${String(record.unNumber).padStart(4, "0")}の該当箇所）`
+      : `${reference.code}の該当原文`;
+    return `<section class="modal-reference-block modal-reference-block--code-explanation">
+      <div class="code-explanation-heading"><span>コード原文</span><strong>${escapeHtml(title)}</strong></div>
+      ${contextual
+        ? (isP200
+            ? renderP200Context(reference, contextual)
+            : renderVerbatimDomesticOriginal(contextual, { label: `${reference.code} 該当原文`, compact: true }))
+        : `<p class="reference-pending">該当コードの原文テキストは未登録です。下段の原文ページ画像から確認してください。</p>`}
+    </section>`;
+  };
+
   const openCodeModal = code => {
     if (!codeModal || !codeModalBody || !codeModalTitle) return;
     const reference = window.IMDGCrossReferenceResolver?.resolve(code);
     if (!reference) return;
     const domesticPdfPath = "../references/originals/dangerous-goods-notification.pdf";
-    const domesticAnchor = reference.domesticOriginalAnchor || "#page=1";
+    const contextualOriginal = extractContextualCodeText(reference);
+    const displayPages = getCodeDisplayPages(reference).filter(Boolean);
+    const firstDisplayPage = displayPages[0] || reference.domesticOriginalPage || 1;
+    const domesticExactPageUrl = buildExactPdfPageUrl(domesticPdfPath, firstDisplayPage);
     codeModalTitle.textContent = `${reference.code} ${reference.labelJa || "コード詳細"}`;
     codeModalBody.innerHTML = `
       <section class="modal-reference-block modal-reference-block--primary">
         <strong>国内法令の主な参照</strong>
         <ul>${(reference.domesticReferences || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         <button type="button" class="modal-reference-link modal-reference-link--button" data-domestic-law-fullscreen>該当する国内法令だけを全画面で続けて表示</button>
-        <a class="modal-reference-link" href="${escapeHtml(domesticPdfPath)}${escapeHtml(domesticAnchor)}" target="_blank" rel="noopener">危告示のコード掲載ページを開く${reference.domesticOriginalPage ? `（PDF ${escapeHtml(reference.domesticOriginalPage)}ページ）` : ""}</a>
+        <a class="modal-reference-link" href="${escapeHtml(domesticExactPageUrl)}" target="_blank" rel="noopener">危告示のコード掲載ページを開く${firstDisplayPage ? `（PDF ${escapeHtml(firstDisplayPage)}ページ）` : ""}</a>
       </section>
       ${renderPackingQuantityProfile(reference.code, record.packingGroup)}
+      ${renderCodeExplanation(reference, contextualOriginal)}
       <section class="modal-reference-block modal-reference-block--domestic-original">
-        <a class="domestic-original-heading-link" href="${escapeHtml(domesticPdfPath)}${escapeHtml(domesticAnchor)}" target="_blank" rel="noopener">国内法令原文${reference.domesticOriginalPage ? `（PDF ${escapeHtml(reference.domesticOriginalPage)}${reference.domesticOriginalPageEnd && reference.domesticOriginalPageEnd !== reference.domesticOriginalPage ? `～${escapeHtml(reference.domesticOriginalPageEnd)}` : ""}ページ）` : ""} ↗</a>
+        <a class="domestic-original-heading-link" href="${escapeHtml(domesticExactPageUrl)}" target="_blank" rel="noopener">国内法令原文${displayPages.length ? `（PDF ${escapeHtml(displayPages.join("・"))}ページ）` : ""} ↗</a>
         ${reference.domesticOriginal
-          ? `${renderDomesticPageVisual(reference.domesticOriginalPages || [reference.domesticOriginalPage], domesticPdfPath)}${renderDomesticAiSummary(reference.domesticOriginal, reference.code)}`
-          : `${renderDomesticPageVisual(reference.domesticOriginalPages || [reference.domesticOriginalPage], domesticPdfPath)}<p class="reference-pending">このコードの国内法令原文テキストはデータベースに未登録です。原文ページ画像または「危告示のコード掲載ページを開く」から確認してください。</p>`}
+          ? `${renderDomesticPageVisual(displayPages, domesticPdfPath)}${renderDomesticAiSummary(contextualOriginal, reference)}`
+          : `${renderDomesticPageVisual(displayPages, domesticPdfPath)}<p class="reference-pending">このコードの国内法令原文テキストはデータベースに未登録です。原文ページ画像または「危告示のコード掲載ページを開く」から確認してください。</p>`}
+        ${reference.code === "P200" && record?.unNumber ? `<div class="p200-source-guidance"><p>現在開いている危険物の国連番号に該当する原文テキストと掲載ページだけを表示しています。P200全体は見出しのリンクから確認できます。</p></div>` : ""}
       </section>
       ${reference.hasDomesticImdgReference
-        ? `<section class="modal-reference-block">
-             <strong>IMDG Code参照先</strong>
-             <ul>${(reference.domesticImdgReferences || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        ? `<section class="modal-reference-block modal-reference-block--imdg-original">
+             <strong>条文中に記載されたIMDG Code原文</strong>
+             <p>危告示の条文中にIMDG Codeの条文番号が記載されている場合、その該当原文を続けて表示します。</p>
+             <div class="imdg-reference-list">${(reference.domesticImdgReferences || []).map(item => {
+               const label = typeof item === "string" ? item : item.label;
+               const page = typeof item === "object" ? item.page : null;
+               const note = typeof item === "object" ? item.note : "";
+               const url = page ? `pdf-page-viewer.html?doc=imdg&page=${encodeURIComponent(page)}&section=${encodeURIComponent(item.section || "")}` : "";
+               return `<article class="imdg-reference-item">
+                 <div class="imdg-reference-item__head"><strong>${escapeHtml(label)}</strong>${page ? `<a class="modal-reference-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">該当原文を開く（PDF ${escapeHtml(page)}ページ）</a>` : ""}</div>
+                 ${page ? `<a class="imdg-page-preview" href="${escapeHtml(url)}" target="_blank" rel="noopener"><img src="../assets/pdf-page-images/imdg-code/page-${escapeHtml(page)}.jpg" alt="${escapeHtml(label)} 掲載ページ" loading="lazy"></a>` : `<p class="reference-pending">${escapeHtml(note || "該当ページを自動特定できませんでした。最新版のIMDG Code本文を確認してください。")}</p>`}
+               </article>`;
+             }).join("")}</div>
            </section>`
         : ""}
       <p class="code-modal-caution">国内法令・IMDG Codeは参考情報です。実務判断では最新版の本文を確認してください。</p>

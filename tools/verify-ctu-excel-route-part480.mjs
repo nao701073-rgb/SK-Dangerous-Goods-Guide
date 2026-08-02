@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+const html=fs.readFileSync(new URL('../pages/ctu-securing-calculator.html',import.meta.url),'utf8');
+const js=fs.readFileSync(new URL('../assets/js/ctu-excel-route-import.js',import.meta.url),'utf8');
+const requiredHtml=['ctuExcelRoutePanel','ctuExcelDropZone','ctuExcelFile','loadingPort','dischargePort','departureMonth','inferSeaArea','cargoDescription','unNumbers','packageCount','containerNumber','ctu-excel-route-import.js?v=481','xlsx.full.min.js'];
+const missingHtml=requiredHtml.filter(x=>!html.includes(x));
+if(missingHtml.length)throw new Error('HTML missing: '+missingHtml.join(', '));
+const requiredJs=['Excel申請書を端末内で読み込んでいます','parseWorkbook','inferRoute','海域A','海域B','海域C','北太平洋横断ルート','北大西洋横断ルート'];
+const missingJs=requiredJs.filter(x=>!js.includes(x));
+if(missingJs.length)throw new Error('JS missing: '+missingJs.join(', '));
+if(/localStorage|getItem\(|application-verification-result/i.test(js))throw new Error('申請書確認画面からの引継ぎ処理が含まれています');
+const sandbox={window:null,document:{getElementById(){return null}},console};sandbox.window=sandbox;sandbox.addEventListener=()=>{};sandbox.XLSX={utils:{sheet_to_json(ws){return ws.rows}}};vm.createContext(sandbox);vm.runInContext(js,sandbox);
+const api=sandbox.ISSCTUExcelRoute;
+const winter=api.inferRoute('横浜港','ロサンゼルス',1);if(winter.area!=='seaC')throw new Error('冬季北太平洋ルートが海域Cになりません');
+const domestic=api.inferRoute('東京港','神戸港',8);if(domestic.area!=='seaA')throw new Error('日本沿岸ルートが海域Aになりません');
+const wb={SheetNames:['申請'],Sheets:{申請:{rows:[['船積港','横浜港'],['陸揚港','シンガポール港'],['申請番号','12345'],['コンテナ番号','TCLU1234567'],[],['国連番号','検査対象','品名','個数','N/W(kg)','G/W(kg)','長さ(m)','幅(m)','高さ(m)'],['UN1001','対象','アセチレン',2,1000,1200,2.1,1.1,1.5]]}}};
+const parsed=api.parseWorkbook(wb);if(parsed.fields.massT!==1.2||parsed.fields.loadingPort!=='横浜港'||parsed.fields.dischargePort!=='シンガポール港'||parsed.fields.cargoName!=='アセチレン'||parsed.fields.containerNo!=='TCLU1234567')throw new Error('Excel申請書抽出テストに失敗しました');
+console.log('part481 CTU Excel direct import, route inference and ephemeral processing verification passed');

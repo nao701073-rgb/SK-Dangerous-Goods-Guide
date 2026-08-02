@@ -298,7 +298,7 @@
             <option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option>
           </select>
         </label>
-        <label>ファイル <input id="documentFile" type="file" accept="application/pdf,.pdf,application/msword,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,text/csv,.csv,text/plain,.txt,image/jpeg,.jpg,.jpeg,image/png,.png,image/webp,.webp" multiple required><small class="field-help">PDF、Excel（.xls／.xlsx）、Word（.doc／.docx）、CSV、テキスト、JPEG、PNG、WebPを登録できます。複数ファイルをまとめて選択可能です。開発版では1ファイル5MB以下。実行ファイルや圧縮ファイルは登録できません。</small></label>
+        <label>ファイル <input id="documentFile" type="file" accept="application/pdf,.pdf,application/msword,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,text/csv,.csv,text/plain,.txt,image/jpeg,.jpg,.jpeg,image/png,.png,image/webp,.webp,image/heic,.heic,image/heif,.heif" multiple required><small class="field-help">PDF、Excel（.xls／.xlsx）、Word（.doc／.docx）、CSV、テキスト、JPEG、PNG、WebP、HEIC／HEIFを登録できます。複数ファイルをまとめて選択可能です。開発版では1ファイル5MB以下。実行ファイルや圧縮ファイルは登録できません。</small></label>
         <label>登録者 <input id="documentUploadedBy" value="利用者"></label>
         <label class="application-document-form__wide">説明 <textarea id="documentDescription" rows="2" placeholder="任意"></textarea></label>
         <div class="application-document-form__wide form-actions"><button class="primary-action" type="submit">資料を登録</button><span id="documentMessage" class="form-message"></span></div>
@@ -324,7 +324,7 @@
 
         <label>
           写真
-          <input id="photoFile" type="file" accept="image/*" capture="environment" required>
+          <input id="photoFile" type="file" accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence" capture="environment" required>
           <small class="field-help">ファイル選択のほか、下のプレビュー枠へドラッグ＆ドロップ、または画像を貼り付けできます。</small>
         </label>
         <label>
@@ -717,7 +717,9 @@
 <script src="../assets/js/application-result-link.js?v=445"></script>
 <script src="../assets/js/application-results-view.js?v=445"></script>
   <script src="../assets/js/application-documents.js?v=269"></script>
-  <script src="../assets/js/photos.js?v=178"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heic-to@1.5.2/dist/iife/heic-to.js" crossorigin="anonymous"></script>
+  <script src="../assets/js/image-format-support.js?v=479"></script>
+  <script src="../assets/js/photos.js?v=479"></script>
   <script src="../assets/js/system-shell.js"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script>

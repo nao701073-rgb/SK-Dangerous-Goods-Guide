@@ -1,0 +1,29 @@
+{
+  "version": "0.468.0",
+  "part": 468,
+  "date": "2026-08-01",
+  "sourcePdf": "references/originals/dangerous-goods-notification.pdf",
+  "dangerousGoodsRowsChecked": 2725,
+  "codeCounts": {
+    "SP": 186,
+    "E": 5,
+    "SW": 24,
+    "P": 75,
+    "PP": 86
+  },
+  "totalUniqueCodes": 376,
+  "missingMappings": [],
+  "pageTokenMismatches": [],
+  "result": "PASS",
+  "addedMappings": {
+    "SP940": [
+      170
+    ],
+    "PP89": [
+      215
+    ],
+    "PP97": [
+      215
+    ]
+  }
+}

@@ -1,16 +1,101 @@
 {
-  "generatedAt": "2026-07-30T21:31:13.165Z",
-  "root": "/mnt/data/part417_build",
-  "status": "passed",
+  "generatedAt": "2026-08-02T00:53:30.861Z",
+  "root": "/mnt/data/part478_work/app",
+  "status": "failed",
   "stats": {
-    "html": 59,
-    "js": 148,
-    "json": 183,
-    "refs": 916,
-    "bytes": 247535325
+    "html": 62,
+    "js": 159,
+    "json": 65,
+    "refs": 953,
+    "bytes": 289827874
   },
-  "findingCount": 0,
-  "findings": [],
+  "findingCount": 14,
+  "findings": [
+    {
+      "severity": "error",
+      "type": "duplicate-id",
+      "file": "/mnt/data/part478_work/app/pages/ctu-securing-calculator.html",
+      "detail": "${directionId("
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/01_システム仕様書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/02_実施要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/03_ゲスト用使用要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/04_事業所利用者用使用要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/05_事業所管理者用使用要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/06_安全環境室用使用要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "detail": "../docs/manuals/07_システム管理者用使用要領書_Part243.docx"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/operations-monitoring.html",
+      "detail": "../docs/障害対応・復旧訓練手順書.md"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "detail": "../docs/本番導入設定手順書.md"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "detail": "../docs/運用管理手順書.md"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "detail": "../docs/バックアップ復元手順書.md"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "detail": "../docs/社内接続試験チェックリスト.md"
+    },
+    {
+      "severity": "error",
+      "type": "missing-reference",
+      "file": "/mnt/data/part478_work/app/pages/system-maintenance.html",
+      "detail": "../docs/バックアップ復元手順書.md"
+    }
+  ],
   "oversizedAssets": [
     {
       "file": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
@@ -26,7 +111,7 @@
     },
     {
       "file": "data/un-data.js",
-      "bytes": 3359836
+      "bytes": 3359844
     },
     {
       "file": "assets/images/login-business-background-4k.png",

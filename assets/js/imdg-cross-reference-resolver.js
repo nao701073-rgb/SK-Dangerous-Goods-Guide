@@ -7,6 +7,13 @@
   const specifics = registry.specificReferences || {};
   const domesticOriginals = window.DOMESTIC_CODE_ORIGINALS?.entries || {};
   const domesticPageRanges = window.DOMESTIC_CODE_PAGE_RANGES?.entries || {};
+  const imdgSectionPages = window.IMDG_SECTION_PAGE_MAP?.entries || {};
+  const codeCorrections = {
+    P112: { pages: [289, 290], page: 289, domesticOriginal: 'P111\n    内装容器の種類                       中間容器の種類                 外装容器の種類              外装容器の許容容量又は許容質量\n紙袋（防水性のものに限る。）、                      －             1A1、1A2、1B1、1B2、1H1、 1H2、         100kg\nプラスチック製袋、                                          1N1、1N2、4A、4B又は4N\nゴム引き織布製袋、                                          4C1又は4C2                          70kg\nプラスチック製シート、                                        1D、4D、4F、4H1又は4H2                 50kg\nゴム引き織布製シート又は木製容\n                                                   1G又は4G                            30kg\n器\n注 追加規定の欄に掲げる記号の意義は、次に定めるとおりとする。\n   PP43 国連番号が0159の危険物に関して、1A1、1A2、1B1、1B2、1N1、1N2、1H1又は1H2を外装容器として使用する場合には、内装容器を必要\nとしない。\n\nP112(a)\n     内装容器の種類                     中間容器の種類                  外装容器の種類              外装容器の許容容量又は許容質量\n紙袋（多層で防水性のものに限              プラスチック製袋、              1A1、1A2、1B1、1B2、1H1、 1H2、         100kg\nる。）、                        織布製袋（プラスチックでコーテ        1N1、1N2、4A、4B又は4N\nプラスチック製袋、                   ィングされているもの又はプラス        4C1又は4C2                          70kg\n織布製袋、                       チック製内張り付きのものに限\nゴム引き織布製袋、                   る。）、                   1D、4D、4F、4H1又は4H2                 50kg\n樹脂クロス製袋、                    金属製容器、\n金属製容器、                      プラスチック製容器又は木製容器        1G又は4G                            30kg\nプラスチック製容器又は木製容器\n注      1     湿性固体のものであって、等級及び隔離区分が、それぞれ、1.1及びDのものに適用する。\n       2     外装容器に気密性の天板取外し式ドラムを使用している場合には、中間容器は必要としない。\n       3     追加規定の欄に掲げる記号の意義は、次に定めるとおりとする。\n           PP26 国連番号が0004、0076、0078、0154、0219及び0394の危険物に関して、容器は鉛を含有しないものであること。\n           PP45 国連番号が0072及び0226の危険物に関しては、中間容器を必要としない。\n\nP112(b)\n\n            内装容器の種類               中間容器の種類                   外装容器の種類            外装容器の許容容量又は許容質量\n\nクラフト紙袋、                     プラスチック製袋（国連番号が         1A1、1A2、1B1、1B2、1H2、 1N1、         100kg\n紙袋（多層で防水性のものに限              0150の危険物に限る。）又は織布      1N2、4A、4B又は4N\nる。）、                        製袋（プラスチックでコーティン        4C1又は4C2                          70kg\nプラスチック製袋、                   グされているもの又はプラスチッ\n織布製袋、                       ク製内張り付きのものに限る。）        1D、4D、4F、4H1又は4H2                 50kg\n\n\n\n                                             - 289 -\n\x0cゴム引き織布製袋又は樹脂クロス            （ 国 連 番 号 が 0150 の 危 険 物 に 限   1G、4G、5H2、5H3、5H4、5L2、5L3         30kg\n製袋                         る。）                            又は5M2\n注      1    乾性固体（粉末のものを除く。）であって、等級及び隔離区分が、それぞれ、1.1及びDのものに適用する。\n       2    追加規定の欄に掲げる記号の意義は、次に定めるとおりとする。\n           PP26 国連番号が0004、0076、0078、0154、0216、0219及び0386の危険物に関して、容器は鉛を含有しないものであること。\n           PP46 国連番号が0209の危険物に関して、フレーク状又はプリル状のTNT（乾性のもの）には5H2を使用し、許容質量は30kgとすること。\n           PP47 国連番号が0222の危険物に関しては、外装容器に袋を使用する場合に限り、内装容器を必要としない。\n\nP112(c)\n\n            内装容器の種類               中間容器の種類                          外装容器の種類            外装容器の許容容量又は許容質量\n\n紙袋（多層で防水性のものに限             紙袋（内張り付き、多層で防水性                1A1、1A2、1B1、1B2、1H1、 1H2、         100kg\nる。）、                       のものに限る。）、                      1N1、1N2、4A、4B又は4N\nプラスチック製袋、                  プラスチック製袋、                      4C1又は4C2                          70kg\n樹脂クロス製袋、                   金属製容器、\nファイバ板製容器、                  プラスチック製容器又は木製容器                1D、4D、4F又は4H2                     50kg\n金属製容器、\nプラスチック製容器又は木製容器                                           1G又は4G                            30kg\n\n注      1     乾性固体（粉末のもの）であって、等級及び隔離区分が、それぞれ、1.1及びDのものに適用する。\n       2     外装容器にドラムを使用する場合には、内装容器は必要としない。\n       3     容器は粉末不漏性のものでなければならない。\n       4     追加規定の欄に掲げる記号の意義は、次に定めるとおりとする。\n           PP26 国連番号が0004、0076、0078、0154、0216、0219及び0386の危険物に関して、容器は鉛を含有しないものであること。\n           PP46 国連番号が0209の危険物に関して、フレーク状又はプリル状のTNT（乾性のもの）には5H2を使用し、許容質量は30kgとすること。\n           PP48 国連番号が 0504 の危険物に関しては、金属製の容器（金属製の閉鎖装置等を有するものであって、危険物との接触面が金属製でない\n                ものを除く。）を使用しないこと。\n\nP113\n    内装容器の種類                       中間容器の種類                        外装容器の種類              外装容器の許容容量又は許容質量\n紙袋、                                  －                    1A1、1A2、1B1、1B2、1H1、 1H2、         100kg\nプラスチック製袋、                                                 1N1、1N2、4A、4B又は4N\nゴム引き織布製袋、                                                 4C1又は4C2                          70kg\nファイバ板製容器、\n金属製容器、                                                    1D、4D、4F又は4H2                     50kg\nプラスチック製容器又は木製容器\n                                                          1G又は4G                            30kg\n\n\n\n                                                   - 290 -\n （船舶による危険物の運送基準等を定める告示）', labelJa: "小型容器包装要件" },
+    SGG2: { pages: [377], page: 377, domesticOriginal: 'SGG2     備考9（2）のアンモニウム化合物を示す。\n                                                      - 377 -\n                                                                                       （船舶による危険物の運送基準等を定める告示）', labelJa: "隔離グループコード" },
+    SP373: { pages: [421, 422], page: 421 },
+    P200: { pages: [298, 299, 300, 301, 302, 303, 304, 305, 306, 307], page: 298 }
+  };
 
   const categoryFallbackPages = {
     packing: 281,
@@ -28,6 +35,7 @@
     .toUpperCase()
     .replace(/^又は/, "")
     .replace(/^[（(]+|[）)]+$/g, "")
+    .replace(/^区分/, "")
     .replace(/[、,]+$/g, "");
 
   const defaultDomesticReferences = {
@@ -138,7 +146,15 @@
       while ((sectionMatch = sectionPattern.exec(sentence)) !== null) addReference(sectionMatch[0]);
     });
 
-    return references.map(section => `IMDG Code ${section}`);
+    return references.map(section => {
+      const mapped = imdgSectionPages[section] || {};
+      return {
+        section,
+        label: `IMDG Code ${section}`,
+        page: Number.isFinite(mapped.page) ? mapped.page : null,
+        note: mapped.note || ""
+      };
+    });
   }
 
   function buildDomesticDisplay(reference) {
@@ -170,10 +186,13 @@
     const baseCode = String(exactCode || "").replace(/\([A-Z]\)$/i, "");
     const original = domesticOriginals[exactCode] || domesticOriginals[baseCode] || {};
     const rangeData = domesticPageRanges[exactCode] || domesticPageRanges[baseCode] || {};
+    const correction = codeCorrections[exactCode] || codeCorrections[baseCode] || {};
     const fallbackPage = categoryFallbackPages[reference.categoryId] || categoryFallbackPages.unclassified;
-    const page = rangeData.pageStart || original.pdfPage || reference.domesticOriginalPage || fallbackPage;
-    const pages = Array.isArray(rangeData.pages) && rangeData.pages.length ? rangeData.pages : [page];
-    const domesticOriginal = rangeData.domesticOriginal || original.domesticOriginal || reference.domesticOriginal || "";
+    const page = correction.page || original.pdfPage || rangeData.pageStart || reference.domesticOriginalPage || fallbackPage;
+    const pages = Array.isArray(correction.pages) && correction.pages.length
+      ? correction.pages
+      : (Array.isArray(rangeData.pages) && rangeData.pages.length ? rangeData.pages : [page]);
+    const domesticOriginal = correction.domesticOriginal || original.domesticOriginal || rangeData.domesticOriginal || reference.domesticOriginal || "";
     const domesticImdgReferences = extractDomesticImdgReferences(domesticOriginal);
     return {
       ...normalizedReference,
@@ -210,6 +229,9 @@
   function resolve(code) {
     const normalized = normalize(code);
     if (!normalized || normalized === "—" || normalized === "-") return null;
+    // 「(A),(B)」「又は(C)」などは包装要件コードの補足記号であり、
+    // 独立した法令コードではないため原典ページへ遷移させない。
+    if (/[()（）,，]/.test(normalized) || normalized.includes("又ハ") || normalized.includes("又は")) return null;
 
     if (/^PP\d+[A-Z]?$/.test(normalized)) {
       return withDomesticReferences({ code: normalized, categoryId: "packing", labelJa: "小型容器追加規定", domesticDisplay: `危告示 別表第1 備考6 小型容器追加規定 ${normalized}`, imdgLocation: "IMDG Code 4.1.4.1", detailLocation: "Packing special provision", englishExcerpt: "", commentaryJa: "小型容器の追加規定です。危告示の原文と対象国連番号・容器等級を確認します。", status: "domestic-original-registered", specific: true });
@@ -270,7 +292,7 @@
     return withDomesticReferences({
       code: normalized,
       categoryId: detected.categoryId,
-      labelJa: detected.category.labelJa,
+      labelJa: (codeCorrections[normalized]?.labelJa || detected.category.labelJa),
       imdgLocation: detected.category.imdgLocation,
       detailLocation: detected.category.detailLocation,
       englishExcerpt: "",
