@@ -1,16 +1,16 @@
 {
-  "version": "part483",
-  "part": 483,
+  "version": "part485",
+  "part": 485,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-08-02",
-  "fileCount": 1484,
-  "totalBytesExcludingManifestAndChecksum": 289585604,
   "qaReport": "docs/0.363.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/part483-dangerous-goods-detail-hotfix.md",
+  "notes": "docs/part485-packing-table-overflow-fix.md",
   "releasedAt": "2026-08-02",
   "updatedAt": "2026-08-02",
-  "summary": "危険物詳細画面が空白になるpart482の実行時エラーを修正した。",
-  "build": "part483-dangerous-goods-detail-hotfix",
-  "changeSummary": "正式輸送品名候補抽出関数を呼出し前に利用可能な関数宣言へ変更し、危険物詳細の描画停止を解消。part482の表示改善は維持する。"
+  "summary": "part484の実寸比較修正を維持し、包装要件表の列分離と長い許容容量・許容質量のセル内折返しを修正。",
+  "build": "part485-packing-table-overflow-fix",
+  "changeSummary": "包装要件の内装容器・外装容器表に専用列構造を追加し、容器欄と許容値欄の混在およびセル枠からのはみ出しを防止。",
+  "fileCount": 1490,
+  "totalBytesExcludingManifestAndChecksum": 289594088
 }

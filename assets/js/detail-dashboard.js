@@ -1303,8 +1303,24 @@
         <strong>${escapeHtml(profile.title)}</strong>
         <p class="packing-profile-current">対象危険物の容器等級：<b>${escapeHtml(pg || "指定なし")}</b></p>
         <div class="packing-profile-grid">
-          <div><h4>内装容器</h4><table><tbody>${innerRows}</tbody></table></div>
-          <div><h4>外装容器（${escapeHtml(pg ? `容器等級 ${pg}` : "I / II / III") }）</h4><table><tbody>${outerRows}</tbody></table></div>
+          <div class="packing-profile-panel packing-profile-panel--inner">
+            <h4>内装容器</h4>
+            <div class="packing-profile-table-wrap" tabindex="0">
+              <table class="packing-profile-table packing-profile-table--inner">
+                <colgroup><col class="packing-profile-col--container"><col class="packing-profile-col--limit"></colgroup>
+                <tbody>${innerRows}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="packing-profile-panel packing-profile-panel--outer">
+            <h4>外装容器（${escapeHtml(pg ? `容器等級 ${pg}` : "I / II / III") }）</h4>
+            <div class="packing-profile-table-wrap" tabindex="0">
+              <table class="packing-profile-table packing-profile-table--outer">
+                <colgroup><col class="packing-profile-col--container"><col class="packing-profile-col--limit"></colgroup>
+                <tbody>${outerRows}</tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <small>${escapeHtml(profile.note || "")}</small>
       </section>`;

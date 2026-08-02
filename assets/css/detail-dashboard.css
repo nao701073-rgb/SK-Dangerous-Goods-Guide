@@ -4035,3 +4035,129 @@ body.is-domestic-law-fullscreen-open{overflow:hidden}
     min-width: 760px;
   }
 }
+
+/* part484: 正式輸送品名・国連番号の実寸比較 — 同一ウェイト・枠内収容 */
+.marking-actual-size__preview,
+.marking-actual-size__card.is-preview,
+.marking-actual-size__sample-board {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+}
+
+.marking-actual-size__card.is-preview {
+  overflow: visible !important;
+}
+
+.marking-actual-size__sample-board {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 8px 14px;
+  box-sizing: border-box;
+  overflow: hidden !important;
+}
+
+.marking-actual-size__sample-line,
+.marking-actual-size__sample-line--un,
+.marking-actual-size__sample-line--psn {
+  display: block;
+  width: 100%;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #0b3155;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800 !important;
+  font-style: normal;
+  line-height: 1.08;
+  letter-spacing: 0 !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere !important;
+  hyphens: none !important;
+}
+
+.marking-actual-size__sample-line--psn {
+  margin-top: 2px;
+}
+
+@media (max-width: 680px) {
+  .marking-actual-size__card.is-preview {
+    padding-bottom: 12px;
+  }
+
+  .marking-actual-size__sample-board {
+    padding: 8px 6px 14px;
+  }
+}
+
+
+
+/* part485: 包装要件の容器欄・許容容量／許容質量欄の列分離とはみ出し防止 */
+.packing-profile-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+.packing-profile-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+.packing-profile-table-wrap {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.packing-profile-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.packing-profile-table--inner .packing-profile-col--container { width: 72%; }
+.packing-profile-table--inner .packing-profile-col--limit { width: 28%; }
+.packing-profile-table--outer .packing-profile-col--container { width: 66%; }
+.packing-profile-table--outer .packing-profile-col--limit { width: 34%; }
+.packing-profile-grid .packing-profile-table th,
+.packing-profile-grid .packing-profile-table td {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+.packing-profile-grid .packing-profile-table th {
+  width: auto;
+}
+.packing-profile-grid .packing-profile-table td {
+  width: auto;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+.packing-profile-grid .packing-profile-table td:last-child {
+  color: #003f78;
+  font-weight: 900;
+}
+.domestic-source-table td:nth-child(4) {
+  white-space: normal !important;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+@media (max-width: 680px) {
+  .packing-profile-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .packing-profile-table--inner .packing-profile-col--container { width: 70%; }
+  .packing-profile-table--inner .packing-profile-col--limit { width: 30%; }
+  .packing-profile-table--outer .packing-profile-col--container { width: 64%; }
+  .packing-profile-table--outer .packing-profile-col--limit { width: 36%; }
+}
