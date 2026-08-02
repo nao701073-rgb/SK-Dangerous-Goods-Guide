@@ -1,16 +1,16 @@
 {
-  "version": "part482",
-  "part": 482,
+  "version": "part483",
+  "part": 483,
   "releaseType": "production-operation-candidate",
   "generatedAt": "2026-08-02",
-  "fileCount": 1485,
-  "totalBytesExcludingManifestAndChecksum": 289770594,
+  "fileCount": 1484,
+  "totalBytesExcludingManifestAndChecksum": 289585604,
   "qaReport": "docs/0.363.0_総合検証レポート.json",
   "checksumFile": "SHA256SUMS",
-  "notes": "docs/part482-package-table-and-marking-display.md",
+  "notes": "docs/part483-dangerous-goods-detail-hotfix.md",
   "releasedAt": "2026-08-02",
   "updatedAt": "2026-08-02",
-  "summary": "正式輸送品名の実寸比較候補選択と包装原文表の列崩れ修正を実施した。",
-  "build": "part482-package-table-marking-display",
-  "changeSummary": "国連番号はそのまま、正式輸送品名は大文字候補のみを実寸表示する。Pコードの外装容器と許容容量・許容質量を4列へ正しく分離し、P002基準の表示へ統一する。"
+  "summary": "危険物詳細画面が空白になるpart482の実行時エラーを修正した。",
+  "build": "part483-dangerous-goods-detail-hotfix",
+  "changeSummary": "正式輸送品名候補抽出関数を呼出し前に利用可能な関数宣言へ変更し、危険物詳細の描画停止を解消。part482の表示改善は維持する。"
 }

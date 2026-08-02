@@ -1,7 +1,7 @@
 
 (() => {
   "use strict";
-  // Part 414: 国内法令は複数PDF iframeではなく連続画像で表示し、全危険物に適用。
+  // Part 483: 正式輸送品名候補抽出関数の初期化順序を修正し、危険物詳細の描画停止を解消。
 
   const root = document.getElementById("dangerousGoodsDetail");
   const data = Array.isArray(window.UN_DATABASE) ? window.UN_DATABASE : [];
@@ -368,13 +368,15 @@
     ["stowage", "segregation"].includes(entry.categoryId)
   );
 
-  const normalizeActualPsnCandidate = value => String(value || "")
-    .normalize("NFKC")
-    .replace(/\s+/g, " ")
-    .replace(/^[\s,;:／/+-]+|[\s,;:／/+-]+$/g, "")
-    .trim();
+  function normalizeActualPsnCandidate(value) {
+    return String(value || "")
+      .normalize("NFKC")
+      .replace(/\s+/g, " ")
+      .replace(/^[\s,;:／/+-]+|[\s,;:／/+-]+$/g, "")
+      .trim();
+  }
 
-  const extractActualPsnCandidates = value => {
+  function extractActualPsnCandidates(value) {
     const source = String(value || "").normalize("NFKC");
     const matches = source.match(/[A-Z0-9][A-Z0-9\s.,'’／/+\-]*/g) || [];
     const candidates = matches
@@ -383,7 +385,7 @@
       .filter(candidate => !/^(?:OR|AND)$/.test(candidate));
     const unique = [...new Set(candidates)];
     return unique.length ? unique : [normalizeActualPsnCandidate(source) || "正式輸送品名を確認してください"];
-  };
+  }
 
   function normalizeName(value) {
     return String(value || "")

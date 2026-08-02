@@ -1,5 +1,7 @@
+f6c990d5ad6c1be386008093af835c8ab80cacb59bedd738b7fa91b79b0f3aa0  LEGACY_FILENAME_MAP.txt
 522f06e6c4f6b6aa5acb1e68ae31b9bb85779e6b0f463d1b92e49def66c878e4  README.md
-07de67b4de2e86f128747d08bcaaf7918bd564b26b5130bf441bd702f57d1934  VERSION.json
+951b033135fd1368fa599cfaf94df0ac039234fa5b559f547ea353fa394b3f20  VERSION.json
+afb60de275ed2b5165bf93c44744ae530c5788226bfa098e0c2c05a9f38838cc  WINDOWS_EXTRACTION_NOTE.txt
 77ccfa00681474d8379799ed12b946250b630d7792ef44dd4b6ee9ff76715bc0  assets/css/access-governance-admin.css
 8e9986948742a525d5836777285b6e226bde4b36b56919bb92e23191283b6f76  assets/css/account-history.css
 6d0c85cd106557cc11bf1dc4d190643d0aa43a20d8ba1b1c07801024f3c1c143  assets/css/account-security-admin.css
@@ -11,7 +13,7 @@ b344fd1a7869e1dfb8a26a2c7d71c1f0a5fadf48321b7f6d6c04ca54aa9491af  assets/css/app
 a15958b643c2b9f242d00855edeec2e0b3a293d02ac223cd9eae8499e7d50600  assets/css/cloud-connection.css
 19de58bbf09ff5809644b931612a80d60bebc79ea257149bfc0cc242ee427c7b  assets/css/data-migration.css
 691f6ce96c916fed3f9738f0deb026d8f2bfd3d48a35647c4c4fef2dd45ee257  assets/css/data-quality-admin.css
-d1fb58b94949868544f8865b276253fa9a6bb8bbecddb320e7afeb39a2bb4ed9  assets/css/detail-dashboard.css
+f7e10527771281b88473f57122306e0780964090582b9bfe6ab949afa9484124  assets/css/detail-dashboard.css
 c82dff84d2539ef4af447791c020ce0d0a91f70b17ae81f465f037aa2f3aca43  assets/css/detail.css
 36a29f8146eb48f3db13b5c74612a35a42fe0698a0bd0f23c8463cf86d3bf608  assets/css/ems.css
 9643c121377bb2d6108b9a886d4d58067c5fa64817c153a938b2ec6745739672  assets/css/feedback.css
@@ -223,19 +225,19 @@ b109122fbbda248cf24e726a9da6c78115917089b1b8a11c562c7244e5b0523d  assets/js/app.
 bf01655ee5e004c4658a0bb2205545940e5614b7639ba88134df547b20319850  assets/js/application-result-link.js
 8f081207b82ee1e1fc5a201e51d2951971b03fa8493d2cea41782f6ecdd93b4a  assets/js/application-results-view.js
 dfefda579d5ad858befe4520073ed2779baf76237d7da5665fc1e83c5f9024fa  assets/js/application-role-mode.js
-bad2d44d70ef277ecbebb1c3c1153e83a39ff7c82ff0e11878bc459011691cb7  assets/js/application-verification.js
+aa9c10300741768593422c9c54abe88815756a8b0b1334002dfd455027fdd709  assets/js/application-verification.js
 bab9f71dd22c3e0f1296810cb6f17dba279a08b5b7f670310603b531586db65b  assets/js/applications.js
 ca09765eab01c16b4d776c5be79aaebe7318edb7725fa26c9a399cc86f0182f2  assets/js/auth-bootstrap.js
 d700d58d049717d01be74923bb28e4e96714036129f17d4a41a1dd342ad98880  assets/js/change-release-governance-admin.js
 03b9d986e99cb6f82e6df0ab5c9d99799061a05be6f8b5e3258070fb61f3dfbf  assets/js/cloud-connection.js
 04be00a75b5860159f4926e4ded1f56d2765a086c35b5c27b658ab51d17ffa92  assets/js/completion-roadmap.js
 09c009d1eed7e132f7fb9394e51ed339194051926fa818575d3ac16227cfc771  assets/js/csv-user-import.js
-8c6e6ce3b06e423c9aeded67c4a6696a7e161074ab07b3565ae13f69d902bb83  assets/js/ctu-excel-route-import.js
+61f85fa18e64e6748acb52bd42eb3c5f9528d9cef3a6813f244a0f8ca6b377ff  assets/js/ctu-excel-route-import.js
 78344bd9bb0dce55758037689136cf231b1aed4ff56eef82e05bf7ab7eba30f5  assets/js/data-migration.js
 87d835af09680c31b6ce15d060b18d83895c5be744bced82effb5cda62dc09c6  assets/js/data-quality-admin.js
 50b6532189d7d7745c41e6f095730f5ff4275ac89fb4629b0b8e925f58f68ff4  assets/js/deployment-execution-admin.js
 17737b3db01e0fbee4924c613bd9d5fde63a5f7f54a7a7f49ddcd15209f46171  assets/js/deployment-readiness-package.js
-47111752dc20322c1c98c3d2747865b79a66b748ae5618fa5501f45085b7a3b5  assets/js/detail-dashboard.js
+80b748b95377f6bdb9d7d78043329cd89ba4ef5caae8aa84931bb1c701c28679  assets/js/detail-dashboard.js
 d6b1b5d8523dafb1e993a651d1fb0e8bb1ef95a340e7db7ae6bd656306622035  assets/js/detail.js
 d1d9f1922233afd3deabc9c89bce1235859a47e46d8946b1d944f4cd009265b6  assets/js/documentation-release-center.js
 1a85f1deb159a8cb952e914b1ded98c101ad06e404afe1ede1780ac0fad0fe24  assets/js/easy-regulation-update.js
@@ -714,177 +716,179 @@ c4540a8a4e19df5d11ff21743169ba6c372b246601e485992f843eba856c7142  database/regul
 c162c3d933bbcb609a907bb7f0b15044187136b1dd7c82ba5845fc6a80651fa2  database/regulations/international/marpol/clauses.json
 87d44af38d761ca6bb30c39443d90e78f88a890a7c085b1d4cc8b9bf8791c83b  database/regulations/references/cross-reference.json
 92513f67e9ed74998f0255d847057e9f18db2cc4bfc73caae2f4d91f77345497  database/regulations/registry.json
-a51138d0ad793b92667d3d54d0214f099677f5891765862e94845cae00c27325  docs/Part 257_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-cf64de5323a4ee1f2a7c2bd207f703dc940fd4ccb16399485371f98ff1b99475  docs/Part 258_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e83f9f992fd2a8b9755e510d685993075963607861d274d8fae041b5b7ce320d  docs/Part 259_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-57c76fa4c2ebc262dfbbaef869b182e75bc6f78ff8da59dc77ba0d73f990cba4  docs/Part 260_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-77bed2e05c228edbe0a28fc56ebef6882ae6f77c2d1c3660285743b06f07ea44  docs/Part 261_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-27092d54252db80406a6d75d2f164162a5464b28343b145c43059dbdbeed6906  docs/Part 262_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-9dba8a4dd5dce1abbb56bb0ed370953a13c90ee318630bd61331bc44fba87ce5  docs/Part 263_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-7c38e8e9de463e66f6d0a7de8b41ba4020ccd787a02f163ac07582fc14341eb9  docs/Part 265_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-c7c593c62ad3837fb3a2ddeb393f8cc1d258edf65078195200db66c2b32f23fb  docs/Part 266_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-d2ae0b3479d9f266e31cbbc5ad7f8b1cc4f9e5770a52d8365882b7485edf5966  docs/Part 267_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8a48354cfc699dfde5bd5799eaa8db8927a465be275da970bdc4ae8055153ee3  docs/Part 268_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-6fdfa2710fbe1cf7c71bcdb6d2014990134783318a0c473cdfe41b2cb7958bf8  docs/Part 269_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-5d54f76abe4b1b7f3fcb4931bdda62906ec5907b2bf4b37c65d6d17c7eff54f0  docs/Part 270_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-33ccaf4d1fbe1f154510bcb1d0728497d47b4e02b9bd78816a137dac98a85907  docs/Part 271_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-c32fa99f304328e80c4ee0d7c8afcb8b7347be5ec3fc8d185f96a27940a5057b  docs/Part 272_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ac53eb03d55717ba4bd3a46acd1d4a77fcda30f4ebf3416917ffa1bed36ad49c  docs/Part 273_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-1cefaaf9f504a944ebf804c7f4bd13f1e4c1f6db8974cf4d865aabcc349a2d38  docs/Part 274_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-2ffdc2619043b8a5d9b9979861e998a64a52744a6183814712af6b9fbae7ea0e  docs/Part 275_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a21fab41eb454f1e96a8165ba9566e0e63ce8dc7668f4b423ac23b355154ceac  docs/Part 276_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-66a158902ec6bb80c5cd5886168ea76618da2b23614abe92048f3cb24ca48a9c  docs/Part 277_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b58eeaddaf25b8218144c9da9cac3d2f137e6724d27a7fcdbc932f7a1d185c58  docs/Part 278_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ec87f947dc533044fbce42d22617713ab34083e18393b39b54dd0c4af8a42308  docs/Part 279_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-dd98e103bcd2508109c5e64403e14fad1e3d1d2576b644dfa040c5ac6ba08b14  docs/Part 280_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8124628ae0fc9da30acbb2aa4b54b02adcc791055a7a89e127df8a0cab073be2  docs/Part 281_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-57e1aaf75b19614962bab36eae73d75436f2abf5dcc0598853220d3f7af3a57f  docs/Part 282_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-3dc4c945d3f6784c363fa88204c31522de22e00861615bb7ebb1a7828ce84f58  docs/Part 283_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-5fea7d190dc66d006d65f0bf64760d87c4ca23515fc784448dac37690e78f0be  docs/Part 284_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-87850af74ae11b9c86e87baf062b8d7f550f48b63ed065dd569cfb05e3a00566  docs/Part 285_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ba891e48e00c47dc95503ebd4f22019b82238c2958f44f9442d88a0469c17481  docs/Part 286_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-cd4f6bb76e7c1c06a360f8cec567367d5e9e119197db9562aa4d6453d47f6f61  docs/Part 287_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e42409dc25081f61c35858d3cb13028445e91d12d2f551d3eab173222674c880  docs/Part 288_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b409d2afc6f283640b5edbc37f91888e195fb1835f4472d9cc028b5724a20e65  docs/Part 289_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-fac7ddd43a13b9b912c3f3131b8a5dfd2ca8bf77697c6f8830a8a18e62f0666d  docs/Part 290_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8cb6ed15b343ff5156fe6288e29a63b90b23e283433a0b23c2ede906a27f48c2  docs/Part 291_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-0d4ba03ce14c9658446404f4d3993b5129090a519ee662f23f896a6dd06dce0b  docs/Part 292_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f79c59aa89bd49221e6fc1dee0181039085e7d5dc01f2095cf357a6432f8cd8b  docs/Part 293_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-743744d38429cd6808d794d6ffc240d0bf03463cceabe6e5bfa33fdcfa110902  docs/Part 294_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-00f4798cd35ca6993874d9de49b71581061a2fdb7a6f07987c8713448195185d  docs/Part 295_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-245c003e2b5c38c67d159ad4e63656a98a1ebdbb68f15422b392cdafdef138a7  docs/Part 296_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f7290ddb1c0bda1b80c6558ef2adc6a657c1825279a2b1ee0f4e9a8784f782dd  docs/Part 297_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-61e70bebe26d087276b0ad33bf6310ce4987b1e0083b1e6bfde640f605bf8149  docs/Part 298_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b8e615f8929defd6870eaa390d405357054d54363bb9752a12272642c4b5e6b2  docs/Part 299_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f9cbb617067cb8ab75c613dfa07facfd64b613c6fd998102f2567730e8e436ac  docs/Part 300_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8f009e92bf355b3a8fffe4f48821a340c8010da461739df09b5ba230c405d54f  docs/Part 301_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-53bdccd444ca8cd0297bba31fa775989a0f32d80227c9b1701fad2df7dd121df  docs/Part 302_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-5ee75938e7cb2720e1035f0abd6bbbeb0ed95f006863bc91e6f31004c93da326  docs/Part 303_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-0d135ffd2f08d1f5d58758d7783c1c02c43841b21f4e466b73485eec1a1c3d74  docs/Part 304_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-520752d87a962f680ac9a6124f6fbdb5e92b3b39e251a724311c38d83a20c027  docs/Part 305_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a929123571ac42d0d7f5fd9e29a33bfc1d6494cfc0aa0f981571da45c93c9e7e  docs/Part 306_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-930858a0471108aa81219627b0b2ff7daece2eb4315a27476a778f8f27795950  docs/Part 307_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-d74fd73d2f67ef7a70d7dae3df6add7d8c43302c4dd3008b8edd944deefbe2e4  docs/Part 308_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-97f06fa75f05d0acf2b5e63e6992656234d6b44c0cfb512af53eba570389b1af  docs/Part 309_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e2adf68bbf659edd5bd577ec76893acb659da874695e8dcfdda7586f97c6c73c  docs/Part 310_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a65799dbfde7e29077a1ef82dda7e69f8b065d31174eda905bf937941dea8983  docs/Part 311_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8447bade0cd145d2e00fc34c38cceee57f1d5890b765912b77212de230921dbe  docs/Part 312_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b1ce730b5228c7a6d5753b0cf8989abd86aaa6a35f945b423caed1369435f3cb  docs/Part 313_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b45500717293e7157c9b4a2eaffbc36f8aa29b3a812dc6fcaea9c5a1495f89e9  docs/Part 314_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-16243e595fb873d8af2157acf9704cd880c42be0cdd7e8b4737dc93a562a3ca7  docs/Part 315_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-bafe5f9c87b66a2929bae74dc4df9ed2e8382314b3a284db6136811ec1ae7eaf  docs/Part 316_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-1f43b4d3d230646879a8340ed31253abc2c2067a35e045386f35d69315b2ba69  docs/Part 317_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b3df48bde24701e994150d02f076486a8093fe533ca72ba59719bcb2ec728965  docs/Part 318_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-9bb0a72873e81cb4b61720a32e1bb034c41a7beaa658da7a18a98493796b5185  docs/Part 319_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a58f836fa9ab419b1a7a5701999b5c988364136e42cbac2011c939d68cdf1111  docs/Part 320_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a8d5b6c837171509075859bcc155fdc722a3e1b06be512a756df39a446cd1d8a  docs/Part 321_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-0351260aeb714fd877c199da48fdac32e7ea57a2603e1e0c8cec1572523f39cc  docs/Part 322_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-308722e4a5378b73a97279e860fe0272aacf561b1457482df4403191fc3a1213  docs/Part 323_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b485b180268243acdc3a7b71384c324097433966a5df2c5761f46792b863058f  docs/Part 324_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-c765ead7b372a42427f13a58318bb06b0252ae2039616aa6002cabc178c8c65e  docs/Part 325_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-6f89b8453e4e630b033441d41e91c2ad232d8285ad8068c0ea40957376135570  docs/Part 326_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-4cd0a2ba48654c6e615f6ca2425a56c09052040dd5b580e4bc7c43bd606fbc0e  docs/Part 327_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-91cdf242094b475250dd4fb800d5fc18f52b01685433f3ffd8e2bcd7c4669677  docs/Part 328_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8ef0b5af55ff985c4a68652894970e3f0be46956e2540f2b6b97be8ea5c8d53a  docs/Part 329_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8b2c8d3184bf0a1afc62e156bb6876caec1ab3d7a703f45ad80d4cdd4fc24dce  docs/Part 330_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a81cf99aab8989bebc72c28f9dee2efece06a097a4a28ff359e34b55c850ac60  docs/Part 331_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-5308252a7ab969ef5cc37d020887f713cd7faeba6ebd38ca0e974b6b77c5be90  docs/Part 332_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-24c28ae697ec4840ad9c80d95d62d67c435b69e90e9ccb32e3f8a1ce5bb9d4c4  docs/Part 333_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8811a27a687f19507938c3808fd6c700d28f2839d4eb6745068649ae1f872db6  docs/Part 334_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ee09151b896b17ad3ec2292c13c6eb256b6c8c664bf3e3f1a4b3b677d2d32e94  docs/Part 335_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-58044f3ad22ed2a93df5734132fcead3406c0235dda4ca3a05622220265defc1  docs/Part 336_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f2c06d3b1de5180c09763307e3b3f0bbb05ccb0fd9bc729801606cee7eb6b85c  docs/Part 337_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f802e2031f9a0b99f4b6feace74fd20f78d24bc8d1ad9c156cfe0a2a2a008664  docs/Part 338_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-725e3a9aaf2689b3ee5b564472976851458f031f8c5ee661ac314f6f8e1d35ec  docs/Part 339_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8984a1db13acc679fc6a06a443898a04626d1222a4d2ed1c262ccfaa685ff819  docs/Part 340_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e593a27e5c3a0378615785679ac694b1284c4d2130bd79f802f4421b39807029  docs/Part 341_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-f0afa02c176e2d829b0dfc8fae97634ebd8034968dfe69866828d5973494af70  docs/Part 342_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-88b9b2c3870cea2bc017aa70316470fe4a18c986708d3ee0c6db6f9f315350a2  docs/Part 343_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-b010373c6a891d731522b4348ff552b2ed618de005ca577bb862a6ad2160d1f2  docs/Part 344_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8ee68f6509c09d122ac340432b13b68a1bed563f4387b214c004c87704474ac4  docs/Part 345_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-2198cda0674d2b4f80b4dd3423c13e7e0ebdd821c4a2a8fab33271d0f983f8ec  docs/Part 346_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-569cc3db8f3f65d7c1078e91aa1e46a4c1f047faf6ebb1db202027729a6fbf22  docs/Part 347_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-3cae111c3be2198b5f23c05be80a59dae0b851eba9743c63231b05d8a55bbb65  docs/Part 348_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-6ef3167d0acdd481bf7e4642a65c07b93530e8bd4b92008ba4fddf1a01a11b84  docs/Part 349_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-85de0f084262287fc5cd3b94b68148c54a33a93f683d3fccf593c62e46f12f1f  docs/Part 350_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-fc9da5e81d0ad9d0f944f837b77fed5160751a8a242c7b497c5f539b80e4065e  docs/Part 351_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-4f3679a82826112be78041980a2efb5702d8fc287d8a2c5127559870215f9ef4  docs/Part 352_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-37d5274565e1474a695a1a1fd8a7f47f86736846701e1a9865d95aab63562ab2  docs/Part 353_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a0482190aabb475925c6558ba2164a3e1148b0ec69431d452dcaeb4ba6562741  docs/Part 354_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-4df1506f1618dfaade1766d809c69afc986cc174dc909d111d5886bb1b360505  docs/Part 355_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-745754b0d69b5086203035900d0afed4ba1e6db7f7e81d0cc1d91c58fe588cca  docs/Part 356_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-32634bb9f521fb0316fc1d7ec1dc7d3664ddf038ecf6f2aa79cf97e38abebf31  docs/Part 357_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-09d572ff431ca69208be9ace1d2f4a8704f079d9dc7ae04ea3d954514b486930  docs/Part 358_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-01b0d12d1b43e52760aa8465c5aa92b305fb7dcd54aaf5617cad3b938da02687  docs/Part 360_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-16aee0d12518c5738df7d5713856ead30e4694e920cce23d7485a7e5b7c57613  docs/Part 361_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-81a07aa125d59eeba0aee1ad392cedd11ffb3325b3515db44b4925c03b1f67e1  docs/Part 362_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-fbd6a75bb26d20327600908faa57921b58a361ce62d0762eaff568d33effc9d3  docs/Part 363_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-c549c33b91984d5a9c014f9c2abe7636b77eb6023d97308e7655389a8f8924e8  docs/Part 364_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e9402e86543babee3b4d5621dd76f1eef17b23e5bf5d6a8a9ed7ba004705544a  docs/Part 365_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-fed6cee65c579cdf3773cbdde84762d99003a31f7c4f1eac2ba64087a1cc84fc  docs/Part 366_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-1ac589a0fcf6d6719d06d923d6c2657e35ed19f9c0c7b310c30036f78a018c1d  docs/Part 367_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-3ee42aaa5a801691c18b773db5099c316096218c180b1de8e1a283aba66d8045  docs/Part 368_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-37d5c56ce4575b57a33cbe6b7fbab0c9e734de35d55632d13ad49d389425e32b  docs/Part 369_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-485451f400b22fd949d0b41e929868d568bab7685489017d2ad6b5d587a61519  docs/Part 370_Γö¼ΓòíΓö£ΓûÆΓö¼├║Γò¼┬¬Γö¼ΓöÉ╬ô├▓┬ÑΓòº├ñ╬ô├▓├¡Γö£├½Γö¼Γòí╬ô├⌐┬║Γö¼├║.md
-90d0a9659fcc74da112bd7ba0668dfcbab3a1f647344668dc9f87fa738ca69b3  docs/Part 370_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-6374d01b8503982d31607f894e7929f01ee4dc0509f7be8db3b5f65ceff30c5e  docs/Part 371_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-423a73c0e65b39713c0e0d6883bfa24f12d5f0281e55b22c5886569c35494b40  docs/Part 374_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-439620571007534c343ae50e4379ee9ede04120c0ae451d4b2ab8b2ef93ce5a1  docs/Part 375_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-67b3fc401f0586dcd2bd1350bec0e3025ee6c12117d47796c8de73f1a797eacc  docs/Part 376_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-c80ccee1fe5614fd0911fa48bd5fcc23861d128e173b2bda95580ad43ef8da51  docs/Part 377_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-49839d9e11892f3ff0e3088516cdfb382cb6a3761902d90b19ce77f04b147739  docs/Part 378_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-6f4db982bfb9c91706074469a3961f1abf28d7313462511178509f36be13e1f0  docs/Part 379_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-5f3e0182833ed0dfa879a2f7296ec970f55a131e25a5152c2e756ad17b613355  docs/Part 380_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ac2ff66e7a214aac6a334191d053815076bf0978bc98a082de91e8c8b8bbad6e  docs/Part 381_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-a94a7d07d85a7cc2baa3e57b4fe751e02c24ecaa4287422c065ec3d32785760b  docs/Part 388_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-39d394b00a1221b8093593f5fe535c072ab072dcc4379c4d4e9a693907f8fa83  docs/Part204_Γòº├óΓö£ΓûÆΓö£┬╜Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö¼┬¼Γö£ΓîÉΓò¼┬¬Γö¼┬¼Γö£Γò¥.md
-a34c7cae69478b314c21c6cc04345f91bfcad4afe68a81a0d9e430a7adbeb778  docs/Part226_Γò¼┬¬Γö£┬íΓö¼ΓöÉΓòº├ñΓö£ΓûÆ╬ô├▓├ªΓö¼ΓòíΓö£ΓòùΓö£┬║Γò¼┬¬Γö¼ΓöÉΓö£├ºΓö¼ΓòíΓö£Γûô╬ô├╢├▒Γòº├ñΓö£├½Γö£├æ.md
-246b07809f89facf24ff9d70324306edcfb7440d428eb4310d5c8a40e996871c  docs/Part242_Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│╬ô├▓┬ÑΓòº├çΓö£ΓîÉ╬ô├▓├║Γö¼ΓòíΓö¼ΓòæΓö£┬╗Γö¼ΓòíΓö£┬¼Γö£├½.json
-c655e32b6e00552088395f38c459ffbb41d6c8766da73af929f1d08c8e41066b  docs/Part243_Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│╬ô├▓┬ÑΓòº├çΓö£ΓîÉ╬ô├▓├║Γö¼ΓòíΓö¼ΓòæΓö£┬╗Γö¼ΓòíΓö£┬¼Γö£├½.json
-403b03c6728169b856b6926289fc7c359f622722234dda8fd5334047d46fb6d3  docs/Part365_Γö¼ΓòíΓö£ΓûÆΓö¼├║Γò¼┬¬Γö¼ΓöÉ╬ô├▓┬ÑΓòº├ñ╬ô├▓├¡Γö£├½Γö¼Γòí╬ô├⌐┬║Γö¼├║.md
-6d14d3cc7cc64433f7cb3065d0d6708f401d6b09fd36957057df63854b2238d1  docs/Part383/01_Part383_Γòº├óΓö£ΓûÆΓö£┬╜Γö¼ΓòíΓö¼├│╬ô├╢├▒Γòº├ñΓö£ΓîÉ╬ô├▓├║Γò¼├║╬ô├▓├▓Γö£├ºΓò¼┬¬Γö¼┬¼Γö¼ΓòæΓö¼ΓòíΓö¼├│╬ô├▓├▓.docx
 d547f9d021a860c7de1e09a397a9526090d78a185dc8dd9e841696e5d3f3e35c  docs/Part383/03_Part383_%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%A1%E3%83%A2.docx
-d547f9d021a860c7de1e09a397a9526090d78a185dc8dd9e841696e5d3f3e35c  docs/Part383/03_Part383_Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│╬ô├▓┬ÑΓòº├çΓö£ΓîÉ╬ô├▓├║Γòº├çΓö£├│Γö£┬íΓòº├çΓö£├│Γö£Γöé.docx
-f99cc523ea6e084ec2965b41a438b241238590a4b2d2b307bcde5d50f6df03f6  docs/Part384/01_Part384_Γòº├óΓö£ΓûÆΓö£┬╜Γö¼ΓòíΓö¼├│╬ô├╢├▒Γòº├ñΓö£ΓîÉ╬ô├▓├║Γò¼├║╬ô├▓├▓Γö£├ºΓò¼┬¬Γö¼┬¼Γö¼ΓòæΓö¼ΓòíΓö¼├│╬ô├▓├▓.docx
-19815886982709926f49b733948caa8de9330fdfb5e8656c39a60f7f6ee518ae  docs/Part384/02_Part384_%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88.docx
+d547f9d021a860c7de1e09a397a9526090d78a185dc8dd9e841696e5d3f3e35c  docs/Part383/legacy_5c9fbd7597.docx
+6d14d3cc7cc64433f7cb3065d0d6708f401d6b09fd36957057df63854b2238d1  docs/Part383/legacy_62f78e5c1d.docx
 589d54d510240d25c3223b1fcc07e7049ca996af6140457131b6003be5c1ede8  docs/Part384/03_Part384_%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%A1%E3%83%A2.docx
-589d54d510240d25c3223b1fcc07e7049ca996af6140457131b6003be5c1ede8  docs/Part384/03_Part384_Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│Γö¼┬╝Γòº├çΓö£├│╬ô├▓┬ÑΓòº├çΓö£ΓîÉ╬ô├▓├║Γòº├çΓö£├│Γö£┬íΓòº├çΓö£├│Γö£Γöé.docx
-21c5037be3f857e2978ebb0e0d28925de2982274b36c1ee9efcf79a1c929dbc5  docs/Part385_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-8395e21a43f3666ccbce731537915c17c6174796d8ba853910a4c02893d68dd6  docs/Part390_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-bde27ed83c09342ae7d810a00d010bb1ef3fb0dcb412f0adc444bcce3362abd0  docs/Part400_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.txt
-19c2a135dcdd1f5e334101b3d01f662f7e7dc16e414894ce2d6fa49cfa37f3df  docs/Part402_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-ceb7d6a9ce58247489dc3d5851f655b0ee3635af9b0b46b51a39bcdde45c98f7  docs/Part417_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-fbc80d88d674d7b94c7aad856c82a26b74500d1a423e2002624e8864c658281b  docs/Part431_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-727c564b8af5f23b89b37366a24d44ea4bad02012e32805bacf3161aa8289a00  docs/Part432_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-2580a4b076a3ef947313204a37745d09ef0b309712b70b68df7ab768943641c2  docs/Part434_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-7466d0691e06f2fd48a380e1ba7585d46693e87188c824c8e972480657ba1231  docs/Part435_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e9e9e309627eb31b257749699a7ad4cec551379609089bff2e34c59329fc63e9  docs/Part436_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-e93a33af11fa30131dca8326ba9f06b618010547b302ab3e3cc0033cba4bc074  docs/Part437_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-0b8c0540c5d63c25e2852cbc2122ec5ef67380307cfe90eb22bb19def8c92ad2  docs/Part438_Γö¼ΓòíΓö¼├│╬ô├╢├▒Γö¼ΓòíΓö£Γòù╬ô├╗├ªΓòº├óΓö£├æΓö£├íΓòº├óΓö¼┬╜╬ô├▓├║.md
-1b0cb9751f6cb5a3efadb786f48c31f3d971daad4929ee360694c2f2247a0c03  docs/Part439_┬╡┬óΓöñ┬╡├╗Γûæ╧â├Ñ├á╧â┬½Γòú.md
-6f092b5e015ca9253a9db0aa111d50b0a4eadec1dfa3c0e9d17d16232e21c532  docs/Part440_┬╡┬óΓöñ┬╡├╗Γûæ╧â├Ñ├á╧â┬½Γòú.md
-e76419b0e57c388a587f1922d75d855c334a08a95b4f243770e9ea99ad34e32f  docs/Part441_┬╡┬óΓöñ┬╡├╗Γûæ╧â├Ñ├á╧â┬½Γòú.md
-12e3fc4ac60d3caf620627c0c7215527ca89085003498c0533fed5abded16a62  docs/Part442_µ¢┤µû░σåàσ«╣.md
-c9243e61dee1fad5f31d067bc29520c16e7c325c9d325b681e0216754549c5f3  docs/Part443_µ¢┤µû░σåàσ«╣.md
-d8f75167cfc3c824e45cccc8dddd7de66348bdc72439463fd03a855ee71c1e3e  docs/Part444_µ¢┤µû░σåàσ«╣.md
-3fe5915ecd0f52473f899369768878ad79bf356bfe6d925f7994302e9ffe619c  docs/Part445_µ¢┤µû░σåàσ«╣.md
+f99cc523ea6e084ec2965b41a438b241238590a4b2d2b307bcde5d50f6df03f6  docs/Part384/legacy_817704f710.docx
+589d54d510240d25c3223b1fcc07e7049ca996af6140457131b6003be5c1ede8  docs/Part384/legacy_8fbe7fe07a.docx
+19815886982709926f49b733948caa8de9330fdfb5e8656c39a60f7f6ee518ae  docs/Part384/legacy_cd33690697.docx
 1e9362e97e58e111fd3f19d6163d68708689b1b588afedd5a9354f5534894e95  docs/Part446_update.md
 6168d5365dce7635192048af65fc7bf9e775c6d148e8fe10c38971de3d78a947  docs/Part447_update.md
 ce602d4e9fe4dcda4eaab73be290228394f45dda4fcf32f84a924da7e0059d23  docs/Part448_update.md
-a0d58028e809ea78ba1bc91b96fa5730d11b380b689798f35c888cd8948b399a  docs/Part453_µ¢┤µû░σåàσ«╣.md
-20149e9af7f392640f59d74240c3911239c6b706c062d78890918f0bcc9024be  docs/Part459_µ¢┤µû░σåàσ«╣.md
-11ecf918950f9481e1d05552adca8d2adff3530e7eef72ce4a42f8cc30a49d4e  docs/Part460_µ¢┤µû░σåàσ«╣.md
-27cf23760ef6ad3138ba9a959b94435c4a6995d35d81a2200833e5b3928b1ade  docs/Part462_µ¢┤µû░σåàσ«╣.md
-1404faa50bef59d6a7013fd6a33ee0c21b9d54645808f3c9e5e5a90adb32c6a9  docs/Part463_µ¢┤µû░σåàσ«╣.md
-09bc05359eeafb23b2c665cbeeb9b3dfb24d12e35abcdf89c7f8bbd62d5c1f5f  docs/Part468_SP-E-SW-P-PP原典ページ全件照合.json
-22013cf3af85d220d3c977696762d66d223d48308854acb3d86a941cda0a6b5e  docs/Part468_SP-E-SW-P-PP原典ページ全件照合.md
-bb9530ebc72d764dcc9f162e3af3a23d373036d83202cdb184841dd54a64738e  docs/Part474_コード詳細全件検証レポート.json
 1f007a61fa8803665984630c7efabec3a5e2fc5f502f05fe56522de2098fbd6b  docs/import-templates/kawasaki-applications-template.csv
 7500203ac1578db133eca98599ac73201001893b8d3fbf96c4aa52048f64becf  docs/import-templates/kawasaki-users-template.csv
 a3c717f4c1b0e6944a1d2b87ce0b4716463bbcda1231ad0a35bb0190d7db887e  docs/import-templates/msc-users-template.csv
 12fc4721013ba88d953c772a57ffe57aa40c9b7a17cae4dfd093a6d56ab15cc4  docs/import-templates/yokohama-daikoku-users-template.csv
 b4c299f7749f65a024f4a62ffc0bbc71e91abf37aedccde8aedc079c04afefb9  docs/import-templates/yokohama-users-template.csv
-c700ddb6de765e57db23dea98711e865b5b7065e8ebcc5885875d08e0eb2ff7d  docs/manuals/02_Γòº├óΓö¼┬╜Γò₧├åΓö¼ΓòíΓö£Γòù╬ô├▓┬úΓò¼┬¬Γö¼┬¼Γö£Γò¥Γò¼├┐Γö£├¡Γö£ΓöÉΓö¼ΓòíΓö¼├│╬ô├▓├▓_Part243.docx
+1ac589a0fcf6d6719d06d923d6c2657e35ed19f9c0c7b310c30036f78a018c1d  docs/legacy_002e47132d.md
+1cefaaf9f504a944ebf804c7f4bd13f1e4c1f6db8974cf4d865aabcc349a2d38  docs/legacy_01e9468713.md
+33ccaf4d1fbe1f154510bcb1d0728497d47b4e02b9bd78816a137dac98a85907  docs/legacy_032172641a.md
+2198cda0674d2b4f80b4dd3423c13e7e0ebdd821c4a2a8fab33271d0f983f8ec  docs/legacy_04dee711d9.md
+9bb0a72873e81cb4b61720a32e1bb034c41a7beaa658da7a18a98493796b5185  docs/legacy_08d07485bf.md
+485451f400b22fd949d0b41e929868d568bab7685489017d2ad6b5d587a61519  docs/legacy_0b48d403f7.md
+8124628ae0fc9da30acbb2aa4b54b02adcc791055a7a89e127df8a0cab073be2  docs/legacy_0f22c364de.md
+743744d38429cd6808d794d6ffc240d0bf03463cceabe6e5bfa33fdcfa110902  docs/legacy_0fcae92ddb.md
+3cae111c3be2198b5f23c05be80a59dae0b851eba9743c63231b05d8a55bbb65  docs/legacy_10074b7d16.md
+97f06fa75f05d0acf2b5e63e6992656234d6b44c0cfb512af53eba570389b1af  docs/legacy_1064a4332b.md
+f0afa02c176e2d829b0dfc8fae97634ebd8034968dfe69866828d5973494af70  docs/legacy_118941b167.md
+66a158902ec6bb80c5cd5886168ea76618da2b23614abe92048f3cb24ca48a9c  docs/legacy_16aacfac0d.md
+0d135ffd2f08d1f5d58758d7783c1c02c43841b21f4e466b73485eec1a1c3d74  docs/legacy_1c2b6a7a8a.md
+57c76fa4c2ebc262dfbbaef869b182e75bc6f78ff8da59dc77ba0d73f990cba4  docs/legacy_1d632b0fe5.md
+16aee0d12518c5738df7d5713856ead30e4694e920cce23d7485a7e5b7c57613  docs/legacy_1e92236ac2.md
+e42409dc25081f61c35858d3cb13028445e91d12d2f551d3eab173222674c880  docs/legacy_1f1975bd17.md
+8a48354cfc699dfde5bd5799eaa8db8927a465be275da970bdc4ae8055153ee3  docs/legacy_1f4f857070.md
+4df1506f1618dfaade1766d809c69afc986cc174dc909d111d5886bb1b360505  docs/legacy_1f6c9a6fcf.md
+a81cf99aab8989bebc72c28f9dee2efece06a097a4a28ff359e34b55c850ac60  docs/legacy_207752ffd1.md
+a94a7d07d85a7cc2baa3e57b4fe751e02c24ecaa4287422c065ec3d32785760b  docs/legacy_208e7b52f7.md
+77bed2e05c228edbe0a28fc56ebef6882ae6f77c2d1c3660285743b06f07ea44  docs/legacy_218f4be51e.md
+5308252a7ab969ef5cc37d020887f713cd7faeba6ebd38ca0e974b6b77c5be90  docs/legacy_2629bee705.md
+c32fa99f304328e80c4ee0d7c8afcb8b7347be5ec3fc8d185f96a27940a5057b  docs/legacy_29fc2b6783.md
+12e3fc4ac60d3caf620627c0c7215527ca89085003498c0533fed5abded16a62  docs/legacy_2aa5c58436.md
+6fdfa2710fbe1cf7c71bcdb6d2014990134783318a0c473cdfe41b2cb7958bf8  docs/legacy_2b92ef8f57.md
+bde27ed83c09342ae7d810a00d010bb1ef3fb0dcb412f0adc444bcce3362abd0  docs/legacy_2be9555ceb.txt
+ec87f947dc533044fbce42d22617713ab34083e18393b39b54dd0c4af8a42308  docs/legacy_2c4bd8d6b4.md
+a0482190aabb475925c6558ba2164a3e1148b0ec69431d452dcaeb4ba6562741  docs/legacy_2c80f018c6.md
+a34c7cae69478b314c21c6cc04345f91bfcad4afe68a81a0d9e430a7adbeb778  docs/legacy_2e8afc9712.md
+e2adf68bbf659edd5bd577ec76893acb659da874695e8dcfdda7586f97c6c73c  docs/legacy_3b29fde30f.md
+725e3a9aaf2689b3ee5b564472976851458f031f8c5ee661ac314f6f8e1d35ec  docs/legacy_3c85344c57.md
+8395e21a43f3666ccbce731537915c17c6174796d8ba853910a4c02893d68dd6  docs/legacy_3ceea4cd6a.md
+0351260aeb714fd877c199da48fdac32e7ea57a2603e1e0c8cec1572523f39cc  docs/legacy_3d9209171b.md
+a0d58028e809ea78ba1bc91b96fa5730d11b380b689798f35c888cd8948b399a  docs/legacy_3dffc103ec.md
+6374d01b8503982d31607f894e7929f01ee4dc0509f7be8db3b5f65ceff30c5e  docs/legacy_4039340b40.md
+e93a33af11fa30131dca8326ba9f06b618010547b302ab3e3cc0033cba4bc074  docs/legacy_420415345e.md
+bb9530ebc72d764dcc9f162e3af3a23d373036d83202cdb184841dd54a64738e  docs/legacy_427f47f4c2.json
+00f4798cd35ca6993874d9de49b71581061a2fdb7a6f07987c8713448195185d  docs/legacy_45225c97d9.md
+c80ccee1fe5614fd0911fa48bd5fcc23861d128e173b2bda95580ad43ef8da51  docs/legacy_464e2dc4b6.md
+3fe5915ecd0f52473f899369768878ad79bf356bfe6d925f7994302e9ffe619c  docs/legacy_46cda70084.md
+bafe5f9c87b66a2929bae74dc4df9ed2e8382314b3a284db6136811ec1ae7eaf  docs/legacy_47177872d9.md
+fbd6a75bb26d20327600908faa57921b58a361ce62d0762eaff568d33effc9d3  docs/legacy_471f282c9f.md
+7d7a4f4aa179f2d39ddd80eece0405830819562463c11e3910731d46c65c049c  docs/legacy_479a529d04.md
+87850af74ae11b9c86e87baf062b8d7f550f48b63ed065dd569cfb05e3a00566  docs/legacy_487b603f7a.md
+c549c33b91984d5a9c014f9c2abe7636b77eb6023d97308e7655389a8f8924e8  docs/legacy_4b41735901.md
+8f009e92bf355b3a8fffe4f48821a340c8010da461739df09b5ba230c405d54f  docs/legacy_4dcead07c3.md
+c7c593c62ad3837fb3a2ddeb393f8cc1d258edf65078195200db66c2b32f23fb  docs/legacy_5128e50b56.md
+fc9da5e81d0ad9d0f944f837b77fed5160751a8a242c7b497c5f539b80e4065e  docs/legacy_5157bb8d56.md
+0b8c0540c5d63c25e2852cbc2122ec5ef67380307cfe90eb22bb19def8c92ad2  docs/legacy_516053ab39.md
+16243e595fb873d8af2157acf9704cd880c42be0cdd7e8b4737dc93a562a3ca7  docs/legacy_51b3292837.md
+b8e615f8929defd6870eaa390d405357054d54363bb9752a12272642c4b5e6b2  docs/legacy_539218b3e9.md
+b010373c6a891d731522b4348ff552b2ed618de005ca577bb862a6ad2160d1f2  docs/legacy_54fdd439df.md
+b485b180268243acdc3a7b71384c324097433966a5df2c5761f46792b863058f  docs/legacy_5563f462b0.md
+01b0d12d1b43e52760aa8465c5aa92b305fb7dcd54aaf5617cad3b938da02687  docs/legacy_576e98dd29.md
+8b2c8d3184bf0a1afc62e156bb6876caec1ab3d7a703f45ad80d4cdd4fc24dce  docs/legacy_5c8a934a60.md
+cd4f6bb76e7c1c06a360f8cec567367d5e9e119197db9562aa4d6453d47f6f61  docs/legacy_5d67315fbd.md
+2ffdc2619043b8a5d9b9979861e998a64a52744a6183814712af6b9fbae7ea0e  docs/legacy_6279053298.md
+930858a0471108aa81219627b0b2ff7daece2eb4315a27476a778f8f27795950  docs/legacy_63085cefa3.md
+a65799dbfde7e29077a1ef82dda7e69f8b065d31174eda905bf937941dea8983  docs/legacy_6715136d53.md
+569cc3db8f3f65d7c1078e91aa1e46a4c1f047faf6ebb1db202027729a6fbf22  docs/legacy_679c65abed.md
+8ee68f6509c09d122ac340432b13b68a1bed563f4387b214c004c87704474ac4  docs/legacy_67f913e5ef.md
+1f43b4d3d230646879a8340ed31253abc2c2067a35e045386f35d69315b2ba69  docs/legacy_6839054d9b.md
+09d572ff431ca69208be9ace1d2f4a8704f079d9dc7ae04ea3d954514b486930  docs/legacy_68f75c2d2b.md
+5fea7d190dc66d006d65f0bf64760d87c4ca23515fc784448dac37690e78f0be  docs/legacy_692822bec8.md
+423a73c0e65b39713c0e0d6883bfa24f12d5f0281e55b22c5886569c35494b40  docs/legacy_694ebeb724.md
+ac2ff66e7a214aac6a334191d053815076bf0978bc98a082de91e8c8b8bbad6e  docs/legacy_69719019ce.md
+0d4ba03ce14c9658446404f4d3993b5129090a519ee662f23f896a6dd06dce0b  docs/legacy_6b11fc5c5d.md
+1b0cb9751f6cb5a3efadb786f48c31f3d971daad4929ee360694c2f2247a0c03  docs/legacy_6b52618b17.md
+f802e2031f9a0b99f4b6feace74fd20f78d24bc8d1ad9c156cfe0a2a2a008664  docs/legacy_6c7bd5698d.md
+403b03c6728169b856b6926289fc7c359f622722234dda8fd5334047d46fb6d3  docs/legacy_6e9b2d8375.md
+11ecf918950f9481e1d05552adca8d2adff3530e7eef72ce4a42f8cc30a49d4e  docs/legacy_7335065c42.md
+727c564b8af5f23b89b37366a24d44ea4bad02012e32805bacf3161aa8289a00  docs/legacy_73c09372f8.md
+5d54f76abe4b1b7f3fcb4931bdda62906ec5907b2bf4b37c65d6d17c7eff54f0  docs/legacy_7437c1a903.md
+8447bade0cd145d2e00fc34c38cceee57f1d5890b765912b77212de230921dbe  docs/legacy_7a0098286c.md
+cf64de5323a4ee1f2a7c2bd207f703dc940fd4ccb16399485371f98ff1b99475  docs/legacy_7b3fc30534.md
+8cb6ed15b343ff5156fe6288e29a63b90b23e283433a0b23c2ede906a27f48c2  docs/legacy_7cc06f02da.md
+3dc4c945d3f6784c363fa88204c31522de22e00861615bb7ebb1a7828ce84f58  docs/legacy_7cdbf51db8.md
+d8f75167cfc3c824e45cccc8dddd7de66348bdc72439463fd03a855ee71c1e3e  docs/legacy_7ebb75dc47.md
+e9402e86543babee3b4d5621dd76f1eef17b23e5bf5d6a8a9ed7ba004705544a  docs/legacy_802386e0ad.md
+5f3e0182833ed0dfa879a2f7296ec970f55a131e25a5152c2e756ad17b613355  docs/legacy_855cc9225b.md
+c765ead7b372a42427f13a58318bb06b0252ae2039616aa6002cabc178c8c65e  docs/legacy_85a1df1f53.md
+b58eeaddaf25b8218144c9da9cac3d2f137e6724d27a7fcdbc932f7a1d185c58  docs/legacy_86741de270.md
+e9e9e309627eb31b257749699a7ad4cec551379609089bff2e34c59329fc63e9  docs/legacy_88a1429e28.md
+e76419b0e57c388a587f1922d75d855c334a08a95b4f243770e9ea99ad34e32f  docs/legacy_88cfafaa2a.md
+37d5274565e1474a695a1a1fd8a7f47f86736846701e1a9865d95aab63562ab2  docs/legacy_890f36c7df.md
+d74fd73d2f67ef7a70d7dae3df6add7d8c43302c4dd3008b8edd944deefbe2e4  docs/legacy_8b8ffdd742.md
+6f092b5e015ca9253a9db0aa111d50b0a4eadec1dfa3c0e9d17d16232e21c532  docs/legacy_8d3e310610.md
+3ee42aaa5a801691c18b773db5099c316096218c180b1de8e1a283aba66d8045  docs/legacy_8d4bf227f2.md
+ee09151b896b17ad3ec2292c13c6eb256b6c8c664bf3e3f1a4b3b677d2d32e94  docs/legacy_8d94f038c6.md
+b409d2afc6f283640b5edbc37f91888e195fb1835f4472d9cc028b5724a20e65  docs/legacy_8d95522a2e.md
+b3df48bde24701e994150d02f076486a8093fe533ca72ba59719bcb2ec728965  docs/legacy_8f12b3b024.md
+4cd0a2ba48654c6e615f6ca2425a56c09052040dd5b580e4bc7c43bd606fbc0e  docs/legacy_910df1e15d.md
+a21fab41eb454f1e96a8165ba9566e0e63ce8dc7668f4b423ac23b355154ceac  docs/legacy_93496bdf77.md
+85de0f084262287fc5cd3b94b68148c54a33a93f683d3fccf593c62e46f12f1f  docs/legacy_9b6c5b6384.md
+6ef3167d0acdd481bf7e4642a65c07b93530e8bd4b92008ba4fddf1a01a11b84  docs/legacy_9d0387c6bd.md
+57e1aaf75b19614962bab36eae73d75436f2abf5dcc0598853220d3f7af3a57f  docs/legacy_9d0e8ecc1a.md
+e83f9f992fd2a8b9755e510d685993075963607861d274d8fae041b5b7ce320d  docs/legacy_9d44cf1140.md
+c655e32b6e00552088395f38c459ffbb41d6c8766da73af929f1d08c8e41066b  docs/legacy_9fb349ff26.json
+a58f836fa9ab419b1a7a5701999b5c988364136e42cbac2011c939d68cdf1111  docs/legacy_9fd47b39ee.md
+d2ae0b3479d9f266e31cbbc5ad7f8b1cc4f9e5770a52d8365882b7485edf5966  docs/legacy_a17aaabfc5.md
+7466d0691e06f2fd48a380e1ba7585d46693e87188c824c8e972480657ba1231  docs/legacy_a40fb968ae.md
+c9243e61dee1fad5f31d067bc29520c16e7c325c9d325b681e0216754549c5f3  docs/legacy_a6d5909179.md
+91cdf242094b475250dd4fb800d5fc18f52b01685433f3ffd8e2bcd7c4669677  docs/legacy_a72fd6eb14.md
+37d5c56ce4575b57a33cbe6b7fbab0c9e734de35d55632d13ad49d389425e32b  docs/legacy_acc960f0c8.md
+88b9b2c3870cea2bc017aa70316470fe4a18c986708d3ee0c6db6f9f315350a2  docs/legacy_affc02ecf5.md
+19c2a135dcdd1f5e334101b3d01f662f7e7dc16e414894ce2d6fa49cfa37f3df  docs/legacy_b261daccc7.md
+22013cf3af85d220d3c977696762d66d223d48308854acb3d86a941cda0a6b5e  docs/legacy_b272c3925b.md
+f79c59aa89bd49221e6fc1dee0181039085e7d5dc01f2095cf357a6432f8cd8b  docs/legacy_b92ef81665.md
+e593a27e5c3a0378615785679ac694b1284c4d2130bd79f802f4421b39807029  docs/legacy_b9464b5648.md
+2580a4b076a3ef947313204a37745d09ef0b309712b70b68df7ab768943641c2  docs/legacy_bc264839d3.md
+39d394b00a1221b8093593f5fe535c072ab072dcc4379c4d4e9a693907f8fa83  docs/legacy_bd133b3f82.md
+8984a1db13acc679fc6a06a443898a04626d1222a4d2ed1c262ccfaa685ff819  docs/legacy_bf7f5bd3ca.md
+7c38e8e9de463e66f6d0a7de8b41ba4020ccd787a02f163ac07582fc14341eb9  docs/legacy_bfd63f0aa3.md
+81a07aa125d59eeba0aee1ad392cedd11ffb3325b3515db44b4925c03b1f67e1  docs/legacy_c0826dd969.md
+dd98e103bcd2508109c5e64403e14fad1e3d1d2576b644dfa040c5ac6ba08b14  docs/legacy_c252fe3ac7.md
+a51138d0ad793b92667d3d54d0214f099677f5891765862e94845cae00c27325  docs/legacy_c266669f06.md
+f9cbb617067cb8ab75c613dfa07facfd64b613c6fd998102f2567730e8e436ac  docs/legacy_c34f90b747.md
+245c003e2b5c38c67d159ad4e63656a98a1ebdbb68f15422b392cdafdef138a7  docs/legacy_c3a8445bf2.md
+90d0a9659fcc74da112bd7ba0668dfcbab3a1f647344668dc9f87fa738ca69b3  docs/legacy_c501cbf67d.md
+246b07809f89facf24ff9d70324306edcfb7440d428eb4310d5c8a40e996871c  docs/legacy_c5e3a3d2b2.json
+520752d87a962f680ac9a6124f6fbdb5e92b3b39e251a724311c38d83a20c027  docs/legacy_c6920ccb87.md
+58044f3ad22ed2a93df5734132fcead3406c0235dda4ca3a05622220265defc1  docs/legacy_c960e7372d.md
+32634bb9f521fb0316fc1d7ec1dc7d3664ddf038ecf6f2aa79cf97e38abebf31  docs/legacy_c9e24df91f.md
+09bc05359eeafb23b2c665cbeeb9b3dfb24d12e35abcdf89c7f8bbd62d5c1f5f  docs/legacy_c9e2c355d7.json
+9dba8a4dd5dce1abbb56bb0ed370953a13c90ee318630bd61331bc44fba87ce5  docs/legacy_caed5e6233.md
+4f3679a82826112be78041980a2efb5702d8fc287d8a2c5127559870215f9ef4  docs/legacy_cb96b0fb9b.md
+27cf23760ef6ad3138ba9a959b94435c4a6995d35d81a2200833e5b3928b1ade  docs/legacy_cdec764f16.md
+fed6cee65c579cdf3773cbdde84762d99003a31f7c4f1eac2ba64087a1cc84fc  docs/legacy_ce0bc56ee2.md
+5ee75938e7cb2720e1035f0abd6bbbeb0ed95f006863bc91e6f31004c93da326  docs/legacy_ceefdd565e.md
+24c28ae697ec4840ad9c80d95d62d67c435b69e90e9ccb32e3f8a1ce5bb9d4c4  docs/legacy_cfc3f8b44c.md
+67b3fc401f0586dcd2bd1350bec0e3025ee6c12117d47796c8de73f1a797eacc  docs/legacy_d01ffcac42.md
+ba891e48e00c47dc95503ebd4f22019b82238c2958f44f9442d88a0469c17481  docs/legacy_d0d024cb12.md
+439620571007534c343ae50e4379ee9ede04120c0ae451d4b2ab8b2ef93ce5a1  docs/legacy_d13e95e075.md
+27092d54252db80406a6d75d2f164162a5464b28343b145c43059dbdbeed6906  docs/legacy_d1a8550e81.md
+1404faa50bef59d6a7013fd6a33ee0c21b9d54645808f3c9e5e5a90adb32c6a9  docs/legacy_d2a0d7306b.md
+308722e4a5378b73a97279e860fe0272aacf561b1457482df4403191fc3a1213  docs/legacy_d2ef84416e.md
+f7290ddb1c0bda1b80c6558ef2adc6a657c1825279a2b1ee0f4e9a8784f782dd  docs/legacy_d363b605d1.md
+fbc80d88d674d7b94c7aad856c82a26b74500d1a423e2002624e8864c658281b  docs/legacy_d4513612e1.md
+a929123571ac42d0d7f5fd9e29a33bfc1d6494cfc0aa0f981571da45c93c9e7e  docs/legacy_d64f2c1452.md
+f2c06d3b1de5180c09763307e3b3f0bbb05ccb0fd9bc729801606cee7eb6b85c  docs/legacy_d81eee597a.md
+8ef0b5af55ff985c4a68652894970e3f0be46956e2540f2b6b97be8ea5c8d53a  docs/legacy_d863c291b7.md
+20149e9af7f392640f59d74240c3911239c6b706c062d78890918f0bcc9024be  docs/legacy_ddc9065802.md
+ac53eb03d55717ba4bd3a46acd1d4a77fcda30f4ebf3416917ffa1bed36ad49c  docs/legacy_de98c66b25.md
+b45500717293e7157c9b4a2eaffbc36f8aa29b3a812dc6fcaea9c5a1495f89e9  docs/legacy_def9bbf3aa.md
+fac7ddd43a13b9b912c3f3131b8a5dfd2ca8bf77697c6f8830a8a18e62f0666d  docs/legacy_dfcb250415.md
+8811a27a687f19507938c3808fd6c700d28f2839d4eb6745068649ae1f872db6  docs/legacy_e167d82717.md
+61e70bebe26d087276b0ad33bf6310ce4987b1e0083b1e6bfde640f605bf8149  docs/legacy_e196e939cb.md
+6f89b8453e4e630b033441d41e91c2ad232d8285ad8068c0ea40957376135570  docs/legacy_e50459c1f7.md
+53bdccd444ca8cd0297bba31fa775989a0f32d80227c9b1701fad2df7dd121df  docs/legacy_e5c3805ad9.md
+21c5037be3f857e2978ebb0e0d28925de2982274b36c1ee9efcf79a1c929dbc5  docs/legacy_ef20dc0001.md
+8bd8e208eff8467837ca51dff1ef7948cda6fd71a10044bb41b85f44f5077cc2  docs/legacy_f336251dfd.md
+49839d9e11892f3ff0e3088516cdfb382cb6a3761902d90b19ce77f04b147739  docs/legacy_f55e20573f.md
+745754b0d69b5086203035900d0afed4ba1e6db7f7e81d0cc1d91c58fe588cca  docs/legacy_f575e0e765.md
+b1ce730b5228c7a6d5753b0cf8989abd86aaa6a35f945b423caed1369435f3cb  docs/legacy_f8164348bb.md
+6f4db982bfb9c91706074469a3961f1abf28d7313462511178509f36be13e1f0  docs/legacy_fa53c5870d.md
+ceb7d6a9ce58247489dc3d5851f655b0ee3635af9b0b46b51a39bcdde45c98f7  docs/legacy_fa8560c962.md
+a8d5b6c837171509075859bcc155fdc722a3e1b06be512a756df39a446cd1d8a  docs/legacy_fb202fa57f.md
+c700ddb6de765e57db23dea98711e865b5b7065e8ebcc5885875d08e0eb2ff7d  docs/manuals/legacy_ab338272d4.docx
 a63f4cb02154647b0a9925acb603f24a7ecfa23514fef4453b7213304f8c39e8  docs/part1-specification.md
 e6e281e50679d59d7e51edd04e4a2123f952454fa94d20f3435c676e6fe1061a  docs/part10-label-replacement.md
 e94ba37ec5afa14c7a04e6e5b90267c99aec73e835587665a4fecee3446d1ee0  docs/part100-regulation-diff-review-and-publication.md
@@ -1027,6 +1031,9 @@ ed116aef07d72c67e19eb8e8773089555bca43151d41b2cc918b8c3099a327e9  docs/part475-r
 6a9ecfb52cf6cca4e89ea97c1dd6f5cf8cdf69cad1f463bf12764e9a582654d1  docs/part479-heic-heif-photo-support.md
 d8deae956f058ed18024803612556600be942a43aa9d4e0740bad842dbf012aa  docs/part48-marine-pollutant-p-notation.md
 74de0c7c14dc854d2faf9c60a6993278d97899fca4c58c2d377c4b04fae5ee9a  docs/part480-ctu-excel-route-import.md
+f1fba2fd5eb716745a095eddf661989b775ae4940045c03484d9dde22ce8fd18  docs/part481-excel-ephemeral-processing.md
+f5f7f5cd10793f69d2fbf85ad05d298428de7d816fe88cee3b9adad2dbae56e9  docs/part482-package-table-and-marking-display.md
+60d0229833cc92d6191e5a423cd26b055471d0e8bd0197690aa6df0b4c4f9835  docs/part483-dangerous-goods-detail-hotfix.md
 9a33e999485308a81d50c0c1cab84023e4bec726f334194e7fdbec802bcde0dd  docs/part49-detail-rendering-hotfix.md
 4a768f27ebaa1780249c00875a814db7cc388e9b2af65236779995027fc7f721  docs/part5-specification.md
 8802ad771d3758094a8c0ddb4bf0841734da2e6ca1e7b4ae9ccc038f188f159e  docs/part50-marking-and-nos-updates.md
@@ -1084,8 +1091,6 @@ ba78355074874a5a53c16940e70915a3ed91407d96c318c6b820020ec6aa9579  docs/part97-se
 15915019f4cb572569b3ffe1654ce63269110ab782e294d483070c2d38d0a277  docs/part98-performance-and-capacity.md
 32936646b7ed715a43e5fd39eff66dd913bbd25dd012a824d7bc89c203aaa835  docs/part99-data-contract-and-validation.md
 588c89737450227eb4600abb5240dab950ce555262bae8ad62e19b2eb74fc55b  docs/part99-regulation-revision-and-data-update.md
-7d7a4f4aa179f2d39ddd80eece0405830819562463c11e3910731d46c65c049c  docs/Γòº├ñ╬ô├▓├¡╬ô├╗├åΓòº├óΓö£├½Γö£┬¼Γò¼├┐Γö£Γò¥Γö£┬╗Γòº├ñΓö£ΓòóΓö¼ΓöÉΓòº├çΓö£ΓîÉΓö¼Γò¥Γòº├çΓö£ΓîÉΓö£ΓûÆΓòº├çΓö£├│Γö£┬╜.md
-8bd8e208eff8467837ca51dff1ef7948cda6fd71a10044bb41b85f44f5077cc2  docs/Γò¼├┐Γö£Γò¥Γö£┬╗Γòº├ñΓö£ΓòóΓö¼ΓöÉΓòº├ñΓö¼┬╜Γö£┬íΓòº├ñΓö£├½Γö£├æΓö¼ΓòíΓö£┬╜Γö£┬╗Γò¼├┐Γö£├¡Γö£├æΓö¼ΓòíΓö¼├│╬ô├▓├▓.md
 406bcb5de6ddab6940fd307d00ef004d277842e6f06203207f1f739aeeba9f8e  images/guides/package-marking-un1224-guide.png
 c3593b9458fb7518a84d80008cdba0cc98bc1ce9c5a2135a7ca18a8be090f632  images/labels/class1.1.png
 38b8397088dbcfdc14bea203558143897e9542906189b12f8ed6ceb5c7700867  images/labels/class1.2.png
@@ -1169,14 +1174,14 @@ e56bfe97a378d52ffd810d507d9a0a089db480932960dbc4b18bc7f77785bdb4  pages/account-
 7c1ef770dbf6ffc3c8d69ff607aaa23e8b318fb14b1b149a549e6ce5894b347d  pages/activate-account.html
 5aaddcea39773195a3a9c61e357de3e45e41a0cee112c8ac32a3f645dabb5d60  pages/admin-governance-dashboard.html
 551fd7b1bd18fa3305e29d5263953fdddd831cb6a450f0f6ff3257446447b0f3  pages/admin-succession.html
-13e930c272d96198ad5df8f1835bd4e0732e10e1c0b8ab08fd36f1d687b47716  pages/application-verification.html
+3d3c1d3a9e707da9ebf5eace279db068ad91269feb934afefa8626bbee076084  pages/application-verification.html
 cea1edca6efb166196ae0ec49763fb394e2af6bfc8b3463cb683d0c299b0ab1e  pages/applications.html
 36588f07d596e466e0a1c6c0c1c0c2a9bc66678ae3e37c04812ae7ccd23989bb  pages/change-password.html
 f14d9860a3eba480f0c2cf459ebef690249b8b595aded54c4843f7df65deb6cf  pages/change-release-governance-admin.html
 8ae83173b3cb95cc7b969a69bb8ed419b613f49535ad455cbcd69bc83b10932e  pages/cloud-connection.html
 aa31b805091012e541cb5b2cb68bfa75f049358d158ac8237b1b2d2e587f6139  pages/completion-roadmap.html
-b161f520596ed110ea5d019bb612df873f273bb7c7cbeb1dbc4f1ca067288f99  pages/ctu-securing-calculator.html
-48a9301d3791619ce8cef49b23ae39c112195bbc00c891dd95c265f3c4ab3789  pages/dangerous-goods-detail.html
+633f48da2312a5c00adfb5940a576d0852271f980720a6b711147295b7316e7a  pages/ctu-securing-calculator.html
+4ee7ddadd83af30af6612e0e0b15c784b41fbcb893464c62be36c373dda039da  pages/dangerous-goods-detail.html
 5d4e805fe8544ba1f476ae5a9216f6badbe35993da720611ed579c111f649c36  pages/dangerous-goods-search.html
 690ffd7a269b9e7310e782a8ec824fe87c8f0b45c9d1f9062cf3ea878e173bc1  pages/data-migration.html
 0a3410eca40052d5baa499b5c2ccd7492f1ae6b8b9e7fb2a9a3717d4fb045a32  pages/data-quality-admin.html
@@ -1288,15 +1293,12 @@ e0047087c91e4424a64eaeec2084ef7e40b74e2a86abcc19e60c26103ccb5002  references/ori
 1c1466846607172b8bc193c343146f2d9cf02d53ddfc6c1573cc7eb58c9e9aa4  references/originals/imdg-code-amendment-42-24-msc556-108.pdf
 6ce5fc34f1b129d741c8abda1f516165ed221faa764787c12b7dca9e009404a9  references/originals/marpol-73-78-annex-ii-ja.pdf
 f8f4fd5f36cf8478f58239d614bf5a49b2ad29203b5078c2262cd5bab2728cb0  references/originals/radioactive-materials-notification.pdf
-27ff25dff41b0f0ff74c46304de7e169c695e58b81a295990df44f6cc8aae691  release-manifest.json
+e47a96f9b55f902426e23e77fc05505fae61fe70620d46c4fe2ec3dcbad79eeb  release-manifest.json
 2a970c58f32d24460681496cba38c93492bb05ebe87573d2cb2c5db984defceb  schemas/case-reopen-workflow-report.schema.json
 807e1604322d93811c4fa0fe4911c0f86ae8dfcbfcdf44be9032a15f18a34024  schemas/corrective-evidence-access-log.schema.json
 ed368c3fa0f121686e9f33d32d1a5e78b1ba8f89b9fdbb8821405579528721a9  schemas/corrective-evidence-audit-finding.schema.json
 d5a0ae46ad6acf5192239bee2f358b0ba32e4f5d81ece13a20395b08a63fe97e  schemas/corrective-evidence-audit-monthly-report.schema.json
 78b13ae9023fe6fb0b8191045bb4659aec1d2ada43605656cfb3e0cc5d249ed4  schemas/corrective-evidence-audit-rule-application-certificate.schema.json
-f8d3e39fc7e1c0d9f49112ff0b7734845790b3abadfe8033186f3cf98368622c  schemas/corrective-evidence-audit-rule-certificate-corrective-action.schema.json
-68e161367efa3c2019d6afa3f4e18b06f8e9b3130c50c07cc72f6b515ca249a2  schemas/corrective-evidence-audit-rule-certificate-corrective-trend.schema.json
-6bf8de77244cbbc302382ca57c226626a709e6e7f1da178343a18cd57acf79ae  schemas/corrective-evidence-audit-rule-certificate-monthly-reconciliation.schema.json
 f9614d6a8338e519e5f41bcd15d5335a11b7f4759a9a3bb2623cb75f6aa619dd  schemas/corrective-evidence-audit-rule-certificate-verification.schema.json
 22b9968ac0908946ff9dda45f6f77fe37a2622b6a8567a2a25c4a55b86e54093  schemas/corrective-evidence-audit-rule-proposal.schema.json
 bf0d8f93de11682ba1ac3b3b9ccd93489854ee7df99ee1fb9ecc59f11ae36d1a  schemas/corrective-evidence-audit-rule-simulation.schema.json
@@ -1305,6 +1307,9 @@ bf0d8f93de11682ba1ac3b3b9ccd93489854ee7df99ee1fb9ecc59f11ae36d1a  schemas/correc
 5cd7c01ab33ea54cba63ed7cf00951f659138f8277d4a2e91cef5a4355318e54  schemas/corrective-evidence-case-closure-verification.schema.json
 1e7013393e5c742e65c5fbbf744e8bb5acf2f342d0e427e1db9f94561ad75245  schemas/corrective-evidence-case-reopen-investigation.schema.json
 e53dd391a8803ee1b5b48cdbedbb47e09ec153ef7a7ca9656733064a55a92da5  schemas/corrective-evidence-case-reopen-request.schema.json
+6bf8de77244cbbc302382ca57c226626a709e6e7f1da178343a18cd57acf79ae  schemas/legacy_2cc8dc7f45.json
+68e161367efa3c2019d6afa3f4e18b06f8e9b3130c50c07cc72f6b515ca249a2  schemas/legacy_6ab28660e9.json
+f8d3e39fc7e1c0d9f49112ff0b7734845790b3abadfe8033186f3cf98368622c  schemas/legacy_8f21733423.json
 965cb249f3ec24d66859278ea2f102f293db2602d46a4e57b30aa759f687b8d6  schemas/operations-monthly-report.schema.json
 55842de1eee3eeff9a791a36d3dfb547f630f99f9845dff91f9db44ce0ea0ab4  schemas/organization-master.schema.json
 1270c1ae3370df2a573f79a3153030d71cb15f5a21747231c98d9a0605dbb6a2  schemas/photo-purge-certificate-verification.schema.json
@@ -1455,7 +1460,7 @@ ebb0cac7bc39e00af608e9e88c2a22f83ca839e31bffb67c78ae695ca221c0d9  server/sql/092
 19eae1469cf7ff89cb2c9cbf90cd3d7a678a015acf640cd0012a8e8ba5f2fc51  server/src/db.js
 a09fda4ba00c1bad6dd156a2c13f2aba84df0e184c3ef95dcb1dfb67ef0f04ac  server/src/mailer.js
 c519094cce9d6220800df2ae8d2ff7a6a99ca46f0e03dc77367cbca876ee9d33  server/src/server.js
-c069c628f1f760dbe86f500bfb8e8f00926e68c9f2172ec0b31657ca3568d588  templates/structured-data/README_Γò¼┬¬Γö¼ΓöÉΓö£ΓöÉΓòº├óΓö£├íΓö£├ªΓò¼┬¬Γö¼┬¼Γö£Γò¥Γò¼├┐Γö£├¡Γö£ΓöÉ.txt
+c069c628f1f760dbe86f500bfb8e8f00926e68c9f2172ec0b31657ca3568d588  templates/structured-data/legacy_3fa311bb3d.txt
 47dee5fd3be45ba97800b35fa47f1e188c132df2dd48327e251e7c871f73e26c  tools/qa-static.mjs
 280b048a593ef4a1856a7a0c011a173b58a44758c9bc5d64a54f667c81a98739  tools/run-integrated-verification.mjs
 505af27621f13d172634e369669849d9949fe290dc87b66e0935e32643e78b73  tools/verify-access-denied-contract.mjs
@@ -1463,15 +1468,18 @@ c069c628f1f760dbe86f500bfb8e8f00926e68c9f2172ec0b31657ca3568d588  templates/stru
 3d0ee0706d39f9f7cfb6bd591c9bf623a96b2d3092b0c39691978b617a6ad13e  tools/verify-all-used-code-details-part474.mjs
 7a3ba18a89db82df0c1666d7d44771090478a8864a011c8088e4d8836c6006a1  tools/verify-code-detail-rendering-part474.mjs
 d9afabaaf1f683a99e96eacede2cafb9907703e989f77326bff026010f775663  tools/verify-copy-contract.mjs
-dfdb306bf1153be3febabb28d224ce4c36f22da16fa4fc52d40fd947df28e5cf  tools/verify-ctu-excel-route-part480.mjs
+af6030ab000ecf381476eefb8e798d9bd0bd667642238b36ee10524323b5400f  tools/verify-ctu-excel-route-part480.mjs
 65d9c0a0f795c75aa3997750a186e8c2f1bad070ffdef59308f85ac6c6dc112f  tools/verify-ctu-securing-part476.mjs
 66633417b20e0da9b2e674504b4d8adcb32d7df73231369e4367699fcc4384ec  tools/verify-ctu-securing-part478.mjs
 46695902488d0d670c1f10756d22f35b99e0f72b471f78704556b948a2556548  tools/verify-dashboard-regulation-contract.mjs
+2c3c486fa0abdbe803ae6fc912ab83fc69f3256849387d59840b80b11222e30b  tools/verify-excel-ephemeral-processing-part481.mjs
 c1d12041c935edd3493ddfb83ef2c6232ab85b61534317e46a9b4a03df655e1d  tools/verify-heic-heif-part479.mjs
 0745144a06ba98b0960c97db885961d268c7e51db7deb65652fe2318e6c585bf  tools/verify-home-activity-contract.mjs
 51f0e304a44804b6c919193b15a08cc1baca5974987895dd27418f6b8a1fae25  tools/verify-home-icon-contract.mjs
 ec3c5b008d366cb799ed8ed72e7499f27ab8a88f89135b0d1ed161c95ea54723  tools/verify-japanese-heading-contract.mjs
 7833403b1283a67996423a3315e0b30b8c2cdfe4a015486a783b92af5d75c004  tools/verify-login-contract.mjs
 f8e3b843a44e0cb472a72df95fd165da8d83afa0d4b109ee0acfc9225dfe1583  tools/verify-login-visual-assets.mjs
+a42d5cf671550c08329e76f4a482fff676770410fc66bba95403cd62fdef44aa  tools/verify-part482-detail-display.mjs
+64c8a70e71107f6cc82010e86c332bf5c7d4e5d48382196e0e43b9cc59b4405e  tools/verify-part483-dangerous-goods-detail-runtime.mjs
 f1309925b4a35d81225062633f495b6e00cd3db5b547397b19a3664120d126f1  tools/verify-quick-user-registration-contract.mjs
 7df8c3034ff77273f7063fff72bbea8933777a872dde787fd44d9a157a59e328  tools/verify-reference-windows.js
