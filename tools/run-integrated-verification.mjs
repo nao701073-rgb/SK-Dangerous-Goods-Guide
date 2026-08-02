@@ -86,6 +86,8 @@ const tests = [
   run('日本語見出し統一検証', process.execPath, ['../tools/verify-japanese-heading-contract.mjs'], serverDir),
   run('ホーム・法令画面統合表示検証', process.execPath, ['../tools/verify-dashboard-regulation-contract.mjs'], serverDir),
   run('ホーム利用履歴・お気に入り表示検証', process.execPath, ['../tools/verify-home-activity-contract.mjs'], serverDir),
+  run('全危険物・判定基準の見やすさ・国連番号表記検証', process.execPath, ['../tools/verify-part496-readable-judgement-and-un-label.mjs'], serverDir),
+  run('国内法令の主な参照・連続表示検証', process.execPath, ['../tools/verify-part497-domestic-law-display.mjs'], serverDir),
   run('役割別権限マトリクス', process.execPath, ['scripts/verify-role-matrix.js'], serverDir),
   run('危険物データ公開判定', process.execPath, ['scripts/check-data-release.js', '../docs/Part211_データ品質監査レポート.json'], serverDir),
   requiredCheck,

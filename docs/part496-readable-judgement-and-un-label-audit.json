@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "version": "part496",
+  "generatedAt": "2026-08-02T12:54:09.215Z",
+  "status": "passed",
+  "dangerousGoodsRowsVerified": 2725,
+  "uniqueUnNumbersVerified": 2248,
+  "judgementReferenceKinds": {
+    "note2": 2671,
+    "listed-entry": 28,
+    "specific-definition": 26
+  },
+  "improvements": [
+    "判定条件と判定結果を整理表・カードで表示",
+    "例外条件・試験方法・注記を独立した見出し付き欄で表示",
+    "国内法令関連画面のUN表記を国連番号表記へ変更",
+    "スマートフォンで横スクロールを発生させない"
+  ],
+  "preservedDesign": [
+    "色",
+    "フォント",
+    "罫線",
+    "角丸",
+    "余白"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "version": "part494",
+  "generatedAt": "2026-08-02T11:32:04.916Z",
+  "status": "passed",
+  "dangerousGoodsRowsVerified": 2725,
+  "uniqueUnNumbersVerified": 2248,
+  "judgementReferenceKinds": {
+    "note2": 2671,
+    "listed-entry": 28,
+    "specific-definition": 26
+  },
+  "note2PdfPagesVerified": [
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276
+  ],
+  "tCodeLayout": "vertical-two-column-without-horizontal-scroll",
+  "preservedDesign": [
+    "色",
+    "フォント",
+    "罫線",
+    "余白"
+  ]
+}

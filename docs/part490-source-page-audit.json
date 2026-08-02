@@ -1,0 +1,17 @@
+{
+  "version": "part490",
+  "generatedAt": "2026-08-02",
+  "domesticNotification": {
+    "source": "references/originals/dangerous-goods-notification.pdf",
+    "registeredCodeCount": 590,
+    "codeFoundOnRegisteredPageCount": 590,
+    "errors": []
+  },
+  "imdgCode": {
+    "source": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+    "registeredDirectPageCount": 573,
+    "codeFoundOnRegisteredPageCount": 573,
+    "errors": [],
+    "policy": "PDF内でコード掲載を確認できないものには、推測によるページ又はPDF先頭ページへの代替リンクを設定しない。"
+  }
+}

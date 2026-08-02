@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "reportName": "part497 総合検証レポート",
+  "generatedAt": "2026-08-02T12:54:09.328Z",
+  "systemVersion": "part497",
+  "versionMetadata": {
+    "version": "part497",
+    "part": 497,
+    "date": "2026-08-02",
+    "summary": "全危険物の品名・国連番号表示に関する国内法令を、必要条文のみの見やすい連続表示へ修正",
+    "updatedAt": "2026-08-02"
+  },
+  "overallStatus": "failed",
+  "summary": {
+    "testCount": 17,
+    "passedCount": 9,
+    "failedCount": 8,
+    "javascriptFilesChecked": 119,
+    "requiredPagesChecked": 16,
+    "dangerousGoodsDataSha256": "975b13700f4e9b0c0d60d458df9df1954719726eb2a721342cc94c3ca5149e5f"
+  },
+  "tests": [
+    {
+      "name": "静的ファイル・参照検査",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:06.028Z",
+      "finishedAt": "2026-08-02T12:54:08.860Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"findingCount\": 14,\n  \"stats\": {\n    \"html\": 62,\n    \"js\": 177,\n    \"json\": 75,\n    \"refs\": 957,\n    \"bytes\": 303972620\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン仕様回帰検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:08.860Z",
+      "finishedAt": "2026-08-02T12:54:08.881Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checked\": 49,\n  \"failed\": [\n    \"時間帯判定（朝）\",\n    \"時間帯判定（日中）\",\n    \"時間帯判定（夕方）\",\n    \"成功演出の控えめな光\",\n    \"SKロゴ縦横比維持\",\n    \"SKロゴ縦横比固定\",\n    \"背景・ロゴ事前読込\",\n    \"時間帯背景の事前読込\",\n    \"背景読込失敗時の代替表示\",\n    \"時間帯別の背景位置調整\",\n    \"背景切替の動作抑制対応\",\n    \"初回描画前の時間帯判定\",\n    \"時間帯別港湾背景4種\",\n    \"ログインCSSキャッシュ更新\",\n    \"港湾背景画像\",\n    \"ガラス調ログインカード\",\n    \"夕方・夜の暗色カード\",\n    \"スマートフォン最適化\",\n    \"ロゴ縦横比の堅牢化\",\n    \"短い画面高のスクロール対応\",\n    \"横向き端末の表示対応\",\n    \"実景背景時の旧シルエット非表示\",\n    \"背景上の可読性補助レイヤー\",\n    \"入力欄フォーカス強調\",\n    \"ログインCSSキャッシュ355\",\n    \"入力欄アイコン\",\n    \"認証中スピナー\",\n    \"横向き低画面対応\",\n    \"自動入力表示対応\",\n    \"強制カラーモード入力対応\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン視覚資産検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:08.881Z",
+      "finishedAt": "2026-08-02T12:54:08.909Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checked\": 21,\n  \"failed\": [\n    \"時間帯別背景参照\",\n    \"中央可読性レイヤー\",\n    \"4K・高密度表示\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "表示文言統一検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:08.909Z",
+      "finishedAt": "2026-08-02T12:54:08.931Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checked\": 8,\n  \"failed\": [\n    \"国内法令限定説明\",\n    \"AI要約抽出説明\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "利用者簡易登録仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:08.931Z",
+      "finishedAt": "2026-08-02T12:54:08.953Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 10,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン切替・段落レスポンシブ検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:08.953Z",
+      "finishedAt": "2026-08-02T12:54:08.975Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 9,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "権限エラー画面仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:08.975Z",
+      "finishedAt": "2026-08-02T12:54:08.998Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 15,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "主要機能アイコン仕様検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:08.998Z",
+      "finishedAt": "2026-08-02T12:54:09.021Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checkCount\": 32,\n  \"failed\": [\n    \"貨物固縛アイコン識別子\",\n    \"コンテナ内枠\",\n    \"コンテナ開口部表現\",\n    \"左右の固縛材\",\n    \"パレット貨物\",\n    \"コンテナ内貨物の説明\",\n    \"将来実装カードの無効状態\",\n    \"将来実装カードの見出し関連付け\",\n    \"将来実装カードの説明関連付け\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "日本語見出し統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:09.021Z",
+      "finishedAt": "2026-08-02T12:54:09.050Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 6,\n  \"failed\": [],\n  \"violations\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ホーム・法令画面統合表示検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:09.050Z",
+      "finishedAt": "2026-08-02T12:54:09.071Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checkCount\": 10,\n  \"failed\": [\n    \"リンクの明確な読み上げ名\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ホーム利用履歴・お気に入り表示検証",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:09.071Z",
+      "finishedAt": "2026-08-02T12:54:09.093Z",
+      "stdout": "{\n  \"status\": \"failed\",\n  \"checkCount\": 12,\n  \"failed\": [\n    \"キャッシュ識別子更新\"\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "name": "全危険物・判定基準の見やすさ・国連番号表記検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:09.093Z",
+      "finishedAt": "2026-08-02T12:54:09.220Z",
+      "stdout": "part496 verification passed: 2725 rows / 2248 unique numbers",
+      "stderr": ""
+    },
+    {
+      "name": "国内法令の主な参照・連続表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:09.220Z",
+      "finishedAt": "2026-08-02T12:54:09.279Z",
+      "stdout": "part497 domestic law display verification passed",
+      "stderr": ""
+    },
+    {
+      "name": "役割別権限マトリクス",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-02T12:54:09.279Z",
+      "finishedAt": "2026-08-02T12:54:09.301Z",
+      "stdout": "OK guest: {\"applicationScope\":\"none\",\"applicationsRead\":false,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":false,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-user: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-admin: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"own-office\"}\nOK safety-environment-director: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"systemSettingsMode\":\"limited\"}\nOK safety-environment-staff: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK safety-environment-admin: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"all-offices\"}\nrole permission validation passed; report=/mnt/data/part497_work/docs/Part219_役割別権限監査レポート.json",
+      "stderr": ""
+    },
+    {
+      "name": "危険物データ公開判定",
+      "status": "failed",
+      "exitCode": 1,
+      "startedAt": "2026-08-02T12:54:09.301Z",
+      "finishedAt": "2026-08-02T12:54:09.324Z",
+      "stdout": "",
+      "stderr": "node:fs:442\n    return binding.readFileUtf8(path, stringToFlags(options.flag));\n                   ^\n\nError: ENOENT: no such file or directory, open '/mnt/data/part497_work/docs/Part211_データ品質監査レポート.json'\n    at Object.readFileSync (node:fs:442:20)\n    at file:///mnt/data/part497_work/server/scripts/check-data-release.js:4:28\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/mnt/data/part497_work/docs/Part211_データ品質監査レポート.json'\n}\n\nNode.js v22.16.0"
+    },
+    {
+      "name": "主要画面・構成ファイル",
+      "status": "passed",
+      "missing": []
+    },
+    {
+      "name": "JavaScript構文検査",
+      "status": "passed",
+      "checkedFiles": 119,
+      "failures": []
+    }
+  ],
+  "manualVerificationRequired": [
+    "クラウドAPIへの実接続と認証メール送信",
+    "50名・150名を想定した実環境負荷試験",
+    "実端末でのPC・スマートフォン表示確認",
+    "写真保存領域のバックアップ・復元試験",
+    "初期利用者・所属・役割の実データ確認"
+  ],
+  "notes": [
+    "本レポートはソース一式に対する自動検査結果です。",
+    "クラウド契約や外部サービスを必要とする試験は、配置先決定後に実施します。",
+    "透かし表示、スクリーンショット検知・追跡、画面自動保存は未実装です。"
+  ]
+}

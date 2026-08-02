@@ -1,0 +1,29 @@
+/* Part 500: subpage navigation uses the same items, drawer behavior and visual language as the home main menu. */
+html.unified-submenu-enabled .system-shell{display:block;min-height:100vh}
+html.unified-submenu-enabled .system-sidebar{display:none!important}
+html.unified-submenu-enabled .system-main{min-width:0;width:100%}
+.unified-submenu{width:min(88vw,340px);padding:18px;overflow-y:auto;overscroll-behavior:contain}
+.unified-submenu nav{display:flex;flex-direction:column;gap:8px;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+.unified-submenu .nav-link{min-height:58px;padding:9px 12px;border:1px solid transparent}
+.unified-submenu .nav-link.active{background:var(--blue-light,#eaf4fb);color:var(--navy,#0b3a67);border-color:var(--border,#d7e2ec)}
+.unified-submenu .nav-link__icon{width:40px;height:40px;flex:0 0 40px;padding:8px}
+.unified-submenu .nav-link__icon svg{display:block;width:100%;height:100%}
+.unified-submenu__text{min-width:0;line-height:1.35}
+.unified-submenu__text strong,.unified-submenu__text small{display:block}
+.unified-submenu__text small{margin-top:2px;color:var(--muted,#60788f);font-size:.68rem;font-weight:600}
+.unified-submenu .nav-section{margin-top:10px;padding-top:10px;border-top:1px solid var(--border,#d7e2ec)}
+.unified-submenu .nav-section__label{padding:0 12px 6px;color:var(--muted,#60788f);font-size:.7rem;font-weight:800;letter-spacing:.08em}
+.unified-submenu__close{color:var(--navy,#0b3a67);background:var(--blue-light,#edf5fb)}
+.unified-topbar-left{display:flex;align-items:center;gap:10px;min-width:0}
+.system-topbar .unified-submenu__toggle{width:40px;height:40px;flex:0 0 40px;background:#edf5fb;color:var(--app-navy,#073b78)}
+.app-header.unified-submenu-header{justify-content:flex-start}
+.app-header.unified-submenu-header .unified-submenu-header__end{margin-left:auto}
+.unified-submenu__toggle--floating{position:fixed;top:12px;left:12px;z-index:80;background:var(--navy,#0b3a67);color:#fff;box-shadow:0 8px 20px rgba(7,42,74,.22)}
+body.unified-submenu-open{overflow:hidden}
+@media(max-width:520px){
+  .unified-submenu{width:min(92vw,340px);padding:14px}
+  .unified-submenu .nav-link{min-height:54px;padding:7px 10px}
+  .unified-submenu .nav-link__icon{width:36px;height:36px;flex-basis:36px;padding:7px}
+  .system-topbar .unified-submenu__toggle{width:38px;height:38px;flex-basis:38px}
+  .topbar-title{gap:4px}
+}

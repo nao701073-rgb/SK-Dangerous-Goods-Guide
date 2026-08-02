@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "version": "part493",
+  "generatedAt": "2026-08-02T11:02:38.760Z",
+  "status": "passed",
+  "dangerousGoodsRowsVerified": 2725,
+  "uniqueUnNumbersVerified": 2248,
+  "classificationCategoriesVerified": 9,
+  "classificationCounts": {
+    "火薬類": 364,
+    "高圧ガス": 229,
+    "毒物類": 696,
+    "腐食性物質": 349,
+    "引火性液体類": 485,
+    "可燃性物質類": 361,
+    "酸化性物質類": 184,
+    "有害性物質": 35,
+    "放射性物質等": 22
+  },
+  "usedCodeDetailsVerified": 483,
+  "usedCodesWithVerifiedImdgPages": 478,
+  "usedCodesWithoutFabricatedImdgPages": [
+    "SP297",
+    "SP908",
+    "SP910",
+    "SP925",
+    "SP940"
+  ],
+  "displayOrder": [
+    "許容容量・許容質量などの整理情報",
+    "国内法令の適用条件・注記・追加規定",
+    "国内法令の原文リンク",
+    "ページ最下部のIMDG Code原文リンク"
+  ],
+  "preservedDesign": [
+    "色",
+    "フォント",
+    "罫線",
+    "余白"
+  ]
+}

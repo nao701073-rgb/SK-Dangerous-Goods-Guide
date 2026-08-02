@@ -1,0 +1,28 @@
+{
+  "version": "part491",
+  "generatedAt": "2026-08-02",
+  "classificationJudgementCriteria": {
+    "notificationArticle2PdfPage": 1,
+    "notificationArticle2Image": "assets/domestic-law-pages/notification/page-1.png",
+    "classificationCount": 9,
+    "priority": "告示の判定基準を先に表示"
+  },
+  "codeDetail": {
+    "organizedInformationHeadingRemoved": true,
+    "inlineImdgCodeLinks": "検証済みページ対応があるコードのみ。未登録コードは推定しない。",
+    "ibcMaximumContentReference": true,
+    "designPolicy": "既存の色・フォント・罫線・余白を維持"
+  },
+  "verification": {
+    "javascriptSyntax": {
+      "checkedFiles": 119,
+      "failures": 0
+    },
+    "usedDangerousGoodsRows": 2725,
+    "usedCodeCount": 594,
+    "domesticCodeOriginalsVerified": 590,
+    "imdgCodePageMappingsVerified": 573,
+    "part490Regression": "passed",
+    "part491Regression": "passed"
+  }
+}

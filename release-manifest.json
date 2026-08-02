@@ -1,16 +1,292 @@
 {
-  "version": "part488",
-  "part": 488,
-  "releaseType": "production-operation-candidate",
-  "generatedAt": "2026-08-02",
-  "qaReport": "docs/0.363.0_総合検証レポート.json",
-  "checksumFile": "SHA256SUMS",
-  "notes": "docs/part488-regulation-source-format-unification.md",
-  "releasedAt": "2026-08-02",
-  "updatedAt": "2026-08-02",
-  "summary": "国内法令・国際条約・国際規則の全カードで出典表示の位置、文字サイズ、配色、余白、罫線を統一。",
-  "build": "part488-regulation-source-format-unification",
-  "changeSummary": "公的原典リンクの直下に共通の出典欄を配置し、公開元、資料名・版、必要な場合の所管情報を同一形式で表示。スマートフォンでは縦並び表示。",
-  "fileCount": 1492,
-  "totalBytesExcludingManifestAndChecksum": 291602716
+  "release": "part500",
+  "type": "incremental-update",
+  "baseRelease": "part499",
+  "createdAt": "2026-08-02",
+  "browserVerification": {
+    "browser": "Chrome 144.0.7559.96",
+    "desktopWidth": 1365,
+    "mobileWidth": 390,
+    "submenuItems": 12,
+    "judgementBundles": 13,
+    "mobileHorizontalOverflow": false,
+    "runtimeExceptions": 0
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "size": 1425,
+      "sha256": "5c1e5f74a41ac010b243e02394130bbb2d45572ef1f80e58ae8fc7a51c2e08bb"
+    },
+    {
+      "path": "UPDATE_INSTRUCTIONS.txt",
+      "size": 960,
+      "sha256": "705b849d08a78234bb33fc9053602933fa79a2b0dce7065293da3ee134d854ae"
+    },
+    {
+      "path": "VERSION.json",
+      "size": 300,
+      "sha256": "fa7bd78956d04675abfa7abdf9f095385913ac547ff7d4945464daf2a53d348f"
+    },
+    {
+      "path": "assets/css/detail-dashboard.css",
+      "size": 112037,
+      "sha256": "d3db317efa2ff766497f0d9064f5db19fd93a35bc618a6ddeaef9dfc5df8a887"
+    },
+    {
+      "path": "assets/css/unified-submenu.css",
+      "size": 2377,
+      "sha256": "4a624c7b5a7ffd075736eb99d7ce788971e211d68055efbd6b1d66a6a06c09d8"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-1.png",
+      "size": 573826,
+      "sha256": "59c62682b8bdf1c0f3829eb196f0d3fa0affec6927d542bc1c2adefa3f76a845"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-i.png",
+      "size": 116957,
+      "sha256": "8feecf2e31be3e81e8980940b67831667d9c73dfd7e3e12fd4c4843813a3243e"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-ii.png",
+      "size": 140669,
+      "sha256": "4506b77884d4dd7acad28cd06af2d07d7e980f1705be2abf548632077c45665f"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-iii.png",
+      "size": 105832,
+      "sha256": "39027e7fe87b8754a94369ec61391d999176024eb180a70f0b1133e58fb4bdb2"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-3.png",
+      "size": 416871,
+      "sha256": "6ece18cedd208412169bbe761c4572a2fb3643bedd156635144fdd2959930328"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-i-iii.png",
+      "size": 568141,
+      "sha256": "5201fb10975d7ec614c8c36694e39ca1c0b12dd218019a80209258f1b3a55c6a"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-iv.png",
+      "size": 331550,
+      "sha256": "9eb5a71786fae28d55c504a49f9767b6823b7acbeb1073588f0f78ef76db24b8"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-v.png",
+      "size": 220501,
+      "sha256": "bc62567a4140e2baebc504e18f7995ec89941daa9dbca776c0526ca9b74b85b4"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-5-i.png",
+      "size": 315518,
+      "sha256": "e0ca467cfe01be9b73727eaefc1dc81893f2f3bf07a1f420e7c267446a592f45"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-5-ii.png",
+      "size": 327600,
+      "sha256": "471a89b76e143025fffb0e5b9df775ef04fa05d28c9cc4e45bb1778f5175f8d3"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-6.png",
+      "size": 476132,
+      "sha256": "a9dc3d111c42542e57e235848f32eb434f8a5bb8e642b194dfa5a1c534fc12d0"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-7.png",
+      "size": 263234,
+      "sha256": "d543416e082d6e9d4b84eb6909c72cce9b164b3ae374f2a48c82beae689695db"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-8.png",
+      "size": 318350,
+      "sha256": "9aab7941829fe8eabfcc6cc4784ce5d3542894d5b48e8ecebdf6befd22cfba51"
+    },
+    {
+      "path": "assets/js/detail-dashboard.js",
+      "size": 142830,
+      "sha256": "c9d9c1315297524d76927299afef4df15087b8e404c1721c50bd22ce2a242684"
+    },
+    {
+      "path": "assets/js/unified-submenu.js",
+      "size": 11202,
+      "sha256": "fdaabf178e9838b9eed99a485f5dcbb42a89ade5911981a44ef37ba375ab97d2"
+    },
+    {
+      "path": "docs/browser-verification/part500_judgement_mobile.png",
+      "size": 94806,
+      "sha256": "78a28c0d903dea35737226dc8ab90bb49f40068fe4a773078e713515267fe05b"
+    },
+    {
+      "path": "docs/browser-verification/part500_judgement_pdf_page1.png",
+      "size": 159281,
+      "sha256": "3969c1404c190541fa92b2488542bdf1a8a1e20bf5f01ef44986990970834c40"
+    },
+    {
+      "path": "docs/browser-verification/part500_submenu_desktop.png",
+      "size": 198221,
+      "sha256": "45440f50ae3562a21406fe0a5f2a73f479af244f4a9cb9a66f9480c5465294cf"
+    },
+    {
+      "path": "docs/part500-browser-verification.json",
+      "size": 2678,
+      "sha256": "4c45195269d106b84360c7521616d365a2d73e9364d07ac9d0c8c8a325ffeb0a"
+    },
+    {
+      "path": "docs/part500-browser-verification.md",
+      "size": 1192,
+      "sha256": "3dd2ad204234c5ec4c33d9f8ab2d26d2d0740afc341acefb8fc876c6d0c6ad80"
+    },
+    {
+      "path": "pages/application-verification.html",
+      "size": 11250,
+      "sha256": "0d92b8e32da8c9611071267cf8338f61ff7afd7e5ed92e070f75a84b72d19efb"
+    },
+    {
+      "path": "pages/applications.html",
+      "size": 54500,
+      "sha256": "4416c6ecbe9c992178d4df8b3cd0b3fa45fa7a7e695c682933848c0c5fe864f4"
+    },
+    {
+      "path": "pages/ctu-securing-calculator.html",
+      "size": 89651,
+      "sha256": "42f1c46c5de397935b4eb89460a4543f3885cf07b3153689a2e2245fb0fb208e"
+    },
+    {
+      "path": "pages/dangerous-goods-detail.html",
+      "size": 11371,
+      "sha256": "4b5ef3774af1348fc9d4131fead33761c396e9f9c2c1b8076d17cda26c65915d"
+    },
+    {
+      "path": "pages/dangerous-goods-search.html",
+      "size": 16251,
+      "sha256": "a7e25258a9b82091924acb02abd5a0df0c3248e7ec987619ec1a2c2d905da1fb"
+    },
+    {
+      "path": "pages/ems.html",
+      "size": 2993,
+      "sha256": "b907edb8f2bacdafc47bccfe7231f02cb3a7fa58b39e97f7a7ee66e9617d4a76"
+    },
+    {
+      "path": "pages/feedback.html",
+      "size": 6647,
+      "sha256": "8b056e4190ba176b89b3f8bf3bd0f834e992aaabf8250126ebf3b90828c8533c"
+    },
+    {
+      "path": "pages/imdg-cross-reference.html",
+      "size": 2755,
+      "sha256": "9b16ac80de2a4446ec1f9c4d8f2d91f6bf7376451487de7ccc0845d1ca956ea9"
+    },
+    {
+      "path": "pages/label-catalog.html",
+      "size": 1768,
+      "sha256": "e32feccf07ab398262d1d157cedd31d1413311529ece7bf2b84dd867ea7f4711"
+    },
+    {
+      "path": "pages/overpack-label-tool.html",
+      "size": 8808,
+      "sha256": "ac81accb69d1e80745c8cc4d3fdbe31f45b532bb2060b34c6012056fb5e7fea4"
+    },
+    {
+      "path": "pages/references.html",
+      "size": 6737,
+      "sha256": "8e0e5b061ab23b95cc1f389d242f6b049ccad70f40f121ec9dcd1872e7c4df7e"
+    },
+    {
+      "path": "pages/regulations.html",
+      "size": 4610,
+      "sha256": "8cdb6136d5d9e2fecca21052d2fe115520b99e078483aaa165dc3b08bb9e70a7"
+    },
+    {
+      "path": "pages/search-history.html",
+      "size": 1908,
+      "sha256": "08e0cfaaa4573c61ccfd68a43f8beafde20de03ea5818a3f926b36e83c03c743"
+    },
+    {
+      "path": "pages/settings.html",
+      "size": 6875,
+      "sha256": "4af78ccd4bab079f0b916e2be241df911a89b554b487df5accd0ec3cd54ed736"
+    },
+    {
+      "path": "pages/system-settings.html",
+      "size": 31707,
+      "sha256": "27792b0c7827dac99f51f81dff1746c005b81680ba69380c38f125601d043869"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/manifest.json",
+      "size": 2752,
+      "sha256": "b237c5040e3588653fdcd2dac081bf6a415c84bc33e1c35571090e2ae676ddf3"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-1.pdf",
+      "size": 550975,
+      "sha256": "2c1c5c425faa69909be4bc53e574855c237e00c15628c01eb5751746023dd16a"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-i.pdf",
+      "size": 255726,
+      "sha256": "d910bc6fa45dea19901da3024fb95f6173ecad2479ab3eb61b62da8f5fb69a74"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-ii.pdf",
+      "size": 295970,
+      "sha256": "108bea27396a4fb3a9d020fb10ebcdbc9d2fd203cf543bea730f4e713ed6f900"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-iii.pdf",
+      "size": 257653,
+      "sha256": "5bc1a0f50396c5152734f406c98b96c128a85aa3d90b11c7dbf5186d2ca80c47"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-3.pdf",
+      "size": 518851,
+      "sha256": "9708fca1b99207a1c86430d076c23b2f6375a67751840fae26b6885c05dd315a"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-i-iii.pdf",
+      "size": 672476,
+      "sha256": "0a161732e6964534bd7de54b23d2f24ce2c4b447c684dbb2002e67c2a851360f"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-iv.pdf",
+      "size": 459798,
+      "sha256": "7dc62f66ca726e46712312f2c55b557cc181064201bc8862c606315f605b03b4"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-v.pdf",
+      "size": 371321,
+      "sha256": "93ba3fa15b01023e4a0a79f55ca86d573ea129dccef246fc5745f2fab7af8d2f"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-i.pdf",
+      "size": 426100,
+      "sha256": "79b1898a7cee1afc5ec62fddc32894d08a4be786da576808411de94c111fae04"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-ii.pdf",
+      "size": 437142,
+      "sha256": "2ed6fbff04c619d1a4e4ce750b8f959d2be62f1c355f2a3302289531db91e452"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-6.pdf",
+      "size": 443205,
+      "sha256": "e587444694d4e5b6776c862273d268eaa1c3c81081ce5e5b26e79efc16c83162"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-7.pdf",
+      "size": 427180,
+      "sha256": "86f01ed31ec02a2a82473ed15eab43fdbcaa8b470d7e8b3d3b8cc5c49e00d622"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-8.pdf",
+      "size": 372874,
+      "sha256": "a26b2c3de2eae6129445d3cf1ae6f484bf8ac470f2b9ca108bce3b066b104b97"
+    },
+    {
+      "path": "tools/verify-part500-submenu-and-judgement-bundles.mjs",
+      "size": 2344,
+      "sha256": "9ffdefd094a2b75e154531cf4427fe82f60f9c4ebe7eb69d83b3811048f66a06"
+    }
+  ]
 }

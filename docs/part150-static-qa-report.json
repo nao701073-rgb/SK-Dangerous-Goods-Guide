@@ -1,98 +1,98 @@
 {
-  "generatedAt": "2026-08-02T00:53:30.861Z",
-  "root": "/mnt/data/part478_work/app",
+  "generatedAt": "2026-08-02T10:43:43.430Z",
+  "root": "/mnt/data/part492_work",
   "status": "failed",
   "stats": {
     "html": 62,
-    "js": 159,
-    "json": 65,
-    "refs": 953,
-    "bytes": 289827874
+    "js": 170,
+    "json": 68,
+    "refs": 955,
+    "bytes": 292293147
   },
   "findingCount": 14,
   "findings": [
     {
       "severity": "error",
       "type": "duplicate-id",
-      "file": "/mnt/data/part478_work/app/pages/ctu-securing-calculator.html",
+      "file": "/mnt/data/part492_work/pages/ctu-securing-calculator.html",
       "detail": "${directionId("
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/01_システム仕様書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/02_実施要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/03_ゲスト用使用要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/04_事業所利用者用使用要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/05_事業所管理者用使用要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/06_安全環境室用使用要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/documentation-release-center.html",
+      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
       "detail": "../docs/manuals/07_システム管理者用使用要領書_Part243.docx"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/operations-monitoring.html",
+      "file": "/mnt/data/part492_work/pages/operations-monitoring.html",
       "detail": "../docs/障害対応・復旧訓練手順書.md"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "file": "/mnt/data/part492_work/pages/production-readiness.html",
       "detail": "../docs/本番導入設定手順書.md"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "file": "/mnt/data/part492_work/pages/production-readiness.html",
       "detail": "../docs/運用管理手順書.md"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "file": "/mnt/data/part492_work/pages/production-readiness.html",
       "detail": "../docs/バックアップ復元手順書.md"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/production-readiness.html",
+      "file": "/mnt/data/part492_work/pages/production-readiness.html",
       "detail": "../docs/社内接続試験チェックリスト.md"
     },
     {
       "severity": "error",
       "type": "missing-reference",
-      "file": "/mnt/data/part478_work/app/pages/system-maintenance.html",
+      "file": "/mnt/data/part492_work/pages/system-maintenance.html",
       "detail": "../docs/バックアップ復元手順書.md"
     }
   ],

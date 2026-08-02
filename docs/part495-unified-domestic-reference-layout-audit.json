@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "version": "part495",
+  "generatedAt": "2026-08-02T11:58:31.714Z",
+  "status": "passed",
+  "dangerousGoodsRowsVerified": 2725,
+  "uniqueUnNumbersVerified": 2248,
+  "judgementReferenceKinds": {
+    "note2": 2671,
+    "listed-entry": 28,
+    "specific-definition": 26
+  },
+  "note2ExactTextRowsVerified": 2671,
+  "unifiedLayouts": [
+    "判定基準＝コード詳細と同じカード書式",
+    "品名・国連番号表示＝標札表示と同じ参照欄書式",
+    "E積載方法区分＝画面幅内の2列表"
+  ],
+  "preservedDesign": [
+    "色",
+    "フォント",
+    "罫線",
+    "余白"
+  ]
+}

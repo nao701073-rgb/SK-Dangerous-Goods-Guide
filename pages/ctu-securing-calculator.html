@@ -138,6 +138,7 @@
     @media(max-width:620px){.route-input-grid,.import-summary{grid-template-columns:1fr}.route-estimate-head{align-items:flex-start;flex-direction:column}.excel-drop-zone{min-height:160px;padding:18px}}
     @media print{.top-actions,.no-print{display:none!important}.panel,.hero{box-shadow:none;break-inside:avoid}body{background:#fff}.calc-shell{max-width:none}}
   </style>
+  <link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500">
 </head>
 <body data-page="ctu-securing-calculator">
 <main class="calc-shell">
@@ -519,5 +520,6 @@ window.addEventListener('DOMContentLoaded',()=>{applyTransportPreset();applyWall
 $('saveCtuResult').onclick=()=>{try{calc();const row=window.ISSApplicationResults.save($('ctuApplicationSelect').value,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'登録できませんでした。'}};
 $('createAndSaveCtuResult').onclick=()=>{try{calc();const app=window.ISSApplicationResults.createApplication({applicationYear:$('ctuNewApplicationYear').value,applicationNumber:$('ctuNewApplicationNumber').value,caseTitle:$('ctuNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('ctuApplicationSelect'));$('ctuApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、算出結果を保存しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'新規登録できませんでした。'}};
 </script>
+<script src="../assets/js/unified-submenu.js?v=500"></script>
 </body>
 </html>

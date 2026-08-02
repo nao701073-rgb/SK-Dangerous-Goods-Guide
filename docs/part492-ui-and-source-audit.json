@@ -1,0 +1,32 @@
+{
+  "version": "part492",
+  "generatedAt": "2026-08-02",
+  "portableTankDetail": {
+    "codes": "T1-T22",
+    "minimumTestPressure": true,
+    "minimumShellThickness": true,
+    "pressureRelief": true,
+    "bottomOpening": true,
+    "alternativeTankCodes": true,
+    "domesticSourcePages": [
+      353,
+      354,
+      364
+    ],
+    "imdgSourcePage": 260
+  },
+  "duplicateLinks": {
+    "packingInstructionPpLinksSuppressed": true,
+    "standalonePpLinksPreserved": true
+  },
+  "modal": {
+    "scrollPositionResetOnOpen": true,
+    "ibcCapacityStartsAtTop": true
+  },
+  "judgementCriteria": {
+    "undefinedPageBugFixed": true,
+    "un1203Notification": "危告示 第2条第3項 / PDF 1ページ",
+    "un1203Regulation": "危規則 第2条第1号ハ(1)〜(3) / PDF 2ページ"
+  },
+  "designPolicy": "既存の色・フォント・罫線・余白を維持"
+}

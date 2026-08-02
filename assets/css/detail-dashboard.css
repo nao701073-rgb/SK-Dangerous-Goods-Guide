@@ -4161,3 +4161,793 @@ body.is-domestic-law-fullscreen-open{overflow:hidden}
   .packing-profile-table--outer .packing-profile-col--container { width: 64%; }
   .packing-profile-table--outer .packing-profile-col--limit { width: 36%; }
 }
+
+/* part489: コード詳細は整理済み情報＋原文リンクに統一 */
+.code-organized-summary {
+  padding: 14px 16px;
+  color: #123b66;
+  line-height: 1.75;
+}
+.code-organized-summary ul {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+.code-organized-summary li + li {
+  margin-top: 6px;
+}
+.code-original-open-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px 16px;
+  border-top: 1px solid #c8d9eb;
+}
+.code-original-open-row .modal-reference-link--primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid #0b67b2;
+  border-radius: 12px;
+  background: #0b67b2;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+.code-original-open-row .modal-reference-link--primary:hover,
+.code-original-open-row .modal-reference-link--primary:focus-visible {
+  background: #084f89;
+}
+.modal-reference-block--imdg-original .imdg-reference-item {
+  padding: 12px 0;
+}
+.modal-reference-block--imdg-original .imdg-reference-item__head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+@media (max-width: 680px) {
+  .code-original-open-row {
+    justify-content: stretch;
+  }
+  .code-original-open-row .modal-reference-link--primary {
+    width: 100%;
+  }
+}
+
+/* part490: 原典文言の整理表示＋原典PDF直リンク（AI要約・中間ページなし） */
+.code-exact-provisions {
+  display: grid;
+  gap: 12px;
+  padding: 0 16px 16px;
+  color: #123b66;
+  font-family: "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+}
+.code-exact-provisions__group {
+  overflow: hidden;
+  border: 1px solid #c8d9e8;
+  border-radius: 10px;
+  background: #fff;
+}
+.code-exact-provisions__group h4 {
+  margin: 0;
+  padding: 9px 12px;
+  border-bottom: 1px solid #c8d9e8;
+  border-left: 4px solid #0b67b2;
+  background: #edf5fb;
+  color: #003f78;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.55;
+}
+.code-exact-provisions__group--additional h4 {
+  border-left-color: #138a62;
+  background: #eef8f4;
+}
+.code-exact-provisions__group--note h4 {
+  border-left-color: #b47a12;
+  background: #fff8e9;
+}
+.code-exact-provisions__items {
+  display: grid;
+}
+.code-exact-provisions__items p {
+  margin: 0;
+  padding: 10px 12px;
+  color: #173f65;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.8;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.code-exact-provisions__items p + p {
+  border-top: 1px solid #dbe6ef;
+}
+.code-direct-source-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid #c8d9eb;
+  background: #f8fbfd;
+}
+.code-direct-source-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 12px;
+  box-sizing: border-box;
+  border: 1px solid #b6cce0;
+  border-radius: 10px;
+  background: #fff;
+  color: #005aa4;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.55;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.code-direct-source-link.modal-reference-link--primary {
+  border-color: #0b67b2;
+  background: #0b67b2;
+  color: #fff;
+}
+.code-direct-source-link[data-source-law="危規則"] {
+  border-color: #8fb0ca;
+  background: #f1f7fb;
+}
+.code-direct-source-link[data-source-law="IMDG Code"] {
+  border-color: #7b73ba;
+  background: #f5f3ff;
+  color: #40377f;
+}
+.modal-reference-block--code-explanation > .domestic-original-verbatim--structured {
+  margin-top: 0;
+}
+
+@media (max-width: 680px) {
+  .code-organized-summary {
+    padding: 12px 10px;
+  }
+  .code-exact-provisions {
+    gap: 10px;
+    padding: 0 10px 12px;
+  }
+  .code-exact-provisions__group h4 {
+    padding: 9px 10px;
+    font-size: 11.5px;
+  }
+  .code-exact-provisions__items p {
+    padding: 9px 10px;
+    font-size: 11px;
+    line-height: 1.75;
+  }
+  .code-direct-source-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+  .code-direct-source-link {
+    width: 100%;
+    min-height: 46px;
+    font-size: 11px;
+  }
+}
+
+
+/* part491: コード詳細の不要見出し削除・原典コード直リンク（既存配色・書体・罫線・余白を継承） */
+.code-inline-reference-link {
+  color: #005aa4;
+  font: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.code-inline-reference-link:hover,
+.code-inline-reference-link:focus-visible {
+  color: #003f78;
+}
+.modal-reference-block--ibc-capacity .domestic-source-table {
+  min-width: 760px;
+}
+.modal-reference-block--ibc-capacity .code-original-open-row {
+  margin: 12px -14px -14px;
+}
+
+/* part492: T1〜T22の判定用ポータブルタンク要件を既存様式で表示 */
+.modal-reference-block--portable-tank .domestic-source-table {
+  min-width: 780px;
+}
+.portable-tank-requirement-table tbody td {
+  color: #073f78;
+  font-weight: 800;
+}
+.portable-tank-requirement-notes {
+  display: grid;
+  gap: 0;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid #c8d9e8;
+  border-radius: 9px;
+  background: #fff;
+}
+.portable-tank-requirement-notes p {
+  margin: 0;
+  padding: 9px 12px;
+  border-bottom: 1px solid #d7e2ec;
+}
+.portable-tank-requirement-notes p:last-child {
+  border-bottom: 0;
+}
+.modal-reference-block--portable-tank .code-original-open-row {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px -14px -14px;
+}
+@media (max-width: 680px) {
+  .modal-reference-block--portable-tank .code-original-open-row .modal-reference-link {
+    width: 100%;
+  }
+}
+
+
+/* part493: 表示順のみを整理。既存の色・フォント・罫線・余白は変更しない。 */
+
+/* part494: Tコード要件は横スクロールを使用せず、項目名／内容の縦型2列表で表示する。 */
+.portable-tank-requirement-grid {
+  width: 100%;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid #c7d8e6;
+  border-radius: 9px;
+  background: #fff;
+}
+.modal-reference-block--portable-tank .portable-tank-requirement-table {
+  width: 100%;
+  min-width: 0 !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.portable-tank-requirement-table--vertical th,
+.portable-tank-requirement-table--vertical td {
+  padding: 10px 12px;
+  border-right: 1px solid #c7d8e6;
+  border-bottom: 1px solid #c7d8e6;
+  vertical-align: top;
+  text-align: left;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.portable-tank-requirement-table--vertical th {
+  width: 38%;
+  background: #edf4fa;
+  color: #063e70;
+  font-weight: 800;
+}
+.portable-tank-requirement-table--vertical td {
+  width: 62%;
+  color: #073f78;
+  font-weight: 800;
+}
+.portable-tank-requirement-table--vertical th:last-child,
+.portable-tank-requirement-table--vertical td:last-child {
+  border-right: 0;
+}
+.portable-tank-requirement-table--vertical tbody tr:last-child th,
+.portable-tank-requirement-table--vertical tbody tr:last-child td {
+  border-bottom: 0;
+}
+@media (max-width: 680px) {
+  .portable-tank-requirement-table--vertical th {
+    width: 43%;
+  }
+  .portable-tank-requirement-table--vertical td {
+    width: 57%;
+  }
+  .portable-tank-requirement-table--vertical th,
+  .portable-tank-requirement-table--vertical td {
+    padding: 9px 10px;
+    font-size: 11px;
+    line-height: 1.65;
+  }
+}
+
+/* part495: 判定基準をコード詳細と同じカード書式で表示し、積載方法区分を縦に読みやすくする。 */
+.modal-reference-block--judgement-criteria .code-organized-summary {
+  padding-bottom: 12px;
+}
+.judgement-criteria-provisions {
+  padding-top: 0;
+}
+.judgement-criteria-exact-items {
+  display: grid;
+}
+.judgement-criteria-exact-items p {
+  white-space: pre-wrap;
+}
+.judgement-criteria-fallback {
+  display: grid;
+}
+.judgement-criteria-fallback p {
+  margin: 0;
+  padding: 10px 12px;
+  color: #173f65;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.8;
+}
+.judgement-criteria-fallback p + p {
+  border-top: 1px solid #dbe6ef;
+}
+.judgement-criteria-source-links {
+  margin-top: 0;
+}
+.stowage-category-requirement-grid {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+.stowage-category-requirement-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.stowage-category-requirement-table th,
+.stowage-category-requirement-table td {
+  padding: 10px 12px;
+  border-right: 1px solid #c7d8e6;
+  border-bottom: 1px solid #c7d8e6;
+  color: #073f78;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.stowage-category-requirement-table th {
+  background: #edf4fa;
+  font-weight: 800;
+}
+.stowage-category-requirement-table th:first-child,
+.stowage-category-requirement-table td:first-child {
+  width: 72%;
+}
+.stowage-category-requirement-table th:last-child,
+.stowage-category-requirement-table td:last-child {
+  width: 28%;
+  border-right: 0;
+  font-weight: 800;
+}
+.stowage-category-requirement-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+@media (max-width: 680px) {
+  .judgement-criteria-exact-items p {
+    padding: 9px 10px;
+    font-size: 11px;
+    line-height: 1.75;
+  }
+  .stowage-category-requirement-table,
+  .stowage-category-requirement-table thead,
+  .stowage-category-requirement-table tbody,
+  .stowage-category-requirement-table tr,
+  .stowage-category-requirement-table th,
+  .stowage-category-requirement-table td {
+    display: block;
+    width: 100% !important;
+  }
+  .stowage-category-requirement-table thead {
+    display: none;
+  }
+  .stowage-category-requirement-table tr + tr {
+    border-top: 1px solid #c7d8e6;
+  }
+  .stowage-category-requirement-table td {
+    border-right: 0;
+    border-bottom: 0;
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+  .stowage-category-requirement-table td:first-child::before {
+    content: "船舶・旅客条件";
+  }
+  .stowage-category-requirement-table td:last-child::before {
+    content: "積載方法";
+  }
+  .stowage-category-requirement-table td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: #526b82;
+    font-size: 10px;
+    font-weight: 800;
+  }
+  .stowage-category-requirement-table td:last-child {
+    border-top: 1px dashed #d7e2ec;
+    background: #f8fbfd;
+  }
+}
+
+/* part496: 判定基準はユーザーの見やすさを最優先し、条件・結果・注記を整理して表示する。 */
+.modal-reference-block--judgement-criteria {
+  background: #f7fbfe;
+}
+.judgement-criteria-context {
+  margin: 14px 16px 12px;
+  overflow: hidden;
+  border: 1px solid #c8d9e8;
+  border-radius: 10px;
+  background: #fff;
+  color: #123b66;
+  font-family: "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+}
+.judgement-criteria-context__heading {
+  display: grid;
+  gap: 3px;
+  padding: 11px 13px;
+  border-bottom: 1px solid #c8d9e8;
+  border-left: 4px solid #0b67b2;
+  background: #edf5fb;
+}
+.judgement-criteria-context__heading strong {
+  color: #003f78;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.55;
+}
+.judgement-criteria-context__heading span {
+  color: #496a89;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+.judgement-criteria-context dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+.judgement-criteria-context dl > div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  min-width: 0;
+  border-bottom: 1px solid #dbe6ef;
+}
+.judgement-criteria-context dl > div:nth-child(odd) {
+  border-right: 1px solid #dbe6ef;
+}
+.judgement-criteria-context dl > div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+.judgement-criteria-context dt,
+.judgement-criteria-context dd {
+  margin: 0;
+  padding: 9px 11px;
+  font-size: 11.5px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.judgement-criteria-context dt {
+  background: #f4f8fb;
+  color: #315a80;
+  font-weight: 800;
+}
+.judgement-criteria-context dd {
+  color: #063f77;
+  font-weight: 800;
+}
+.judgement-criteria-reference-summary {
+  display: grid;
+  gap: 7px;
+  margin: 0 16px 12px;
+  padding: 11px 13px;
+  border: 1px solid #c8d9e8;
+  border-radius: 10px;
+  background: #fff;
+}
+.judgement-criteria-reference-summary strong {
+  color: #063f77;
+  font-size: 12px;
+  font-weight: 900;
+}
+.judgement-criteria-reference-summary ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.judgement-criteria-reference-summary li {
+  margin: 3px 0;
+  color: #234f77;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+.judgement-criteria-provisions {
+  padding-top: 0;
+}
+.judgement-criteria-document {
+  background: #fff;
+}
+.judgement-criteria-readable {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  background: #fff;
+}
+.judgement-criteria-section-title,
+.judgement-criteria-subheading {
+  padding: 10px 12px;
+  border: 1px solid #c8d9e8;
+  border-radius: 9px;
+  background: #edf5fb;
+  color: #003f78;
+  font-size: 12.5px;
+  font-weight: 900;
+  line-height: 1.7;
+}
+.judgement-criteria-subheading {
+  border-left: 4px solid #0b67b2;
+  border-radius: 7px;
+  background: #f4f8fb;
+}
+.judgement-criteria-section {
+  overflow: hidden;
+  border: 1px solid #c8d9e8;
+  border-radius: 10px;
+  background: #fff;
+}
+.judgement-criteria-section h5 {
+  margin: 0;
+  padding: 9px 12px;
+  border-bottom: 1px solid #c8d9e8;
+  border-left: 4px solid #0b67b2;
+  background: #edf5fb;
+  color: #003f78;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.6;
+}
+.judgement-criteria-section--lead p,
+.judgement-criteria-paragraph {
+  margin: 0;
+  padding: 12px 14px;
+  color: #173f65;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.95;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.judgement-criteria-paragraph {
+  border: 1px solid #d5e2ed;
+  border-radius: 9px;
+  background: #fff;
+}
+.judgement-criteria-section--requirements h5 {
+  border-left-color: #138a62;
+  background: #eef8f4;
+}
+.judgement-criteria-requirements {
+  display: grid;
+}
+.judgement-criteria-requirement {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: start;
+  min-width: 0;
+}
+.judgement-criteria-requirement + .judgement-criteria-requirement {
+  border-top: 1px solid #dbe6ef;
+}
+.judgement-criteria-requirement > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 11px 6px;
+  border-right: 1px solid #dbe6ef;
+  background: #f3faf7;
+  color: #087257;
+  font-size: 12px;
+  font-weight: 900;
+  box-sizing: border-box;
+}
+.judgement-criteria-requirement > p {
+  margin: 0;
+  padding: 11px 13px;
+  color: #173f65;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.judgement-criteria-note {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #e4cf9c;
+  border-radius: 10px;
+  background: #fffaf0;
+}
+.judgement-criteria-note strong {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 8px;
+  border-right: 1px solid #e4cf9c;
+  background: #fff3d8;
+  color: #8b5b05;
+  font-size: 11.5px;
+  font-weight: 900;
+  line-height: 1.7;
+}
+.judgement-criteria-note p {
+  margin: 0;
+  padding: 12px 14px;
+  color: #654b18;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.judgement-criteria-table-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+.judgement-criteria-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.judgement-criteria-table th,
+.judgement-criteria-table td {
+  padding: 11px 12px;
+  border-right: 1px solid #c8d9e8;
+  border-bottom: 1px solid #c8d9e8;
+  color: #173f65;
+  font-size: 12px;
+  line-height: 1.85;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.judgement-criteria-table th {
+  background: #f1f6fa;
+  color: #063f77;
+  font-weight: 900;
+}
+.judgement-criteria-table th:first-child,
+.judgement-criteria-table td:first-child {
+  width: 78%;
+}
+.judgement-criteria-table th:last-child,
+.judgement-criteria-table td:last-child {
+  width: 22%;
+  border-right: 0;
+  font-weight: 900;
+  text-align: center;
+}
+.judgement-criteria-table tr:last-child td {
+  border-bottom: 0;
+}
+.judgement-criteria-table--wide th,
+.judgement-criteria-table--wide td {
+  width: auto !important;
+  text-align: left !important;
+}
+.judgement-criteria-source-links {
+  margin-top: 0;
+}
+
+@media (max-width: 680px) {
+  .judgement-criteria-context,
+  .judgement-criteria-reference-summary {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .judgement-criteria-context dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .judgement-criteria-context dl > div,
+  .judgement-criteria-context dl > div:nth-child(odd),
+  .judgement-criteria-context dl > div:nth-last-child(-n + 2) {
+    border-right: 0;
+    border-bottom: 1px solid #dbe6ef;
+  }
+  .judgement-criteria-context dl > div:last-child {
+    border-bottom: 0;
+  }
+  .judgement-criteria-context dl > div {
+    grid-template-columns: 86px minmax(0, 1fr);
+  }
+  .judgement-criteria-readable {
+    gap: 10px;
+    padding: 10px;
+  }
+  .judgement-criteria-section--lead p,
+  .judgement-criteria-paragraph,
+  .judgement-criteria-requirement > p,
+  .judgement-criteria-note p {
+    font-size: 11.5px;
+    line-height: 1.85;
+  }
+  .judgement-criteria-requirement {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+  .judgement-criteria-note {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .judgement-criteria-note strong {
+    justify-content: flex-start;
+    border-right: 0;
+    border-bottom: 1px solid #e4cf9c;
+  }
+  .judgement-criteria-table--wide,
+  .judgement-criteria-table--wide thead,
+  .judgement-criteria-table--wide tbody,
+  .judgement-criteria-table--wide tr,
+  .judgement-criteria-table--wide th,
+  .judgement-criteria-table--wide td {
+    display: block;
+    width: 100% !important;
+  }
+  .judgement-criteria-table--wide thead {
+    display: none;
+  }
+  .judgement-criteria-table--wide tr {
+    padding: 8px 10px;
+    box-sizing: border-box;
+  }
+  .judgement-criteria-table--wide tr + tr {
+    border-top: 1px solid #c8d9e8;
+  }
+  .judgement-criteria-table--wide td {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 8px;
+    padding: 7px 0;
+    border-right: 0;
+    border-bottom: 0;
+    text-align: left !important;
+  }
+  .judgement-criteria-table--wide td::before {
+    content: attr(data-label);
+    color: #315a80;
+    font-weight: 900;
+  }
+}
+
+/* Part 500: 判定基準も、国内法令の結合PDFと同じ全画面表示様式に統一する。 */
+.judgement-source-bundle{
+  height:auto;
+  min-height:100%;
+  overflow:auto;
+  background:#f4f8fc;
+}
+.judgement-source-bundle__pages{
+  display:grid;
+  gap:14px;
+  padding:14px;
+}
+.judgement-source-bundle .domestic-law-fullscreen__page-section{
+  overflow:hidden;
+  border:1px solid #cbdbe9;
+  border-radius:12px;
+  background:#fff;
+}
+.judgement-source-bundle .domestic-law-fullscreen__page-heading{
+  position:sticky;
+  top:0;
+  z-index:1;
+}
+@media(max-width:600px){
+  .judgement-source-bundle__pages{gap:10px;padding:10px}
+}

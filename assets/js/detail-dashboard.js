@@ -1,7 +1,10 @@
 
 (() => {
   "use strict";
-  // Part 483: 正式輸送品名候補抽出関数の初期化順序を修正し、危険物詳細の描画停止を解消。
+  // Part 499: EmS見出しの日本語併記と、火薬類標札名の重複等級表示を整理。
+  // Part 498: 隔離・積載方法画面の重複表示、AI解説、未登録案内を削除し、積載方法表記へ統一。
+  // Part 490: コード詳細を原典文言の整理表示と原典PDF直リンクへ統一。
+  // PDF本文画像・原文テキスト再表示・AI要約・中間PDF表示ページは使用しない。
 
   const root = document.getElementById("dangerousGoodsDetail");
   const data = Array.isArray(window.UN_DATABASE) ? window.UN_DATABASE : [];
@@ -35,6 +38,18 @@
     if (exact) return exact;
     const mainClass = normalized.split('.')[0];
     return labelMaster.find(item => normalizeClassValue(item.class) === mainClass) || null;
+  };
+
+  const formatLabelDisplayName = label => {
+    const classValue = normalizeClassValue(label?.class);
+    return /^1(?:\.[1-6])?$/.test(classValue) ? "火薬類" : String(label?.nameJa || "").trim();
+  };
+
+  const formatLabelCaption = (label, classValue) => {
+    const normalizedClass = normalizeClassValue(classValue);
+    const classText = String(classValue ?? "").trim() || "—";
+    const separator = /^1(?:\.[1-6])?$/.test(normalizedClass) ? " ／" : "／";
+    return `${formatLabelDisplayName(label)}${separator}等級 ${classText}`;
   };
 
   const parseSubsidiaryRiskCodes = value => {
@@ -73,7 +88,7 @@
   const normalizeCodeToken = value => String(value ?? "").normalize("NFKC").trim().toUpperCase();
   const isReferenceCodeToken = value => {
     const token = normalizeCodeToken(value);
-    return /^(?:[A-E]|(?:P|PP|LP|L|IBC|B|T|TP|SP|SW|ES|SG|SGG|BK|H)[A-Z0-9.-]+)$/.test(token);
+    return /^(?:[A-E]|(?:P|PP|LP|L|IBC|B|T|TP|SP|SW|ES|SG|SGG|BK|H|VV|CV|V|S)[A-Z0-9.-]+)$/.test(token);
   };
 
   const splitCodeTokens = (...values) =>
@@ -96,22 +111,6 @@
 
   const makeCodeAnchorId = code => `code-detail-${String(code || "").toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
-  const stowageCategoryReferenceMap = Object.fromEntries(
-    ["A", "B", "C", "D", "E"].map(code => [code, {
-      code,
-      categoryId: "stowage",
-      labelJa: "積載方法区分",
-      imdgLocation: "Part 7, Chapter 7.1 – General stowage provisions",
-      detailLocation: "危告示 別表第1 積載方法欄（区分記号）",
-      englishExcerpt: "",
-      commentaryJa: `積載方法欄の先頭に示される積載方法区分記号です。${code} は、後続のSWコードとは独立した規定として確認します。区分記号と追加積載方法コードの両方を適用してください。`,
-      domesticReferences: [
-        "危規則 第20条",
-        "危告示 第3条第3項",
-        "危告示 別表第1 積載方法欄"
-      ]
-    }])
-  );
 
   const renderCodeLinks = codes => {
     const normalizedCodes = splitCodeTokens(codes);
@@ -149,13 +148,8 @@
   };
 
   const renderStowageRequirementCell = stowageInfo => {
-    const summary = renderStowageSummary(stowageInfo);
-    if (summary === "—") return "—";
-    const note = [
-      stowageInfo.categoryCodes.length ? "積載方法区分" : "",
-      [...stowageInfo.provisionCodes, ...stowageInfo.otherCodes].length ? "積載方法コード" : ""
-    ].filter(Boolean).join(" / ");
-    return `<div class="requirement-code-stack">${renderCodeLinks([...stowageInfo.categoryCodes, ...stowageInfo.provisionCodes, ...stowageInfo.otherCodes])}${note ? `<small>${escapeHtml(note)}</small>` : ""}</div>`;
+    const codes = [...stowageInfo.categoryCodes, ...stowageInfo.provisionCodes, ...stowageInfo.otherCodes];
+    return codes.length ? `<div class="requirement-code-stack">${renderCodeLinks(codes)}</div>` : "—";
   };
 
   const packingGroupSortValue = value => {
@@ -213,7 +207,7 @@
       <section class="code-detail-section">
         <div class="code-detail-heading">
           <strong>${escapeHtml(title)}</strong>
-          <span>国内法令の条文番号を主表示し、難解なコードはAI要約で補足します。</span>
+          <span>国内法令の条文番号と、原典文言を整理した情報を表示します。</span>
         </div>
         <div class="code-detail-list">
           ${entries.map(entry => `
@@ -229,10 +223,6 @@
                 </div>
                 ${entry.detailLocation ? `<div class="code-detail-card-block"><small>補足表示</small><p>${escapeHtml(entry.detailLocation)}</p></div>` : ""}
                 ${entry.imdgLocation ? `<div class="code-detail-card-block"><small>IMDG Code</small><p>${escapeHtml(entry.imdgLocation)}</p></div>` : ""}
-                <div class="code-detail-card-block code-detail-card-block--ai">
-                  <small>AI解説</small>
-                  <p>${escapeHtml(entry.commentaryJa || "国内法令の条文と原典を照合して適用条件を確認してください。")}</p>
-                </div>
                 ${entry.englishExcerpt ? `<blockquote lang="en">${escapeHtml(entry.englishExcerpt)}</blockquote>` : ""}
               </div>
             </article>
@@ -281,7 +271,6 @@
 
   const limitedQuantityDetail = resolveLimitedQuantityDetail(record.limitedQuantity);
   const stowageInfo = parseStowage(record.stowage);
-  const stowageSummary = renderStowageSummary(stowageInfo);
   const stowageProvisionCodes = [...stowageInfo.provisionCodes, ...stowageInfo.otherCodes];
   const segregationCodes = splitCodeTokens(record.segregation).filter(code => /^(SG|SGG)[A-Z0-9.-]+$/.test(code));
   const ems = window.EMSResolver?.resolve(record) || {};
@@ -334,7 +323,7 @@
   const requirementLayout =
     window.ISSStorage?.getRequirementLayout?.() ?? "two-column";
 
-  const crossReferences = window.IMDGCrossReferenceResolver?.resolveMany(
+  const crossReferences = (window.IMDGCrossReferenceResolver?.resolveMany(
     record.smallPackingInstruction,
     record.smallPackingAdditional,
     record.largePackingInstruction,
@@ -347,13 +336,9 @@
     record.specialProvisions,
     record.stowage,
     record.segregation
-  ) || [];
+  ) || []).filter(reference => reference.categoryId !== "stowageCategory");
 
-  const manualStowageReferences = stowageInfo.categoryCodes
-    .map(code => stowageCategoryReferenceMap[code])
-    .filter(Boolean);
-
-  const codeReferenceEntries = [...crossReferences, ...manualStowageReferences]
+  const codeReferenceEntries = [...crossReferences]
     .filter(Boolean)
     .reduce((list, entry) => {
       if (list.some(item => item.code === entry.code)) return list;
@@ -443,22 +428,12 @@
           ];
 
 
-  const classificationReferenceMap = {
-    "火薬類": ["危規則 第2条第1号イ", "危告示 第2条第1項"],
-    "高圧ガス": ["危規則 第2条第1号ロ", "危告示 第2条第2項"],
-    "引火性液体類": ["危規則 第2条第1号ハ(1)〜(3)", "危告示 第2条第3項"],
-    "可燃性物質類": ["危規則 第2条第1号ニ(1)〜(3)", "危告示 第2条第4項"],
-    "酸化性物質類": ["危規則 第2条第1号ホ(1)・(2)", "危告示 第2条第5項・第6項"],
-    "毒物類": ["危規則 第2条第1号ヘ(1)・(2)", "危告示 第2条第7項・第8項"],
-    "腐食性物質": ["危規則 第2条第1号チ", "危告示 第2条第9項"],
-    "有害性物質": ["危規則 第2条第1号リ", "危告示 第2条第10項"],
-    "放射性物質等": ["危規則 第2条第1号ト(1)・(2)", "放告示 第1条の2"]
-  };
-
-  const classificationReferences = classificationReferenceMap[record.classification] || [
-    "危規則 第8条第1項",
-    "危告示 第3条第3項"
-  ];
+  // part494: 判定基準の参照先は、全危険物共通の判定基準リゾルバーで決定する。
+  const judgementCriteria = window.DomesticJudgementCriteriaResolver?.resolve(record) || { references: [], sections: [] };
+  const classificationReferences = judgementCriteria.references || [];
+  if (!classificationReferences.length || !judgementCriteria.sections?.length) {
+    console.error(`判定基準の国内法令が未設定です: UN${record.unNumber} / ${record.classification}`);
+  }
 
   const labelLegalReferences = [
     "危規則 第8条第1項・第9条",
@@ -478,12 +453,6 @@
         String(exceptedQuantityDetail.source.detailReference || "")
       ].filter(Boolean)
     : [];
-
-  const sourceTabReferences = [
-    ...classificationReferences,
-    `危告示 別表第1 p.${record.sourcePage} 行${record.sourceRow}`,
-    "危規則 第8条第1項"
-  ];
 
   const renderDomesticLawButton = (group, label) => `
     <button type="button" class="domestic-law-open-button" data-domestic-law-group="${escapeHtml(group)}">
@@ -531,7 +500,7 @@
                   primaryLabel
                     ? `<img src="${escapeHtml(primaryLabel.src)}" alt="${escapeHtml(primaryLabel.nameJa)}">
                        <strong>正標札</strong>
-                       <small>${escapeHtml(primaryLabel.nameJa)}／等級 ${display(primaryLabel.class)}</small>`
+                       <small>${escapeHtml(formatLabelCaption(primaryLabel, record.class))}</small>`
                     : `<div class="label-empty">正標札画像未登録</div>`
                 }
               </div>
@@ -542,7 +511,7 @@
                       <div class="label-card label-card--actual">
                         <img src="${escapeHtml(label.src)}" alt="${escapeHtml(label.nameJa)}">
                         <strong>${subsidiaryLabels.length > 1 ? `副標札 ${index + 1}` : "副標札"}</strong>
-                        <small>${escapeHtml(label.nameJa)}／等級 ${display(label.class)}</small>
+                        <small>${escapeHtml(formatLabelCaption(label, label.class))}</small>
                       </div>
                     `).join("")
                   : ""
@@ -789,15 +758,15 @@
             </div>
             <div class="source-policy">
               <strong>参照方針</strong>
-              <p>原則として危告示別表第1のコードを表示し、危告示でIMDG Codeを参照する箇所は該当条文の参照情報を併記します。コードを選択すると、下段の国内法令条文・AI解説へジャンプできます。</p>
+              <p>原則として危告示別表第1のコードを表示し、危告示でIMDG Codeを参照する箇所は該当条文の参照情報を併記します。コードを選択すると、下段の国内法令条文へジャンプできます。</p>
             </div>
             ${renderCodeDetailSection(packingCodeEntries, "包装・容器コードの詳細")}
           </div>
 
           <div class="tab-panel" data-panel="ems">
             <div class="ems-pair">
-              <div class="ems-block"><span>Fire Schedule</span><strong>${display(ems.fireCode)}</strong></div>
-              <div class="ems-block"><span>Spillage Schedule</span><strong>${display(ems.spillageCode)}</strong></div>
+              <div class="ems-block"><span>火災用スケジュール（Fire Schedules）</span><strong>${display(ems.fireCode)}</strong></div>
+              <div class="ems-block"><span>漏洩用スケジュール（Spillage Schedules）</span><strong>${display(ems.spillageCode)}</strong></div>
             </div>
             <p class="notice-box">出典：${display(ems.source)}／IMDG Code Amendment ${display(ems.imdgAmendment)}</p>
           </div>
@@ -805,32 +774,12 @@
           <div class="tab-panel" data-panel="segregation">
             <table class="data-table">
               <tr><th>隔離</th><td>${renderCodeLinks(segregationCodes)}</td></tr>
-              <tr><th>積載方法区分</th><td>${renderCodeLinks(stowageInfo.categoryCodes)}</td></tr>
-              <tr><th>積載方法コード</th><td>${renderCodeLinks(stowageProvisionCodes)}</td></tr>
-              <tr><th>表示まとめ</th><td>${escapeHtml(stowageSummary)}</td></tr>
+              <tr><th>積載方法</th><td>${renderCodeLinks(stowageProvisionCodes)}</td></tr>
             </table>
-            <div class="source-policy">
-              <strong>確認のポイント</strong>
-              <p>積載方法欄に「E SW2」のように複数のコードがある場合、積載方法区分 E と積載方法コード SW2 は別々の規定として確認します。コードを選択すると、下段の国内法令条文・AI解説へジャンプできます。</p>
-            </div>
-            ${renderCodeDetailSection(segregationCodeEntries, "隔離・積載方法コードの詳細")}
+            ${renderCodeDetailSection(segregationCodeEntries, "隔離・積載方法の詳細")}
           </div>
 
           <div class="tab-panel" data-panel="source">
-            <div class="source-policy source-policy--primary">
-              <strong>国内法令（主表示）</strong>
-              <p>${display(record.source)}</p>
-              <small>この画面では危規則・危告示を主たる表示根拠とし、必要に応じてIMDG Codeを併記します。</small>
-            </div>
-
-            <div class="legal-reference-box">
-              <strong>国内法令の主な参照</strong>
-              <ul>
-                ${sourceTabReferences.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
-              </ul>
-              ${renderDomesticLawButton("source", "該当する国内法令だけを全画面で続けて表示")}
-            </div>
-
             ${
               showImdgReferences
                 ? `
@@ -853,11 +802,7 @@
                                      <strong>国内法令の主な参照</strong>
                                      <ul>${(reference.domesticReferences || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
                                    </div>
-                                   ${
-                                     reference.englishExcerpt
-                                       ? `<blockquote lang="en">${escapeHtml(reference.englishExcerpt)}</blockquote>`
-                                       : `<small>英語原文は未登録です。原典照合後に追加します。</small>`
-                                   }
+                                   ${reference.englishExcerpt ? `<blockquote lang="en">${escapeHtml(reference.englishExcerpt)}</blockquote>` : ""}
                                  </div>
                                </article>
                              `).join("")}
@@ -942,7 +887,7 @@
             <section class="character-height-guide">
               <div class="character-height-heading">
                 <strong>国連番号・UNの文字高さ</strong>
-                <span>危告示 第7条の3第2項／IMDG Code 5.2.1.1</span>
+                <span>危告示 第7条の3第2項</span>
               </div>
 
               <div class="character-height-grid">
@@ -1018,14 +963,14 @@
                 : ""
             }
 
-            <div class="legal-reference-box">
-              <strong>国内法令・IMDG Code</strong>
+            <div class="legal-reference-box legal-reference-box--package-marking">
+              <strong>国内法令の主な参照</strong>
               <ul>
                 ${packageMarkingLegalReferences.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
-                <li>${escapeHtml(`IMDG Code ${packageMarkingDetail?.imdgReference?.section || "5.2.1.1"}`)}</li>
               </ul>
-              ${renderDomesticLawButton("package-marking", "品名・国連番号表示の国内法令を全画面で続けて表示")}
+              ${renderDomesticLawButton("package-marking", "該当する国内法令を全画面で続けて表示")}
             </div>
+
           </div>
         </article>
 
@@ -1036,7 +981,7 @@
               <tr><th>EmS</th><td>${display(ems.combinedCode)}</td></tr>
               <tr><th>海洋汚染物質</th><td>${escapeHtml(marinePollutantStatus.legal)}</td></tr>
               <tr><th>特別規定</th><td>${escapeHtml(specialProvisionCode)}</td></tr>
-              <tr><th>国内法令</th><td>${classificationReferences.map(item => escapeHtml(item)).join("<br>")}${renderDomesticLawButton("classification", "分類根拠の国内法令を全画面表示")}</td></tr>
+              <tr><th>国内法令</th><td>${classificationReferences.map(item => escapeHtml(item)).join("<br>")}${renderDomesticLawButton("classification", "判定基準の国内法令を全画面表示")}</td></tr>
             </table>
           </div>
         </article>
@@ -1322,8 +1267,122 @@
             </div>
           </div>
         </div>
-        <small>${escapeHtml(profile.note || "")}</small>
+        ${profile.note ? `<small>${escapeHtml(profile.note)}</small>` : ""}
       </section>`;
+  };
+
+  const renderIbcMaximumContentReference = (code, packingGroup) => {
+    if (!/^IBC\d+/i.test(String(code || ""))) return "";
+    const pg = ["I", "II", "III"].includes(String(packingGroup || "").trim()) ? String(packingGroup).trim() : "指定なし";
+    const rows = [
+      ["金属製IBC容器", "I", "固体", "3000L"],
+      ["硬質プラスチック製IBC容器、プラスチック製内容器付複合IBC容器、フレキシブルIBC容器、ファイバ板製IBC容器、木製IBC容器", "I", "固体", "1500L"],
+      ["液体用のプラスチック製内容器付複合IBC容器（外装容器の材質が鋼又はプラスチック材で、内容器がフレキシブルプラスチック製のものに限る。）以外のIBC容器", "II又はIII", "固体又は液体", "3000L"],
+      ["液体用のプラスチック製内容器付複合IBC容器（外装容器の材質が鋼又はプラスチック材で、内容器がフレキシブルプラスチック製のものに限る。）", "II又はIII", "液体", "1250L"]
+    ];
+    return `<section class="modal-reference-block modal-reference-block--quantity modal-reference-block--ibc-capacity">
+      <strong>IBC容器の最大内容積（参考）</strong>
+      <p class="packing-profile-current">対象危険物の容器等級：<b>${escapeHtml(pg)}</b></p>
+      <div class="domestic-source-table-scroll" tabindex="0">
+        <table class="domestic-source-table" aria-label="IBC容器の最大内容積">
+          <thead><tr><th>IBC容器の種類</th><th>収納する危険物の容器等級</th><th>収納する危険物の性状</th><th>最大内容積</th></tr></thead>
+          <tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+        </table>
+      </div>
+      <small>危告示 別表第1 備考6(3)(iii)。IBC容器は、容器の種類、容器等級および性状に応じて最大内容積が定められています。</small>
+    </section>`;
+  };
+
+  const portableTankRequirementRows = {
+    T1:  ["0.15", "－", "N",  "A"],
+    T2:  ["0.15", "－", "N",  "B"],
+    T3:  ["0.265", "－", "N",  "A"],
+    T4:  ["0.265", "－", "N",  "B"],
+    T5:  ["0.265", "－", "NF", "C"],
+    T6:  ["0.4", "－", "N",  "A"],
+    T7:  ["0.4", "－", "N",  "B"],
+    T8:  ["0.4", "－", "N",  "C"],
+    T9:  ["0.4", "6mm", "N",  "C"],
+    T10: ["0.4", "6mm", "NF", "C"],
+    T11: ["0.6", "－", "N",  "B"],
+    T12: ["0.6", "－", "NF", "B"],
+    T13: ["0.6", "6mm", "N",  "C"],
+    T14: ["0.6", "6mm", "NF", "C"],
+    T15: ["1", "－", "N",  "B"],
+    T16: ["1", "－", "NF", "B"],
+    T17: ["1", "6mm", "N",  "B"],
+    T18: ["1", "6mm", "NF", "B"],
+    T19: ["1", "6mm", "NF", "C"],
+    T20: ["1", "8mm", "NF", "C"],
+    T21: ["1", "10mm", "N", "C"],
+    T22: ["1", "10mm", "NF", "C"]
+  };
+
+  const portableTankAlternativeCodes = {
+    T1: "T2、T3、T4、T5、T6、T7、T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T2: "T4、T5、T7、T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T3: "T4、T5、T6、T7、T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T4: "T5、T7、T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T5: "T10、T14、T19、T20、T22",
+    T6: "T7、T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T7: "T8、T9、T10、T11、T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T8: "T9、T10、T13、T14、T19、T20、T21、T22",
+    T9: "T10、T13、T14、T19、T20、T21、T22",
+    T10: "T14、T19、T20、T22",
+    T11: "T12、T13、T14、T15、T16、T17、T18、T19、T20、T21、T22",
+    T12: "T14、T16、T18、T19、T20、T22",
+    T13: "T14、T19、T20、T21、T22",
+    T14: "T19、T20、T22",
+    T15: "T16、T17、T18、T19、T20、T21、T22",
+    T16: "T18、T19、T20、T22",
+    T17: "T18、T19、T20、T21、T22",
+    T18: "T19、T20、T22",
+    T19: "T20、T22",
+    T20: "T22",
+    T21: "T22",
+    T22: "なし"
+  };
+
+  const portableTankReliefDescriptions = {
+    N: "ばね式圧力安全弁（容積1,900L未満の容器又は区画室では、ばね式圧力安全弁又は破裂板）",
+    NF: "破裂板を直列に設けたばね式圧力安全弁"
+  };
+
+  const portableTankBottomDescriptions = {
+    A: "底部開口を設けることができ、互いに独立な二重の閉鎖装置を備えるもの",
+    B: "互いに独立な三重の閉鎖装置を備えた底部開口を設けるもの",
+    C: "底部開口を設けないもの（通常の運送状態で固体の危険物には危告示の例外規定あり）"
+  };
+
+  const renderPortableTankRequirementReference = code => {
+    const normalizedCode = String(code || "").toUpperCase();
+    const row = portableTankRequirementRows[normalizedCode];
+    if (!row) return "";
+    const [testPressure, shellThickness, relief, bottom] = row;
+    const shellNote = shellThickness === "－"
+      ? "「－」の最小板厚は、直径1.8m以下では5mm、直径1.8m超では6mmです。ただし、容器等級II又はIIIの粉状又は粒状固体物質を収納する場合は5mmとすることができます。"
+      : `タンク外板の最小板厚（基準鋼）は${shellThickness}です。`;
+    return `<section class="modal-reference-block modal-reference-block--quantity modal-reference-block--portable-tank">
+      <strong>${escapeHtml(normalizedCode)} ポータブルタンク要件</strong>
+      <div class="portable-tank-requirement-grid">
+        <table class="domestic-source-table portable-tank-requirement-table portable-tank-requirement-table--vertical" aria-label="${escapeHtml(normalizedCode)} ポータブルタンク要件">
+          <tbody>
+            <tr><th scope="row">タンクの記号</th><td>${escapeHtml(normalizedCode)}</td></tr>
+            <tr><th scope="row">最小試験圧力（MPa）</th><td>${escapeHtml(testPressure)}</td></tr>
+            <tr><th scope="row">タンク外板の最小板厚（基準鋼）</th><td>${escapeHtml(shellThickness)}</td></tr>
+            <tr><th scope="row">圧力安全装置の種類</th><td>${escapeHtml(relief)}</td></tr>
+            <tr><th scope="row">底部開口</th><td>${escapeHtml(bottom)}</td></tr>
+            <tr><th scope="row">代替使用可能なTコード</th><td>${escapeHtml(portableTankAlternativeCodes[normalizedCode] || "なし")}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="portable-tank-requirement-notes">
+        <p><strong>外板の最小板厚：</strong>${escapeHtml(shellNote)}</p>
+        <p><strong>${escapeHtml(relief)}：</strong>${escapeHtml(portableTankReliefDescriptions[relief] || "危告示の定義を確認してください。")}</p>
+        <p><strong>${escapeHtml(bottom)}：</strong>${escapeHtml(portableTankBottomDescriptions[bottom] || "危告示の定義を確認してください。")}</p>
+      </div>
+      <small>危告示 別表第1 備考6(4)(i)〜(iii)に基づく表示です。Tコードの基本要件と、より厳しい要件のポータブルタンクへの代替可否を横スクロールなしで確認できます。</small>
+    </section>`;
   };
 
   const formatDomesticOriginalText = value => String(value || "")
@@ -1336,123 +1395,7 @@
     .replace(/\f/g, "\n")
     .replace(/^\s+|\s+$/g, "");
 
-  const isLongDomesticProvision = (value, reference = {}) => {
-    const source = cleanDomesticOriginalForDisplay(value);
-    if (!source) return false;
-    const compactLength = source.replace(/\s/g, "").length;
-    const meaningfulLines = source.split("\n").filter(line => line.trim()).length;
-    const numberedItems = (source.match(/(?:^|\n)\s*(?:\(\d+\)|（\d+）|\d+[\.、\s]|注\s*\d*|備考\s*\d*)/g) || []).length;
-    const pages = Array.isArray(reference?.domesticOriginalPages)
-      ? reference.domesticOriginalPages.filter(Boolean).length
-      : (reference?.domesticOriginalPageEnd && reference?.domesticOriginalPageEnd !== reference?.domesticOriginalPage ? 2 : 1);
-    return compactLength >= 700 || meaningfulLines >= 14 || numberedItems >= 7 || pages >= 2;
-  };
-
-  const buildDomesticSummaryBlocks = value => {
-    const source = cleanDomesticOriginalForDisplay(value);
-    if (!source) return [];
-    const pageNoisePattern = /^[-－ー\s]*\d+[-－ー\s]*$|^（船舶による危険物の運送基準等を定める告示）$/;
-    const startsNewBlock = value => /^(?:[A-Z]{1,4}\d+[A-Z]?(?:\([a-z0-9]+\))?\s+|\(\d+\)|（\d+）|\d+[\.、\s]|注\s*\d*|備考\s*\d*|[一二三四五六七八九十]+\s+)/i.test(value);
-    const lines = source.split("\n").map(line => line.replace(/[ \t]+$/g, ""));
-    const blocks = [];
-    let current = "";
-    const flush = () => {
-      const value = current.trim();
-      if (value) blocks.push(value);
-      current = "";
-    };
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (!trimmed) {
-        flush();
-        return;
-      }
-      if (pageNoisePattern.test(trimmed)) return;
-      if (startsNewBlock(trimmed)) flush();
-      if (!current) {
-        current = trimmed;
-        return;
-      }
-      const needsSpace = /[A-Za-z0-9]$/.test(current) && /^[A-Za-z0-9]/.test(trimmed);
-      current += `${needsSpace ? " " : ""}${trimmed}`;
-    });
-    flush();
-    return blocks.filter(block => block.length >= 4);
-  };
-
-  const classifyDomesticSummaryBlock = block => {
-    const value = String(block || "");
-    const rules = [
-      { key: "prohibition", label: "禁止・制限", pattern: /してはならない|使用できない|できない|禁止|限る|限り|超えてはならない|認められない/ },
-      { key: "approval", label: "承認・許可・確認", pattern: /地方運輸局長|承認|許可|確認|検査|試験|証明/ },
-      { key: "container", label: "容器・容量・質量・構造", pattern: /容器|IBC|ポータブルタンク|小型容器|大型容器|容量|質量|圧力|充塡|構造|閉鎖装置|包装/ },
-      { key: "transport", label: "運送・積載・収納・隔離", pattern: /運送|積載|積付|収納|隔離|貨物輸送ユニット|船倉|甲板/ },
-      { key: "exception", label: "注記・例外", pattern: /^(?:注|備考)|ただし|除く|例外|この場合/ },
-      { key: "scope", label: "適用対象・条件", pattern: /国連番号|危険物|場合|について|に関して|適用|該当|容器等級/ }
-    ];
-    return rules.find(rule => rule.pattern.test(value)) || { key: "other", label: "その他の重要事項" };
-  };
-
-  const summarizeDomesticOriginal = (value, reference = {}) => {
-    if (!isLongDomesticProvision(value, reference)) return null;
-    const code = String(reference?.code || "該当コード");
-    const blocks = buildDomesticSummaryBlocks(value);
-    if (!blocks.length) return null;
-
-    const groupMap = new Map();
-    blocks.forEach(block => {
-      const category = classifyDomesticSummaryBlock(block);
-      if (!groupMap.has(category.key)) groupMap.set(category.key, { key: category.key, label: category.label, items: [] });
-      const group = groupMap.get(category.key);
-      if (group.items.length < 4 && !group.items.includes(block)) group.items.push(block);
-    });
-
-    const orderedKeys = ["scope", "prohibition", "container", "transport", "approval", "exception", "other"];
-    const orderedGroups = orderedKeys
-      .map(key => groupMap.get(key))
-      .filter(Boolean)
-      .map(group => ({ ...group, items: group.items.slice(0, 4) }))
-      .filter(group => group.items.length)
-      .slice(0, 6);
-
-    return {
-      title: `${code} 国内法令原文テキストAI要約`,
-      groups: orderedGroups,
-      caution: "長文条文の理解補助として、原文中の文を項目別に抜き出しています。固有名詞・法令用語・容器名・コード名は原文の表記を維持しています。正式な判断は、国内法令原文、表、図、注記および最新版の本文で確認してください。"
-    };
-  };
-
-  const renderDomesticSummaryItem = item => {
-    const value = String(item || "").trim();
-    const match = value.match(/^(\(\d+\)|（\d+）|\d+)(?:[\.、]?\s*)([\s\S]*)$/);
-    if (!match || !match[2]) return `<li><span class="domestic-ai-summary__text">${escapeHtml(value)}</span></li>`;
-    return `<li class="domestic-ai-summary__numbered"><span class="domestic-ai-summary__number">${escapeHtml(match[1])}</span><span class="domestic-ai-summary__text">${escapeHtml(match[2].trim())}</span></li>`;
-  };
-
-  const renderDomesticAiSummary = (originalText, reference) => {
-    const summary = summarizeDomesticOriginal(originalText, reference);
-    if (!summary) return "";
-    return `
-      <section class="domestic-ai-summary domestic-ai-summary--long-provision">
-        <div class="domestic-ai-summary__heading">
-          <span class="domestic-ai-summary__badge">AI要約</span>
-          <div>
-            <strong>${escapeHtml(summary.title)}</strong>
-            <span>長文条文のみ表示</span>
-          </div>
-        </div>
-        <div class="domestic-ai-summary__groups">
-          ${summary.groups.map(group => `
-            <section class="domestic-ai-summary__group">
-              <h4>${escapeHtml(group.label)}</h4>
-              <ul>${group.items.map(renderDomesticSummaryItem).join("")}</ul>
-            </section>`).join("")}
-        </div>
-        <p class="domestic-ai-summary__caution">${escapeHtml(summary.caution)}</p>
-      </section>`;
-  };
-
-  const codeHeadingPattern = /^(P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?(?:\([a-z0-9]+\))?\b/i;
+  const codeHeadingPattern = /^(P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H|VV|CV|V|S)\d+[A-Z]?(?:\([a-z0-9]+\))?\b/i;
   const sourcePageNoisePattern = /^[-－ー\s]*\d+[-－ー\s]*$|^（船舶による危険物の運送基準等を定める告示）$/;
 
   const isTabularDomesticOriginal = value => {
@@ -1548,7 +1491,36 @@
     return output;
   };
 
-  const renderDomesticCell = value => escapeHtml(String(value || "—")).replaceAll("\n", "<br>");
+  const imdgInlineCodePattern = /(?<![A-Z0-9])(?:IBC|LP|PP|TP|BK|VV|CV|SW|SP|SGG|SG|ES|P|L|B|T|H|V|S)\d+[A-Z]?(?:\([a-z0-9]+\))?(?![A-Z0-9])/gi;
+
+  const renderInlineCodeLinks = (value, options = {}) => {
+    const source = String(value || "");
+    const entries = window.IMDG_CODE_PAGE_MAP?.entries || {};
+    const suppressedPrefixes = (options.suppressPrefixes || []).map(prefix => String(prefix || "").toUpperCase());
+    const disableLinks = options.disableLinks === true;
+    let output = "";
+    let lastIndex = 0;
+    imdgInlineCodePattern.lastIndex = 0;
+    let match;
+    while ((match = imdgInlineCodePattern.exec(source))) {
+      output += escapeHtml(source.slice(lastIndex, match.index));
+      const visibleCode = match[0];
+      const lookupCode = visibleCode.toUpperCase().replace(/\([^)]+\)$/, "");
+      const suppressLink = disableLinks || suppressedPrefixes.some(prefix => lookupCode.startsWith(prefix));
+      const entry = entries[lookupCode];
+      if (!suppressLink && entry?.page) {
+        const href = `../references/originals/imdg-code-amendment-42-24-msc556-108.pdf#page=${encodeURIComponent(entry.page)}&zoom=page-width`;
+        output += `<a class="code-inline-reference-link" data-code-inline-reference="${escapeHtml(lookupCode)}" href="${escapeHtml(href)}" target="_blank" rel="noopener" title="IMDG Code ${escapeHtml(lookupCode)} 原文（PDF ${escapeHtml(entry.page)}ページ）">${escapeHtml(visibleCode)}</a>`;
+      } else {
+        output += escapeHtml(visibleCode);
+      }
+      lastIndex = match.index + visibleCode.length;
+    }
+    output += escapeHtml(source.slice(lastIndex));
+    return output;
+  };
+
+  const renderDomesticCell = (value, options = {}) => renderInlineCodeLinks(String(value || "—"), options).replaceAll("\n", "<br>");
 
   const splitDomesticCodeSections = source => {
     const lines = cleanDomesticOriginalForDisplay(source).split("\n");
@@ -1681,16 +1653,15 @@
     };
   };
 
-  const renderStructuredPackingOriginal = (originalText, label) => {
+  const renderStructuredPackingOriginal = (originalText, label, inlineLinkOptions = {}) => {
     const source = cleanDomesticOriginalForDisplay(originalText);
-    if (!/^P\d/i.test(source.trim())) return "";
     const parsed = splitDomesticCodeSections(source)
       .map(parsePackingTableSection)
       .filter(Boolean);
     if (!parsed.length) return "";
     return `
       <section class="domestic-original-verbatim domestic-original-verbatim--structured">
-        <div class="domestic-original-verbatim__heading">${escapeHtml(label)}</div>
+        ${label ? `<div class="domestic-original-verbatim__heading">${escapeHtml(label)}</div>` : ""}
         <div class="domestic-structured-original">
           ${parsed.map(section => `
             <section class="domestic-source-section">
@@ -1698,10 +1669,10 @@
               <div class="domestic-source-table-scroll" tabindex="0">
                 <table class="domestic-source-table">
                   <thead><tr><th>内装容器の種類</th><th>中間容器の種類</th><th>外装容器の種類</th><th>外装容器の許容容量又は許容質量</th></tr></thead>
-                  <tbody>${section.rows.map(row => `<tr>${row.map(cell => `<td>${renderDomesticCell(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+                  <tbody>${section.rows.map(row => `<tr>${row.map(cell => `<td>${renderDomesticCell(cell, inlineLinkOptions)}</td>`).join("")}</tr>`).join("")}</tbody>
                 </table>
               </div>
-              ${section.notes ? `<div class="domestic-source-notes"><strong>注</strong><p>${escapeHtml(section.notes.replace(/^\s*注\s*/, "")).replaceAll("\n", "<br>")}</p></div>` : ""}
+              ${section.notes ? `<div class="domestic-source-notes"><strong>注</strong><p>${renderInlineCodeLinks(section.notes.replace(/^\s*注\s*/, ""), inlineLinkOptions).replaceAll("\n", "<br>")}</p></div>` : ""}
             </section>`).join("")}
         </div>
       </section>`;
@@ -1722,9 +1693,8 @@
   };
 
   const buildExactPdfPageUrl = (pdfPath, page) => {
-    const source = String(pdfPath || "");
-    const doc = source.includes("regulations") ? "regulation" : source.includes("radioactive") ? "radioactive" : "notification";
-    return `pdf-page-viewer.html?doc=${encodeURIComponent(doc)}&page=${encodeURIComponent(page || 1)}`;
+    const source = String(pdfPath || "").split("#")[0];
+    return `${source}#page=${encodeURIComponent(page || 1)}&zoom=page-width`;
   };
 
   const renderDomesticPageVisual = (pages, pdfPath) => {
@@ -1889,17 +1859,28 @@
     { law: "危告示", pattern: /第25条の3・第25条の6の3/, pages: [["第25条の3",20],["第25条の6の3",25]] },
     { law: "危告示", pattern: /第25条の3・第25条の6/, pages: [["第25条の3",20],["第25条の6",24]] },
     { law: "危告示", pattern: /第25条の3・第25条の4/, pages: [["第25条の3",20],["第25条の4",21]] },
-    { law: "危告示", pattern: /第2条第5項・第6項/, pages: [["第2条第5項・第6項",2]] },
-    { law: "危告示", pattern: /第2条第7項・第8項/, pages: [["第2条第7項・第8項",2]] },
-    { law: "危告示", pattern: /第7条の3第1項・第2項/, pages: [["第7条の3第1項・第2項",8]] },
+    { law: "危告示", pattern: /備考2\(1\)/, pages: [["別表第1 備考2(1) 火薬類の判定基準",268],["別表第1 備考2(1) 続き",269]] },
+    { law: "危告示", pattern: /備考2\(2\)/, pages: [["別表第1 備考2(2) 高圧ガスの判定基準",269]] },
+    { law: "危告示", pattern: /備考2\(3\)/, pages: [["別表第1 備考2(3) 引火性液体類の判定基準",269],["別表第1 備考2(3) 続き",270]] },
+    { law: "危告示", pattern: /備考2\(4\)\(ⅰ\)〜\(ⅲ\)/, pages: [["別表第1 備考2(4)(ⅰ)〜(ⅲ)",270],["別表第1 備考2(4)(ⅰ)〜(ⅲ) 続き",271]] },
+    { law: "危告示", pattern: /備考2\(4\)\(ⅳ\)/, pages: [["別表第1 備考2(4)(ⅳ) 自然発火性物質",271],["別表第1 備考2(4)(ⅳ) 続き",272]] },
+    { law: "危告示", pattern: /備考2\(4\)\(ⅴ\)/, pages: [["別表第1 備考2(4)(ⅴ) 水反応可燃性物質",272]] },
+    { law: "危告示", pattern: /備考2\(5\)\(ⅰ\)/, pages: [["別表第1 備考2(5)(ⅰ) 酸化性物質",272],["別表第1 備考2(5)(ⅰ) 続き",273]] },
+    { law: "危告示", pattern: /備考2\(5\)\(ⅱ\)/, pages: [["別表第1 備考2(5)(ⅱ) 有機過酸化物",273]] },
+    { law: "危告示", pattern: /備考2\(6\)/, pages: [["別表第1 備考2(6) 毒物",274]] },
+    { law: "危告示", pattern: /備考2\(7\)/, pages: [["別表第1 備考2(7) 腐食性物質",275]] },
+    { law: "危告示", pattern: /備考2\(8\)/, pages: [["別表第1 備考2(8) 環境有害物質",275],["別表第1 備考2(8) 続き",276]] },
+    { law: "危告示", pattern: /第2条第5項・第6項/, pages: [["第2条第5項・第6項",1]] },
+    { law: "危告示", pattern: /第2条第7項・第8項/, pages: [["第2条第7項・第8項",1]] },
+    { law: "危告示", pattern: /第7条の3第1項・第2項/, pages: [["第7条の3第1項・第2項",6]] },
     { law: "危告示", pattern: /第7条の2・第15条/, pages: [["第7条の2",7],["第15条",16]] },
     { law: "危告示", pattern: /第7条の3・第15条/, pages: [["第7条の3",8],["第15条",16]] },
-    { law: "危告示", pattern: /第2条第\d+項/, pages: [["第2条",2,"../references/excerpts/domestic/notification-article-2.pdf"]] },
+    { law: "危告示", pattern: /第2条第\d+項/, pages: [["第2条（危険物の定義）",1,"../references/excerpts/domestic/notification-article-2.pdf"]] },
     { law: "危告示", pattern: /第3条第3項/, pages: [["第3条第3項",3]] },
     { law: "危告示", pattern: /第7条の2/, pages: [["第7条の2",7,"../references/excerpts/domestic/notification-article-7-2.pdf"]] },
-    { law: "危告示", pattern: /第7条の3/, pages: [["第7条の3",8]] },
+    { law: "危告示", pattern: /第7条の3/, pages: [["第7条の3",6]] },
     { law: "危告示", pattern: /第7条の4第2項/, pages: [["第7条の4第2項",9]] },
-    { law: "危告示", pattern: /第14条の2の2/, pages: [["第14条の2の2",15]] },
+    { law: "危告示", pattern: /第14条の2の2/, pages: [["第14条の2の2",10]] },
     { law: "危告示", pattern: /第14条/, pages: [["第14条",14]] },
     { law: "危告示", pattern: /第15条/, pages: [["第15条",16]] },
     { law: "危告示", pattern: /第16条/, pages: [["第16条",17]] },
@@ -1935,8 +1916,9 @@
     const regulationPdf = "../references/originals/dangerous-goods-regulations.pdf";
     const notificationPdf = "../references/originals/dangerous-goods-notification.pdf";
     const radioactivePdf = "../references/originals/radioactive-materials-notification.pdf";
-    const sections = resolveDomesticLawTargets(references).map(target => buildDomesticLawPageSection({
+    const sections = resolveDomesticLawTargets(references).map(target => ({
       title: `${target.law} ${target.label}（該当箇所のみ）`,
+      navLabel: `${target.law} ${target.label}`,
       pdfPath: target.law === "危規則" ? regulationPdf : target.law === "放告示" ? radioactivePdf : notificationPdf,
       page: target.page,
       law: target.law
@@ -1951,23 +1933,369 @@
     requestAnimationFrame(() => domesticLawFullscreen.querySelector(".domestic-law-fullscreen__dialog")?.focus({preventScroll:true}));
   };
 
-  const openDomesticLawBundlePdf = ({ title, pdfPath }) => {
+  const buildJudgementCriteriaSourceLinks = criteria => {
+    const seen = new Set();
+    const links = (Array.isArray(criteria?.sections) ? criteria.sections : []).reduce((items, section) => {
+      const pdfPath = String(section?.pdfPath || "");
+      const page = Number(section?.page);
+      if (!pdfPath || !Number.isFinite(page)) return items;
+      const key = `${pdfPath}:${page}`;
+      if (seen.has(key)) return items;
+      seen.add(key);
+      items.push({
+        law: section?.law || "危告示",
+        label: `${section?.navLabel || section?.title || "判定基準"} 原文を開く（PDF ${page}ページ）`,
+        href: buildExactPdfPageUrl(pdfPath, page)
+      });
+      return items;
+    }, []);
+    if (!links.length) return "";
+    return `<div class="code-direct-source-links code-direct-source-links--domestic judgement-criteria-source-links" data-source-group="domestic" aria-label="判定基準の国内法令原文リンク">
+      ${links.map((link, index) => `<a class="modal-reference-link code-direct-source-link${index === 0 ? " modal-reference-link--primary" : ""}" data-source-law="${escapeHtml(link.law)}" href="${escapeHtml(link.href)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`).join("")}
+    </div>`;
+  };
+
+  const normalizeJudgementCriteriaLines = value => String(value || "")
+    .replace(/\f/g, "\n")
+    .split("\n")
+    .map(line => line.replace(/\u3000/g, " ").replace(/[ \t]+$/g, ""))
+    .filter(line => line.trim())
+    .map(line => line.trim());
+
+  const judgementCriteriaResultPattern = /(?:\s{2,}|\t+)(急性\s*1|慢性\s*[12]|1\.[1-6]|[ⅠⅡⅢⅣⅤⅥ]|[A-Z])\s*$/;
+  const judgementCriteriaRomanPattern = /^\(([ⅰ-ⅹ]+)\)\s*/;
+  const judgementCriteriaNumericPattern = /^\((\d+)\)\s*/;
+  const judgementCriteriaKanaPattern = /^([イロハニホヘトチリヌ])\s+/;
+  const judgementCriteriaNotePattern = /^注(?:\s*([0-9１２３４５６７８９]+))?\s*/;
+
+  const joinJudgementCriteriaLines = lines => (lines || []).reduce((joined, line) => {
+    const value = String(line || "").trim();
+    if (!value) return joined;
+    if (!joined) return value;
+    const separator = /[A-Za-z0-9)]$/.test(joined) && /^[A-Za-z0-9(]/.test(value) ? " " : "";
+    return `${joined}${separator}${value}`;
+  }, "");
+
+  const splitJudgementCriteriaColumns = line => String(line || "")
+    .trim()
+    .split(/\s{2,}/)
+    .map(item => item.trim())
+    .filter(Boolean);
+
+  const parseJudgementCriteriaResultTable = (lines, startIndex) => {
+    const headerParts = splitJudgementCriteriaColumns(lines[startIndex]);
+    const resultHeader = headerParts.pop() || "判定結果";
+    const conditionHeader = headerParts.join(" ") || "判定条件";
+    const rows = [];
+    let current = null;
+    let index = startIndex + 1;
+    for (; index < lines.length; index += 1) {
+      const line = lines[index];
+      if (judgementCriteriaNotePattern.test(line) || judgementCriteriaRomanPattern.test(line) || /判定基準/.test(line)) break;
+      if (/流下時間/.test(line) && /引火点/.test(line)) break;
+      const match = line.match(judgementCriteriaResultPattern);
+      if (match) {
+        if (current) rows.push(current);
+        current = {
+          condition: line.slice(0, match.index).trim(),
+          result: match[1].replace(/\s+/g, " ")
+        };
+        continue;
+      }
+      if (current) current.condition = joinJudgementCriteriaLines([current.condition, line]);
+      else break;
+    }
+    if (current) rows.push(current);
+    return rows.length ? {
+      block: {
+        type: "table",
+        title: conditionHeader,
+        headers: [conditionHeader, resultHeader],
+        rows: rows.map(row => [row.condition, row.result])
+      },
+      nextIndex: index
+    } : null;
+  };
+
+  const parseJudgementCriteriaFlowTable = (lines, startIndex) => {
+    const headers = ["流下時間", "フローカップのオリフィス径", "動粘度", "引火点"];
+    const rows = [];
+    let index = startIndex + 1;
+    for (; index < lines.length; index += 1) {
+      const line = lines[index];
+      if (/^\d+\s+\d+$/.test(line.replace(/\s{2,}/g, " "))) continue;
+      const parts = splitJudgementCriteriaColumns(line);
+      if (parts.length === 3) {
+        const viscosityMatch = parts[2].match(/^(.*?動粘度)\s+(-?\d+℃を超える温度|温度制限なし)$/);
+        if (viscosityMatch) {
+          rows.push([parts[0], parts[1], viscosityMatch[1], viscosityMatch[2]]);
+          continue;
+        }
+      }
+      if (parts.length < 4) break;
+      rows.push([parts[0], parts[1], parts.slice(2, -1).join(" "), parts.at(-1)]);
+    }
+    return rows.length ? {
+      block: { type: "table", title: "粘性液体に関する判定条件", headers, rows, wide: true },
+      nextIndex: index
+    } : null;
+  };
+
+  const parseJudgementCriteriaBlocks = value => {
+    const lines = normalizeJudgementCriteriaLines(value);
+    const blocks = [];
+    let index = 0;
+    const collectContinuation = (firstLine, start, stopTest) => {
+      const collected = [firstLine];
+      let cursor = start;
+      while (cursor < lines.length && !stopTest(lines[cursor], cursor)) {
+        collected.push(lines[cursor]);
+        cursor += 1;
+      }
+      return { text: joinJudgementCriteriaLines(collected), nextIndex: cursor };
+    };
+    const isBoundary = line => judgementCriteriaRomanPattern.test(line)
+      || judgementCriteriaNumericPattern.test(line)
+      || judgementCriteriaKanaPattern.test(line)
+      || judgementCriteriaNotePattern.test(line)
+      || /判定基準/.test(line)
+      || (/流下時間/.test(line) && /引火点/.test(line));
+
+    while (index < lines.length) {
+      const line = lines[index];
+      if (/判定基準/.test(line) && /(容器等級|等級|隔離区分|タイプ)\s*$/.test(line)) {
+        const parsedTable = parseJudgementCriteriaResultTable(lines, index);
+        if (parsedTable) {
+          blocks.push(parsedTable.block);
+          index = parsedTable.nextIndex;
+          continue;
+        }
+      }
+      if (/流下時間/.test(line) && /引火点/.test(line)) {
+        const parsedFlowTable = parseJudgementCriteriaFlowTable(lines, index);
+        if (parsedFlowTable) {
+          blocks.push(parsedFlowTable.block);
+          index = parsedFlowTable.nextIndex;
+          continue;
+        }
+      }
+      if (index === 0 && judgementCriteriaNumericPattern.test(line)) {
+        blocks.push({ type: "title", text: line });
+        index += 1;
+        continue;
+      }
+      const romanMatch = line.match(judgementCriteriaRomanPattern);
+      if (romanMatch) {
+        const content = line.replace(judgementCriteriaRomanPattern, "");
+        const collected = collectContinuation(content, index + 1, candidate => isBoundary(candidate));
+        blocks.push({ type: "lead", marker: `(${romanMatch[1]})`, text: collected.text });
+        index = collected.nextIndex;
+        continue;
+      }
+      const noteMatch = line.match(judgementCriteriaNotePattern);
+      if (noteMatch) {
+        const content = line.replace(judgementCriteriaNotePattern, "");
+        const collected = collectContinuation(content, index + 1, candidate => judgementCriteriaRomanPattern.test(candidate) || /判定基準/.test(candidate));
+        blocks.push({ type: "note", marker: noteMatch[1] ? `注 ${noteMatch[1]}` : "注記", text: collected.text });
+        index = collected.nextIndex;
+        continue;
+      }
+      const kanaMatch = line.match(judgementCriteriaKanaPattern);
+      if (kanaMatch) {
+        if (/判定基準\s*$/.test(line)) {
+          blocks.push({ type: "subheading", text: line });
+          index += 1;
+          continue;
+        }
+        const content = line.replace(judgementCriteriaKanaPattern, "");
+        const collected = collectContinuation(content, index + 1, candidate => isBoundary(candidate));
+        blocks.push({ type: "requirement", marker: kanaMatch[1], text: collected.text });
+        index = collected.nextIndex;
+        continue;
+      }
+      const numericMatch = line.match(judgementCriteriaNumericPattern);
+      if (numericMatch) {
+        const content = line.replace(judgementCriteriaNumericPattern, "");
+        const collected = collectContinuation(content, index + 1, candidate => isBoundary(candidate));
+        blocks.push({ type: "requirement", marker: `(${numericMatch[1]})`, text: collected.text });
+        index = collected.nextIndex;
+        continue;
+      }
+      const collected = collectContinuation(line, index + 1, candidate => isBoundary(candidate));
+      blocks.push({ type: "paragraph", text: collected.text });
+      index = collected.nextIndex;
+    }
+    return blocks;
+  };
+
+  const renderJudgementCriteriaTable = block => {
+    const wideClass = block.wide || block.headers.length > 2 ? " judgement-criteria-table--wide" : "";
+    return `<section class="judgement-criteria-section judgement-criteria-section--table">
+      <h5>${escapeHtml(block.title || "判定表")}</h5>
+      <div class="judgement-criteria-table-wrap">
+        <table class="judgement-criteria-table${wideClass}">
+          <thead><tr>${block.headers.map(header => `<th scope="col">${escapeHtml(header)}</th>`).join("")}</tr></thead>
+          <tbody>${block.rows.map(row => `<tr>${row.map((cell, cellIndex) => `<td data-label="${escapeHtml(block.headers[cellIndex] || `項目${cellIndex + 1}`)}">${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+        </table>
+      </div>
+    </section>`;
+  };
+
+  const renderJudgementCriteriaBlocks = value => {
+    const blocks = parseJudgementCriteriaBlocks(value);
+    const requirementBlocks = [];
+    const html = [];
+    const flushRequirements = () => {
+      if (!requirementBlocks.length) return;
+      html.push(`<section class="judgement-criteria-section judgement-criteria-section--requirements">
+        <h5>要件・条件</h5>
+        <div class="judgement-criteria-requirements">${requirementBlocks.splice(0).map(item => `<div class="judgement-criteria-requirement"><span>${escapeHtml(item.marker)}</span><p>${escapeHtml(item.text)}</p></div>`).join("")}</div>
+      </section>`);
+    };
+    blocks.forEach(block => {
+      if (block.type === "requirement") {
+        requirementBlocks.push(block);
+        return;
+      }
+      flushRequirements();
+      if (block.type === "table") html.push(renderJudgementCriteriaTable(block));
+      else if (block.type === "title") html.push(`<div class="judgement-criteria-section-title">${escapeHtml(block.text)}</div>`);
+      else if (block.type === "subheading") html.push(`<div class="judgement-criteria-subheading">${escapeHtml(block.text)}</div>`);
+      else if (block.type === "lead") html.push(`<section class="judgement-criteria-section judgement-criteria-section--lead"><h5>${escapeHtml(block.marker)} 判定の原則</h5><p>${escapeHtml(block.text)}</p></section>`);
+      else if (block.type === "note") html.push(`<aside class="judgement-criteria-note"><strong>${escapeHtml(block.marker)}</strong><p>${escapeHtml(block.text)}</p></aside>`);
+      else if (block.type === "paragraph") html.push(`<div class="judgement-criteria-paragraph">${escapeHtml(block.text)}</div>`);
+    });
+    flushRequirements();
+    return html.join("");
+  };
+
+  const renderJudgementCriteriaDetails = criteria => {
+    const references = Array.isArray(criteria?.references) ? criteria.references.filter(Boolean) : [];
+    const exactEntry = window.DOMESTIC_JUDGEMENT_CRITERIA_TEXTS?.entries?.[criteria?.criteriaKey];
+    const fallbackItems = [
+      `国連番号${record.unNumber}`,
+      `分類・項目：${record.classification || record.item || "—"}`,
+      `等級：${record.class || "—"}`,
+      `容器等級：${record.packingGroup || "—"}`,
+      ...references
+    ].filter(Boolean);
+    const exactContent = exactEntry?.text
+      ? renderJudgementCriteriaBlocks(exactEntry.text)
+      : `<div class="judgement-criteria-fallback">${fallbackItems.map(item => `<p>${escapeHtml(item)}</p>`).join("")}</div>`;
+    return `<section class="modal-reference-block modal-reference-block--judgement-criteria">
+      <div class="judgement-criteria-context" aria-label="対象危険物と判定基準">
+        <div class="judgement-criteria-context__heading"><strong>この危険物に適用される判定基準</strong><span>判定条件と結果の対応が分かるように整理して表示しています。</span></div>
+        <dl>
+          <div><dt>国連番号</dt><dd>${escapeHtml(record.unNumber)}</dd></div>
+          <div><dt>分類・項目</dt><dd>${escapeHtml(record.classification || record.item || "—")}</dd></div>
+          <div><dt>等級</dt><dd>${escapeHtml(record.class || "—")}</dd></div>
+          <div><dt>容器等級</dt><dd>${escapeHtml(record.packingGroup || "—")}</dd></div>
+        </dl>
+      </div>
+      ${references.length ? `<div class="code-organized-summary judgement-criteria-reference-summary"><strong>参照する国内法令</strong><ul>${references.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+      <div class="code-exact-provisions judgement-criteria-provisions">
+        <section class="code-exact-provisions__group code-exact-provisions__group--condition judgement-criteria-document">
+          <h4>${escapeHtml(exactEntry?.title || "判定基準・該当内容")}</h4>
+          <div class="judgement-criteria-readable">${exactContent}</div>
+        </section>
+      </div>
+      ${buildJudgementCriteriaSourceLinks(criteria)}
+    </section>`;
+  };
+
+  const buildJudgementCriteriaBundle = criteria => {
+    const key = String(criteria?.criteriaKey || "").trim();
+    const entry = window.DOMESTIC_JUDGEMENT_CRITERIA_TEXTS?.entries?.[key];
+    if (!key || !entry?.title) return null;
+    const references = Array.isArray(criteria?.references) ? criteria.references.filter(Boolean) : [];
+    return {
+      pdfPath: `../references/excerpts/domestic-bundles/judgement-criteria/${key}.pdf`,
+      mobileImage: `../assets/domestic-law-bundles/judgement-criteria/${key}.png`,
+      summary: {
+        order: `収録：${entry.title}`,
+        description: references.length
+          ? `${references.join("、")}を、判定条件と結果が分かる形式で表示しています。`
+          : `${entry.title}を、判定条件と結果が分かる形式で表示しています。`
+      }
+    };
+  };
+
+  const openJudgementCriteriaSourceFullscreen = ({ title, criteria }) => {
+    const sections = Array.isArray(criteria?.sections) ? criteria.sections.filter(section => section?.pdfPath && Number.isFinite(Number(section?.page))) : [];
+    const references = Array.isArray(criteria?.references) ? criteria.references.filter(Boolean) : [];
+    const titleNode = domesticLawFullscreen.querySelector("[data-domestic-law-title]");
+    const body = domesticLawFullscreen.querySelector("[data-domestic-law-body]");
+    if (titleNode) titleNode.textContent = title || `国連番号${record.unNumber} 判定基準の国内法令`;
+    if (body) body.innerHTML = `
+      <section class="domestic-law-fullscreen__bundle-section judgement-source-bundle">
+        <div class="domestic-law-fullscreen__bundle-toolbar">
+          <div>
+            <strong>${escapeHtml(references.length ? `収録：${references.join(" → ")}` : "判定基準の該当原文")}</strong>
+            <span>該当する国内法令の原文ページを、1つの画面内で順番に表示しています。</span>
+          </div>
+        </div>
+        <div class="judgement-source-bundle__pages">
+          ${sections.map((section, index) => buildDomesticLawPageSection({
+            title: section.title || section.navLabel || `判定基準 原文 ${index + 1}`,
+            pdfPath: section.pdfPath,
+            page: Number(section.page),
+            law: section.law || "危告示",
+            panelId: `judgement-source-${index + 1}`,
+            active: true
+          })).join("") || '<p class="reference-pending">該当する原文ページを特定できませんでした。</p>'}
+        </div>
+      </section>`;
+    domesticLawFullscreen.hidden = false;
+    document.body.classList.add("is-domestic-law-fullscreen-open");
+    requestAnimationFrame(() => domesticLawFullscreen.querySelector(".domestic-law-fullscreen__dialog")?.focus({preventScroll:true}));
+  };
+
+  const openJudgementCriteria = ({ title, criteria }) => {
+    const bundle = buildJudgementCriteriaBundle(criteria);
+    if (bundle) {
+      openDomesticLawBundlePdf({
+        title: title || `国連番号${record.unNumber} 判定基準の国内法令`,
+        pdfPath: bundle.pdfPath,
+        mobileImage: bundle.mobileImage,
+        bundleSummary: bundle.summary
+      });
+      return;
+    }
+    openJudgementCriteriaSourceFullscreen({ title, criteria });
+  };
+
+  const openDomesticLawBundlePdf = ({ title, pdfPath, bundleSummary = null, mobileImage = "" }) => {
     const titleNode = domesticLawFullscreen.querySelector("[data-domestic-law-title]");
     const body = domesticLawFullscreen.querySelector("[data-domestic-law-body]");
     if (titleNode) titleNode.textContent = title || "国内法令 該当条文";
-    const isLabelBundle = String(pdfPath || "").includes("label-display-domestic-laws.pdf");
-    const mobileImage = isLabelBundle ? "../assets/domestic-law-bundles/label-display-domestic-laws.png" : "";
+    const normalizedPdfPath = String(pdfPath || "");
+    const isLabelBundle = normalizedPdfPath.includes("label-display-domestic-laws.pdf");
+    const isPackageMarkingBundle = normalizedPdfPath.includes("package-marking-domestic-laws.pdf");
+    const resolvedMobileImage = mobileImage || (isPackageMarkingBundle
+      ? "../assets/domestic-law-bundles/package-marking-domestic-laws.png"
+      : isLabelBundle
+        ? "../assets/domestic-law-bundles/label-display-domestic-laws.png"
+        : "");
+    const resolvedBundleSummary = bundleSummary || (isPackageMarkingBundle
+      ? {
+          order: "収録順：危規則 第8条第1項 → 危規則 第9条 → 危告示 第7条の3第1項・第2項 → 危告示 第14条の2の2",
+          description: "品名・国連番号表示に必要な国内法令の該当条文を1つのPDFに結合しています。"
+        }
+      : {
+          order: "収録順：危規則 第8条 → 危規則 第9条 → 危告示 第7条の2",
+          description: "危規則・危告示の該当条文を1つのPDFに結合しています。"
+        });
     if (body) body.innerHTML = `
       <section class="domestic-law-fullscreen__bundle-section">
         <div class="domestic-law-fullscreen__bundle-toolbar">
           <div>
-            <strong>収録順：危規則 第8条 → 危規則 第9条 → 危告示 第7条の2</strong>
-            <span>危規則・危告示の該当条文を1つのPDFに結合しています。</span>
+            <strong>${escapeHtml(resolvedBundleSummary.order)}</strong>
+            <span>${escapeHtml(resolvedBundleSummary.description)}</span>
           </div>
           <a href="${escapeHtml(pdfPath)}" target="_blank" rel="noopener">結合PDFを別画面で開く</a>
         </div>
         <iframe data-domestic-law-bundle-frame src="${escapeHtml(pdfPath)}#page=1&zoom=page-width" title="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"></iframe>
-        ${mobileImage ? `<button type="button" class="domestic-law-fullscreen__bundle-mobile-button" data-pdf-image-expand="${escapeHtml(mobileImage)}" data-pdf-image-page="${escapeHtml(title || '国内法令 該当条文')}" aria-label="結合資料の表・図・本文を全画面拡大"><img class="domestic-law-fullscreen__bundle-mobile-image" data-domestic-law-bundle-image src="${escapeHtml(mobileImage)}" alt="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"><span>表・図をタップして拡大</span></button>` : ""}
+        ${resolvedMobileImage ? `<button type="button" class="domestic-law-fullscreen__bundle-mobile-button" data-pdf-image-expand="${escapeHtml(resolvedMobileImage)}" data-pdf-image-page="${escapeHtml(title || '国内法令 該当条文')}" aria-label="結合資料の表・図・本文を全画面拡大"><img class="domestic-law-fullscreen__bundle-mobile-image" data-domestic-law-bundle-image src="${escapeHtml(resolvedMobileImage)}" alt="${escapeHtml(title || '国内法令 該当条文')}" loading="eager"><span>表・図をタップして拡大</span></button>` : ""}
       </section>`;
     const mobileBundleImage = body?.querySelector("[data-domestic-law-bundle-image]");
     const bundleFrame = body?.querySelector("[data-domestic-law-bundle-frame]");
@@ -2052,30 +2380,25 @@
       const group = button.dataset.domesticLawGroup;
       if (group === "label") {
         openDomesticLawBundlePdf({
-          title: `UN${record.unNumber} 標札表示の国内法令`,
+          title: `国連番号${record.unNumber} 標札表示の国内法令`,
           pdfPath: "../references/excerpts/domestic-bundles/label-display-domestic-laws.pdf"
         });
         return;
       }
       if (group === "package-marking") {
-        openDomesticLawByReferences({
-          title: `UN${record.unNumber} 品名・国連番号表示の国内法令`,
-          references: packageMarkingLegalReferences,
-          includeSourcePage: false
+        openDomesticLawBundlePdf({
+          title: `国連番号${record.unNumber} 品名・国連番号表示の国内法令`,
+          pdfPath: "../references/excerpts/domestic-bundles/package-marking-domestic-laws.pdf"
         });
         return;
       }
       if (group === "classification") {
-        openDomesticLawByReferences({
-          title: `UN${record.unNumber} 分類根拠の国内法令`,
-          references: classificationReferences,
-          includeSourcePage: false
+        openJudgementCriteria({
+          title: `国連番号${record.unNumber} 判定基準の国内法令`,
+          criteria: judgementCriteria
         });
         return;
       }
-      const references = sourceTabReferences;
-      const title = `UN${record.unNumber} 関連国内法令`;
-      openDomesticLawByReferences({title,references,includeSourcePage:false});
     });
   });
 
@@ -2089,7 +2412,7 @@
 
   const parseTopLevelCodeHeading = line => {
     if (!line || /^\s/.test(line)) return null;
-    const match = String(line).match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?\b/i);
+    const match = String(line).match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H|VV|CV|V|S)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?\b/i);
     if (!match) return null;
     return {
       base: normalizeDetailCode(match[1]),
@@ -2103,7 +2426,7 @@
     if (!source) return "";
     const target = normalizeDetailCode(code);
     if (!target) return source;
-    const targetMatch = target.match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?$/i);
+    const targetMatch = target.match(/^((?:P|PP|LP|L|IBC|B|T|TP|SP|SW|SGG?|E|ES|BK|H|VV|CV|V|S)\d+[A-Z]?)(?:\(([a-z0-9]+)\))?$/i);
     if (!targetMatch) return source;
     const targetBase = normalizeDetailCode(targetMatch[1]);
     const targetSubsection = targetMatch[2] ? String(targetMatch[2]).toLowerCase() : "";
@@ -2206,28 +2529,259 @@
           ? `<div class="is-wide is-warning"><dt>許可条件</dt><dd>表中「x」は、地方運輸局長の許可が必要であることを示します。社内既存システムの許可証データベースに登録された許可内容を確認してください。</dd></div>`
           : `<div class="is-wide"><dt>確認事項</dt><dd>容器、定数、最大圧力、許容容量又は許容質量は、下記の国連番号${escapeHtml(un)}の原文該当行及び注記を確認してください。</dd></div>`}
       </dl>
-      ${renderVerbatimDomesticOriginal(contextual, { label: `危告示別表第1 P200 国連番号${un}の該当行`, compact: true })}
-      <p class="p200-current-entry__note">現在開いている危険物の国連番号に該当する原文だけを表示しています。前後の国連番号は表示しません。</p>
+      <p class="p200-current-entry__note">現在開いている危険物の国連番号に該当する情報です。詳細は「原文を開く」から該当ページを確認してください。</p>
     </div>`;
   };
 
-  const renderCodeExplanation = (reference, contextual = extractContextualCodeText(reference)) => {
-    const isP200 = reference.code === "P200" && record?.unNumber;
-    const title = isP200
-      ? `${reference.code}（国連番号${String(record.unNumber).padStart(4, "0")}の該当箇所）`
-      : `${reference.code}の該当原文`;
+  const removeSourcePageNoise = value => cleanDomesticOriginalForDisplay(value)
+    .split("\n")
+    .filter(line => !sourcePageNoisePattern.test(line.trim()))
+    .join("\n")
+    .trim();
+
+  const stripLeadingCodeHeading = (value, code) => {
+    const source = removeSourcePageNoise(value);
+    if (!source) return "";
+    const lines = source.split("\n");
+    const target = normalizeDetailCode(code);
+    const first = normalizeDetailCode((lines[0] || "").trim());
+    if (target && first === target) lines.shift();
+    return lines.join("\n").trim();
+  };
+
+  const joinExactSourceFragments = fragments => {
+    const values = fragments.map(value => String(value || "").trim()).filter(Boolean);
+    if (!values.length) return "";
+    return values.reduce((output, next) => {
+      if (!output) return next;
+      const noSpace = /[一-龯々ぁ-んァ-ヶー、。）」』]$/.test(output) && /^[一-龯々ぁ-んァ-ヶー、。（(「『]/.test(next);
+      const latinSpace = /[A-Za-z0-9]$/.test(output) && /^[A-Za-z0-9]/.test(next);
+      return `${output}${noSpace ? "" : latinSpace ? " " : ""}${next}`;
+    }, "");
+  };
+
+  const splitExactProvisionItems = value => {
+    const source = removeSourcePageNoise(value);
+    if (!source) return [];
+    const lines = source.split("\n").map(line => line.replace(/[ \t]+$/g, ""));
+    const items = [];
+    let current = null;
+    const flush = () => {
+      if (!current) return;
+      const text = joinExactSourceFragments(current.fragments);
+      if (text) items.push({ type: current.type, text });
+      current = null;
+    };
+    let lastMajorType = "condition";
+    const classify = trimmed => {
+      if (/^(?:PP|L|B|TP|H|VV|CV|V|SW|S|SP|SGG?|ES)\d+[A-Z]?\b/i.test(trimmed)) return "additional";
+      if (/^(?:注|備考)\s*\d*/.test(trimmed)) return "note";
+      if (/^(?:\(?\d+\)?|（\d+）)(?:\s|$)/.test(trimmed)) {
+        return lastMajorType === "additional" ? "additional" : "note";
+      }
+      return "condition";
+    };
+    const startsItem = trimmed => /^(?:注|備考)\s*\d*|^(?:PP|L|B|TP|H|VV|CV|V|SW|S|SP|SGG?|ES)\d+[A-Z]?\b|^(?:\(?\d+\)?|（\d+）)(?:\s|$)/i.test(trimmed);
+    lines.forEach(rawLine => {
+      const trimmed = rawLine.trim();
+      if (!trimmed) {
+        flush();
+        return;
+      }
+      if (startsItem(trimmed)) {
+        flush();
+        const type = classify(trimmed);
+        if (!/^(?:\(?\d+\)?|（\d+）)(?:\s|$)/.test(trimmed)) lastMajorType = type;
+        current = { type, fragments: [trimmed] };
+        return;
+      }
+      if (!current) current = { type: "condition", fragments: [] };
+      current.fragments.push(trimmed);
+    });
+    flush();
+    return items;
+  };
+
+  const extractPackingSupplementalText = value => {
+    const source = removeSourcePageNoise(value);
+    if (!source) return "";
+    const candidates = [
+      source.search(/(?:^|\n)\s*IMDGコード4\.1\.4\.1/),
+      source.search(/(?:^|\n)\s*注\s+\d+/)
+    ].filter(index => index >= 0);
+    if (!candidates.length) return "";
+    return source.slice(Math.min(...candidates)).trim();
+  };
+
+  const renderExactProvisionGroups = (originalText, reference, { supplementalOnly = false } = {}) => {
+    let source = stripLeadingCodeHeading(originalText, reference?.code);
+    if (supplementalOnly) source = extractPackingSupplementalText(source);
+    const items = splitExactProvisionItems(source);
+    if (!items.length) return "";
+    const inlineLinkOptions = { disableLinks: true };
+    const groups = [
+      { key: "condition", title: "適用条件・規定内容", items: items.filter(item => item.type === "condition") },
+      { key: "note", title: "注記", items: items.filter(item => item.type === "note") },
+      { key: "additional", title: "追加規定", items: items.filter(item => item.type === "additional") }
+    ].filter(group => group.items.length);
+    return `<div class="code-exact-provisions">
+      ${groups.map(group => `<section class="code-exact-provisions__group code-exact-provisions__group--${group.key}">
+        <h4>${escapeHtml(group.title)}</h4>
+        <div class="code-exact-provisions__items">
+          ${group.items.map(item => `<p>${renderInlineCodeLinks(item.text, inlineLinkOptions)}</p>`).join("")}
+        </div>
+      </section>`).join("")}
+    </div>`;
+  };
+
+  const renderStowageCategoryRequirement = (reference, contextual) => {
+    const selectedCode = normalizeDetailCode(reference?.code);
+    if (!/^[A-E]$/.test(selectedCode) || !contextual) return "";
+    const rows = removeSourcePageNoise(contextual)
+      .split("\n")
+      .map(line => line.trim())
+      .filter(Boolean)
+      .map((line, index) => {
+        const normalizedLine = index === 0 ? line.replace(new RegExp(`^${selectedCode}\\s+`), "") : line;
+        const cells = normalizedLine.split(/\s{2,}/).map(cell => cell.trim()).filter(Boolean);
+        if (cells.length < 2) return null;
+        return { condition: cells.slice(0, -1).join(" "), method: cells.at(-1) };
+      })
+      .filter(Boolean);
+    if (!rows.length) return "";
+    return `<div class="code-exact-provisions">
+      <section class="code-exact-provisions__group code-exact-provisions__group--condition">
+        <h4>積載方法</h4>
+        <div class="stowage-category-requirement-grid">
+          <table class="stowage-category-requirement-table">
+            <thead><tr><th>船舶・旅客条件</th><th>積載方法</th></tr></thead>
+            <tbody>${rows.map(row => `<tr><td>${escapeHtml(row.condition)}</td><td>${escapeHtml(row.method)}</td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+      </section>
+    </div>`;
+  };
+
+  const renderOrganizedOriginalContent = (reference, contextual) => {
+    if (!contextual) return "";
+    const stowageCategoryRequirement = renderStowageCategoryRequirement(reference, contextual);
+    if (stowageCategoryRequirement) return stowageCategoryRequirement;
+    const hasQuantityProfile = Boolean(window.DOMESTIC_PACKING_QUANTITY_PROFILES?.profiles?.[reference.code]);
+    if (hasQuantityProfile) {
+      return renderExactProvisionGroups(contextual, reference, { supplementalOnly: true });
+    }
+    if (/^T(?:[1-9]|1\d|2[0-2])$/i.test(String(reference?.code || ""))) {
+      return "";
+    }
+    if (isTabularDomesticOriginal(contextual)) {
+      const inlineLinkOptions = { disableLinks: true };
+      const structured = renderStructuredPackingOriginal(contextual, "", inlineLinkOptions);
+      if (structured) return structured;
+    }
+    return renderExactProvisionGroups(contextual, reference);
+  };
+
+  const buildDirectSourceLinks = (reference, domesticExactPageUrl, displayPages) => {
+    const domesticLinks = [];
+    const imdgLinks = [];
+    const domesticSeen = new Set();
+    const imdgSeen = new Set();
+    const addDomestic = ({ law, label, href, primary = false }) => {
+      if (!href || domesticSeen.has(href)) return;
+      domesticSeen.add(href);
+      domesticLinks.push({ law, label, href, primary });
+    };
+    const addImdg = ({ label, href }) => {
+      if (!href || imdgSeen.has(href)) return;
+      imdgSeen.add(href);
+      imdgLinks.push({ law: "IMDG Code", label, href, primary: false });
+    };
+
+    if (reference.domesticOriginal && domesticExactPageUrl) {
+      const pages = displayPages.length ? displayPages : [reference.domesticOriginalPage].filter(Boolean);
+      if (pages.length) {
+        pages.forEach((page, index) => addDomestic({
+          law: "危告示",
+          label: `危告示原文を開く（PDF ${page}ページ）`,
+          href: buildExactPdfPageUrl("../references/originals/dangerous-goods-notification.pdf", page),
+          primary: index === 0
+        }));
+      } else {
+        addDomestic({ law: "危告示", label: "危告示原文を開く", href: domesticExactPageUrl, primary: true });
+      }
+    }
+
+    // 整理情報に固有の国内法令原文も、国内法令欄へ集約する。
+    if (/^IBC\d+/i.test(String(reference.code || ""))) {
+      addDomestic({
+        law: "危告示",
+        label: "IBC容器の最大内容積の原文を開く（PDF 353ページ）",
+        href: buildExactPdfPageUrl("../references/originals/dangerous-goods-notification.pdf", 353)
+      });
+    }
+    if (/^T(?:[1-9]|1\d|2[0-2])$/i.test(String(reference.code || ""))) {
+      addDomestic({
+        law: "危告示",
+        label: "代替使用可能なTコードの原文を開く（PDF 364ページ）",
+        href: buildExactPdfPageUrl("../references/originals/dangerous-goods-notification.pdf", 364)
+      });
+    }
+
+    resolveDomesticLawTargets(reference.domesticReferences || []).forEach(target => {
+      const pdfPath = target.law === "危規則"
+        ? "../references/originals/dangerous-goods-regulations.pdf"
+        : target.law === "放告示"
+          ? "../references/originals/radioactive-materials-notification.pdf"
+          : "../references/originals/dangerous-goods-notification.pdf";
+      addDomestic({
+        law: target.law,
+        label: `${target.law} ${target.label} 原文を開く（PDF ${target.page}ページ）`,
+        href: buildExactPdfPageUrl(pdfPath, target.page)
+      });
+    });
+
+    // 選択したコード自身の検証済みIMDG Codeページを、ページ最下部へ表示する。
+    const selectedCode = normalizeDetailCode(reference.code).replace(/\([^)]+\)$/, "");
+    const selectedImdgEntry = window.IMDG_CODE_PAGE_MAP?.entries?.[selectedCode];
+    if (selectedImdgEntry?.page) {
+      addImdg({
+        label: `IMDG Code ${selectedCode} 原文を開く（PDF ${selectedImdgEntry.page}ページ）`,
+        href: buildExactPdfPageUrl("../references/originals/imdg-code-amendment-42-24-msc556-108.pdf", selectedImdgEntry.page)
+      });
+    }
+
+    (reference.domesticImdgReferences || []).forEach(item => {
+      if (!item || !item.page) return;
+      addImdg({
+        label: `${item.label || `IMDG Code ${item.section || ""}`} 原文を開く（PDF ${item.page}ページ）`,
+        href: buildExactPdfPageUrl("../references/originals/imdg-code-amendment-42-24-msc556-108.pdf", item.page)
+      });
+    });
+
+    if (!domesticLinks.length && !imdgLinks.length) return "";
+    const renderLinkGroup = (links, group) => links.length
+      ? `<div class="code-direct-source-links code-direct-source-links--${group}" data-source-group="${group}" aria-label="${group === "domestic" ? "国内法令原文リンク" : "IMDG Code原文リンク"}">
+          ${links.map(link => `<a class="modal-reference-link code-direct-source-link${link.primary ? " modal-reference-link--primary" : ""}" data-source-law="${escapeHtml(link.law)}" href="${escapeHtml(link.href)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`).join("")}
+        </div>`
+      : "";
+
+    return `${renderLinkGroup(domesticLinks, "domestic")}${renderLinkGroup(imdgLinks, "imdg")}`;
+  };
+
+  const renderCodeExplanation = (reference, contextual = extractContextualCodeText(reference), domesticExactPageUrl = "", displayPages = []) => {
+    const summaryItems = Array.isArray(reference.domesticReferences) ? reference.domesticReferences : [];
+    const organizedOriginal = renderOrganizedOriginalContent(reference, contextual);
     return `<section class="modal-reference-block modal-reference-block--code-explanation">
-      <div class="code-explanation-heading"><span>コード原文</span><strong>${escapeHtml(title)}</strong></div>
-      ${contextual
-        ? (isP200
-            ? renderP200Context(reference, contextual)
-            : renderVerbatimDomesticOriginal(contextual, { label: `${reference.code} 該当原文`, compact: true }))
-        : `<p class="reference-pending">該当コードの原文テキストは未登録です。下段の原文ページ画像から確認してください。</p>`}
+      ${summaryItems.length ? `<div class="code-organized-summary"><ul>${summaryItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+      ${organizedOriginal}
+      ${buildDirectSourceLinks(reference, domesticExactPageUrl, displayPages)}
     </section>`;
   };
 
   const openCodeModal = code => {
     if (!codeModal || !codeModalBody || !codeModalTitle) return;
+    const headerLabel = codeModal.querySelector(".code-detail-modal__header span");
+    if (headerLabel) headerLabel.textContent = "国内法令・IMDG Code";
     const reference = window.IMDGCrossReferenceResolver?.resolve(code);
     if (!reference) return;
     const domesticPdfPath = "../references/originals/dangerous-goods-notification.pdf";
@@ -2237,50 +2791,20 @@
     const domesticExactPageUrl = buildExactPdfPageUrl(domesticPdfPath, firstDisplayPage);
     codeModalTitle.textContent = `${reference.code} ${reference.labelJa || "コード詳細"}`;
     codeModalBody.innerHTML = `
-      <section class="modal-reference-block modal-reference-block--primary">
-        <strong>国内法令の主な参照</strong>
-        <ul>${(reference.domesticReferences || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        <button type="button" class="modal-reference-link modal-reference-link--button" data-domestic-law-fullscreen>該当する国内法令だけを全画面で続けて表示</button>
-        <a class="modal-reference-link" href="${escapeHtml(domesticExactPageUrl)}" target="_blank" rel="noopener">危告示のコード掲載ページを開く${firstDisplayPage ? `（PDF ${escapeHtml(firstDisplayPage)}ページ）` : ""}</a>
-      </section>
       ${renderPackingQuantityProfile(reference.code, record.packingGroup)}
-      ${renderCodeExplanation(reference, contextualOriginal)}
-      <section class="modal-reference-block modal-reference-block--domestic-original">
-        <a class="domestic-original-heading-link" href="${escapeHtml(domesticExactPageUrl)}" target="_blank" rel="noopener">国内法令原文${displayPages.length ? `（PDF ${escapeHtml(displayPages.join("・"))}ページ）` : ""} ↗</a>
-        ${reference.domesticOriginal
-          ? `${renderDomesticPageVisual(displayPages, domesticPdfPath)}${renderDomesticAiSummary(contextualOriginal, reference)}`
-          : `${renderDomesticPageVisual(displayPages, domesticPdfPath)}<p class="reference-pending">このコードの国内法令原文テキストはデータベースに未登録です。原文ページ画像または「危告示のコード掲載ページを開く」から確認してください。</p>`}
-        ${reference.code === "P200" && record?.unNumber ? `<div class="p200-source-guidance"><p>現在開いている危険物の国連番号に該当する原文テキストと掲載ページだけを表示しています。P200全体は見出しのリンクから確認できます。</p></div>` : ""}
-      </section>
-      ${reference.hasDomesticImdgReference
-        ? `<section class="modal-reference-block modal-reference-block--imdg-original">
-             <strong>条文中に記載されたIMDG Code原文</strong>
-             <p>危告示の条文中にIMDG Codeの条文番号が記載されている場合、その該当原文を続けて表示します。</p>
-             <div class="imdg-reference-list">${(reference.domesticImdgReferences || []).map(item => {
-               const label = typeof item === "string" ? item : item.label;
-               const page = typeof item === "object" ? item.page : null;
-               const note = typeof item === "object" ? item.note : "";
-               const url = page ? `pdf-page-viewer.html?doc=imdg&page=${encodeURIComponent(page)}&section=${encodeURIComponent(item.section || "")}` : "";
-               return `<article class="imdg-reference-item">
-                 <div class="imdg-reference-item__head"><strong>${escapeHtml(label)}</strong>${page ? `<a class="modal-reference-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">該当原文を開く（PDF ${escapeHtml(page)}ページ）</a>` : ""}</div>
-                 ${page ? `<a class="imdg-page-preview" href="${escapeHtml(url)}" target="_blank" rel="noopener"><img src="../assets/pdf-page-images/imdg-code/page-${escapeHtml(page)}.jpg" alt="${escapeHtml(label)} 掲載ページ" loading="lazy"></a>` : `<p class="reference-pending">${escapeHtml(note || "該当ページを自動特定できませんでした。最新版のIMDG Code本文を確認してください。")}</p>`}
-               </article>`;
-             }).join("")}</div>
-           </section>`
-        : ""}
-      <p class="code-modal-caution">国内法令・IMDG Codeは参考情報です。実務判断では最新版の本文を確認してください。</p>
+      ${renderIbcMaximumContentReference(reference.code, record.packingGroup)}
+      ${renderPortableTankRequirementReference(reference.code)}
+      ${renderCodeExplanation(reference, contextualOriginal, domesticExactPageUrl, displayPages)}
     `;
-    codeModalBody.querySelector("[data-domestic-law-fullscreen]")?.addEventListener("click", () => {
-      closeCodeModal();
-      openDomesticLawFullscreen(reference);
-    });
-    codeModalBody.querySelectorAll("[data-pdf-image-expand]").forEach(button => {
-      button.addEventListener("click", () => {
-        openPdfImageLightbox(button.dataset.pdfImageExpand || "", button.dataset.pdfImagePage || "");
-      });
-    });
     codeModal.hidden = false;
     document.body.classList.add("is-code-modal-open");
+    const modalDialog = codeModal.querySelector(".code-detail-modal__dialog");
+    codeModalBody.scrollTop = 0;
+    if (modalDialog) modalDialog.scrollTop = 0;
+    requestAnimationFrame(() => {
+      codeModalBody.scrollTop = 0;
+      if (modalDialog) modalDialog.scrollTop = 0;
+    });
   };
 
   root.querySelectorAll("[data-code-detail]").forEach(button => {

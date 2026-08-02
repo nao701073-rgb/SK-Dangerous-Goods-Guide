@@ -1,0 +1,99 @@
+{
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/144.0.7559.96",
+    "revision": "@d7b80622cfab91c265741194e7942eefd2d21811",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/144.0.0.0 Safari/537.36",
+    "jsVersion": "14.4.258.22"
+  },
+  "menu": [
+    {
+      "text": "ホーム",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "危険物検索",
+      "hidden": false,
+      "active": true
+    },
+    {
+      "text": "申請番号管理",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "申請書確認",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "固縛力参考算出",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "関連法令",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "関連資料",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "オーバーパック表示用作成",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "検索履歴",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "改善要望",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "ユーザー設定 / すべての利用者",
+      "hidden": false,
+      "active": false
+    },
+    {
+      "text": "システム設定 / 権限を持つ利用者のみ",
+      "hidden": false,
+      "active": false
+    }
+  ],
+  "judgement": {
+    "title": "国連番号0004 判定基準の国内法令",
+    "order": "収録：備考2(1) 火薬類の判定基準",
+    "description": "危告示 別表第1 備考2(1) 火薬類の判定基準を、判定条件と結果が分かる形式で表示しています。",
+    "src": "../references/excerpts/domestic-bundles/judgement-criteria/note2-1.pdf#page=1&zoom=page-width",
+    "openText": "結合PDFを別画面で開く",
+    "codeModalHidden": true
+  },
+  "mobile": {
+    "title": "国連番号0004 判定基準の国内法令",
+    "imageSrc": "../assets/domestic-law-bundles/judgement-criteria/note2-1.png",
+    "imageVisible": "block",
+    "iframeDisplay": "none",
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "fallback": {
+    "title": "国連番号2814 判定基準の国内法令",
+    "summary": "該当する国内法令の原文ページを、1つの画面内で順番に表示しています。",
+    "sections": 2,
+    "tabs": 0
+  },
+  "explosiveLabel": "火薬類 ／等級 1.1",
+  "ems": [
+    "火災用スケジュール（Fire Schedules）",
+    "漏洩用スケジュール（Spillage Schedules）"
+  ],
+  "runtimeExceptions": 0
+}
