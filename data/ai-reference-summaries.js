@@ -1,6 +1,6 @@
 window.AI_REFERENCE_SUMMARIES = {
   "schemaVersion": "1.2",
-  "updatedAt": "2026-07-27",
+  "updatedAt": "2026-08-02",
   "sourceDocument": {
     "title": "IMDGコードに基づく検査・検品業務に関する資料 初版",
     "fileName": "IMDG_Code_Inspection_Guide_1st_Edition.pdf",
@@ -8,7 +8,7 @@ window.AI_REFERENCE_SUMMARIES = {
     "pages": 129,
     "editionNote": "IMDG Code 42-24（2025年9月時点）との整合確認を前提とした業務支援資料"
   },
-  "selectionPolicy": "CTU CodeとIMDG Codeから、検査員が適用判断や現物確認で迷いやすい規定を幅広く抽出し、公式PDFの該当ページとともに表示する。",
+  "selectionPolicy": "理解しづらい規定を、国内法令との対比、具体的条番号、PDF実ページ、表・図・脚注の順で確認できるように整理する。IMDG CodeとCTU Codeの参照ページは全件再照合済み。",
   "disclaimer": "AI要約は理解補助です。正式な判断は危規則、危告示、IMDG Code英語原文、CTU Code公表資料、表・図・脚注を確認してください。",
   "categories": {
     "imdg": "IMDG Code",
@@ -27,7 +27,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "推奨"
       ],
       "sourcePages": [
-        14
+        14,
+        15
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -56,9 +57,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-legal-status.pdf",
       "excerptSourcePages": [
-        14
+        14,
+        15
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-prohibited",
@@ -101,7 +107,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         23
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第5条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第5条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-training",
@@ -114,7 +126,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "記録"
       ],
       "sourcePages": [
-        41
+        41,
+        42,
+        43,
+        44
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -143,9 +158,16 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-training.pdf",
       "excerptSourcePages": [
-        41
+        41,
+        42,
+        43,
+        44
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-security",
@@ -158,7 +180,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "セキュリティ"
       ],
       "sourcePages": [
-        46
+        46,
+        47,
+        48,
+        49
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -186,9 +211,16 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-security.pdf",
       "excerptSourcePages": [
-        46
+        46,
+        47,
+        48,
+        49
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-classification",
@@ -201,7 +233,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "副次危険性"
       ],
       "sourcePages": [
-        54
+        54,
+        55,
+        56,
+        57
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -230,9 +265,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-classification.pdf",
       "excerptSourcePages": [
-        54
+        54,
+        55,
+        56,
+        57
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-marine-pollutant",
@@ -245,7 +289,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "環境有害性"
       ],
       "sourcePages": [
-        155
+        155,
+        280,
+        281
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -274,9 +320,17 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-marine-pollutant.pdf",
       "excerptSourcePages": [
-        155
+        155,
+        280,
+        281
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1 海洋汚染物質欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1 海洋汚染物質欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-psn-selection",
@@ -319,7 +373,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         560
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1 品名欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1 品名欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-nos",
@@ -363,7 +423,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         561
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 第3条第3項",
+        "危告示 別表第1 特別規定SP274"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 第3条第3項、危告示 別表第1 特別規定SP274」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-dgl-columns",
@@ -376,7 +443,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "列"
       ],
       "sourcePages": [
-        556
+        577,
+        578,
+        579
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -392,7 +461,7 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionTextJa": "関連規定：IMDG Code 3.2.1\n\n概要\n危険物リストの各列は、分類、包装、特別規定、少量・微量危険物、タンク、EmS、積載、隔離など別々の判断先を示します。\n\n現場確認\n• 対象行を国連番号と品名の両方で特定する\n• 各コードを対応章へ遡って確認する\n\n注意\nリストのコードだけを見て意味を推測せず、必ず参照先の本文・注記まで確認します。",
       "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
       "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-      "sourcePdfPage": 556,
+      "sourcePdfPage": 577,
       "expandedSummary": "危険物リストの各列は、分類、包装、特別規定、少量・微量危険物、タンク、EmS、積載、隔離など別々の判断先を示します。",
       "checkProcedure": [
         "対象行を国連番号と品名の両方で特定する",
@@ -404,9 +473,17 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-dgl-columns.pdf",
       "excerptSourcePages": [
-        556
+        577,
+        578,
+        579
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-special-provisions",
@@ -449,7 +526,13 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         753
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1 特別規定欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1 特別規定欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-limited-quantity",
@@ -462,7 +545,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "3.4"
       ],
       "sourcePages": [
-        762
+        785,
+        786,
+        787
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -478,7 +563,7 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionTextJa": "関連規定：IMDG Code Chapter 3.4\n\n概要\n少量危険物は1内装容器当たりの限度、組合せ容器、総質量、表示、書類等の条件をすべて満たす場合に限り、一部要件が緩和されます。\n\n現場確認\n• 危険物リスト7a列の数量限度を確認する\n• 内装容器・外装容器・総質量・LQマークを確認する\n\n注意\n少量だから危険物でなくなるわけではありません。条件を一つでも外れると通常規定が適用されます。",
       "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
       "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-      "sourcePdfPage": 762,
+      "sourcePdfPage": 785,
       "expandedSummary": "少量危険物は1内装容器当たりの限度、組合せ容器、総質量、表示、書類等の条件をすべて満たす場合に限り、一部要件が緩和されます。",
       "checkProcedure": [
         "危険物リスト7a列の数量限度を確認する",
@@ -490,9 +575,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-limited-quantity.pdf",
       "excerptSourcePages": [
-        762
+        785,
+        786,
+        787
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 別表第1 少量危険物欄",
+        "危規則 第8条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1 少量危険物欄、危規則 第8条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-excepted-quantity",
@@ -505,7 +599,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "3.5"
       ],
       "sourcePages": [
-        788
+        788,
+        789,
+        790
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -533,9 +629,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-excepted-quantity.pdf",
       "excerptSourcePages": [
-        788
+        788,
+        789,
+        790
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 第7条の4第2項",
+        "危告示 別表第1 微量危険物欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 第7条の4第2項、危告示 別表第1 微量危険物欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-packing-general",
@@ -548,7 +653,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "適合性"
       ],
       "sourcePages": [
-        238
+        158,
+        159,
+        160,
+        161
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -564,7 +672,7 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionTextJa": "関連規定：IMDG Code 4.1.1\n\n概要\n容器は通常輸送時の衝撃・振動・温湿度・圧力変化に耐え、内容物と適合し、漏れず、外面に危険な付着がない状態で閉鎖します。\n\n現場確認\n• 容器材質と内容物の適合性を確認する\n• 閉鎖状態、漏れ、外面付着、空間率を確認する\n\n注意\nUNマーク付き容器でも、内容物・比重・圧力・閉鎖方法が承認条件に合わなければ使用できません。",
       "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
       "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-      "sourcePdfPage": 238,
+      "sourcePdfPage": 158,
       "expandedSummary": "容器は通常輸送時の衝撃・振動・温湿度・圧力変化に耐え、内容物と適合し、漏れず、外面に危険な付着がない状態で閉鎖します。",
       "checkProcedure": [
         "容器材質と内容物の適合性を確認する",
@@ -576,9 +684,19 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-packing-general.pdf",
       "excerptSourcePages": [
-        238
+        158,
+        159,
+        160,
+        161
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第8条第2項",
+        "危告示 第25条の3"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条第2項、危告示 第25条の3」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-packing-instructions",
@@ -592,7 +710,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "包装要件"
       ],
       "sourcePages": [
-        241
+        166,
+        231,
+        238
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -608,7 +728,7 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionTextJa": "関連規定：IMDG Code 4.1.4\n\n概要\n包装要件は使用可能な内装・外装・単一容器、最大容量・質量、追加規定PP等を表形式で指定します。\n\n現場確認\n• 危険物リスト8列の包装要件を確認する\n• 容器コード、最大量、追加規定を表の列ごとに照合する\n\n注意\n表の行・列・脚注を読み飛ばすと、容器の種類や最大量を誤ります。",
       "sourceProvisionNote": "IMO公表のIMDG Code Amendment 42-24の該当ページを表示します。要約は理解補助であり、正式な判断は英語原文・表・脚注・国内法令で確認してください。",
       "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-      "sourcePdfPage": 241,
+      "sourcePdfPage": 166,
       "expandedSummary": "包装要件は使用可能な内装・外装・単一容器、最大容量・質量、追加規定PP等を表形式で指定します。",
       "checkProcedure": [
         "危険物リスト8列の包装要件を確認する",
@@ -620,9 +740,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-packing-instructions.pdf",
       "excerptSourcePages": [
-        241
+        166,
+        231,
+        238
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危告示 第25条の4・第25条の4の2・第25条の5",
+        "危告示 別表第1 包装要件欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危告示 第25条の4・第25条の4の2・第25条の5、危告示 別表第1 包装要件欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-overpack",
@@ -665,7 +794,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         274
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第15条",
+        "危告示 第14条の2の2"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第15条、危告示 第14条の2の2」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-package-marks",
@@ -678,7 +814,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "容器包装"
       ],
       "sourcePages": [
-        279
+        279,
+        280,
+        281,
+        282
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -706,9 +845,19 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-package-marks.pdf",
       "excerptSourcePages": [
-        279
+        279,
+        280,
+        281,
+        282
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第8条・第9条",
+        "危告示 第7条の2・第7条の3"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第9条、危告示 第7条の2・第7条の3」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-ctu-placards",
@@ -721,7 +870,10 @@ window.AI_REFERENCE_SUMMARIES = {
         "国連番号表示"
       ],
       "sourcePages": [
-        293
+        293,
+        294,
+        295,
+        296
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -749,9 +901,19 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-ctu-placards.pdf",
       "excerptSourcePages": [
-        293
+        293,
+        294,
+        295,
+        296
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第8条",
+        "危告示 第7条の2・第7条の3・第15条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条、危告示 第7条の2・第7条の3・第15条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-document-sequence",
@@ -764,7 +926,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "基本記載"
       ],
       "sourcePages": [
-        298
+        298,
+        299,
+        300
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -792,9 +956,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-document-sequence.pdf",
       "excerptSourcePages": [
-        298
+        298,
+        299,
+        300
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第17条",
+        "危告示 第14条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条、危告示 第14条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-packing-certificate",
@@ -837,7 +1010,14 @@ window.AI_REFERENCE_SUMMARIES = {
       "excerptSourcePages": [
         303
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第17条",
+        "危告示 第14条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条、危告示 第14条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-emergency-info",
@@ -850,7 +1030,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "書類"
       ],
       "sourcePages": [
-        304
+        304,
+        520
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -879,9 +1060,17 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-emergency-info.pdf",
       "excerptSourcePages": [
-        304
+        304,
+        520
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第17条",
+        "危告示 第14条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条、危告示 第14条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-stowage",
@@ -894,7 +1083,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "甲板上"
       ],
       "sourcePages": [
-        477
+        477,
+        478,
+        479
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -922,9 +1113,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-stowage.pdf",
       "excerptSourcePages": [
-        477
+        477,
+        478,
+        479
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第20条",
+        "危告示 別表第1 積載方法欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第20条、危告示 別表第1 積載方法欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-segregation",
@@ -938,7 +1138,14 @@ window.AI_REFERENCE_SUMMARIES = {
         "隔離表"
       ],
       "sourcePages": [
-        486
+        486,
+        487,
+        488,
+        492,
+        493,
+        494,
+        495,
+        496
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -966,9 +1173,23 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-segregation.pdf",
       "excerptSourcePages": [
-        486
+        486,
+        487,
+        488,
+        492,
+        493,
+        494,
+        495,
+        496
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第21条",
+        "危告示 第3条第3項・別表第1 隔離欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第21条、危告示 第3条第3項・別表第1 隔離欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "imdg-foodstuffs",
@@ -982,7 +1203,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "隔離"
       ],
       "sourcePages": [
-        498
+        498,
+        499
       ],
       "sourceDocument": "IMDG Code Amendment 42-24",
       "imdgRefs": [
@@ -1010,9 +1232,17 @@ window.AI_REFERENCE_SUMMARIES = {
       "whyItMatters": "検査・検品では、コードや一覧表だけでなく、適用条件、例外、脚注、関連規定を連続して確認する必要があります。",
       "excerptPdfPath": "../references/excerpts/ai-imdg-foodstuffs.pdf",
       "excerptSourcePages": [
-        498
+        498,
+        499
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第21条",
+        "危告示 別表第1 隔離欄"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第21条、危告示 別表第1 隔離欄」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-purpose",
@@ -1049,7 +1279,11 @@ window.AI_REFERENCE_SUMMARIES = {
         4,
         5
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-basic-check",
@@ -1086,7 +1320,14 @@ window.AI_REFERENCE_SUMMARIES = {
         11,
         12
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第16条の2・第20条",
+        "危告示 第16条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第16条の2・第20条、危告示 第16条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-responsibility-chain",
@@ -1127,7 +1368,11 @@ window.AI_REFERENCE_SUMMARIES = {
         15,
         16
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-load-distribution",
@@ -1140,8 +1385,11 @@ window.AI_REFERENCE_SUMMARIES = {
         "床荷重"
       ],
       "sourcePages": [
-        11,
-        32
+        17,
+        18,
+        32,
+        79,
+        80
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1160,13 +1408,23 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11,
+      "sourcePdfPage": 17,
       "excerptPdfPath": "../references/excerpts/ai-ctu-load-distribution.pdf",
       "excerptSourcePages": [
-        11,
-        32
+        17,
+        18,
+        32,
+        79,
+        80
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第20条",
+        "危告示 第16条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第20条、危告示 第16条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-securing",
@@ -1179,9 +1437,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "摩擦"
       ],
       "sourcePages": [
-        11,
-        12,
-        32
+        32,
+        79,
+        80
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1199,14 +1457,21 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11,
+      "sourcePdfPage": 32,
       "excerptPdfPath": "../references/excerpts/ai-ctu-securing.pdf",
       "excerptSourcePages": [
-        11,
-        12,
-        32
+        32,
+        79,
+        80
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第20条",
+        "危告示 第16条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第20条、危告示 第16条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-dangerous-goods",
@@ -1219,8 +1484,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "扉付近"
       ],
       "sourcePages": [
-        11,
-        34
+        34,
+        35,
+        36
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1238,13 +1504,21 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 11,
+      "sourcePdfPage": 34,
       "excerptPdfPath": "../references/excerpts/ai-ctu-dangerous-goods.pdf",
       "excerptSourcePages": [
-        11,
-        34
+        34,
+        35,
+        36
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第8条・第16条の2・第20条",
+        "危告示 第16条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第16条の2・第20条、危告示 第16条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-completion",
@@ -1257,8 +1531,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "完了"
       ],
       "sourcePages": [
-        12,
-        36
+        37,
+        38
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1276,13 +1550,20 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 12,
+      "sourcePdfPage": 37,
       "excerptPdfPath": "../references/excerpts/ai-ctu-completion.pdf",
       "excerptSourcePages": [
-        12,
-        36
+        37,
+        38
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第17条・第20条",
+        "危告示 第14条・第16条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条・第20条、危告示 第14条・第16条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-opening",
@@ -1295,8 +1576,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "シール"
       ],
       "sourcePages": [
-        12,
-        38
+        39,
+        40
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1314,13 +1595,19 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 12,
+      "sourcePdfPage": 39,
       "excerptPdfPath": "../references/excerpts/ai-ctu-opening.pdf",
       "excerptSourcePages": [
-        12,
-        38
+        39,
+        40
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [
+        "危規則 第8条・第20条"
+      ],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第20条」を確認します。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-condensation",
@@ -1334,9 +1621,9 @@ window.AI_REFERENCE_SUMMARIES = {
         "腐食"
       ],
       "sourcePages": [
-        4,
-        6,
-        8
+        17,
+        18,
+        49
       ],
       "sourceDocument": "CTU Code（仮訳）",
       "imdgRefs": [
@@ -1354,14 +1641,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 4,
+      "sourcePdfPage": 17,
       "excerptPdfPath": "../references/excerpts/ai-ctu-condensation.pdf",
       "excerptSourcePages": [
-        4,
-        6,
-        8
+        17,
+        18,
+        49
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     },
     {
       "id": "ctu-training",
@@ -1374,6 +1665,8 @@ window.AI_REFERENCE_SUMMARIES = {
         "固縛計算"
       ],
       "sourcePages": [
+        41,
+        126,
         127
       ],
       "sourceDocument": "CTU Code（仮訳）",
@@ -1392,12 +1685,18 @@ window.AI_REFERENCE_SUMMARIES = {
       "sourceProvisionNote": "国土交通省公表のCTU Code仮訳に基づく関連規定の要点表示です。逐語原文ではありません。",
       "sourceType": "ctu",
       "sourcePdfPath": "../references/originals/ctu-code-ja.pdf",
-      "sourcePdfPage": 127,
+      "sourcePdfPage": 41,
       "excerptPdfPath": "../references/excerpts/ai-ctu-training.pdf",
       "excerptSourcePages": [
+        41,
+        126,
         127
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "domesticReferences": [],
+      "comparisonTitle": "国内法令・IMDG Code／CTU Code対比",
+      "domesticComparisonNote": "直接対応する国内条文は登録していません。国内法令上の義務は、対象貨物・船舶・作業に応じて個別に確認してください。",
+      "sourceComparisonNote": "要約だけで判断せず、表示された具体的条番号の本文、表、図、脚注および例外規定を確認してください。"
     }
   ]
 };

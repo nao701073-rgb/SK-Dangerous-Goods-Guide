@@ -1,10 +1,10 @@
 window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
   "schemaVersion": "1.0",
-  "updatedAt": "2026-07-25",
+  "updatedAt": "2026-08-02",
   "edition": "IMDG Code Amendment 42-24",
   "officialInstrument": "Resolution MSC.556(108)",
   "sourceFile": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-  "selectionPolicy": "国内法令に具体的規定がない、または危告示のコードだけでは詳細を確認できない項目のうち、危険物コンテナ収納検査で現物・表示・書類・収納状態の確認に直接使用する条文だけを選定する。",
+  "selectionPolicy": "国内法令と対比できる形で、危険物コンテナ収納検査に直接使用するIMDG Codeの具体的条文・表・図・脚注を表示する。カードのページ番号はPDF上の実ページを全件再照合済み。",
   "excludedScope": [
     "船上でのみ使用する一般積付け要件",
     "船舶設備・消火設備の要件",
@@ -54,7 +54,19 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
         43,
         44
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        41,
+        42,
+        43,
+        44
+      ],
+      "exactImdgReferences": [
+        "1.3.1.1～1.3.1.7"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条、危告示 別表第1」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "3.1.2.8",
@@ -85,7 +97,16 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptSourcePages": [
         561
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        561
+      ],
+      "exactImdgReferences": [
+        "3.1.2.8.1～3.1.2.8.1.4"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危告示 第3条第3項、危告示 別表第1 特別規定SP274」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "3.4.1–3.4.6",
@@ -114,9 +135,22 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-3.4.1-3.4.6.pdf",
       "excerptSourcePages": [
-        785
+        785,
+        786,
+        787
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        785,
+        786,
+        787
+      ],
+      "exactImdgReferences": [
+        "3.4.1～3.4.6"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危告示 別表第1 少量危険物欄、危規則 第8条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "3.5.1–3.5.6",
@@ -146,9 +180,22 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-3.5.1-3.5.6.pdf",
       "excerptSourcePages": [
-        788
+        788,
+        789,
+        790
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        788,
+        789,
+        790
+      ],
+      "exactImdgReferences": [
+        "3.5.1～3.5.8"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危告示 第7条の4第2項、危告示 別表第1 微量危険物欄」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "4.1.1",
@@ -174,13 +221,28 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "originalTextEn": "4.1.1       General provisions for the packing of dangerous goods in packagings,\n            including IBCs and large packagings\n            Note: For the packing of goods of classes 2, 6.2 and 7, the general provisions of this section only apply as\n            indicated in 4.1.8.2 (class 6.2, UN 2814 and UN 2900), 4.1.9.1.5 (class 7) and in the applicable packing instructions\n            of 4.1.4 (P201 and LP02 for class 2 and P620, P621, P622, IBC620, LP621 and LP622 for class 6.2).\n4.1.1.1     Dangerous goods shall be packed in good quality packagings, including IBCs and large packagings, which\n            shall be strong enough to withstand the shocks and loadings normally encountered during transport,\n            including trans-shipment between cargo transport units and between cargo transport units and warehouses\n            as well as any removal from a pallet or overpack for subsequent manual or mechanical handling. Packagings,\n            including IBCs and large packagings, shall be constructed and closed so as to prevent any loss of contents\n            when prepared for transport which may be caused under normal conditions of transport, by vibration, or by\n            changes in temperature, humidity or pressure (resulting from altitude, for example). Packagings, including\n            IBCs and large packagings, shall be closed in accordance with the information provided by the manufacturer.\n            No dangerous residue shall adhere to the outside of packages, IBCs and large packagings during transport.\n            These provisions apply, as appropriate, to new, reused, reconditioned or remanufactured packagings, and to\n            new, reused, repaired or remanufactured IBCs, and to new, reused or remanufactured large packagings.\n4.1.1.2     Parts of packagings, including IBCs and large packagings, which are in direct contact with dangerous goods:\n            .1   shall not be affected or significantly weakened by those dangerous goods; and\n            .2   shall not cause a dangerous effect, such as catalysing a reaction or reacting with the dangerous goods;\n            .3   shall not allow permeation of the dangerous goods that could constitute a danger under normal conditions\n                 of transport.\n            Where necessary, they shall be provided with a suitable inner coating or treatment.\n4.1.1.3     Unless otherwise provided elsewhere in this Code, each packaging, including IBCs and large packagings,\n            except inner packagings, shall conform to a design type successfully tested in accordance with the\n            provisions of 6.1.5, 6.3.5, 6.5.6 or 6.6.5, as applicable. However, IBCs manufactured before 1 January 2011\n            and conforming to a design type which has not passed the vibration test of 6.5.6.13 or which was not required\n            to meet the criteria of 6.5.6.9.5.4 at the time it was subjected to the drop test may still be used.\n4.1.1.3.1   Packagings, including IBCs and large packagings, may conform to one or more than one successfully tested\n            design type and may bear more than one mark.\n4.1.1.4     When filling packagings, including IBCs and large packagings, with liquids, sufficient ullage (outage) shall\n            be left to ensure that neither leakage nor permanent distortion of the packaging occurs as a result of an\n            expansion of the liquid caused by temperatures likely to occur during transport. Unless specific provisions\n\n                                     RESOLUTION MSC.556(108) (adopted on 23 May 2024)\n                                                AMENDMENTS TO THE\n                                INTERNATIONAL MARITIME DANGEROUS GOODS (IMDG) CODE\n\n            are prescribed, liquids shall not completely fill a packaging at a temperature of 55°C. However, sufficient\n            ullage shall be left in an IBC to ensure that at the mean bulk temperature of 50°C it is not filled to more than\n            98% of its water capacity.\n4.1.1.4.1   For air transport, packagings intended to contain liquids shall also be capable of withstanding a pressure\n            differential without leakage as specified in the international regulations for air transport.\n4.1.1.5     Inner packagings shall be packed in an outer packaging in such a way that, under normal conditions of\n            transport, they cannot break, be punctured or leak their contents into the outer packaging. Inner packagings\n            containing liquids shall be packaged with their closures upward and placed within outer packagings consistent\n            with the orientation marks prescribed in 5.2.1.7.1 of this Code. Inner packagings that are liable to break or be\n            punctured easily, such as those made of glass, porcelain or stoneware or of certain plastics materials, etc.,\n            shall be secured in outer packagings with suitable cushioning material. Any leakage of the contents shall not\n            substantially impair the protective properties of the cushioning material or of the outer packaging.\n4.1.1.5.1   Where an outer packaging of a combination packaging or a large packaging has been successfully tested with\n            different types of inner packagings, a variety of such different inner packagings may also be assembled in this\n            outer packaging or large packagings. In addition, provided an equivalent level of performance is maintained,\n            the following variations in inner packagings are allowed without further testing of the package:\n            .1   Inner packagings of equivalent or smaller size may be used provided:\n                 –   the inner packagings are of similar design to the tested inner packagings (such as shape – round,\n                     rectangular, etc.);\n                 –   the material of construction of inner packagings (glass, plastics, metal, etc.) offers resistance to\n                     impact and stacking forces equal to or greater than that of the originally tested inner packaging;\n                 –   the inner packagings have the same or smaller openings and the closure is of similar design (such\n                     as screw cap, friction lid, etc.);\n                 –   sufficient additional cushioning material is used to take up void spaces and to prevent significant\n                     movement of the inner packagings;\n                 –   inner packagings are oriented within the outer packaging in the same manner as in the tested\n                     package; and\n            .2   A lesser number of the tested inner packagings or of the alternative types of inner packagings identified\n                 in .1 above may be used, provided sufficient cushioning is added to fill the void space(s) and to prevent\n                 significant movement of the inner packagings.\n4.1.1.5.2   Use of supplementary packagings within an outer packaging (e.g. an intermediate packaging or a receptacle\n            inside a required inner packaging) additional to what is required by the packing instructions is authorized\n            provided all relevant requirements are met, including those of 4.1.1.3, and, if appropriate, suitable cushioning\n            is used to prevent movement within the packaging.\n4.1.1.5.3   Cushioning and absorbent material shall be inert and suited to the nature of the contents.\n4.1.1.5.4   The nature and the thickness of the outer packagings shall be such that friction during transport does not\n            generate any heating likely to alter dangerously the chemical stability of the contents.\n4.1.1.6     Dangerous goods shall not be packed together in the same outer packaging, or in large packagings, with\n            dangerous or other goods if they react dangerously with each other and cause:\n            .1   combustion and/or evolution of considerable heat;\n            .2   evolution of flammable, toxic or asphyxiant gases;\n            .3   the formation of corrosive substances; or\n            .4   the formation of unstable substances.\n4.1.1.7     The closures of packagings containing wetted or diluted substances shall be such that the percentage of\n            liquid (water, solvent or phlegmatizer) does not fall below the prescribed limits during transport.\n4.1.1.7.1   Where two or more closure systems are fitted in series on an IBC, that nearest to the substance being\n            transported shall be closed first.\n\n                               RESOLUTION MSC.556(108) (adopted on 23 May 2024)\n                                          AMENDMENTS TO THE\n                          INTERNATIONAL MARITIME DANGEROUS GOODS (IMDG) CODE\n\n4.1.1.7.2   Unless otherwise specified in the Dangerous Goods List, packages containing substances which:\n            .1    evolve flammable gases or vapour;\n            .2    may become explosive if allowed to dry;\n            .3    evolve toxic gases or vapour;\n            .4    evolve corrosive gases or vapour; or\n            .5    may react dangerously with the atmosphere\n            should be hermetically sealed.\n4.1.1.8     Where pressure may develop in a package by the emission of gas from the contents (as a result of temperature\n            increase or other causes), the packaging or IBC may be fitted with a vent provided that the gas emitted will\n            not cause danger on account of its toxicity, its flammability, the quantity released, etc.\n            A venting device shall be fitted if dangerous overpressure may develop due to normal decomposition of\n            substances. The vent shall be so designed that, when the packaging or IBC is in the attitude in which it is\n            intended to be transported, leakages of liquid and the penetration of foreign substances are prevented under\n            normal conditions of transport.\n4.1.1.8.1   Liquids may only be filled into inner packagings which have an appropriate resistance to internal pressure that\n            may be developed under normal conditions of transport.\n4.1.1.9     New, remanufactured or re-used packagings, including IBCs and large packagings, or reconditioned\n            packagings and repaired or routinely maintained IBCs shall be capable of passing the tests prescribed in\n            6.1.5, 6.3.5, 6.5.6 or 6.6.5, as applicable. Before being filled and handed over for transport, every packaging,\n            including IBCs and large packagings, shall be inspected to ensure that it is free from corrosion, contamination\n            or other damage and every IBC shall be inspected with regard to the proper functioning of any service\n            equipment. Any packaging which shows signs of reduced strength as compared with the approved design\n            type shall no longer be used or shall be so reconditioned that it is able to withstand the design type tests. Any\n            IBC which shows signs of reduced strength as compared with the tested design type shall no longer be used\n            or shall be so repaired or routinely maintained that it is able to withstand the design type tests.\n4.1.1.10    Liquids shall be filled only into packagings, including IBCs, which have an appropriate resistance to the\n            internal pressure that may develop under normal conditions of transport. As the vapour pressure of\n            ­\n            low-boiling-point liquids is usually high, the strength of receptacles for these liquids shall be sufficient to\n            withstand, with an ample factor of safety, the internal pressure likely to be generated. Packagings and IBCs\n            marked with the hydraulic test pressure prescribed in 6.1.3.1(d) and 6.5.2.2.1, respectively, shall be filled only\n            with a liquid having a vapour pressure:\n            .1    such that the total gauge pressure in the packaging or IBC (i.e. the vapour pressure of the filling substance\n                  plus the partial pressure of air or other inert gases, less 100 kPa) at 55°C, determined on the basis of a\n                  maximum degree of filling in accordance with 4.1.1.4 and a filling temperature of 15°C, will not exceed two\n                  thirds of the marked test pressure; or\n            .2    at 50°C, less than four sevenths of the sum of the marked test pressure plus 100 kPa; or\n            .3    at 55°C, less than two thirds of the sum of the marked test pressure plus 100 kPa.\n            IBCs intended for the transport of liquids shall not be used to carry liquids having a vapour pressure of more\n            than 110 kPa (1.1 bar) at 50°C or 130 kPa (1.3 bar) at 55°C.\n\n                            Examples of required marked test pressures for packagings, including IBCs,\n                                                    calculated as in 4.1.1.10.3\n\n                                                                                                        Required       Minimum\n                                                                                                        minimum      test pressure\n                                                                                           (Vp55×1.5)\n                                                      Packing        Vp55      Vp55×1.5               test pressure (gauge) to be\n             UN No.          Name            Class                                         minus 100\n                                                       group        (kPa)       (kPa)                 (gauge) under   marked on\n                                                                                             (kPa)\n                                                                                                        6.1.5.5.4.3 the packaging\n                                                                                                           (kPa)          (kPa)\n                 2056   Tetrahydrofuran        3          II         70          105           5             100          100\n\n[Excerpt continues in the official IMDG Code PDF.]",
       "originalTextLabel": "IMDG Code Amendment 42-24 — selected corresponding provision in English",
       "sourcePdfPath": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
-      "sourcePdfPage": 238,
+      "sourcePdfPage": 158,
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-4.1.1.pdf",
       "excerptSourcePages": [
-        238
+        158,
+        159,
+        160,
+        161
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        158,
+        159,
+        160,
+        161
+      ],
+      "exactImdgReferences": [
+        "4.1.1.1～4.1.1.21"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条第2項、危告示 第25条の3」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "4.1.4",
@@ -211,10 +273,23 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptPdfPath": "../references/excerpts/imdg-4.1.4.pdf",
       "excerptSourcePages": [
         166,
-        167,
-        168
+        231,
+        238
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        166,
+        231,
+        238
+      ],
+      "exactImdgReferences": [
+        "4.1.4.1（P）",
+        "4.1.4.2（IBC）",
+        "4.1.4.3（LP）"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危告示 第25条の4・第25条の4の2・第25条の5、危告示 別表第1 包装要件欄」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.1.2",
@@ -245,7 +320,16 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptSourcePages": [
         274
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        274
+      ],
+      "exactImdgReferences": [
+        "5.1.2.1～5.1.2.3"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第15条、危告示 第14条の2の2」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.2.1",
@@ -276,9 +360,22 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-5.2.1.pdf",
       "excerptSourcePages": [
-        279
+        279,
+        280,
+        281
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        279,
+        280,
+        281
+      ],
+      "exactImdgReferences": [
+        "5.2.1.1～5.2.1.10"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第9条、危告示 第7条の3」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.2.2",
@@ -308,9 +405,38 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-5.2.2.pdf",
       "excerptSourcePages": [
-        282
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292
+      ],
+      "exactImdgReferences": [
+        "5.2.2.1～5.2.2.2"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第9条、危告示 第7条の2」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.3.1",
@@ -339,9 +465,20 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-5.3.1.pdf",
       "excerptSourcePages": [
-        293
+        293,
+        294
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        293,
+        294
+      ],
+      "exactImdgReferences": [
+        "5.3.1.1～5.3.1.3"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条、危告示 第7条の2・第15条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.3.2",
@@ -371,9 +508,20 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-5.3.2.pdf",
       "excerptSourcePages": [
-        295
+        295,
+        296
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        295,
+        296
+      ],
+      "exactImdgReferences": [
+        "5.3.2.1～5.3.2.4"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条、危告示 第7条の3・第15条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.4.1",
@@ -402,9 +550,28 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-5.4.1.pdf",
       "excerptSourcePages": [
-        297
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ],
+      "exactImdgReferences": [
+        "5.4.1.1～5.4.1.6"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条、危告示 第14条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "5.4.2",
@@ -435,7 +602,16 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptSourcePages": [
         303
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        303
+      ],
+      "exactImdgReferences": [
+        "5.4.2.1～5.4.2.3"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第17条、危告示 第14条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "6.1.3",
@@ -464,9 +640,22 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-6.1.3.pdf",
       "excerptSourcePages": [
-        318
+        318,
+        319,
+        320
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        318,
+        319,
+        320
+      ],
+      "exactImdgReferences": [
+        "6.1.3.1～6.1.3.14"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第113条、危告示 第25条の4」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "6.5.2",
@@ -495,9 +684,26 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "sourceDocument": "IMDG Code Amendment 42-24",
       "excerptPdfPath": "../references/excerpts/imdg-6.5.2.pdf",
       "excerptSourcePages": [
-        388
+        388,
+        389,
+        390,
+        391,
+        392
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        388,
+        389,
+        390,
+        391,
+        392
+      ],
+      "exactImdgReferences": [
+        "6.5.2.1～6.5.2.4"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第113条、危告示 第25条の5」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "7.2.3・7.2.4・7.2.8",
@@ -528,9 +734,33 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptPdfPath": "../references/excerpts/imdg-7.2.3-7.2.4-7.2.8.pdf",
       "excerptSourcePages": [
         486,
-        487
+        487,
+        488,
+        492,
+        493,
+        494,
+        495,
+        496
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        486,
+        487,
+        488,
+        492,
+        493,
+        494,
+        495,
+        496
+      ],
+      "exactImdgReferences": [
+        "7.2.3",
+        "7.2.4",
+        "7.2.8"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第21条、危告示 第3条第3項・別表第1 隔離欄」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "7.3.2・7.3.3",
@@ -563,7 +793,18 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
         497,
         498
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        497,
+        498
+      ],
+      "exactImdgReferences": [
+        "7.3.2",
+        "7.3.3"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第16条の2・第20条、危告示 第16条」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "7.3.4",
@@ -596,7 +837,17 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
         498,
         499
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        498,
+        499
+      ],
+      "exactImdgReferences": [
+        "7.3.4.1～7.3.4.2.2"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第16条・第21条、危告示 別表第1 隔離欄」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     },
     {
       "section": "7.3.6",
@@ -628,7 +879,16 @@ window.IMDG_CONTAINER_INSPECTION_CLAUSES = {
       "excerptSourcePages": [
         499
       ],
-      "excerptPdfPage": 1
+      "excerptPdfPage": 1,
+      "sourcePages": [
+        499
+      ],
+      "exactImdgReferences": [
+        "7.3.6.1～7.3.6.4"
+      ],
+      "comparisonTitle": "国内法令とIMDG Codeの対比",
+      "domesticComparisonNote": "国内法令では「危規則 第8条・第20条、CTU Code 第12章」を確認します。",
+      "imdgComparisonNote": "IMDG Codeでは、上記の具体的な条番号と、その条文に続く表・図・脚注を確認します。"
     }
   ]
 };

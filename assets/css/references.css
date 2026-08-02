@@ -1909,3 +1909,20 @@ body.is-reference-source-fullscreen-open{overflow:hidden}
   .reference-source-modal__body { padding: 12px; }
 }
 
+
+
+/* part486: 国内法令・IMDG/CTU対比 */
+.regulation-comparison-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin:16px 0}
+.regulation-comparison-card{min-width:0;padding:16px;border:1px solid #c9d8e7;border-radius:12px;background:#fff}
+.regulation-comparison-card--domestic{border-left:5px solid #1976b9;background:#f4f9fd}
+.regulation-comparison-card--international{border-left:5px solid #4f63c6;background:#f6f7ff}
+.regulation-comparison-label{display:inline-flex;margin-bottom:8px;padding:4px 9px;border-radius:999px;background:#e6f1fa;color:#07528f;font-size:.72rem;font-weight:900}
+.regulation-comparison-card--international .regulation-comparison-label{background:#e9eaff;color:#3d4ca7}
+.regulation-comparison-card h4{margin:0 0 9px;color:#073b6d;font-size:.92rem}
+.regulation-comparison-card ul{margin:0 0 10px;padding-left:1.2rem;line-height:1.7}
+.regulation-comparison-card p{margin:8px 0 0;color:#36536e;font-size:.8rem;line-height:1.7;overflow-wrap:anywhere}
+.regulation-comparison-pages{font-weight:900;color:#113f72!important}
+.regulation-comparison-empty{font-weight:700}
+.regulation-comparison-link{display:inline-flex;margin-top:12px;padding:8px 12px;border:1px solid #8fb5d8;border-radius:8px;background:#fff;color:#075ca8;font-size:.76rem;font-weight:900;text-decoration:none}
+.imdg-clause-meta span:last-child,.ai-guide-card-meta span:last-child{white-space:normal}
+@media(max-width:720px){.regulation-comparison-grid{grid-template-columns:1fr}.regulation-comparison-card{padding:13px}.regulation-comparison-card h4{font-size:.88rem}}

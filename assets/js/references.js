@@ -256,6 +256,7 @@
   }
 
   function openSourceModal({ eyebrow, title, note, text, language = "en", provisionalTranslation = "", sourcePdfPath = "", sourcePdfPage = "", visualPages = [], preferPageView = false }) {
+    const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
     currentSourceModalState = { text, language, provisionalTranslation, sourcePdfPath, sourcePdfPage, visualPages, pdfUrl, title: title || "該当規定" };
     const eyebrowNode = sourceModal.querySelector("[data-source-modal-eyebrow]");
     if (eyebrowNode) eyebrowNode.textContent = eyebrow || "該当規定";
@@ -272,7 +273,6 @@
     const pdfOpen = sourceModal.querySelector("[data-source-modal-pdf-open]");
     const pageGallery = sourceModal.querySelector("[data-source-modal-page-gallery]");
     const pageFrameWrap = sourceModal.querySelector("[data-source-modal-frame-wrap]");
-    const pdfUrl = sourcePdfPath ? `${sourcePdfPath}${sourcePdfPage ? `#page=${sourcePdfPage}&zoom=page-fit` : ""}` : "";
     const hasVisualPages = Array.isArray(visualPages) && visualPages.length > 0;
     if (pageGallery) {
       pageGallery.innerHTML = hasVisualPages ? visualPages.map(page => `
@@ -692,6 +692,50 @@
     });
   }
 
+  const formatPageList = pages => {
+    const list = Array.isArray(pages) ? pages.filter(Boolean) : [];
+    if (!list.length) return "ページ未登録";
+    const groups = [];
+    let start = list[0], prev = list[0];
+    for (let i = 1; i <= list.length; i += 1) {
+      const current = list[i];
+      if (current === prev + 1) { prev = current; continue; }
+      groups.push(start === prev ? String(start) : `${start}～${prev}`);
+      start = current; prev = current;
+    }
+    return `PDF ${groups.join("・")}ページ`;
+  };
+
+  const buildDomesticLawLink = refs => {
+    const first = Array.isArray(refs) ? refs[0] : "";
+    if (!first) return "";
+    return `regulations.html?query=${encodeURIComponent(first.replace(/[・／].*$/, ""))}`;
+  };
+
+  function renderComparisonPanel(item, sourceLabel) {
+    const domesticRefs = Array.isArray(item.domesticReferences) ? item.domesticReferences : [];
+    const sourceRefs = Array.isArray(item.exactImdgReferences) && item.exactImdgReferences.length
+      ? item.exactImdgReferences
+      : (Array.isArray(item.imdgRefs) ? item.imdgRefs : []);
+    const domesticLink = buildDomesticLawLink(domesticRefs);
+    return `<div class="regulation-comparison-grid">
+      <section class="regulation-comparison-card regulation-comparison-card--domestic">
+        <span class="regulation-comparison-label">国内法令</span>
+        <h4>国内法令で確認する条文</h4>
+        ${domesticRefs.length ? `<ul>${domesticRefs.map(ref => `<li>${escapeHtml(ref)}</li>`).join("")}</ul>` : `<p class="regulation-comparison-empty">直接対応する国内条文は登録していません。</p>`}
+        <p>${escapeHtml(item.domesticComparisonNote || "国内法令の適用規定を個別に確認してください。")}</p>
+        ${domesticLink ? `<a class="regulation-comparison-link" href="${escapeHtml(domesticLink)}">関連法令で確認</a>` : ""}
+      </section>
+      <section class="regulation-comparison-card regulation-comparison-card--international">
+        <span class="regulation-comparison-label">${escapeHtml(sourceLabel)}</span>
+        <h4>具体的な原文条項</h4>
+        ${sourceRefs.length ? `<ul>${sourceRefs.map(ref => `<li>${escapeHtml(ref)}</li>`).join("")}</ul>` : ""}
+        <p class="regulation-comparison-pages">${escapeHtml(formatPageList(item.sourcePages || item.excerptSourcePages || [item.sourcePdfPage]))}</p>
+        <p>${escapeHtml(item.imdgComparisonNote || item.sourceComparisonNote || "本文、表、図、脚注および例外規定を確認してください。")}</p>
+      </section>
+    </div>`;
+  }
+
   function renderImdgClauses() {
     const query = normalize(imdgQueryInput.value);
     const category = imdgCategorySelect.value;
@@ -731,7 +775,7 @@
             <div class="imdg-clause-meta">
               <span>IMDG Code</span>
               <span>${escapeHtml(item.sourceDocument || imdgData.edition || "IMDG Code Amendment 42-24")}</span>
-              ${item.sourcePdfPage ? `<span>p.${escapeHtml(item.sourcePdfPage)}</span>` : ""}
+              ${(item.sourcePages || item.excerptSourcePages || []).length ? `<span>${escapeHtml(formatPageList(item.sourcePages || item.excerptSourcePages))}</span>` : (item.sourcePdfPage ? `<span>PDF ${escapeHtml(item.sourcePdfPage)}ページ</span>` : "")}
             </div>
             <h3>${escapeHtml(item.titleJa)}</h3>
             <p lang="en">${escapeHtml(item.titleEn)}</p>
@@ -753,14 +797,7 @@
           ${item.detailedExplanationJa ? `<section><h4>概要</h4><p>${escapeHtml(item.detailedExplanationJa)}</p></section>` : ""}
           ${Array.isArray(item.readingGuide) ? `<section><h4>原文確認の進め方</h4><ol>${item.readingGuide.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
 
-          <section class="imdg-domestic-reference">
-            <h4>関連する国内法令</h4>
-            <ul>
-              ${(item.domesticReferences || []).map(ref =>
-                `<li>${escapeHtml(ref)}</li>`
-              ).join("")}
-            </ul>
-          </section>
+          ${renderComparisonPanel(item, "IMDG Code")}
 
           <button class="reference-open-link" type="button"
              data-imdg-source-section="${escapeHtml(item.section)}">
@@ -819,7 +856,7 @@
               <span class="ai-badge">AI要約</span>
               <span>${escapeHtml(summaryCategories[item.category] || item.category)}</span>
               <span>${escapeHtml(item.sourceDocument || "関連資料")}</span>
-              <span>p.${escapeHtml((item.sourcePages || []).join("・"))}</span>
+              <span>${escapeHtml(formatPageList(item.sourcePages || []))}</span>
             </div>
             <h3>${escapeHtml(item.title)}</h3>
             <p>${escapeHtml(item.aiSummary)}</p>
@@ -839,13 +876,8 @@
             <p>${escapeHtml(item.caution)}</p>
           </aside>
 
-          <div class="ai-guide-references">
-            <span>主なIMDG参照</span>
-            ${(item.imdgRefs || []).map(ref =>
-              `<code>${escapeHtml(ref)}</code>`
-            ).join("")}
-          </div>
-          <button class="reference-open-link" type="button" data-ai-source-id="${escapeHtml(item.id)}">該当規定をウィンドウ表示</button>
+          ${renderComparisonPanel(item, item.category === "ctu" ? "CTU Code" : "IMDG Code")}
+          <button class="reference-open-link" type="button" data-ai-source-id="${escapeHtml(item.id)}">具体的な原文条項を表示</button>
           <div class="ai-guide-actions ai-guide-actions--simple">
             <button type="button" data-ai-guide-favorite="${escapeHtml(item.id)}">${state.favorite ? "★ お気に入り解除" : "☆ お気に入り"}</button>
           </div>
