@@ -7,7 +7,14 @@ window.REGULATION_REGISTRY = [
     "documentType": "ministerial-ordinance",
     "jurisdiction": "Japan",
     "status": "reference",
-    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/dangerous-goods-regulations.pdf"},
+    "lawNumber": "昭和32年運輸省令第30号",
+    "lawId": "332M50000800030",
+    "officialSource": {
+      "publisher": "e-Gov法令検索",
+      "sourceOwner": "国土交通省",
+      "url": "https://laws.e-gov.go.jp/law/332M50000800030"
+    },
+    "sourceNote": "危険物船舶運送及び貯蔵規則（昭和32年運輸省令第30号）",
     "dataPath": "domestic/ship-dangerous-goods/articles.json"
   },
   {
@@ -18,7 +25,8 @@ window.REGULATION_REGISTRY = [
     "documentType": "notification",
     "jurisdiction": "Japan",
     "status": "reference",
-    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/dangerous-goods-notification.pdf"},
+    "officialSource": {"publisher":"国土交通省","sourceOwner":"国土交通省","url":"../references/originals/dangerous-goods-notification.pdf"},
+    "sourceNote": "船舶による危険物の運送基準等に関する告示（システム登録済み原典PDF）",
     "dataPath": "domestic/dangerous-goods-notification/articles.json"
   },
   {
@@ -39,7 +47,8 @@ window.REGULATION_REGISTRY = [
     "documentType": "notification",
     "jurisdiction": "Japan",
     "status": "reference",
-    "officialSource": {"publisher":"登録済み原典PDF","url":"../references/originals/radioactive-materials-notification.pdf"},
+    "officialSource": {"publisher":"国土交通省","sourceOwner":"国土交通省","url":"../references/originals/radioactive-materials-notification.pdf"},
+    "sourceNote": "船舶による放射性物質等の運送基準の細目等を定める告示（システム登録済み原典PDF）",
     "dataPath": "domestic/radioactive-material-transport/articles.json",
     "sourceDocuments": [
       {
@@ -61,6 +70,7 @@ window.REGULATION_REGISTRY = [
     "status": "reference",
     "officialSource": {
       "publisher": "IMO",
+      "sourceOwner": "IMO",
       "url": "../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
     },
     "sourceNote": "IMO公表のIMDG Code Amendment 42-24（MSC.556(108)）",
@@ -85,6 +95,7 @@ window.REGULATION_REGISTRY = [
     "status": "reference",
     "officialSource": {
       "publisher": "国土交通省",
+      "sourceOwner": "国土交通省",
       "url": "../references/originals/ctu-code-ja.pdf"
     },
     "sourceNote": "国土交通省公表の改訂版 CTU Code 仮訳",
@@ -109,6 +120,7 @@ window.REGULATION_REGISTRY = [
     "status": "reference",
     "officialSource": {
       "publisher": "国土交通省",
+      "sourceOwner": "国土交通省",
       "url": "../references/originals/marpol-73-78-annex-ii-ja.pdf"
     },
     "sourceNote": "国土交通省公表の改訂版 MARPOL 73/78 附属書II仮訳",
@@ -134,8 +146,10 @@ window.REGULATION_REGISTRY = [
     "dataPath": "international/csc/clauses.json",
     "officialSource": {
       "publisher": "外務省",
-      "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/htmls/B-S54-0123.html"
-    }
+      "sourceOwner": "外務省",
+      "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/pdfs/B-S54-0123.pdf"
+    },
+    "sourceNote": "外務省公表「安全なコンテナーに関する国際条約（CSC）」"
   },
   {
     "regulationId": "domestic-ship-safety-act",
@@ -149,8 +163,10 @@ window.REGULATION_REGISTRY = [
     "status": "reference",
     "officialSource": {
       "publisher": "e-Gov法令検索",
+      "sourceOwner": "国土交通省",
       "url": "https://laws.e-gov.go.jp/law/308AC0000000011"
     },
+    "sourceNote": "e-Gov法令検索掲載（船舶安全法）",
     "dataPath": "domestic/ship-safety-act/articles.json"
   }
 ];

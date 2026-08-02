@@ -39,11 +39,25 @@
 
     return items.map(item => {
       const sourceUrl = item.officialSource?.url;
+      const sourcePublisher = item.officialSource?.publisher;
+      const sourceOwner = item.officialSource?.sourceOwner;
+      const sourceDescription = item.sourceNote || "公的原典";
+      const sourceAttribution = sourcePublisher
+        ? `
+          <div class="regulation-source-attribution" aria-label="出典情報">
+            <span class="regulation-source-label">出典</span>
+            <div class="regulation-source-body">
+              <strong>${escapeHtml(sourcePublisher)}</strong>
+              <small>${escapeHtml(sourceDescription)}</small>
+              ${sourceOwner && sourceOwner !== sourcePublisher ? `<small>所管：${escapeHtml(sourceOwner)}</small>` : ""}
+            </div>
+          </div>`
+        : "";
       const sourceLink = sourceUrl
         ? `<a class="regulation-source-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">公的原典を開く ↗</a>`
         : "";
-      const sourceNote = item.sourceNote
-        ? `<small class="regulation-source-note">${escapeHtml(item.sourceNote)}</small>`
+      const sourceArea = sourceLink || sourceAttribution
+        ? `<div class="regulation-source-area">${sourceLink}${sourceAttribution}</div>`
         : "";
 
       const identifiers = [
@@ -68,8 +82,7 @@
             ${item.officialNameEn ? `<p>${escapeHtml(item.officialNameEn)}</p>` : ""}
           </div>
           ${identifiers.length ? `<div class="regulation-identifiers">${identifiers.map(escapeHtml).join("<br>")}</div>` : ""}
-          ${sourceLink}
-          ${sourceNote}
+          ${sourceArea}
         </article>
       `;
     }).join("");

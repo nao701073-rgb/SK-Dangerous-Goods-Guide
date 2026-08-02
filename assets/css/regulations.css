@@ -103,12 +103,6 @@
   }
 }
 
-.regulation-source-link {
-  width: fit-content;
-  color: var(--blue);
-  text-decoration: none;
-  font-weight: 800;
-}
 
 .regulation-identifiers {
   color: var(--muted);
@@ -116,7 +110,73 @@
   line-height: 1.6;
 }
 
-.regulation-source-note{display:block;margin-top:8px;color:#667f97;font-size:.72rem;line-height:1.55}
+
+.regulation-source-area {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.regulation-source-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 44px;
+  padding: 8px 2px;
+  border-radius: 8px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.regulation-source-attribution {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-width: 0;
+  padding-top: 10px;
+  border-top: 1px solid #d8e4ef;
+  color: #355a7a;
+  line-height: 1.5;
+}
+
+.regulation-source-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 26px;
+  padding: 3px 9px;
+  border: 1px solid #b8cee2;
+  border-radius: 999px;
+  background: #eef6fd;
+  color: #0b5da9;
+  font-size: .75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.regulation-source-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.regulation-source-body > strong {
+  color: #123d63;
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+}
+
+.regulation-source-body > small {
+  color: #667f97;
+  font-size: .72rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
 
 
 /* Part 345: regulation cards readability and consistent actions */
@@ -133,14 +193,6 @@
 .regulation-card p,
 .regulation-identifiers {
   overflow-wrap: anywhere;
-}
-.regulation-source-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: auto;
-  padding: 8px 2px;
-  border-radius: 8px;
 }
 .regulation-source-link:hover,
 .regulation-source-link:focus-visible {
@@ -161,5 +213,14 @@
   }
   .regulation-card {
     padding: 18px 16px;
+  }
+
+  .regulation-source-attribution {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .regulation-source-label {
+    min-width: 0;
+    width: fit-content;
   }
 }

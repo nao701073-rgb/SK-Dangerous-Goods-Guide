@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.1",
-  "updatedAt": "2026-07-27",
+  "updatedAt": "2026-08-02",
   "regulations": [
     {
       "regulationId": "domestic-ship-dangerous-goods",
@@ -9,8 +9,16 @@
       "shortName": "危規則",
       "documentType": "ministerial-ordinance",
       "jurisdiction": "Japan",
-      "status": "planned",
-      "dataPath": "domestic/ship-dangerous-goods/articles.json"
+      "status": "reference",
+      "dataPath": "domestic/ship-dangerous-goods/articles.json",
+      "lawNumber": "昭和32年運輸省令第30号",
+      "lawId": "332M50000800030",
+      "officialSource": {
+        "publisher": "e-Gov法令検索",
+        "sourceOwner": "国土交通省",
+        "url": "https://laws.e-gov.go.jp/law/332M50000800030"
+      },
+      "sourceNote": "危険物船舶運送及び貯蔵規則（昭和32年運輸省令第30号）"
     },
     {
       "regulationId": "domestic-dangerous-goods-notification",
@@ -19,8 +27,14 @@
       "shortName": "危告示",
       "documentType": "notification",
       "jurisdiction": "Japan",
-      "status": "planned",
-      "dataPath": "domestic/dangerous-goods-notification/articles.json"
+      "status": "reference",
+      "dataPath": "domestic/dangerous-goods-notification/articles.json",
+      "officialSource": {
+        "publisher": "国土交通省",
+        "sourceOwner": "国土交通省",
+        "url": "../references/originals/dangerous-goods-notification.pdf"
+      },
+      "sourceNote": "船舶による危険物の運送基準等に関する告示（システム登録済み原典PDF）"
     },
     {
       "regulationId": "domestic-high-pressure-gas-safety",
@@ -50,9 +64,11 @@
         }
       ],
       "officialSource": {
-        "publisher": "登録済み原典PDF",
+        "publisher": "国土交通省",
+        "sourceOwner": "国土交通省",
         "url": "../references/originals/radioactive-materials-notification.pdf"
-      }
+      },
+      "sourceNote": "船舶による放射性物質等の運送基準の細目等を定める告示（システム登録済み原典PDF）"
     },
     {
       "regulationId": "international-imdg",
@@ -66,7 +82,8 @@
       "officialNameJa": "国際海上危険物規定",
       "officialSource": {
         "publisher": "IMO",
-        "url": "../../references/originals/imdg-code-amendment-42-24-msc556-108.pdf"
+        "url": "../../references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+        "sourceOwner": "IMO"
       },
       "sourceNote": "IMO公表のIMDG Code Amendment 42-24（MSC.556(108)）",
       "sourceDocuments": [
@@ -90,7 +107,8 @@
       "officialNameJa": "貨物輸送ユニットの収納のための行動規範",
       "officialSource": {
         "publisher": "国土交通省",
-        "url": "../../references/originals/ctu-code-ja.pdf"
+        "url": "../../references/originals/ctu-code-ja.pdf",
+        "sourceOwner": "国土交通省"
       },
       "sourceDocuments": [
         {
@@ -114,7 +132,8 @@
       "officialNameJa": "1973年の船舶による汚染の防止のための国際条約に関する1978年の議定書",
       "officialSource": {
         "publisher": "国土交通省",
-        "url": "../../references/originals/marpol-73-78-annex-ii-ja.pdf"
+        "url": "../../references/originals/marpol-73-78-annex-ii-ja.pdf",
+        "sourceOwner": "国土交通省"
       },
       "sourceNote": "国土交通省公表の改訂版 MARPOL 73/78 附属書II仮訳",
       "sourceDocuments": [
@@ -138,8 +157,10 @@
       "officialNameEn": "International Convention for Safe Containers",
       "officialSource": {
         "publisher": "外務省",
-        "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/htmls/B-S54-0123.html"
-      }
+        "sourceOwner": "外務省",
+        "url": "https://www.mofa.go.jp/mofaj/gaiko/treaty/pdfs/B-S54-0123.pdf"
+      },
+      "sourceNote": "外務省公表「安全なコンテナーに関する国際条約（CSC）」"
     },
     {
       "regulationId": "domestic-ship-safety-act",
@@ -153,9 +174,11 @@
       "status": "reference",
       "officialSource": {
         "publisher": "e-Gov法令検索",
-        "url": "https://laws.e-gov.go.jp/law/308AC0000000011"
+        "url": "https://laws.e-gov.go.jp/law/308AC0000000011",
+        "sourceOwner": "国土交通省"
       },
-      "dataPath": "domestic/ship-safety-act/articles.json"
+      "dataPath": "domestic/ship-safety-act/articles.json",
+      "sourceNote": "e-Gov法令検索掲載（船舶安全法）"
     }
   ]
 }

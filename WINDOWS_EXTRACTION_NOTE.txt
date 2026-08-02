@@ -1,4 +1,4 @@
-Windows-compatible full package for part481.
+Windows-compatible full package for part488.
 The top-level app folder has been removed so the extracted files can be copied directly into the Git repository root.
 Only legacy documentation paths with corrupted or excessively long names were shortened to avoid Windows Explorer extraction errors.
 Application runtime files were not renamed.
