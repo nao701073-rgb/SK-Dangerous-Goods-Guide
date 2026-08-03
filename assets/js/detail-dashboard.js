@@ -1,6 +1,7 @@
 
 (() => {
   "use strict";
+  // Part 505: P520（原典PDF 320～323ページ）を構造化し、PC表・狭幅カード表示へ改善。
   // Part 499: EmS見出しの日本語併記と、火薬類標札名の重複等級表示を整理。
   // Part 498: 隔離・積載方法画面の重複表示、AI解説、未登録案内を削除し、積載方法表記へ統一。
   // Part 490: コード詳細を原典文言の整理表示と原典PDF直リンクへ統一。
@@ -1271,6 +1272,82 @@
       </section>`;
   };
 
+
+  const renderP520Value = value => {
+    const text = String(value || "—");
+    const className = text === "禁止" ? " p520-value--prohibited" : "";
+    return `<span class="p520-value${className}">${escapeHtml(text)}</span>`;
+  };
+
+  const renderP520DesktopTable = section => {
+    const expanded = section.mode === "expanded";
+    const header = expanded
+      ? `<thead>
+          <tr><th rowspan="2">外装容器</th><th rowspan="2">OP1</th><th colspan="2">OP2</th><th rowspan="2">OP3</th><th colspan="2">OP4</th><th rowspan="2">OP5</th><th rowspan="2">OP6</th><th rowspan="2">OP7</th><th rowspan="2">OP8</th></tr>
+          <tr><th>内装容器</th><th>外装容器</th><th>内装容器</th><th>外装容器</th></tr>
+        </thead>`
+      : `<thead><tr><th>容器</th><th>OP1</th><th>OP2</th><th>OP3</th><th>OP4</th><th>OP5</th><th>OP6</th><th>OP7</th><th>OP8</th></tr></thead>`;
+    const rows = (section.rows || []).map(row => {
+      const values = expanded
+        ? [row.op1, row.op2Inner, row.op2Outer, row.op3, row.op4Inner, row.op4Outer, row.op5, row.op6, row.op7, row.op8]
+        : [row.op1, row.op2, row.op3, row.op4, row.op5, row.op6, row.op7, row.op8];
+      return `<tr><th scope="row">${escapeHtml(row.container)}</th>${values.map(value => `<td>${renderP520Value(value)}</td>`).join("")}</tr>`;
+    }).join("");
+    return `<div class="p520-table-view" role="region" aria-label="${escapeHtml(section.title)}の許容質量又は許容容量">
+      <table class="p520-requirement-table${expanded ? " is-expanded" : " is-simple"}">${header}<tbody>${rows}</tbody></table>
+    </div>`;
+  };
+
+  const renderP520MobileCards = section => {
+    const expanded = section.mode === "expanded";
+    const renderPair = (label, value) => `<div class="p520-card__item"><dt>${escapeHtml(label)}</dt><dd>${renderP520Value(value)}</dd></div>`;
+    const renderDouble = (label, inner, outer) => `<div class="p520-card__item p520-card__item--double"><dt>${escapeHtml(label)}</dt><dd><span><small>内装容器</small>${renderP520Value(inner)}</span><span><small>外装容器</small>${renderP520Value(outer)}</span></dd></div>`;
+    return `<div class="p520-card-view" aria-label="${escapeHtml(section.title)}のカード表示">
+      ${(section.rows || []).map(row => `<article class="p520-row-card">
+        <h5><span>容器</span>${escapeHtml(row.container)}</h5>
+        <dl class="p520-card__grid">
+          ${renderPair("OP1", row.op1)}
+          ${expanded ? renderDouble("OP2", row.op2Inner, row.op2Outer) : renderPair("OP2", row.op2)}
+          ${renderPair("OP3", row.op3)}
+          ${expanded ? renderDouble("OP4", row.op4Inner, row.op4Outer) : renderPair("OP4", row.op4)}
+          ${renderPair("OP5", row.op5)}
+          ${renderPair("OP6", row.op6)}
+          ${renderPair("OP7", row.op7)}
+          ${renderPair("OP8", row.op8)}
+        </dl>
+      </article>`).join("")}
+    </div>`;
+  };
+
+  const renderComplexPackingProfile = code => {
+    const profile = window.DOMESTIC_COMPLEX_PACKING_PROFILES?.profiles?.[String(code || "").toUpperCase()];
+    if (!profile) return "";
+    const sourcePages = profile.sourcePages || [];
+    const pageText = sourcePages.length > 1 ? `${sourcePages[0]}～${sourcePages[sourcePages.length - 1]}` : String(sourcePages[0] || "");
+    return `<section class="p520-profile" aria-label="${escapeHtml(profile.title)}">
+      <header class="p520-profile__header">
+        <div><strong>${escapeHtml(profile.title)}</strong><p>${escapeHtml(profile.summary || "")}</p></div>
+        <span>原典PDF ${escapeHtml(pageText)}ページ</span>
+      </header>
+      <div class="p520-profile__guide">
+        <strong>表の見方</strong>
+        <p>容器の種類を行から選び、収納方法OP1～OP8の欄で許容質量又は許容容量を確認してください。「禁止」は、その収納方法では使用できないことを示します。</p>
+      </div>
+      <div class="p520-profile__sections">
+        ${(profile.sections || []).map((section, index) => `<details class="p520-section" ${index === 0 ? "open" : ""}>
+          <summary><span>${escapeHtml(section.title)}</span><small>${escapeHtml(String((section.rows || []).length))}種類の容器</small></summary>
+          <div class="p520-section__body">
+            <p class="p520-section__description">${escapeHtml(section.description || "")}</p>
+            ${renderP520DesktopTable(section)}
+            ${renderP520MobileCards(section)}
+          </div>
+        </details>`).join("")}
+      </div>
+      ${(profile.notes || []).length ? `<section class="p520-notes"><h4>注記</h4><ol>${profile.notes.map(note => `<li>${escapeHtml(note)}</li>`).join("")}</ol></section>` : ""}
+      ${(profile.additionalProvisions || []).length ? `<section class="p520-additional"><h4>追加規定</h4>${profile.additionalProvisions.map(item => `<article><h5>${escapeHtml(item.code)}</h5><p>${escapeHtml(item.text)}</p>${(item.requirements || []).length ? `<ol>${item.requirements.map(req => `<li>${escapeHtml(req)}</li>`).join("")}</ol>` : ""}</article>`).join("")}</section>` : ""}
+    </section>`;
+  };
+
   const renderIbcMaximumContentReference = (code, packingGroup) => {
     if (!/^IBC\d+/i.test(String(code || ""))) return "";
     const pg = ["I", "II", "III"].includes(String(packingGroup || "").trim()) ? String(packingGroup).trim() : "指定なし";
@@ -2505,6 +2582,8 @@
   };
 
   const getCodeDisplayPages = reference => {
+    const complexProfilePages = window.DOMESTIC_COMPLEX_PACKING_PROFILES?.profiles?.[String(reference?.code || "").toUpperCase()]?.sourcePages;
+    if (Array.isArray(complexProfilePages) && complexProfilePages.length) return complexProfilePages;
     if (reference?.code === "P200" && record?.unNumber) {
       const page = findP200CurrentPage(reference);
       return page ? [page] : (reference.domesticOriginalPages || [reference.domesticOriginalPage]);
@@ -2664,6 +2743,8 @@
 
   const renderOrganizedOriginalContent = (reference, contextual) => {
     if (!contextual) return "";
+    const complexPackingProfile = renderComplexPackingProfile(reference?.code);
+    if (complexPackingProfile) return complexPackingProfile;
     const stowageCategoryRequirement = renderStowageCategoryRequirement(reference, contextual);
     if (stowageCategoryRequirement) return stowageCategoryRequirement;
     const hasQuantityProfile = Boolean(window.DOMESTIC_PACKING_QUANTITY_PROFILES?.profiles?.[reference.code]);
@@ -2778,12 +2859,33 @@
     </section>`;
   };
 
+
+  const decorateCodeTablesForResponsiveLayout = container => {
+    if (!container) return;
+    container.querySelectorAll("table").forEach(table => {
+      table.classList.add("responsive-code-table");
+      const headers = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim());
+      if (headers.length >= 5 && !table.classList.contains("p520-requirement-table")) table.classList.add("responsive-wide-table");
+      if (headers.length) {
+        table.querySelectorAll("tbody tr").forEach(row => {
+          [...row.children].forEach((cell, index) => {
+            if (cell.tagName === "TD" && headers[index]) cell.dataset.label = headers[index];
+          });
+        });
+      } else if (table.querySelector("tbody tr > th")) {
+        table.classList.add("responsive-key-value-table");
+      }
+    });
+  };
+
   const openCodeModal = code => {
     if (!codeModal || !codeModalBody || !codeModalTitle) return;
     const headerLabel = codeModal.querySelector(".code-detail-modal__header span");
     if (headerLabel) headerLabel.textContent = "国内法令・IMDG Code";
     const reference = window.IMDGCrossReferenceResolver?.resolve(code);
     if (!reference) return;
+    const hasComplexPackingProfile = Boolean(window.DOMESTIC_COMPLEX_PACKING_PROFILES?.profiles?.[String(reference.code || "").toUpperCase()]);
+    codeModal.classList.toggle("has-complex-packing-profile", hasComplexPackingProfile);
     const domesticPdfPath = "../references/originals/dangerous-goods-notification.pdf";
     const contextualOriginal = extractContextualCodeText(reference);
     const displayPages = getCodeDisplayPages(reference).filter(Boolean);
@@ -2796,6 +2898,7 @@
       ${renderPortableTankRequirementReference(reference.code)}
       ${renderCodeExplanation(reference, contextualOriginal, domesticExactPageUrl, displayPages)}
     `;
+    decorateCodeTablesForResponsiveLayout(codeModalBody);
     codeModal.hidden = false;
     document.body.classList.add("is-code-modal-open");
     const modalDialog = codeModal.querySelector(".code-detail-modal__dialog");
@@ -2838,3 +2941,5 @@
   });
   refreshFavorite();
 })();
+
+window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/detail-dashboard.js": "part505" });

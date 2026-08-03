@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="sk-build" content="part503">
-  <script src="../data/build-manifest.js?v=503"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503">
+  <meta name="sk-build" content="part505">
+  <script src="../data/build-manifest.js?v=505"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505">
   <script src="../assets/js/auth-bootstrap.js?v=439"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -666,6 +666,6 @@ $('saveCtuResult').onclick=()=>{try{if(!window.SKCTUReview?.isComplete?.())throw
 $('createAndSaveCtuResult').onclick=()=>{try{if(!window.SKCTUReview?.isComplete?.())throw new Error('登録前の確認を完了してください。');calc();latestCtuResult.review=window.SKCTUReview.getData();const app=window.ISSApplicationResults.createApplication({applicationYear:$('ctuNewApplicationYear').value,applicationNumber:$('ctuNewApplicationNumber').value,caseTitle:$('ctuNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('ctuApplicationSelect'));$('ctuApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、算出結果を保存しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'新規登録できませんでした。'}};
 </script>
 <script src="../assets/js/unified-submenu.js?v=500"></script>
-<script src="../assets/js/version-guard.js?v=503"></script>
+<script src="../assets/js/version-guard.js?v=505"></script>
 </body>
 </html>

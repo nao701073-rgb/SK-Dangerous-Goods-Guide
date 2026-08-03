@@ -1,0 +1,138 @@
+{
+  "release": "part505",
+  "date": "2026-08-03",
+  "scope": "P520包装要件（危告示PDF 320～323ページ）および同種の横長包装要件表のレスポンシブ表示",
+  "sourceVerification": {
+    "pdf": "references/originals/dangerous-goods-notification.pdf",
+    "pages": [
+      320,
+      321,
+      322,
+      323
+    ],
+    "sections": [
+      {
+        "id": "solid-combination",
+        "rows": 24
+      },
+      {
+        "id": "solid-single-composite",
+        "rows": 25
+      },
+      {
+        "id": "liquid-single-composite",
+        "rows": 25
+      }
+    ],
+    "notes": 7,
+    "additionalProvisions": [
+      "PP21",
+      "PP22",
+      "PP94",
+      "PP95"
+    ]
+  },
+  "browserVerification": {
+    "browser": "Chromium 144.0.7559.96",
+    "dangerousGoods": "UN3101",
+    "results": {
+      "desktop": {
+        "viewport": [
+          1365,
+          900
+        ],
+        "modalWidth": 1310.390625,
+        "bodyWidth": 1308.390625,
+        "profileScrollWidth": 1246,
+        "profileClientWidth": 1246,
+        "tableDisplay": "block",
+        "cardDisplay": "none",
+        "sections": 3,
+        "desktopRows": 74,
+        "cards": 74,
+        "noteCount": 7,
+        "provisions": 4,
+        "links": [
+          "危告示原文を開く（PDF 320ページ）",
+          "危告示原文を開く（PDF 321ページ）",
+          "危告示原文を開く（PDF 322ページ）",
+          "危告示原文を開く（PDF 323ページ）",
+          "危規則 第8条第3項第1号 原文を開く（PDF 4ページ）",
+          "危規則 第113条第3項 原文を開く（PDF 67ページ）",
+          "危告示 第25条の3 原文を開く（PDF 20ページ）",
+          "危告示 第25条の4 原文を開く（PDF 21ページ）"
+        ],
+        "pageOverflow": false,
+        "bodyOverflow": false,
+        "errors": []
+      },
+      "tablet": {
+        "viewport": [
+          900,
+          900
+        ],
+        "modalWidth": 864,
+        "bodyWidth": 862,
+        "profileScrollWidth": 800,
+        "profileClientWidth": 800,
+        "tableDisplay": "none",
+        "cardDisplay": "grid",
+        "sections": 3,
+        "desktopRows": 74,
+        "cards": 74,
+        "noteCount": 7,
+        "provisions": 4,
+        "links": [
+          "危告示原文を開く（PDF 320ページ）",
+          "危告示原文を開く（PDF 321ページ）",
+          "危告示原文を開く（PDF 322ページ）",
+          "危告示原文を開く（PDF 323ページ）",
+          "危規則 第8条第3項第1号 原文を開く（PDF 4ページ）",
+          "危規則 第113条第3項 原文を開く（PDF 67ページ）",
+          "危告示 第25条の3 原文を開く（PDF 20ページ）",
+          "危告示 第25条の4 原文を開く（PDF 21ページ）"
+        ],
+        "pageOverflow": false,
+        "bodyOverflow": false,
+        "errors": []
+      },
+      "mobile": {
+        "viewport": [
+          390,
+          844
+        ],
+        "modalWidth": 390,
+        "bodyWidth": 390,
+        "profileScrollWidth": 348,
+        "profileClientWidth": 348,
+        "tableDisplay": "none",
+        "cardDisplay": "grid",
+        "sections": 3,
+        "desktopRows": 74,
+        "cards": 74,
+        "noteCount": 7,
+        "provisions": 4,
+        "links": [
+          "危告示原文を開く（PDF 320ページ）",
+          "危告示原文を開く（PDF 321ページ）",
+          "危告示原文を開く（PDF 322ページ）",
+          "危告示原文を開く（PDF 323ページ）",
+          "危規則 第8条第3項第1号 原文を開く（PDF 4ページ）",
+          "危規則 第113条第3項 原文を開く（PDF 67ページ）",
+          "危告示 第25条の3 原文を開く（PDF 20ページ）",
+          "危告示 第25条の4 原文を開く（PDF 21ページ）"
+        ],
+        "pageOverflow": false,
+        "bodyOverflow": false,
+        "errors": []
+      }
+    }
+  },
+  "staticVerification": {
+    "javascriptSyntax": "passed",
+    "htmlBuildMarkers": 63,
+    "profileVerification": "passed",
+    "horizontalOverflow": false
+  },
+  "decision": "passed"
+}

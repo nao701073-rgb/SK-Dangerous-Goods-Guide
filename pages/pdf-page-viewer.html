@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta name="sk-build" content="part503">
-  <script src="../data/build-manifest.js?v=503"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503">
+  <meta name="sk-build" content="part505">
+  <script src="../data/build-manifest.js?v=505"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>原文ページ表示</title>
@@ -18,5 +18,5 @@
 <script>
 (()=>{const q=new URLSearchParams(location.search);const doc=q.get('doc')||'notification';const page=Math.max(1,parseInt(q.get('page')||'1',10)||1);const section=q.get('section')||'';const map={notification:{pdf:'../references/originals/dangerous-goods-notification.pdf',img:'../assets/pdf-page-images/dangerous-goods-notification/page-'+page+'.png',label:'危告示'},regulation:{pdf:'../references/originals/dangerous-goods-regulations.pdf',img:'../assets/domestic-law-pages/regulation/page-'+page+'.png',label:'危規則'},radioactive:{pdf:'../references/originals/radioactive-materials-notification.pdf',img:'../assets/domestic-law-pages/radioactive/page-'+page+'.png',label:'放告示'},imdg:{pdf:'../references/originals/imdg-code-amendment-42-24-msc556-108.pdf',img:'../assets/pdf-page-images/imdg-code/page-'+page+'.jpg',label:section?'IMDG Code '+section:'IMDG Code'}};const x=map[doc]||map.notification;document.title=x.label+' PDF '+page+'ページ';document.getElementById('title').textContent=x.label+'（PDF '+page+'ページ）';const a=document.getElementById('pdf');a.href=x.pdf+'#page='+page+'&zoom=page-width';const img=document.getElementById('pageImage');img.src=x.img;img.alt=x.label+' PDF '+page+'ページ';img.onerror=()=>{img.replaceWith(Object.assign(document.createElement('p'),{className:'error',textContent:'ページ画像を表示できません。右上の「PDFを開く」から原文を確認してください。'}));};document.getElementById('back').onclick=()=>history.length>1?history.back():window.close();})();
 </script>
-<script src="../assets/js/version-guard.js?v=503"></script>
+<script src="../assets/js/version-guard.js?v=505"></script>
 </body></html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ja"><head>
-  <meta name="sk-build" content="part503">
-  <script src="../data/build-manifest.js?v=503"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <meta name="sk-build" content="part505">
+  <script src="../data/build-manifest.js?v=505"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>データ移行管理</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/admin-tools.css?v=178"><link rel="stylesheet" href="../assets/css/data-migration.css?v=178">  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head><body data-page="data-migration" data-required-roles="safety-environment-admin"><main class="migration-page"><p><a href="system-settings.html">← 設定へ戻る</a></p><h1>データ移行管理</h1><p class="notice">川崎事業所の試験運用を優先し、CSVの事前検証後に登録します。エラーがある行は登録されません。実行結果は監査ログへ記録します。</p>
 <section class="panel"><div class="panel-heading"><h2>1. 移行対象を選択</h2></div><div class="panel-body"><div class="type-grid"><button class="type-card is-active" data-type="applications"><strong>申請番号</strong><span>申請番号・荷主・貨物名・状態</span></button><button class="type-card" data-type="users"><strong>利用者</strong><span>ログインID・表示名・権限・所属</span></button><button class="type-card" data-type="offices"><strong>事業所</strong><span>他ブロック・他事業所の追加</span></button><button class="type-card" data-type="browser"><strong>ブラウザ保存データ</strong><span>ローカルデータを中央DBへ移行</span></button></div></div></section>
@@ -10,5 +10,5 @@
 <section class="panel"><div class="panel-heading"><h2>4. 移行履歴</h2><button id="reloadHistory" type="button">再読込</button></div><div class="panel-body"><div class="table-wrap"><table><thead><tr><th>日時</th><th>対象</th><th>結果</th><th>登録</th><th>エラー</th><th>実行者</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
 </main><script src="../assets/js/storage.js?v=178"></script><script src="../assets/js/api-client.js?v=503"></script><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/data-migration.js?v=178"></script>  <script src="../assets/js/session-guard.js?v=422"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
-<script src="../assets/js/version-guard.js?v=503"></script>
+<script src="../assets/js/version-guard.js?v=505"></script>
 </body></html>
