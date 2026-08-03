@@ -1,0 +1,96 @@
+{
+  "reportName": "Part503 実装検証レポート",
+  "generatedAt": "2026-08-03T01:20:32.806Z",
+  "systemVersion": "part503",
+  "releaseDecision": "pass",
+  "summary": {
+    "recordCount": 2725,
+    "uniqueUnCount": 2248,
+    "masterCodeCount": 594,
+    "htmlCount": 63,
+    "runtimeLegalMasterBytes": 1240389,
+    "previousLegalMasterBytes": 2705109,
+    "errorCount": 0,
+    "warningCount": 0,
+    "checkCount": 15
+  },
+  "checks": [
+    {
+      "name": "Part503構成ファイル",
+      "status": "pass",
+      "detail": "10件を確認"
+    },
+    {
+      "name": "危険物レコード",
+      "status": "pass",
+      "detail": "2,725行"
+    },
+    {
+      "name": "国連番号",
+      "status": "pass",
+      "detail": "2,248件"
+    },
+    {
+      "name": "法令マスター版",
+      "status": "pass",
+      "detail": "part503"
+    },
+    {
+      "name": "コードマスター",
+      "status": "pass",
+      "detail": "594件"
+    },
+    {
+      "name": "不正表示候補",
+      "status": "pass",
+      "detail": "undefined/nullpなし"
+    },
+    {
+      "name": "法令マスター分割読込",
+      "status": "pass",
+      "detail": "通常読込 1.18MB（従来 2.58MB）"
+    },
+    {
+      "name": "バージョン混在防止",
+      "status": "pass",
+      "detail": "63画面をpart503に統一"
+    },
+    {
+      "name": "サーバー側権限制御",
+      "status": "pass",
+      "detail": "ゲストを業務データAPIから除外"
+    },
+    {
+      "name": "中央管理API",
+      "status": "pass",
+      "detail": "権限・履歴・承認・バックアップAPIを確認"
+    },
+    {
+      "name": "人による法令承認画面",
+      "status": "pass",
+      "detail": "作成・照合・承認・公開を分離"
+    },
+    {
+      "name": "中央バックアップ画面",
+      "status": "pass",
+      "detail": "状態・設定・復元試験を表示"
+    },
+    {
+      "name": "中央訂正履歴画面",
+      "status": "pass",
+      "detail": "訂正前後・理由・操作者を確認可能"
+    },
+    {
+      "name": "申請書・写真中央同期",
+      "status": "pass",
+      "detail": "資料版管理を同期対象へ追加"
+    },
+    {
+      "name": "バックアップ完全性",
+      "status": "pass",
+      "detail": "DB・添付・SHA-256・遠隔保管・実行台帳"
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

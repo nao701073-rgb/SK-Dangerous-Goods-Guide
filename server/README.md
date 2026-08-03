@@ -54,3 +54,29 @@ psql "$DATABASE_URL" -f sql/021_photo_purge_deadlines.sql
 
 ## Part 192 クラウド運用
 社内サーバーを設置せず、クラウドWebサービス、マネージドPostgreSQL、永続ディスクを使用します。詳細は`docs/クラウド運用_構築手順書.md`を参照してください。
+
+## Part 503: 中央保存・承認・訂正履歴・バックアップ
+
+Part 503では添付ファイル保存を `src/storage.js` に集約し、永続ファイルシステムまたはS3互換ストレージを選択できます。申請資料・写真・法令原典は保存時と取得時にSHA-256を照合します。
+
+追加マイグレーション：
+
+```sh
+node scripts/migrate.js
+```
+
+主な環境変数：
+
+- `STORAGE_PROVIDER=filesystem|s3`
+- `ATTACHMENT_STORAGE_DIR`
+- `S3_BUCKET`, `S3_REGION`, `S3_ENDPOINT`, `S3_PREFIX`
+- `BACKUP_INTERVAL_HOURS`, `BACKUP_RETENTION_DAYS`
+- `OFFSITE_BACKUP_COMMAND`, `OFFSITE_BACKUP_LOCATION`
+
+バックアップ検証：
+
+```sh
+sh scripts/verify-backup.sh /backups/backup_YYYYMMDD_HHMMSS
+```
+
+静的サイトだけを公開しても中央保存やサーバー側権限制御は有効になりません。PostgreSQL、API、永続ストレージ、TLS終端を含む構成で運用してください。

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="part503">
+  <script src="../data/build-manifest.js?v=503"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503">
+  <script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <script src="../assets/js/structured-data-overrides.js?v=381"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法令原典照合・承認管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
+  <link rel="stylesheet" href="../assets/css/governance-part503.css?v=503">
+  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+</head>
+<body data-page="regulations" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,revision-validator,validator">
+  <main class="workspace maintenance-page">
+    <div class="page-breadcrumb">ホーム ＞ 関連法令 ＞ 法令原典照合・承認管理</div>
+    <div class="page-heading-row">
+      <div><h1>法令原典照合・承認管理</h1><p>原典登録、データ作成、原典照合、承認、公開を別の利用者が順番に実施します。</p></div>
+      <a class="back-link" href="regulation-update-admin.html">← 更新管理へ戻る</a>
+    </div>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>承認分離の原則</h2><p>作成者、原典照合者、承認者を同一人物にせず、承認済みデータだけを公開します。</p></div></div>
+      <div class="panel-body part503-grid">
+        <div class="part503-status-grid">
+          <article class="part503-status-card"><span>作成</span><strong>原典・差分を登録</strong></article>
+          <article class="part503-status-card"><span>照合</span><strong>条文・別表・ページを原典確認</strong></article>
+          <article class="part503-status-card"><span>承認</span><strong>照合結果と影響を承認</strong></article>
+          <article class="part503-status-card"><span>公開</span><strong>承認済み版のみ反映</strong></article>
+        </div>
+        <div id="regulationApprovalMessage" class="part503-message" aria-live="polite">中央サーバーへ接続して承認状況を取得します。</div>
+      </div>
+    </section>
+
+    <details class="panel">
+      <summary class="panel-heading"><strong>原典・更新データの登録</strong></summary>
+      <div class="panel-body part503-grid">
+        <form id="centralRegulationSourceForm" class="part503-form two-column">
+          <h2 class="wide">1. 原典PDF登録</h2>
+          <label>法令ID<input name="regulationId" required placeholder="domestic-dangerous-goods-notification"></label>
+          <label>版・改正番号<input name="editionLabel" required placeholder="令和○年改正"></label>
+          <label>公布日<input name="publicationDate" type="date"></label>
+          <label>適用開始日<input name="effectiveFrom" type="date" required></label>
+          <label>発行者<input name="publisher" value="国土交通省"></label>
+          <label>公式URL<input name="sourceUrl" type="url"></label>
+          <label class="wide">改正概要<textarea name="changeSummary" rows="3"></textarea></label>
+          <label class="wide">原典PDF<input name="source" type="file" accept="application/pdf,.pdf" required></label>
+          <div class="part503-actions wide"><button class="primary-action" type="submit">原典を中央保存</button></div>
+        </form>
+        <form id="centralRegulationDatasetForm" class="part503-form two-column">
+          <h2 class="wide">2. 構造化データ登録</h2>
+          <label>原典ID<input name="sourceId" required></label>
+          <label>スキーマ版<input name="schemaVersion" value="1.0.0" required></label>
+          <label>形式<select name="dataFormat"><option value="json">JSON</option><option value="csv">CSV</option></select></label>
+          <label>レコード件数<input name="recordCount" type="number" min="0"></label>
+          <label class="wide">対象キー（JSON配列）<input name="targetKeys" value="[]"></label>
+          <label class="wide">更新データ<input name="dataset" type="file" accept=".json,.csv,application/json,text/csv" required></label>
+          <div class="part503-actions wide"><button class="primary-action" type="submit">更新データを中央保存</button></div>
+        </form>
+        <form id="centralChangeSetForm" class="part503-form two-column">
+          <h2 class="wide">3. 変更セット作成</h2>
+          <label>原典ID<input name="sourceId" required></label>
+          <label>データセットID<input name="datasetId"></label>
+          <label>追加件数<input name="addedCount" type="number" min="0" value="0"></label>
+          <label>変更件数<input name="changedCount" type="number" min="0" value="0"></label>
+          <label>削除件数<input name="deletedCount" type="number" min="0" value="0"></label>
+          <label>削除理由<input name="deletionJustification"></label>
+          <label class="wide">差分概要（JSON）<textarea name="diffSummary" rows="4">{}</textarea></label>
+          <label class="wide">原典ページ参照（JSON配列）<textarea name="sourcePageReferences" rows="3">[]</textarea></label>
+          <div class="part503-actions wide"><button class="primary-action" type="submit">変更セットを作成</button></div>
+        </form>
+      </div>
+    </details>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>照合・承認待ち一覧</h2><p>状態に応じた操作だけを表示します。各操作は監査履歴に残ります。</p></div></div>
+      <div class="panel-body part503-grid">
+        <div class="part503-form two-column">
+          <label>状態<select id="regulationApprovalStatus"><option value="">すべて</option><option value="draft">下書き</option><option value="submitted">照合待ち</option><option value="reviewed">承認待ち</option><option value="approved">公開待ち</option><option value="returned">差戻し</option><option value="rejected">却下</option><option value="published">公開済み</option></select></label>
+          <div class="part503-actions"><button id="refreshRegulationApproval" type="button">一覧を更新</button></div>
+        </div>
+        <div id="regulationApprovalList" class="part503-card-list"><p class="empty-state">読込中です。</p></div>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/storage.js?v=503"></script>
+  <script src="../assets/js/api-client.js?v=503"></script>
+  <script src="../assets/js/regulation-approval-admin.js?v=503"></script>
+  <script src="../assets/js/system-shell.js"></script>
+  <script src="../assets/js/session-guard.js?v=422"></script>
+  <script src="../assets/js/role-access.js?v=503"></script>
+  <script src="../assets/js/usage-tracking.js?v=222"></script>
+  <script src="../assets/js/version-guard.js?v=503"></script>
+</body>
+</html>

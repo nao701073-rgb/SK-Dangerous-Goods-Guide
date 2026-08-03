@@ -36,13 +36,45 @@
       if (item.action === "update") {
         const result = await window.ISSApi.updateApplication(serverId, {
           applicationNumber: p.applicationNumber || local?.applicationNumber || "", shipper: p.shipper || "", cargoName: p.cargoName || "", note: p.note || "", status: p.status || "active",
-          version: Number(p.serverVersion || local?.serverVersion || 1)
+          version: Number(p.serverVersion || local?.serverVersion || 1),
+          changeReason: p.changeReason || "オフライン入力の同期反映"
         });
         window.ISSStorage.setApplicationServerId(p.id, serverId, result.application.version || 1);
         return { serverId, version: result.application.version || 1 };
       }
-      if (item.action === "delete") return window.ISSApi.deleteApplication(serverId);
+      if (item.action === "delete") return window.ISSApi.deleteApplication(serverId, p.changeReason || p.reason || "オフラインで取消・削除した内容の同期");
       return { skipped: true, reason: "未対応の申請番号操作" };
+    }
+    if (item.entity === "application-document") {
+      const local = window.ISSStorage.getApplicationDocuments({ scope:"all", includeCancelled:true }).find(doc => doc.id === p.id);
+      const document = local || p;
+      if (["create","create-version"].includes(item.action)) {
+        if (!document.dataUrl) return { skipped:true, reason:"添付資料本体がありません" };
+        const application = window.ISSStorage.getApplications({ scope:"all" }).find(app => app.id === document.applicationId);
+        if (!application?.serverId) return { skipped:true, reason:"先に申請番号を同期してください" };
+        const form=new FormData();
+        form.set("applicationId",application.serverId);
+        form.set("category",document.category||"other");
+        form.set("description",document.description||"");
+        form.set("changeReason",document.changeReason||"");
+        form.set("uploadedBy",document.uploadedBy||"利用者");
+        if(item.action==="create-version"){
+          const parent=window.ISSStorage.getApplicationDocuments({scope:"all",includeCancelled:true}).find(doc=>doc.id===document.parentDocumentId);
+          if(!parent?.serverId)return {skipped:true,reason:"先に更新元資料を同期してください"};
+          form.set("parentDocumentId",parent.serverId);
+        }
+        form.set("document",dataUrlToBlob(document.dataUrl),document.fileName||"document.bin");
+        const result=await window.ISSApi.uploadApplicationDocument(form);
+        window.ISSStorage.setApplicationDocumentServerId(document.id,result.document.id);
+        return result;
+      }
+      const serverId=document.serverId||p.serverId;
+      if(!serverId)return {skipped:true,reason:"先に添付資料を同期してください"};
+      if(item.action==="update"){
+        const action=document.isCancelled?"cancel":"restore";
+        return window.ISSApi.updateApplicationDocumentStatus(serverId,{action,reason:document.cancellationReason||document.changeReason||"状態変更"});
+      }
+      return {skipped:true,reason:"未対応の添付資料操作"};
     }
     if (item.entity === "photo") {
       if (item.action === "create") {
@@ -85,9 +117,12 @@
     window.ISSStorage.mergeServerApplications(applicationResult.applications || []);
     const photoResult = await window.ISSApi.listPhotos(params);
     window.ISSStorage.mergeServerPhotos(photoResult.photos || [], assetBaseFromEndpoint());
+    const documentResult = await window.ISSApi.listApplicationDocuments(params);
+    window.ISSStorage.mergeServerApplicationDocuments(documentResult.documents || [], assetBaseFromEndpoint());
     localStorage.setItem("iss-last-data-pull-at", new Date().toISOString());
     window.dispatchEvent(new CustomEvent("iss:applications-changed"));
-    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length };
+    window.dispatchEvent(new CustomEvent("iss:application-documents-changed"));
+    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length, documents:(documentResult.documents || []).length };
   }
 
   window.ISSSync = {

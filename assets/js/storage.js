@@ -3271,6 +3271,60 @@
       return records.length;
     },
 
+    mergeServerApplicationDocuments(records = [], assetBase = "") {
+      const documents = read(KEYS.applicationDocuments, []).map(item => ({ ...item, ...normalizeOffice(item) }));
+      for (const row of records) {
+        const serverId = row.id || row.serverId;
+        const application = read(KEYS.applications, []).find(item => item.serverId === (row.application_id || row.applicationId));
+        let target = documents.find(item => item.serverId === serverId || (row.client_id && item.id === row.client_id));
+        const url = row.url ? (/^https?:/i.test(row.url) ? row.url : `${String(assetBase).replace(/\/$/, "")}${row.url}`) : target?.dataUrl || "";
+        const mapped = {
+          id: target?.id || `server-document-${serverId}`,
+          serverId,
+          applicationId: application?.id || row.application_id || row.applicationId || "",
+          applicationYear: application?.applicationYear || "",
+          applicationNumber: row.application_number || application?.applicationNumber || "",
+          temporaryNumber: application?.temporaryNumber || "",
+          officeId: row.office_id || application?.officeId || this.getOfficeId(),
+          office: row.office_name || application?.office || "",
+          blockId: application?.blockId || "",
+          blockName: application?.blockName || "",
+          category: row.category || "other",
+          description: row.description || "",
+          fileName: row.original_name || row.fileName || "",
+          fileType: row.mime_type || row.fileType || "",
+          fileSize: Number(row.file_size || row.fileSize || 0),
+          dataUrl: url,
+          versionNumber: Number(row.version_number || row.versionNumber || 1),
+          rootDocumentId: row.root_document_id || row.rootDocumentId || "",
+          parentDocumentId: row.parent_document_id || row.parentDocumentId || "",
+          isLatestVersion: row.is_latest_version !== false,
+          changeReason: row.change_reason || row.changeReason || "",
+          uploadedBy: row.uploaded_by_name || row.created_by_name || row.uploadedBy || "",
+          uploadedAt: row.created_at || row.uploadedAt || nowIso(),
+          updatedAt: row.updated_at || row.updatedAt || nowIso(),
+          isCancelled: Boolean(row.cancelled_at),
+          cancelledAt: row.cancelled_at || "",
+          cancellationReason: row.cancellation_reason || "",
+          syncedAt: nowIso()
+        };
+        if (target) Object.assign(target, mapped); else documents.push(mapped);
+      }
+      documents.sort((a,b) => String(b.uploadedAt || "").localeCompare(String(a.uploadedAt || "")));
+      write(KEYS.applicationDocuments, documents);
+      return records.length;
+    },
+
+    setApplicationDocumentServerId(localId, serverId) {
+      const documents = read(KEYS.applicationDocuments, []);
+      const target = documents.find(item => item.id === localId);
+      if (!target) return false;
+      target.serverId = serverId;
+      target.syncedAt = nowIso();
+      write(KEYS.applicationDocuments, documents);
+      return true;
+    },
+
     setApplicationServerId(localId, serverId, serverVersion = 1) {
       const applications = read(KEYS.applications, []);
       const target = applications.find(item => item.id === localId);

@@ -13,6 +13,7 @@ import { query, transaction } from './db.js';
 import { authenticate, requireRole, requireOperationalRead, requireOperationalWrite, requireOperationalDelete, requireAdministrator, canManageUser, signToken, officeScope, validatePassword } from './auth.js';
 import { audit } from './audit.js';
 import { sendMail, maskEmail } from './mailer.js';
+import { objectStorage, createStorageKey } from './storage.js';
 
 fs.mkdirSync(config.photoStorageDir, { recursive: true });
 const app = express();
@@ -24,12 +25,30 @@ app.use(cors({ origin(origin, cb) {
 }, credentials: false }));
 app.use(express.json({ limit: '5mb' }));
 app.use('/api/auth/login', rateLimit({ windowMs: 15 * 60_000, limit: 20, standardHeaders: true, legacyHeaders: false }));
-app.use('/uploads', express.static(config.photoStorageDir, { fallthrough: false, immutable: true, maxAge: '1d' }));
+// 添付ファイルは認証済みAPI経由で配信します。公開静的URLは使用しません。
 
 
 const hashText = value => crypto.createHash('sha256').update(String(value)).digest('hex');
 const randomDigits = length => Array.from({ length }, () => crypto.randomInt(0, 10)).join('');
 const publicUser = user => ({ id:user.id, loginId:user.login_id, email:user.email, displayName:user.display_name, role:user.role, officeId:user.office_id, accountCategory:user.account_category });
+
+const signAssetAccess = (type,id,user,minutes=60) => {
+  const payload=Buffer.from(JSON.stringify({type,id,sub:user.id,role:user.role,officeId:user.office_id||null,exp:Date.now()+minutes*60_000})).toString('base64url');
+  const sig=crypto.createHmac('sha256',config.jwtSecret).update(payload).digest('base64url');
+  return `${payload}.${sig}`;
+};
+const authenticateAsset = async (req,res,next) => {
+  if(String(req.headers.authorization||'').startsWith('Bearer ')) return authenticate(req,res,next);
+  try{
+    const [payload,sig]=String(req.query.access||'').split('.');
+    const expected=crypto.createHmac('sha256',config.jwtSecret).update(payload||'').digest('base64url');
+    if(!payload||!sig||sig.length!==expected.length||!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(expected)))throw new Error();
+    const data=JSON.parse(Buffer.from(payload,'base64url').toString('utf8'));
+    const expectedType=String(req.path||'').includes('application-documents')?'document':'photo';
+    if(data.exp<Date.now()||data.id!==req.params.id||data.type!==expectedType)throw new Error();
+    req.user={id:data.sub,role:data.role,office_id:data.officeId,active:true};req.assetAccess=data;next();
+  }catch{res.status(401).json({error:'添付ファイルの閲覧期限が切れています。画面を再読み込みしてください。'});}
+};
 
 const detectImageType = buffer => {
   if (!buffer || buffer.length < 12) return null;
@@ -37,6 +56,32 @@ const detectImageType = buffer => {
   if (buffer.slice(0,8).equals(Buffer.from([0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,0x0A]))) return { ext:'.png', mime:'image/png' };
   if (buffer.slice(0,4).toString()==='RIFF' && buffer.slice(8,12).toString()==='WEBP') return { ext:'.webp', mime:'image/webp' };
   return null;
+};
+
+const applicationSnapshot = row => row ? {
+  id:row.id, applicationNumber:row.application_number, shipper:row.shipper,
+  cargoName:row.cargo_name, note:row.note, status:row.status,
+  officeId:row.office_id, blockId:row.block_id, version:row.version,
+  deletedAt:row.deleted_at || null, updatedAt:row.updated_at || null
+} : null;
+
+const changedFieldNames = (before, after) => {
+  const keys = new Set([...(before ? Object.keys(before) : []), ...(after ? Object.keys(after) : [])]);
+  return [...keys].filter(key => JSON.stringify(before?.[key] ?? null) !== JSON.stringify(after?.[key] ?? null));
+};
+
+async function recordApplicationRevision(client, { applicationId, officeId, action, reason, before, after, userId }) {
+  await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [String(applicationId)]);
+  const count = await client.query('SELECT COALESCE(max(revision_number),0)+1 revision_number FROM application_revisions WHERE application_id=$1', [applicationId]);
+  const revisionNumber = Number(count.rows[0]?.revision_number || 1);
+  await client.query(`INSERT INTO application_revisions(application_id,office_id,revision_number,action,reason,before_data,after_data,changed_fields,changed_by)
+    VALUES($1,$2,$3,$4,$5,$6::jsonb,$7::jsonb,$8::jsonb,$9)`, [applicationId,officeId,revisionNumber,action,reason,JSON.stringify(before),JSON.stringify(after),JSON.stringify(changedFieldNames(before,after)),userId]);
+}
+
+const requireDistinctRegulationActors = (row, userId, stage) => {
+  const actor = String(userId);
+  if (stage === 'review' && String(row.created_by || '') === actor) throw Object.assign(new Error('作成者本人は原典照合者になれません。'), { status:409 });
+  if (stage === 'approve' && [row.created_by,row.reviewed_by].some(value => String(value || '') === actor)) throw Object.assign(new Error('作成者または照合者本人は承認できません。'), { status:409 });
 };
 
 async function issueMfaChallenge(user, purpose='login') {
@@ -72,8 +117,8 @@ app.get('/api/runtime', (_req, res) => {
     mfaEnabled: config.mfa.enabled,
     expectedUsersPilot: 50,
     expectedUsersFuture: 150,
-    photoStorage: process.env.PHOTO_STORAGE_PROVIDER || 'persistent-disk',
-    systemVersion: 'Part 311'
+    photoStorage: objectStorage.provider,
+    systemVersion: 'Part 503'
   });
 });
 
@@ -250,13 +295,19 @@ app.post('/api/applications', authenticate, requireOperationalWrite, async (req,
   const parsed = applicationSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: '申請番号の入力内容を確認してください。' });
   const officeId = officeScope(req.user, parsed.data.officeId);
-  if (!officeId) return res.status(400).json({ error: '事業所を指定してください。' });
+  if (!officeId || officeId === '__NO_OPERATIONAL_SCOPE__') return res.status(403).json({ error: 'このアカウントでは申請番号を登録できません。' });
   try {
-    const { rows } = await query(`INSERT INTO applications(client_id,application_number,shipper,cargo_name,note,status,office_id,block_id,created_by,updated_by)
-      SELECT $1,$2,$3,$4,$5,$6,o.id,o.block_id,$7,$7 FROM offices o WHERE o.id=$8
-      RETURNING *`, [parsed.data.clientId || null, parsed.data.applicationNumber.trim(), parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, officeId]);
-    await audit(req, 'create', 'application', rows[0].id, { applicationNumber: rows[0].application_number });
-    res.status(201).json({ application: rows[0] });
+    const application = await transaction(async client => {
+      const { rows } = await client.query(`INSERT INTO applications(client_id,application_number,shipper,cargo_name,note,status,office_id,block_id,created_by,updated_by)
+        SELECT $1,$2,$3,$4,$5,$6,o.id,o.block_id,$7,$7 FROM offices o WHERE o.id=$8 RETURNING *`,
+        [parsed.data.clientId || null, parsed.data.applicationNumber.trim(), parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, officeId]);
+      if (!rows[0]) throw Object.assign(new Error('事業所が見つかりません。'), { status:404 });
+      const snapshot=applicationSnapshot(rows[0]);
+      await recordApplicationRevision(client,{applicationId:rows[0].id,officeId:rows[0].office_id,action:'create',reason:'新規登録',before:null,after:snapshot,userId:req.user.id});
+      return rows[0];
+    });
+    await audit(req, 'create', 'application', application.id, { applicationNumber: application.application_number });
+    res.status(201).json({ application });
   } catch (error) {
     if (error.code === '23505') return res.status(409).json({ error: '同じ事業所に同一の申請番号が登録されています。' });
     throw error;
@@ -264,26 +315,53 @@ app.post('/api/applications', authenticate, requireOperationalWrite, async (req,
 });
 
 app.put('/api/applications/:id', authenticate, requireOperationalWrite, async (req, res) => {
-  const schema = z.object({ applicationNumber: z.string().min(1).max(100).optional(), shipper: z.string().max(300).optional(), cargoName: z.string().max(500).optional(), note: z.string().max(5000).optional(), status: z.string().max(50).optional(), version: z.number().int().positive() });
+  const schema = z.object({ applicationNumber: z.string().min(1).max(100).optional(), shipper: z.string().max(300).optional(), cargoName: z.string().max(500).optional(), note: z.string().max(5000).optional(), status: z.string().max(50).optional(), version: z.number().int().positive(), changeReason:z.string().min(1).max(1000) });
   const parsed = schema.safeParse(req.body);
-  if (!parsed.success) return res.status(400).json({ error: '更新内容を確認してください。' });
+  if (!parsed.success) return res.status(400).json({ error: '更新内容と訂正理由を確認してください。' });
   const officeId = officeScope(req.user, req.query.officeId);
-  const { rows } = await query(`UPDATE applications SET application_number=COALESCE($1,application_number),shipper=COALESCE($2,shipper),cargo_name=COALESCE($3,cargo_name),note=COALESCE($4,note),status=COALESCE($5,status),updated_by=$6,version=version+1,updated_at=now()
-    WHERE id=$7 AND deleted_at IS NULL AND version=$8 AND ($9::text IS NULL OR office_id=$9) RETURNING *`, [parsed.data.applicationNumber, parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, req.params.id, parsed.data.version, officeId]);
-  if (!rows[0]) return res.status(409).json({ error: '他の利用者が更新したか、対象が見つかりません。再読み込みしてください。' });
-  await audit(req, 'update', 'application', rows[0].id);
-  res.json({ application: rows[0] });
+  const application = await transaction(async client => {
+    const current=await client.query(`SELECT * FROM applications WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2) FOR UPDATE`,[req.params.id,officeId]);
+    if(!current.rows[0]) throw Object.assign(new Error('対象が見つかりません。'),{status:404});
+    if(Number(current.rows[0].version)!==Number(parsed.data.version)) throw Object.assign(new Error('他の利用者が更新しました。再読み込みしてください。'),{status:409});
+    const before=applicationSnapshot(current.rows[0]);
+    const { rows } = await client.query(`UPDATE applications SET application_number=COALESCE($1,application_number),shipper=COALESCE($2,shipper),cargo_name=COALESCE($3,cargo_name),note=COALESCE($4,note),status=COALESCE($5,status),updated_by=$6,version=version+1,updated_at=now() WHERE id=$7 RETURNING *`, [parsed.data.applicationNumber, parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, req.params.id]);
+    const after=applicationSnapshot(rows[0]);
+    await recordApplicationRevision(client,{applicationId:rows[0].id,officeId:rows[0].office_id,action:'correct',reason:parsed.data.changeReason,before,after,userId:req.user.id});
+    return rows[0];
+  });
+  await audit(req, 'correct', 'application', application.id,{reason:parsed.data.changeReason,version:application.version});
+  res.json({ application });
 });
 
 app.delete('/api/applications/:id', authenticate, requireOperationalDelete, async (req, res) => {
+  const schema=z.object({reason:z.string().min(1).max(1000)});const parsed=schema.safeParse(req.body||{});
+  if(!parsed.success)return res.status(400).json({error:'削除理由を入力してください。'});
   const officeId = officeScope(req.user, req.query.officeId);
-  const { rows } = await query('UPDATE applications SET deleted_at=now(),updated_by=$1,updated_at=now(),version=version+1 WHERE id=$2 AND deleted_at IS NULL AND ($3::text IS NULL OR office_id=$3) RETURNING id', [req.user.id, req.params.id, officeId]);
-  if (!rows[0]) return res.status(404).json({ error: '対象が見つかりません。' });
-  await audit(req, 'delete', 'application', req.params.id);
+  await transaction(async client=>{
+    const current=await client.query(`SELECT * FROM applications WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2) FOR UPDATE`,[req.params.id,officeId]);
+    if(!current.rows[0])throw Object.assign(new Error('対象が見つかりません。'),{status:404});
+    const before=applicationSnapshot(current.rows[0]);
+    const {rows}=await client.query('UPDATE applications SET deleted_at=now(),updated_by=$1,updated_at=now(),version=version+1 WHERE id=$2 RETURNING *',[req.user.id,req.params.id]);
+    await recordApplicationRevision(client,{applicationId:rows[0].id,officeId:rows[0].office_id,action:'delete',reason:parsed.data.reason,before,after:applicationSnapshot(rows[0]),userId:req.user.id});
+  });
+  await audit(req, 'delete', 'application', req.params.id,{reason:parsed.data.reason});
   res.status(204).end();
 });
 
+app.get('/api/applications/:id/history',authenticate,requireOperationalRead,async(req,res)=>{
+  const officeId=officeScope(req.user,req.query.officeId);
+  const application=await query(`SELECT id FROM applications WHERE id=$1 AND ($2::text IS NULL OR office_id=$2)`,[req.params.id,officeId]);
+  if(!application.rows[0])return res.status(404).json({error:'対象が見つかりません。'});
+  const {rows}=await query(`SELECT r.*,u.display_name changed_by_name,u.login_id changed_by_login FROM application_revisions r LEFT JOIN users u ON u.id=r.changed_by WHERE r.application_id=$1 ORDER BY r.revision_number DESC`,[req.params.id]);
+  res.json({history:rows});
+});
+
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 100 * 1024 * 1024, files: 1 } });
+const documentUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 100 * 1024 * 1024, files: 1 } });
+
+const photoApiUrl = (id,user) => `/api/photos/${id}/content?access=${encodeURIComponent(signAssetAccess('photo',id,user))}`;
+const documentApiUrl = (id,user) => `/api/application-documents/${id}/content?access=${encodeURIComponent(signAssetAccess('document',id,user))}`;
+
 app.get('/api/photos', authenticate, requireOperationalRead, async (req, res) => {
   const officeId = officeScope(req.user, req.query.officeId);
   const values = [];
@@ -293,7 +371,22 @@ app.get('/api/photos', authenticate, requireOperationalRead, async (req, res) =>
   const { rows } = await query(`SELECT p.*,a.application_number,o.name office_name,b.name block_name FROM photos p
     JOIN applications a ON a.id=p.application_id JOIN offices o ON o.id=p.office_id JOIN blocks b ON b.id=p.block_id
     WHERE ${where} ORDER BY p.created_at DESC LIMIT 5000`, values);
-  res.json({ photos: rows.map(row => ({ ...row, url: `/uploads/${row.stored_name}` })) });
+  res.json({ photos: rows.map(row => ({ ...row, url: photoApiUrl(row.id,req.user) })) });
+});
+
+app.get('/api/photos/:id/content', authenticateAsset, requireOperationalRead, async (req,res)=>{
+  const officeId=officeScope(req.user,req.query.officeId);
+  const {rows}=await query(`SELECT id,office_id,storage_key,stored_name,mime_type,original_name,sha256 FROM photos WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2)`,[req.params.id,officeId]);
+  const photo=rows[0];if(!photo)return res.status(404).json({error:'写真が見つかりません。'});
+  const key=photo.storage_key||photo.stored_name;
+  const body=await objectStorage.get(key);
+  const actual=crypto.createHash('sha256').update(body).digest('hex');
+  if(actual!==photo.sha256)return res.status(409).json({error:'写真ファイルの整合性を確認できません。管理者へ連絡してください。'});
+  res.setHeader('Content-Type',photo.mime_type);
+  res.setHeader('Content-Length',String(body.length));
+  res.setHeader('Content-Disposition',`inline; filename*=UTF-8''${encodeURIComponent(photo.original_name)}`);
+  res.setHeader('Cache-Control','private, max-age=300');
+  res.send(body);
 });
 
 app.post('/api/photos', authenticate, requireOperationalWrite, upload.single('photo'), async (req, res) => {
@@ -302,47 +395,101 @@ app.post('/api/photos', authenticate, requireOperationalWrite, upload.single('ph
   if (!parsed.success || !req.file) return res.status(400).json({ error: '写真と申請番号を確認してください。' });
   const detectedImage = detectImageType(req.file.buffer);
   if (!detectedImage) return res.status(400).json({ error: 'JPEG・PNG・WebP形式の画像のみ登録できます。拡張子だけを変更したファイルは登録できません。' });
-
-  const result = await transaction(async client => {
-    const appResult = await client.query(`SELECT a.*,o.photo_limit_per_application,o.photo_limit_total,o.photo_max_file_mb,o.photo_storage_limit_mb
-      FROM applications a JOIN offices o ON o.id=a.office_id WHERE a.id=$1 AND a.deleted_at IS NULL`, [parsed.data.applicationId]);
-    const application = appResult.rows[0];
-    if (!application) throw Object.assign(new Error('申請番号が見つかりません。'), { status: 404 });
-    if (!['safety-environment-director','safety-environment-admin'].includes(req.user.role) && application.office_id !== req.user.office_id) throw Object.assign(new Error('この事業所の写真は登録できません。'), { status: 403 });
-    if (req.file.size > application.photo_max_file_mb * 1024 * 1024) throw Object.assign(new Error(`写真1枚の上限は${application.photo_max_file_mb}MBです。`), { status: 413 });
-    const countResult = await client.query(`SELECT
-      count(*) FILTER (WHERE application_id=$1 AND deleted_at IS NULL)::int app_count,
-      count(*) FILTER (WHERE office_id=$2 AND deleted_at IS NULL)::int office_count,
-      COALESCE(sum(file_size) FILTER (WHERE office_id=$2 AND deleted_at IS NULL),0)::bigint office_bytes
-      FROM photos`, [application.id, application.office_id]);
-    const usage = countResult.rows[0];
-    if (usage.app_count >= application.photo_limit_per_application) throw Object.assign(new Error(`1申請番号あたりの写真上限${application.photo_limit_per_application}枚に達しています。`), { status: 409 });
-    if (usage.office_count >= application.photo_limit_total) throw Object.assign(new Error(`事業所の写真上限${application.photo_limit_total}枚に達しています。`), { status: 409 });
-    if (Number(usage.office_bytes) + req.file.size > application.photo_storage_limit_mb * 1024 * 1024) throw Object.assign(new Error(`事業所の保存容量上限${application.photo_storage_limit_mb}MBを超えます。`), { status: 409 });
-
-    const ext = detectedImage.ext;
-    const storedName = `${crypto.randomUUID()}${ext}`;
-    const sha256 = crypto.createHash('sha256').update(req.file.buffer).digest('hex');
-    fs.writeFileSync(path.join(config.photoStorageDir, storedName), req.file.buffer, { flag: 'wx' });
-    try {
-      const photoResult = await client.query(`INSERT INTO photos(client_id,application_id,block_id,office_id,original_name,stored_name,mime_type,file_size,sha256,shooting_at,registered_by_name,comment,created_by)
-        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`, [parsed.data.clientId || null, application.id, application.block_id, application.office_id, req.file.originalname, storedName, detectedImage.mime, req.file.size, sha256, parsed.data.shootingAt || null, parsed.data.registeredBy, parsed.data.comment, req.user.id]);
+  const ext = detectedImage.ext;
+  const storageKey = createStorageKey(`photos/${parsed.data.applicationId}`, ext);
+  const sha256 = crypto.createHash('sha256').update(req.file.buffer).digest('hex');
+  await objectStorage.put(storageKey,req.file.buffer,{contentType:detectedImage.mime,sha256});
+  try {
+    const result = await transaction(async client => {
+      const appResult = await client.query(`SELECT a.*,o.photo_limit_per_application,o.photo_limit_total,o.photo_max_file_mb,o.photo_storage_limit_mb
+        FROM applications a JOIN offices o ON o.id=a.office_id WHERE a.id=$1 AND a.deleted_at IS NULL`, [parsed.data.applicationId]);
+      const application = appResult.rows[0];
+      if (!application) throw Object.assign(new Error('申請番号が見つかりません。'), { status: 404 });
+      if (!['safety-environment-director','safety-environment-admin'].includes(req.user.role) && application.office_id !== req.user.office_id) throw Object.assign(new Error('この事業所の写真は登録できません。'), { status: 403 });
+      if (req.file.size > application.photo_max_file_mb * 1024 * 1024) throw Object.assign(new Error(`写真1枚の上限は${application.photo_max_file_mb}MBです。`), { status: 413 });
+      const countResult = await client.query(`SELECT
+        count(*) FILTER (WHERE application_id=$1 AND deleted_at IS NULL)::int app_count,
+        count(*) FILTER (WHERE office_id=$2 AND deleted_at IS NULL)::int office_count,
+        COALESCE(sum(file_size) FILTER (WHERE office_id=$2 AND deleted_at IS NULL),0)::bigint office_bytes
+        FROM photos`, [application.id, application.office_id]);
+      const usage = countResult.rows[0];
+      if (usage.app_count >= application.photo_limit_per_application) throw Object.assign(new Error(`1申請番号あたりの写真上限${application.photo_limit_per_application}枚に達しています。`), { status: 409 });
+      if (usage.office_count >= application.photo_limit_total) throw Object.assign(new Error(`事業所の写真上限${application.photo_limit_total}枚に達しています。`), { status: 409 });
+      if (Number(usage.office_bytes) + req.file.size > application.photo_storage_limit_mb * 1024 * 1024) throw Object.assign(new Error(`事業所の保存容量上限${application.photo_storage_limit_mb}MBを超えます。`), { status: 409 });
+      const storedName=storageKey.split('/').pop();
+      const photoResult = await client.query(`INSERT INTO photos(client_id,application_id,block_id,office_id,original_name,stored_name,storage_key,storage_provider,mime_type,file_size,sha256,shooting_at,registered_by_name,comment,created_by)
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *`, [parsed.data.clientId || null, application.id, application.block_id, application.office_id, req.file.originalname, storedName, storageKey, objectStorage.provider, detectedImage.mime, req.file.size, sha256, parsed.data.shootingAt || null, parsed.data.registeredBy, parsed.data.comment, req.user.id]);
       return photoResult.rows[0];
-    } catch (error) {
-      fs.rmSync(path.join(config.photoStorageDir, storedName), { force: true });
-      throw error;
-    }
-  });
-  await audit(req, 'create', 'photo', result.id, { applicationId: result.application_id, fileSize: result.file_size });
-  res.status(201).json({ photo: { ...result, url: `/uploads/${result.stored_name}` } });
+    });
+    await audit(req, 'create', 'photo', result.id, { applicationId: result.application_id, fileSize: result.file_size,storageProvider:objectStorage.provider });
+    res.status(201).json({ photo: { ...result, url: photoApiUrl(result.id,req.user) } });
+  } catch(error) {
+    await objectStorage.delete(storageKey).catch(()=>{});
+    throw error;
+  }
 });
 
 app.delete('/api/photos/:id', authenticate, requireOperationalDelete, async (req, res) => {
   const officeId = officeScope(req.user, req.query.officeId);
-  const { rows } = await query('UPDATE photos SET deleted_at=now(),updated_at=now(),version=version+1 WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2) RETURNING id,stored_name', [req.params.id, officeId]);
+  const { rows } = await query('UPDATE photos SET deleted_at=now(),updated_at=now(),version=version+1 WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2) RETURNING id,storage_key,stored_name', [req.params.id, officeId]);
   if (!rows[0]) return res.status(404).json({ error: '対象が見つかりません。' });
-  await audit(req, 'delete', 'photo', req.params.id);
+  await audit(req, 'delete', 'photo', req.params.id,{storageKey:rows[0].storage_key||rows[0].stored_name});
   res.status(204).end();
+});
+
+app.get('/api/application-documents',authenticate,requireOperationalRead,async(req,res)=>{
+  const officeId=officeScope(req.user,req.query.officeId);const values=[];let where='1=1';
+  if(officeId){values.push(officeId);where+=` AND a.office_id=$${values.length}`;}
+  if(req.query.applicationId){values.push(String(req.query.applicationId));where+=` AND d.application_id=$${values.length}`;}
+  if(req.query.includeCancelled!=='true')where+=' AND d.cancelled_at IS NULL';
+  const {rows}=await query(`SELECT d.*,a.application_number,a.office_id,o.name office_name,u.display_name created_by_name,
+    NOT EXISTS(SELECT 1 FROM application_documents newer WHERE newer.root_document_id=COALESCE(d.root_document_id,d.id) AND newer.version_number>d.version_number AND newer.cancelled_at IS NULL) is_latest_version
+    FROM application_documents d JOIN applications a ON a.id=d.application_id JOIN offices o ON o.id=a.office_id LEFT JOIN users u ON u.id=d.created_by
+    WHERE ${where} ORDER BY d.created_at DESC LIMIT 5000`,values);
+  res.json({documents:rows.map(row=>({...row,url:documentApiUrl(row.id,req.user)}))});
+});
+
+app.get('/api/application-documents/:id/content',authenticateAsset,requireOperationalRead,async(req,res)=>{
+  const officeId=officeScope(req.user,req.query.officeId);
+  const {rows}=await query(`SELECT d.*,a.office_id FROM application_documents d JOIN applications a ON a.id=d.application_id WHERE d.id=$1 AND ($2::text IS NULL OR a.office_id=$2)`,[req.params.id,officeId]);
+  const doc=rows[0];if(!doc)return res.status(404).json({error:'添付資料が見つかりません。'});
+  const body=await objectStorage.get(doc.storage_key);const actual=crypto.createHash('sha256').update(body).digest('hex');
+  if(actual!==doc.sha256)return res.status(409).json({error:'添付資料の整合性を確認できません。管理者へ連絡してください。'});
+  res.setHeader('Content-Type',doc.mime_type||'application/octet-stream');res.setHeader('Content-Length',String(body.length));
+  res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(doc.original_name)}`);res.setHeader('Cache-Control','private, no-store');res.send(body);
+});
+
+app.post('/api/application-documents',authenticate,requireOperationalWrite,documentUpload.single('document'),async(req,res)=>{
+  const schema=z.object({applicationId:z.string().uuid(),category:z.string().min(1).max(100),description:z.string().max(3000).default(''),changeReason:z.string().max(2000).default(''),uploadedBy:z.string().max(100).default(''),parentDocumentId:z.string().uuid().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success||!req.file)return res.status(400).json({error:'添付資料と登録内容を確認してください。'});
+  if(parsed.data.parentDocumentId&&!parsed.data.changeReason.trim())return res.status(400).json({error:'更新版を登録する場合は変更理由が必要です。'});
+  const ext=path.extname(req.file.originalname).slice(0,12);const storageKey=createStorageKey(`documents/${parsed.data.applicationId}`,ext);const sha256=crypto.createHash('sha256').update(req.file.buffer).digest('hex');
+  await objectStorage.put(storageKey,req.file.buffer,{contentType:req.file.mimetype||'application/octet-stream',sha256});
+  try{
+    const document=await transaction(async client=>{
+      const appResult=await client.query('SELECT * FROM applications WHERE id=$1 AND deleted_at IS NULL FOR UPDATE',[parsed.data.applicationId]);const application=appResult.rows[0];if(!application)throw Object.assign(new Error('申請番号が見つかりません。'),{status:404});
+      if(!['safety-environment-director','safety-environment-admin'].includes(req.user.role)&&application.office_id!==req.user.office_id)throw Object.assign(new Error('この事業所の添付資料は登録できません。'),{status:403});
+      let parent=null,rootId=null,version=1;
+      if(parsed.data.parentDocumentId){const pr=await client.query('SELECT * FROM application_documents WHERE id=$1 AND application_id=$2 FOR UPDATE',[parsed.data.parentDocumentId,application.id]);parent=pr.rows[0];if(!parent)throw Object.assign(new Error('更新元の資料が見つかりません。'),{status:404});rootId=parent.root_document_id||parent.id;const vr=await client.query('SELECT COALESCE(max(version_number),0)+1 version FROM application_documents WHERE root_document_id=$1 OR id=$1',[rootId]);version=Number(vr.rows[0].version||2);}
+      const {rows}=await client.query(`INSERT INTO application_documents(application_id,parent_document_id,root_document_id,version_number,category,original_name,storage_key,storage_provider,mime_type,file_size,sha256,description,change_reason,uploaded_by_name,created_by)
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *`,[application.id,parent?.id||null,rootId,version,parsed.data.category,req.file.originalname,storageKey,objectStorage.provider,req.file.mimetype||'application/octet-stream',req.file.size,sha256,parsed.data.description,parsed.data.changeReason,parsed.data.uploadedBy,req.user.id]);
+      if(!rootId)await client.query('UPDATE application_documents SET root_document_id=id WHERE id=$1',[rows[0].id]);
+      return rows[0];
+    });
+    await audit(req,parsed.data.parentDocumentId?'new-version':'create','application-document',document.id,{applicationId:document.application_id,version:document.version_number,storageProvider:objectStorage.provider});
+    res.status(201).json({document:{...document,url:documentApiUrl(document.id,req.user)}});
+  }catch(error){await objectStorage.delete(storageKey).catch(()=>{});throw error;}
+});
+
+app.patch('/api/application-documents/:id/status',authenticate,requireOperationalWrite,async(req,res)=>{
+  const schema=z.object({action:z.enum(['cancel','restore']),reason:z.string().max(2000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'更新内容を確認してください。'});
+  if(parsed.data.action==='cancel'&&!parsed.data.reason.trim())return res.status(400).json({error:'取消理由を入力してください。'});
+  const officeId=officeScope(req.user,req.query.officeId);
+  const sql=parsed.data.action==='cancel'
+    ? `UPDATE application_documents d SET cancelled_at=now(),cancelled_by=$1,cancellation_reason=$2,updated_at=now() FROM applications a WHERE d.id=$3 AND a.id=d.application_id AND d.cancelled_at IS NULL AND ($4::text IS NULL OR a.office_id=$4) RETURNING d.*`
+    : `UPDATE application_documents d SET cancelled_at=NULL,cancelled_by=NULL,cancellation_reason=NULL,restored_at=now(),restored_by=$1,updated_at=now() FROM applications a WHERE d.id=$3 AND a.id=d.application_id AND d.cancelled_at IS NOT NULL AND ($4::text IS NULL OR a.office_id=$4) RETURNING d.*`;
+  const {rows}=await query(sql,[req.user.id,parsed.data.reason,req.params.id,officeId]);if(!rows[0])return res.status(404).json({error:'対象の添付資料が見つかりません。'});
+  await audit(req,parsed.data.action,'application-document',req.params.id,{reason:parsed.data.reason});res.json({document:{...rows[0],url:documentApiUrl(rows[0].id,req.user)}});
 });
 
 app.get('/api/admin/office-summary', authenticate, requireRole('safety-environment-admin'), async (_req, res) => {
@@ -712,7 +859,7 @@ app.put('/api/photos/:id', authenticate, requireOperationalWrite, async (req, re
   });
   if (!result) return res.status(404).json({ error: '対象の写真が見つかりません。' });
   await audit(req, 'update', 'photo', result.id, { representative: result.representative });
-  res.json({ photo: { ...result, url: `/uploads/${result.stored_name}` } });
+  res.json({ photo: { ...result, url: photoApiUrl(result.id,req.user) } });
 });
 
 app.get('/api/admin/access-summary', authenticate, requireRole('safety-environment-admin'), async (_req, res) => {
@@ -1656,6 +1803,120 @@ app.post('/api/admin/operations-acceptance-improvement-handoffs',authenticate,re
   const schema=z.object({targetYear:z.number().int().min(2020).max(2100),summary:z.record(z.any()),handoffPayload:z.record(z.any())});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'引継ぎ内容を確認してください。'});const d=parsed.data;
   const {rows}=await query(`INSERT INTO operations_acceptance_handoff_exports(target_year,summary,handoff_payload,generated_by) VALUES($1,$2::jsonb,$3::jsonb,$4) RETURNING *`,[d.targetYear,JSON.stringify(d.summary),JSON.stringify(d.handoffPayload),req.user.id]);
   await audit(req,'export','operations-acceptance-improvement-handoff',rows[0].id,{targetYear:d.targetYear,summary:d.summary});res.status(201).json({handoff:rows[0]});
+});
+
+
+// Part 503: central storage, immutable correction history, human approval and backup operations.
+const regulationUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 250 * 1024 * 1024, files: 1 } });
+
+app.get('/api/auth/permissions', authenticate, (req,res) => {
+  const matrix = {
+    guest: { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, administration:false },
+    'office-user': { dangerousGoods:true, regulations:true, references:true, applications:true, photos:true, documents:true, administration:false },
+    'office-admin': { dangerousGoods:true, regulations:true, references:true, applications:true, photos:true, documents:true, administration:'office' },
+    'safety-environment-staff': { dangerousGoods:true, regulations:true, references:true, applications:'read-all', photos:'read-all', documents:'read-all', regulationReview:true, administration:false },
+    'safety-environment-director': { dangerousGoods:true, regulations:true, references:true, applications:'write-all', photos:'write-all', documents:'write-all', regulationReview:true, regulationApproval:true, administration:false },
+    'safety-environment-admin': { dangerousGoods:true, regulations:true, references:true, applications:'write-all', photos:'write-all', documents:'write-all', regulationReview:true, regulationApproval:true, regulationPublish:true, administration:true },
+    validator: { dangerousGoods:false, regulations:false, references:true, applications:false, photos:false, documents:false, validation:true },
+    'revision-validator': { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, regulationReview:true }
+  };
+  res.json({role:req.user.role,permissions:matrix[req.user.role] || {}});
+});
+
+app.post('/api/regulation-sources', authenticate, requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'), regulationUpload.single('source'), async (req,res) => {
+  const schema=z.object({regulationId:z.string().min(1).max(150),editionLabel:z.string().min(1).max(150),publicationDate:z.string().date().nullable().optional(),effectiveFrom:z.string().date(),effectiveTo:z.string().date().nullable().optional(),language:z.string().max(10).default('ja'),publisher:z.string().max(200).default(''),sourceUrl:z.string().max(1000).default(''),changeSummary:z.string().max(5000).default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success||!req.file)return res.status(400).json({error:'原典ファイルと版情報を確認してください。'});
+  const sha256=crypto.createHash('sha256').update(req.file.buffer).digest('hex');
+  const ext=path.extname(req.file.originalname)||'.pdf';const storageKey=createStorageKey(`regulations/sources/${parsed.data.regulationId}`,ext);
+  await objectStorage.put(storageKey,req.file.buffer,{contentType:req.file.mimetype||'application/pdf',sha256});
+  try{
+    const {rows}=await query(`INSERT INTO regulation_sources(regulation_id,edition_label,publication_date,effective_from,effective_to,language,publisher,source_url,original_file_name,stored_file_name,storage_key,storage_provider,mime_type,file_size,checksum_sha256,status,change_summary,created_by)
+      VALUES($1,$2,$3,$4,$5,$6,NULLIF($7,''),NULLIF($8,''),$9,$10,$11,$12,$13,$14,$15,'source-registered',$16,$17) RETURNING *`,[parsed.data.regulationId,parsed.data.editionLabel,parsed.data.publicationDate||null,parsed.data.effectiveFrom,parsed.data.effectiveTo||null,parsed.data.language,parsed.data.publisher,parsed.data.sourceUrl,req.file.originalname,storageKey.split('/').pop(),storageKey,objectStorage.provider,req.file.mimetype||'application/pdf',req.file.size,sha256,parsed.data.changeSummary,req.user.id]);
+    await audit(req,'register-source','regulation-source',rows[0].id,{regulationId:parsed.data.regulationId,editionLabel:parsed.data.editionLabel,sha256,storageProvider:objectStorage.provider});
+    res.status(201).json({source:rows[0]});
+  }catch(error){await objectStorage.delete(storageKey).catch(()=>{});throw error;}
+});
+
+app.get('/api/regulation-sources/:id/content',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query('SELECT * FROM regulation_sources WHERE id=$1',[req.params.id]);const source=rows[0];if(!source)return res.status(404).json({error:'法令原典が見つかりません。'});
+  const body=await objectStorage.get(source.storage_key||source.stored_file_name);const actual=crypto.createHash('sha256').update(body).digest('hex');if(actual!==source.checksum_sha256)return res.status(409).json({error:'法令原典のチェックサムが一致しません。'});
+  res.setHeader('Content-Type',source.mime_type||'application/pdf');res.setHeader('Content-Disposition',`inline; filename*=UTF-8''${encodeURIComponent(source.original_file_name)}`);res.setHeader('Cache-Control','private, no-store');res.send(body);
+});
+
+app.post('/api/regulation-datasets',authenticate,requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'),regulationUpload.single('dataset'),async(req,res)=>{
+  const schema=z.object({sourceId:z.string().uuid(),schemaVersion:z.string().min(1).max(50),dataFormat:z.enum(['json','csv']),recordCount:z.coerce.number().int().min(0).optional(),targetKeys:z.string().default('[]')});const parsed=schema.safeParse(req.body);if(!parsed.success||!req.file)return res.status(400).json({error:'更新データを確認してください。'});
+  let targetKeys=[];try{targetKeys=JSON.parse(parsed.data.targetKeys||'[]');if(!Array.isArray(targetKeys))throw new Error();}catch{return res.status(400).json({error:'対象キーの形式が正しくありません。'});}
+  const sha256=crypto.createHash('sha256').update(req.file.buffer).digest('hex');const ext=parsed.data.dataFormat==='csv'?'.csv':'.json';const storageKey=createStorageKey(`regulations/datasets/${parsed.data.sourceId}`,ext);await objectStorage.put(storageKey,req.file.buffer,{contentType:req.file.mimetype||'application/octet-stream',sha256});
+  try{const {rows}=await query(`INSERT INTO regulation_datasets(source_id,schema_version,data_format,target_keys,original_file_name,stored_file_name,storage_key,storage_provider,file_size,checksum_sha256,record_count,validation_status,created_by)
+    VALUES($1,$2,$3,$4::jsonb,$5,$6,$7,$8,$9,$10,$11,'pending',$12) RETURNING *`,[parsed.data.sourceId,parsed.data.schemaVersion,parsed.data.dataFormat,JSON.stringify(targetKeys),req.file.originalname,storageKey.split('/').pop(),storageKey,objectStorage.provider,req.file.size,sha256,parsed.data.recordCount??null,req.user.id]);await audit(req,'register-dataset','regulation-dataset',rows[0].id,{sourceId:parsed.data.sourceId,sha256});res.status(201).json({dataset:rows[0]});}catch(error){await objectStorage.delete(storageKey).catch(()=>{});throw error;}
+});
+
+app.post('/api/regulation-change-sets',authenticate,requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'),async(req,res)=>{
+  const schema=z.object({sourceId:z.string().uuid(),datasetId:z.string().uuid().nullable().optional(),baseSourceId:z.string().uuid().nullable().optional(),addedCount:z.number().int().min(0).default(0),changedCount:z.number().int().min(0).default(0),deletedCount:z.number().int().min(0).default(0),diffSummary:z.record(z.any()).default({}),reviewChecklist:z.array(z.any()).default([]),sourcePageReferences:z.array(z.any()).default([]),deletionJustification:z.string().max(5000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'変更セットの内容を確認してください。'});const d=parsed.data;
+  if(d.deletedCount>0&&!d.deletionJustification.trim())return res.status(400).json({error:'削除を含む場合は削除理由が必要です。'});
+  const checksum=crypto.createHash('sha256').update(JSON.stringify({sourceId:d.sourceId,datasetId:d.datasetId,baseSourceId:d.baseSourceId,diffSummary:d.diffSummary})).digest('hex');
+  const {rows}=await query(`INSERT INTO regulation_change_sets(source_id,dataset_id,base_source_id,added_count,changed_count,deleted_count,diff_summary,status,created_by,review_checklist,source_page_references,deletion_justification,diff_checksum_sha256)
+    VALUES($1,$2,$3,$4,$5,$6,$7::jsonb,'draft',$8,$9::jsonb,$10::jsonb,NULLIF($11,''),$12) RETURNING *`,[d.sourceId,d.datasetId||null,d.baseSourceId||null,d.addedCount,d.changedCount,d.deletedCount,JSON.stringify(d.diffSummary),req.user.id,JSON.stringify(d.reviewChecklist),JSON.stringify(d.sourcePageReferences),d.deletionJustification,checksum]);
+  await audit(req,'create','regulation-change-set',rows[0].id,{sourceId:d.sourceId,checksum});res.status(201).json({changeSet:rows[0]});
+});
+
+app.get('/api/regulation-change-sets',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const values=[];let where='1=1';if(req.query.status){values.push(String(req.query.status));where+=` AND c.status=$${values.length}`;}
+  const {rows}=await query(`SELECT c.*,s.regulation_id,s.edition_label,s.checksum_sha256 source_checksum,creator.display_name created_by_name,reviewer.display_name reviewed_by_name,approver.display_name approved_by_name
+    FROM regulation_change_sets c JOIN regulation_sources s ON s.id=c.source_id LEFT JOIN users creator ON creator.id=c.created_by LEFT JOIN users reviewer ON reviewer.id=c.reviewed_by LEFT JOIN users approver ON approver.id=c.approved_by WHERE ${where} ORDER BY c.created_at DESC LIMIT 500`,values);res.json({changeSets:rows});
+});
+
+app.get('/api/regulation-change-sets/:id/events',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const {rows}=await query(`SELECT e.*,u.display_name actor_name,u.login_id actor_login FROM regulation_approval_events e JOIN users u ON u.id=e.actor_user_id WHERE e.change_set_id=$1 ORDER BY e.created_at`,[req.params.id]);res.json({events:rows});
+});
+
+app.post('/api/regulation-change-sets/:id/submit',authenticate,requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'),async(req,res)=>{
+  const schema=z.object({comment:z.string().max(3000).default('')});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'提出内容を確認してください。'});
+  const {rows}=await query(`UPDATE regulation_change_sets SET status='submitted',submitted_by=$1,submitted_at=now() WHERE id=$2 AND status IN ('draft','returned') RETURNING *`,[req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'この変更セットは提出できる状態ではありません。'});
+  await query(`INSERT INTO regulation_approval_events(change_set_id,event_type,actor_user_id,actor_role,comment,checklist,source_checksums) SELECT c.id,'submitted',$1,$2,$3,c.review_checklist,jsonb_build_object('diff',c.diff_checksum_sha256,'source',s.checksum_sha256) FROM regulation_change_sets c JOIN regulation_sources s ON s.id=c.source_id WHERE c.id=$4`,[req.user.id,req.user.role,parsed.data.comment,req.params.id]);await audit(req,'submit','regulation-change-set',req.params.id,{comment:parsed.data.comment});res.json({changeSet:rows[0]});
+});
+
+app.post('/api/regulation-change-sets/:id/review',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['reviewed','returned']),comment:z.string().min(1).max(5000),checklist:z.array(z.object({item:z.string().min(1),passed:z.boolean(),note:z.string().max(1000).optional()})).min(1)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'原典照合結果を確認してください。'});if(parsed.data.decision==='reviewed'&&parsed.data.checklist.some(x=>!x.passed))return res.status(400).json({error:'未合格の照合項目があるため照合済みにできません。'});
+  const current=await query('SELECT * FROM regulation_change_sets WHERE id=$1',[req.params.id]);if(!current.rows[0])return res.status(404).json({error:'変更セットが見つかりません。'});requireDistinctRegulationActors(current.rows[0],req.user.id,'review');if(!['submitted','returned'].includes(current.rows[0].status))return res.status(409).json({error:'提出済みの変更セットだけを照合できます。'});
+  const {rows}=await query(`UPDATE regulation_change_sets SET status=$1,reviewed_by=CASE WHEN $1='reviewed' THEN $2 ELSE NULL END,reviewed_at=CASE WHEN $1='reviewed' THEN now() ELSE NULL END,publication_block_reason=CASE WHEN $1='returned' THEN $3 ELSE NULL END,review_checklist=$4::jsonb WHERE id=$5 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.comment,JSON.stringify(parsed.data.checklist),req.params.id]);
+  await query(`INSERT INTO regulation_approval_events(change_set_id,event_type,actor_user_id,actor_role,comment,checklist) VALUES($1,$2,$3,$4,$5,$6::jsonb)`,[req.params.id,parsed.data.decision,req.user.id,req.user.role,parsed.data.comment,JSON.stringify(parsed.data.checklist)]);await audit(req,parsed.data.decision,'regulation-change-set',req.params.id,{comment:parsed.data.comment});res.json({changeSet:rows[0]});
+});
+
+app.post('/api/regulation-change-sets/:id/approve',authenticate,requireRole('safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['approved','rejected']),comment:z.string().min(1).max(5000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});
+  const current=await query('SELECT * FROM regulation_change_sets WHERE id=$1',[req.params.id]);if(!current.rows[0])return res.status(404).json({error:'変更セットが見つかりません。'});requireDistinctRegulationActors(current.rows[0],req.user.id,'approve');if(current.rows[0].status!=='reviewed')return res.status(409).json({error:'原典照合済みの変更セットだけを承認できます。'});
+  const {rows}=await query(`UPDATE regulation_change_sets SET status=$1,approved_by=CASE WHEN $1='approved' THEN $2 ELSE NULL END,approved_at=CASE WHEN $1='approved' THEN now() ELSE NULL END,approval_comment=$3,publication_block_reason=CASE WHEN $1='rejected' THEN $3 ELSE NULL END WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.comment,req.params.id]);
+  await query(`INSERT INTO regulation_approval_events(change_set_id,event_type,actor_user_id,actor_role,comment) VALUES($1,$2,$3,$4,$5)`,[req.params.id,parsed.data.decision,req.user.id,req.user.role,parsed.data.comment]);await audit(req,parsed.data.decision==='approved'?'approve':'reject','regulation-change-set',req.params.id,{comment:parsed.data.comment});res.json({changeSet:rows[0]});
+});
+
+app.post('/api/regulation-change-sets/:id/publish',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({releaseVersion:z.string().min(1).max(100),effectiveFrom:z.string().date()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'公開版情報を確認してください。'});
+  const published=await transaction(async client=>{const current=await client.query(`SELECT c.*,s.regulation_id FROM regulation_change_sets c JOIN regulation_sources s ON s.id=c.source_id WHERE c.id=$1 FOR UPDATE`,[req.params.id]);const row=current.rows[0];if(!row)throw Object.assign(new Error('変更セットが見つかりません。'),{status:404});if(row.status!=='approved'||!row.reviewed_by||!row.approved_by)throw Object.assign(new Error('照合・承認済みの変更セットだけを公開できます。'),{status:409});if([row.created_by,row.reviewed_by,row.approved_by].map(String).some((v,i,a)=>a.indexOf(v)!==i))throw Object.assign(new Error('作成・照合・承認は別の利用者が行う必要があります。'),{status:409});
+    const previous=await client.query(`SELECT id FROM regulation_publications WHERE regulation_id=$1 ORDER BY published_at DESC LIMIT 1`,[row.regulation_id]);const pub=await client.query(`INSERT INTO regulation_publications(change_set_id,regulation_id,effective_from,release_version,previous_publication_id,published_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[row.id,row.regulation_id,parsed.data.effectiveFrom,parsed.data.releaseVersion,previous.rows[0]?.id||null,req.user.id]);await client.query(`UPDATE regulation_change_sets SET status='published',published_by=$1,published_at=now() WHERE id=$2`,[req.user.id,row.id]);await client.query(`UPDATE regulation_sources SET status='published',published_at=now() WHERE id=$1`,[row.source_id]);await client.query(`INSERT INTO regulation_approval_events(change_set_id,event_type,actor_user_id,actor_role,comment) VALUES($1,'published',$2,$3,$4)`,[row.id,req.user.id,req.user.role,`release ${parsed.data.releaseVersion}`]);return pub.rows[0];});
+  await audit(req,'publish','regulation-change-set',req.params.id,{releaseVersion:parsed.data.releaseVersion,effectiveFrom:parsed.data.effectiveFrom});res.status(201).json({publication:published});
+});
+
+app.get('/api/admin/backup-status',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const [settings,runs,ledger,restores]=await Promise.all([query(`SELECT * FROM system_backup_settings WHERE id='default'`),query(`SELECT * FROM system_backup_runs ORDER BY started_at DESC LIMIT 100`),query(`SELECT * FROM system_backup_ledger ORDER BY created_at DESC LIMIT 100`),query(`SELECT * FROM system_restore_history ORDER BY restored_at DESC LIMIT 100`)]);
+  const latest=runs.rows[0]||null;const settingsRow=settings.rows[0]||null;const overdue=!latest||!settingsRow?true:(Date.now()-new Date(latest.started_at).getTime())>Number(settingsRow.interval_hours||24)*3600_000*1.5;const offsiteRecorded=Boolean(latest?.offsite_location);const offsiteRequiredMissing=Boolean(settingsRow?.require_offsite_copy&&!offsiteRecorded);const restoreTestDue=!latest?.verified_at||(latest?.verified_at&&Date.now()-new Date(latest.verified_at).getTime()>Number(settingsRow?.restore_test_interval_days||90)*86400_000);
+  res.json({settings:settingsRow,runs:runs.rows,legacyLedger:ledger.rows,restores:restores.rows,health:{overdue,latestStatus:latest?.status||'none',offsiteRecorded,offsiteRequiredMissing,restoreTestDue}});
+});
+
+app.put('/api/admin/backup-settings',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({enabled:z.boolean(),intervalHours:z.number().int().min(1).max(168),retentionDays:z.number().int().min(7).max(3650),requireOffsiteCopy:z.boolean(),restoreTestIntervalDays:z.number().int().min(7).max(365)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'バックアップ設定を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO system_backup_settings(id,enabled,interval_hours,retention_days,require_offsite_copy,restore_test_interval_days,updated_by,updated_at) VALUES('default',$1,$2,$3,$4,$5,$6,now()) ON CONFLICT(id) DO UPDATE SET enabled=excluded.enabled,interval_hours=excluded.interval_hours,retention_days=excluded.retention_days,require_offsite_copy=excluded.require_offsite_copy,restore_test_interval_days=excluded.restore_test_interval_days,updated_by=excluded.updated_by,updated_at=now() RETURNING *`,[d.enabled,d.intervalHours,d.retentionDays,d.requireOffsiteCopy,d.restoreTestIntervalDays,req.user.id]);await audit(req,'update','backup-settings','default',d);res.json({settings:rows[0]});
+});
+
+app.post('/api/admin/backups/:id/restore-test',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({result:z.enum(['passed','failed']),note:z.string().max(5000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'復元試験結果を確認してください。'});const {rows}=await query(`UPDATE system_backup_runs SET verified_at=now(),status=CASE WHEN $1='passed' THEN 'verified' ELSE status END,verification_result=$2::jsonb WHERE id=$3 RETURNING *`,[parsed.data.result,JSON.stringify({result:parsed.data.result,note:parsed.data.note,verifiedBy:req.user.id}),req.params.id]);if(!rows[0])return res.status(404).json({error:'バックアップ記録が見つかりません。'});await audit(req,'restore-test','system-backup-run',req.params.id,{result:parsed.data.result,note:parsed.data.note});res.json({run:rows[0]});
+});
+
+app.use((error, req, res, _next) => {
+  console.error(error);
+  const status = Number(error?.status || error?.statusCode || 500);
+  const message = status >= 500 ? 'サーバー処理中にエラーが発生しました。管理者へ連絡してください。' : (error?.message || '処理を完了できませんでした。');
+  if (!res.headersSent) res.status(status).json({ error: message });
 });
 
 app.listen(config.port, () => console.log(`Inspection Support API listening on ${config.port}`));

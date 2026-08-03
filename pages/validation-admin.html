@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<head>
+  <meta name="sk-build" content="part503">
+  <script src="../data/build-manifest.js?v=503"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +26,15 @@
       <article class="status-card"><span>ログイン</span><strong id="authStatus">未確認</strong></article>
       <article class="status-card"><span>事業所数</span><strong id="officeCount">－</strong></article>
       <article class="status-card"><span>利用者数</span><strong id="userCount">－</strong></article>
+    </section>
+
+    <section class="panel part502-data-validation" aria-labelledby="part502DataValidationTitle">
+      <div class="panel-heading"><div><h2 id="part502DataValidationTitle">危険物・法令データ 全件自動検証</h2><p>公開中の危険物データ、判定基準、法令・コードマスター、原文ページ、登録前確認フローをリリース単位で検査します。</p></div><span class="part502-validation-decision" id="part502ValidationDecision">読込中</span></div>
+      <div class="panel-body">
+        <div class="part502-validation-summary" id="part502ValidationSummary"></div>
+        <details class="part502-validation-details"><summary>検証項目を表示</summary><div id="part502ValidationChecks" class="part502-validation-checks"></div></details>
+        <div class="part502-validation-actions"><a class="secondary-action" href="../docs/part502_全件自動検証レポート.json" download>検証レポートJSONを保存</a><span id="part502ValidationGeneratedAt"></span></div>
+      </div>
     </section>
 
     <section class="panel">
@@ -84,11 +96,14 @@
 
     <div id="validationMessage" class="validation-message" aria-live="polite"></div>
   </main>
+  <script src="../data/part502-validation-report.js?v=502"></script>
   <script src="../assets/js/storage.js?v=178"></script>
-  <script src="../assets/js/api-client.js?v=423"></script><script src="../assets/js/role-access.js?v=462"></script>
+  <script src="../assets/js/api-client.js?v=503"></script><script src="../assets/js/role-access.js?v=503"></script>
+  <script src="../assets/js/part502-validation-dashboard.js?v=502"></script>
   <script src="../assets/js/validation-admin.js?v=178"></script>
   <script src="../assets/js/online-status.js?v=178"></script>
   <script src="../assets/js/session-guard.js?v=422"></script>
 <script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=503"></script>
 </body>
 </html>

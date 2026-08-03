@@ -135,6 +135,27 @@
     if(!rows.length)return '<p class="application-history-empty">更新履歴はありません。</p>';
     return `<div class="application-history-list">${rows.slice(0,12).map(row=>`<article><strong>${row.action==="create"?"新規登録":"更新"}</strong><span>${escapeHtml(formatDate(row.createdAt))}</span><small>${escapeHtml(row.actorOffice||"")}／${escapeHtml(row.actorRole||"")}${row.reason?`／${escapeHtml(row.reason)}`:""}</small></article>`).join("")}</div>`;
   }
+  async function showCentralApplicationHistory(serverId){
+    let dialog=document.getElementById("centralApplicationHistoryDialog");
+    if(!dialog){
+      dialog=document.createElement("dialog");
+      dialog.id="centralApplicationHistoryDialog";
+      dialog.className="central-history-dialog";
+      dialog.innerHTML='<form method="dialog" class="central-history-dialog__panel"><div class="central-history-dialog__header"><div><span>中央サーバーの監査履歴</span><h2>申請情報の訂正履歴</h2></div><button type="submit" aria-label="閉じる">×</button></div><div id="centralApplicationHistoryBody" class="central-history-dialog__body"><p>読込中です。</p></div></form>';
+      document.body.appendChild(dialog);
+    }
+    const body=document.getElementById("centralApplicationHistoryBody");
+    body.innerHTML='<p>中央サーバーから訂正履歴を取得しています。</p>';
+    dialog.showModal?.();
+    try{
+      const data=await window.ISSApi.applicationHistory(serverId);
+      const rows=Array.isArray(data?.history)?data.history:[];
+      body.innerHTML=rows.length?`<div class="central-history-list">${rows.map(row=>{const before=row.before_snapshot||{};const after=row.after_snapshot||{};const changed=Object.keys({...before,...after}).filter(key=>JSON.stringify(before[key])!==JSON.stringify(after[key]));return `<article><header><strong>第${escapeHtml(row.revision_number)}版／${escapeHtml(row.action)}</strong><time>${escapeHtml(formatDate(row.created_at))}</time></header><p>${escapeHtml(row.change_reason||"理由未記載")}</p><small>変更者：${escapeHtml(row.changed_by_name||row.changed_by_login||"-")}</small>${changed.length?`<details><summary>変更項目 ${changed.length}件</summary><dl>${changed.map(key=>`<div><dt>${escapeHtml(key)}</dt><dd>${escapeHtml(String(before[key]??"-") )} → ${escapeHtml(String(after[key]??"-"))}</dd></div>`).join("")}</dl></details>`:""}</article>`}).join("")}</div>`:'<p>中央サーバーの訂正履歴はありません。</p>';
+    }catch(error){
+      body.innerHTML=`<p class="is-error">中央訂正履歴を取得できませんでした。${escapeHtml(error.message||"")}</p>`;
+    }
+  }
+
   function renderActiveFilters(appCount){
     if(resultCount)resultCount.textContent=`${appCount}件`;
     if(!activeFilters)return;
@@ -152,9 +173,10 @@
     const display=getDisplaySettings();
     list.innerHTML=apps.map(i=>{ const pc=photos.filter(p=>p.applicationId===i.id).length; const dc=documents.filter(d=>d.applicationId===i.id).length; const name=i.japaneseName||i.englishName||i.caseTitle||""; const meta=[display.container&&i.containerNumber&&`コンテナ番号：${i.containerNumber}`,display.vessel&&i.vesselName&&`船名：${i.vesselName}`,display.vessel&&i.voyageNumber&&`航海番号：${i.voyageNumber}`,display.dangerous&&i.unNumber&&`UN${i.unNumber}`,display.dangerous&&displayHazard(i),display.dangerous&&i.packingGroup&&`容器等級：${i.packingGroup==="not_applicable"?"該当なし":i.packingGroup}`].filter(Boolean);
       const details=[display.assignee&&`<div><dt>担当者</dt><dd>${escapeHtml(i.assignee||"―")}</dd></div>`,display.updated&&`<div><dt>更新日時</dt><dd>${escapeHtml(formatDate(i.updatedAt||i.createdAt))}</dd></div>`,display.counts&&`<div><dt>写真</dt><dd>${pc}枚</dd></div>`,display.counts&&`<div><dt>資料</dt><dd>${dc}件</dd></div>`].filter(Boolean).join("");
-      return `<article class="application-card"><div class="application-card__header"><div><span class="application-number">${escapeHtml(i.applicationYear||"")}年度・${escapeHtml(displayNumber(i))}</span>${name?`<h3>${escapeHtml(name)}</h3>`:""}<span class="application-card__office">${escapeHtml(i.blockName)}｜${escapeHtml(i.office)}</span></div><span class="record-status" data-status="${escapeHtml(i.status||"draft")}">${escapeHtml(statusLabels[i.status]||i.status)}</span></div>${meta.length?`<div class="application-optional-meta">${meta.map(v=>`<span>${escapeHtml(v)}</span>`).join("")}</div>`:""}${details?`<dl class="application-meta">${details}</dl>`:""}${i.note?`<p class="application-note">${escapeHtml(i.note)}</p>`:""}<details class="application-history"><summary>更新履歴を表示</summary>${historySummary(i.id)}</details>${canWrite()?`<div class="management-actions"><button data-select-document-application="${escapeHtml(i.id)}" type="button">資料を登録</button><button data-select-photo-application="${escapeHtml(i.id)}" type="button">写真を登録</button><button data-copy-application="${escapeHtml(i.id)}" type="button">複製</button><button data-edit-application="${escapeHtml(i.id)}" type="button">編集</button>${canDelete()?`<button data-delete-application="${escapeHtml(i.id)}" class="danger-action" type="button">取消</button>`:""}</div>`:'<div class="management-actions"><span class="record-status">閲覧専用</span></div>'}</article>`; }).join("");
+      return `<article class="application-card"><div class="application-card__header"><div><span class="application-number">${escapeHtml(i.applicationYear||"")}年度・${escapeHtml(displayNumber(i))}</span>${name?`<h3>${escapeHtml(name)}</h3>`:""}<span class="application-card__office">${escapeHtml(i.blockName)}｜${escapeHtml(i.office)}</span></div><span class="record-status" data-status="${escapeHtml(i.status||"draft")}">${escapeHtml(statusLabels[i.status]||i.status)}</span></div>${meta.length?`<div class="application-optional-meta">${meta.map(v=>`<span>${escapeHtml(v)}</span>`).join("")}</div>`:""}${details?`<dl class="application-meta">${details}</dl>`:""}${i.note?`<p class="application-note">${escapeHtml(i.note)}</p>`:""}<details class="application-history"><summary>更新履歴を表示</summary>${historySummary(i.id)}${i.serverId?`<div class="management-actions"><button data-central-history="${escapeHtml(i.serverId)}" type="button">中央訂正履歴を表示</button></div>`:""}</details>${canWrite()?`<div class="management-actions"><button data-select-document-application="${escapeHtml(i.id)}" type="button">資料を登録</button><button data-select-photo-application="${escapeHtml(i.id)}" type="button">写真を登録</button><button data-copy-application="${escapeHtml(i.id)}" type="button">複製</button><button data-edit-application="${escapeHtml(i.id)}" type="button">編集</button>${canDelete()?`<button data-delete-application="${escapeHtml(i.id)}" class="danger-action" type="button">取消</button>`:""}</div>`:'<div class="management-actions"><span class="record-status">閲覧専用</span></div>'}</article>`; }).join("");
     document.querySelectorAll("[data-select-document-application]").forEach(b=>b.onclick=()=>{const s=$("documentApplication");if(s){s.value=b.dataset.selectDocumentApplication;s.dispatchEvent(new Event("change",{bubbles:true}));}$("applicationDocumentSection")?.scrollIntoView({behavior:"smooth"});});
     document.querySelectorAll("[data-select-photo-application]").forEach(b=>b.onclick=()=>{const s=$("photoApplication");if(s){s.value=b.dataset.selectPhotoApplication;s.dispatchEvent(new Event("change",{bubbles:true}));}$("applicationPhotoSection")?.scrollIntoView({behavior:"smooth"});});
+    document.querySelectorAll("[data-central-history]").forEach(b=>b.onclick=()=>showCentralApplicationHistory(b.dataset.centralHistory));
     document.querySelectorAll("[data-copy-application]").forEach(b=>b.onclick=()=>{if(!confirm("この案件の入力内容を複製し、仮番号の下書きを作成しますか。写真・添付資料・履歴は複製されません。"))return;try{window.ISSStorage.duplicateApplication(b.dataset.copyApplication);window.dispatchEvent(new CustomEvent("iss:applications-changed"));render();}catch(err){alert(err.message||"複製できませんでした。");}});
     document.querySelectorAll("[data-edit-application]").forEach(b=>b.onclick=()=>beginEdit(b.dataset.editApplication));
     document.querySelectorAll("[data-delete-application]").forEach(b=>b.onclick=()=>{if(!confirm("この案件を取消に変更しますか。データは削除されません。"))return;window.ISSStorage.updateApplication(b.dataset.deleteApplication,{status:"cancelled"});window.dispatchEvent(new CustomEvent("iss:applications-changed"));render();});
@@ -176,3 +198,5 @@
   fields.unNumber.addEventListener("blur",()=>{if(/^\d{4}$/.test(fields.unNumber.value.trim()))renderUnCandidate();});
   populateOrganizationControls();applyDisplaySettingsToControls();renderSavedViews();resetEditMode();const requestedParams=new URLSearchParams(location.search),requestedStatus=requestedParams.get("status"),requestedQuery=requestedParams.get("query"),requestedSort=requestedParams.get("sort");if(requestedStatus&&statusLabels[requestedStatus])statusFilter.value=requestedStatus;if(requestedQuery)filter.value=requestedQuery;if(requestedSort&&[...sortSelect.options].some(option=>option.value===requestedSort))sortSelect.value=requestedSort;render();
 })();
+
+window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/applications.js": "part503" });

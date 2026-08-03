@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<head>
+  <meta name="sk-build" content="part503">
+  <script src="../data/build-manifest.js?v=503"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +12,7 @@
   <link rel="stylesheet" href="../assets/css/system-layout.css">
   <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
   <link rel="stylesheet" href="../assets/css/system-maintenance.css?v=178">
+  <link rel="stylesheet" href="../assets/css/governance-part503.css?v=503">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
 </head>
 <body data-page="settings" data-required-roles="safety-environment-admin">
@@ -24,6 +28,29 @@
       <article><span>保存データ</span><strong id="maintenanceStorage">-</strong></article>
       <article><span>要確認</span><strong id="maintenanceWarnings">-</strong></article>
       <article><span>最終バックアップ</span><strong id="maintenanceLastBackup">未実施</strong></article>
+    </section>
+
+    <section class="panel" id="centralBackupPanel">
+      <div class="panel-heading"><div><h2>中央保存・自動バックアップ</h2><p>申請書、写真、添付資料、訂正履歴を中央サーバーへ保存し、データベースと保管ファイルを定期バックアップします。</p></div></div>
+      <div class="panel-body part503-grid">
+        <div class="part503-status-grid">
+          <article class="part503-status-card"><span>総合状態</span><strong id="centralBackupHealth">確認中</strong></article>
+          <article class="part503-status-card"><span>最終バックアップ</span><strong id="centralBackupLatest">-</strong></article>
+          <article class="part503-status-card"><span>遠隔保管</span><strong id="centralBackupOffsiteStatus">-</strong></article>
+          <article class="part503-status-card"><span>復元試験</span><strong id="centralBackupRestoreStatus">-</strong></article>
+        </div>
+        <form class="part503-form two-column" onsubmit="return false">
+          <label class="check-field"><input id="centralBackupEnabled" type="checkbox" checked><span>自動バックアップを有効にする</span></label>
+          <label class="check-field"><input id="centralBackupOffsite" type="checkbox"><span>遠隔保管を必須にする</span></label>
+          <label>実行間隔（時間）<input id="centralBackupInterval" type="number" min="1" max="168" value="24"></label>
+          <label>保管期間（日）<input id="centralBackupRetention" type="number" min="7" max="3650" value="90"></label>
+          <label>復元試験間隔（日）<input id="centralRestoreTestInterval" type="number" min="7" max="365" value="90"></label>
+          <div class="part503-actions wide"><button id="saveCentralBackupSettings" class="primary-action" type="button">設定を保存</button><button id="refreshCentralBackup" type="button">状態を再取得</button></div>
+        </form>
+        <div id="centralBackupMessage" class="part503-message" aria-live="polite"></div>
+        <div class="part503-table-wrap"><table class="part503-table"><thead><tr><th>開始</th><th>状態</th><th>保存先</th><th>遠隔保管</th><th>検証</th><th>操作</th></tr></thead><tbody id="centralBackupRows"><tr><td colspan="6">読込中です。</td></tr></tbody></table></div>
+        <p class="part503-note">中央保存とサーバー側権限制御は、同梱の <code>server/</code> を社内環境へ配置してAPI接続した場合に有効です。GitHub Pagesなど静的公開のみでは利用できません。</p>
+      </div>
     </section>
 
     <section class="panel">
@@ -76,6 +103,7 @@
           <a href="data-migration.html">データ移行管理</a>
           <a href="security-admin.html">セキュリティ・監査管理</a>
           <a href="regulation-update-admin.html">法令改正・データ更新管理</a>
+          <a href="regulation-approval-admin.html">法令原典照合・承認管理</a>
           <a href="../docs/バックアップ復元手順書.md">バックアップ・復元手順書</a>
           <a href="../docs/part145-system-integrity-backup-handover.md">第145回運用仕様書</a>
         </div>
@@ -86,8 +114,11 @@
   <script src="../data/organization-master.js"></script>
   <script src="../assets/js/organization.js"></script>
   <script src="../assets/js/storage.js?v=178"></script>
+  <script src="../assets/js/api-client.js?v=503"></script>
   <script src="../assets/js/system-maintenance.js?v=178"></script>
+  <script src="../assets/js/central-backup-admin.js?v=503"></script>
   <script src="../assets/js/session-guard.js?v=422"></script>
-<script src="../assets/js/role-access.js?v=462"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=503"></script>
 </body>
 </html>

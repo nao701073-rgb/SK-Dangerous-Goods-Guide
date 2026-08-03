@@ -19,6 +19,20 @@ export const config = {
   sessionIdleMinutes: number('SESSION_IDLE_MINUTES', 30),
   corsOrigins: (process.env.CORS_ORIGINS || '').split(',').map(v => v.trim()).filter(Boolean),
   photoStorageDir: process.env.PHOTO_STORAGE_DIR || new URL('../storage/photos', import.meta.url).pathname,
+  storage: {
+    provider: (process.env.STORAGE_PROVIDER || 'filesystem').toLowerCase(),
+    localDir: process.env.ATTACHMENT_STORAGE_DIR || process.env.PHOTO_STORAGE_DIR || new URL('../storage/attachments', import.meta.url).pathname,
+    s3: {
+      bucket: process.env.S3_BUCKET || '',
+      region: process.env.S3_REGION || 'ap-northeast-1',
+      endpoint: process.env.S3_ENDPOINT || '',
+      prefix: process.env.S3_PREFIX || 'inspection-support',
+      accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+      forcePathStyle: bool('S3_FORCE_PATH_STYLE', false),
+      sse: process.env.S3_SERVER_SIDE_ENCRYPTION || 'AES256'
+    }
+  },
   trustProxy: number('TRUST_PROXY', 1),
   passwordMinLength: number('PASSWORD_MIN_LENGTH', 12),
   passwordMaxAgeDays: number('PASSWORD_MAX_AGE_DAYS', 180),

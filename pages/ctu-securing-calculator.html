@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta name="sk-build" content="part503">
+  <script src="../data/build-manifest.js?v=503"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503">
   <script src="../assets/js/auth-bootstrap.js?v=439"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -136,29 +139,101 @@
     .import-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
     @media(max-width:850px){.import-layout{grid-template-columns:1fr}.route-input-grid{grid-template-columns:1fr 1fr}.route-input-grid .btn{width:100%}}
     @media(max-width:620px){.route-input-grid,.import-summary{grid-template-columns:1fr}.route-estimate-head{align-items:flex-start;flex-direction:column}.excel-drop-zone{min-height:160px;padding:18px}}
+
+
+    /* Part 501: simplified, width-responsive workflow */
+    .entry-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .entry-choice{display:flex;flex-direction:column;gap:8px;min-height:142px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#f8fbfe;text-decoration:none;color:var(--text)}
+    .entry-choice strong{color:var(--navy);font-size:1.02rem}.entry-choice span{color:#52606d;font-size:.86rem;line-height:1.65}.entry-choice .btn{margin-top:auto;text-align:center}
+    .quick-flow{display:grid;gap:14px}.quick-step{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}.quick-step__head{display:flex;align-items:center;gap:10px;padding:11px 14px;background:#edf5fb;border-bottom:1px solid var(--line);color:var(--navy);font-weight:800}.quick-step__num{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:.82rem}.quick-step__body{padding:14px}
+    .quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.quick-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-grid>*{min-width:0}
+    .quick-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.quick-actions .btn.primary{min-width:190px}
+    .quick-status{margin-top:12px;padding:11px 13px;border:1px solid #bfd2e4;border-radius:10px;background:#f3f8fc;line-height:1.65}
+    .quick-field[hidden]{display:none!important}.advanced-section{display:none}.show-advanced .advanced-section{display:block}.advanced-toggle{margin-left:auto}
+    .simple-result-note{margin:10px 0 0;color:#52606d;font-size:.84rem;line-height:1.65}
+    .result-details{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}.result-details>summary{cursor:pointer;padding:12px 14px;background:#edf5fb;color:var(--navy);font-weight:800}.result-details__body{padding:0 14px 14px}
+    .calculation-basis-panel{display:none}.show-advanced .calculation-basis-panel{display:block}
+    .support-note{padding:10px 12px;border-left:4px solid #c27a00;background:#fff7e4;border-radius:8px;color:#604300;font-size:.84rem;line-height:1.65}
+    @media(max-width:900px){.entry-choice-grid,.quick-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.entry-choice-grid,.quick-grid,.quick-grid.two{grid-template-columns:1fr}.entry-choice{min-height:auto}.quick-actions .btn{width:100%;margin-left:0}.advanced-toggle{margin-left:0}.result-details__body{padding:0 10px 10px}}
+
     @media print{.top-actions,.no-print{display:none!important}.panel,.hero{box-shadow:none;break-inside:avoid}body{background:#fff}.calc-shell{max-width:none}}
   </style>
   <link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500">
+<style id="part502-ctu-review-flow">
+.ctu-review-panel h2{margin-bottom:6px}.ctu-review-lead{margin:0 0 14px;color:#52606d;line-height:1.7}.ctu-review-source{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.ctu-review-source span{padding:5px 9px;border:1px solid #c9d9e8;border-radius:999px;background:#f6fafd;color:#36516f;font-size:.84rem;font-weight:700}.ctu-review-source span.is-used{background:#e6f6ed;border-color:#acd7bd;color:#12663f}.ctu-review-status{display:inline-flex;padding:5px 10px;border-radius:999px;background:#fff4d6;color:#755000;font-weight:800;margin-bottom:12px}.ctu-review-status.is-complete{background:#e6f6ed;color:#12663f}.ctu-review-checks{display:grid;gap:10px}.ctu-review-checks label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;background:#f8fbfd;line-height:1.6}.ctu-review-checks input[type=checkbox]{width:20px;height:20px;margin-top:2px;flex:0 0 auto}.ctu-review-meta{display:grid;grid-template-columns:minmax(220px,1fr) minmax(240px,2fr);gap:12px;margin-top:14px}.ctu-review-meta input{width:100%;box-sizing:border-box}.result-registration-panel button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:768px){.ctu-review-meta{grid-template-columns:1fr}}
+</style>
 </head>
 <body data-page="ctu-securing-calculator">
 <main class="calc-shell">
   <section class="hero">
     <h1>固縛力参考算出</h1>
-    <p>CTUコード第5章・第6章および付属書7に基づき、輸送加速度、摩擦、CTU境界、根止め材、直接固縛、トップオーバーラッシングを方向別に比較します。結果は固縛計画の確認補助であり、承認された計算方法や貨物固縛マニュアルに代わるものではありません。</p>
+    <p>申請書・写真・手入力から条件を登録し、必要抵抗力と現在の固縛力を比較します。専門的な条件は必要な場合だけ「詳細設定」から確認できます。</p>
   </section>
   <div class="top-actions">
     <a class="btn" href="../index.html">← ホーム</a>
-    <button class="btn primary" id="calcBtn" type="button">算出する</button>
+    <button class="btn primary advanced-section" id="calcBtn" type="button">詳細条件で算出する</button>
     <button class="btn" type="button" onclick="window.print()">結果を印刷</button>
-    <a class="btn" href="../references/originals/ctu-code-ja.pdf#page=17" target="_blank" rel="noopener">CTUコード第5章</a>
-    <a class="btn" href="../references/originals/ctu-code-ja.pdf#page=100" target="_blank" rel="noopener">付属書7 固縛配置の評価</a>
+    <a class="btn advanced-section" href="../references/originals/ctu-code-ja.pdf#page=17" target="_blank" rel="noopener">CTUコード第5章</a>
+    <a class="btn advanced-section" href="../references/originals/ctu-code-ja.pdf#page=100" target="_blank" rel="noopener">付属書7 固縛配置の評価</a>
   </div>
 
+  <section class="panel" id="entryMethodPanel">
+    <h2>登録方法を選ぶ</h2>
+    <div class="entry-choice-grid">
+      <a class="entry-choice" href="#ctuExcelRoutePanel"><strong>申請書から登録</strong><span>Excel申請書を読み取り、貨物情報や航路の候補を入力欄へ反映します。</span><span class="btn">申請書を選択</span></a>
+      <a class="entry-choice" href="#photoInputPanel"><strong>写真から登録</strong><span>スマートフォンのカメラまたは保存済み写真から、角度・寸法・固縛本数を確認します。</span><span class="btn">写真を撮影・選択</span></a>
+      <a class="entry-choice" href="#quickEntryPanel"><strong>手入力で登録</strong><span>必要最小限の条件だけを入力し、参考算出結果を確認します。</span><span class="btn">かんたん入力へ</span></a>
+    </div>
+  </section>
+
+  <section class="panel" id="quickEntryPanel">
+    <h2>かんたん入力</h2>
+    <p class="hint">「条件を選ぶ → 必要事項を入力 → 結果を確認」の順に進めます。専門的な係数や角度の詳細は、必要な場合だけ「詳細設定」を開いて変更できます。</p>
+    <div class="quick-flow">
+      <div class="quick-step">
+        <div class="quick-step__head"><span class="quick-step__num">1</span>輸送条件と貨物</div>
+        <div class="quick-step__body quick-grid">
+          <div><label for="quickTransport">輸送条件</label><select id="quickTransport"><option value="road">道路輸送</option><option value="rail">鉄道輸送（通常）</option><option value="railShock">鉄道輸送（短時間衝撃）</option><option value="seaA">海上輸送 海域A</option><option value="seaB">海上輸送 海域B</option><option value="seaC">海上輸送 海域C</option></select></div>
+          <div><label for="quickCtu">CTUの種類</label><select id="quickCtu"><option value="container">汎用貨物コンテナ</option><option value="swap">スワップボディ</option><option value="roadL">道路車両 Code L</option><option value="roadXL">道路車両 Code XL</option><option value="none">壁強度を算入しない</option></select></div>
+          <div><label for="quickMass">貨物質量（t）</label><input id="quickMass" type="number" min="0" step="0.001" value="5"></div>
+          <div><label for="quickCargoDescription">貨物名・品名</label><input id="quickCargoDescription" type="text" placeholder="任意"></div>
+          <div><label for="quickFriction">接触面の状態</label><select id="quickFriction"><option value="unknown">組合せ不明・未検証</option><option value="verified">確認済みの摩擦係数を使用</option><option value="unclean">完全に清められていない</option><option value="snow">霜・氷・雪</option><option value="oil">油脂付着・シートパレット</option></select></div>
+          <div><label for="quickMu">摩擦係数 μ</label><input id="quickMu" type="number" min="0" max="1" step="0.01" value="0.30"></div>
+        </div>
+      </div>
+      <div class="quick-step">
+        <div class="quick-step__head"><span class="quick-step__num">2</span>固縛・支保条件</div>
+        <div class="quick-step__body">
+          <div class="quick-grid">
+            <div><label for="quickMaterialCategory">使用方法</label><select id="quickMaterialCategory"><option value="tensile">引張系固縛材</option><option value="support">支保・当て材</option></select></div>
+            <div><label for="quickMethod">固縛方法</label><select id="quickMethod"><option value="direct">直接固縛</option><option value="topover">トップオーバー</option></select></div>
+            <div><label for="quickMaterial">材質</label><select id="quickMaterial"></select></div>
+            <div><label for="quickDirection">対象方向</label><select id="quickDirection"><option value="all">全方向</option><option value="forward">前方（前壁側）</option><option value="rear">後方（扉・後壁側）</option><option value="left">左方向</option><option value="right">右方向</option></select></div>
+            <div><label for="quickCount">本数・個数</label><input id="quickCount" type="number" min="0" step="1" value="2"></div>
+            <div><label id="quickStrengthLabel" for="quickStrength">確認済みMSL（kN）</label><input id="quickStrength" type="number" min="0" step="0.1" value="20"></div>
+            <div class="quick-field" id="quickCargoMslField"><label for="quickCargoMsl">貨物側取付部MSL（kN）</label><input id="quickCargoMsl" type="number" min="0" step="0.1" value="20"></div>
+            <div class="quick-field" id="quickCtuMslField"><label for="quickCtuMsl">CTU側固縛点MSL（kN）</label><input id="quickCtuMsl" type="number" min="0" step="0.1" value="10"></div>
+            <div class="quick-field" id="quickAngleField"><label for="quickAngle">鉛直角（°）</label><input id="quickAngle" type="number" min="0" max="90" step="1" value="45"></div>
+            <div class="quick-field" id="quickBasisField" hidden><label for="quickBasis">強度の根拠</label><input id="quickBasis" type="text" placeholder="例：メーカー仕様書、試験成績、材種・等級・断面寸法"></div>
+          </div>
+          <p id="quickSupportNote" class="support-note" hidden>木材・強化プラスチック（FRP等）は、材種、等級、断面寸法、荷重方向、施工方法で強度が変わります。一般値は自動設定せず、確認済みの支保力と根拠がある場合だけ参考算出へ反映します。</p>
+        </div>
+      </div>
+      <div class="quick-step">
+        <div class="quick-step__head"><span class="quick-step__num">3</span>結果を確認</div>
+        <div class="quick-step__body">
+          <div class="quick-actions"><button class="btn primary" id="quickCalcBtn" type="button">この条件で算出する</button><button class="btn advanced-toggle" id="toggleAdvanced" type="button" aria-expanded="false">詳細設定を表示</button></div>
+          <div id="quickStatus" class="quick-status" aria-live="polite">必要事項を入力し、「この条件で算出する」を押してください。</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <section class="panel" id="ctuExcelRoutePanel">
-    <h2>Excel申請書・航路情報</h2>
-    <div class="notice info">この画面でExcel申請書を直接読み込み、貨物情報・船積港・陸揚港を入力欄へ反映します。「申請書確認」で読み込んだ結果との引継ぎは行いません。Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。申請番号管理へ登録する場合は、確認・算出した結果情報だけを保存します。自動取得できない項目は手入力してください。</div>
+    <h2>申請書から登録・航路情報</h2>
+    <div class="notice info">Excel申請書を端末内で読み取り、貨物情報・船積港・陸揚港の候補を入力欄へ反映します。取込後は必ず申請書原本と照合してください。</div><details class="result-details"><summary>申請書データの取扱いを確認</summary><div class="result-details__body"><p class="hint">Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。申請番号管理へ登録する場合は、確認・算出した結果情報だけを保存します。自動取得できない項目は手入力してください。</p></div></details>
     <div class="import-layout" style="margin-top:14px">
       <div>
         <div id="ctuExcelDropZone" class="excel-drop-zone" tabindex="0" role="button" aria-label="Excel申請書を選択またはドロップ">
@@ -187,8 +262,8 @@
     <div id="routeEstimate" class="route-estimate" hidden aria-live="polite"></div>
   </section>
 
-  <section class="panel">
-    <h2>1. 輸送条件・CTU条件</h2>
+  <section class="panel advanced-section">
+    <h2>詳細設定：輸送条件・CTU条件</h2>
     <div class="grid">
       <div class="method-selector"><label for="calcStandard">算出基準</label><select id="calcStandard"><option value="ctu">CTUコード参考算出</option><option value="cssRule">CSS Code Annex 13 経験に基づく方法</option><option value="cssAdvanced">CSS Code Annex 13 先進の計算方法</option><option value="cssAlternative">CSS Code Annex 13 代替の方法（水平角を考慮）</option></select><div class="hint">海上の半標準化・非標準化貨物は、CSS Code Annex 13を選択してください。</div></div>
       <div><label for="transportPreset">輸送モード・条件</label><select id="transportPreset"><option value="road">道路輸送</option><option value="rail">鉄道輸送（通常）</option><option value="railShock">鉄道輸送（短時間衝撃）</option><option value="seaA">海上輸送 海域A</option><option value="seaB">海上輸送 海域B</option><option value="seaC">海上輸送 海域C</option><option value="manual">手動入力</option></select></div>
@@ -210,7 +285,7 @@
     </div>
   </section>
 
-  <section class="panel css-annex-panel" id="cssAnnexPanel" hidden>
+  <section class="panel css-annex-panel advanced-section" id="cssAnnexPanel" hidden>
     <h2>CSS Code Annex 13 補足条件 <span class="css-source-badge">MSC.1/Circ.1623</span></h2>
     <div class="notice css-scope-warning"><strong>適用範囲：</strong>半標準化貨物および非標準化貨物の固縛配置を評価する補助です。コンテナ船上の標準化されたコンテナ固縛には適用しません。非常に重い貨物・非常に大型の貨物、新規または特殊な用途では、詳細な工学計算、検証済みソフトウェア、承認された貨物固縛マニュアルを優先してください。</div>
     <div class="check-row"><input id="cssScopeConfirmed" type="checkbox"><label for="cssScopeConfirmed">対象貨物がCSS Code Annex 13の適用範囲であり、船舶の承認済みCargo Securing Manualに優先規定がないことを確認しました。</label></div>
@@ -244,8 +319,8 @@
     <p class="material-source-note">参照根拠：MSC.1/Circ.1623 CSS Code Annex 13。PDF原本は画面に表示しません。</p>
   </section>
 
-  <section class="panel">
-    <h2>2. 方向別加速度・CTU境界・根止め</h2>
+  <section class="panel advanced-section">
+    <h2>詳細設定：方向別加速度・CTU境界・根止め</h2>
     <div class="coefficient-wrap">
       <table class="coefficient-table">
         <thead><tr><th>方向</th><th>水平加速度係数 c<sub>x,y</sub></th><th>垂直加速度係数 c<sub>z</sub></th><th>境界抵抗係数 r<sub>x,y</sub></th><th>境界抵抗上限（kN、0=なし）</th><th>根止め・ショアリング（kN）</th><th>方向メモ</th></tr></thead>
@@ -255,8 +330,8 @@
     <div class="notice info" style="margin-top:14px">複合輸送では、予定ルート中の最も過酷な輸送手段または区間の係数を使用してください。海上輸送では縦方向と横方向で c<sub>z</sub> が異なります。</div>
   </section>
 
-  <section class="panel">
-    <h2>3. 貨物・重心条件</h2>
+  <section class="panel advanced-section">
+    <h2>詳細設定：貨物・重心条件</h2>
     <div class="grid">
       <div><label for="cargoDescription">貨物名・品名</label><input id="cargoDescription" type="text" placeholder="申請書から取得または手入力"></div>
       <div><label for="unNumbers">国連番号</label><input id="unNumbers" type="text" placeholder="例：UN1001、UN1950"></div>
@@ -272,32 +347,34 @@
     </div>
   </section>
 
-  <section class="panel">
-    <h2>4. 写真による入力補助</h2>
+  <section class="panel" id="photoInputPanel">
+    <h2>写真から登録（入力補助）</h2>
     <div class="photo-grid">
       <div class="photo-stage" id="photoStage"><div class="photo-placeholder" id="photoPlaceholder">現場写真を撮影またはアップロードしてください。<br>画像上の2点を指定して、固縛角度や寸法を測定できます。</div><canvas id="photoCanvas" hidden></canvas></div>
       <div class="photo-controls">
         <input class="camera-input" id="cameraInput" type="file" accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence" capture="environment"><label class="btn primary camera-label" for="cameraInput">カメラで撮影</label>
         <input class="camera-input" id="photoInput" type="file" accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence"><label class="btn camera-label" for="photoInput">写真をアップロード</label>
         <div class="hint">対応形式：JPEG、PNG、WebP、HEIC／HEIF</div>
-        <button class="btn" id="angleMode" type="button">鉛直角を測る</button><button class="btn" id="scaleMode" type="button">基準寸法を設定</button><button class="btn" id="measureMode" type="button">長さを測る</button><button class="btn" id="clearMarks" type="button">測定点を消去</button>
-        <div><label for="referenceLength">基準となる実寸（m）</label><input id="referenceLength" type="number" min="0" step="0.001" placeholder="例：パレット幅 1.1"><div class="hint">既知寸法の両端を2点指定して縮尺を設定します。</div></div>
-        <div class="photo-status" id="photoStatus">写真は未選択です。</div>
-        <div><label for="visibleLashings">写真で確認した固縛本数</label><input id="visibleLashings" type="number" min="0" step="1" placeholder="目視確認"><button class="btn" id="applyCount" type="button" style="margin-top:8px">先頭の固縛器具へ反映</button></div>
+        <details class="result-details"><summary>写真の測定・入力補助を表示</summary><div class="result-details__body photo-controls">
+          <button class="btn" id="angleMode" type="button">鉛直角を測る</button><button class="btn" id="scaleMode" type="button">基準寸法を設定</button><button class="btn" id="measureMode" type="button">長さを測る</button><button class="btn" id="clearMarks" type="button">測定点を消去</button>
+          <div><label for="referenceLength">基準となる実寸（m）</label><input id="referenceLength" type="number" min="0" step="0.001" placeholder="例：パレット幅 1.1"><div class="hint">既知寸法の両端を2点指定して縮尺を設定します。</div></div>
+          <div class="photo-status" id="photoStatus">写真は未選択です。</div>
+          <div><label for="visibleLashings">写真で確認した固縛本数</label><input id="visibleLashings" type="number" min="0" step="1" placeholder="目視確認"><button class="btn" id="applyCount" type="button" style="margin-top:8px">かんたん入力へ反映</button></div>
+        </div></details>
       </div>
     </div>
     <div class="notice" style="margin-top:14px">写真は入力補助です。貨物質量、重心位置、摩擦係数、MSL・STF、貨物側取付部およびCTU側固縛点の強度は、銘板・仕様書・現場確認値を使用してください。</div>
   </section>
 
-  <section class="panel">
-    <h2>5. 固縛器具・固縛材質</h2>
+  <section class="panel advanced-section">
+    <h2>詳細設定：固縛器具・固縛材質</h2>
     <p class="hint">直接固縛は、ラッシング材・貨物側取付部・CTU側固縛点の最小MSLを使用します。鉛直角は30°～60°が望ましく、抑止方向に対する水平角も反映します。トップオーバーは1本当たりの総鉛直力を 1.8×STF として摩擦増加分を算出します。</p>
     <div class="material-reference" aria-labelledby="materialReferenceTitle">
       <div class="material-reference-header"><h3 id="materialReferenceTitle">固縛材質の比較</h3><div class="hint">添付比較資料の内容を、材質選択と現場確認の補助として表示します。</div></div>
       <div class="material-reference-body">
         <div class="notice info">比較資料に記載された「最大システム強度」「直線破断強度」は、算出欄へ入力するMSL・STFと同一とは限りません。算出には、使用する製品・接合方法・止め具・固縛点について、銘板、仕様書、試験成績または承認資料で確認したMSL・STFを入力してください。</div>
         <div class="material-toolbar" style="margin-top:14px">
-          <div><label for="materialReferenceSelect">比較する固縛材質</label><select id="materialReferenceSelect"><option value="aslash">アスラッシュ</option><option value="steel">帯鉄</option><option value="wire">ワイヤーロープ</option><option value="pet">エステルバンド（PETバンド）</option><option value="pp">PPロープ</option></select></div>
+          <div><label for="materialReferenceSelect">比較する固縛材質</label><select id="materialReferenceSelect"><option value="aslash">アスラッシュ</option><option value="steel">帯鉄</option><option value="wire">ワイヤーロープ</option><option value="pet">エステルバンド（PETバンド）</option><option value="pp">PPロープ</option><option value="timber">木材（支保・当て材）</option><option value="frp">強化プラスチック（FRP等）</option></select></div>
           <div class="material-selected-card" id="materialReferenceDetail" aria-live="polite"></div>
         </div>
         <details class="material-details"><summary>全材質の比較表を表示</summary><div class="material-table-wrap"><table class="material-comparison-table" id="materialComparisonTable"></table></div></details>
@@ -313,14 +390,17 @@
     <h2>6. 算出結果</h2>
     <div id="overall" class="notice">入力後、「算出する」を押してください。</div>
     <div id="metrics" class="result-summary" style="margin-top:14px"></div>
-    <div class="result-table-wrap"><table id="resultTable"><thead><tr><th>方向</th><th>c<sub>x,y</sub>/c<sub>z</sub></th><th>作用力</th><th>摩擦抵抗</th><th>CTU境界</th><th>根止め</th><th>直接固縛</th><th>トップオーバー</th><th>合計抵抗</th><th>余裕</th><th>判定</th></tr></thead><tbody></tbody></table></div>
-    <h3>転倒確認</h3><div id="tipResult"></div>
-    <div id="cssDetailedResult" class="css-result-card" hidden></div>
-    <h3>確認事項</h3><div id="warnings" class="notice info"><ul id="warningList"><li>算出後に確認事項を表示します。</li></ul></div>
+    <p class="simple-result-note">最も厳しい方向の必要抵抗力、現在の合計抵抗力、余裕または不足量を優先して表示します。</p>
+    <details class="result-details"><summary>方向別の詳細結果・確認事項を表示</summary><div class="result-details__body">
+      <div class="result-table-wrap"><table id="resultTable"><thead><tr><th>方向</th><th>c<sub>x,y</sub>/c<sub>z</sub></th><th>作用力</th><th>摩擦抵抗</th><th>CTU境界</th><th>根止め</th><th>直接固縛</th><th>トップオーバー</th><th>合計抵抗</th><th>余裕</th><th>判定</th></tr></thead><tbody></tbody></table></div>
+      <h3>転倒確認</h3><div id="tipResult"></div>
+      <div id="cssDetailedResult" class="css-result-card" hidden></div>
+      <h3>確認事項</h3><div id="warnings" class="notice info"><ul id="warningList"><li>算出後に確認事項を表示します。</li></ul></div>
+    </div></details>
   </section>
 
-  <section class="panel">
-    <h2>算出根拠・適用上の注意</h2>
+  <section class="panel calculation-basis-panel advanced-section">
+    <h2>計算根拠・適用上の注意</h2>
     <p class="formula">CTUコード：外力 F = m × 9.81 × cₓ,ᵧ</p>
     <p class="formula">CSS Code：F(x,y,z) = m × a(x,y,z) + Fw(x,y) + Fs(x,y)</p>
     <p class="formula">CSS先進の計算方法：CS = 最小MSL ÷ 1.5</p>
@@ -334,6 +414,11 @@
     <div class="source-links"><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=93" target="_blank" rel="noopener">固縛の原則（付属書7 4.1）</a><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=96" target="_blank" rel="noopener">直接固縛・転倒（4.3）</a><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=100" target="_blank" rel="noopener">固縛配置の評価（4.4）</a></div>
   </section>
 
+  <section class="panel no-print ctu-review-panel" id="ctuReviewSection">
+<h2>登録前の確認</h2><p class="ctu-review-lead">申請書・写真から取得した値は入力候補です。原本、現場写真、器具の銘板・仕様書と照合し、算出条件と結果を確認してから登録してください。</p>
+<div class="ctu-review-source" aria-label="使用した入力方法"><span id="ctuReviewSourceExcel">申請書：未使用</span><span id="ctuReviewSourcePhoto">写真：未使用</span><span class="is-used">手入力：使用</span></div><div id="ctuReviewStatus" class="ctu-review-status">未確認・登録できません</div>
+<div class="ctu-review-checks"><label><input type="checkbox" data-ctu-review="source"><span><strong>入力値を確認</strong><br>貨物質量、貨物名、航路、固縛本数、角度などを申請書原本または現場写真と照合しました。</span></label><label><input type="checkbox" data-ctu-review="strength"><span><strong>強度の根拠を確認</strong><br>固縛材のMSL・STF、固縛点、木材・FRP等の支保力を銘板、仕様書または確認済み資料で確認しました。</span></label><label><input type="checkbox" data-ctu-review="result"><span><strong>算出結果を確認</strong><br>必要抵抗力、現在の抵抗力、不足量、追加本数および注意事項を確認しました。</span></label></div>
+<div class="ctu-review-meta"><label>確認者<input id="ctuReviewer" type="text" maxlength="80" placeholder="氏名または利用者名"></label><label>確認メモ（任意）<input id="ctuReviewNote" type="text" maxlength="300" placeholder="修正内容、写真の確認箇所、根拠資料など"></label></div></section>
   <section class="panel no-print result-registration-panel" id="ctuRegistrationSection">
     <h2>算出結果を申請番号管理へ登録</h2><p>現在の入力条件、方向別結果、判定、確認事項および算出日時を履歴として保存します。</p>
     <div class="registration-existing"><label for="ctuApplicationSelect">登録済みの申請番号を選択</label><div class="registration-action-row"><select id="ctuApplicationSelect"><option value="">申請番号を選択してください</option></select><button class="btn" id="saveCtuResult" type="button">申請番号管理に登録</button></div></div>
@@ -342,9 +427,9 @@
   </section>
 </main>
 <script src="../assets/js/storage.js?v=445"></script>
-<script src="../assets/js/application-result-link.js?v=458"></script>
+<script src="../assets/js/application-result-link.js?v=502"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-<script src="../assets/js/ctu-excel-route-import.js?v=481"></script>
+<script src="../assets/js/ctu-excel-route-import.js?v=502"></script>
 <script src="https://cdn.jsdelivr.net/npm/heic-to@1.5.2/dist/iife/heic-to.js" crossorigin="anonymous"></script>
 <script src="../assets/js/image-format-support.js?v=479"></script>
 <script>
@@ -365,18 +450,20 @@ const WALL_PRESETS={
  roadL:{label:'道路車両 Code L',v:{forward:[.4,50],rear:[.3,31],left:[.3,0],right:[.3,0]}},
  roadXL:{label:'道路車両 Code XL',v:{forward:[.5,0],rear:[.4,0],left:[.4,0],right:[.4,0]}}
 };
-const MATERIAL_NAMES={aslash:'アスラッシュ',steel:'帯鉄',wire:'ワイヤーロープ',pet:'エステルバンド（PETバンド）',pp:'PPロープ',other:'その他・手動確認'};
+const MATERIAL_NAMES={aslash:'アスラッシュ',steel:'帯鉄',wire:'ワイヤーロープ',pet:'エステルバンド（PETバンド）',pp:'PPロープ',timber:'木材（支保・当て材）',frp:'強化プラスチック（FRP等）',other:'その他・手動確認'};
 const MATERIAL_REFERENCE={
  aslash:{rating:'◎',corrosion:'錆びない。大体の無機酸に耐える。',heat:'零下40℃～100℃（短時間なら140℃まで耐える。249℃で溶融する。）',weight:'1',tensile:'約50 kgf',breakElongation:'約13%',elastic:'6～7%',material:'ポリエステル繊維',size:'12mm～50mm',system:'8,500kgf（AW200の場合）',breaking:'6,500kgf（AW300）',joint:'鉄製バックル',tool:'手動締め機',jointReliability:'① バックルが外から目視出来て、接合が確実。② バックルを装着したシステム試験で、強度が明白。',strengthUse:'明確に定義された強度基準を用い、本来の強度が発揮される。',flexibility:'角が柔軟で安全。',planning:'綿密な強度計算ができ、ラッシングプランが立てやすい。',handling:'部品はバックル1個で簡単締付。ベルトは締め機内蔵のカッターで自動的に切断。',use:'輸出製品梱包。コンテナ、フラットラックから船内の重量物まで広範囲',disposal:'切断せず、家庭ゴミとして処分が可。',workability:'軽く、安全、簡単、迅速なので素人でもできる。',css:'CSSコードで固縛装置として認定されている。',strength:'安全、迅速、簡単。強度が明確で軽量から重量物まで使用できる。',weakness:'鋭い角には、角当てが必要。'},
  steel:{rating:'○',corrosion:'防錆処理がされているが、シールの周りから錆びることがある。',heat:'高温',weight:'5',tensile:'約60 kgf',breakElongation:'9～10%',elastic:'約0.15%',material:'USLM材（シグノード）',size:'31.75×0.8～1.45mm',system:'シール2個で静止試験（1,764～4,700kgf）、動的試験（1,176～3,180kgf）',breaking:'1,960～5,300kgf',joint:'シール',tool:'エアー締め機',jointReliability:'接合がシールで、シールを装着して引っ張ったシステム強度が不明。',strengthUse:'シールが開き、帯鉄本来の強度以下で破断することがある。',flexibility:'角が鋭利で危険。',planning:'システム強度が不確実で、ラッシングプランが立てにくい。',handling:'帯鉄の切断→引き締め→封緘に手間・時間がかかる。',use:'輸出製品梱包。コンテナ。',disposal:'嵩が大きくなり、処分の前に細かく切断の必要あり。',workability:'重く、危険、時間がかかり、熟練要。',css:'CSSコードで固縛装置として認定されている。',strength:'強度が規定されている。角の磨耗に強い。',weakness:'腐食、ケガの危険性、乾燥、振動後の荷物の収縮で締付力を失い、動的な荷重で破壊される。作業に時間がかかる。'},
  wire:{rating:'○',corrosion:'防錆処理がされているが、錆びることがある。',heat:'高温',weight:'5',tensile:'約60 kgf',breakElongation:'約2%',elastic:'約0.2%',material:'非メッキワイヤー 1.770 N/mm²',size:'16mm',system:'8,500kgf（クリップ2個）、17,000kgf（4個）',breaking:'12,800kgf（16mm）',joint:'クリップ',tool:'ターンバックル・レンチ',jointReliability:'接合がクリップで、クリップを装着して引っ張ったシステム強度が不明。',strengthUse:'時々クリップ数不足、締付不足で本来の強度を活かしていない。',flexibility:'角が鋭利で危険。',planning:'実際の船社規定はメーカー基準より低い。18mm×22 3,000kgf（クリップ2個）、4,500kgf（クリップ3個）',handling:'油圧カッターで切断。多数のクリップ締め、ターンバックル締めで、手間と時間がかかる。',use:'主にフラットラック、船内の重量物。',disposal:'嵩が大きくなり、処分の前に細かく切断の必要あり。',workability:'重く、危険、時間がかかり、熟練要。',css:'CSSコードで固縛装置として認定されている。',strength:'正しく使用された場合、高強度。',weakness:'しばしば正しく使われていない。乾燥、振動等で荷物が収縮したら、緩んで締め付け力を失ってしまう。作業に時間がかかる。'},
  pet:{rating:'△',corrosion:'錆びない。大体の無機酸に耐える。',heat:'零下40℃～100℃（短時間なら140℃まで耐える。249℃で溶融する。）',weight:'1',tensile:'－',breakElongation:'約13%',elastic:'－',material:'ポリエステル樹脂のみ',size:'－',system:'未発表',breaking:'約1,000kgf（19.1mm）',joint:'溶着、シール',tool:'溶着工具、封緘機',jointReliability:'接合が溶着、シールで固縛の確実性を目視できない。',strengthUse:'接合部分が外から見えず、信頼性に欠ける。',flexibility:'硬くバックルを使えない。',planning:'引張強度が不明なので、ラッシングプランが立てにくい。',handling:'電動工具は便利だが、電源のある場所に限られる。',use:'包装物限定、ラッシングには向かない。',disposal:'切断せず、家庭ゴミとして処分が可。',workability:'工場内向き、屋外不向き。',css:'CSSコードで固縛装置として認定されていない。',strength:'自動締付機を使え、作業が手軽。',weakness:'材質が硬く、荷物にフィットしない。接合部が見えずラッシングには向かない。'},
  pp:{rating:'△',corrosion:'－',heat:'－',weight:'1',tensile:'－',breakElongation:'約13%',elastic:'－',material:'ポリプロピレン繊維',size:'－',system:'未発表',breaking:'約245kgf（15.5mm）',joint:'手結び',tool:'ネジ（突っ張り）棒',jointReliability:'接合が手結びで、引張強度が不明。ネジ棒は外れることがある。',strengthUse:'ネジ棒は輸送中に外れることがある。',flexibility:'柔軟である。',planning:'引張強度が不明なので、ラッシングプランが立てにくい。',handling:'手結びやネジ棒の固定に手間と時間がかかる。',use:'輸出製品梱包。コンテナ。',disposal:'－',workability:'結束に手間がかかる。',css:'CSSコードで固縛装置として認定されているが、安全率は33%と低い。',strength:'引張強度はアスラッシュのように強い。',weakness:'鋭い角には、角当てが必要。ネジ棒は外れることがあり、作業者がケガをすることがある。'},
+ timber:{rating:'要確認',corrosion:'含水率、腐朽、割れ、節、繊維方向を確認',heat:'材種・使用環境による',weight:'材種・断面寸法による',tensile:'一律値なし',breakElongation:'一律値なし',elastic:'材種・等級による',material:'天然木材・構造用木材等',size:'断面寸法を実測',system:'材種、等級、断面寸法、荷重方向、施工方法による',breaking:'一般値を自動設定しない',joint:'当て木、根止め、ショアリング等',tool:'施工方法による',jointReliability:'接触面、固定方法、割れ、ずれ、局部破壊を確認してください。',strengthUse:'メーカー資料、構造計算、材種・等級または確認済み強度を使用してください。',flexibility:'圧縮・曲げ・せん断の方向で異なる',planning:'確認済み支保力を手入力した場合だけ参考算出へ反映します。',handling:'角部、釘・ボルト、楔、荷重伝達面を確認',use:'根止め、ショアリング、当て材',disposal:'材種・汚染状態に応じる',workability:'加工しやすいが施工品質に左右される',css:'CTU Code、Cargo Securing Manualおよび承認資料を確認',strength:'形状に合わせた支保が可能',weakness:'材質名だけでは強度を決められません。'},
+ frp:{rating:'要確認',corrosion:'一般に耐食性は高いが樹脂・繊維・薬品適合性を確認',heat:'製品仕様による',weight:'製品仕様による',tensile:'製品仕様による',breakElongation:'製品仕様による',elastic:'積層構成・繊維方向による',material:'繊維強化プラスチック（FRP等）',size:'製品寸法・断面を確認',system:'メーカー公称強度または試験成績による',breaking:'一般値を自動設定しない',joint:'ボルト、治具、成形部材等の仕様による',tool:'製品・施工方法による',jointReliability:'層間剥離、局部圧壊、穴周り、接合部を確認してください。',strengthUse:'メーカー公称強度、試験成績、繊維方向および安全率を確認してください。',flexibility:'積層構成と荷重方向で異なる',planning:'確認済み支保力を手入力した場合だけ参考算出へ反映します。',handling:'損傷、紫外線劣化、薬品適合性を確認',use:'支保材、当て材、専用治具等',disposal:'製品・地域の処理方法に従う',workability:'軽量だが加工・接合条件に注意',css:'メーカー資料、Cargo Securing Manualおよび承認資料を確認',strength:'軽量・耐食性に優れる製品がある',weakness:'製品仕様なしに強度を推定できません。'},
  other:{rating:'－',corrosion:'－',heat:'－',weight:'－',tensile:'－',breakElongation:'－',elastic:'－',material:'製品仕様を確認',size:'製品仕様を確認',system:'製品仕様を確認',breaking:'製品仕様を確認',joint:'製品仕様を確認',tool:'製品仕様を確認',jointReliability:'接合方法、止め具および締付状態を現場で確認してください。',strengthUse:'製品仕様、接合方法および施工状態を確認してください。',flexibility:'製品仕様を確認',planning:'確認済みのMSL・STFおよび適用条件に基づいて計画してください。',handling:'製品仕様を確認',use:'製品仕様を確認',disposal:'製品仕様を確認',workability:'製品仕様を確認',css:'承認資料を確認',strength:'製品仕様を確認',weakness:'添付比較資料の対象外です。'}
 };
 const MATERIAL_ROWS=[['耐食性','corrosion'],['耐熱温度','heat'],['重量（比例）','weight'],['抗張力（mm²）','tensile'],['破断伸度','breakElongation'],['弾性伸び（復元力のある伸びのこと）','elastic'],['材料','material'],['寸法','size'],['最大システム強度（止め具固定時の強度）','system'],['直線破断強度','breaking'],['接合方法','joint'],['締め付け工具','tool'],['接合の確実性','jointReliability'],['本来の強度の活かされ様','strengthUse'],['資材の柔軟性','flexibility'],['実際のラッシング計画の立てやすさ','planning'],['取り扱い','handling'],['使用箇所','use'],['廃棄処分','disposal'],['作業性','workability'],['IMOのCSSコード（安全規則）','css'],['強み','strength'],['弱み','weakness'],['総合評価','rating']];
 function esc(value){return String(value??'－').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderMaterialTable(){const keys=['aslash','steel','wire','pet','pp'];$('materialComparisonTable').innerHTML=`<thead><tr><th>比較項目</th>${keys.map(k=>`<th>${esc(MATERIAL_NAMES[k])}</th>`).join('')}</tr></thead><tbody>${MATERIAL_ROWS.map(([label,field])=>`<tr><th>${esc(label)}</th>${keys.map(k=>`<td>${esc(MATERIAL_REFERENCE[k][field])}</td>`).join('')}</tr>`).join('')}</tbody>`}
+function renderMaterialTable(){const keys=['aslash','steel','wire','pet','pp','timber','frp'];$('materialComparisonTable').innerHTML=`<thead><tr><th>比較項目</th>${keys.map(k=>`<th>${esc(MATERIAL_NAMES[k])}</th>`).join('')}</tr></thead><tbody>${MATERIAL_ROWS.map(([label,field])=>`<tr><th>${esc(label)}</th>${keys.map(k=>`<td>${esc(MATERIAL_REFERENCE[k][field])}</td>`).join('')}</tr>`).join('')}</tbody>`}
 function showMaterialReference(key){const d=MATERIAL_REFERENCE[key]||MATERIAL_REFERENCE.aslash;$('materialReferenceSelect').value=key in MATERIAL_REFERENCE?key:'aslash';$('materialReferenceDetail').innerHTML=`<h4>${esc(MATERIAL_NAMES[key]||MATERIAL_NAMES.aslash)} <span class="material-chip">総合評価 ${esc(d.rating)}</span></h4><div class="material-selected-grid"><div class="material-selected-item"><strong>材料</strong>${esc(d.material)}</div><div class="material-selected-item"><strong>最大システム強度</strong>${esc(d.system)}</div><div class="material-selected-item"><strong>直線破断強度</strong>${esc(d.breaking)}</div><div class="material-selected-item"><strong>接合方法</strong>${esc(d.joint)}</div><div class="material-selected-item"><strong>使用箇所</strong>${esc(d.use)}</div><div class="material-selected-item"><strong>確認上の注意</strong>${esc(d.weakness)}</div></div>`}
 function materialWarning(key,index,warnings){if(!key||key==='other')return;const name=MATERIAL_NAMES[key];warnings.add(`固縛器具${index}（${name}）：添付比較資料の強度値をMSL・STFへ直接転記せず、使用製品と接合状態に対応する確認済みの値を使用してください。`);if(key==='aslash')warnings.add(`固縛器具${index}（${name}）：添付比較資料では、鋭い角には角当てが必要とされています。`);if(key==='steel')warnings.add(`固縛器具${index}（${name}）：添付比較資料では、シール装着時のシステム強度と、腐食・荷物収縮による緩みの確認が必要とされています。`);if(key==='wire')warnings.add(`固縛器具${index}（${name}）：添付比較資料では、クリップ数・締付状態と、実際に適用するシステム強度の確認が必要とされています。`);if(key==='pet')warnings.add(`固縛器具${index}（${name}）：添付比較資料では、CSSコードで固縛装置として認定されておらず、ラッシングには向かないと記載されています。`);if(key==='pp')warnings.add(`固縛器具${index}（${name}）：添付比較資料では、引張強度が不明で、安全率は33%と低いと記載されています。`)}
 
@@ -487,12 +574,12 @@ function calc(){
  });
  if(!Number.isFinite(worst))worst=0;
  $('resultTable').querySelector('tbody').innerHTML=tableRows;$('overall').className='notice '+(allOk?'ok':'ng');$('overall').innerHTML=allOk?`<strong>${css?'CSS Code Annex 13':'CTUコード'}の入力条件の範囲では、評価対象方向で抵抗力が作用力以上です。</strong>`:`<strong>不足または確認が必要な方向があります。条件、MSL、固縛角度、摩擦、重心および固縛点を見直してください。</strong>`;
- const directTotal=directionResults.reduce((s,x)=>s+x.direct,0),topTotal=directionResults.reduce((s,x)=>s+x.topover,0);$('metrics').innerHTML=`<div class="metric">算出基準<strong>${$('calcStandard').selectedOptions[0].textContent.replace('CSS Code Annex 13 ','CSS ')}</strong></div><div class="metric">採用摩擦係数<strong>${muInfo.effective.toFixed(2)}</strong></div><div class="metric">固縛抵抗の方向別合計<strong>${directTotal.toFixed(1)} kN</strong></div><div class="metric">最小余裕<strong class="${worst>=0?'status-ok':'status-ng'}">${worst.toFixed(1)} kN</strong></div>`;
+ const applicableResults=directionResults.filter(x=>x.applicable);const severe=applicableResults.reduce((a,b)=>!a||Number(b.margin)<Number(a.margin)?b:a,null);const required=severe?.external||0,currentResistance=severe?.resistance||0,severeMargin=severe?.margin??0;$('metrics').innerHTML=`<div class="metric">最も厳しい方向<strong>${esc(severe?.label||'－')}</strong></div><div class="metric">必要抵抗力<strong>${required.toFixed(1)} kN</strong></div><div class="metric">現在の合計抵抗力<strong>${currentResistance.toFixed(1)} kN</strong></div><div class="metric">${severeMargin>=0?'余裕':'不足量'}<strong class="${severeMargin>=0?'status-ok':'status-ng'}">${Math.abs(severeMargin).toFixed(1)} kN</strong></div>`;
  const h=n('height'),cargoH=n('cargoHeight')||h*2,w=n('width'),l=n('length'),longOff=n('cgLongOffset'),latOff=n('cgLatOffset');let tip='<div class="result-table-wrap"><table><thead><tr><th>方向</th><th>転倒モーメント</th><th>復元モーメント</th><th>固縛モーメント</th><th>判定</th></tr></thead><tbody>';
  directionResults.forEach(x=>{let b;if(x.key==='forward')b=l/2-longOff;else if(x.key==='rear')b=l/2+longOff;else if(x.key==='right')b=w/2-latOff;else b=w/2+latOff;let demand=0,restore=0,lashingMoment=x.tippingMoment||0;const applicable=!css||(standard!=='cssRule'&&(x.key==='left'||x.key==='right'));if(applicable&&css){const windLever=n('cssWindLeverY')||cargoH/2,sloshLever=n('cssSloshLeverY')||Math.min(cargoH,2)/2;demand=cssExternal.inertiaFy*h+cssExternal.windY*windLever+cssExternal.sloshY*sloshLever;restore=Math.max(0,b)*m*g}else if(applicable){demand=x.c*h*m*g;restore=x.cz*Math.max(0,b)*m*g}const ok=!applicable||restore+lashingMoment>=demand;tip+=`<tr><td>${x.label}</td><td>${applicable?demand.toFixed(1)+' kN·m':'対象外'}</td><td>${applicable?restore.toFixed(1)+' kN·m':'－'}</td><td>${applicable?lashingMoment.toFixed(1)+' kN·m':'－'}</td><td class="${ok?'status-ok':'status-ng'}"><strong>${!applicable?'対象外':ok?'充足':'転倒防止要'}</strong></td></tr>`});tip+='</tbody></table></div>';$('tipResult').innerHTML=tip;
  if(css){$('cssDetailedResult').hidden=false;const c=cssExternal.context;$('cssDetailedResult').innerHTML=`<h3>CSS Code Annex 13 計算条件</h3><div class="result-table-wrap"><table class="css-result-table"><thead><tr><th>表2基礎加速度</th><th>表3補正</th><th>表4補正</th><th>fR</th><th>補正後 aₓ/aᵧ/a𝓏</th><th>風圧 Fwx/Fwy</th><th>波洗い Fsx/Fsy</th><th>Fz</th></tr></thead><tbody><tr><td>${c.baseAx.toFixed(2)} / ${c.baseAy.toFixed(2)} / ${c.baseAz.toFixed(2)}</td><td>${c.t3.toFixed(3)}（横 ${c.t3Transverse.toFixed(3)}）</td><td>${c.t4.toFixed(3)}</td><td>${c.fR.toFixed(3)}</td><td>${c.ax.toFixed(2)} / ${c.ay.toFixed(2)} / ${c.az.toFixed(2)} m/s²</td><td>${cssExternal.windX.toFixed(1)} / ${cssExternal.windY.toFixed(1)} kN</td><td>${cssExternal.sloshX.toFixed(1)} / ${cssExternal.sloshY.toFixed(1)} kN</td><td>${cssExternal.Fz.toFixed(1)} kN</td></tr></tbody></table></div>`}else $('cssDetailedResult').hidden=true;
  $('warningList').innerHTML=[...warnings].length?[...warnings].map(x=>`<li>${x}</li>`).join(''):'<li>入力値に対する自動警告はありません。現場状態、固縛点、局部強度、荷重分担および承認方法を別途確認してください。</li>';
- latestCtuResult={basis:css?`CSS Code Annex 13 ${standard}`:'CTU Code Chapter 5, Chapter 6 and Annex 7 reference calculation',standard,transportPreset:$('transportPreset').value,ctuPreset:$('ctuPreset').value,route:$('route').value,inputs:{mass:m,payload,muInput:muInfo.input,muEffective:muInfo.effective,width:w,length:l,cargoHeight:cargoH,height:h,cgLongOffset:longOff,cgLatOffset:latOff,uniformWallLoad:uniform,combinationMode:mode,cargoDescription:$('cargoDescription')?.value||'',unNumbers:$('unNumbers')?.value||'',packageCount:n('packageCount'),containerNumber:$('containerNumber')?.value||'',loadingPort:$('loadingPort')?.value||'',dischargePort:$('dischargePort')?.value||'',departureMonth:$('departureMonth')?.value||'',excelImport:window.ISSCTUExcelRoute?.getState?.()||null,css:css?cssExternal.context:null},lashings:rows,directions:directionResults,warnings:[...warnings],worstMargin:worst,overall:allOk?'充足':'要見直し',calculatedAt:new Date().toISOString()};
+ latestCtuResult={basis:css?`CSS Code Annex 13 ${standard}`:'CTU Code Chapter 5, Chapter 6 and Annex 7 reference calculation',standard,transportPreset:$('transportPreset').value,ctuPreset:$('ctuPreset').value,route:$('route').value,inputs:{mass:m,payload,muInput:muInfo.input,muEffective:muInfo.effective,width:w,length:l,cargoHeight:cargoH,height:h,cgLongOffset:longOff,cgLatOffset:latOff,uniformWallLoad:uniform,combinationMode:mode,cargoDescription:$('cargoDescription')?.value||'',unNumbers:$('unNumbers')?.value||'',packageCount:n('packageCount'),containerNumber:$('containerNumber')?.value||'',loadingPort:$('loadingPort')?.value||'',dischargePort:$('dischargePort')?.value||'',departureMonth:$('departureMonth')?.value||'',excelImport:window.ISSCTUExcelRoute?.getState?.()||null,quickSecuring:{category:$('quickMaterialCategory')?.value||'',method:$('quickMethod')?.value||'',material:$('quickMaterial')?.value||'',direction:$('quickDirection')?.value||'',count:n('quickCount'),confirmedStrength:n('quickStrength'),basis:$('quickBasis')?.value||''},css:css?cssExternal.context:null},lashings:rows,directions:directionResults,warnings:[...warnings],worstMargin:worst,overall:allOk?'充足':'要見直し',calculatedAt:new Date().toISOString()};
 }
 
 const photoCanvas=$('photoCanvas'),ctx=photoCanvas.getContext('2d');let photoImage=null,photoMode='angle',photoPoints=[],pxPerMeter=null,photoMarks=[];
@@ -510,16 +597,75 @@ async function loadPhoto(file){
 }
 function drawPhoto(){if(!photoImage)return;ctx.clearRect(0,0,photoCanvas.width,photoCanvas.height);ctx.drawImage(photoImage,0,0,photoCanvas.width,photoCanvas.height);ctx.lineWidth=4;ctx.font='bold 20px sans-serif';photoMarks.forEach(m=>{ctx.strokeStyle=m.color;ctx.fillStyle=m.color;ctx.beginPath();ctx.moveTo(m.a.x,m.a.y);ctx.lineTo(m.b.x,m.b.y);ctx.stroke();[m.a,m.b].forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill()});ctx.fillText(m.label,(m.a.x+m.b.x)/2+8,(m.a.y+m.b.y)/2-8)})}
 function canvasPoint(ev){const r=photoCanvas.getBoundingClientRect();return{x:(ev.clientX-r.left)*photoCanvas.width/r.width,y:(ev.clientY-r.top)*photoCanvas.height/r.height}}
-function handlePhotoPoint(ev){if(!photoImage)return;const p=canvasPoint(ev);photoPoints.push(p);if(photoPoints.length<2){$('photoStatus').textContent='1点目を指定しました。2点目を指定してください。';return}const[a,b]=photoPoints,dx=b.x-a.x,dy=b.y-a.y,px=Math.hypot(dx,dy);if(photoMode==='angle'){let angle=Math.abs(Math.atan2(dy,dx)*180/Math.PI);if(angle>90)angle=180-angle;angle=Number(angle.toFixed(1));photoMarks.push({a,b,label:angle+'°',color:'#00e0ff'});$('photoStatus').innerHTML='鉛直角：<strong>'+angle+'°</strong>。先頭の直接固縛へ反映しました。';const first=document.querySelector('.lashing-row .beta');if(first)first.value=angle}else if(photoMode==='scale'){const real=n('referenceLength');if(real<=0){$('photoStatus').textContent='基準となる実寸（m）を入力してください。';photoPoints=[];return}pxPerMeter=px/real;photoMarks.push({a,b,label:real+' m 基準',color:'#ffd400'});$('photoStatus').innerHTML='縮尺を設定しました：<strong>'+pxPerMeter.toFixed(1)+' px/m</strong>'}else{if(!pxPerMeter){$('photoStatus').textContent='先に基準寸法を設定してください。';photoPoints=[];return}const meters=px/pxPerMeter;photoMarks.push({a,b,label:meters.toFixed(3)+' m',color:'#68ff7c'});$('photoStatus').innerHTML='測定長さ：<strong>'+meters.toFixed(3)+' m</strong>。必要な入力欄へ転記してください。'}photoPoints=[];drawPhoto()}
-$('cameraInput').onchange=async e=>{await loadPhoto(e.target.files[0]);e.target.value=''};$('photoInput').onchange=async e=>{await loadPhoto(e.target.files[0]);e.target.value=''};$('angleMode').onclick=()=>setPhotoMode('angle');$('scaleMode').onclick=()=>setPhotoMode('scale');$('measureMode').onclick=()=>setPhotoMode('measure');$('clearMarks').onclick=()=>{photoMarks=[];photoPoints=[];pxPerMeter=null;drawPhoto();$('photoStatus').textContent='測定点を消去しました。'};$('applyCount').onclick=()=>{const count=n('visibleLashings');const first=document.querySelector('.lashing-row .count');if(first){first.value=count;$('photoStatus').textContent='固縛本数を先頭の固縛器具へ反映しました。'}};photoCanvas.addEventListener('click',handlePhotoPoint);
+function handlePhotoPoint(ev){if(!photoImage)return;const p=canvasPoint(ev);photoPoints.push(p);if(photoPoints.length<2){$('photoStatus').textContent='1点目を指定しました。2点目を指定してください。';return}const[a,b]=photoPoints,dx=b.x-a.x,dy=b.y-a.y,px=Math.hypot(dx,dy);if(photoMode==='angle'){let angle=Math.abs(Math.atan2(dy,dx)*180/Math.PI);if(angle>90)angle=180-angle;angle=Number(angle.toFixed(1));photoMarks.push({a,b,label:angle+'°',color:'#00e0ff'});$('photoStatus').innerHTML='鉛直角：<strong>'+angle+'°</strong>。先頭の直接固縛へ反映しました。';const first=document.querySelector('.lashing-row .beta');if(first)first.value=angle;if($('quickAngle'))$('quickAngle').value=angle}else if(photoMode==='scale'){const real=n('referenceLength');if(real<=0){$('photoStatus').textContent='基準となる実寸（m）を入力してください。';photoPoints=[];return}pxPerMeter=px/real;photoMarks.push({a,b,label:real+' m 基準',color:'#ffd400'});$('photoStatus').innerHTML='縮尺を設定しました：<strong>'+pxPerMeter.toFixed(1)+' px/m</strong>'}else{if(!pxPerMeter){$('photoStatus').textContent='先に基準寸法を設定してください。';photoPoints=[];return}const meters=px/pxPerMeter;photoMarks.push({a,b,label:meters.toFixed(3)+' m',color:'#68ff7c'});$('photoStatus').innerHTML='測定長さ：<strong>'+meters.toFixed(3)+' m</strong>。必要な入力欄へ転記してください。'}photoPoints=[];drawPhoto()}
+$('cameraInput').onchange=async e=>{await loadPhoto(e.target.files[0]);e.target.value=''};$('photoInput').onchange=async e=>{await loadPhoto(e.target.files[0]);e.target.value=''};$('angleMode').onclick=()=>setPhotoMode('angle');$('scaleMode').onclick=()=>setPhotoMode('scale');$('measureMode').onclick=()=>setPhotoMode('measure');$('clearMarks').onclick=()=>{photoMarks=[];photoPoints=[];pxPerMeter=null;drawPhoto();$('photoStatus').textContent='測定点を消去しました。'};$('applyCount').onclick=()=>{const count=n('visibleLashings');const first=document.querySelector('.lashing-row .count');if(first){first.value=count;if($('quickCount'))$('quickCount').value=count;$('photoStatus').textContent='固縛本数をかんたん入力と先頭の固縛器具へ反映しました。'}};photoCanvas.addEventListener('click',handlePhotoPoint);
 
-renderMaterialTable();showMaterialReference('aslash');$('materialReferenceSelect').onchange=e=>showMaterialReference(e.target.value);buildDirectionInputs();addRow({type:'direct',material:'aslash',target:'forward',count:2,msl:20,cargoMsl:20,ctuMsl:10,beta:45,alpha:60,share:100,lever:1.2,cssMslBasis:'web',breaking:40,elasticity:'flexible'});addRow({type:'direct',material:'aslash',target:'rear',count:2,msl:20,cargoMsl:20,ctuMsl:10,beta:45,alpha:60,share:100,lever:1.2,cssMslBasis:'web',breaking:40,elasticity:'flexible'});addRow({type:'direct',material:'wire',target:'left',count:2,msl:20,cargoMsl:20,ctuMsl:20,beta:45,alpha:0,share:100,lever:1.2,cssMslBasis:'wireReusable',breaking:66.7,elasticity:'medium'});addRow({type:'direct',material:'wire',target:'right',count:2,msl:20,cargoMsl:20,ctuMsl:20,beta:45,alpha:0,share:100,lever:1.2,cssMslBasis:'wireReusable',breaking:66.7,elasticity:'medium'});
+renderMaterialTable();showMaterialReference('aslash');$('materialReferenceSelect').onchange=e=>showMaterialReference(e.target.value);buildDirectionInputs();addRow({type:'direct',material:'aslash',target:'all',count:2,msl:20,cargoMsl:20,ctuMsl:10,beta:45,alpha:0,share:100,lever:1.2,cssMslBasis:'web',breaking:40,elasticity:'flexible'});
 $('addLashing').onclick=()=>addRow();$('transportPreset').onchange=()=>{applyTransportPreset();calc()};$('ctuPreset').onchange=()=>{applyWallPreset();calc()};$('calcStandard').onchange=()=>{updateMethodVisibility();calc()};$('frictionPolicy').onchange=()=>{if($('frictionPolicy').value==='oil')$('mu').value='.10';else if($('frictionPolicy').value==='snow'&&n('mu')>.2)$('mu').value='.20';updateSummary();calc()};$('cssContactMaterial').onchange=()=>{const cap=CSS_FRICTION_CAPS[$('cssContactMaterial').value];if(Number.isFinite(cap))$('mu').value=String(cap);updateSummary();calc()};$('calcBtn').onclick=calc;
 ['cssShipLength','cssShipBreadth','cssShipGM','cssShipSpeed','cssStowageLevel','cssLongPosition','cssAccelerationSource','cssBaseAx','cssBaseAy','cssBaseAz','cssHs','cssUseWeatherReduction','cssScopeConfirmed','cssIncludeWindSea','cssWindAreaX','cssWindAreaY','cssSloshAreaX','cssSloshAreaY','cssWindLeverY','cssSloshLeverY','cssElasticityPolicy','cargoHeight'].forEach(id=>$(id)?.addEventListener('change',()=>{if(id==='cssAccelerationSource'){const manual=$('cssAccelerationSource').value==='manual';document.querySelectorAll('.css-manual-accel input').forEach(x=>x.disabled=!manual);if(!manual)updateCssInputsFromTable2()}else if(id==='cssStowageLevel'||id==='cssLongPosition')updateCssInputsFromTable2();updateCssCorrectionSummary();calc()}));
-window.addEventListener('DOMContentLoaded',()=>{applyTransportPreset();applyWallPreset();updateMethodVisibility();updateSummary();window.ISSApplicationResults?.fillSelect($('ctuApplicationSelect'));const year=$('ctuNewApplicationYear');if(year)year.value=String(new Date().getFullYear());calc()});
-$('saveCtuResult').onclick=()=>{try{calc();const row=window.ISSApplicationResults.save($('ctuApplicationSelect').value,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'登録できませんでした。'}};
-$('createAndSaveCtuResult').onclick=()=>{try{calc();const app=window.ISSApplicationResults.createApplication({applicationYear:$('ctuNewApplicationYear').value,applicationNumber:$('ctuNewApplicationNumber').value,caseTitle:$('ctuNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('ctuApplicationSelect'));$('ctuApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、算出結果を保存しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'新規登録できませんでした。'}};
+
+
+const QUICK_TENSILE_MATERIALS=[['aslash','アスラッシュ'],['steel','帯鉄'],['wire','ワイヤーロープ'],['pet','エステルバンド（PETバンド）'],['pp','PPロープ'],['other','その他・手動確認']];
+const QUICK_SUPPORT_MATERIALS=[['timber','木材'],['frp','強化プラスチック（FRP等）'],['otherSupport','その他の支保・当て材']];
+function setQuickMaterialOptions(){
+ const support=$('quickMaterialCategory').value==='support',items=support?QUICK_SUPPORT_MATERIALS:QUICK_TENSILE_MATERIALS,current=$('quickMaterial').value;
+ $('quickMaterial').innerHTML=items.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+ if(items.some(([v])=>v===current))$('quickMaterial').value=current;
+ $('quickMethod').disabled=support;
+ if(support)$('quickMethod').value='direct';
+ $('quickStrengthLabel').textContent=support?'確認済み支保力（1個当たり・kN)':$('quickMethod').value==='topover'?'確認済みSTF（1本当たり・kN）':'確認済みMSL（1本当たり・kN）';
+ const direct=!support&&$('quickMethod').value==='direct';
+ $('quickCargoMslField').hidden=!direct;$('quickCtuMslField').hidden=!direct;$('quickAngleField').hidden=!direct;
+ $('quickBasisField').hidden=!support;$('quickSupportNote').hidden=!support;
+}
+function firstLashingRow(){return document.querySelector('.lashing-row')}
+function clearQuickBlocking(){DIRS.forEach(([key])=>{const input=$(directionId('b',key));if(input)input.value='0'})}
+function syncQuickInputs(){
+ $('transportPreset').value=$('quickTransport').value;applyTransportPreset();
+ $('ctuPreset').value=$('quickCtu').value;applyWallPreset();
+ $('mass').value=$('quickMass').value||'0';$('cargoDescription').value=$('quickCargoDescription').value||'';
+ $('frictionPolicy').value=$('quickFriction').value;$('mu').value=$('quickMu').value||'0';
+ const support=$('quickMaterialCategory').value==='support',count=Math.max(0,Number($('quickCount').value)||0),strength=Math.max(0,Number($('quickStrength').value)||0),target=$('quickDirection').value;
+ const row=firstLashingRow();if(!row)return {support,count,strength,target};
+ clearQuickBlocking();
+ if(support){
+   row.querySelector('.count').value='0';
+   const keys=target==='all'?DIRS.map(([key])=>key):[target];
+   keys.forEach(key=>{const input=$(directionId('b',key));if(input)input.value=String(count*strength)});
+ }else{
+   row.querySelector('.type').value=$('quickMethod').value;row.querySelector('.material').value=$('quickMaterial').value;row.querySelector('.target').value=target;row.querySelector('.count').value=String(count);
+   row.querySelector('.msl').value=String(strength);row.querySelector('.cargoMsl').value=$('quickCargoMsl').value||'0';row.querySelector('.ctuMsl').value=$('quickCtuMsl').value||'0';row.querySelector('.beta').value=$('quickAngle').value||'45';row.querySelector('.alpha').value='0';row.querySelector('.stf').value=String(strength);
+   row.querySelector('.type').dispatchEvent(new Event('change',{bubbles:true}));
+ }
+ return {support,count,strength,target};
+}
+function runQuickCalculation(){
+ const state=syncQuickInputs();
+ if(Number($('quickMass').value)<=0){$('quickStatus').textContent='貨物質量を入力してください。';$('quickMass').focus();return}
+ if(state.strength<=0){$('quickStatus').textContent=state.support?'確認済み支保力を入力してください。木材・FRPは一般値を自動設定しません。':'確認済みMSLまたはSTFを入力してください。';$('quickStrength').focus();return}
+ if(state.support&&!String($('quickBasis').value||'').trim()){$('quickStatus').textContent='木材・FRP等は、材種・等級・断面寸法・メーカー仕様など、強度の根拠を入力してください。';$('quickBasis').focus();return}
+ calc();
+ const severe=latestCtuResult?.directions?.filter(x=>x.applicable).reduce((a,b)=>!a||Number(b.margin)<Number(a.margin)?b:a,null);
+ $('quickStatus').innerHTML=severe?`<strong>${esc(severe.status)}</strong>：${esc(severe.label)}の必要抵抗力 ${Number(severe.external).toFixed(1)} kN、現在の合計抵抗力 ${Number(severe.resistance).toFixed(1)} kN、${Number(severe.margin)>=0?'余裕':'不足'} ${Math.abs(Number(severe.margin)).toFixed(1)} kNです。`:'算出結果を確認してください。';
+ document.querySelector('#overall')?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function toggleAdvancedSettings(){const show=!document.body.classList.contains('show-advanced');document.body.classList.toggle('show-advanced',show);$('toggleAdvanced').textContent=show?'詳細設定を閉じる':'詳細設定を表示';$('toggleAdvanced').setAttribute('aria-expanded',String(show))}
+$('quickMaterialCategory').addEventListener('change',setQuickMaterialOptions);$('quickMethod').addEventListener('change',setQuickMaterialOptions);$('quickCalcBtn').addEventListener('click',runQuickCalculation);$('toggleAdvanced').addEventListener('click',toggleAdvancedSettings);$('quickTransport').addEventListener('change',()=>{$('transportPreset').value=$('quickTransport').value;applyTransportPreset()});$('quickCtu').addEventListener('change',()=>{$('ctuPreset').value=$('quickCtu').value;applyWallPreset()});$('quickFriction').addEventListener('change',()=>{const v=$('quickFriction').value;if(v==='oil')$('quickMu').value='.10';else if(v==='snow'&&Number($('quickMu').value)>.2)$('quickMu').value='.20';else if((v==='unknown'||v==='unclean')&&Number($('quickMu').value)>.3)$('quickMu').value='.30'});setQuickMaterialOptions();
+
+
+const ctuReviewState={excel:false,photo:false,lastConfirmedAt:null};
+function ctuReviewChecks(){return [...document.querySelectorAll('[data-ctu-review]')]}
+function ctuReviewData(){const reviewer=String($('ctuReviewer')?.value||'').trim(),confirmedItems=ctuReviewChecks().filter(x=>x.checked).map(x=>x.dataset.ctuReview),complete=confirmedItems.length===ctuReviewChecks().length&&Boolean(reviewer);return{status:complete?'confirmed':'unconfirmed',confirmedItems,reviewer,note:String($('ctuReviewNote')?.value||'').trim(),confirmedAt:complete?(ctuReviewState.lastConfirmedAt||new Date().toISOString()):null,inputSources:{excel:ctuReviewState.excel,photo:ctuReviewState.photo,manual:true}}}
+function updateCtuReview(){const d=ctuReviewData(),ok=d.status==='confirmed';if(ok&&!ctuReviewState.lastConfirmedAt)ctuReviewState.lastConfirmedAt=new Date().toISOString();if(!ok)ctuReviewState.lastConfirmedAt=null;const st=$('ctuReviewStatus');if(st){st.textContent=ok?'確認済み・登録可能':'未確認・登録できません';st.classList.toggle('is-complete',ok)}const ex=$('ctuReviewSourceExcel'),ph=$('ctuReviewSourcePhoto');if(ex){ex.textContent='申請書：'+(ctuReviewState.excel?'使用':'未使用');ex.classList.toggle('is-used',ctuReviewState.excel)}if(ph){ph.textContent='写真：'+(ctuReviewState.photo?'使用':'未使用');ph.classList.toggle('is-used',ctuReviewState.photo)}[$('saveCtuResult'),$('createAndSaveCtuResult')].forEach(b=>{if(b)b.disabled=!ok});window.SKCTUReview={isComplete:()=>ok,getData:ctuReviewData,invalidate:invalidateCtuReview}}
+function invalidateCtuReview(){ctuReviewChecks().forEach(x=>x.checked=false);ctuReviewState.lastConfirmedAt=null;updateCtuReview()}
+window.addEventListener('sk:ctu-excel-imported',()=>{ctuReviewState.excel=true;invalidateCtuReview()});window.addEventListener('sk:ctu-excel-cleared',()=>{ctuReviewState.excel=false;invalidateCtuReview()});window.addEventListener('sk:ctu-photo-loaded',()=>{ctuReviewState.photo=true;invalidateCtuReview()});window.addEventListener('sk:ctu-photo-applied',invalidateCtuReview);
+document.addEventListener('input',e=>{if(e.target.matches('[data-ctu-review],#ctuReviewer,#ctuReviewNote'))updateCtuReview();else if(e.isTrusted&&e.target.closest('.calc-shell'))invalidateCtuReview()});
+
+window.addEventListener('DOMContentLoaded',()=>{applyTransportPreset();applyWallPreset();updateMethodVisibility();updateSummary();syncQuickInputs();window.ISSApplicationResults?.fillSelect($('ctuApplicationSelect'));updateCtuReview();const year=$('ctuNewApplicationYear');if(year)year.value=String(new Date().getFullYear());calc()});
+$('saveCtuResult').onclick=()=>{try{if(!window.SKCTUReview?.isComplete?.())throw new Error('登録前の確認を完了してください。');calc();latestCtuResult.review=window.SKCTUReview.getData();const row=window.ISSApplicationResults.save($('ctuApplicationSelect').value,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'登録できませんでした。'}};
+$('createAndSaveCtuResult').onclick=()=>{try{if(!window.SKCTUReview?.isComplete?.())throw new Error('登録前の確認を完了してください。');calc();latestCtuResult.review=window.SKCTUReview.getData();const app=window.ISSApplicationResults.createApplication({applicationYear:$('ctuNewApplicationYear').value,applicationNumber:$('ctuNewApplicationNumber').value,caseTitle:$('ctuNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('ctuApplicationSelect'));$('ctuApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'ctu-securing','固縛力参考算出結果',latestCtuResult);$('ctuRegistrationMessage').textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、算出結果を保存しました。`}catch(e){$('ctuRegistrationMessage').textContent=e.message||'新規登録できませんでした。'}};
 </script>
 <script src="../assets/js/unified-submenu.js?v=500"></script>
+<script src="../assets/js/version-guard.js?v=503"></script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta name="sk-build" content="part503">
+  <script src="../data/build-manifest.js?v=503"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=503">
   <script src="../assets/js/auth-bootstrap.js?v=434"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,6 +87,9 @@
 @media(max-width:760px){.result-registration-panel{padding:18px 14px}.registration-action-row,.quick-registration-grid{grid-template-columns:1fr}.registration-action-row button,.quick-registration button{width:100%}}
 </style>
   <link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500">
+<style id="part502-verification-review-flow">
+.verification-review-panel{width:min(100%,1180px);box-sizing:border-box;margin:22px auto 0;padding:22px;border:1px solid #c9d9e8;border-radius:12px;background:#fff}.verification-review-panel h2{margin:0 0 6px;color:#173a5e}.verification-review-panel>p{margin:0 0 14px;color:#52606d;line-height:1.7}.verification-review-status{display:inline-flex;padding:5px 10px;border-radius:999px;background:#fff4d6;color:#755000;font-weight:800;margin-bottom:14px}.verification-review-status.is-complete{background:#e6f6ed;color:#12663f}.verification-review-checks{display:grid;gap:10px}.verification-review-checks label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid #d7e2ec;border-radius:10px;background:#f8fbfd;line-height:1.6}.verification-review-checks input[type=checkbox]{width:20px;height:20px;margin-top:2px;flex:0 0 auto}.verification-review-meta{display:grid;grid-template-columns:minmax(220px,1fr) minmax(240px,2fr);gap:12px;margin-top:14px}.verification-review-meta input{width:100%;box-sizing:border-box;min-height:44px}.registration-action-row button:disabled,.quick-registration button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:768px){.verification-review-panel{padding:18px 14px}.verification-review-meta{grid-template-columns:1fr}}
+</style>
 </head>
 <body data-page="application-verification">
 <header class="app-header">
@@ -118,6 +124,10 @@
 
 
   
+<section class="verification-review-panel" id="verificationReviewSection" hidden>
+<h2>自動読取結果を確認</h2><p>申請書から取得した値は候補です。原本と照合し、相違がある場合は申請書を修正して再度読み込んでください。すべて確認するまで申請番号管理へ登録できません。</p><div id="verificationReviewStatus" class="verification-review-status">未確認</div>
+<div class="verification-review-checks"><label><input type="checkbox" data-verification-review="identity"><span><strong>国連番号・品名</strong><br>対象行、国連番号および品名を申請書原本と照合しました。</span></label><label><input type="checkbox" data-verification-review="package"><span><strong>容器等級・容器コード</strong><br>容器等級、容器記号および少量危険物の有無を確認しました。</span></label><label><input type="checkbox" data-verification-review="quantity"><span><strong>個数・正味質量・総質量</strong><br>個数と質量を確認し、1容器当たりの算出条件に相違がないことを確認しました。</span></label></div>
+<div class="verification-review-meta"><label>確認者<input id="verificationReviewer" type="text" maxlength="80" placeholder="氏名または利用者名"></label><label>確認メモ（任意）<input id="verificationReviewNote" type="text" maxlength="300" placeholder="修正・再取込・現場確認事項など"></label></div></section>
 <section class="panel result-registration-panel" id="verificationRegistrationSection" hidden>
   <h2>確認結果を申請番号管理へ登録</h2>
   <p>抽出した対象危険物、許容容量・許容質量および確認状況を、申請番号管理へ履歴として保存します。</p>
@@ -143,8 +153,9 @@
 <script src="../data/domestic-code-page-ranges.js?v=468"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="../assets/js/storage.js?v=445"></script>
-<script src="../assets/js/application-result-link.js?v=458"></script>
-<script src="../assets/js/application-verification.js?v=481"></script>
+<script src="../assets/js/application-result-link.js?v=502"></script>
+<script src="../assets/js/application-verification.js?v=502"></script>
 <script src="../assets/js/unified-submenu.js?v=500"></script>
+<script src="../assets/js/version-guard.js?v=503"></script>
 </body>
 </html>
