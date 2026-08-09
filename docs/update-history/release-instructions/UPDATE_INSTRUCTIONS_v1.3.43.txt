@@ -1,0 +1,21 @@
+SKDG v1.3.43 Repository Organization Hotfix
+
+目的:
+ルート直下に大量に並んでいる PARTxxx_UPDATE_FILE_LIST.json を、
+docs/update-history/part-file-lists/ に一括整理します。
+
+手順:
+1. 本ZIPの stage 配下を、従来どおりリポジトリ直下へ上書きします。
+2. リポジトリ直下の ORGANIZE_PART_FILE_LISTS.cmd をダブルクリックします。
+3. PART*_UPDATE_FILE_LIST*.json が docs/update-history/part-file-lists/ へ移動します。
+4. VS Codeで git status を確認します。
+5. 問題なければ以下を実行します。
+   git add .
+   git commit -m "Organize PART update file lists"
+   git push origin main
+
+補足:
+- Git管理済みファイルは可能な限り git mv で移動します。
+- 未追跡ファイルは通常のファイル移動を行います。
+- PART_FILE_LIST_INDEX.json を自動生成します。
+- システム本体の機能・表示・DBには変更を加えていません。

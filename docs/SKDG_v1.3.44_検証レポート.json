@@ -1,0 +1,16 @@
+{
+  "version": "v1.3.44",
+  "status": "PASS",
+  "scope": "repository root update-history cleanup",
+  "checks": {
+    "partUpdateFileLists": "move to docs/update-history/part-file-lists",
+    "partChecksums": "move to docs/update-history/checksums",
+    "partReadmes": "move to docs/update-history/part-notes",
+    "legacyFilenameMap": "move to docs/update-history/legacy",
+    "versionedChecksums": "move to docs/update-history/release-checksums",
+    "versionedInstructions": "move to docs/update-history/release-instructions",
+    "runtimeReferences": "no direct runtime references found in cumulative stage",
+    "systemBehaviorChange": false,
+    "databaseMigration": false
+  }
+}

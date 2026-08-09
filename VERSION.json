@@ -1,11 +1,11 @@
 {
-  "version": "v1.3.41",
-  "releaseType": "home-search-layout-hotfix",
-  "baseVersion": "1.3.40",
-  "summary": "ホーム横断検索のプレースホルダー「UN1203、1203、GASOLINE、ガソリン、法令名、資料名、申請番号、機能名」が途中で見切れないよう、検索エリアの横幅配分とレスポンシブ配置を調整。文言は削除せず維持。",
+  "version": "v1.3.44",
+  "releaseType": "repository-root-cleanup-hotfix",
+  "baseVersion": "1.3.43",
+  "summary": "ルート直下に残るPART更新一覧、PART別SHA256SUMS、PART別README、LEGACY_FILENAME_MAP、過去バージョンのSHA256SUMS_v1.3.xx/UPDATE_INSTRUCTIONS_v1.3.xxを docs/update-history/ 配下へ一括整理するWindows用スクリプトへ拡張。システム本体・DB・画面機能は変更なし。",
   "databaseMigration": false,
   "displayVersion": "Version 1.0 試作版",
   "releaseStage": "prototype",
-  "baseRelease": "v1.3.40",
-  "build": "v1.3.41-home-search-layout-hotfix"
+  "baseRelease": "v1.3.43",
+  "build": "v1.3.44-repository-root-cleanup"
 }

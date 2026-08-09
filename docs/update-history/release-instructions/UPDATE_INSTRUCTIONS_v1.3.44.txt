@@ -1,0 +1,21 @@
+SKDG v1.3.44 Repository Root Cleanup Hotfix
+
+1. ZIPを展開し、stageフォルダの中身をGitHubリポジトリ直下へ上書きコピーしてください。
+2. コピー後、リポジトリ直下の ORGANIZE_UPDATE_HISTORY.cmd を1回ダブルクリックしてください。
+3. 次のファイル群が docs/update-history/ 配下へ整理されます。
+   - PART*_UPDATE_FILE_LIST*.json
+   - SHA256SUMS_PART*
+   - README_PART*
+   - LEGACY_FILENAME_MAP.txt
+   - 過去バージョンの SHA256SUMS_v1.3.xx.txt
+   - 過去バージョンの UPDATE_INSTRUCTIONS_v1.3.xx.txt
+4. 共通 SHA256SUMS、release-manifest.json、index.html、VERSION.json 等はルートに残します。
+5. VS Codeのターミナルで次を実行してください。
+
+   git status
+   git add -A
+   git commit -m "Organize SKDG update history files"
+   git push origin main
+
+※ システム本体の機能・画面・DBは変更しません。
+※ 旧 ORGANIZE_PART_FILE_LISTS.cmd も互換用として残してあります。
