@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sk.local/schemas/data-integrity-performance-governance.schema.json",
+  "title": "Part 532 data integrity and performance governance",
+  "type": "object",
+  "required": ["release", "databaseSearch", "attachments", "crossDataIntegrity", "issueGovernance", "reviewGovernance"],
+  "properties": {
+    "release": { "const": "part532" },
+    "databaseSearch": {
+      "type": "object",
+      "required": ["queryP95Ms", "searchP95Ms", "cacheHitPercent", "indexedRecordCount", "indexedUniqueUnCount"],
+      "properties": {
+        "queryP95Ms": { "type": "number", "minimum": 0 },
+        "searchP95Ms": { "type": "number", "minimum": 0 },
+        "cacheHitPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "indexedRecordCount": { "const": 2725 },
+        "indexedUniqueUnCount": { "const": 2248 }
+      }
+    },
+    "attachments": {
+      "type": "object",
+      "required": ["totalFiles", "linkedFiles", "orphanedFiles", "missingFiles", "hashMismatchFiles", "malwareFailedFiles"],
+      "properties": {
+        "totalFiles": { "type": "integer", "minimum": 0 },
+        "linkedFiles": { "type": "integer", "minimum": 0 },
+        "orphanedFiles": { "type": "integer", "minimum": 0 },
+        "missingFiles": { "type": "integer", "minimum": 0 },
+        "hashMismatchFiles": { "type": "integer", "minimum": 0 },
+        "malwareFailedFiles": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "crossDataIntegrity": {
+      "type": "object",
+      "required": ["duplicateApplicationNumberCount", "invalidCaseSchemaCount", "ctuLinkMismatchCount", "documentLinkBrokenCount", "photoLinkBrokenCount", "revisionGapCount"],
+      "properties": {
+        "duplicateApplicationNumberCount": { "type": "integer", "minimum": 0 },
+        "invalidCaseSchemaCount": { "type": "integer", "minimum": 0 },
+        "ctuLinkMismatchCount": { "type": "integer", "minimum": 0 },
+        "documentLinkBrokenCount": { "type": "integer", "minimum": 0 },
+        "photoLinkBrokenCount": { "type": "integer", "minimum": 0 },
+        "revisionGapCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "issueGovernance": {
+      "type": "object",
+      "required": ["distinctOwnerResolverVerifier", "severityDeadlines"],
+      "properties": {
+        "distinctOwnerResolverVerifier": { "const": true },
+        "severityDeadlines": {
+          "const": { "critical": 1, "high": 7, "medium": 30, "low": 90 }
+        }
+      }
+    },
+    "reviewGovernance": {
+      "type": "object",
+      "required": ["distinctCreatorReviewerApprover", "snapshotSha256", "freshProductionSnapshotsHours"],
+      "properties": {
+        "distinctCreatorReviewerApprover": { "const": true },
+        "snapshotSha256": { "const": true },
+        "freshProductionSnapshotsHours": { "const": 24 }
+      }
+    }
+  },
+  "additionalProperties": false
+}

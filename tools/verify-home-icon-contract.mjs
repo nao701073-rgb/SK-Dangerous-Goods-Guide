@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const source = readFileSync(resolve(root, 'index.html'), 'utf8');
 const css = readFileSync(resolve(root, 'assets/css/home-dashboard.css'), 'utf8');
 const checks = [
@@ -12,7 +13,7 @@ const checks = [
   ['左右の固縛材', source.includes('M7.2 16.8 9 10.5M16.8 16.8 15 10.5')],
   ['パレット貨物', source.includes('M8.4 17h7.2v2H8.4z')],
   ['コンテナ内貨物の説明', source.includes('コンテナ内貨物の重量と固縛資材から、参考固縛力を算出します。')],
-  ['将来実装カードの無効状態', source.includes('aria-disabled="true"') && source.includes('aria-describedby="cargoLashingDescription cargoLashingStatus"')],
+  ['固縛力カードは利用可能', source.includes('href="pages/ctu-securing-calculator.html"') && !source.includes('aria-describedby="cargoLashingDescription cargoLashingStatus"')],
   ['装飾SVGの支援技術除外', source.includes('aria-hidden="true" focusable="false"')],
   ['旧計算機アイコンを不使用', !source.includes('data-icon="calc"')],
   ['AI将来実装カードの無効状態', source.includes('aria-describedby="aiAnalysisDescription aiAnalysisStatus"') && source.includes('id="aiAnalysisStatus"')],
@@ -22,8 +23,8 @@ const checks = [
   ['カード下部操作の整列', css.includes('margin-top: auto')],
   ['スマートフォン操作幅', css.includes('width: 100%') && css.includes('justify-content: center')],
   ['主要SVGのフォーカス除外', source.includes('aria-hidden="true" focusable="false"')],
-  ['将来実装カードの見出し関連付け', source.includes('aria-labelledby="cargoLashingTitle"') && source.includes('aria-labelledby="aiAnalysisTitle"')],
-  ['将来実装カードの説明関連付け', source.includes('aria-describedby="cargoLashingDescription cargoLashingStatus"') && source.includes('aria-describedby="aiAnalysisDescription aiAnalysisStatus"')],
+  ['固縛力・AIカードの見出し関連付け', source.includes('aria-labelledby="ctuSecuringTitle"') && source.includes('aria-labelledby="aiAnalysisTitle"')],
+  ['固縛力・AIカードの説明関連付け', source.includes('aria-describedby="ctuSecuringDescription"') && source.includes('aria-describedby="aiAnalysisDescription aiAnalysisStatus"')],
   ['将来実装バッジ表示', css.includes('.coming-soon::before') && css.includes('border-radius: 999px')],
   ['将来実装カードのホバー抑止', css.includes('.module-card.is-disabled:hover') && css.includes('transform: none')],
   ['動きを抑える設定', css.includes('@media (prefers-reduced-motion: reduce)')],

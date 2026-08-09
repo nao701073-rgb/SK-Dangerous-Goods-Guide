@@ -1,5 +1,5 @@
 (() => {
-  const REPORT_URL = "../docs/Part240_総合検証レポート.json";
+  const REPORT_URL = "../docs/part537_本番環境統合試験レポート.json";
   const $ = id => document.getElementById(id);
   let report = null;
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
@@ -7,7 +7,7 @@
   const render = data => {
     report = data;
     const ok = data.overallStatus === "passed";
-    $("verificationBadge").textContent = ok ? "自動検査 合格" : "自動検査 不合格";
+    $("verificationBadge").textContent = ok ? "統合試験 合格" : "統合試験 不合格";
     $("verificationBadge").dataset.status = data.overallStatus;
     $("verificationGeneratedAt").textContent = `検査日時：${new Date(data.generatedAt).toLocaleString("ja-JP")}`;
     const cards = [
@@ -25,6 +25,6 @@
   $("downloadVerification").addEventListener("click", () => {
     if (!report) { $("verificationMessage").textContent = "レポートの読込完了後に実行してください。"; return; }
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
-    const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `Part240_総合検証レポート_${new Date().toISOString().slice(0,10)}.json`; link.click(); URL.revokeObjectURL(link.href);
+    const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `Part537_本番環境統合試験_${new Date().toISOString().slice(0,10)}.json`; link.click(); URL.revokeObjectURL(link.href);
   });
 })();

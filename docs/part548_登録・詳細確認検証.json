@@ -1,0 +1,28 @@
+{
+  "release": "part548",
+  "status": "passed",
+  "summary": {
+    "passed": 16,
+    "total": 16,
+    "failed": 0
+  },
+  "stdout": [
+    "PASS step 4 label",
+    "PASS register section visible",
+    "PASS no handoff heading",
+    "PASS no CTU handoff link",
+    "PASS no verification handoff link",
+    "PASS register button exists",
+    "PASS lower permit column removed",
+    "PASS lower permit editor removed",
+    "PASS registration deep link",
+    "PASS reference evidence persisted",
+    "PASS reference source persisted",
+    "PASS detail dialog exists",
+    "PASS detail button generated",
+    "PASS detail deep link param",
+    "PASS detail uses cargo review",
+    "PASS Part548 build meta",
+    "{\"passed\":16,\"total\":16,\"failed\":0}"
+  ]
+}

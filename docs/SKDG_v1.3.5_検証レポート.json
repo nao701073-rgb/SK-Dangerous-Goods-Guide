@@ -1,0 +1,220 @@
+{
+  "release": "v1.3.5",
+  "summary": {
+    "total": 40,
+    "passed": 40,
+    "failed": 0
+  },
+  "tests": [
+    {
+      "name": "exists:VERSION.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:UPDATE_INSTRUCTIONS_v1.3.5.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/application-allowance-resolver.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/application-intake-workflow-policy.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/application-packing-reference-part545.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/application-intake-workflow.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/ctu-excel-route-import.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/v135-compat.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "exists:assets/js/v135-ctu-stability.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:application-allowance-resolver.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:application-intake-workflow-policy.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:application-intake-workflow.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:application-packing-reference-part545.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:ctu-excel-route-import.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:v135-compat.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:v135-ctu-stability.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-script-balance:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-script-balance:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "inline-js:pages/ctu-securing-calculator.html:10",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:packingRef?.p200Allowance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:refreshAllCargoReviews()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:allowableCapacityOrMass",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:SKDGIntakeV135Core",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:maybeAutoScroll",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake-marker:sk:v134-intake-checked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy-resolver-shim",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-marker:setQuick('quickMass'",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-marker:setQuick('quickCargoDescription'",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-marker:setQuick('quickTransport'",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-marker:sk:ctu-excel-imported",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-marker:sk:ctu-excel-cleared",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-import-no-auto-calc",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-calc-scroll-guard",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-stability-linked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "p200-vm-test",
+      "ok": true,
+      "detail": "溶接容器：1,000 L／継目なし容器：3,000 L"
+    },
+    {
+      "name": "browser-intake-auto-check",
+      "ok": true,
+      "detail": "core object\nimport {'rows': 2, 'status': 'test.csv から案件情報と危険物 2件を読み取りました。原本と照合してください。'}\nbefore [\"溶接容器：1,000 L／継目なし容器：3,000 L\", \"地方運輸局長の許可が必要です。危告示別表第1 P200の当該欄は「x」です。社内既存システムの許可証データベースに登録された許可証から、使用容器と許容容量を確認してください。\"]\nafter [\"溶接容器：1,000 L／継目なし容器：3,000 L\", \"地方運輸局長の許可が必要です。危告示別表第1 P200の当該欄は「x」です。社内既存システムの許可証データベースに登録された許可証から、使用容器と許容容量を確認してください。\"]\nbadge 要確認\nlegacy function\nerrs []\n"
+    },
+    {
+      "name": "browser-ctu-calc",
+      "ok": true,
+      "detail": "initial errors []\nmaterial options 7\nstatus 充足：前方（前壁側）の必要抵抗力 14.7 kN、現在の合計抵抗力 113.2 kN、余裕 98.5 kNです。\n引張系固縛材14.1 kN支保・当て材0.0 kNトップオーバー0.0 kN\noverall CTUコードの入力条件の範囲では、評価対象方向で抵抗力が作用力以上です。\nfinal errors []\n"
+    },
+    {
+      "name": "browser-ctu-import-sync",
+      "ok": true,
+      "detail": "quickMass 5\nquickCargo TEST CARGO\nquickTransport seaB\nmaterial options 5\nerrors []\n"
+    }
+  ],
+  "packageVerification": {
+    "minimalHotfix": true,
+    "settingsFileShipped": false,
+    "note": "v1.3.4のユーザー設定は変更していないため、settings.htmlは更新ZIPに含めない。",
+    "browserInteractionTests": {
+      "applicationAutoCheck": "passed",
+      "ctuCalculation": "passed",
+      "ctuImportQuickSync": "passed"
+    }
+  }
+}

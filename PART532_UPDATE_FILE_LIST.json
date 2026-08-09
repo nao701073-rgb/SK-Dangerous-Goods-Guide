@@ -1,0 +1,431 @@
+{
+  "release": "part532",
+  "baseRelease": "part531",
+  "generatedAt": "2026-08-06T11:46:53.818849+00:00",
+  "added": [
+    {
+      "path": "PART532_UPDATE_FILE_LIST.json",
+      "size": 3
+    },
+    {
+      "path": "SHA256SUMS_PART532.txt",
+      "size": 0
+    },
+    {
+      "path": "UPDATE_INSTRUCTIONS_PART532.txt",
+      "size": 1417
+    },
+    {
+      "path": "assets/css/data-integrity-performance-admin.css",
+      "size": 1931
+    },
+    {
+      "path": "assets/js/data-integrity-performance-admin.js",
+      "size": 13151
+    },
+    {
+      "path": "docs/Part532_第28-30段階_データ性能・添付資料・横断整合性管理.md",
+      "size": 3730
+    },
+    {
+      "path": "docs/part532_Part529共通案件情報回帰検証レポート.json",
+      "size": 6202
+    },
+    {
+      "path": "docs/part532_Part530保証監査回帰検証レポート.json",
+      "size": 4912
+    },
+    {
+      "path": "docs/part532_Part531基盤信頼性回帰検証レポート.json",
+      "size": 4950
+    },
+    {
+      "path": "docs/part532_構文・JSON検証.json",
+      "size": 226
+    },
+    {
+      "path": "docs/part532_第19-21段階ポリシー回帰検証レポート.json",
+      "size": 3528
+    },
+    {
+      "path": "docs/part532_第19-21段階静的回帰検証レポート.json",
+      "size": 6843
+    },
+    {
+      "path": "docs/part532_第28-30段階ポリシー単体検証レポート.json",
+      "size": 5542
+    },
+    {
+      "path": "docs/part532_第28-30段階静的検証レポート.json",
+      "size": 5065
+    },
+    {
+      "path": "docs/part532_総合検証レポート.json",
+      "size": 2218
+    },
+    {
+      "path": "pages/data-integrity-performance-admin.html",
+      "size": 12702
+    },
+    {
+      "path": "schemas/data-integrity-performance-governance.schema.json",
+      "size": 2907
+    },
+    {
+      "path": "server/scripts/verify-part532-policy.js",
+      "size": 9349
+    },
+    {
+      "path": "server/sql/115_part532_data_integrity_performance_governance.sql",
+      "size": 6665
+    },
+    {
+      "path": "server/src/data-integrity-performance-policy.js",
+      "size": 11858
+    },
+    {
+      "path": "tools/verify-part532-data-integrity-performance.mjs",
+      "size": 5445
+    },
+    {
+      "path": "tools/verify-part532-part529-regression.mjs",
+      "size": 8404
+    },
+    {
+      "path": "tools/verify-part532-part530-regression.mjs",
+      "size": 5041
+    },
+    {
+      "path": "tools/verify-part532-part531-regression.mjs",
+      "size": 5136
+    }
+  ],
+  "updated": [
+    {
+      "path": "README.md",
+      "size": 4023
+    },
+    {
+      "path": "VERSION.json",
+      "size": 497
+    },
+    {
+      "path": "data/app-config.json",
+      "size": 9465
+    },
+    {
+      "path": "data/build-manifest.js",
+      "size": 1799
+    },
+    {
+      "path": "data/system-file-manifest.json",
+      "size": 3
+    },
+    {
+      "path": "docs/part150-static-qa-report.json",
+      "size": 4044
+    },
+    {
+      "path": "docs/part528_第19-21段階ポリシー単体検証レポート.json",
+      "size": 3527
+    },
+    {
+      "path": "docs/part528_第19-21段階静的検証レポート.json",
+      "size": 6842
+    },
+    {
+      "path": "index.html",
+      "size": 25163
+    },
+    {
+      "path": "pages/access-control.html",
+      "size": 3005
+    },
+    {
+      "path": "pages/access-governance-admin.html",
+      "size": 4561
+    },
+    {
+      "path": "pages/account-history.html",
+      "size": 3536
+    },
+    {
+      "path": "pages/account-security-admin.html",
+      "size": 3547
+    },
+    {
+      "path": "pages/activate-account.html",
+      "size": 2212
+    },
+    {
+      "path": "pages/admin-governance-dashboard.html",
+      "size": 5533
+    },
+    {
+      "path": "pages/admin-succession.html",
+      "size": 12900
+    },
+    {
+      "path": "pages/application-verification.html",
+      "size": 14619
+    },
+    {
+      "path": "pages/applications.html",
+      "size": 52720
+    },
+    {
+      "path": "pages/assurance-security-audit-admin.html",
+      "size": 10781
+    },
+    {
+      "path": "pages/change-password.html",
+      "size": 5075
+    },
+    {
+      "path": "pages/change-release-governance-admin.html",
+      "size": 7872
+    },
+    {
+      "path": "pages/cloud-connection.html",
+      "size": 4112
+    },
+    {
+      "path": "pages/completion-roadmap.html",
+      "size": 3601
+    },
+    {
+      "path": "pages/ctu-securing-calculator.html",
+      "size": 124437
+    },
+    {
+      "path": "pages/dangerous-goods-detail.html",
+      "size": 12111
+    },
+    {
+      "path": "pages/dangerous-goods-search.html",
+      "size": 16565
+    },
+    {
+      "path": "pages/data-migration-legacy.html",
+      "size": 4225
+    },
+    {
+      "path": "pages/data-migration.html",
+      "size": 8460
+    },
+    {
+      "path": "pages/data-quality-admin.html",
+      "size": 4090
+    },
+    {
+      "path": "pages/deployment-execution-admin.html",
+      "size": 4184
+    },
+    {
+      "path": "pages/deployment-readiness-package.html",
+      "size": 3979
+    },
+    {
+      "path": "pages/documentation-release-center.html",
+      "size": 5339
+    },
+    {
+      "path": "pages/ems.html",
+      "size": 3523
+    },
+    {
+      "path": "pages/favorites.html",
+      "size": 1851
+    },
+    {
+      "path": "pages/feedback.html",
+      "size": 6955
+    },
+    {
+      "path": "pages/final-production-readiness.html",
+      "size": 3248
+    },
+    {
+      "path": "pages/identity-operations-admin.html",
+      "size": 3338
+    },
+    {
+      "path": "pages/imdg-cross-reference.html",
+      "size": 3412
+    },
+    {
+      "path": "pages/integrated-operations-center.html",
+      "size": 4285
+    },
+    {
+      "path": "pages/integrated-verification.html",
+      "size": 3075
+    },
+    {
+      "path": "pages/kawasaki-pilot.html",
+      "size": 3509
+    },
+    {
+      "path": "pages/label-catalog.html",
+      "size": 2076
+    },
+    {
+      "path": "pages/login.html",
+      "size": 18200
+    },
+    {
+      "path": "pages/maintenance-governance-admin.html",
+      "size": 7812
+    },
+    {
+      "path": "pages/operations-acceptance-admin.html",
+      "size": 15314
+    },
+    {
+      "path": "pages/operations-assurance-admin.html",
+      "size": 4719
+    },
+    {
+      "path": "pages/operations-command-center-admin.html",
+      "size": 13147
+    },
+    {
+      "path": "pages/operations-monitoring.html",
+      "size": 9670
+    },
+    {
+      "path": "pages/overpack-label-tool.html",
+      "size": 9122
+    },
+    {
+      "path": "pages/pdf-page-viewer.html",
+      "size": 4119
+    },
+    {
+      "path": "pages/pilot-launch-admin.html",
+      "size": 7308
+    },
+    {
+      "path": "pages/platform-reliability-admin.html",
+      "size": 10425
+    },
+    {
+      "path": "pages/post-deployment-operations-admin.html",
+      "size": 5295
+    },
+    {
+      "path": "pages/post-launch-admin.html",
+      "size": 5450
+    },
+    {
+      "path": "pages/production-identity-admin.html",
+      "size": 5540
+    },
+    {
+      "path": "pages/production-operations-hub.html",
+      "size": 6565
+    },
+    {
+      "path": "pages/production-readiness.html",
+      "size": 6607
+    },
+    {
+      "path": "pages/prototype-completion-review.html",
+      "size": 4635
+    },
+    {
+      "path": "pages/publication-rights-admin.html",
+      "size": 11938
+    },
+    {
+      "path": "pages/recovery-migration-admin.html",
+      "size": 10329
+    },
+    {
+      "path": "pages/references.html",
+      "size": 7583
+    },
+    {
+      "path": "pages/regulation-approval-admin.html",
+      "size": 12520
+    },
+    {
+      "path": "pages/regulation-evidence-snapshot.html",
+      "size": 5324
+    },
+    {
+      "path": "pages/regulation-update-admin.html",
+      "size": 17097
+    },
+    {
+      "path": "pages/regulations.html",
+      "size": 5140
+    },
+    {
+      "path": "pages/release-candidate-summary.html",
+      "size": 4881
+    },
+    {
+      "path": "pages/reset-password.html",
+      "size": 2012
+    },
+    {
+      "path": "pages/revision-preview.html",
+      "size": 3571
+    },
+    {
+      "path": "pages/search-history.html",
+      "size": 2216
+    },
+    {
+      "path": "pages/security-admin.html",
+      "size": 3660
+    },
+    {
+      "path": "pages/settings.html",
+      "size": 7183
+    },
+    {
+      "path": "pages/system-maintenance.html",
+      "size": 9597
+    },
+    {
+      "path": "pages/system-settings.html",
+      "size": 41390
+    },
+    {
+      "path": "pages/system-wide-search.html",
+      "size": 3741
+    },
+    {
+      "path": "pages/user-activity-admin.html",
+      "size": 16393
+    },
+    {
+      "path": "pages/user-admin.html",
+      "size": 8692
+    },
+    {
+      "path": "pages/validation-admin.html",
+      "size": 8806
+    },
+    {
+      "path": "release-manifest.json",
+      "size": 2142
+    },
+    {
+      "path": "server/package.json",
+      "size": 4430
+    },
+    {
+      "path": "server/src/server.js",
+      "size": 404592
+    }
+  ],
+  "deleted": [],
+  "summary": {
+    "added": 24,
+    "updated": 80,
+    "deleted": 0
+  }
+}

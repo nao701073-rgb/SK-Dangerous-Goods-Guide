@@ -1,0 +1,338 @@
+{
+  "release": "part528",
+  "phases": [
+    19,
+    20,
+    21
+  ],
+  "title": "第19～第21段階静的検証",
+  "generatedAt": "2026-08-06T12:15:21.328Z",
+  "checks": {
+    "total": 64,
+    "passed": 64,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "pages/operations-command-center-admin.html が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/operations-command-center.css が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/operations-command-center.js が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "server/src/operations-command-center-policy.js が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "server/sql/111_part528_operations_command_center.sql が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "server/scripts/verify-part528-policy.js が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "schemas/operations-command-center.schema.json が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part528_第19-21段階_運用指令・サービス水準・運用報告統合管理.md が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_on_call_rosters テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_on_call_shifts テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_escalation_policies テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_alerts テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_alert_events テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_service_objectives テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_slo_measurements テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_capacity_forecasts テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "operational_management_reports テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/api/admin/operations-command-center API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/rosters API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/shifts API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/escalation-policies API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/alerts API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/objectives API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/measurements API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/capacity-forecasts API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "/reports API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "acknowledge 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "escalate 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "resolve 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "submit 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "approve 操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 第19段階",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 第20段階",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 第21段階",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 当番表を登録",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 アラートを登録",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 サービス水準目標",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 容量予測・対策",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面 運用報告を作成",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 renderShifts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 renderAlerts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 renderSlo",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 renderCapacity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 renderReports",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 ack-alert",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "画面処理 approve-report",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー calculateAlertDeadlines",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー validateShift",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー validateEscalationSteps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー deriveAlertState",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー calculateSlo",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー validateCapacityForecast",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー evaluateReportGate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "システム設定導線",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "管理者のみ書込",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "閲覧権限3種",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "重大・高の確認復旧分離",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "運用報告三者分離",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "証跡SHA-256",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "SLOエラーバジェット",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "当番重複防止",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part 528 policy script registered",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part 528 static script registered",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "status": "passed"
+}

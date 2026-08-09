@@ -1,0 +1,21 @@
+{
+  "release": "part541",
+  "jsonFilesChecked": 9,
+  "jsonErrors": [],
+  "javascriptChecks": [
+    {
+      "file": "ctu-field-assist-part541.js",
+      "ok": true,
+      "stderr": ""
+    },
+    {
+      "file": "part541_inline.js",
+      "ok": true,
+      "stderr": ""
+    }
+  ],
+  "ctuHtmlStaticIdCount": 270,
+  "duplicateStaticIds": [],
+  "versionStampMismatches": [],
+  "passed": true
+}

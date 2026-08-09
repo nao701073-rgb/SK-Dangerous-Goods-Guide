@@ -1,0 +1,10 @@
+88162a1ecf538459842f02d02ea40978ec2c87a27cdf84c8b467906047592152  ./UPDATE_INSTRUCTIONS_v1.3.13.txt
+a4b83aaa86786bfae248dd10384c38d9fd4c0bc9e42230bb808eeb085ecb58cd  ./VERSION.json
+50fcd5e8b5c89f3e842ff60b53e341503a09412dad5d615d5bc178141dc1373f  ./assets/css/v142-ctu-cleanup.css
+50691f7871173b477bf480d60e1b8c6d979482da4097c474001a7f1fedfe2d86  ./assets/js/v137-ctu-usability.js
+59dc06d6628c1fd83f93bfbf42801bf66d155e91593593638981b59a1143acc9  ./assets/js/v141-photo-ai-container-fit.js
+ef3989ad72a8d84f58af783718da8ffeb235c073083b5b301b59e0cfe8c359dc  ./assets/js/v142-ctu-ai-assist.js
+b8c10ff1c6aacd59b2f2b5d24d2b922374a8df39ecb230a4a03f8f0e6113e40e  ./data/build-manifest.js
+b965605465e4ce1712a7197a0ec72b72d769d81670b54e22f67f1cb036733491  ./docs/SKDG_v1.3.13_写真寸法・原典表示整理.md
+f353d5748d63f118c5e2a2acab967b3a464f918557f286769b1b65f2739b7517  ./docs/SKDG_v1.3.13_検証レポート.json
+155befbbfc79ba3be312bae475eb039d4e397405256b32555f485bee5280960f  ./pages/ctu-securing-calculator.html

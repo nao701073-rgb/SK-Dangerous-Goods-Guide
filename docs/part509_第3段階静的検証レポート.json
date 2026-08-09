@@ -1,0 +1,99 @@
+{
+  "release": "part509",
+  "phase": 3,
+  "title": "著作権・社内公開範囲の確認",
+  "generatedAt": "2026-08-05T13:20:56.326Z",
+  "checks": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "権利・公開範囲台帳が存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "台帳にコンテンツ資産が登録されている",
+      "pass": true,
+      "detail": "635件"
+    },
+    {
+      "name": "IMDG等のライセンス確認対象を識別している",
+      "pass": true,
+      "detail": "241件"
+    },
+    {
+      "name": "国内法令の表示資産を識別している",
+      "pass": true,
+      "detail": "366件"
+    },
+    {
+      "name": "高リスク未確認資産を識別している",
+      "pass": true,
+      "detail": "256件"
+    },
+    {
+      "name": "公開範囲ポリシーが存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "権利・公開範囲管理画面が存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "表示ゲートが存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "管理画面JSが存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションが存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "公開用サニタイズビルドが存在する",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "権利確認者と承認者の分離制約がある",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "外部公開・社内公開・権限者限定の範囲がある",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "書誌情報のみ・外部リンクのみ・遮断を扱える",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "サーバー側公開範囲APIがある",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "外部公開の権利状態確認APIがある",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "公開範囲ゲートが直接リンクを判定する",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "status": "passed"
+}

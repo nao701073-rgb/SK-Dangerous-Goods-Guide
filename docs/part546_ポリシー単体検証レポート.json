@@ -1,0 +1,136 @@
+{
+  "release": "part546",
+  "passed": 32,
+  "total": 32,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "part546 page build meta",
+      "status": "passed"
+    },
+    {
+      "name": "part546 workflow cache version",
+      "status": "passed"
+    },
+    {
+      "name": "part546 css loaded",
+      "status": "passed"
+    },
+    {
+      "name": "lower header packing instruction removed",
+      "status": "passed"
+    },
+    {
+      "name": "lower header allowance removed",
+      "status": "passed"
+    },
+    {
+      "name": "lower packing instruction input removed",
+      "status": "passed"
+    },
+    {
+      "name": "lower allowance input removed",
+      "status": "passed"
+    },
+    {
+      "name": "upper reference packaging requirement retained",
+      "status": "passed"
+    },
+    {
+      "name": "upper reference IBC requirement retained",
+      "status": "passed"
+    },
+    {
+      "name": "upper reference portable tank retained",
+      "status": "passed"
+    },
+    {
+      "name": "upper allowance tile retained",
+      "status": "passed"
+    },
+    {
+      "name": "auto allowance state retained without lower input",
+      "status": "passed"
+    },
+    {
+      "name": "packing instruction data remains in model/export",
+      "status": "passed"
+    },
+    {
+      "name": "empty cargo still stores packing instruction and allowance",
+      "status": "passed"
+    },
+    {
+      "name": "20 percent cross unit rule retained",
+      "status": "passed"
+    },
+    {
+      "name": "limited quantity 30kg rule retained",
+      "status": "passed"
+    },
+    {
+      "name": "P200 permit UI retained",
+      "status": "passed"
+    },
+    {
+      "name": "part546 build manifest",
+      "status": "passed"
+    },
+    {
+      "name": "single source display feature flag",
+      "status": "passed"
+    },
+    {
+      "name": "part546 css declares authoritative display intent",
+      "status": "passed"
+    },
+    {
+      "name": "part545 packing reference API retained",
+      "status": "passed"
+    },
+    {
+      "name": "P200 standard capacity unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "P200 x message unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "P001 source unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "P200 UN1077 source unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "P200 UN1953 source unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "IBC 31HA1 rule unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "IBC 31HA2 rule unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "all IBC Z materials unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "all used P source jumps retained",
+      "status": "passed"
+    },
+    {
+      "name": "all used IBC source jumps retained",
+      "status": "passed"
+    },
+    {
+      "name": "all used T source jumps retained",
+      "status": "passed"
+    }
+  ]
+}

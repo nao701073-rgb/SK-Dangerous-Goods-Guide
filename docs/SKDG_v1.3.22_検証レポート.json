@@ -1,0 +1,182 @@
+{
+  "version": "v1.3.22",
+  "baseVersion": "v1.3.21",
+  "validationType": "static-code-validation",
+  "browserE2EExecuted": false,
+  "summary": {
+    "passed": 41,
+    "total": 41,
+    "allPassed": true
+  },
+  "checks": [
+    {
+      "name": "technical version v1.3.22",
+      "pass": true
+    },
+    {
+      "name": "base release v1.3.21",
+      "pass": true
+    },
+    {
+      "name": "visible version remains prototype",
+      "pass": true
+    },
+    {
+      "name": "no DB migration",
+      "pass": true
+    },
+    {
+      "name": "manifest v1.3.22",
+      "pass": true
+    },
+    {
+      "name": "applications page build meta v1.3.22",
+      "pass": true
+    },
+    {
+      "name": "intake page build meta v1.3.22",
+      "pass": true
+    },
+    {
+      "name": "detail page build meta v1.3.22",
+      "pass": true
+    },
+    {
+      "name": "detail button text explicitly reset",
+      "pass": true
+    },
+    {
+      "name": "detail button aria label set",
+      "pass": true
+    },
+    {
+      "name": "detail button CSS fallback label",
+      "pass": true
+    },
+    {
+      "name": "detail button background forced visible",
+      "pass": true
+    },
+    {
+      "name": "detail button white text retained",
+      "pass": true
+    },
+    {
+      "name": "intake registration heading matches CTU",
+      "pass": true
+    },
+    {
+      "name": "registration target first",
+      "pass": true
+    },
+    {
+      "name": "CTU-style details summary",
+      "pass": true
+    },
+    {
+      "name": "registration year field",
+      "pass": true
+    },
+    {
+      "name": "registration number field",
+      "pass": true
+    },
+    {
+      "name": "optional case title field",
+      "pass": true
+    },
+    {
+      "name": "single visible registration button",
+      "pass": true
+    },
+    {
+      "name": "legacy new button remains hidden",
+      "pass": true
+    },
+    {
+      "name": "legacy update button remains hidden",
+      "pass": true
+    },
+    {
+      "name": "legacy blank controls force hidden",
+      "pass": true
+    },
+    {
+      "name": "registration target compact style",
+      "pass": true
+    },
+    {
+      "name": "registration grid mirrors CTU layout",
+      "pass": true
+    },
+    {
+      "name": "responsive registration grid",
+      "pass": true
+    },
+    {
+      "name": "existing number reuse lookup",
+      "pass": true
+    },
+    {
+      "name": "existing target says add to existing case",
+      "pass": true
+    },
+    {
+      "name": "new target says new application number",
+      "pass": true
+    },
+    {
+      "name": "registration values sync to source fields",
+      "pass": true
+    },
+    {
+      "name": "same-number duplicate path retained",
+      "pass": true
+    },
+    {
+      "name": "verification result saved separately",
+      "pass": true
+    },
+    {
+      "name": "reviewer still optional",
+      "pass": true
+    },
+    {
+      "name": "registered detail link has text",
+      "pass": true
+    },
+    {
+      "name": "registered detail link hidden until registration",
+      "pass": true
+    },
+    {
+      "name": "intake new CSS cache loaded",
+      "pass": true
+    },
+    {
+      "name": "intake new JS cache loaded",
+      "pass": true
+    },
+    {
+      "name": "application management CSS cache loaded",
+      "pass": true
+    },
+    {
+      "name": "application management JS cache loaded",
+      "pass": true
+    },
+    {
+      "name": "manifest records v1322 features",
+      "pass": true
+    },
+    {
+      "name": "all shipped JS syntax checks",
+      "pass": true
+    }
+  ],
+  "notes": [
+    "ブラウザ自動E2Eは実行していません。",
+    "DOM表示不具合に対し、文字列再設定とCSS疑似要素の二重対策を実施。",
+    "旧hiddenボタンはdisplay:none!importantで強制非表示。"
+  ]
+}

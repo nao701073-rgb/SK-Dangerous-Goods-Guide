@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
-  <meta name="sk-build" content="part505">
-  <script src="../data/build-manifest.js?v=505"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>試作完成判定・残課題管理｜検査・検品業務サポートシステム</title>
 <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
 </head><body data-required-roles="safety-environment-admin">
-<header class="app-header"><a class="icon-button" href="system-settings.html" aria-label="システム設定へ戻る">←</a><div><h1>試作完成判定・残課題管理</h1></div></header>
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">試作完成判定・残課題管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
 <main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 試作完成判定・残課題管理</div>
 <section class="readiness-hero"><div><span id="completionBadge">確認中</span><h2>試作完成の判定と配置後作業を分離</h2><p>コード・画面・権限・データ・運用資料の完成状況と、クラウド配置後に行う作業を区別して管理します。</p></div><div class="readiness-actions"><button id="downloadCompletionReport" type="button">統合レポートJSON</button><a href="integrated-verification.html">総合自動検査</a></div></section>
 <section class="admin-card-grid" id="completionSummary"></section>
@@ -20,5 +33,11 @@
 <div class="settings-actions"><button class="primary-action" id="saveCompletionReview" type="button">判定を保存</button><a class="secondary-action" href="completion-roadmap.html">完成版統合チェック</a></div><div id="completionMessage" class="settings-message" aria-live="polite"></div>
 </div></section>
 <section class="panel"><div class="panel-heading"><h2>現在の実装方針</h2></div><div class="panel-body"><ul><li>本システムの利用は任意です。</li><li>透かし表示、スクリーンショット検知・追跡、画面自動保存は現時点では実装しません。</li><li>利用履歴は、不適切利用の確認、セキュリティ、障害調査、運用改善、正当な監査に限定します。</li><li>安全環境室長は全事業所の申請番号・写真を閲覧、登録、編集できますが、削除はできません。</li></ul></div></section>
-</main><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/session-guard.js?v=422"></script><script src="../assets/js/prototype-completion-review.js?v=241"></script><script src="../assets/js/version-guard.js?v=505"></script>
+</main><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/session-guard.js?v=508"></script><script src="../assets/js/prototype-completion-review.js?v=241"></script><script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
 </body></html>

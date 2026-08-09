@@ -1,0 +1,14 @@
+164b1138643cf4779c96671e2d24b1d18e4270b2e18f2541850940cadb3a132c  ./UPDATE_INSTRUCTIONS_v1.3.4.txt
+75de236341ee09d10c4e570344d6f47e00f3f385c2afe1012f15b0deed902830  ./VERSION.json
+364d213a66e0d9700e609068dd55f06943d0820b51c7ddf5e485544d9000f4a3  ./assets/css/v134-ui.css
+19b05fd96da3b77db53fe83e934adf25da4ee5c13403159e9bbdee4610783486  ./assets/js/application-intake-workflow.js
+ddae4294e0a9e678e9f903e5c9e192c04b2ebf52f061cad1d962ac3b6b2d0f04  ./assets/js/v11-user-preferences.js
+e630b5ca32656342cb9f83064c76cdce3faf5c08f95ff202293c3369e930ace6  ./assets/js/v12-applications.js
+6e2f4b6f50e3f37f04fa6e23b2e96e37cfb8e160b89b3cb389075e84f14087c1  ./assets/js/v12-ctu.js
+72830a659c40a995410c2eda0fdf5c4b3344129a4ea7f71fd986d8b1524abfe8  ./assets/js/v12-intake.js
+6d98d98527fbc2aea47485ec71686e51fcff8b9e975857b055ad8c3c345ac8bb  ./assets/js/v134-intake.js
+baaefcec2033f82d1382ad6aad14cd1e720f837fbdb8e006cfbef81a131892ff  ./assets/js/v134-settings.js
+8f0af2f72aaf3412ee89ae37e53693f16b8bf443ad33a6969cd49c038543af37  ./docs/SKDG_v1.3.4_安定化・軽量化.md
+089f273c8779a65adcfbbe464b11a1e72969667a778630bae6f483bc81ff855d  ./docs/SKDG_v1.3.4_検証レポート.json
+6c398baa77b785fdf7b0c9c249ed47fd0273b2160e604cc36c15752c13562ec0  ./pages/application-intake-workflow.html
+837d07d2a5f4b2463d51c12ee64f808e823036c5a003ae68595eca4402eaa58e  ./pages/settings.html

@@ -1,0 +1,10 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Part 534 distribution, compatibility and continuity governance",
+  "type":"object",
+  "properties":{
+    "distributionPackage":{"type":"object","required":["packageType","dataDomain","sourceRelease","targetRelease","manifestSha256","packageSha256","rollbackSha256"]},
+    "compatibilityTest":{"type":"object","required":["deviceClass","browser","browserVersion","os","testedAt","evidenceSha256"]},
+    "continuityExercise":{"type":"object","required":["outageType","startedAt","restoredAt","manualRecordCount","reenteredCount","manualExportSha256","syncEvidenceSha256"]}
+  }
+}

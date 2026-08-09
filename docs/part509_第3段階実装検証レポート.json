@@ -1,0 +1,113 @@
+{
+  "release": "part509",
+  "phase": 3,
+  "title": "正式運用準備 第3段階：著作権・社内公開範囲の確認",
+  "generatedAt": "2026-08-05T22:30:00+09:00",
+  "baseRelease": "part508-phase2",
+  "catalog": {
+    "totalAssets": 635,
+    "totalBytes": 221657590,
+    "byClass": {
+      "official-domestic-law": 366,
+      "licensed-international-code": 241,
+      "internal-created-source-dependent": 1,
+      "third-party-or-unknown": 15,
+      "international-guidance": 12
+    },
+    "byRisk": {
+      "medium": 379,
+      "high": 256
+    },
+    "initialDecision": "全件未確認（分類のみ。利用可否の法的判断は未実施）"
+  },
+  "implementation": {
+    "itemLevelRightsLedger": true,
+    "distinctActors": [
+      "登録・提出",
+      "権利・利用条件確認",
+      "公開範囲承認"
+    ],
+    "mandatoryRightsChecks": 8,
+    "scopeModes": [
+      "prototype-review",
+      "internal-authenticated",
+      "internal-restricted",
+      "public-approved"
+    ],
+    "treatments": [
+      "full",
+      "excerpt",
+      "metadata-only",
+      "external-link-only",
+      "blocked"
+    ],
+    "checksumChangeReReview": true,
+    "clientLinkGate": true,
+    "directFileProtection": "公開用サニタイズ済みパッケージで物理除外",
+    "decisionExport": true,
+    "auditTrail": true
+  },
+  "verification": {
+    "phase3StaticChecks": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "javascriptSyntax": {
+      "files": 181,
+      "failed": 0
+    },
+    "htmlBuildConsistency": {
+      "pages": 65,
+      "failed": 0
+    },
+    "htmlDuplicateIds": {
+      "pages": 65,
+      "failed": 0
+    },
+    "publicPackageDryRun": {
+      "scope": "public-approved",
+      "includedNonCatalogFiles": 375,
+      "excludedManagedAssets": 635,
+      "metadataOnlyAssets": 0,
+      "note": "決定台帳未指定のため、管理対象635件をすべて除外する安全側の結果"
+    },
+    "phase1Regression": {
+      "checks": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "phase2Regression": {
+      "checks": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "browserRendering": {
+      "status": "not-completed",
+      "reason": "実行環境のChromiumがローカル／仮想URLへの遷移を管理ポリシーで遮断し、ERR_BLOCKED_BY_ADMINISTRATORとなったため。実画面確認済みとは扱わない。"
+    },
+    "productionDatabaseMigration": {
+      "status": "not-executed",
+      "reason": "導入先PostgreSQLが未指定。"
+    },
+    "humanRightsReview": {
+      "status": "not-executed",
+      "reason": "契約書、公式利用条件、購入ライセンス、権利者許諾および社内規程を確認できないため。"
+    },
+    "preExistingStaticQaFindings": {
+      "count": 14,
+      "introducedByPart509": 0,
+      "detail": "Part508でも同一14件。文書リンク未配置13件と既存テンプレート文字列に対するduplicate-id誤検出1件。"
+    }
+  },
+  "completionCriteria": [
+    "資料台帳と実ファイルが一致する",
+    "権利者・契約・利用条件・転載条件が確認される",
+    "登録・確認・承認を別利用者が実施する",
+    "社内・権限者・外部公開の範囲が明示される",
+    "外部公開パッケージから未承認・社内限定ファイルが物理的に除外される",
+    "ファイル変更時に再確認状態へ戻る",
+    "承認根拠・期限・チェックサム・監査履歴が保存される"
+  ],
+  "status": "implemented-awaiting-production-database-human-rights-review-and-browser-verification"
+}

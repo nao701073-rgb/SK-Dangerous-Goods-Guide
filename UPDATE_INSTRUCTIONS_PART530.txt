@@ -1,0 +1,8 @@
+Part 530 更新手順
+1. Part 529稼働データとPostgreSQLを完全バックアップする。
+2. Part 530更新ZIPをPart 529のルートへ上書き展開する。
+3. server/sql/113_part530_assurance_security_external_audit.sql を適用する。
+4. serverディレクトリで npm run verify:part530 を実行する。
+5. システム設定から「保証・セキュリティ・外部監査管理」を開き、権限別表示を確認する。
+6. 本番相当環境で、法的保全、廃棄職務分離、脆弱性期限、監査証跡SHA-256、指摘是正を確認する。
+注意: Part 528以前へ直接上書きしないでください。先にPart 529を適用してください。

@@ -1,0 +1,157 @@
+{
+  "release": "part542",
+  "baseRelease": "part541",
+  "generatedAt": "2026-08-07T16:58:00+09:00",
+  "summary": {
+    "passed": 35,
+    "total": 35
+  },
+  "checks": [
+    {
+      "name": "メイン写真ドロップ",
+      "passed": true
+    },
+    {
+      "name": "複数写真選択",
+      "passed": true
+    },
+    {
+      "name": "写真キュー",
+      "passed": true
+    },
+    {
+      "name": "貨物側MSLドロップ",
+      "passed": true
+    },
+    {
+      "name": "CTU側MSLドロップ",
+      "passed": true
+    },
+    {
+      "name": "取付点複数写真ドロップ",
+      "passed": true
+    },
+    {
+      "name": "不足方向フォロー",
+      "passed": true
+    },
+    {
+      "name": "是正進捗",
+      "passed": true
+    },
+    {
+      "name": "是正説明コピー",
+      "passed": true
+    },
+    {
+      "name": "写真だけで強度確定しない",
+      "passed": true
+    },
+    {
+      "name": "既存Part541維持",
+      "passed": true
+    },
+    {
+      "name": "モバイルCSS",
+      "passed": true
+    },
+    {
+      "name": "JS構文: assets/js/ctu-field-correction-part542.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文: assets/js/ctu-field-assist-part541.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文: data/build-manifest.js",
+      "passed": true
+    },
+    {
+      "name": "CTU画面インラインJavaScript構文",
+      "passed": true
+    },
+    {
+      "name": "JSON: VERSION.json",
+      "passed": true
+    },
+    {
+      "name": "JSON: docs/part541_写真解析API契約.json",
+      "passed": true
+    },
+    {
+      "name": "Part542 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "Part542 JS参照",
+      "passed": true
+    },
+    {
+      "name": "複数写真キュー",
+      "passed": true
+    },
+    {
+      "name": "是正フォロー",
+      "passed": true
+    },
+    {
+      "name": "メインD&D",
+      "passed": true
+    },
+    {
+      "name": "取付点D&D",
+      "passed": true
+    },
+    {
+      "name": "CTU画面ID重複なし",
+      "passed": true
+    },
+    {
+      "name": "画面版メタPart542移行",
+      "passed": true
+    },
+    {
+      "name": "Part541写真読取API",
+      "passed": true
+    },
+    {
+      "name": "手入力フォールバック",
+      "passed": true
+    },
+    {
+      "name": "貨物ユニット",
+      "passed": true
+    },
+    {
+      "name": "不足説明",
+      "passed": true
+    },
+    {
+      "name": "MSL写真マーキング",
+      "passed": true
+    },
+    {
+      "name": "取付点確認",
+      "passed": true
+    },
+    {
+      "name": "取付点履歴",
+      "passed": true
+    },
+    {
+      "name": "引張＋支保併用",
+      "passed": true
+    },
+    {
+      "name": "TY-GARD",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "メイン固縛写真、貨物側／CTU側MSL写真、取付点複数写真へドラッグ＆ドロップを追加。",
+    "複数写真キューは作業中の入力補助。案件永続保存は既存の案件写真・MSL台帳保存を使用。",
+    "不足方向ごとの是正フォローは説明支援であり、追加強度や適合を自動確定しない。",
+    "Part541までの計算・写真読取API・手入力フォールバックを維持。"
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "reportName": "SKDG v1.0 初版統合・シンプル版 総合静的検証",
+  "version": "v1.0",
+  "baseVersion": "part590",
+  "generatedAt": "2026-08-08T01:50:00+09:00",
+  "status": "passed",
+  "summary": {
+    "testCount": 29,
+    "passedCount": 29,
+    "failedCount": 0,
+    "htmlFiles": 74
+  },
+  "checks": [
+    {
+      "name": "全HTML v1.0 build meta",
+      "status": "PASS",
+      "detail": "74 files; missing=[]"
+    },
+    {
+      "name": "申請書確認 late Part UI 非読込",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理 late Part UI 非読込",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛力 late Part UI 非読込",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認 4段階シンプル導線",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理 基本導線",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理 高度パネル初版非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 写真起点UI",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 材質選択 木/プラスチック/金属/ゴム",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 接触状態選択",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 参考摩擦係数自動反映",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 代表MSL簡易同期",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 現場是正フォロー初版非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 詳細MSL台帳初版非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 申請書から候補入力入口",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "システム状態 システム管理者限定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "危険物検索 本体機能保持",
+      "status": "PASS",
+      "detail": "v1ではレイアウトCSS/権限制御JSと版表記のみ追加"
+    },
+    {
+      "name": "関連法令 本体機能保持",
+      "status": "PASS",
+      "detail": "v1ではレイアウトCSS/権限制御JSと版表記のみ追加"
+    },
+    {
+      "name": "関連資料 本体機能保持",
+      "status": "PASS",
+      "detail": "v1ではレイアウトCSS/権限制御JSと版表記のみ追加"
+    },
+    {
+      "name": "ユーザー設定 本体機能保持",
+      "status": "PASS",
+      "detail": "v1ではレイアウトCSS/権限制御JSと版表記のみ追加"
+    },
+    {
+      "name": "危険物詳細 内容保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "IMDG対照 内容保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "削除した後期UI資産へのHTML参照なし",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "name": "JS構文 assets/js/v1-ctu-simple.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v1-role-visibility.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JSON構文",
+      "status": "PASS",
+      "detail": "1 files; errors=[]"
+    },
+    {
+      "name": "VERSION v1.0",
+      "status": "PASS",
+      "detail": "{\"version\": \"v1.0\", \"releaseName\": \"SKDG v1.0 初版統合・シンプル版\", \"baseVersion\": \"part590\", \"date\": \"2026-08-08\", \"summary\": \"Part590を統合元として、申請書確認・申請番号管理・固縛力参考算出だけを初版向けに簡素化。危険物検索・危険物詳細・関連法令・関連資料・コード別画面等は削除せず維持。固縛力は写真起点、材質・接触状態から参考摩擦係数を候補表示し、不足項目だけ補って参考算出する流れへ整理。システム状態はシステム管理者のみ表示。\", \"legacyDevelopmentBase\": 590}"
+    },
+    {
+      "name": "Build manifest v1.0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション追加なし",
+      "status": "PASS",
+      "detail": "base=0, work=0"
+    }
+  ],
+  "notes": [
+    "危険物検索・関連法令・関連資料・危険物詳細は機能削除せず保持。",
+    "初版のPDF直接取込は標準入口に出さず、既存のExcel/CSV取込を標準化。",
+    "摩擦係数は現場入力補助の保守側参考候補であり、認証値を自動確定しない。"
+  ]
+}

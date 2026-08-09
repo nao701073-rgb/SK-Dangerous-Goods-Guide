@@ -1,0 +1,56 @@
+{
+  "release": "part542",
+  "passed": 12,
+  "total": 12,
+  "checks": [
+    {
+      "name": "メイン写真ドロップ",
+      "passed": true
+    },
+    {
+      "name": "複数写真選択",
+      "passed": true
+    },
+    {
+      "name": "写真キュー",
+      "passed": true
+    },
+    {
+      "name": "貨物側MSLドロップ",
+      "passed": true
+    },
+    {
+      "name": "CTU側MSLドロップ",
+      "passed": true
+    },
+    {
+      "name": "取付点複数写真ドロップ",
+      "passed": true
+    },
+    {
+      "name": "不足方向フォロー",
+      "passed": true
+    },
+    {
+      "name": "是正進捗",
+      "passed": true
+    },
+    {
+      "name": "是正説明コピー",
+      "passed": true
+    },
+    {
+      "name": "写真だけで強度確定しない",
+      "passed": true
+    },
+    {
+      "name": "既存Part541維持",
+      "passed": true
+    },
+    {
+      "name": "モバイルCSS",
+      "passed": true
+    }
+  ],
+  "failed": []
+}

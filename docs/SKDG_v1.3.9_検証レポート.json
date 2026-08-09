@@ -1,0 +1,71 @@
+{
+  "version": "v1.3.9",
+  "generatedAt": "2026-08-08T17:25:00+09:00",
+  "summary": {
+    "passed": 12,
+    "failed": 0,
+    "total": 12
+  },
+  "checks": [
+    {
+      "name": "MutationObserver自己再発火要因を除去",
+      "status": "PASS",
+      "detail": "写真入力補助スクリプトはMutationObserverインスタンスを作成しない"
+    },
+    {
+      "name": "Version同値時にDOM非更新",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "動的写真ボタンはイベント委譲",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ホームでは写真補助JSを非読込",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTUでは写真補助JSを継続",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理でも写真補助JSを継続",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請書取込でも写真補助JSを継続",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ホーム表示Version 1.0 試作版",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "技術ビルドv1.3.9",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "原典ジャンプを維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真入力パネル強制表示を維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DB移行なし",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

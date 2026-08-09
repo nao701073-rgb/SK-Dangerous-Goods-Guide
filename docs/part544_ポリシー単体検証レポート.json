@@ -1,0 +1,90 @@
+{
+  "release": "part544",
+  "baseRelease": "part543",
+  "summary": {
+    "passed": 20,
+    "total": 20
+  },
+  "checks": [
+    {
+      "name": "列判定は完全一致優先",
+      "passed": true
+    },
+    {
+      "name": "容器等級列を容器コードから除外",
+      "passed": true
+    },
+    {
+      "name": "IIを容器コードにしない",
+      "passed": true
+    },
+    {
+      "name": "行内容器コード補助探索",
+      "passed": true
+    },
+    {
+      "name": "Part544 policy build marker",
+      "passed": true
+    },
+    {
+      "name": "個数強調",
+      "passed": true
+    },
+    {
+      "name": "1容器当たり正味質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容容量・許容質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容値フィールドへdisplayを反映",
+      "passed": true
+    },
+    {
+      "name": "少量危険物取込フラグ対応",
+      "passed": true
+    },
+    {
+      "name": "少量30kg維持",
+      "passed": true
+    },
+    {
+      "name": "20%近接維持",
+      "passed": true
+    },
+    {
+      "name": "規定量超過維持",
+      "passed": true
+    },
+    {
+      "name": "旧公開版風の上部確認帯",
+      "passed": true
+    },
+    {
+      "name": "PC重要3項目横並び",
+      "passed": true
+    },
+    {
+      "name": "スマホ1列",
+      "passed": true
+    },
+    {
+      "name": "Part544 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 policy参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 JS参照",
+      "passed": true
+    },
+    {
+      "name": "編集フォーム維持",
+      "passed": true
+    }
+  ]
+}

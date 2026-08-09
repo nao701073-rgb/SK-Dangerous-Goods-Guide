@@ -1,0 +1,25 @@
+{
+  "release": "part531",
+  "generatedAt": "2026-08-06T20:59:00+09:00",
+  "javascript": {
+    "files": 228,
+    "errors": 0,
+    "details": []
+  },
+  "json": {
+    "files": 127,
+    "errors": 0,
+    "details": []
+  },
+  "htmlReferences": {
+    "status": "passed",
+    "findingCount": 0,
+    "stats": {
+      "html": 69,
+      "js": 228,
+      "json": 127,
+      "refs": 1422,
+      "bytes": 317525676
+    }
+  }
+}

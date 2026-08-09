@@ -1,0 +1,90 @@
+{
+  "release": "part535",
+  "generatedAt": "2026-08-06T13:47:03.409182+00:00",
+  "status": "passed",
+  "title": "第37～第39段階 申請書・依頼書取込・事前確認・案件引継ぎ",
+  "baseRelease": "part534",
+  "verification": {
+    "automaticChecks": {
+      "total": 277,
+      "passed": 277,
+      "failed": 0
+    },
+    "part535Policy": {
+      "total": 35,
+      "passed": 35
+    },
+    "part535Static": {
+      "total": 42,
+      "passed": 42
+    },
+    "part529Regression": {
+      "total": 57,
+      "passed": 57
+    },
+    "majorRegression": {
+      "total": 47,
+      "passed": 47
+    },
+    "part534PolicyRegression": {
+      "total": 45,
+      "passed": 45
+    },
+    "part534StaticRegression": {
+      "total": 51,
+      "passed": 51
+    },
+    "staticReference": {
+      "status": "passed",
+      "findingCount": 0,
+      "stats": {
+        "html": 73,
+        "js": 256,
+        "json": 171,
+        "refs": 1500,
+        "bytes": 319594758
+      }
+    },
+    "syntaxAndJson": {
+      "generatedAt": "2026-08-06T13:46:58.057015+00:00",
+      "javascriptFiles": 256,
+      "javascriptErrors": 0,
+      "jsonFiles": 171,
+      "jsonErrors": 0,
+      "errors": []
+    }
+  },
+  "dataQuality": {
+    "records": 2725,
+    "uniqueUnNumbers": 2248,
+    "errors": 0,
+    "warnings": 0
+  },
+  "implementation": {
+    "page": "pages/application-intake-workflow.html",
+    "migration": "server/sql/118_part535_application_intake_handoff.sql",
+    "originalFileStored": false,
+    "maximumSourceBytes": 104857600,
+    "supportedFormats": [
+      "xls",
+      "xlsx",
+      "csv"
+    ]
+  },
+  "environmentVerificationRequired": [
+    "本番相当PostgreSQLへのマイグレーション適用",
+    "実際の申請書・依頼書様式による項目対応確認",
+    "権限別の登録・更新・引継ぎ操作",
+    "PC・スマートフォン実端末表示",
+    "オフライン時のExcel解析ライブラリ提供状態"
+  ],
+  "changeSummary": {
+    "baseRelease": "part534",
+    "added": 24,
+    "updated": 89,
+    "deleted": 0
+  },
+  "integrity": {
+    "currentFileCount": 1863
+  }
+}

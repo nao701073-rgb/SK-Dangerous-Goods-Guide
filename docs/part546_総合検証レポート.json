@@ -1,0 +1,440 @@
+{
+  "release": "part546",
+  "baseRelease": "part545",
+  "generatedAt": "2026-08-07T18:47:00+09:00",
+  "summary": {
+    "passed": 106,
+    "total": 106
+  },
+  "checks": [
+    {
+      "name": "Part545継承: packing reference API available",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: cross-unit near ratio remains 20 percent",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 regular capacity retained",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 UN1077 exact source page follows dangerous goods search mapping",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 x UN1953 detected",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 x UN1954 detected",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 x exact legacy message retained",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 x exact source page",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P001 source page",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P002 source page",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P112 legal master fallback",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P622 source page",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: master packaging instruction used when application blank",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: application/master mismatch flagged",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all used packing instructions have original source jump",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all 84 used P codes covered",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all used IBC codes have original source jump",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all 12 used IBC codes covered",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all used T codes have original source jump",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all 19 used T codes covered",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: IBC code classifier detects 11A",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: IBC code classifier detects 31HZ1 template",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all Z replacement material codes are registered",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all composite outer materials classify for suffix 1 and 2",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: HZ source template matches all real composite materials",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: all HZ templates in used IBC instructions expand across all material codes",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: 31HA1 PG II liquid is 3000 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: 31HA2 PG II liquid is 1250 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: 31HH2 PG III liquid is 1250 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: other outer materials with flexible inner remain 3000 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG I composite all outer materials are 1500 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG I direct metal materials A B N are 3000 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG I flexible rigid fibreboard and wood materials are 1500 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: 31HZ2 without actual outer material remains review",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG I metal IBC max 3000 L from container code",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG I non-metal IBC max 1500 L from container code",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: PG II metal liquid IBC max 3000 L",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: unresolved HZ template remains review instead of false certainty",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: IBC02 HZ1 source template accepts actual 31HA1",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: IBC maximum content source follows dangerous goods search page 353",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: IBC actual container is checked against IBC instruction",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: container code selects IBC mode",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: T code selects portable tank mode",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: portable tank T11 requirements available",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: T23 has UN-specific source",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: application page loads part545 helper",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: application page loads part545 css",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: reference packaging requirement visible",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: reference IBC requirement visible",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: reference portable tank requirement visible",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: alternate master container requirements visible",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: packing mismatch warning visible",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: P200 permit sets permission flag",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: limited quantity legacy rule retained",
+      "passed": true
+    },
+    {
+      "name": "Part545継承: part545 functions retained under part546 build",
+      "passed": true
+    },
+    {
+      "name": "Part546: part546 page build meta",
+      "passed": true
+    },
+    {
+      "name": "Part546: part546 workflow cache version",
+      "passed": true
+    },
+    {
+      "name": "Part546: part546 css loaded",
+      "passed": true
+    },
+    {
+      "name": "Part546: lower header packing instruction removed",
+      "passed": true
+    },
+    {
+      "name": "Part546: lower header allowance removed",
+      "passed": true
+    },
+    {
+      "name": "Part546: lower packing instruction input removed",
+      "passed": true
+    },
+    {
+      "name": "Part546: lower allowance input removed",
+      "passed": true
+    },
+    {
+      "name": "Part546: upper reference packaging requirement retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: upper reference IBC requirement retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: upper reference portable tank retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: upper allowance tile retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: auto allowance state retained without lower input",
+      "passed": true
+    },
+    {
+      "name": "Part546: packing instruction data remains in model/export",
+      "passed": true
+    },
+    {
+      "name": "Part546: empty cargo still stores packing instruction and allowance",
+      "passed": true
+    },
+    {
+      "name": "Part546: 20 percent cross unit rule retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: limited quantity 30kg rule retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: P200 permit UI retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: part546 build manifest",
+      "passed": true
+    },
+    {
+      "name": "Part546: single source display feature flag",
+      "passed": true
+    },
+    {
+      "name": "Part546: part546 css declares authoritative display intent",
+      "passed": true
+    },
+    {
+      "name": "Part546: part545 packing reference API retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: P200 standard capacity unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: P200 x message unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: P001 source unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: P200 UN1077 source unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: P200 UN1953 source unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: IBC 31HA1 rule unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: IBC 31HA2 rule unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: all IBC Z materials unchanged",
+      "passed": true
+    },
+    {
+      "name": "Part546: all used P source jumps retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: all used IBC source jumps retained",
+      "passed": true
+    },
+    {
+      "name": "Part546: all used T source jumps retained",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 assets/js/application-intake-workflow.js",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 assets/js/application-packing-reference-part545.js",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 data/build-manifest.js",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 server/scripts/verify-part545-policy.cjs",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 server/scripts/verify-part545-regression-part546.cjs",
+      "passed": true
+    },
+    {
+      "name": "静的: JS構文 server/scripts/verify-part546-policy.cjs",
+      "passed": true
+    },
+    {
+      "name": "静的: ポリシー server/scripts/verify-part545-regression-part546.cjs",
+      "passed": true
+    },
+    {
+      "name": "静的: ポリシー server/scripts/verify-part546-policy.cjs",
+      "passed": true
+    },
+    {
+      "name": "静的: 下段包装要件ヘッダなし",
+      "passed": true
+    },
+    {
+      "name": "静的: 下段許容容量ヘッダなし",
+      "passed": true
+    },
+    {
+      "name": "静的: 下段包装要件入力なし",
+      "passed": true
+    },
+    {
+      "name": "静的: 下段許容値入力なし",
+      "passed": true
+    },
+    {
+      "name": "静的: 上段参照包装要件あり",
+      "passed": true
+    },
+    {
+      "name": "静的: 上段許容容量表示あり",
+      "passed": true
+    },
+    {
+      "name": "静的: CSVデータ保持",
+      "passed": true
+    },
+    {
+      "name": "静的: Part546 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "静的: Part546 build",
+      "passed": true
+    },
+    {
+      "name": "静的: 全画面Part546ビルドメタ",
+      "passed": true
+    },
+    {
+      "name": "静的: VERSION part546",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "上段事前審査確認を正本表示とし、下段の包装要件・許容容量/許容質量の重複表示を削除。",
+    "案件データのpackingInstruction/allowableCapacityOrMassは維持し、CSV/JSON/登録へ引き継ぐ。",
+    "Part545のP/P200/IBC/T、P200 x許可案内、IBC全材質、少量危険物、超過警告を回帰検証。"
+  ]
+}

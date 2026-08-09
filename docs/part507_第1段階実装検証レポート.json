@@ -1,0 +1,71 @@
+{
+  "release": "part507",
+  "phase": 1,
+  "title": "正式運用準備 第1段階：サーバー側認証・保存・権限制御",
+  "generatedAt": "2026-08-05T21:45:00+09:00",
+  "baseRelease": "part506-rebuilt-from-part505",
+  "implementation": {
+    "serverSession": "HttpOnly Cookie + PostgreSQL auth_sessions",
+    "csrf": "unsafe HTTP methods require X-CSRF-Token",
+    "transport": "production HTTPS enforcement and credentialed CORS allow-list",
+    "authorization": "role permission and office scope checked by API",
+    "persistence": "PostgreSQL plus filesystem or S3-compatible object storage",
+    "sessionControls": [
+      "idle expiry",
+      "absolute expiry",
+      "maximum active sessions",
+      "forced revocation",
+      "token version invalidation",
+      "user-agent binding"
+    ],
+    "audit": [
+      "login-success",
+      "login-failed",
+      "force-logout",
+      "password-changed",
+      "operational create/update/delete"
+    ]
+  },
+  "verification": {
+    "staticSecurityChecks": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "javascriptSyntax": {
+      "files": 131,
+      "failed": 0
+    },
+    "htmlBuildConsistency": {
+      "pages": 64,
+      "failed": 0
+    },
+    "fontPolicy": "BIZ UDPゴシック系を業務UI全体に適用。法令原文、公式ロゴ、標札は例外。",
+    "chromiumRendering": {
+      "status": "not-completed",
+      "reason": "この実行環境のChromiumがヘッドレス実行時に正常終了せず、スクリーンショットを取得できなかった。"
+    },
+    "productionDatabaseConnection": {
+      "status": "not-executed",
+      "reason": "導入先PostgreSQLが未指定。"
+    },
+    "persistentStorageRestartTest": {
+      "status": "not-executed",
+      "reason": "導入先永続ストレージが未指定。"
+    },
+    "crossOfficeAuthorizationTest": {
+      "status": "not-executed",
+      "reason": "導入先の利用者・事業所データを用いる必要がある。"
+    }
+  },
+  "completionCriteria": [
+    "PostgreSQLへの保存内容がAPI・DB再起動後も保持される",
+    "写真・添付資料が再起動後も取得できる",
+    "他事業所データの直接ID指定が403または404となる",
+    "ゲストの申請番号管理APIアクセスが403となる",
+    "CSRFなしの更新リクエストが403となる",
+    "強制ログアウト後の旧セッションが401となる",
+    "HTTPS以外と未許可Originが拒否される"
+  ],
+  "status": "implemented-awaiting-production-environment-test"
+}

@@ -1,0 +1,221 @@
+{
+  "release": "part535",
+  "suite": "第37～第39段階静的検証",
+  "generatedAt": "2026-08-06T13:42:42.665075+00:00",
+  "status": "passed",
+  "total": 42,
+  "passed": 42,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "exists pages/application-intake-workflow.html",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists assets/css/application-intake-workflow.css",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists assets/js/application-intake-workflow-policy.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists assets/js/application-intake-workflow.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists assets/js/application-intake-workflow-api.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists server/src/application-intake-workflow-policy.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "exists server/sql/118_part535_application_intake_handoff.sql",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "page build part535",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "four steps",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Excel CSV accept",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "100MB limit",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "original file not stored notice",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "cargo table",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "permit field",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "verification link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JSON export",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "cargo CSV export",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "handoff print",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "no filename in history description",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ephemeral buffer clearing",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "no raw filename in case payload",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "combined quantity parser",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "P200 parser",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "permission required field",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "duplicate detection",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application registration",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application update",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "verification handoff query",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CTU handoff query",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "server list route",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "server create route",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "server review route",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "server register route",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "original file DB check",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "hash DB check",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application foreign key",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "applications page link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "submenu link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "manifest workflow",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "version all HTML",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

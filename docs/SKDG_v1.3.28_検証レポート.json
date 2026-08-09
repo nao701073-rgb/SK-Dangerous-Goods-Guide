@@ -1,0 +1,16 @@
+{
+  "version": "v1.3.28",
+  "base": "v1.3.27",
+  "checks": {
+    "htmlParser": "pass",
+    "deferredLegacyScriptCount": 29,
+    "heicLoadBehaviorPreserved": true,
+    "databaseMigration": false,
+    "displayVersion": "Version 1.0 試作版"
+  },
+  "notes": [
+    "旧互換・拡張スクリプトは削除せずdefer化のみ",
+    "スクリプト記載順を維持",
+    "外部HEIC変換ライブラリは安全側で変更なし"
+  ]
+}

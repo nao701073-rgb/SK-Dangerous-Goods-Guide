@@ -1,0 +1,13 @@
+SKDG v1.3.3 Hotfix 検証項目
+
+- CTU HTML の script 開始/終了数一致
+- MSL報告書テンプレート内の literal </script> を除去
+- CTUメインinline JavaScriptを抽出し node --check 合格
+- ctu-excel-route-import.js node --check 合格
+- v133-ctu-upload.js node --check 合格
+- v133-intake-stability.js node --check 合格
+- 申請書ファイル入力を native input[type=file] として表示
+- importer は native input change を直接処理
+- ①申請書 / ②写真の順序固定ロジックを v1.3.2 から同梱
+- application-intake は v131安定化を維持し、v133最終判定待ちを追加
+- DB migration なし

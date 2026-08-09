@@ -1,5 +1,6 @@
 import {readFileSync} from "node:fs";import{resolve}from"node:path";
-const root=resolve(new URL("..",import.meta.url).pathname);
+import { fileURLToPath } from 'node:url';
+const root=resolve(fileURLToPath(new URL("..",import.meta.url)));
 const settings=readFileSync(resolve(root,"pages/system-settings.html"),"utf8");
 const role=readFileSync(resolve(root,"assets/js/role-access.js"),"utf8");
 const css=readFileSync(resolve(root,"assets/css/references.css"),"utf8");

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542">
+  <script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>バックアップ・復元・移行試験｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
+  <link rel="stylesheet" href="../assets/css/governance-part503.css?v=503">
+  <link rel="stylesheet" href="../assets/css/recovery-phase4.css?v=510">
+  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+  <link rel="stylesheet" href="../assets/css/design-system-review.css?v=509">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+</head>
+<body data-page="settings" data-required-roles="safety-environment-admin">
+<main class="workspace maintenance-page recovery-admin-page">
+  <div class="page-breadcrumb">ホーム ＞ システム設定 ＞ バックアップ・復元・移行試験</div>
+  <div class="page-heading-row">
+    <div><h1>バックアップ・復元・移行試験</h1><p>正式運用準備の第4段階として、復旧目標、バックアップ、隔離復元、システム全体移行、切替・ロールバックの証跡を管理します。</p></div>
+    <a class="back-link" href="system-settings.html">← システム設定へ戻る</a>
+  </div>
+
+  <section class="panel recovery-principle-panel">
+    <div class="panel-heading"><div><h2>第4段階の原則</h2><p>本番環境を直接操作せず、隔離環境とステージング環境で検証してから切り替えます。</p></div><button id="refreshRecoveryReadiness" type="button">状態を更新</button></div>
+    <div class="panel-body">
+      <div class="recovery-step-grid">
+        <article><span>1</span><strong>完全バックアップ</strong><p>DB、添付資料・写真、アプリ本体・全マスターを同じ世代として保存します。</p></article>
+        <article><span>2</span><strong>隔離復元</strong><p>一時DBと一時ストレージへ復元し、件数・参照・ファイルを確認します。</p></article>
+        <article><span>3</span><strong>移行試験</strong><p>移行先へステージングし、チェックサムと主要画面・権限を検証します。</p></article>
+        <article><span>4</span><strong>切替・復帰</strong><p>原子的に切り替え、異常時は直前リリースへ戻します。</p></article>
+      </div>
+      <div id="recoveryMessage" class="part503-message" aria-live="polite">中央サーバーへ接続して状態を取得します。</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>復旧準備状況</h2><p>正式運用可とするには、必須項目をすべて満たす必要があります。</p></div><strong id="recoveryOverallStatus" class="recovery-overall-badge">確認中</strong></div>
+    <div class="panel-body part503-grid">
+      <div id="recoveryChecks" class="recovery-check-grid"></div>
+      <div class="recovery-summary-grid">
+        <article><span>最新バックアップ</span><strong id="latestBackupAt">-</strong><small id="latestBackupStatus">-</small></article>
+        <article><span>最新の隔離復元</span><strong id="latestRestoreDrill">-</strong><small>本番データを変更しない試験</small></article>
+        <article><span>最新の移行試験</span><strong id="latestMigrationDrill">-</strong><small>システム全体のステージング</small></article>
+        <article><span>最新のロールバック</span><strong id="latestRollbackDrill">-</strong><small>直前リリースへの復帰</small></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>復旧目標・試験間隔</h2><p>IT室と合意したRPO・RTOおよび試験周期を設定します。</p></div></div>
+    <form id="recoverySettingsForm" class="panel-body part503-form recovery-settings-grid">
+      <label>RPO（許容するデータ損失時間・分）<input id="recoveryRpo" type="number" min="5" max="10080" required></label>
+      <label>RTO（目標復旧時間・分）<input id="recoveryRto" type="number" min="15" max="10080" required></label>
+      <label>バックアップ検証間隔（日）<input id="backupVerifyInterval" type="number" min="1" max="365" required></label>
+      <label>隔離復元試験間隔（日）<input id="restoreDrillInterval" type="number" min="7" max="730" required></label>
+      <label>移行試験間隔（日）<input id="migrationDrillInterval" type="number" min="14" max="730" required></label>
+      <div class="recovery-check-options">
+        <label><input id="requireOffsiteCopy" type="checkbox"> 独立した保管先への複製を必須にする</label>
+        <label><input id="requireIsolatedRestore" type="checkbox"> 隔離復元試験を必須にする</label>
+        <label><input id="requireRollbackTest" type="checkbox"> ロールバック試験を必須にする</label>
+      </div>
+      <div class="recovery-form-actions"><button class="primary-action" type="submit">設定を保存</button><button id="downloadRecoveryRunbook" type="button">試験手順をJSON保存</button></div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>試験結果を登録</h2><p>コマンドは承認された運用ホストで実行し、この画面には結果と証跡を登録します。</p></div></div>
+    <form id="recoveryDrillForm" class="panel-body part503-form recovery-drill-form">
+      <div class="recovery-form-grid">
+        <label>試験区分<select id="recoveryDrillType" required><option value="backup-verification">バックアップ整合性検証</option><option value="isolated-restore">隔離復元試験</option><option value="full-migration">システム全体移行試験</option><option value="cutover">本番切替試験</option><option value="rollback">ロールバック試験</option></select></label>
+        <label>結果<select id="recoveryDrillStatus" required><option value="planned">予定</option><option value="running">実施中</option><option value="passed">合格</option><option value="warning">条件付き・要確認</option><option value="failed">不合格</option><option value="cancelled">中止</option></select></label>
+        <label>作成元リリース<input id="recoverySourceRelease" placeholder="例：part509"></label>
+        <label>移行先リリース<input id="recoveryTargetRelease" placeholder="例：part510"></label>
+        <label>実測RPO（分）<input id="observedRpo" type="number" min="0" max="10080"></label>
+        <label>実測RTO（分）<input id="observedRto" type="number" min="0" max="10080"></label>
+        <label>実施元環境<input id="recoverySourceEnvironment" placeholder="例：検証サーバー"></label>
+        <label>実施先環境<input id="recoveryTargetEnvironment" placeholder="例：隔離復元環境"></label>
+      </div>
+      <label>実施内容・結果<textarea id="recoveryDrillNotes" rows="5" placeholder="実行コマンド、確認した件数、異常の有無、判断を記録してください。"></textarea></label>
+      <label>証跡（ファイル名、ログ保存先、チケット番号等）<textarea id="recoveryDrillEvidence" rows="3" placeholder="例：restore-drill-report.json、IT-2026-001"></textarea></label>
+      <label>不合格・中止理由<textarea id="recoveryFailureReason" rows="3"></textarea></label>
+      <div class="recovery-form-actions"><button class="primary-action" type="submit">試験記録を保存</button></div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>バックアップ世代</h2><p>データベース、添付資料、システムリリースが同じ世代で保存されているか確認します。</p></div></div>
+    <div class="panel-body recovery-table-wrap"><table class="recovery-table"><thead><tr><th>開始</th><th>状態</th><th>DB</th><th>添付</th><th>システム</th><th>独立保管</th><th>検証</th></tr></thead><tbody id="recoveryBackupRows"><tr><td colspan="7">取得中です。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>復元・移行試験履歴</h2><p>試験の実施者、結果、実測時間、証跡を残します。</p></div></div>
+    <div class="panel-body"><div id="recoveryDrillList" class="recovery-history-list"><p class="empty-state">取得中です。</p></div></div>
+  </section>
+
+  <section class="panel recovery-command-panel">
+    <div class="panel-heading"><div><h2>承認された運用ホストで実行するコマンド</h2><p>WebサーバーからOSコマンドを直接実行する機能は設けません。</p></div></div>
+    <div class="panel-body recovery-command-list">
+      <div><strong>完全バックアップ</strong><code>npm run backup</code></div>
+      <div><strong>バックアップ検証</strong><code>npm run backup:verify -- /backups/backup_xxx</code></div>
+      <div><strong>隔離復元試験</strong><code>npm run restore:drill -- /backups/backup_xxx</code></div>
+      <div><strong>システム全体移行試験</strong><code>npm run migration:drill -- system-release_xxx.tar.gz</code></div>
+      <div><strong>切替</strong><code>npm run release:activate -- &lt;release-name&gt; &lt;health-url&gt;</code></div>
+      <div><strong>復帰</strong><code>npm run release:rollback -- &lt;previous-release-path&gt;</code></div>
+    </div>
+  </section>
+</main>
+<script src="../assets/js/storage.js?v=503"></script>
+<script src="../assets/js/api-client.js?v=510"></script>
+<script src="../assets/js/recovery-migration-admin.js?v=510"></script>
+<script src="../assets/js/system-shell.js?v=510"></script>
+<script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/role-access.js?v=503"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./SHA256SUMS_v1.3.29.txt
+d4fb8fceb6604959cef77e018b1ccb3e615a094b55e019406a7e809519d727cc  ./UPDATE_INSTRUCTIONS_v1.3.29.txt
+296cc42b81f370b91561b0fcc01ee26064aeac1d737ea846ec00ceda64c77e7c  ./VERSION.json
+d1111ba52612ade51760a7545c9cc6d4b02f35e2f1a9fe016a6eb7ca7b509ff6  ./assets/js/application-intake-workflow.js
+cf44ed037a24d3629c0e928d2783312f7a015e9008b3744cd37333a8f5f90345  ./assets/js/v1315-application-management.js
+f990cbb5a2bf2a44590249193f584ae1e9a0089a988d53203ee9fc6834f0fe24  ./assets/js/v1316-ctu-cleanup.js
+b42597b7ee3c7a05248ade93a585edc0440d57172f9d0b5ccc78120ee5248976  ./data/build-manifest.js
+1dc45edfe07d7fe2dbe05647427cb20fbac9a55712b75666eb3b042bdef907a7  ./docs/SKDG_v1.3.29_検証レポート.json
+193cea4850d78aae6c3f0a6ab0625ccd876325c57ed896797b40169b4704d7d6  ./docs/SKDG_v1.3.29_累積軽量化.md
+3206b5210ce3afa549d140785d39e3319fd12e9d532bd812c91d3e3c1f614704  ./pages/application-intake-workflow.html
+8090423af83166f8e2c7ed3559113c59680b2796d0d4c378b42bb7c7244c188b  ./pages/applications.html
+573f64520b3b0e54b531301d1aedf2b511dcde5c83ca44499b40df5da7d05a32  ./pages/ctu-securing-calculator.html

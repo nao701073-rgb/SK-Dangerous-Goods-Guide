@@ -1,0 +1,85 @@
+{
+  "version": "v1.3.23",
+  "summary": {
+    "passed": 15,
+    "total": 15
+  },
+  "checks": [
+    {
+      "name": "technical version v1.3.23",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "visible version unchanged",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no database migration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "page build marker v1.3.23",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registration uses static div",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registration no details disclosure",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registration no summary toggle label",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registration fields always present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no visible 0 prefix text",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "defensive legacy summary hidden",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registration button retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registered detail link retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build manifest v1.3.23",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "cache bust updated",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "all shipped JavaScript syntax",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "browserE2E": "not_run"
+}

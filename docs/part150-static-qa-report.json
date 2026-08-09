@@ -1,101 +1,16 @@
 {
-  "generatedAt": "2026-08-02T10:43:43.430Z",
-  "root": "/mnt/data/part492_work",
-  "status": "failed",
+  "generatedAt": "2026-08-06T15:21:32.677Z",
+  "root": "/mnt/data/SK-Dangerous-Goods-Guide_part537 本番",
+  "status": "passed",
   "stats": {
-    "html": 62,
-    "js": 170,
-    "json": 68,
-    "refs": 955,
-    "bytes": 292293147
+    "html": 73,
+    "js": 261,
+    "json": 183,
+    "refs": 1507,
+    "bytes": 319944364
   },
-  "findingCount": 14,
-  "findings": [
-    {
-      "severity": "error",
-      "type": "duplicate-id",
-      "file": "/mnt/data/part492_work/pages/ctu-securing-calculator.html",
-      "detail": "${directionId("
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/01_システム仕様書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/02_実施要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/03_ゲスト用使用要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/04_事業所利用者用使用要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/05_事業所管理者用使用要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/06_安全環境室用使用要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/documentation-release-center.html",
-      "detail": "../docs/manuals/07_システム管理者用使用要領書_Part243.docx"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/operations-monitoring.html",
-      "detail": "../docs/障害対応・復旧訓練手順書.md"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/production-readiness.html",
-      "detail": "../docs/本番導入設定手順書.md"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/production-readiness.html",
-      "detail": "../docs/運用管理手順書.md"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/production-readiness.html",
-      "detail": "../docs/バックアップ復元手順書.md"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/production-readiness.html",
-      "detail": "../docs/社内接続試験チェックリスト.md"
-    },
-    {
-      "severity": "error",
-      "type": "missing-reference",
-      "file": "/mnt/data/part492_work/pages/system-maintenance.html",
-      "detail": "../docs/バックアップ復元手順書.md"
-    }
-  ],
+  "findingCount": 0,
+  "findings": [],
   "oversizedAssets": [
     {
       "file": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
@@ -240,6 +155,10 @@
     {
       "file": "images/labels/overpack-square/class9.png",
       "bytes": 1250002
+    },
+    {
+      "file": "data/legal-code-master-codes.js",
+      "bytes": 1235389
     },
     {
       "file": "images/guides/package-marking-un1224-guide.png",

@@ -1,0 +1,37 @@
+{
+  "release": "part547-version-guard-behavior",
+  "generatedAt": "2026-08-07T09:59:10.633Z",
+  "passed": 7,
+  "total": 7,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "match has no warning",
+      "status": "passed"
+    },
+    {
+      "name": "match has no reload",
+      "status": "passed"
+    },
+    {
+      "name": "first mismatch auto reloads",
+      "status": "passed"
+    },
+    {
+      "name": "first mismatch no warning",
+      "status": "passed"
+    },
+    {
+      "name": "second mismatch no auto reload",
+      "status": "passed"
+    },
+    {
+      "name": "second mismatch warns",
+      "status": "passed"
+    },
+    {
+      "name": "matching page cleans cache params",
+      "status": "passed"
+    }
+  ]
+}

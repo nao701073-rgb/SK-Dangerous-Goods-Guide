@@ -1,0 +1,141 @@
+{
+  "version": "v1.3.21",
+  "baseVersion": "v1.3.20",
+  "validationType": "static-code-validation",
+  "browserE2EExecuted": false,
+  "summary": {
+    "passed": 32,
+    "total": 32,
+    "allPassed": true
+  },
+  "checks": [
+    {
+      "name": "technical version v1.3.21",
+      "pass": true
+    },
+    {
+      "name": "visible version remains prototype",
+      "pass": true
+    },
+    {
+      "name": "no DB migration",
+      "pass": true
+    },
+    {
+      "name": "intake page build meta updated",
+      "pass": true
+    },
+    {
+      "name": "registration year input exists",
+      "pass": true
+    },
+    {
+      "name": "registration number input exists",
+      "pass": true
+    },
+    {
+      "name": "registration case title optional input exists",
+      "pass": true
+    },
+    {
+      "name": "registration number allows 5 digits",
+      "pass": true
+    },
+    {
+      "name": "registration section explains override",
+      "pass": true
+    },
+    {
+      "name": "same number explanation present",
+      "pass": true
+    },
+    {
+      "name": "registration target retained",
+      "pass": true
+    },
+    {
+      "name": "single register button retained",
+      "pass": true
+    },
+    {
+      "name": "registration helper asset loaded with new cache",
+      "pass": true
+    },
+    {
+      "name": "registration CSS loaded with new cache",
+      "pass": true
+    },
+    {
+      "name": "source values copied to registration inputs",
+      "pass": true
+    },
+    {
+      "name": "registration values copied to actual source fields",
+      "pass": true
+    },
+    {
+      "name": "registration number forces official type",
+      "pass": true
+    },
+    {
+      "name": "registration number strips non-digits",
+      "pass": true
+    },
+    {
+      "name": "same official number lookup enabled",
+      "pass": true
+    },
+    {
+      "name": "existing case target shown",
+      "pass": true
+    },
+    {
+      "name": "new case target shown",
+      "pass": true
+    },
+    {
+      "name": "registration edits refresh prior validation",
+      "pass": true
+    },
+    {
+      "name": "same-card duplicate registration core retained",
+      "pass": true
+    },
+    {
+      "name": "verification saved as separate result",
+      "pass": true
+    },
+    {
+      "name": "original reviewer remains optional",
+      "pass": true
+    },
+    {
+      "name": "blank reviewer remains allowed",
+      "pass": true
+    },
+    {
+      "name": "responsive registration grid CSS",
+      "pass": true
+    },
+    {
+      "name": "manifest updated to v1.3.21",
+      "pass": true
+    },
+    {
+      "name": "critical registration helper marked v1.3.21",
+      "pass": true
+    },
+    {
+      "name": "login approved background preserved",
+      "pass": true
+    },
+    {
+      "name": "login time variants forced to same background",
+      "pass": true
+    },
+    {
+      "name": "all shipped JS syntax checks",
+      "pass": true
+    }
+  ]
+}

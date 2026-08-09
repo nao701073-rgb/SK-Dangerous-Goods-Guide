@@ -1,0 +1,129 @@
+{
+  "release": "part550",
+  "generatedAt": "2026-08-07T10:38:44.975Z",
+  "status": "passed",
+  "passed": 24,
+  "total": 24,
+  "checks": [
+    {
+      "name": "registered result recalculation link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "latest result badge",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "recalculation origin display",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "case select automatic apply",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "legacy case-use button hidden",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "registered result restore",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "restore requires reconfirmation",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "one final review checkbox",
+      "status": "passed",
+      "detail": "1"
+    },
+    {
+      "name": "one primary registration button",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "recalculation audit metadata",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "friction policy persisted",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "part550 workflow asset",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "part550 ctu css",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application detail part550 asset",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "no DB migration",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "direction inputs persisted",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "registered result detailed direction restore",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax application detail",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax CTU workflow",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CTU inline JS syntax",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "build manifest part550",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "all html build meta part550",
+      "status": "passed",
+      "detail": "74 html"
+    },
+    {
+      "name": "all html build manifest v550",
+      "status": "passed",
+      "detail": "74 html"
+    },
+    {
+      "name": "all html version guard v550",
+      "status": "passed",
+      "detail": "74 html"
+    }
+  ]
+}

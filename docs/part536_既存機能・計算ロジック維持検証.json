@@ -1,0 +1,58 @@
+{
+  "release": "part536",
+  "generatedAt": "2026-08-06T14:42:56.126Z",
+  "status": "passed",
+  "passed": 12,
+  "total": 12,
+  "basis": "Part535 file/function SHA-256",
+  "checks": [
+    {
+      "name": "assets/js/application-intake-workflow-policy.js unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "server/src/application-intake-workflow-policy.js unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "assets/js/application-case-common.js unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "assets/js/storage.js unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "CTU calc unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "CTU applyTransportPreset unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "CTU applyWallPreset unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "CTU updateSummary unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "CTU syncQuickInputs unchanged from Part535",
+      "status": "passed"
+    },
+    {
+      "name": "application intake fields unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "CTU calculation fields unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "CTU result registration retained",
+      "status": "passed"
+    }
+  ]
+}

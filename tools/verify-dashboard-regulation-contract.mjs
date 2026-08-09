@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const home = readFileSync(resolve(root, 'index.html'), 'utf8');
 const homeCss = readFileSync(resolve(root, 'assets/css/home-dashboard.css'), 'utf8');
 const regulationPage = readFileSync(resolve(root, 'pages/regulations.html'), 'utf8');

@@ -1,0 +1,280 @@
+{
+  "release": "part533",
+  "suite": "第31～第33段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T12:51:28.877Z",
+  "passed": 54,
+  "total": 54,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "品質正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "違反警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大違反遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "違反率5%遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "誤検知10%警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "誤検知20%遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "割当不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来実行拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "候補正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同一Hash拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密語拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別確認許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己適用拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "適用者自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "四者分離許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 desktop-ui",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 mobile-ui",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 api-contract",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 migration",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 rollback",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 record-count-2725",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 unique-un-count-2248",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 domestic-law-links",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 common-case-data",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 ctu-calculation",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 photo-access",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰抽出 role-matrix",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "影響分析正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大リスク遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "作成者自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "三者分離許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大期限1日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高期限7日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "不具合正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "候補正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "必須証跡不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同一ZIPHash拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "提出者自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "承認者自己配布拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布者自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "五者分離許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "正常ゲート通過",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "品質なし遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "古い品質遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大品質遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高候補遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "影響未承認遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高不具合遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証済み不具合許可",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

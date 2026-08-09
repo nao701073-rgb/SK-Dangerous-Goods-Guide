@@ -1,0 +1,215 @@
+{
+  "release": "v1.3.13",
+  "generatedAt": "2026-08-08T19:03:00+09:00",
+  "status": "passed",
+  "summary": {
+    "total": 39,
+    "passed": 39,
+    "failed": 0
+  },
+  "scope": [
+    "CTU表示簡素化",
+    "写真AI内幅基準・写真測定長さ候補",
+    "原典ジャンプ整理",
+    "CSS Code参照整理",
+    "回帰構文検査"
+  ],
+  "browserAutomation": "Chromium is installed, but direct file/localhost navigation is blocked by the execution environment policy; runtime assertions are therefore covered by static/logic checks and sample-photo algorithm verification in this build.",
+  "tests": [
+    {
+      "name": "内部版 v1.3.13",
+      "status": "PASS",
+      "detail": "v1.3.13"
+    },
+    {
+      "name": "ベース v1.3.12",
+      "status": "PASS",
+      "detail": "1.3.12"
+    },
+    {
+      "name": "表示版 Version 1.0 試作版維持",
+      "status": "PASS",
+      "detail": "Version 1.0 試作版"
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU表示 汎用コンテナのみ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU既定説明文 非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "20FTドライ選択肢",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "40FTドライ選択肢",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "20FTリーファー選択肢",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "40FTリーファー選択肢",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナサイズは汎用コンテナ時のみ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "内部初期値 dry20維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "内幅を写真基準に自動設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真測定長さにAI候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "AI内幅基準の反映先=貨物幅",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "手動測定時のAI軸解除",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "AI収納可否メッセージ非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真AI 帯鉄候補維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "商品名を写真だけで確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "案件名自動入力防止維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "原典まとめて確認 削除",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU構造区分 原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナサイズ 原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "メーカー例示内寸 原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛方法 原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "本数 原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海上輸送条件 CSS Code参照",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU側固縛点MSL CSS Code参照",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物側取付部MSL CSS Code参照",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "不要原典セルは空欄",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part478 CSS原典ページ対応維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MutationObserver追加なし v141",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MutationObserver追加なし v142",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Version query 143",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 v141-photo-ai-container-fit.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 v142-ctu-ai-assist.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 v137-ctu-usability.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "実写真AI 内幅基準候補算出",
+      "status": "PASS",
+      "detail": "{\"referenceWidthM\": {\"dry20\": 2.352, \"dry40\": 2.352, \"reefer20\": 2.28, \"reefer40\": 2.29}, \"photoMeasuredWidthCandidatesM\": {\"dry20\": 1.94, \"dry40\": 1.94, \"reefer20\": 1.88, \"reefer40\": 1.89}}"
+    }
+  ]
+}

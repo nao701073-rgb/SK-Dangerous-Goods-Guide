@@ -53,12 +53,12 @@
   const isHomePage = () => !location.pathname.includes("/pages/") && (location.pathname.endsWith("/") || location.pathname.endsWith("/index.html"));
   const isGuestAllowedPage = () => isHomePage() || [
     "user-settings", "login", "activate-account", "reset-password",
-    "search", "detail", "application-verification", "ctu-securing-calculator", "regulations", "references", "label-catalog", "ems", "imdg-cross-reference"
+    "search", "detail", "application-verification", "application-intake-workflow", "ctu-securing-calculator", "regulations", "references", "label-catalog", "ems", "imdg-cross-reference"
   ].includes(document.body.dataset.page || "");
 
   function applyGuestHomeView(user) {
     if (user?.role !== "guest" || !isHomePage()) return;
-    const allowedHrefs = ["dangerous-goods-search.html", "application-verification.html", "ctu-securing-calculator.html", "regulations.html", "references.html", "settings.html"];
+    const allowedHrefs = ["dangerous-goods-search.html", "application-intake-workflow.html", "ctu-securing-calculator.html", "regulations.html", "references.html", "settings.html"];
     document.querySelectorAll(".module-card").forEach(card => {
       const href = card.querySelector("a[href]")?.getAttribute("href") || "";
       const allowed = allowedHrefs.some(value => href.includes(value));
@@ -75,7 +75,7 @@
       const section = document.createElement("section");
       section.id = "guestAccessNotice";
       section.className = "panel guest-access-notice";
-      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、申請書確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。申請番号管理と登録データにはアクセスできません。</p></div>`;
+      section.innerHTML = `<div class="panel-heading"><h2>ゲスト利用</h2></div><div class="panel-body"><p>ゲストは危険物検索、申請書取込・確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。申請番号管理と登録データにはアクセスできません。</p></div>`;
       main.prepend(section);
     }
   }

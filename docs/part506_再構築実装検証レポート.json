@@ -1,0 +1,94 @@
+{
+  "release": "part506",
+  "baseRelease": "part505",
+  "testedAt": "2026-08-05T19:35:00+09:00",
+  "rebuildMethod": "Part 505のCore/ReferencesへPart 496～505を順次適用してクリーンなPart 505一式を復元し、今回機能を直接実装",
+  "scope": {
+    "htmlPages": 64,
+    "dangerousGoodsRows": 2725,
+    "uniqueUnNumbers": 2248,
+    "features": [
+      "申請書確認結果の申請番号管理連携",
+      "固縛力参考算出結果の申請番号管理連携",
+      "システム全体の本番環境移行",
+      "全画面の書体・色・可読性見直し",
+      "中央API同期・監査"
+    ]
+  },
+  "staticValidation": {
+    "javascriptSyntax": "passed",
+    "serverJavascriptSyntax": "passed",
+    "designStylesheetPages": 64,
+    "part506MetaPages": 64,
+    "oldPart505MetaPages": 0,
+    "sqlMigration": "server/sql/094_part506_application_results_and_system_migration.sql"
+  },
+  "browserValidation": {
+    "engine": "Chromium / Playwright",
+    "viewports": [
+      "1365x900",
+      "390x844"
+    ],
+    "typography": {
+      "computedFont": "\"BIZ UDPGothic\", \"Noto Sans JP\", \"Yu Gothic UI\", \"Yu Gothic\", Meiryo, sans-serif",
+      "bodyColor": "rgb(22, 50, 79)",
+      "canvasColor": "rgb(243, 247, 251)"
+    },
+    "applicationResults": {
+      "desktopCards": 2,
+      "mobileCards": 2,
+      "desktopOverflow": false,
+      "mobileOverflow": false,
+      "runtimeErrors": [],
+      "confirmedContents": [
+        "申請書ファイル名・国連番号・品名・容器等級・容器・数量・包装要件・判定・確認者",
+        "貨物質量・コンテナ番号・固縛支保材・本数・確認済み強度・根拠・方向別判定・確認者"
+      ]
+    },
+    "systemSettings": {
+      "desktopMigrationPanel": true,
+      "mobileMigrationPanel": true,
+      "desktopOverflow": false,
+      "mobileOverflow": false,
+      "runtimeErrors": []
+    },
+    "login": {
+      "title": "検査・検品業務サポートシステム",
+      "font": "\"BIZ UDPGothic\", \"Noto Sans JP\", \"Yu Gothic UI\", \"Yu Gothic\", Meiryo, sans-serif",
+      "overflow": false,
+      "runtimeErrors": []
+    },
+    "migrationPackage": {
+      "format": "SK-ISS-FULL-SYSTEM-MIGRATION",
+      "scope": "full-system",
+      "release": "part506",
+      "systemFiles": 1641,
+      "systemBytes": 318629954,
+      "applications": 1,
+      "verificationResults": 1,
+      "ctuResults": 1,
+      "manifestChecksum": "29a1ddeab8ec84f4479f146fac3b894efd96a911761cc5c0e9876054207cfecc",
+      "valid": true,
+      "encryptedFormat": "SK-ISS-FULL-SYSTEM-MIGRATION-ENCRYPTED",
+      "decryptedValid": true,
+      "errors": [],
+      "overflow": false
+    }
+  },
+  "security": {
+    "encryptedPackage": "AES-256-GCM / PBKDF2-SHA256 250000 iterations",
+    "integrity": "SHA-256",
+    "excludedSecrets": [
+      "パスワード平文",
+      "MFA秘密鍵",
+      "APIトークン",
+      "セッション情報"
+    ],
+    "targetStagingDefault": "disabled",
+    "liveOverwrite": "not implemented; staging only"
+  },
+  "limitations": [
+    "移行先サーバーが指定されていないため、実サーバーへの接続・全ファイル転送・本番切替・復元試験は未実施。",
+    "本番切替は移行先ステージング内容を管理者が確認した後に行う。"
+  ]
+}

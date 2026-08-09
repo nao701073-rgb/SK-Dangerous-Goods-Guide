@@ -1,0 +1,409 @@
+{
+  "release": "part545",
+  "baseRelease": "part544",
+  "generatedAt": "2026-08-07T18:30:00+09:00",
+  "summary": {
+    "passed": 93,
+    "total": 93
+  },
+  "checks": [
+    {
+      "name": "packing reference API available",
+      "passed": true
+    },
+    {
+      "name": "cross-unit near ratio remains 20 percent",
+      "passed": true
+    },
+    {
+      "name": "P200 regular capacity retained",
+      "passed": true
+    },
+    {
+      "name": "P200 UN1077 exact source page follows dangerous goods search mapping",
+      "passed": true
+    },
+    {
+      "name": "P200 x UN1953 detected",
+      "passed": true
+    },
+    {
+      "name": "P200 x UN1954 detected",
+      "passed": true
+    },
+    {
+      "name": "P200 x exact legacy message retained",
+      "passed": true
+    },
+    {
+      "name": "P200 x exact source page",
+      "passed": true
+    },
+    {
+      "name": "P001 source page",
+      "passed": true
+    },
+    {
+      "name": "P002 source page",
+      "passed": true
+    },
+    {
+      "name": "P112 legal master fallback",
+      "passed": true
+    },
+    {
+      "name": "P622 source page",
+      "passed": true
+    },
+    {
+      "name": "master packaging instruction used when application blank",
+      "passed": true
+    },
+    {
+      "name": "application/master mismatch flagged",
+      "passed": true
+    },
+    {
+      "name": "all used packing instructions have original source jump",
+      "passed": true
+    },
+    {
+      "name": "all 84 used P codes covered",
+      "passed": true
+    },
+    {
+      "name": "all used IBC codes have original source jump",
+      "passed": true
+    },
+    {
+      "name": "all 12 used IBC codes covered",
+      "passed": true
+    },
+    {
+      "name": "all used T codes have original source jump",
+      "passed": true
+    },
+    {
+      "name": "all 19 used T codes covered",
+      "passed": true
+    },
+    {
+      "name": "IBC code classifier detects 11A",
+      "passed": true
+    },
+    {
+      "name": "IBC code classifier detects 31HZ1 template",
+      "passed": true
+    },
+    {
+      "name": "all Z replacement material codes are registered",
+      "passed": true
+    },
+    {
+      "name": "all composite outer materials classify for suffix 1 and 2",
+      "passed": true
+    },
+    {
+      "name": "HZ source template matches all real composite materials",
+      "passed": true
+    },
+    {
+      "name": "all HZ templates in used IBC instructions expand across all material codes",
+      "passed": true
+    },
+    {
+      "name": "31HA1 PG II liquid is 3000 L",
+      "passed": true
+    },
+    {
+      "name": "31HA2 PG II liquid is 1250 L",
+      "passed": true
+    },
+    {
+      "name": "31HH2 PG III liquid is 1250 L",
+      "passed": true
+    },
+    {
+      "name": "other outer materials with flexible inner remain 3000 L",
+      "passed": true
+    },
+    {
+      "name": "PG I composite all outer materials are 1500 L",
+      "passed": true
+    },
+    {
+      "name": "PG I direct metal materials A B N are 3000 L",
+      "passed": true
+    },
+    {
+      "name": "PG I flexible rigid fibreboard and wood materials are 1500 L",
+      "passed": true
+    },
+    {
+      "name": "31HZ2 without actual outer material remains review",
+      "passed": true
+    },
+    {
+      "name": "PG I metal IBC max 3000 L from container code",
+      "passed": true
+    },
+    {
+      "name": "PG I non-metal IBC max 1500 L from container code",
+      "passed": true
+    },
+    {
+      "name": "PG II metal liquid IBC max 3000 L",
+      "passed": true
+    },
+    {
+      "name": "unresolved HZ template remains review instead of false certainty",
+      "passed": true
+    },
+    {
+      "name": "IBC02 HZ1 source template accepts actual 31HA1",
+      "passed": true
+    },
+    {
+      "name": "IBC maximum content source follows dangerous goods search page 353",
+      "passed": true
+    },
+    {
+      "name": "IBC actual container is checked against IBC instruction",
+      "passed": true
+    },
+    {
+      "name": "container code selects IBC mode",
+      "passed": true
+    },
+    {
+      "name": "T code selects portable tank mode",
+      "passed": true
+    },
+    {
+      "name": "portable tank T11 requirements available",
+      "passed": true
+    },
+    {
+      "name": "T23 has UN-specific source",
+      "passed": true
+    },
+    {
+      "name": "application page loads part545 helper",
+      "passed": true
+    },
+    {
+      "name": "application page loads part545 css",
+      "passed": true
+    },
+    {
+      "name": "reference packaging requirement visible",
+      "passed": true
+    },
+    {
+      "name": "reference IBC requirement visible",
+      "passed": true
+    },
+    {
+      "name": "reference portable tank requirement visible",
+      "passed": true
+    },
+    {
+      "name": "alternate master container requirements visible",
+      "passed": true
+    },
+    {
+      "name": "packing mismatch warning visible",
+      "passed": true
+    },
+    {
+      "name": "P200 permit sets permission flag",
+      "passed": true
+    },
+    {
+      "name": "limited quantity legacy rule retained",
+      "passed": true
+    },
+    {
+      "name": "part545 build manifest",
+      "passed": true
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 assets/js/application-packing-reference-part545.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part545-policy.cjs",
+      "passed": true
+    },
+    {
+      "name": "VERSION JSON",
+      "passed": true
+    },
+    {
+      "name": "Part545 helper参照",
+      "passed": true
+    },
+    {
+      "name": "Part545 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "参照包装要件表示",
+      "passed": true
+    },
+    {
+      "name": "参照IBC要件表示",
+      "passed": true
+    },
+    {
+      "name": "参照ポータブルタンク要件表示",
+      "passed": true
+    },
+    {
+      "name": "P200 x指定文言",
+      "passed": true
+    },
+    {
+      "name": "P200標準容量",
+      "passed": true
+    },
+    {
+      "name": "IBC全材質マスター",
+      "passed": true
+    },
+    {
+      "name": "IBC HZワイルドカード照合",
+      "passed": true
+    },
+    {
+      "name": "IBC 1250L例外",
+      "passed": true
+    },
+    {
+      "name": "IBC最大内容積原文353頁",
+      "passed": true
+    },
+    {
+      "name": "20%ルール",
+      "passed": true
+    },
+    {
+      "name": "少量危険物30kgルール",
+      "passed": true
+    },
+    {
+      "name": "Part545 build manifest",
+      "passed": true
+    },
+    {
+      "name": "IBC全材質機能フラグ",
+      "passed": true
+    },
+    {
+      "name": "IBC材質仕様文書",
+      "passed": true
+    },
+    {
+      "name": "IBC材質仕様文書Z説明",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 A",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 B",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 C",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 D",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 F",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 G",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 H",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 L",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 M",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 Z置換材質 N",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 最大内容積3000L",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 最大内容積1500L",
+      "passed": true
+    },
+    {
+      "name": "危告示353頁 最大内容積1250L",
+      "passed": true
+    },
+    {
+      "name": "危告示352頁 HZ1硬質内容器",
+      "passed": true
+    },
+    {
+      "name": "危告示352頁 HZ2フレキシブル内容器",
+      "passed": true
+    },
+    {
+      "name": "全画面ビルドメタPart545",
+      "passed": true
+    }
+  ],
+  "coverage": {
+    "packingInstructions": 84,
+    "ibcInstructions": 12,
+    "portableTankInstructions": 19,
+    "ibcCompositeOuterMaterials": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H",
+      "L",
+      "M",
+      "N"
+    ]
+  },
+  "notes": [
+    "参照P/IBC/T要件を事前審査確認欄に常時表示。",
+    "P200通常容量とP200 x対象の地方運輸局長許可案内を維持。",
+    "複合IBCのZを全10材質記号として解析し、HZ原文テンプレートと実容器コードを照合。",
+    "IBC末尾1/2を区別し、危告示の3,000L/1,500L/1,250L条件を容器コードから判定。",
+    "IBC最大内容積の危告示PDF 353頁への直接リンクを追加。",
+    "P/IBC/T原文ジャンプは危険物検索と同じ国内法令マスターを使用。",
+    "Part544の重要3項目強調、超過警告、L/kg±20%注意、少量危険物ルールを維持。"
+  ]
+}

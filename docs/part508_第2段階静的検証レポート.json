@@ -1,0 +1,90 @@
+{
+  "release": "part508",
+  "phase": 2,
+  "generatedAt": "2026-08-05T13:20:56.222Z",
+  "checks": [
+    {
+      "name": "item-level verification table",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "immutable approval certificate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "distinct actor constraints",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "catalog sync",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "verification summary API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "item list API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "source verification API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "approval API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "suspension API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "public status API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "mandatory detailed checklist",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "approval admin summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "approval dialog",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "prototype warning gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "formal approved-only mode",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "phase2 UI code",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "total": 16,
+  "passed": 16,
+  "failed": 0
+}

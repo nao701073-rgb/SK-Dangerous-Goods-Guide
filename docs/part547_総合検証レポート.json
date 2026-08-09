@@ -1,0 +1,35 @@
+{
+  "release": "part547",
+  "baseRelease": "part546",
+  "generatedAt": "2026-08-07T18:57:00+09:00",
+  "status": "passed",
+  "summary": {
+    "htmlFiles": 73,
+    "staleBuildMetaFixed": 3,
+    "screenBuildVersion": "part547",
+    "systemBuildVersion": "part547",
+    "versionGuardBehaviorPassed": 7,
+    "versionGuardBehaviorTotal": 7,
+    "versionConsistencyPassed": 224,
+    "versionConsistencyTotal": 224,
+    "totalPassed": 231,
+    "totalChecks": 231,
+    "databaseMigration": false
+  },
+  "fixedFiles": [
+    "index.html",
+    "pages/applications.html",
+    "pages/application-verification.html"
+  ],
+  "policy": {
+    "hideWarningUnconditionally": false,
+    "autoCacheRecovery": "one retry only",
+    "warnAfterRetry": true,
+    "allHtmlLoadBuildManifest": true,
+    "allHtmlLoadVersionGuard": true
+  },
+  "reports": [
+    "docs/part547_版整合性検証レポート.json",
+    "docs/part547_版チェック動作検証.json"
+  ]
+}

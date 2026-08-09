@@ -1,0 +1,285 @@
+{
+  "release": "part532",
+  "suite": "第28～第30段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T11:40:39.788Z",
+  "passed": 55,
+  "total": 55,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "DB正常判定",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBクエリ警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBクエリ重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検索重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "失敗率重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "キャッシュ警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "接続使用重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "索引膨張警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "索引膨張重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "0件率重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "危険物索引不一致遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "国連番号索引不一致遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来測定拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "添付正常判定",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "孤立警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "欠落重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Hash不一致重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スキャン待ち警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スキャン不合格重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "隔離中重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "件数合計超過拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "横断整合正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "共通案件欠落警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号重複重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "案件スキーマ不一致重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力連携不一致重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "資料参照切れ重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "写真参照切れ重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "訂正履歴欠番重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "事業所範囲不一致重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "利用者参照切れ重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大課題期限1日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高課題期限7日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "中課題期限30日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "低課題期限90日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "課題入力正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "短い説明拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来課題拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "責任者自己是正拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別実施者是正許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "実施者自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別検証者許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "作成者自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "三者分離承認許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "正常ゲート通過",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB測定なし遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "添付測定なし遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "横断測定なし遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "古い測定遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大測定遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高課題遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証済み課題許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "中課題期限超過遮断",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+SKDG v1.3.2 Hotfix 検証項目
+- v131-ctu.js 構文確認
+- DOM順序ロジック: excelが先/写真が先/後から生成、全ケースで①→②へ補正
+- CSS order: ctuExcelRoutePanel=1, v1PhotoStep=2
+- キャッシュキー: v131-ui.css?v=132 / v131-ctu.js?v=132
+- DB変更なし

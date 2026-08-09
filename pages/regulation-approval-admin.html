@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="sk-build" content="part505">
-  <script src="../data/build-manifest.js?v=505"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505">
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542">
   <script src="../assets/js/auth-bootstrap.js?v=388"></script>
   <script src="../assets/js/structured-data-overrides.js?v=381"></script>
   <meta charset="UTF-8">
@@ -13,14 +13,22 @@
   <link rel="stylesheet" href="../assets/css/system-layout.css">
   <link rel="stylesheet" href="../assets/css/admin-tools.css?v=178">
   <link rel="stylesheet" href="../assets/css/governance-part503.css?v=503">
+  <link rel="stylesheet" href="../assets/css/regulation-approval-phase2.css?v=508">
   <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
 </head>
 <body data-page="regulations" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,revision-validator,validator">
   <main class="workspace maintenance-page">
     <div class="page-breadcrumb">ホーム ＞ 関連法令 ＞ 法令原典照合・承認管理</div>
     <div class="page-heading-row">
       <div><h1>法令原典照合・承認管理</h1><p>原典登録、データ作成、原典照合、承認、公開を別の利用者が順番に実施します。</p></div>
-      <a class="back-link" href="regulation-update-admin.html">← 更新管理へ戻る</a>
+      <div class="part503-actions"><a class="secondary-action" href="publication-rights-admin.html">著作権・公開範囲管理</a><a class="back-link" href="regulation-update-admin.html">← 更新管理へ戻る</a></div>
     </div>
 
     <section class="panel">
@@ -35,6 +43,50 @@
         <div id="regulationApprovalMessage" class="part503-message" aria-live="polite">中央サーバーへ接続して承認状況を取得します。</div>
       </div>
     </section>
+
+    <section class="panel phase2-progress-panel">
+      <div class="panel-heading"><div><h2>原典照合・承認の全件進捗</h2><p>危険物、コード、法令原典を個別に管理し、原典照合と承認が完了した情報だけを正式利用対象とします。</p></div><div class="part503-actions"><button id="rebuildRegulationCatalog" type="button">照合対象台帳を更新</button><button id="refreshRegulationVerification" type="button">進捗を更新</button></div></div>
+      <div class="panel-body part503-grid">
+        <div class="phase2-summary-grid" aria-live="polite">
+          <article><span>全対象</span><strong id="verificationTotal">-</strong></article>
+          <article class="is-approved"><span>承認済み</span><strong id="verificationApproved">-</strong></article>
+          <article><span>原典照合済み</span><strong id="verificationSourceVerified">-</strong></article>
+          <article class="is-warning"><span>未完了</span><strong id="verificationPending">-</strong></article>
+          <article class="is-warning"><span>改正再照合待ち</span><strong id="verificationAmendmentPending">-</strong></article>
+          <article class="is-danger"><span>使用停止</span><strong id="verificationSuspended">-</strong></article>
+          <article class="is-danger"><span>定期見直し超過</span><strong id="verificationReviewOverdue">-</strong></article>
+        </div>
+        <div class="phase2-policy-note"><strong>正式運用時の表示原則</strong><p>承認済みかつ有効な承認証明がある情報だけを正式判断用として表示します。未承認情報は試作版では「参考・未承認」と明示します。</p><p id="verificationLastCatalogRun" class="part503-note">台帳更新履歴を取得します。</p></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>危険物・コード・法令の照合対象一覧</h2><p>原典の名称、改正版、条文、別表、ページ、数値、例外、リンク先、画面表示を確認します。</p></div></div>
+      <div class="panel-body part503-grid">
+        <div class="part503-form phase2-filter-grid">
+          <label>状態<select id="verificationStatusFilter"><option value="">すべて</option><option value="prepared">準備済み</option><option value="submitted">原典照合待ち</option><option value="source-verified">原典照合済み</option><option value="approved">承認済み</option><option value="amendment-pending">改正再照合待ち</option><option value="returned">差戻し</option><option value="suspended">使用停止</option><option value="unverified">未確認</option></select></label>
+          <label>対象<select id="verificationTypeFilter"><option value="">すべて</option><option value="dangerous-good-criteria">危険物・判定基準</option><option value="code">コード</option><option value="regulation">法令原典</option><option value="reference-link">原文リンク</option></select></label>
+          <label class="phase2-search-label">検索<input id="verificationSearch" placeholder="国連番号、コード、法令名"></label>
+          <button id="searchRegulationVerification" type="button">検索</button>
+        </div>
+        <div id="regulationVerificationList" class="part503-card-list"><p class="empty-state">照合対象を取得します。</p></div>
+        <div class="phase2-pagination"><button id="verificationPrev" type="button">← 前へ</button><span id="verificationPageInfo">1 / 1</span><button id="verificationNext" type="button">次へ →</button></div>
+      </div>
+    </section>
+
+    <dialog id="regulationVerificationDialog" class="phase2-dialog">
+      <form method="dialog" id="regulationVerificationForm">
+        <header><div><small>原典照合記録</small><h2 id="verificationDialogTitle">照合対象</h2></div><button value="cancel" class="phase2-dialog-close" aria-label="閉じる">×</button></header>
+        <div class="phase2-dialog-body">
+          <input id="verificationItemId" type="hidden">
+          <label>原典ページ参照（1行に1件。例：危告示 PDF 269頁）<textarea id="verificationSourcePages" rows="4" required></textarea></label>
+          <label>原典PDFのSHA-256（確認できる場合）<input id="verificationSourceChecksum" pattern="[0-9a-fA-F]{64}" placeholder="64桁のSHA-256"></label>
+          <fieldset><legend>必須照合項目</legend><div id="verificationChecklist" class="phase2-checklist"></div></fieldset>
+          <label>照合結果・根拠・注意事項<textarea id="verificationComment" rows="5" required></textarea></label>
+        </div>
+        <footer><button id="returnVerificationItem" type="button">差し戻す</button><button id="saveSourceVerification" class="primary-action" type="button">原典照合済みにする</button></footer>
+      </form>
+    </dialog>
 
     <details class="panel">
       <summary class="panel-heading"><strong>原典・更新データの登録</strong></summary>
@@ -88,12 +140,17 @@
     </section>
   </main>
   <script src="../assets/js/storage.js?v=503"></script>
-  <script src="../assets/js/api-client.js?v=503"></script>
-  <script src="../assets/js/regulation-approval-admin.js?v=503"></script>
-  <script src="../assets/js/system-shell.js"></script>
-  <script src="../assets/js/session-guard.js?v=422"></script>
+  <script src="../assets/js/api-client.js?v=508"></script>
+  <script src="../assets/js/regulation-approval-admin.js?v=508"></script>
+  <script src="../assets/js/system-shell.js?v=508"></script>
+  <script src="../assets/js/session-guard.js?v=508"></script>
   <script src="../assets/js/role-access.js?v=503"></script>
   <script src="../assets/js/usage-tracking.js?v=222"></script>
-  <script src="../assets/js/version-guard.js?v=505"></script>
+  <script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
 </body>
 </html>

@@ -1,0 +1,207 @@
+{
+  "version": "part552",
+  "generatedAt": "2026-08-07T20:35:00+09:00",
+  "passed": 49,
+  "total": 49,
+  "failed": 0,
+  "inlineCalculationSha256": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d",
+  "baseInlineCalculationSha256": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d",
+  "tests": [
+    {
+      "name": "HTMLは74画面",
+      "ok": true
+    },
+    {
+      "name": "全HTML画面版part552",
+      "ok": true
+    },
+    {
+      "name": "全HTML build-manifest v552",
+      "ok": true
+    },
+    {
+      "name": "全HTML version-guard v552",
+      "ok": true
+    },
+    {
+      "name": "旧画面版part551なし",
+      "ok": true
+    },
+    {
+      "name": "VERSION part552",
+      "ok": true
+    },
+    {
+      "name": "manifest part552",
+      "ok": true
+    },
+    {
+      "name": "manifest Part552検証レポート",
+      "ok": true
+    },
+    {
+      "name": "manifest simpleMode",
+      "ok": true
+    },
+    {
+      "name": "manifest frictionCoefficientCollapsed",
+      "ok": true
+    },
+    {
+      "name": "manifest attachmentMslCollapsed",
+      "ok": true
+    },
+    {
+      "name": "manifest calculateAndProceed",
+      "ok": true
+    },
+    {
+      "name": "manifest missingFieldFocus",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart552 CSS",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart552 JS",
+      "ok": true
+    },
+    {
+      "name": "Part551操作補助を維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickMass 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickMaterial 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickCount 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickStrength 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickCargoMsl 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickCtuMsl 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickAngle 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID quickMslEstimatorPanel 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID ctuReviewSection 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID ctuRegisterSimple 維持",
+      "ok": true
+    },
+    {
+      "name": "既存ID ctuRegistrationSection 維持",
+      "ok": true
+    },
+    {
+      "name": "簡易モード案内実装",
+      "ok": true
+    },
+    {
+      "name": "摩擦係数折りたたみ実装",
+      "ok": true
+    },
+    {
+      "name": "取付点MSL詳細化実装",
+      "ok": true
+    },
+    {
+      "name": "現在条件要約実装",
+      "ok": true
+    },
+    {
+      "name": "不足項目フォーカス実装",
+      "ok": true
+    },
+    {
+      "name": "算出して登録確認へ進む実装",
+      "ok": true
+    },
+    {
+      "name": "登録準備ガイド実装",
+      "ok": true
+    },
+    {
+      "name": "スマホ1列CSS",
+      "ok": true
+    },
+    {
+      "name": "簡易詳細CSS",
+      "ok": true
+    },
+    {
+      "name": "登録1ボタン維持",
+      "ok": true
+    },
+    {
+      "name": "登録結果詳細リンク維持",
+      "ok": true
+    },
+    {
+      "name": "最終確認1チェック維持",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体インラインスクリプト存在",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体Part551同一ハッシュ",
+      "ok": true
+    },
+    {
+      "name": "申請詳細4タブ維持",
+      "ok": true
+    },
+    {
+      "name": "固縛力最新版先表示維持",
+      "ok": true
+    },
+    {
+      "name": "過去算出履歴折りたたみ維持",
+      "ok": true
+    },
+    {
+      "name": "この条件で再計算維持",
+      "ok": true
+    },
+    {
+      "name": "再計算URL resultKey維持",
+      "ok": true
+    },
+    {
+      "name": "Part552 JS構文",
+      "ok": true
+    },
+    {
+      "name": "build manifest構文",
+      "ok": true
+    },
+    {
+      "name": "必要ファイル存在",
+      "ok": true
+    }
+  ]
+}

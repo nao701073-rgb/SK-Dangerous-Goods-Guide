@@ -1,0 +1,75 @@
+{
+  "version": "part538",
+  "baseVersion": "part537",
+  "generatedAt": "2026-08-07T01:15:00+09:00",
+  "status": "passed",
+  "summary": {
+    "part538Policy": {
+      "passed": 35,
+      "total": 35
+    },
+    "part534ContinuityPolicy": {
+      "passed": 45,
+      "total": 45
+    },
+    "part535IntakePolicy": {
+      "passed": 35,
+      "total": 35
+    },
+    "allowanceCoverage": {
+      "passed": 19,
+      "total": 19
+    },
+    "automatedPolicyTotal": {
+      "passed": 134,
+      "total": 134
+    },
+    "javascript": {
+      "fileCount": 263,
+      "inlineScriptCount": 9,
+      "errorCount": 0,
+      "errors": []
+    },
+    "json": {
+      "fileCount": 188,
+      "errorCount": 0,
+      "errors": []
+    },
+    "html": {
+      "fileCount": 73,
+      "versionMismatchCount": 0,
+      "versionMismatches": []
+    },
+    "references": {
+      "checked": 1505,
+      "missingCount": 0,
+      "missing": []
+    },
+    "dangerousGoods": {
+      "recordCount": 2725,
+      "uniqueUnCount": 2248,
+      "errorCount": 0,
+      "warningCount": 0
+    }
+  },
+  "implemented": [
+    "申請書確認・登録後再確認の一覧表表示",
+    "引張系固縛材と支保・当て材の併用",
+    "新規算出時の海上輸送 海域B初期値",
+    "材質・サイズ／製品仕様からのMSL候補",
+    "TY-GARD鉄道ラッシング参考プロファイル",
+    "貨物側・CTU側取付点の写真撮影・アップロード・刻印確認・案件写真登録"
+  ],
+  "safetyControls": [
+    "併用成立条件が未確認の場合は引張系と支保を単純加算しない",
+    "TY-GARD耐荷重参考値は確認根拠なしにMSLへ反映しない",
+    "TY-GARD鉄道参考プロファイルは鉄道輸送条件以外では反映しない",
+    "写真だけから取付点強度を自動確定しない",
+    "貨物側・CTU側は刻印・図面・メーカー仕様・試験成績を優先する"
+  ],
+  "environmentLimitations": [
+    "実メーカー証明書・実施工条件によるTY-GARDの確認",
+    "実端末カメラ・HEIC画像・PostgreSQL・中央写真保存領域での確認",
+    "50名・150名負荷試験"
+  ]
+}

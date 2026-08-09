@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(new URL('..', import.meta.url).pathname);
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 const js = read('assets/js/detail-dashboard.js');
 const html = read('pages/dangerous-goods-detail.html');
@@ -45,7 +46,7 @@ for (const text of ['第8条第1項', '第9条', '第7条の3第1項・第2項',
 }
 assert.ok(!pdfText.includes('IMDG Code 5.2.1.1'), '結合PDFにIMDG Codeを含めない');
 
-for (const cache of ['detail-dashboard.css?v=497', 'detail-dashboard.js?v=497']) {
+for (const cache of ['detail-dashboard.css?v=505', 'detail-dashboard.js?v=505']) {
   assert.ok(html.includes(cache), `${cache}でキャッシュを更新`);
 }
 execFileSync(process.execPath, ['--check', path.join(root, 'assets/js/detail-dashboard.js')]);

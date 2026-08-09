@@ -1,6 +1,6 @@
 {
   "systemName": "検査・検品業務サポートシステム",
-  "version": "0.367.0",
+  "version": "0.537.0",
   "offline": true,
   "modules": [
     {
@@ -41,15 +41,55 @@
     {
       "id": "securing-calculation",
       "name": "固縛力参考算出",
-      "status": "future"
+      "status": "active"
     },
     {
       "id": "ai-image-analysis",
       "name": "AI画像解析",
       "status": "future"
+    },
+    {
+      "id": "operations-command-center",
+      "name": "運用指令・サービス水準管理",
+      "status": "active"
+    },
+    {
+      "id": "assurance-security-audit",
+      "name": "保証・セキュリティ・外部監査管理",
+      "status": "active"
+    },
+    {
+      "id": "platform-reliability",
+      "name": "基盤信頼性・構成管理",
+      "status": "active"
+    },
+    {
+      "id": "data-integrity-performance",
+      "name": "データ性能・添付資料・整合性管理",
+      "status": "active"
+    },
+    {
+      "id": "quality-release-governance",
+      "name": "品質・影響分析・リリース管理",
+      "status": "active"
+    },
+    {
+      "id": "distribution-continuity-governance",
+      "name": "配布・互換性・継続運用管理",
+      "status": "active"
+    },
+    {
+      "id": "application-intake",
+      "name": "申請書取込・確認",
+      "status": "active"
+    },
+    {
+      "id": "production-integration-acceptance",
+      "name": "本番環境統合試験",
+      "status": "active"
     }
   ],
-  "build": "part367-business-login-background",
+  "build": "part537-production-integration-acceptance",
   "designSystem": {
     "layout": "left-sidebar-desktop-bottom-navigation-mobile",
     "palette": "navy-blue-white",
@@ -270,7 +310,7 @@
       "8"
     ]
   },
-  "part": 367,
+  "part": 535,
   "loginAppearance": {
     "scope": "login-screen-only",
     "background": "assets/images/login-business-background.svg",
@@ -287,5 +327,83 @@
       "mobile": 28
     },
     "forcedColorsSupported": true
+  },
+  "regulationApproval": {
+    "phase": 2,
+    "prototypeDisplay": "reference-with-warning",
+    "productionDisplay": "approved-only",
+    "targetTypes": [
+      "regulation",
+      "code",
+      "dangerous-good-criteria",
+      "reference-link"
+    ],
+    "requiredChecks": [
+      "原典の名称・発行者・版",
+      "改正日・適用開始日",
+      "条文・別表・ページ",
+      "数値・単位・上限値",
+      "国連番号・等級・コード対応",
+      "例外・注記・脚注",
+      "原文リンク・表示開始位置",
+      "PC・スマートフォン表示"
+    ],
+    "distinctActors": [
+      "作成・提出",
+      "原典照合",
+      "承認"
+    ]
+  },
+  "operationsCommandCenter": {
+    "phases": [
+      19,
+      20,
+      21
+    ],
+    "onCall": true,
+    "escalation": true,
+    "slo": true,
+    "errorBudget": true,
+    "capacityForecast": true,
+    "managementReporting": true,
+    "approvalSeparation": true
+  },
+  "applicationCaseData": {
+    "sharedBetween": [
+      "application-management",
+      "securing-calculation",
+      "dangerous-goods-verification"
+    ],
+    "multipleCargoItems": true,
+    "designStandard": "features-and-fields-from-production-prototype; appearance-from-current-public-screen",
+    "build": "part529"
+  },
+  "dataIntegrityPerformance": {
+    "phases": [
+      28,
+      29,
+      30
+    ],
+    "databaseSearchPerformance": true,
+    "attachmentIntegrity": true,
+    "commonCaseAndCtuConsistency": true,
+    "evidenceHash": true,
+    "actorSeparation": true,
+    "freshProductionSnapshotsHours": 24
+  },
+  "applicationIntakeWorkflow": {
+    "phases": [
+      37,
+      38,
+      39
+    ],
+    "excelCsvImport": true,
+    "originalFileStored": false,
+    "precheck": true,
+    "applicationRegistration": true,
+    "verificationHandoff": true,
+    "ctuHandoff": true,
+    "handoffReport": true,
+    "evidenceHash": true
   }
 }

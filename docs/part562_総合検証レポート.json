@@ -1,0 +1,141 @@
+{
+  "version": "part562",
+  "date": "2026-08-07",
+  "summary": {
+    "passed": 26,
+    "total": 26,
+    "allPassed": true
+  },
+  "checks": [
+    {
+      "name": "html count 74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "all sk-build part562",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all manifest cache v562",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all version guard cache v562",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part562 js linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part562 css linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part561 js no longer linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part561 css no longer linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "human acknowledge button",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "hard issue blocked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "warning preserved guidance",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "previous issue navigation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "issue progress",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "auto reviewer candidate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review note summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reviewed set",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "edit key contains container",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part562 asset marker",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest part562",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest human review flags",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest page part562",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest new critical assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "existing intake validation core unchanged reference",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "existing packing reference unchanged reference",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no db migration files",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part562 javascript syntax",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

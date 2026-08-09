@@ -1,0 +1,199 @@
+{
+  "version": "1.3.4",
+  "generatedAt": "2026-08-08",
+  "summary": {
+    "total": 37,
+    "passed": 37,
+    "failed": 0,
+    "intakeScriptCountBefore": 27,
+    "intakeScriptCountAfter": 25,
+    "knownRemovedRuntimeBytes": 54710
+  },
+  "checks": [
+    {
+      "name": "version 1.3.4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DB migration false",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake build meta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "settings build meta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 JS not loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 CSS not loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v131 observer JS not loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v133 observer JS not loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v134 intake loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v134 css loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "core query bumped",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bottom scripts deferred",
+      "ok": true,
+      "detail": "defer=23"
+    },
+    {
+      "name": "autoScroll default OFF",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "followActions default ON",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "lightweight default ON",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "core runCheck exposed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "main run check direct binding",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "visible register direct binding",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runCheck error surfaced",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "scroll only conditional",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no smooth scroll in core",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "action bar fixed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "settings field operations",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "settings auto scroll label",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "old v11 home setting not loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "global lazy image",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "global lazy iframe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v12 applications respects autoScroll",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v12 CTU respects autoScroll",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-intake-workflow.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v11-user-preferences.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v134-settings.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v134-intake.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v12-applications.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v12-ctu.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/v12-intake.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake script count reduced",
+      "ok": true,
+      "detail": "27->25"
+    }
+  ]
+}

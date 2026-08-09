@@ -1,0 +1,195 @@
+{
+  "part": 566,
+  "base": "part565",
+  "date": "2026-08-07",
+  "total": 37,
+  "passed": 37,
+  "failed": 0,
+  "results": [
+    {
+      "name": "assets/js/application-intake-part566.js exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part566.css exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part566.js exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part566.css exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part566.js exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part566.css exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part566.js exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part566.css exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-intake-part566.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-management-part566.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-detail-part566.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/ctu-easy-operation-part566.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "build manifest JS syntax",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html loads Part566 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html loads Part566 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html loads Part566 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html loads Part566 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all html meta Part566",
+      "passed": true,
+      "detail": "74 / 74"
+    },
+    {
+      "name": "all html manifest cache Part566",
+      "passed": true,
+      "detail": "74 / 74"
+    },
+    {
+      "name": "all html version guard Part566",
+      "passed": true,
+      "detail": "74 / 74"
+    },
+    {
+      "name": "manifest Part566",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest base Part565",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest quick case search",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest photo one touch",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest post registration actions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part565 intake JS retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part565 intake CSS retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part565 detail JS retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part565 detail CSS retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sea transport default retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "combined tensile support retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "cargo MSL photo retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU MSL photo retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "MSL point registry retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part566 does not replace calculation functions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no DB migration added",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part566 documentation exists",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -6,12 +6,16 @@
   const ACTIVITY_KEY = "iss-last-activity";
   const SESSION_STARTED_KEY = "iss-session-started-at";
   const SESSION_TOKEN_KEY = "iss-session-token-fingerprint";
+  const CSRF_KEY = "iss-csrf-token";
+  const SERVER_SESSION_MARKER = "server-session-cookie";
   const LOCAL_USERS_KEY = "iss-local-auth-users-v367";
   const LOCAL_ACCESS_POLICY_KEY = "iss-local-access-policy-v365";
   const LOCAL_AUDIT_KEY = "iss-local-auth-audit-v365";
   const normalizeBase = value => String(value || "").trim().replace(/\/$/, "");
   const endpoint = () => normalizeBase(window.ISSStorage?.getServerEndpoint?.() || localStorage.getItem("iss-server-endpoint") || "");
   const token = () => sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || "";
+  const isServerSession = () => token() === SERVER_SESSION_MARKER;
+  const csrfToken = () => sessionStorage.getItem(CSRF_KEY) || "";
   const usesRemote = () => Boolean(endpoint());
   const nowIso = () => new Date().toISOString();
   const safeJsonParse = (value, fallback) => { try { return JSON.parse(value); } catch { return fallback; } };
@@ -247,17 +251,40 @@
     if (actor.role === "office-admin" && role !== "office-user") throw new Error("事業所管理者は事業所利用者のみ管理できます。");
   };
 
+  const unsafeMethod = method => !["GET","HEAD","OPTIONS"].includes(String(method || "GET").toUpperCase());
+  async function refreshCsrfToken() {
+    const base = endpoint();
+    if (!base || !isServerSession()) return "";
+    const response = await fetch(`${base}/auth/csrf`, { method:"GET", credentials:"include", headers:{"Accept":"application/json"} });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.csrfToken) {
+      if (response.status === 401) window.ISSApi?.clearSession?.();
+      throw new Error(data.error || "操作確認情報を取得できませんでした。再度ログインしてください。");
+    }
+    sessionStorage.setItem(CSRF_KEY, String(data.csrfToken));
+    return String(data.csrfToken);
+  }
+
   async function request(path, options = {}) {
     const base = endpoint();
     if (!base) throw new Error("クラウドAPI接続先が設定されていません。");
     const headers = new Headers(options.headers || {});
     if (!(options.body instanceof FormData) && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
-    if (token()) headers.set("Authorization", `Bearer ${token()}`);
-    const response = await fetch(`${base}${path}`, { ...options, headers });
+    const currentToken = token();
+    if (currentToken && currentToken !== SERVER_SESSION_MARKER) headers.set("Authorization", `Bearer ${currentToken}`);
+    if (isServerSession() && unsafeMethod(options.method)) {
+      const csrf = csrfToken() || await refreshCsrfToken();
+      if (csrf) headers.set("X-CSRF-Token", csrf);
+    }
+    const response = await fetch(`${base}${path}`, { ...options, headers, credentials:"include" });
     if (response.status === 204) return null;
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       if (response.status === 401) window.ISSApi.clearSession();
+      if (response.status === 403 && data.error?.includes("操作確認情報") && isServerSession() && !options.__csrfRetried) {
+        sessionStorage.removeItem(CSRF_KEY);
+        return request(path, { ...options, __csrfRetried:true });
+      }
       throw new Error(data.error || `サーバーエラー（${response.status}）`);
     }
     return data;
@@ -270,15 +297,16 @@
     isLocalMode: () => !usesRemote(),
     isConfigured: () => Boolean(endpoint()),
     isAuthenticated: () => Boolean(token()),
+    usesServerSession: () => isServerSession(),
     getUser: () => {
       try {
         const stored = JSON.parse(localStorage.getItem(USER_KEY) || "null");
         return stored || readAuthBridge()?.user || null;
       } catch { return readAuthBridge()?.user || null; }
     },
-    clearSession() { const current=sessionStorage.getItem(TOKEN_KEY)||""; sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(ACTIVITY_KEY); sessionStorage.removeItem(SESSION_STARTED_KEY); sessionStorage.removeItem(SESSION_TOKEN_KEY); if(current && localStorage.getItem(TOKEN_KEY)===current) localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); clearAuthBridge(); },
-    async startLogin(loginId, password) {
-      if (usesRemote()) return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password }) });
+    clearSession() { const current=sessionStorage.getItem(TOKEN_KEY)||""; sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(CSRF_KEY); sessionStorage.removeItem(ACTIVITY_KEY); sessionStorage.removeItem(SESSION_STARTED_KEY); sessionStorage.removeItem(SESSION_TOKEN_KEY); if(current && localStorage.getItem(TOKEN_KEY)===current) localStorage.removeItem(TOKEN_KEY); if(localStorage.getItem(TOKEN_KEY)===SERVER_SESSION_MARKER) localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); localStorage.removeItem(PASSWORD_CHANGE_KEY); clearAuthBridge(); },
+    async startLogin(loginId, password, remember = false) {
+      if (usesRemote()) return request("/auth/login", { method: "POST", body: JSON.stringify({ loginId, password, remember }) });
       const loginValue = sanitize(loginId).toLowerCase();
       const passwordValue = String(password || "");
       const users = ensureLocalUsers();
@@ -297,38 +325,37 @@
       pushAudit({ action: "login", loginId: target.login_id || target.loginId, role: target.role, at: loginAt });
       return { token: `local.${target.id}.${Date.now()}`, user: publicUser(target), passwordChangeRequired: Boolean(target.passwordChangeRequired) };
     },
-    async verifyMfa(challengeId, code) {
+    async verifyMfa(challengeId, code, remember = false) {
       if (!usesRemote()) throw new Error("ローカル認証では確認コードは不要です。");
-      return request("/auth/mfa/verify", { method: "POST", body: JSON.stringify({ challengeId, code }) });
+      return request("/auth/mfa/verify", { method: "POST", body: JSON.stringify({ challengeId, code, remember }) });
     },
     async resendMfa(challengeId) {
       if (!usesRemote()) throw new Error("ローカル認証では確認コードは不要です。");
       return request("/auth/mfa/resend", { method: "POST", body: JSON.stringify({ challengeId }) });
     },
     storeSession(data, remember = false) {
-      if (!data?.token) throw new Error("認証トークンを取得できませんでした。");
-      // Part 422: 各タブ・各端末のセッションを独立させる。
-      // sessionStorageを主とし、別端末・別タブのログインで現在のセッションを上書きしない。
-      sessionStorage.setItem(TOKEN_KEY, data.token);
-      if (remember) localStorage.setItem(TOKEN_KEY, data.token);
-      else if (localStorage.getItem(TOKEN_KEY) === data.token) localStorage.removeItem(TOKEN_KEY);
+      const serverSession = data?.authMode === "server-session";
+      const credential = serverSession ? SERVER_SESSION_MARKER : String(data?.token || "");
+      if (!credential) throw new Error("認証情報を取得できませんでした。");
+      sessionStorage.setItem(TOKEN_KEY, credential);
+      if (remember) localStorage.setItem(TOKEN_KEY, credential);
+      else if (localStorage.getItem(TOKEN_KEY) === credential) localStorage.removeItem(TOKEN_KEY);
+      if (serverSession && data.csrfToken) sessionStorage.setItem(CSRF_KEY, String(data.csrfToken));
+      else if (!serverSession) sessionStorage.removeItem(CSRF_KEY);
       localStorage.setItem(USER_KEY, JSON.stringify(data.user));
       if (data.passwordChangeRequired) localStorage.setItem(PASSWORD_CHANGE_KEY, "1");
       else localStorage.removeItem(PASSWORD_CHANGE_KEY);
-      // A successful login always starts a fresh inactivity window.
-      // Without this reset, an old activity timestamp from a previous session can
-      // cause session-guard.js to log the user out immediately after navigation.
       const sessionStartedAt = Date.now();
       sessionStorage.setItem(ACTIVITY_KEY, String(sessionStartedAt));
       sessionStorage.setItem(SESSION_STARTED_KEY, String(sessionStartedAt));
-      sessionStorage.setItem(SESSION_TOKEN_KEY, String(data.token));
+      sessionStorage.setItem(SESSION_TOKEN_KEY, credential);
       sessionStorage.removeItem("iss-session-logout-reason");
       syncAuthBridge();
       window.ISSAuthBridge?.decorateAll?.();
       return data.user;
     },
     async login(loginId, password, remember = false) {
-      const data = await this.startLogin(loginId, password);
+      const data = await this.startLogin(loginId, password, remember);
       if (data.mfaRequired) return data;
       this.storeSession(data, remember);
       return data.user;
@@ -367,6 +394,7 @@
     me: () => usesRemote() ? request("/auth/me") : Promise.resolve({ user: currentStoredUser() }),
     permissions: () => usesRemote() ? request("/auth/permissions") : Promise.resolve({ role:currentStoredUser()?.role || "guest", permissions:{} }),
     securityEvents: limit => request(`/auth/security-events?${new URLSearchParams({limit: limit || 50})}`),
+    logout: options => usesRemote() ? request('/auth/logout', { method:'POST', body:JSON.stringify({}), keepalive:Boolean(options?.keepalive) }) : Promise.resolve(null),
     logoutAllSessions: () => request('/auth/logout-all', { method:'POST', body:JSON.stringify({}) }),
     organizations: () => usesRemote() ? request("/organizations") : Promise.resolve({ headquarters: window.ISSOrganization?.getHeadquarters?.() || {}, blocks: window.ISSOrganization?.getBlocks?.() || [], offices: getLocalOffices() }),
     listApplications: params => request(`/applications?${new URLSearchParams(params || {})}`),
@@ -396,6 +424,17 @@
     reviewRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/review`,{method:'POST',body:JSON.stringify(payload)}),
     approveRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/approve`,{method:'POST',body:JSON.stringify(payload)}),
     publishRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/publish`,{method:'POST',body:JSON.stringify(payload)}),
+    regulationVerificationSummary: () => request('/regulation-verification/summary'),
+    regulationVerificationItems: params => request(`/regulation-verification/items?${new URLSearchParams(params || {})}`),
+    regulationVerificationEvents: id => request(`/regulation-verification/items/${encodeURIComponent(id)}/events`),
+    rebuildRegulationVerificationCatalog: () => request('/admin/regulation-verification/catalog/rebuild',{method:'POST',body:JSON.stringify({})}),
+    regulationVerificationCatalogRuns: () => request('/admin/regulation-verification/catalog/runs'),
+    submitRegulationVerificationItem: (id,payload) => request(`/regulation-verification/items/${encodeURIComponent(id)}/submit`,{method:'POST',body:JSON.stringify(payload)}),
+    sourceVerifyRegulationItem: (id,payload) => request(`/regulation-verification/items/${encodeURIComponent(id)}/source-verify`,{method:'POST',body:JSON.stringify(payload)}),
+    returnRegulationVerificationItem: (id,payload) => request(`/regulation-verification/items/${encodeURIComponent(id)}/return`,{method:'POST',body:JSON.stringify(payload)}),
+    approveRegulationVerificationItem: (id,payload) => request(`/regulation-verification/items/${encodeURIComponent(id)}/approve`,{method:'POST',body:JSON.stringify(payload)}),
+    suspendRegulationVerificationItem: (id,payload) => request(`/regulation-verification/items/${encodeURIComponent(id)}/suspend`,{method:'POST',body:JSON.stringify(payload)}),
+    publicRegulationApprovalStatus: params => request(`/public/regulation-approval-status?${new URLSearchParams(params || {})}`),
     auditLogs: params => request(`/admin/audit-logs?${new URLSearchParams(typeof params === 'object' ? params : {limit: params || 200})}`),
     forceLogoutUser: id => usesRemote() ? request(`/admin/users/${encodeURIComponent(id)}/force-logout`, { method:'POST', body:JSON.stringify({}) }) : Promise.resolve({ ok:true }),
     localAdminUsersSnapshot: () => {
@@ -583,8 +622,20 @@
     approveActivityMonthlySummary: (id, body) => request(`/admin/activity-monthly-management-summaries/${id}/approval`, { method:'PATCH', body:JSON.stringify(body) }),
     activityReportDistributions: () => request('/admin/activity-report-distributions'),
     createActivityReportDistribution: body => request('/admin/activity-report-distributions', { method:'POST', body:JSON.stringify(body) }),
-    activityAuditEvidence: () => request('/admin/activity-audit-evidence')
+    activityAuditEvidence: () => request('/admin/activity-audit-evidence'),
+    listApplicationResults: params => request(`/application-results?${new URLSearchParams(params || {})}`),
+    createApplicationResult: payload => request('/application-results', { method:'POST', body:JSON.stringify(payload) }),
+    updateApplicationResultStatus: (id,payload) => request(`/application-results/${encodeURIComponent(id)}`, { method:'PATCH', body:JSON.stringify(payload) }),
+    recoveryReadiness: () => request('/admin/recovery/readiness'),
+    updateRecoverySettings: payload => request('/admin/recovery/settings', { method:'PUT', body:JSON.stringify(payload) }),
+    createRecoveryDrill: payload => request('/admin/recovery/drills', { method:'POST', body:JSON.stringify(payload) }),
+    updateRecoveryDrill: (id,payload) => request(`/admin/recovery/drills/${encodeURIComponent(id)}`, { method:'PATCH', body:JSON.stringify(payload) }),
+    recordReleaseActivation: payload => request('/admin/recovery/activations', { method:'POST', body:JSON.stringify(payload) }),
+    recoveryRunbook: () => request('/admin/recovery/runbook'),
+    systemMigrationDiagnose: () => request('/admin/system-migration/diagnose'),
+    systemMigrationRuns: () => request('/admin/system-migration/runs'),
+    stageFullSystem: payload => request('/admin/system-migration/stage', { method:'POST', body:JSON.stringify(payload) })
   };
 })();
 
-window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/api-client.js": "part503" });
+window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/api-client.js": "part528" });

@@ -1,0 +1,150 @@
+{
+  "version": "v1.3.11",
+  "displayVersion": "Version 1.0 試作版",
+  "baseVersion": "v1.3.10",
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "technical build v1.3.11",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "visible version remains prototype 1.0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no database migration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HEIC/HEIF waits for decoded canvas",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no MutationObserver in new AI",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "manual AI reanalysis button",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "AI writes visible lashing count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "AI writes projected angle",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "AI candidate fields remain editable",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "20FT dry selectable",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "40FT dry selectable",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "20FT reefer selectable",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "40FT reefer selectable",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "dry20 reference dimensions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "dry40 reference dimensions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "reefer20 reference dimensions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "reefer40 reference dimensions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "cargo L/W/H fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "90-degree plan rotation fit check",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "door opening fit check",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "container dimension can seed photo scale",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "container reference saved with calculation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "basis window has container source jump",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "v1.3.11 assets loaded",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "provided photo produces non-zero AI prediction",
+      "status": "PASS",
+      "detail": "predicted lashings=4, projected angle=17°"
+    },
+    {
+      "name": "provided photo prediction is plausible reference",
+      "status": "PASS",
+      "detail": "predicted lashings=4, projected angle=17°"
+    },
+    {
+      "name": "20FT dry sample fit",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "6m cargo rejected by 20FT dry and accepted by 40FT dry",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

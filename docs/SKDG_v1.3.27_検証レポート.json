@@ -1,0 +1,19 @@
+{
+  "version": "v1.3.27",
+  "base": "v1.3.26",
+  "databaseMigration": false,
+  "checks": {
+    "ctuApplicationCache": true,
+    "mslPointRegistryLazyInit": true,
+    "deferredInitialWork": true,
+    "offscreenRendering": true,
+    "printRestoresVisibility": true,
+    "cleanupAssetCacheBusted": true,
+    "buildManifestCacheBusted": true
+  },
+  "notes": [
+    "固縛力計算式は変更していません。",
+    "DB構造・保存形式は変更していません。",
+    "v1.3.26適用済み環境への差分Hotfixです。"
+  ]
+}

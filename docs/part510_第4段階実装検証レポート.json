@@ -1,0 +1,101 @@
+{
+  "release": "part510",
+  "phase": 4,
+  "title": "正式運用準備 第4段階 バックアップ・復元・システム全体移行試験",
+  "generatedAt": "2026-08-05T22:43:31.024580+09:00",
+  "implementation": {
+    "databaseMigration": "server/sql/098_part510_backup_restore_migration_drill.sql",
+    "adminPage": "pages/recovery-migration-admin.html",
+    "apiEndpoints": [
+      "GET /api/admin/recovery/readiness",
+      "PUT /api/admin/recovery/settings",
+      "POST /api/admin/recovery/drills",
+      "PATCH /api/admin/recovery/drills/:id",
+      "POST /api/admin/recovery/activations",
+      "GET /api/admin/recovery/runbook"
+    ],
+    "scripts": [
+      "backup.sh",
+      "restore.sh",
+      "verify-backup.sh",
+      "integrity-check.sh",
+      "create-release-package.sh",
+      "verify-release-package.sh",
+      "restore-drill.sh",
+      "migration-drill.sh",
+      "activate-release.sh",
+      "rollback-release.sh"
+    ]
+  },
+  "verification": {
+    "static": {
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "status": "passed"
+    },
+    "javascript": {
+      "filesChecked": 216,
+      "syntaxErrors": 0
+    },
+    "html": {
+      "filesChecked": 66,
+      "part510VersionMatched": 66,
+      "mismatches": 0
+    },
+    "systemMigrationDrill": {
+      "release": "part510",
+      "drillType": "full-migration",
+      "status": "passed",
+      "generatedAt": "2026-08-05T13:35:44.854869+00:00",
+      "stagedRelease": "part510-test",
+      "fileCount": 1697,
+      "totalBytes": 320149852,
+      "javascriptSyntaxErrors": 0,
+      "durationSeconds": 6,
+      "productionChanged": false
+    },
+    "browserLayout": [
+      {
+        "viewport": "PC",
+        "width": 1365,
+        "height": 1000,
+        "horizontalOverflow": false,
+        "dimensions": {
+          "scroll": 1365,
+          "client": 1365
+        },
+        "errors": [],
+        "screenshot": "/mnt/data/part510_バックアップ復元移行試験_PC.png"
+      },
+      {
+        "viewport": "スマホ",
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": false,
+        "dimensions": {
+          "scroll": 390,
+          "client": 390
+        },
+        "errors": [],
+        "screenshot": "/mnt/data/part510_バックアップ復元移行試験_スマホ.png"
+      }
+    ]
+  },
+  "completed": [
+    "バックアップ・復元・移行・切替・切戻しの実装",
+    "秘密情報を除外したシステム全体リリースパッケージ作成",
+    "ファイル一覧・容量・SHA-256による整合性検証",
+    "本番環境を変更しないステージング移行訓練",
+    "PC・スマートフォンの管理画面描画確認"
+  ],
+  "notExecuted": [
+    "導入先PostgreSQLを使用したDBバックアップ・隔離復元",
+    "導入先永続ストレージを使用した添付ファイル復元",
+    "遠隔バックアップ先への転送",
+    "本番相当環境でのリリース切替・ロールバック",
+    "導入先環境におけるRPO・RTO実測"
+  ],
+  "completionCondition": "導入先の隔離検証環境でDB・添付・アプリの完全復元、件数・チェックサム一致、主要機能、切替・切戻し、RPO・RTOおよび証跡を確認した時点で第4段階完了とする。",
+  "status": "implementation-complete-environment-test-pending"
+}

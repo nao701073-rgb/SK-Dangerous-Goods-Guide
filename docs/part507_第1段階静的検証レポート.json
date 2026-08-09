@@ -1,0 +1,98 @@
+{
+  "release": "part507",
+  "phase": 1,
+  "generatedAt": "2026-08-05T13:20:56.122Z",
+  "status": "passed",
+  "summary": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "key": "http-only-cookie",
+      "ok": true,
+      "detail": "認証CookieにHttpOnly属性を付与"
+    },
+    {
+      "key": "secure-cookie-production",
+      "ok": true,
+      "detail": "本番時のSecure属性を必須化"
+    },
+    {
+      "key": "csrf-server",
+      "ok": true,
+      "detail": "更新系APIのCSRF検証とトークン取得"
+    },
+    {
+      "key": "csrf-client",
+      "ok": true,
+      "detail": "ブラウザがCookieとCSRFヘッダーを送信"
+    },
+    {
+      "key": "session-table",
+      "ok": true,
+      "detail": "PostgreSQLセッションテーブル"
+    },
+    {
+      "key": "session-revocation",
+      "ok": true,
+      "detail": "強制失効とトークン版照合"
+    },
+    {
+      "key": "login-rate-limit",
+      "ok": true,
+      "detail": "IP単位制限とアカウントロック"
+    },
+    {
+      "key": "office-scope",
+      "ok": true,
+      "detail": "所属事業所スコープをAPIで強制"
+    },
+    {
+      "key": "guest-denial",
+      "ok": true,
+      "detail": "ゲストに業務データ権限を付与しない"
+    },
+    {
+      "key": "persistent-storage",
+      "ok": true,
+      "detail": "永続ストレージの保存・読込診断"
+    },
+    {
+      "key": "cors-credentials",
+      "ok": true,
+      "detail": "許可Origin限定のCookie送信"
+    },
+    {
+      "key": "https-enforcement",
+      "ok": true,
+      "detail": "本番HTTPS強制"
+    },
+    {
+      "key": "legacy-token-disabled",
+      "ok": true,
+      "detail": "本番時のブラウザ保存Bearerを無効化"
+    },
+    {
+      "key": "route-applications",
+      "ok": true,
+      "detail": "applications APIの認証・閲覧権限"
+    },
+    {
+      "key": "route-photos",
+      "ok": true,
+      "detail": "photos APIの認証・閲覧権限"
+    },
+    {
+      "key": "route-documents",
+      "ok": true,
+      "detail": "documents APIの認証・閲覧権限"
+    },
+    {
+      "key": "route-results",
+      "ok": true,
+      "detail": "results APIの認証・閲覧権限"
+    }
+  ]
+}

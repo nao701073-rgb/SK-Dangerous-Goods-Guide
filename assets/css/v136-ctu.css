@@ -1,0 +1,23 @@
+/* SKDG v1.3.6 - stable source-first CTU workflow */
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel,
+body[data-page="ctu-securing-calculator"] #photoRecognitionPanel {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel { margin-top: 12px; }
+body[data-page="ctu-securing-calculator"] #photoInputPanel { margin-top: 12px; }
+body[data-page="ctu-securing-calculator"] #photoRecognitionPanel { margin-top: 12px; }
+/* Old quick shortcuts duplicated the real source panels; keep the real panels only. */
+body[data-page="ctu-securing-calculator"] #v1ApplicationImport,
+body[data-page="ctu-securing-calculator"] #v1PhotoStep { display:none !important; }
+/* Keep the source actions prominent and stable. */
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel > h2,
+body[data-page="ctu-securing-calculator"] #photoInputPanel > h2 { margin-bottom: 10px; }
+body[data-page="ctu-securing-calculator"] #photoInputPanel .camera-label { min-height: 44px; display:inline-flex; align-items:center; justify-content:center; }
+body[data-page="ctu-securing-calculator"] #quickBasisField,
+body[data-page="ctu-securing-calculator"] #quickSupportBasis { display:none !important; }
+@media (max-width: 768px){
+  body[data-page="ctu-securing-calculator"] #photoInputPanel .photo-grid { grid-template-columns:1fr !important; }
+  body[data-page="ctu-securing-calculator"] #photoInputPanel .photo-controls .camera-label { width:100%; }
+}

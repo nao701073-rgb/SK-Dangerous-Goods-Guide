@@ -1,0 +1,75 @@
+{
+  "release": "part541",
+  "passed": 17,
+  "total": 17,
+  "checks": [
+    {
+      "name": "part541 build stamp",
+      "passed": true
+    },
+    {
+      "name": "cargo unit panel",
+      "passed": true
+    },
+    {
+      "name": "rack and pallet unit types",
+      "passed": true
+    },
+    {
+      "name": "mixed and multilevel unit types",
+      "passed": true
+    },
+    {
+      "name": "photo analysis panel",
+      "passed": true
+    },
+    {
+      "name": "manual fallback",
+      "passed": true
+    },
+    {
+      "name": "position support",
+      "passed": true
+    },
+    {
+      "name": "connection support",
+      "passed": true
+    },
+    {
+      "name": "direction support",
+      "passed": true
+    },
+    {
+      "name": "no visual strength auto confirm",
+      "passed": true
+    },
+    {
+      "name": "vision endpoint contract",
+      "passed": true
+    },
+    {
+      "name": "deficiency panel",
+      "passed": true
+    },
+    {
+      "name": "deficiency kN explanation",
+      "passed": true
+    },
+    {
+      "name": "field explanation copy",
+      "passed": true
+    },
+    {
+      "name": "corrective photo followup",
+      "passed": true
+    },
+    {
+      "name": "review includes photo assist",
+      "passed": true
+    },
+    {
+      "name": "result snapshot field assist",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "version": "part558",
+  "baseVersion": "part557",
+  "date": "2026-08-07",
+  "scope": "固縛力前回結果再利用・入力ミス防止・申請詳細次操作案内",
+  "total": 52,
+  "passed": 52,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "HTMLファイル数 74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "全HTML sk-build=part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全HTML build-manifest v=558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全HTML version-guard v=558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION version part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION part 558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION base part557",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest version part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest buildId part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest report part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest reuse flag",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest sanity flag",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest focus flag",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest next task flag",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "critical ctu page part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "critical detail page part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "critical ctu js part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "critical detail js part558",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "新規ファイル存在 assets/js/ctu-workflow-part558.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "新規ファイル存在 assets/css/ctu-securing-part558.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "新規ファイル存在 assets/js/application-detail-part558.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "新規ファイル存在 assets/css/application-detail-part558.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU Part558 CSS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU Part558 JS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細 Part558 CSS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細 Part558 JS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "同一申請のCTU結果検索",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "最新版を日時降順で選択",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "再計算中は再利用カード非表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "resultKey付き再計算URL",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "新しい条件で続ける",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "貨物質量チェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "本数整数チェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "MSL/STFチェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "直接固縛 貨物側MSLチェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "直接固縛 CTU側MSLチェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "直接固縛 鉛直角チェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "併用 支保個数チェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "併用 支保力チェック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "要確認項目フォーカス",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細 次にすること",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "不足時方向別確認案内",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "充足時再計算不要案内",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "確認者未記録案内",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/ctu-workflow-part558.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-detail-part558.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 data/build-manifest.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "固縛力計算インライン本体抽出",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part557と計算本体完全一致",
+      "passed": true,
+      "detail": "d98038e65dcdad386c5a4ea49dbdf8b202f45cc11621a7ac463da6a8b83f61fe"
+    },
+    {
+      "name": "Part558 DB migrationなし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTUスマホレイアウト",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細スマホレイアウト",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "calculationCoreSha256": "d98038e65dcdad386c5a4ea49dbdf8b202f45cc11621a7ac463da6a8b83f61fe"
+}

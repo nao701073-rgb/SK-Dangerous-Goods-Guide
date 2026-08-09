@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "reportName": "SKDG v1.2 総合検証レポート",
+  "generatedAt": "2026-08-08T09:32:00+09:00",
+  "systemVersion": "v1.2",
+  "baseVersion": "v1.1",
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 509,
+    "passedCount": 509,
+    "failedCount": 0,
+    "htmlFiles": 74,
+    "unchangedBaseFilesChecked": 30,
+    "newJavascriptFiles": 5,
+    "checks": [
+      "74 HTML files carry v1.2 build metadata and normalize exactly back to v1.1",
+      "v1.1 pre-existing non-HTML assets preserved byte-identically",
+      "new JavaScript and build manifest pass node --check",
+      "application intake completed-section compaction is display-only",
+      "application management photo/document sections are on-demand without storage mutation",
+      "CTU AI candidates require individual human selection; select-all removed",
+      "CTU v1.2 code does not set or auto-confirm MSL and does not save calculation results",
+      "seaB default, combined method and existing ISSApplicationResults.save paths remain present",
+      "dangerous-goods search/detail, regulations, references and overpack screens preserved"
+    ]
+  },
+  "packageVerification": {
+    "update": {
+      "fileCount": 88,
+      "zipTest": "passed",
+      "nameSetExact": true,
+      "hashMismatchCount": 0,
+      "embeddedChecksums": "87/87"
+    },
+    "integratedFromPart590": {
+      "fileCount": 119,
+      "zipTest": "passed",
+      "nameSetExact": true,
+      "hashMismatchCount": 0,
+      "embeddedChecksums": "118/118"
+    },
+    "utf8JapaneseNames": true,
+    "note": "ZIP本体のSHA-256は別添 .sha256 ファイルで確認します。"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "release": "part510",
+  "method": "set_content_with_actual_html_css_js",
+  "results": [
+    {
+      "viewport": "PC",
+      "width": 1365,
+      "height": 1000,
+      "horizontalOverflow": false,
+      "dimensions": {
+        "scroll": 1365,
+        "client": 1365
+      },
+      "errors": [],
+      "screenshot": "/mnt/data/part510_バックアップ復元移行試験_PC.png"
+    },
+    {
+      "viewport": "スマホ",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false,
+      "dimensions": {
+        "scroll": 390,
+        "client": 390
+      },
+      "errors": [],
+      "screenshot": "/mnt/data/part510_バックアップ復元移行試験_スマホ.png"
+    }
+  ]
+}

@@ -3,8 +3,9 @@ import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(new URL('..', import.meta.url).pathname);
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 const js = read('assets/js/detail-dashboard.js');
 const html = read('pages/dangerous-goods-detail.html');

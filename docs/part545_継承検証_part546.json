@@ -1,0 +1,232 @@
+{
+  "release": "part545-regression-part546",
+  "generatedAt": "2026-08-07T09:52:46.642Z",
+  "passed": 55,
+  "total": 55,
+  "failed": 0,
+  "usedPackingInstructionCount": 84,
+  "usedIbcInstructionCount": 12,
+  "usedPortableTankInstructionCount": 19,
+  "checks": [
+    {
+      "name": "packing reference API available",
+      "status": "passed"
+    },
+    {
+      "name": "cross-unit near ratio remains 20 percent",
+      "status": "passed"
+    },
+    {
+      "name": "P200 regular capacity retained",
+      "status": "passed"
+    },
+    {
+      "name": "P200 UN1077 exact source page follows dangerous goods search mapping",
+      "status": "passed"
+    },
+    {
+      "name": "P200 x UN1953 detected",
+      "status": "passed"
+    },
+    {
+      "name": "P200 x UN1954 detected",
+      "status": "passed"
+    },
+    {
+      "name": "P200 x exact legacy message retained",
+      "status": "passed"
+    },
+    {
+      "name": "P200 x exact source page",
+      "status": "passed"
+    },
+    {
+      "name": "P001 source page",
+      "status": "passed"
+    },
+    {
+      "name": "P002 source page",
+      "status": "passed"
+    },
+    {
+      "name": "P112 legal master fallback",
+      "status": "passed"
+    },
+    {
+      "name": "P622 source page",
+      "status": "passed"
+    },
+    {
+      "name": "master packaging instruction used when application blank",
+      "status": "passed"
+    },
+    {
+      "name": "application/master mismatch flagged",
+      "status": "passed"
+    },
+    {
+      "name": "all used packing instructions have original source jump",
+      "status": "passed"
+    },
+    {
+      "name": "all 84 used P codes covered",
+      "status": "passed"
+    },
+    {
+      "name": "all used IBC codes have original source jump",
+      "status": "passed"
+    },
+    {
+      "name": "all 12 used IBC codes covered",
+      "status": "passed"
+    },
+    {
+      "name": "all used T codes have original source jump",
+      "status": "passed"
+    },
+    {
+      "name": "all 19 used T codes covered",
+      "status": "passed"
+    },
+    {
+      "name": "IBC code classifier detects 11A",
+      "status": "passed"
+    },
+    {
+      "name": "IBC code classifier detects 31HZ1 template",
+      "status": "passed"
+    },
+    {
+      "name": "all Z replacement material codes are registered",
+      "status": "passed"
+    },
+    {
+      "name": "all composite outer materials classify for suffix 1 and 2",
+      "status": "passed"
+    },
+    {
+      "name": "HZ source template matches all real composite materials",
+      "status": "passed"
+    },
+    {
+      "name": "all HZ templates in used IBC instructions expand across all material codes",
+      "status": "passed"
+    },
+    {
+      "name": "31HA1 PG II liquid is 3000 L",
+      "status": "passed"
+    },
+    {
+      "name": "31HA2 PG II liquid is 1250 L",
+      "status": "passed"
+    },
+    {
+      "name": "31HH2 PG III liquid is 1250 L",
+      "status": "passed"
+    },
+    {
+      "name": "other outer materials with flexible inner remain 3000 L",
+      "status": "passed"
+    },
+    {
+      "name": "PG I composite all outer materials are 1500 L",
+      "status": "passed"
+    },
+    {
+      "name": "PG I direct metal materials A B N are 3000 L",
+      "status": "passed"
+    },
+    {
+      "name": "PG I flexible rigid fibreboard and wood materials are 1500 L",
+      "status": "passed"
+    },
+    {
+      "name": "31HZ2 without actual outer material remains review",
+      "status": "passed"
+    },
+    {
+      "name": "PG I metal IBC max 3000 L from container code",
+      "status": "passed"
+    },
+    {
+      "name": "PG I non-metal IBC max 1500 L from container code",
+      "status": "passed"
+    },
+    {
+      "name": "PG II metal liquid IBC max 3000 L",
+      "status": "passed"
+    },
+    {
+      "name": "unresolved HZ template remains review instead of false certainty",
+      "status": "passed"
+    },
+    {
+      "name": "IBC02 HZ1 source template accepts actual 31HA1",
+      "status": "passed"
+    },
+    {
+      "name": "IBC maximum content source follows dangerous goods search page 353",
+      "status": "passed"
+    },
+    {
+      "name": "IBC actual container is checked against IBC instruction",
+      "status": "passed"
+    },
+    {
+      "name": "container code selects IBC mode",
+      "status": "passed"
+    },
+    {
+      "name": "T code selects portable tank mode",
+      "status": "passed"
+    },
+    {
+      "name": "portable tank T11 requirements available",
+      "status": "passed"
+    },
+    {
+      "name": "T23 has UN-specific source",
+      "status": "passed"
+    },
+    {
+      "name": "application page loads part545 helper",
+      "status": "passed"
+    },
+    {
+      "name": "application page loads part545 css",
+      "status": "passed"
+    },
+    {
+      "name": "reference packaging requirement visible",
+      "status": "passed"
+    },
+    {
+      "name": "reference IBC requirement visible",
+      "status": "passed"
+    },
+    {
+      "name": "reference portable tank requirement visible",
+      "status": "passed"
+    },
+    {
+      "name": "alternate master container requirements visible",
+      "status": "passed"
+    },
+    {
+      "name": "packing mismatch warning visible",
+      "status": "passed"
+    },
+    {
+      "name": "P200 permit sets permission flag",
+      "status": "passed"
+    },
+    {
+      "name": "limited quantity legacy rule retained",
+      "status": "passed"
+    },
+    {
+      "name": "part545 functions retained under part546 build",
+      "status": "passed"
+    }
+  ]
+}

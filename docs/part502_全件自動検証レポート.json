@@ -1,0 +1,11 @@
+{
+  "release": "part529",
+  "status": "superseded-by-current-release-verification",
+  "generatedAt": "2026-08-06T19:20:00+09:00",
+  "summary": "Part 502画面互換用の案内です。現行版の判定にはPart 529総合検証レポートを使用してください。",
+  "expectedRecordCount": 2725,
+  "expectedUniqueUnCount": 2248,
+  "checks": [
+    {"name":"現行版検証レポートへの移行","status":"passed","detail":"docs/part529_総合検証レポート.jsonを参照"}
+  ]
+}

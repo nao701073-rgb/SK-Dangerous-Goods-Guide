@@ -1,0 +1,106 @@
+{
+  "release": "part546",
+  "baseRelease": "part545",
+  "generatedAt": "2026-08-07T18:47:00+09:00",
+  "summary": {
+    "passed": 19,
+    "total": 19
+  },
+  "checks": [
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/application-packing-reference-part545.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part545-policy.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part545-regression-part546.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part546-policy.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ポリシー server/scripts/verify-part545-regression-part546.cjs",
+      "passed": true,
+      "detail": "{\"passed\": 55, \"total\": 55, \"failed\": 0}"
+    },
+    {
+      "name": "ポリシー server/scripts/verify-part546-policy.cjs",
+      "passed": true,
+      "detail": "{\"passed\": 32, \"total\": 32, \"failed\": 0}"
+    },
+    {
+      "name": "下段包装要件ヘッダなし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "下段許容容量ヘッダなし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "下段包装要件入力なし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "下段許容値入力なし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "上段参照包装要件あり",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "上段許容容量表示あり",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CSVデータ保持",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part546 CSS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part546 build",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全画面Part546ビルドメタ",
+      "passed": true,
+      "detail": "count=70, stale=[]"
+    },
+    {
+      "name": "VERSION part546",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

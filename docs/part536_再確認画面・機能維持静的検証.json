@@ -1,0 +1,114 @@
+{
+  "release": "part536",
+  "generatedAt": "2026-08-06T14:42:56.097Z",
+  "status": "passed",
+  "passed": 26,
+  "total": 26,
+  "scope": "登録後の再確認画面の可読性。申請書取込・確認および固縛力参考算出の既存機能・入力項目を維持。",
+  "checks": [
+    {
+      "name": "exists assets/css/application-review-part536.css",
+      "status": "passed"
+    },
+    {
+      "name": "exists assets/js/application-allowance-resolver.js",
+      "status": "passed"
+    },
+    {
+      "name": "exists pages/application-intake-workflow.html",
+      "status": "passed"
+    },
+    {
+      "name": "exists pages/application-verification.html",
+      "status": "passed"
+    },
+    {
+      "name": "exists pages/applications.html",
+      "status": "passed"
+    },
+    {
+      "name": "exists pages/ctu-securing-calculator.html",
+      "status": "passed"
+    },
+    {
+      "name": "home has single combined application entry",
+      "status": "passed"
+    },
+    {
+      "name": "submenu has combined entry",
+      "status": "passed"
+    },
+    {
+      "name": "submenu does not expose duplicate verification entry",
+      "status": "passed"
+    },
+    {
+      "name": "intake title combined",
+      "status": "passed"
+    },
+    {
+      "name": "detailed allowance verification retained",
+      "status": "passed"
+    },
+    {
+      "name": "verification cards present",
+      "status": "passed"
+    },
+    {
+      "name": "verification compatibility table visually hidden",
+      "status": "passed"
+    },
+    {
+      "name": "applications review cards",
+      "status": "passed"
+    },
+    {
+      "name": "saved verification review cards",
+      "status": "passed"
+    },
+    {
+      "name": "CTU registered case review cards",
+      "status": "passed"
+    },
+    {
+      "name": "CTU calculation inputs retained",
+      "status": "passed"
+    },
+    {
+      "name": "CTU calculation function retained",
+      "status": "passed"
+    },
+    {
+      "name": "card layouts remove horizontal scroll",
+      "status": "passed"
+    },
+    {
+      "name": "mobile breakpoint",
+      "status": "passed"
+    },
+    {
+      "name": "public screen colors retained",
+      "status": "passed"
+    },
+    {
+      "name": "all-allowance resolver linked",
+      "status": "passed"
+    },
+    {
+      "name": "registered application shows allowance",
+      "status": "passed"
+    },
+    {
+      "name": "CTU review shows allowance without changing calculation",
+      "status": "passed"
+    },
+    {
+      "name": "intake fields remain available",
+      "status": "passed"
+    },
+    {
+      "name": "all pages use review CSS",
+      "status": "passed"
+    }
+  ]
+}

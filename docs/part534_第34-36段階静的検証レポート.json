@@ -1,0 +1,265 @@
+{
+  "release": "part534",
+  "suite": "第34～第36段階静的検証",
+  "generatedAt": "2026-08-06T12:51:28.933Z",
+  "passed": 51,
+  "total": 51,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "管理画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面JS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシー",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Schema",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アプリ版",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "モジュール",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバー版",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ビルド",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "互換性表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "継続訓練表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "GET API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布登録API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布後確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "互換性API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "訓練API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "訓練再同期API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "訓練最終確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー提出API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "証跡改変検知",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第34見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第35見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第36見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "PC・スマホ",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "オフライン起動",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "再同期管理",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "入力44px",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホCSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "API接続",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "職務分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "基準2725",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "30日互換性",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "180日訓練",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "必須証跡5種",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密情報拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part529維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533維持",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

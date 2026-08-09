@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { config } from './config.js';
 import { query } from './db.js';
+import { readServerSession, verifyCsrf, clearSessionCookie } from './session-auth.js';
+import { PERMISSIONS, requirePermission } from './permissions.js';
 
 export const OPERATIONAL_ROLES = ['office-user','office-admin','safety-environment-director','safety-environment-staff','safety-environment-admin'];
 export const VALIDATION_ROLES = ['validator','revision-validator','safety-environment-admin'];
@@ -25,19 +27,31 @@ export function signToken(user) {
 
 export async function authenticate(req, res, next) {
   try {
+    const serverSession = await readServerSession(req);
+    if (serverSession) {
+      if (!verifyCsrf(req, serverSession)) return res.status(403).json({ error:'操作確認情報が不足しています。画面を再読み込みしてください。' });
+      req.user = serverSession.user;
+      req.authContext = { mode:serverSession.authMode, sessionId:serverSession.sessionId };
+      return next();
+    }
     const value = req.headers.authorization || '';
     const token = value.startsWith('Bearer ') ? value.slice(7) : '';
-    if (!token) return res.status(401).json({ error: '認証が必要です。' });
+    if (!token || !config.session.legacyBearerEnabled) {
+      clearSessionCookie(res);
+      return res.status(401).json({ error:'認証が必要です。' });
+    }
     const payload = jwt.verify(token, config.jwtSecret);
     const { rows } = await query(`SELECT id,login_id,email,display_name,role,office_id,active,must_change_password,
       password_changed_at,mfa_required,email_verified,account_category,token_version,password_reset_required FROM users WHERE id=$1`, [payload.sub]);
     const user = rows[0];
-    if (!user?.active) return res.status(401).json({ error: '利用者が無効です。' });
-    if (Number(payload.tokenVersion || 1) !== Number(user.token_version || 1)) return res.status(401).json({ error: '管理者操作によりセッションが終了しました。再度ログインしてください。' });
+    if (!user?.active) return res.status(401).json({ error:'利用者が無効です。' });
+    if (Number(payload.tokenVersion || 1) !== Number(user.token_version || 1)) return res.status(401).json({ error:'管理者操作によりセッションが終了しました。再度ログインしてください。' });
     req.user = user;
+    req.authContext = { mode:'legacy-bearer', sessionId:null };
     next();
   } catch {
-    res.status(401).json({ error: '認証情報が無効または期限切れです。' });
+    clearSessionCookie(res);
+    res.status(401).json({ error:'認証情報が無効または期限切れです。' });
   }
 }
 
@@ -45,14 +59,9 @@ export const requireRole = (...roles) => (req, res, next) => roles.includes(req.
   ? next()
   : res.status(403).json({ error: 'この操作を行う権限がありません。' });
 
-export const requireOperationalRead = (req,res,next) => OPERATIONAL_ROLES.includes(req.user.role)
-  ? next() : res.status(403).json({ error: 'ゲスト・検証者アカウントでは申請番号・写真データを閲覧できません。' });
-
-export const requireOperationalWrite = (req,res,next) => ['office-user','office-admin','safety-environment-director','safety-environment-admin'].includes(req.user.role)
-  ? next() : res.status(403).json({ error: '安全環境室職員は全事業所閲覧専用です。登録・編集はできません。' });
-
-export const requireOperationalDelete = (req,res,next) => ['office-user','office-admin','safety-environment-admin'].includes(req.user.role)
-  ? next() : res.status(403).json({ error: '安全環境室長・安全環境室職員は削除できません。' });
+export const requireOperationalRead = requirePermission(PERMISSIONS.OPERATIONAL_READ);
+export const requireOperationalWrite = requirePermission(PERMISSIONS.OPERATIONAL_WRITE);
+export const requireOperationalDelete = requirePermission(PERMISSIONS.OPERATIONAL_DELETE);
 
 export function officeScope(user, requestedOfficeId) {
   if (['safety-environment-director','safety-environment-staff','safety-environment-admin'].includes(user.role)) return requestedOfficeId || null;

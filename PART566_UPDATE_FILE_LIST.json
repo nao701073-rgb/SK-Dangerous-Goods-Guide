@@ -1,0 +1,472 @@
+{
+  "part": 566,
+  "base": "part565",
+  "fileCount": 93,
+  "files": [
+    {
+      "path": "README.md",
+      "size": 1619,
+      "sha256": "2ea4e3005210a3409cd39051bf345a4d85562faff1d84c60f95bb8ae98b234ad"
+    },
+    {
+      "path": "VERSION.json",
+      "size": 615,
+      "sha256": "c3f768fab86bcfd6ecf699aeb487e7ee61fdee0f5288901018c351317887935a"
+    },
+    {
+      "path": "data/build-manifest.js",
+      "size": 13913,
+      "sha256": "e2ba651b27654e54ee872b99f1138ed0b5e69db6d6d74ccfcc9a44138378c826"
+    },
+    {
+      "path": "assets/js/application-intake-part566.js",
+      "size": 3891,
+      "sha256": "da3f0abab9c25d07d6ad59d7146a394e2b8d2749cd118bf9bb5b8a7b2245139e"
+    },
+    {
+      "path": "assets/css/application-intake-part566.css",
+      "size": 876,
+      "sha256": "1fa10ee43822a913b3178fadc8f241b3fcfc50ac484c3363b1d0e4ff0dcb711d"
+    },
+    {
+      "path": "assets/js/application-management-part566.js",
+      "size": 3857,
+      "sha256": "a44c34508e043ab9374f0187f9d2a40b780be955f5ddae810050d12503468eb5"
+    },
+    {
+      "path": "assets/css/application-management-part566.css",
+      "size": 1083,
+      "sha256": "60b45dd24a3e35ca061715ab0796c6d64ba7858fb92ff0e6fbfcb31e0ad30a93"
+    },
+    {
+      "path": "assets/js/application-detail-part566.js",
+      "size": 1730,
+      "sha256": "12f1292c48c4e329e6c53a2e1376087514e63a6da143dba788b264411373d24b"
+    },
+    {
+      "path": "assets/css/application-detail-part566.css",
+      "size": 777,
+      "sha256": "fd7d98a41ba27a23e0d2f85fe82d7796715a49e5a035a316ea1dd84a24c62af5"
+    },
+    {
+      "path": "assets/js/ctu-easy-operation-part566.js",
+      "size": 5523,
+      "sha256": "97751d49e995f209243d8f55e9821de93872d0465ca72283b154c3b48de304a6"
+    },
+    {
+      "path": "assets/css/ctu-securing-part566.css",
+      "size": 1191,
+      "sha256": "7d495fbfc124982273b966eae086653aa82942ca10baabfd393233db4669296e"
+    },
+    {
+      "path": "docs/Part566_かんたん操作・案件導線改善.md",
+      "size": 2166,
+      "sha256": "a2c9bd6232606d8edba73749a4662399729b2cae9c8bf37c11c25f59d3205f3f"
+    },
+    {
+      "path": "docs/part566_総合検証レポート.json",
+      "size": 4163,
+      "sha256": "fdf18a953f581ae99ec06bf59c6d8704ecc20179f5808f7154ece8148939a27b"
+    },
+    {
+      "path": "assets/css/application-detail-part565.css",
+      "size": 3321,
+      "sha256": "f7c3b6f008b33f1e53a84cf1d3b85a9aa6e27ab94925d3885616896ce4c84325"
+    },
+    {
+      "path": "assets/css/application-intake-part565.css",
+      "size": 500,
+      "sha256": "bd68afaaebf6294695ce15607897e3e5a9c0d2561a83fc2c7dcd576a3cbb5b83"
+    },
+    {
+      "path": "assets/js/application-detail-part565.js",
+      "size": 6967,
+      "sha256": "f6d0be62f1da49c541342d296e838025dfb72929ed47849fe4e9e9157e0927e5"
+    },
+    {
+      "path": "assets/js/application-intake-part565.js",
+      "size": 5135,
+      "sha256": "8b348f2b4f74ffa4c3c679062ef6774b466d57c63eb7de9b4526952f8911e5f6"
+    },
+    {
+      "path": "docs/Part565_申請書確認記録・登録後追跡.md",
+      "size": 1426,
+      "sha256": "8508c73e09833f70650e4f4c77ab2e59336e0f1233421a646872dad6acff4cde"
+    },
+    {
+      "path": "docs/part565_総合検証レポート.json",
+      "size": 2187,
+      "sha256": "a08e19d4f9cb8b7de88cc2e9a1d9572ed228e34bbe1b3bccd0ba2ba9bd9dcd45"
+    },
+    {
+      "path": "index.html",
+      "size": 25210,
+      "sha256": "a20bc60ad16f931897fe392b3834f9e3ff89727f3b847ca04d67ed9389edae83"
+    },
+    {
+      "path": "pages/access-control.html",
+      "size": 3005,
+      "sha256": "a56156a843eab78bf587b0f301d753487221ce92bce7012d3229e83b82b84354"
+    },
+    {
+      "path": "pages/access-governance-admin.html",
+      "size": 4561,
+      "sha256": "ba36b9202faeec6575ff1ce0760137a053123b4068c356a982017500b061c0ff"
+    },
+    {
+      "path": "pages/account-history.html",
+      "size": 3536,
+      "sha256": "7929c22c9e213f75abb3b4a1b547d6da60aa24602e353d8a894840abd3e3c50a"
+    },
+    {
+      "path": "pages/account-security-admin.html",
+      "size": 3547,
+      "sha256": "bc423b128378847bcbc87d0bb9e2a9828ad1979c63009d76196a40d99a1bba39"
+    },
+    {
+      "path": "pages/activate-account.html",
+      "size": 2212,
+      "sha256": "dba9730295a08fee80bf2fe77e78c20d82dfe3d0e50344804e2b349713118cb2"
+    },
+    {
+      "path": "pages/admin-governance-dashboard.html",
+      "size": 5533,
+      "sha256": "6e30c0cf4e5cb1d092ba17f744381bd695725cfcbbb50efd4ac4f5894ef8474e"
+    },
+    {
+      "path": "pages/admin-succession.html",
+      "size": 12900,
+      "sha256": "869a15a9bb7dbea1c74d54037ac6ff646affc68c227503b2a5f89d0c5c4f50c4"
+    },
+    {
+      "path": "pages/application-detail.html",
+      "size": 3343,
+      "sha256": "b021c8b995dda2621f664f13ccc89c6a322606437f2a8979a8b0c8f0ae360bdb"
+    },
+    {
+      "path": "pages/application-intake-workflow.html",
+      "size": 10770,
+      "sha256": "c07622f4ad898ac1f71812dd545a90a267bca73cee397f47449fddc572f6344b"
+    },
+    {
+      "path": "pages/application-verification.html",
+      "size": 15299,
+      "sha256": "89204aa8d6a82188248e6b4d1e750425d1a73b6b8d686cd22dd4fff1945a9255"
+    },
+    {
+      "path": "pages/applications.html",
+      "size": 54181,
+      "sha256": "b4c67a3edf9ac142b9834eeed6f741e8afc8ca9771a80279bf3c2e288c4ab380"
+    },
+    {
+      "path": "pages/assurance-security-audit-admin.html",
+      "size": 10781,
+      "sha256": "d7a6135e8e2490a939d7ed728c1f50d9cf336e710a9077a7f16b1b5ec5f34f4d"
+    },
+    {
+      "path": "pages/change-password.html",
+      "size": 5075,
+      "sha256": "fec8455871974a37b523c97a7ff01ed011d7695f2b72ed269a484468281e4ab9"
+    },
+    {
+      "path": "pages/change-release-governance-admin.html",
+      "size": 7872,
+      "sha256": "7a08041d2c4637d3c119fb0e5a9daccbe26207265fdc24dc22120b8672d1b1fe"
+    },
+    {
+      "path": "pages/cloud-connection.html",
+      "size": 4112,
+      "sha256": "cffbc61fa005f8306efbc527e98a493a0d665ac1d170ad4032e72a60cbec73c1"
+    },
+    {
+      "path": "pages/completion-roadmap.html",
+      "size": 3601,
+      "sha256": "f482b614cb0132c00589c162087fee30f4f7eadc173a85b6044d8fdb93c81107"
+    },
+    {
+      "path": "pages/ctu-securing-calculator.html",
+      "size": 210557,
+      "sha256": "a91a255fe80c5b145fca808fea32eee4394b880f92ad910b0429e6988fbb00fd"
+    },
+    {
+      "path": "pages/dangerous-goods-detail.html",
+      "size": 12111,
+      "sha256": "bcb881f87b578deb86baed103e74ec97c6bd9692669f3e6ae07b0f8c68cf13a7"
+    },
+    {
+      "path": "pages/dangerous-goods-search.html",
+      "size": 16565,
+      "sha256": "50a291343520d3ce313f2c1ea58503047936eb94a153526d30c5a85699711fec"
+    },
+    {
+      "path": "pages/data-integrity-performance-admin.html",
+      "size": 12702,
+      "sha256": "0daa5dd791535c5c8e71b3cadae1d4efb13097c1a8c21c22a4244d4928a1e318"
+    },
+    {
+      "path": "pages/data-migration-legacy.html",
+      "size": 4225,
+      "sha256": "5fa8952d795f4f850ed9bcb8798940125f973b0ecf058e3314dbb27eefd73446"
+    },
+    {
+      "path": "pages/data-migration.html",
+      "size": 8460,
+      "sha256": "b977db1bbb5dcd9f51a0308f5d0d47d1f10ddb68bc9ff75c43b15147a5f85b30"
+    },
+    {
+      "path": "pages/data-quality-admin.html",
+      "size": 4090,
+      "sha256": "ee0b7e13c906b935c64046aed0770174ee9833959c5d1e1f450f79d9e0bd93b0"
+    },
+    {
+      "path": "pages/deployment-execution-admin.html",
+      "size": 4184,
+      "sha256": "bebff4db08aace99cb0d7c0462a8bccbb253022b638e54c245fbb096c4fc39f4"
+    },
+    {
+      "path": "pages/deployment-readiness-package.html",
+      "size": 3979,
+      "sha256": "1fe33ea4f9e8271e1976102eff790aec490ce5bac530524f264bb13b2be9593b"
+    },
+    {
+      "path": "pages/distribution-continuity-admin.html",
+      "size": 9908,
+      "sha256": "385b510cb703c74ef4e5fe75a28982706b7fad56f1add57e86c40fde6304654c"
+    },
+    {
+      "path": "pages/documentation-release-center.html",
+      "size": 5339,
+      "sha256": "d971101bb5825e2588fd269a17d48c96be8e8d2021c4c86487c3cce4871a3c7c"
+    },
+    {
+      "path": "pages/ems.html",
+      "size": 3523,
+      "sha256": "0c395b17e4bebede69a6657e810ea2fd57d66e3c5ac307dcedd2b8e2eaa949e7"
+    },
+    {
+      "path": "pages/favorites.html",
+      "size": 1851,
+      "sha256": "29dade513b5190f676be218160a3b4876139394c80600aa87b3d4a965c526cb4"
+    },
+    {
+      "path": "pages/feedback.html",
+      "size": 6955,
+      "sha256": "3a12e98a878e353844856cfdfc99a1419026606b2a34a07cf64123a4b5e94fa5"
+    },
+    {
+      "path": "pages/final-production-readiness.html",
+      "size": 3248,
+      "sha256": "d66f5a0fe0a246813f8d516339d4ce149f398f242675433353736eeed3ce5fa1"
+    },
+    {
+      "path": "pages/identity-operations-admin.html",
+      "size": 3338,
+      "sha256": "9aa0f91ba013017007a2f72cf8f2420895d2f55a9672c60634533517e77de050"
+    },
+    {
+      "path": "pages/imdg-cross-reference.html",
+      "size": 3412,
+      "sha256": "72bc6c22cae1cb49ce89fb77b794a72b7cbeb8007ac499442d3ebc80e4397682"
+    },
+    {
+      "path": "pages/integrated-operations-center.html",
+      "size": 4285,
+      "sha256": "7a01fd79ce61cc9ae155e1f8b596df84fde6e3038cfcdbec101e699f23efa7fc"
+    },
+    {
+      "path": "pages/integrated-verification.html",
+      "size": 3185,
+      "sha256": "250f35fdb741db4df73516ff24662c3c9e3ee5a5fe6c78bf8859c2873437bfd5"
+    },
+    {
+      "path": "pages/kawasaki-pilot.html",
+      "size": 3509,
+      "sha256": "36f9b60f6c4b7df6f1cd050cefab171c6655a8cedee941a13db61308df51022c"
+    },
+    {
+      "path": "pages/label-catalog.html",
+      "size": 2076,
+      "sha256": "3f641cd4d8799823e4df4d5da7651027bc8d2389834bd6709d059d6f6e68b7f1"
+    },
+    {
+      "path": "pages/login.html",
+      "size": 18209,
+      "sha256": "df612cee69aa9d517a1ff040e498714d9ccc0805b5c1ed1065a2d9ff00bdd674"
+    },
+    {
+      "path": "pages/maintenance-governance-admin.html",
+      "size": 7812,
+      "sha256": "dc029d3e8b1a92c3ef3e6793a70c5712b78803c0b685f402349ef2025eee8281"
+    },
+    {
+      "path": "pages/operations-acceptance-admin.html",
+      "size": 15314,
+      "sha256": "d98ff930c9f0624063e072848a09c003e79bf390c7c9bd978b3306a8642b04dd"
+    },
+    {
+      "path": "pages/operations-assurance-admin.html",
+      "size": 4719,
+      "sha256": "a6b3f307333b120c907d2fc2ee9013c1b5966623525fddf66bc73961ee5dfa46"
+    },
+    {
+      "path": "pages/operations-command-center-admin.html",
+      "size": 13147,
+      "sha256": "6847216b30726cd8851bf4b25358ca83935015c72d79b07a8e136d61e8de51db"
+    },
+    {
+      "path": "pages/operations-monitoring.html",
+      "size": 9670,
+      "sha256": "b8c970e32cec85e4ce808578a0208b3f854ee68360e26d0095ceb91454ac1e34"
+    },
+    {
+      "path": "pages/overpack-label-tool.html",
+      "size": 9122,
+      "sha256": "65e64dab7b402db7700e45456056215f3a17f47cb4419ddc75059cfda932a539"
+    },
+    {
+      "path": "pages/pdf-page-viewer.html",
+      "size": 4119,
+      "sha256": "6c6b6721ac863847b4df770968c3ba2efd7b938f14b75af04555b4e91e529167"
+    },
+    {
+      "path": "pages/pilot-launch-admin.html",
+      "size": 7308,
+      "sha256": "ec8c004320fde93dab756ade17d711ddfb8e2e2810d423223b1da4ba35c409d1"
+    },
+    {
+      "path": "pages/platform-reliability-admin.html",
+      "size": 10425,
+      "sha256": "2be29668c93d3494385cdb7da6363953c3a7a79128b6b10c9c629e63eae2c25a"
+    },
+    {
+      "path": "pages/post-deployment-operations-admin.html",
+      "size": 5295,
+      "sha256": "f09217ad0ca5cad320015c7ed8d4048771a0d3887256ec15359fa43e85f1ec56"
+    },
+    {
+      "path": "pages/post-launch-admin.html",
+      "size": 5450,
+      "sha256": "c62e54e84575b4dd2d24c379ff6eb18f5d1c1eeb47e6b83253486d7d91e03f66"
+    },
+    {
+      "path": "pages/production-identity-admin.html",
+      "size": 5540,
+      "sha256": "7447d5af5eee3147b561da2eee2dce235c6187eb3e790e73200492bc30909948"
+    },
+    {
+      "path": "pages/production-operations-hub.html",
+      "size": 6565,
+      "sha256": "14706308bce18cef62802a4d5db4174257972a813c63525912ae51c634e3ec31"
+    },
+    {
+      "path": "pages/production-readiness.html",
+      "size": 6607,
+      "sha256": "ccddd6e7564024ea854174f61b25b1dfec75fc3ec58415e10419b11bd2857736"
+    },
+    {
+      "path": "pages/prototype-completion-review.html",
+      "size": 4635,
+      "sha256": "07d5299d49347f980b60e83fbca9a3a1de907509c6b5f02f0e754ac4142d84d2"
+    },
+    {
+      "path": "pages/publication-rights-admin.html",
+      "size": 11938,
+      "sha256": "f2d62f02a65e95a685406db26da2f32fbf52add73d32fda5bdbd39c05983571d"
+    },
+    {
+      "path": "pages/quality-release-governance-admin.html",
+      "size": 10209,
+      "sha256": "1ae9d46781e67fa406ab7c77fbc92614a92440f4a60f5dc800f25736fbb40db8"
+    },
+    {
+      "path": "pages/recovery-migration-admin.html",
+      "size": 10329,
+      "sha256": "457ad7a59956a9af2c049ad2b48e0b0ee3416736d1995c170a408c0974cbb902"
+    },
+    {
+      "path": "pages/references.html",
+      "size": 7583,
+      "sha256": "d21b21bc27f8f1bdcb44779b9e377a0af9d84bd13d24ca92a28da95789b3b394"
+    },
+    {
+      "path": "pages/regulation-approval-admin.html",
+      "size": 12520,
+      "sha256": "aa1330ea8f8724c91b32ac2b1025ce182f28d0f1cda7b2e1d53b7e1233f3c829"
+    },
+    {
+      "path": "pages/regulation-evidence-snapshot.html",
+      "size": 5324,
+      "sha256": "5a16238826dd17be73501a47c02515d698ad080927fc7b36de6c30f7fc9ef5c2"
+    },
+    {
+      "path": "pages/regulation-update-admin.html",
+      "size": 17097,
+      "sha256": "79bd565d3624578d04707efe8dd9b3715e8ac927bb33b7e5754c5969ac40b70e"
+    },
+    {
+      "path": "pages/regulations.html",
+      "size": 5140,
+      "sha256": "3e2f896e82c0d64af94bd73552dfb8b5fb1b96326a9cee7f798b89d7747ff42b"
+    },
+    {
+      "path": "pages/release-candidate-summary.html",
+      "size": 4881,
+      "sha256": "4f04f53a95e7b146a169d333c92ea6775647aeafd2a47245a1b1ecbae0e4b7bd"
+    },
+    {
+      "path": "pages/reset-password.html",
+      "size": 2012,
+      "sha256": "428a84dbbabab3f9faf9e3722f468630bdb96996da7a367d30054b33f8ebb678"
+    },
+    {
+      "path": "pages/revision-preview.html",
+      "size": 3571,
+      "sha256": "ff82b7be974b82b66cefbd1c4490305e80df7020453a6eae6129aaa4d7abeeab"
+    },
+    {
+      "path": "pages/search-history.html",
+      "size": 2216,
+      "sha256": "f1acd2720e2bbcce48ea54a0fbfe80a3edce82f007806b3a32793af0059749e5"
+    },
+    {
+      "path": "pages/security-admin.html",
+      "size": 3660,
+      "sha256": "4e9cfcaf52768e365426dc860b156377badeb0d2207860a80098fd0b903fee71"
+    },
+    {
+      "path": "pages/settings.html",
+      "size": 7183,
+      "sha256": "8e69d84b789fe8701ad25d890c012327902a422e8ba761f848733ea9eaf9489b"
+    },
+    {
+      "path": "pages/system-maintenance.html",
+      "size": 9597,
+      "sha256": "288bb4608280f37a75ee87afddc821c861afd9a508d63afe41cd4322bb41e0e4"
+    },
+    {
+      "path": "pages/system-settings.html",
+      "size": 42084,
+      "sha256": "83bd28e26aa941050e3196046cd92b779e285bbdffc19e2a102182365575d082"
+    },
+    {
+      "path": "pages/system-wide-search.html",
+      "size": 3741,
+      "sha256": "ea56b6c83efe10c52f0ac46c7d6e38758155abcba67a0452df704b3ab37463d0"
+    },
+    {
+      "path": "pages/user-activity-admin.html",
+      "size": 16393,
+      "sha256": "03d3c0c69ba4ca478390c13bcee154ac806371b29001079b53df50435209b55e"
+    },
+    {
+      "path": "pages/user-admin.html",
+      "size": 8692,
+      "sha256": "1ce36c7efd82bfb625d3a1d928368b6e35940a8e7c463d76c3623b8f4242e743"
+    },
+    {
+      "path": "pages/validation-admin.html",
+      "size": 8806,
+      "sha256": "f42f48772bfb50504cf5a3246dcb91231f47388739a80353c94de4723ccf5d3f"
+    }
+  ]
+}

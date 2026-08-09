@@ -1,6 +1,7 @@
 import { readFileSync, statSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-const root=resolve(new URL('..',import.meta.url).pathname);
+import { fileURLToPath } from 'node:url';
+const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const assets=[
   ['朝背景','assets/images/login-port-morning.jpg',3840,2160,700000],
   ['昼背景','assets/images/login-port-day.jpg',3840,2160,700000],
@@ -32,7 +33,7 @@ for(const [name,path,minW,minH,minBytes] of assets){
 const css=readFileSync(resolve(root,'assets/css/login-production.css'),'utf8');
 checks.push(['時間帯別背景参照', ['morning','day','evening','night'].every(v=>css.includes(`login-port-${v}.jpg`))]);
 checks.push(['中央可読性レイヤー',css.includes('Part 356: seamless port backgrounds')&&css.includes('.login-scene::before')]);
-checks.push(['4K・高密度表示',css.includes('Part 357: 4K login backgrounds and high-density SK logo')&&css.includes('image-rendering: auto')]);
+checks.push(['4K・高密度表示',css.includes('Part 357: 4K login backgrounds and high-density SK logo')&&/image-rendering\s*:\s*auto/.test(css)]);
 const failed=checks.filter(([,ok])=>!ok).map(([name])=>name);
 console.log(JSON.stringify({status:failed.length?'failed':'passed',checked:checks.length,failed},null,2));
 process.exit(failed.length?1:0);

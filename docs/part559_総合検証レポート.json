@@ -1,0 +1,166 @@
+{
+  "version": "part559",
+  "checkedAt": "2026-08-07T20:30:00+09:00",
+  "passed": 31,
+  "total": 31,
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "HTML files = 74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "All HTML meta part559",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "All HTML manifest cache v559",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "All HTML guard cache v559",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU reference ctu-securing-part559.css?v=559",
+      "passed": true,
+      "detail": "1"
+    },
+    {
+      "name": "CTU reference ctu-workflow-part559.js?v=559",
+      "passed": true,
+      "detail": "1"
+    },
+    {
+      "name": "Guide token part559Guide",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 1 条件入力",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 2 算出",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 3 確認",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 4 登録",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 登録先を入力",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 申請番号管理へ登録",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide token 登録した申請を詳細確認",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Duplicate guide hidden #part553Completion",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Duplicate guide hidden #part553Journey",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Duplicate guide hidden #part558InputGuide",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Safety check quickCargoMsl",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Safety check quickCtuMsl",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Safety check quickAngle",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Safety check quickSupportCount",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Safety check quickSupportStrength",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest version: \"part559\", part: 559",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest unifiedEasyOperationGuide:true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest duplicateInputGuidesConsolidated:true",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest \"assets/js/ctu-workflow-part559.js\":\"part559\"",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest \"assets/css/ctu-securing-part559.css\":\"part559\"",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION part559",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU inline calculation script unchanged",
+      "passed": true,
+      "detail": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d"
+    },
+    {
+      "name": "Syntax assets/js/ctu-workflow-part559.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Syntax data/build-manifest.js",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "calculationLogicChanged": false,
+  "dbMigration": false
+}

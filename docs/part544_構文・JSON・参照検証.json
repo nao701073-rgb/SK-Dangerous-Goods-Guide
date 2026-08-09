@@ -1,0 +1,146 @@
+{
+  "release": "part544",
+  "baseRelease": "part543",
+  "generatedAt": "2026-08-07T17:45:00+09:00",
+  "summary": {
+    "passed": 27,
+    "total": 27
+  },
+  "checks": [
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow-policy.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part544-policy.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/test-part544-container-extract.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION JSON",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "容器等級IIと容器コード1A1/1A2を分離して取込",
+      "passed": true,
+      "detail": "rPackageKg\":138.666667,\"grossMassPerPackageKg\":163.333333,\"packingInstruction\":\"\",\"allowableCapacityOrMass\":\"\",\"permissionRequired\":false,\"permissionNote\":\"\",\"limitedQuantity\":false,\"sourceSheet\":\"S\",\"sourceRow\":2},{\"id\":\"cargo-S-3-1133\",\"lineNo\":2,\"unNumber\":\"1133\",\"originalName\":\"接着剤\",\"properShippingNameJa\":\"接着剤\",\"properShippingNameEn\":\"\",\"hazardClass\":\"3\",\"subsidiaryHazards\":\"\",\"packingGroup\":\"II\",\"containerCode\":\"1A2\",\"packageCount\":9,\"totalNetMassKg\":3672,\"totalGrossMassKg\":4239,\"netMassPerPackageKg\":408,\"grossMassPerPackageKg\":471,\"packingInstruction\":\"\",\"allowableCapacityOrMass\":\"\",\"permissionRequired\":false,\"permissionNote\":\"\",\"limitedQuantity\":false,\"sourceSheet\":\"S\",\"sourceRow\":3}]"
+    },
+    {
+      "name": "UN1133 PG II はP001",
+      "passed": true,
+      "detail": "P001"
+    },
+    {
+      "name": "1A1許容容量450Lデータ確認",
+      "passed": true,
+      "detail": "['400kg', '450L']"
+    },
+    {
+      "name": "1A2許容容量250Lデータ確認",
+      "passed": true,
+      "detail": "['400kg', '250L']"
+    },
+    {
+      "name": "450L対416kgは容量比較要確認対象",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "450L対360kgは20%境界内",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "450L対359kgは20%範囲外",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "450L対100kgは警告対象外",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part544 CSS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part544 policy参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part544 workflow参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "個数優先表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "許容容量/許容質量優先表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "許容値の編集欄自動反映",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "上部確認帯",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "超過強調",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "スマホ1列",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part544 manifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "20%ルール",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "少量危険物ルール",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全画面ビルドメタPart544",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

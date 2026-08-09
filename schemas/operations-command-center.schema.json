@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://sk.local/schemas/operations-command-center.schema.json",
+  "title":"運用指令・サービス水準管理エクスポート",
+  "type":"object",
+  "required":["release","generatedAt","summary","alerts","serviceObjectives","capacityForecasts","reports"],
+  "properties":{
+    "release":{"const":"part528"},
+    "generatedAt":{"type":"string","format":"date-time"},
+    "summary":{"type":"object"},
+    "alerts":{"type":"array","items":{"type":"object","required":["alertKey","severity","status","detectedAt"]}},
+    "serviceObjectives":{"type":"array","items":{"type":"object","required":["name","targetPercent","windowDays"]}},
+    "capacityForecasts":{"type":"array","items":{"type":"object","required":["resourceType","currentValue","criticalThreshold","forecastAt","dueAt"]}},
+    "reports":{"type":"array","items":{"type":"object","required":["periodType","periodStart","periodEnd","status"]}}
+  },
+  "additionalProperties":true
+}

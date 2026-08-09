@@ -1,0 +1,72 @@
+{
+  "release": "part539",
+  "baseRelease": "part538",
+  "generatedAt": "2026-08-07T06:09:00+09:00",
+  "summary": "Part 538のMSL写真確認を、取付点別台帳・複数写真・単位換算・損傷除外・固縛ライン別採用MSLへ拡張。",
+  "verification": {
+    "passed": 30,
+    "total": 30,
+    "status": "pass",
+    "policy": {
+      "passed": 20,
+      "total": 20
+    },
+    "syntaxAndReferences": "pass",
+    "unitConversion": [
+      {
+        "input": "1000 N",
+        "expectedKn": 1,
+        "actualKn": 1.0,
+        "pass": true
+      },
+      {
+        "input": "100 daN",
+        "expectedKn": 1,
+        "actualKn": 1.0,
+        "pass": true
+      },
+      {
+        "input": "1000 kgf",
+        "expectedKn": 9.80665,
+        "actualKn": 9.80665,
+        "pass": true
+      },
+      {
+        "input": "1 tf",
+        "expectedKn": 9.80665,
+        "actualKn": 9.80665,
+        "pass": true
+      }
+    ],
+    "lineMinimumMsl": [
+      {
+        "device": 50,
+        "cargo": 40,
+        "ctu": 60,
+        "expected": 40,
+        "actual": 40,
+        "pass": true
+      },
+      {
+        "device": 20,
+        "cargo": 20,
+        "ctu": 10,
+        "expected": 10,
+        "actual": 10,
+        "pass": true
+      }
+    ]
+  },
+  "existingFunctionsMaintained": [
+    "Part 538の代表写真による簡易MSL反映",
+    "引張系固縛材＋支保・当て材の併用",
+    "海上輸送 海域B初期値",
+    "TY-GARD参考プロファイル",
+    "CTU Code／CSS Code既存計算"
+  ],
+  "limitations": [
+    "画像文字認識によるMSL自動確定は行わない",
+    "WLL・SWL・LCからMSLへの根拠なし自動換算は行わない",
+    "DBマイグレーションなし"
+  ]
+}

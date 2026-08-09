@@ -16,6 +16,29 @@
 
   let currentLogs = [];
 
+
+  async function loadPhase1Preflight() {
+    const overall = $("phase1Overall");
+    const container = $("phase1Checks");
+    overall.textContent = "診断中…";
+    overall.dataset.state = "working";
+    container.innerHTML = "";
+    try {
+      const data = await ISSApi.preflight();
+      const stateLabel = data.status === "ready" ? "必須項目は合格" : data.status === "warning" ? "必須項目は合格・推奨項目に注意" : "必須項目に未合格あり";
+      overall.textContent = `${stateLabel}（必須 ${data.requiredFailed || 0}件／推奨 ${data.recommendedFailed || 0}件）`;
+      overall.dataset.state = data.status || "unknown";
+      container.innerHTML = (data.checks || []).map(item => `
+        <article class="phase1-check ${item.ok ? "is-ok" : item.severity === "required" ? "is-failed" : "is-warning"}">
+          <div class="phase1-check__heading"><strong>${esc(item.label)}</strong><span>${item.ok ? "合格" : item.severity === "required" ? "未合格" : "要確認"}</span></div>
+          <p>${esc(item.detail)}</p>
+        </article>`).join("");
+    } catch (error) {
+      overall.textContent = error.message;
+      overall.dataset.state = "failed";
+    }
+  }
+
   async function loadUsers() {
     const me = ISSApi.getUser();
     if (!["office-admin", "safety-environment-admin"].includes(me?.role)) {
@@ -87,7 +110,8 @@
     URL.revokeObjectURL(anchor.href);
   });
 
+  $("runPhase1Preflight")?.addEventListener("click", loadPhase1Preflight);
   $("filters").addEventListener("submit", loadLogs);
   $("loadUsers").addEventListener("click", loadUsers);
-  Promise.all([loadUsers(), loadLogs()]).catch(error => alert(error.message));
+  Promise.all([loadPhase1Preflight(), loadUsers(), loadLogs()]).catch(error => alert(error.message));
 })();

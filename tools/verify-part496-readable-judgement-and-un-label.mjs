@@ -3,8 +3,9 @@ import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(new URL('..', import.meta.url).pathname);
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 const js = read('assets/js/detail-dashboard.js');
 const css = read('assets/css/detail-dashboard.css');
@@ -82,8 +83,8 @@ assert.match(css, /border:\s*1px solid #c8d9e8/);
 
 // キャッシュ更新と構文。
 for (const item of [
-  'detail-dashboard.css?v=497',
-  'detail-dashboard.js?v=497',
+  'detail-dashboard.css?v=505',
+  'detail-dashboard.js?v=505',
   'domestic-judgement-criteria-texts.js?v=496',
   'domestic-judgement-criteria.js?v=496'
 ]) assert.ok(html.includes(item), `${item}を読み込む`);

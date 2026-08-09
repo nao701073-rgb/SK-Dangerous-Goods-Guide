@@ -1,0 +1,31 @@
+Part 510 正式運用準備 第4段階 更新手順
+
+前提
+- Part 509 第3段階まで適用済みであること。
+- 適用前に現在のフォルダを複製し、旧版として保管すること。
+
+更新
+1. Part 510更新ZIPを展開する。
+2. フォルダ構成を維持したまま、Part 509のフォルダへ上書きする。
+3. serverディレクトリで依存関係を確認する。
+4. 導入先の検証環境で次を実行する。
+
+   npm run migrate
+   npm run security:phase4
+
+5. システム管理者でログインし、
+   設定 → セキュリティ・監査管理 → 正式運用準備 第4段階
+   を開く。
+6. RPO、RTO、保管期間、遠隔保管先を登録する。
+
+移行・復元訓練（サーバー管理者が実行）
+- npm run release:package -- --release part510
+- npm run release:verify -- /path/to/system-release_part510.tar.gz
+- npm run migration:drill -- /path/to/system-release_part510.tar.gz
+- npm run restore:drill -- /path/to/backup-directory
+
+注意
+- restore、activate、rollbackは、承認済みの保守時間帯にサーバー管理者だけが実行する。
+- .env、平文パスワード、MFA秘密鍵、APIトークン、セッション情報は移行パッケージに含まれない。
+- 実DBを使用する復元訓練は、必ず隔離された一時DB・一時ストレージで行う。
+- 管理画面は結果と証跡を記録するものであり、OSコマンドを直接実行しない。

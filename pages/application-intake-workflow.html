@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="sk-build" content="v1.3.23">
+<title>申請書取込・確認｜検査・検品業務サポートシステム</title>
+<script src="../data/build-manifest.js?v=325"></script>
+<link rel="stylesheet" href="../assets/css/version-guard.css?v=542"/>
+<script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<link rel="stylesheet" href="../assets/css/style.css"/>
+<link rel="stylesheet" href="../assets/css/system-layout.css"/>
+<link rel="stylesheet" href="../assets/css/typography-quality.css?v=187"/>
+<link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500"/>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508"/>
+<link rel="stylesheet" href="../assets/css/application-case-common.css?v=529"/>
+<link rel="stylesheet" href="../assets/css/application-intake-workflow.css?v=536"/>
+<link rel="stylesheet" href="../assets/css/application-review-part536.css?v=536"/>
+<link rel="stylesheet" href="../assets/css/application-intake-part543.css?v=543"/>
+<link rel="stylesheet" href="../assets/css/application-intake-part544.css?v=544"/>
+<link rel="stylesheet" href="../assets/css/application-intake-part545.css?v=545"/>
+<link rel="stylesheet" href="../assets/css/application-intake-part546.css?v=546"/>
+<link rel="stylesheet" href="../assets/css/application-intake-part548.css?v=548"/><link rel="stylesheet" href="../assets/css/application-intake-part549.css?v=549"/>
+<link rel="stylesheet" href="../assets/css/v1-initial.css?v=100">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v133-ui.css?v=133">
+<link rel="stylesheet" href="../assets/css/v134-ui.css?v=134">
+<link rel="stylesheet" href="../assets/css/v1317-intake-registration.css?v=323">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+</head>
+<body data-page="application-intake-workflow" data-required-roles="guest,office-user,office-admin,safety-environment-director,safety-environment-staff,safety-environment-admin,validator,revision-validator">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">申請書取込・確認</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="main-content intake-page">
+<section class="intake-intro">
+<div><h2>申請書を取り込み、内容を確認して登録します</h2><p>ExcelまたはCSVから案件情報と危険物明細を読み取り、内容を確認して必要な箇所だけ修正します。確認後は申請番号管理へ登録できます。原本ファイルは保存しません。</p></div>
+<ol class="intake-steps"><li>1 申請書取込</li><li>2 自動確認</li><li>3 内容を確認</li><li>4 申請番号管理へ登録</li></ol>
+</section>
+<section class="intake-card" id="intakeUploadSection">
+<div class="intake-heading"><div><h2>1．申請書・依頼書を取り込む</h2><p>対応形式：Excel（.xls／.xlsx）またはCSV。既存の申請書確認用Excel様式にも対応します。</p></div><span class="intake-badge">原本保存なし</span></div>
+<div class="intake-drop" id="intakeDropZone" role="button" tabindex="0" aria-label="申請書または依頼書を選択"><strong>ここへファイルをドラッグ＆ドロップ</strong><span>または</span><button type="button" id="intakeSelectFile">ファイルを選択</button><small>.xls / .xlsx / .csv　100MB以下</small><input hidden type="file" id="intakeFileInput" accept=".xls,.xlsx,.csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv"/></div>
+<div class="intake-status" id="intakeFileStatus" aria-live="polite">ファイルが選択されていません。</div>
+<p class="intake-privacy"><strong>機密情報の取扱い：</strong>ファイルは端末内の一時メモリで解析します。ファイル本体、セル原文、メールアドレス等をブラウザ保存領域や監査ログへ保存しません。</p>
+</section>
+<section class="intake-card" id="intakeEditSection" hidden>
+<div class="intake-heading"><div><h2>2．自動読取内容を確認</h2><p>自動読取は候補です。基本情報と危険物明細を原本と照合し、必要な箇所だけ修正してください。</p></div><button type="button" id="intakeClear">取込内容を消去</button></div>
+<div class="intake-grid">
+<label>申請年度 <span class="required-mark">必須</span><input id="intakeApplicationYear" inputmode="numeric" maxlength="4"/></label>
+<label>番号の登録方法<select id="intakeNumberType"><option value="official">正式申請番号</option><option value="temporary">仮番号</option></select></label>
+<label>申請番号<input id="intakeApplicationNumber" inputmode="numeric" maxlength="5"/></label>
+<label>申請日<input id="intakeApplicationDate" type="date"/></label>
+<label>検査予定日<input id="intakeInspectionPlannedDate" type="date"/></label>
+<label>検査実施日<input id="intakeInspectionDate" type="date"/></label>
+<label>申請者・依頼元<input id="intakeApplicantName" maxlength="200"/></label>
+<label>荷主・荷送人<input id="intakeShipper" maxlength="300"/></label>
+<label>案件名<input id="intakeCaseTitle" maxlength="200"/></label>
+<label>船名<input id="intakeVesselName" maxlength="200"/></label>
+<label>航海番号<input id="intakeVoyageNumber" maxlength="100"/></label>
+<label>コンテナ番号<input id="intakeContainerNumber" maxlength="50"/></label>
+<label>コンテナ種類<input id="intakeContainerType" maxlength="100"/></label>
+<label>船積港<input id="intakeLoadingPort" maxlength="150"/></label>
+<label>陸揚港<input id="intakeDischargePort" maxlength="150"/></label>
+<label class="intake-wide">備考<textarea id="intakeNote" rows="3" maxlength="3000"></textarea></label>
+</div>
+<h3>危険物明細</h3>
+<div class="intake-cargo-wrap"><table class="intake-cargo-table"><thead><tr><th>No.</th><th>国連番号</th><th>品名・原文</th><th>等級</th><th>容器等級</th><th>容器コード</th><th>個数</th><th>総N/W kg</th><th>総G/W kg</th><th></th><th>事前審査確認</th></tr></thead><tbody id="intakeCargoBody"></tbody></table></div>
+<div class="intake-actions"><button type="button" id="intakeAddCargo">危険物を追加</button><button class="primary-action" type="button" id="intakeRunCheck">自動確認を実行</button></div>
+</section>
+<section class="intake-card" id="intakeCheckSection" hidden>
+<div class="intake-heading"><div><h2>3．確認結果を確認</h2><p>自動確認の結果を確認し、必要な箇所だけ原本と照合・修正してください。</p></div><span class="intake-badge" id="intakeCheckBadge">未実行</span></div>
+<div class="intake-summary" id="intakeSummary"></div>
+<div class="intake-findings"><div class="intake-finding intake-finding--blocker"><h3>登録前に修正が必要</h3><ul id="intakeBlockers"></ul></div><div class="intake-finding intake-finding--warning"><h3>確認・追記を推奨</h3><ul id="intakeWarnings"></ul></div></div>
+<h3>登録前確認チェックリスト</h3><div class="intake-checklist" id="intakeChecklist"></div>
+<div class="intake-review-meta"><label>原本照合者（任意）<input id="intakeReviewer" maxlength="80" placeholder="必要な場合のみ入力"/></label><label>確認メモ<textarea id="intakeReviewNote" rows="2" maxlength="1000" placeholder="未確定情報・現場確認事項など"></textarea></label></div>
+</section>
+<section class="intake-card v1317-intake-registration v1322-ctu-registration-style" id="intakeRegisterSection">
+<h2>申請番号管理へ登録</h2>
+<p>登録済みの申請番号へ追加する場合は同じ案件カードへ保存します。未登録の場合は、下の欄に申請番号を入力してください。</p>
+<div class="v1317-registration-target v1322-registration-target" id="intakeRegistrationTarget"><span>登録先</span><strong>新しい申請番号</strong></div>
+<div class="v1323-new-application-static" id="intakeNewApplicationDetails">
+<div class="v1322-quick-registration-grid">
+<label>申請年度<input id="intakeRegisterYear" inputmode="numeric" maxlength="4"/></label>
+<label>申請番号<input id="intakeRegisterNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"/></label>
+<label>案件名（任意）<input id="intakeRegisterCaseTitle" maxlength="200"/></label>
+</div>
+</div>
+<div class="intake-register-state" id="intakeRegisterState" hidden>事前チェック後、上の申請番号で登録できます。</div>
+<div class="intake-actions intake-actions--simple v1317-registration-actions v1322-registration-actions"><button class="primary-action" data-write-only id="intakeRegisterApplication" type="button" disabled>この確認結果を申請番号管理へ登録</button><button id="intakeRegisterNew" type="button" hidden disabled aria-hidden="true"></button><button id="intakeUpdateExisting" type="button" hidden disabled aria-hidden="true"></button><a class="button-link v1322-open-detail" data-write-only id="intakeOpenApplication" href="applications.html" target="_blank" rel="noopener" hidden>登録した申請を詳細確認</a></div>
+<p class="intake-message" id="intakeRegisterMessage" aria-live="polite"></p>
+<div class="intake-actions intake-actions--secondary"><button type="button" id="intakeExportJson">確認結果をJSON出力</button><button type="button" id="intakeExportCargoCsv">危険物明細をCSV出力</button></div>
+</section>
+<section class="intake-card v1-intake-history"><div class="intake-heading"><div><h2>直近の取込履歴</h2><p>ファイル本体、セル原文、実ファイル名は保存せず、取込形式・ハッシュ先頭・チェック結果のみ端末内に保持します。</p></div></div><div class="intake-history" id="intakeHistory"></div></section>
+</main>
+<script defer src="../data/un-data.js?v=434"></script>
+<script defer src="../data/domestic-packing-quantity-profiles.js?v=434"></script>
+<script defer src="../data/domestic-code-page-ranges.js?v=468"></script>
+<script defer src="../data/legal-code-master-codes.js?v=503"></script>
+<script defer src="../assets/js/storage.js?v=529"></script>
+<script defer src="../assets/js/organization.js"></script>
+<script defer src="../assets/js/application-case-common.js?v=529"></script>
+<script defer src="../assets/js/application-allowance-resolver.js?v=136"></script>
+<script defer src="../assets/js/role-access.js?v=537"></script>
+<script defer src="../assets/js/application-intake-workflow-policy.js?v=147"></script>
+<script defer src="../assets/js/application-packing-reference-part545.js?v=136"></script>
+<script defer src="../assets/js/v135-compat.js?v=135"></script>
+<script defer src="../assets/js/application-intake-workflow-api.js?v=535"></script>
+<script defer src="../assets/js/application-result-link.js?v=147"></script>
+<script defer src="../assets/js/application-intake-workflow.js?v=325"></script>
+<script defer src="../assets/js/system-shell.js?v=508"></script>
+<script defer src="../assets/js/version-guard.js?v=147"></script>
+<script defer src="../assets/js/v1-role-visibility.js?v=1337"></script>
+
+
+<script defer src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script defer src="../assets/js/v11-user-preferences.js?v=134"></script>
+<script defer src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script defer src="../assets/js/v13-intake.js?v=130"></script>
+<script defer src="../assets/js/v134-intake.js?v=135"></script>
+<script defer src="../assets/js/v1317-intake-registration.js?v=323"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

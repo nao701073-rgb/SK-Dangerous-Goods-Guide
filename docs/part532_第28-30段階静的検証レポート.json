@@ -1,0 +1,265 @@
+{
+  "release": "part532",
+  "suite": "第28～第30段階静的検証",
+  "generatedAt": "2026-08-06T11:41:45.971Z",
+  "passed": 51,
+  "total": 51,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "統合管理画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面JavaScript",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシーモジュール",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JSON Schema",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "設定画面導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アプリ版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理モジュール登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバー版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ビルドマニフェスト",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証スクリプト登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB性能テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "添付整合テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "横断整合テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "是正課題テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビューサイクルテーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大度制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "統合GET API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB性能API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "添付健全性API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "横断整合性API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "課題登録API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "課題是正API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "課題検証API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー登録API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー提出API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "証跡改変検知",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "データ保証ゲート",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第28段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第29段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第30段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "公開画面系カード",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホ1列CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "入力欄44px",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密情報注意",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理API接続",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "危険物件数照合",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "添付欠落遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Hash不一致遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力連携遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "本番測定鮮度",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "課題職務分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー三者分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part529共通案件維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証機能維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531信頼性機能維持",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

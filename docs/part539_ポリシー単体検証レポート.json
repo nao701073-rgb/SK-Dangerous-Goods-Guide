@@ -1,0 +1,91 @@
+{
+  "release": "part539",
+  "baseRelease": "part538",
+  "generatedAt": "2026-08-07T06:09:00+09:00",
+  "scope": "取付点別MSL・複数写真・損傷状態・単位換算・固縛ライン管理",
+  "passed": 20,
+  "total": 20,
+  "checks": [
+    {
+      "name": "part539 version",
+      "pass": true
+    },
+    {
+      "name": "base part538",
+      "pass": true
+    },
+    {
+      "name": "attachment point registry",
+      "pass": true
+    },
+    {
+      "name": "cargo and ctu roles",
+      "pass": true
+    },
+    {
+      "name": "automatic point number",
+      "pass": true
+    },
+    {
+      "name": "multiple photo input",
+      "pass": true
+    },
+    {
+      "name": "unit conversion factors",
+      "pass": true
+    },
+    {
+      "name": "evidence categories",
+      "pass": true
+    },
+    {
+      "name": "damage categories",
+      "pass": true
+    },
+    {
+      "name": "damage exclusion",
+      "pass": true
+    },
+    {
+      "name": "line linkage",
+      "pass": true
+    },
+    {
+      "name": "duplicate-use confirmation",
+      "pass": true
+    },
+    {
+      "name": "minimum of three MSL values",
+      "pass": true
+    },
+    {
+      "name": "limiting factor display",
+      "pass": true
+    },
+    {
+      "name": "application photo storage",
+      "pass": true
+    },
+    {
+      "name": "application registry persistence",
+      "pass": true
+    },
+    {
+      "name": "calculation result snapshot",
+      "pass": true
+    },
+    {
+      "name": "existing quick photo maintained",
+      "pass": true
+    },
+    {
+      "name": "existing calc maintained",
+      "pass": true
+    },
+    {
+      "name": "mobile layout",
+      "pass": true
+    }
+  ],
+  "status": "pass"
+}

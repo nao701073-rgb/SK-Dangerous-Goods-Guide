@@ -1,0 +1,90 @@
+{
+  "release": "part534",
+  "title": "第34～第36段階 統合検証",
+  "generatedAt": "2026-08-06T12:53:48.818113+00:00",
+  "status": "passed",
+  "automatedChecks": {
+    "passed": 368,
+    "total": 368,
+    "failed": 0
+  },
+  "suites": [
+    {
+      "name": "第19～第21段階ポリシー回帰",
+      "passed": 41,
+      "total": 41,
+      "failed": 0,
+      "report": "docs/part534_第19-21段階ポリシー回帰検証レポート.json"
+    },
+    {
+      "name": "Part530ポリシー回帰",
+      "passed": 27,
+      "total": 27,
+      "failed": 0,
+      "report": "docs/part534_Part530ポリシー回帰検証レポート.json"
+    },
+    {
+      "name": "Part531ポリシー回帰",
+      "passed": 48,
+      "total": 48,
+      "failed": 0,
+      "report": "docs/part534_Part531ポリシー回帰検証レポート.json"
+    },
+    {
+      "name": "Part532ポリシー回帰",
+      "passed": 55,
+      "total": 55,
+      "failed": 0,
+      "report": "docs/part534_Part532ポリシー回帰検証レポート.json"
+    },
+    {
+      "name": "Part533ポリシー回帰",
+      "passed": 54,
+      "total": 54,
+      "failed": 0,
+      "report": "docs/part534_Part533ポリシー回帰検証レポート.json"
+    },
+    {
+      "name": "第34～第36段階ポリシー",
+      "passed": 45,
+      "total": 45,
+      "failed": 0,
+      "report": "docs/part534_第34-36段階ポリシー単体検証レポート.json"
+    },
+    {
+      "name": "第34～第36段階静的検証",
+      "passed": 51,
+      "total": 51,
+      "failed": 0,
+      "report": "docs/part534_第34-36段階静的検証レポート.json"
+    },
+    {
+      "name": "主要機能回帰",
+      "passed": 47,
+      "total": 47,
+      "failed": 0,
+      "report": "docs/part534_主要機能回帰検証レポート.json"
+    }
+  ],
+  "staticQa": {
+    "status": "passed",
+    "findingCount": 0,
+    "stats": {
+      "html": 72,
+      "js": 247,
+      "json": 162,
+      "refs": 1474,
+      "bytes": 319205955
+    }
+  },
+  "dataQuality": {
+    "recordCount": 2725,
+    "uniqueUnCount": 2248,
+    "multipleEntryUnCount": 337,
+    "errorCount": 0,
+    "warningCount": 0
+  },
+  "notes": [
+    "PostgreSQLへのマイグレーション実適用、実端末・実ブラウザ、実障害訓練は本番相当環境で確認する。"
+  ]
+}

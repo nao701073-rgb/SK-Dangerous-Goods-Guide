@@ -1,0 +1,1496 @@
+{
+  "version": "part590",
+  "baseVersion": "part585",
+  "date": "2026-08-08",
+  "summary": "Part586〜590 bundled final-review / daily case session / CTU evidence integrity static regression verification",
+  "total": 297,
+  "passed": 297,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "new:assets/js/application-intake-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:assets/css/application-intake-part590.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:assets/js/application-management-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:assets/css/application-management-part590.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:assets/js/ctu-easy-operation-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:assets/css/ctu-securing-part590.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new:docs/Part590_最終見直し・日次案件処理・根拠健全性.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "syntax:assets/js/application-intake-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "syntax:assets/js/application-management-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "syntax:assets/js/ctu-easy-operation-part590.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "syntax:build-manifest",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html_count_74",
+      "ok": true,
+      "detail": "74"
+    },
+    {
+      "name": "meta:index.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/access-control.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/account-history.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/account-security-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/activate-account.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/admin-succession.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/application-detail.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/application-verification.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/applications.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/change-password.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/cloud-connection.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/data-migration.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/ems.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/favorites.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/feedback.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/integrated-verification.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/label-catalog.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/login.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/production-readiness.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/references.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/regulations.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/reset-password.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/revision-preview.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/search-history.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/security-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/settings.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/system-maintenance.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/system-settings.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/system-wide-search.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/user-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "meta:pages/validation-admin.html",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/application-intake-workflow.html:application-intake-part590.css?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/application-intake-workflow.html:application-intake-part590.js?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/applications.html:application-management-part590.css?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/applications.html:application-management-part590.js?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/ctu-securing-calculator.html:ctu-securing-part590.css?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "ref:pages/ctu-securing-calculator.html:ctu-easy-operation-part590.js?v=590",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "html-regression:index.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/access-control.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/account-history.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/account-security-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/activate-account.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/admin-succession.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/application-detail.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/application-verification.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/applications.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/change-password.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/cloud-connection.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/data-migration.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/ems.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/favorites.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/feedback.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/integrated-verification.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/label-catalog.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/login.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/production-readiness.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/references.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/regulations.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/reset-password.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/revision-preview.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/search-history.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/security-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/settings.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/system-maintenance.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/system-settings.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/system-wide-search.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/user-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "html-regression:pages/validation-admin.html",
+      "ok": true,
+      "detail": "normalized Part590 meta/assets only"
+    },
+    {
+      "name": "unchanged:assets/css/application-detail-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-detail-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-detail-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-detail-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-intake-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/application-management-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/css/ctu-securing-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-detail-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-detail-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-detail-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-detail-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-intake-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/application-management-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:assets/js/ctu-easy-operation-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part565_申請書確認記録・登録後追跡.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part566_かんたん操作・案件導線改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part567_案件コンテキスト・MSL確認性改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part568_要確認高速ナビ・現場入力補助.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part569_確認理由・写真MSL連携改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part570_見落とし防止・案件状況・MSL根拠整合.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part571_前回確認参照・案件連続操作・計算前チェック.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part572_差分確認・案件確認リスト・登録前最終サマリー.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part573_全差分ナビ・案件引継ぎ・算出後変更点.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part574_確認完了ガイド・要確認案件キュー・最終算出根拠メモ.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part580_まとめ操作統合アップデート.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/Part585_重点確認・優先キュー・ライン根拠統合.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part565_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part566_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part567_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part568_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part569_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part570_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part571_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part572_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part573_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part574_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part580_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged:docs/part585_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:seaB_default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:combined_mode",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:combination_confirm",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:msl_line_rows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:msl_review_ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:msl_active",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:latest_result",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:review_gate",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-ctu:registration_review_required",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-intake:reviewEvidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-intake:registerButton",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-apps:quickApplicationSelect",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-apps:photoFile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "preserve-apps:quickApplicationMemo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:final review session",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:final invalidation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:case session",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:next unseen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:unassigned detection",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:unknown evidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:duplicate line",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "feature:evidence display only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version:part",
+      "ok": true,
+      "detail": "590"
+    },
+    {
+      "name": "version:base",
+      "ok": true,
+      "detail": "part585"
+    },
+    {
+      "name": "version:bundle",
+      "ok": true,
+      "detail": "[586, 587, 588, 589, 590]"
+    },
+    {
+      "name": "manifest:version: \"part590\", part: 590",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:application-intake-part590.js\":\"part590",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:dailyPriorityWorkSession:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:evidenceIntegrityGate:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:finalSessionReviewMark:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:pages/ctu-securing-calculator.html\":\"part590\"",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

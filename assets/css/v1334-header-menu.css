@@ -1,0 +1,146 @@
+/* SKDG v1.3.34 - previous application-management style header + closed-by-default submenu */
+:root{--sk-header-navy:#0d477e;--sk-header-navy-dark:#083d70;--sk-header-btn:#164f82;--sk-header-line:#d7e2ec}
+
+/* Hide the old v1.3.33 presentation; v1.3.34 owns the visual header. */
+.app-header.sk-v1334-header,
+.system-topbar.sk-v1334-header,
+.sk-v1334-header{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  min-height:64px!important;
+  padding:10px 16px!important;
+  background:var(--sk-header-navy)!important;
+  color:#fff!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:none!important;
+}
+.sk-v1334-header .topbar-title,
+.sk-v1334-header .sk-v1334-title-wrap,
+.sk-v1334-header>div:not(.topbar-actions){
+  flex:0 1 auto!important;
+  min-width:0!important;
+}
+.sk-v1334-header h1,
+.sk-v1334-header .topbar-title strong,
+.sk-v1334-header .sk-v1334-title{
+  display:block!important;
+  margin:0!important;
+  color:#fff!important;
+  font-size:1.38rem!important;
+  line-height:1.2!important;
+  font-weight:800!important;
+  text-align:left!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.sk-v1334-header .topbar-title span,
+.sk-v1334-header .sk-ctu-header-subtitle{display:none!important}
+
+.sk-v1334-menu-button,
+.sk-v1334-home-button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  padding:0!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  border-radius:11px!important;
+  background:var(--sk-header-btn)!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  cursor:pointer!important;
+  box-shadow:none!important;
+}
+.sk-v1334-menu-button:hover,.sk-v1334-home-button:hover{background:#1b5d99!important}
+.sk-v1334-menu-button:focus-visible,.sk-v1334-home-button:focus-visible{outline:3px solid rgba(255,255,255,.28);outline-offset:2px}
+.sk-v1334-menu-button svg,.sk-v1334-home-button svg{width:22px;height:22px;display:block}
+
+.sk-v1334-header .topbar-actions{margin-left:auto!important;display:flex!important;align-items:center!important;gap:8px!important}
+.sk-v1334-header .topbar-user[data-sk-user-link="1"],
+.sk-v1334-header .sk-current-user-link{
+  margin-left:auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-height:38px!important;
+  padding:4px 11px 4px 5px!important;
+  border:1px solid #cbd8e5!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#20364d!important;
+  text-decoration:none!important;
+  font-weight:700!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+.sk-v1334-header .topbar-avatar,
+.sk-v1334-header .sk-current-user-avatar{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:28px!important;height:28px!important;flex:0 0 28px!important;border-radius:50%!important;
+  background:#063968!important;color:#fff!important;font-weight:800!important;font-size:13px!important
+}
+
+/* Old permanently visible dangerous-goods sidebar becomes a closed drawer. */
+.system-shell{display:block!important;min-height:100vh}
+.system-main{min-width:0!important;width:100%!important;margin-left:0!important}
+.system-sidebar{
+  position:fixed!important;z-index:10020!important;top:0!important;left:0!important;bottom:0!important;
+  width:min(330px,86vw)!important;max-width:86vw!important;height:100dvh!important;
+  transform:translateX(-104%)!important;transition:transform .18s ease!important;
+  visibility:hidden!important;pointer-events:none!important;overflow:auto!important;
+  box-shadow:10px 0 32px rgba(2,28,54,.24)!important
+}
+
+.sk-v1334-drawer{
+  position:fixed;z-index:10030;top:0;left:0;bottom:0;width:min(330px,86vw);max-width:86vw;
+  transform:translateX(-104%);transition:transform .18s ease;background:#fff;color:#14283d;
+  box-shadow:10px 0 32px rgba(2,28,54,.24);overflow:auto;visibility:hidden;pointer-events:none
+}
+html.sk-v1334-menu-open .sk-v1334-drawer{transform:translateX(0);visibility:visible;pointer-events:auto}
+.sk-v1334-drawer__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-bottom:1px solid #dce5ed}
+.sk-v1334-drawer__head strong{font-size:1.05rem;color:#173a5e}
+.sk-v1334-drawer__close{width:38px;height:38px;border:0;border-radius:10px;background:#eef5fb;color:#164f82;font-size:1.3rem;cursor:pointer}
+.sk-v1334-drawer__nav{display:grid;padding:10px}
+.sk-v1334-drawer__nav a{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:10px;color:#1d354d;text-decoration:none;font-weight:700}
+.sk-v1334-drawer__nav a:hover{background:#edf5fc;color:#0d4b83}
+.sk-v1334-drawer__nav a[aria-current="page"]{background:#e6f1fb;color:#0c4a83}
+.sk-v1334-drawer__icon{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:9px;background:#eef5fb;color:#0e4f88;flex:0 0 30px}
+.sk-v1334-drawer__icon svg{width:19px;height:19px}
+.sk-v1334-drawer__section{padding:12px 18px 4px;font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#6c7f92;text-transform:uppercase}
+.sk-v1334-backdrop{position:fixed;z-index:10010;inset:0;background:rgba(0,16,32,.42);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease}
+html.sk-v1334-menu-open .sk-v1334-backdrop{opacity:1;visibility:visible;pointer-events:auto}
+
+/* Suppress older submenu launchers/drawers when they exist. */
+.unified-submenu-toggle,.submenu-toggle,.global-submenu-toggle,[data-submenu-toggle],.unified-submenu-backdrop{display:none!important}
+
+/* CTU: common header replaces the duplicated in-content home action. */
+body.has-sk-ctu-header .calc-shell{padding-top:16px!important}
+body.has-sk-ctu-header .top-actions a[href="../index.html"],
+body.has-sk-ctu-header .top-actions a[href="index.html"]{display:none!important}
+
+@media(max-width:640px){
+  .sk-v1334-header{padding:8px 10px!important;gap:8px!important;min-height:58px!important}
+  .sk-v1334-menu-button,.sk-v1334-home-button{width:38px!important;height:38px!important;min-width:38px!important}
+  .sk-v1334-header h1,.sk-v1334-header .topbar-title strong,.sk-v1334-header .sk-v1334-title{font-size:1.12rem!important}
+  .sk-v1334-header .sk-current-user-name{max-width:6.8em!important}
+}
+@media(prefers-reduced-motion:reduce){.system-sidebar,.sk-v1334-drawer,.sk-v1334-backdrop{transition:none!important}}
+
+/* v1.3.36: application-management header must never inherit an old bottom/fixed position during first paint. */
+body[data-page="applications"] > header.app-header.sk-v1334-header{
+  position:sticky!important;
+  top:0!important;
+  bottom:auto!important;
+  left:auto!important;
+  right:auto!important;
+  z-index:1000!important;
+  width:100%!important;
+  margin:0!important;
+  transform:none!important;
+}

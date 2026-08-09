@@ -1,0 +1,108 @@
+{
+  "part": 560,
+  "total": 20,
+  "passed": 20,
+  "failed": [],
+  "checks": [
+    {
+      "name": "HTML count 74",
+      "ok": true,
+      "detail": "74"
+    },
+    {
+      "name": "all html meta part560",
+      "ok": true,
+      "detail": "74/74"
+    },
+    {
+      "name": "all manifest refs v560",
+      "ok": true,
+      "detail": "74/74"
+    },
+    {
+      "name": "all version guard refs v560",
+      "ok": true,
+      "detail": "74/74"
+    },
+    {
+      "name": "ctu part560 css included",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu part560 js included",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part560 css included",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part560 js included",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "applicationId deep link",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fixed target class",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "change target on demand",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "relock original application",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "return to application detail",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail linkage notice",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu inline calculation body unchanged",
+      "ok": true,
+      "detail": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d vs 56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d, bytes 125697/125697"
+    },
+    {
+      "name": "VERSION part560",
+      "ok": true,
+      "detail": "{'version': 'part560', 'part': 560, 'baseRelease': 'part559-ctu-unified-easy-guide', 'date': '2026-08-07', 'summary': '申請番号管理の詳細画面から固縛力算出を開いた場合、その申請を登録先として固定し、申請番号の再選択を不要化。固縛力算出画面に申請詳細への往復導線を追加し、別案件へ保存したい場合のみ登録先変更を開く。Part559までのかんたん操作ガイド、再計算、履歴保存、計算式、MSL判定、保存データ構造は変更しない。', 'baseVersion': 'part559'}"
+    },
+    {
+      "name": "manifest version part560",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest new feature flags",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest new assets",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no DB migration change",
+      "ok": true,
+      "detail": "0 sql files"
+    }
+  ]
+}

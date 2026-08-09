@@ -1,0 +1,2932 @@
+{
+  "release": "part509",
+  "scope": "public-approved",
+  "dryRun": true,
+  "generatedAt": "2026-08-05T13:20:01.105Z",
+  "included": [
+    "index.html",
+    "pages/access-control.html",
+    "pages/access-governance-admin.html",
+    "pages/account-history.html",
+    "pages/account-security-admin.html",
+    "pages/activate-account.html",
+    "pages/admin-governance-dashboard.html",
+    "pages/admin-succession.html",
+    "pages/application-verification.html",
+    "pages/applications.html",
+    "pages/change-password.html",
+    "pages/change-release-governance-admin.html",
+    "pages/cloud-connection.html",
+    "pages/completion-roadmap.html",
+    "pages/ctu-securing-calculator.html",
+    "pages/dangerous-goods-detail.html",
+    "pages/dangerous-goods-search.html",
+    "pages/data-migration-legacy.html",
+    "pages/data-migration.html",
+    "pages/data-quality-admin.html",
+    "pages/deployment-execution-admin.html",
+    "pages/deployment-readiness-package.html",
+    "pages/documentation-release-center.html",
+    "pages/ems.html",
+    "pages/favorites.html",
+    "pages/feedback.html",
+    "pages/final-production-readiness.html",
+    "pages/identity-operations-admin.html",
+    "pages/imdg-cross-reference.html",
+    "pages/integrated-operations-center.html",
+    "pages/integrated-verification.html",
+    "pages/kawasaki-pilot.html",
+    "pages/label-catalog.html",
+    "pages/login.html",
+    "pages/maintenance-governance-admin.html",
+    "pages/operations-acceptance-admin.html",
+    "pages/operations-assurance-admin.html",
+    "pages/operations-monitoring.html",
+    "pages/overpack-label-tool.html",
+    "pages/pdf-page-viewer.html",
+    "pages/pilot-launch-admin.html",
+    "pages/post-deployment-operations-admin.html",
+    "pages/post-launch-admin.html",
+    "pages/production-identity-admin.html",
+    "pages/production-operations-hub.html",
+    "pages/production-readiness.html",
+    "pages/prototype-completion-review.html",
+    "pages/publication-rights-admin.html",
+    "pages/references.html",
+    "pages/regulation-approval-admin.html",
+    "pages/regulation-evidence-snapshot.html",
+    "pages/regulation-update-admin.html",
+    "pages/regulations.html",
+    "pages/release-candidate-summary.html",
+    "pages/reset-password.html",
+    "pages/revision-preview.html",
+    "pages/search-history.html",
+    "pages/security-admin.html",
+    "pages/settings.html",
+    "pages/system-maintenance.html",
+    "pages/system-settings.html",
+    "pages/system-wide-search.html",
+    "pages/user-activity-admin.html",
+    "pages/user-admin.html",
+    "pages/validation-admin.html",
+    "assets/css/access-governance-admin.css",
+    "assets/css/account-history.css",
+    "assets/css/account-security-admin.css",
+    "assets/css/admin-governance-dashboard.css",
+    "assets/css/admin-tools.css",
+    "assets/css/application-results.css",
+    "assets/css/application-role-mode.css",
+    "assets/css/application-verification.css",
+    "assets/css/change-password.css",
+    "assets/css/cloud-connection.css",
+    "assets/css/data-migration.css",
+    "assets/css/data-quality-admin.css",
+    "assets/css/design-system-review.css",
+    "assets/css/detail-dashboard.css",
+    "assets/css/detail.css",
+    "assets/css/ems.css",
+    "assets/css/feedback.css",
+    "assets/css/final-production-readiness.css",
+    "assets/css/governance-part503.css",
+    "assets/css/home-dashboard.css",
+    "assets/css/identity-operations-admin.css",
+    "assets/css/imdg-cross-reference.css",
+    "assets/css/integrated-operations-center.css",
+    "assets/css/integrated-verification.css",
+    "assets/css/label-catalog.css",
+    "assets/css/login-production.css",
+    "assets/css/management.css",
+    "assets/css/operations-acceptance-admin.css",
+    "assets/css/operations-assurance-admin.css",
+    "assets/css/operations-monitoring.css",
+    "assets/css/organization-management.css",
+    "assets/css/overpack-label-tool.css",
+    "assets/css/photo-management.css",
+    "assets/css/pilot-launch-admin.css",
+    "assets/css/post-launch-admin.css",
+    "assets/css/production-identity-admin.css",
+    "assets/css/production-operations-hub.css",
+    "assets/css/publication-rights-phase3.css",
+    "assets/css/references.css",
+    "assets/css/regulation-approval-phase2.css",
+    "assets/css/regulation-update-admin.css",
+    "assets/css/regulations.css",
+    "assets/css/revision-preview.css",
+    "assets/css/role-home-dashboard.css",
+    "assets/css/search-dashboard.css",
+    "assets/css/search.css",
+    "assets/css/security-admin.css",
+    "assets/css/settings.css",
+    "assets/css/style.css",
+    "assets/css/system-layout.css",
+    "assets/css/system-maintenance.css",
+    "assets/css/system-migration.css",
+    "assets/css/system-wide-search.css",
+    "assets/css/typography-quality.css",
+    "assets/css/unified-submenu.css",
+    "assets/css/user-activity-admin.css",
+    "assets/css/validation-admin.css",
+    "assets/css/version-guard.css",
+    "assets/images/login-business-background-4k.png",
+    "assets/images/login-business-background.svg",
+    "assets/images/login-port-background.jpg",
+    "assets/images/login-port-day-1920.jpg",
+    "assets/images/login-port-day-v365.jpg",
+    "assets/images/login-port-day.jpg",
+    "assets/images/login-port-evening-1920.jpg",
+    "assets/images/login-port-evening-v365.jpg",
+    "assets/images/login-port-evening.jpg",
+    "assets/images/login-port-morning-1920.jpg",
+    "assets/images/login-port-morning-v365.jpg",
+    "assets/images/login-port-morning.jpg",
+    "assets/images/login-port-night-1920.jpg",
+    "assets/images/login-port-night-v365.jpg",
+    "assets/images/login-port-night.jpg",
+    "assets/images/sk-brand-logo-square-2x-v357.png",
+    "assets/images/sk-brand-logo-square-v348.png",
+    "assets/images/sk-brand-logo-v82.png",
+    "assets/js/access-control.js",
+    "assets/js/access-governance-admin.js",
+    "assets/js/access-url-tools.js",
+    "assets/js/account-history.js",
+    "assets/js/account-security-admin.js",
+    "assets/js/admin-governance-dashboard.js",
+    "assets/js/admin-succession.js",
+    "assets/js/api-client.js",
+    "assets/js/app.js",
+    "assets/js/application-documents.js",
+    "assets/js/application-result-link.js",
+    "assets/js/application-results-view.js",
+    "assets/js/application-role-mode.js",
+    "assets/js/application-verification.js",
+    "assets/js/applications.js",
+    "assets/js/auth-bootstrap.js",
+    "assets/js/auto-sync.js",
+    "assets/js/central-backup-admin.js",
+    "assets/js/change-release-governance-admin.js",
+    "assets/js/cloud-connection.js",
+    "assets/js/completion-roadmap.js",
+    "assets/js/csv-user-import.js",
+    "assets/js/ctu-excel-route-import.js",
+    "assets/js/data-migration.js",
+    "assets/js/data-quality-admin.js",
+    "assets/js/deployment-execution-admin.js",
+    "assets/js/deployment-readiness-package.js",
+    "assets/js/detail-dashboard.js",
+    "assets/js/detail.js",
+    "assets/js/documentation-release-center.js",
+    "assets/js/easy-regulation-update.js",
+    "assets/js/ems-resolver.js",
+    "assets/js/ems.js",
+    "assets/js/excepted-quantity-resolver.js",
+    "assets/js/favorites.js",
+    "assets/js/feedback.js",
+    "assets/js/final-production-readiness.js",
+    "assets/js/history.js",
+    "assets/js/home-logout.js",
+    "assets/js/home-simple.js",
+    "assets/js/identity-operations-admin.js",
+    "assets/js/image-format-support.js",
+    "assets/js/imdg-cross-reference-page.js",
+    "assets/js/imdg-cross-reference-resolver.js",
+    "assets/js/imdg-inspection-guide.js",
+    "assets/js/integrated-operations-center.js",
+    "assets/js/integrated-verification.js",
+    "assets/js/label-catalog.js",
+    "assets/js/label-resolver.js",
+    "assets/js/login-policy-settings.js",
+    "assets/js/maintenance-governance-admin.js",
+    "assets/js/office-feature-gates.js",
+    "assets/js/online-status.js",
+    "assets/js/operations-acceptance-admin.js",
+    "assets/js/operations-assurance-admin.js",
+    "assets/js/operations-monitoring.js",
+    "assets/js/organization.js",
+    "assets/js/overpack-label-tool.js",
+    "assets/js/package-marking-resolver.js",
+    "assets/js/part502-validation-dashboard.js",
+    "assets/js/photos.js",
+    "assets/js/pilot-launch-admin.js",
+    "assets/js/post-deployment-operations-admin.js",
+    "assets/js/post-launch-admin.js",
+    "assets/js/production-identity-admin.js",
+    "assets/js/production-operations-hub.js",
+    "assets/js/production-readiness.js",
+    "assets/js/prototype-completion-review.js",
+    "assets/js/publication-rights-admin.js",
+    "assets/js/publication-scope-gate.js",
+    "assets/js/query-prefill.js",
+    "assets/js/quick-user-registration.js",
+    "assets/js/reference-detail-windows.js",
+    "assets/js/references.js",
+    "assets/js/regulation-approval-admin.js",
+    "assets/js/regulation-approval-gate.js",
+    "assets/js/regulation-evidence-snapshot.js",
+    "assets/js/regulation-release-admin.js",
+    "assets/js/regulation-update-admin.js",
+    "assets/js/regulations.js",
+    "assets/js/release-candidate-summary.js",
+    "assets/js/revision-preview.js",
+    "assets/js/role-access.js",
+    "assets/js/role-home-dashboard.js",
+    "assets/js/search-dashboard.js",
+    "assets/js/search.js",
+    "assets/js/security-admin.js",
+    "assets/js/session-guard.js",
+    "assets/js/settings.js",
+    "assets/js/storage.js",
+    "assets/js/structured-data-overrides.js",
+    "assets/js/structured-data-update-center.js",
+    "assets/js/sync-manager.js",
+    "assets/js/system-maintenance.js",
+    "assets/js/system-migration.js",
+    "assets/js/system-shell.js",
+    "assets/js/system-wide-search.js",
+    "assets/js/unified-submenu.js",
+    "assets/js/usage-tracking.js",
+    "assets/js/user-activity-admin.js",
+    "assets/js/user-admin.js",
+    "assets/js/user-settings.js",
+    "assets/js/validation-admin.js",
+    "assets/js/version-guard.js",
+    "data/ai-reference-summaries.js",
+    "data/app-config.json",
+    "data/article112-density-master.js",
+    "data/build-manifest.js",
+    "data/domestic-code-originals.js",
+    "data/domestic-code-page-ranges.js",
+    "data/domestic-complex-packing-profiles.js",
+    "data/domestic-judgement-criteria-texts.js",
+    "data/domestic-judgement-criteria.js",
+    "data/domestic-packing-quantity-profiles.js",
+    "data/ems-assignments.js",
+    "data/ems-schedule-master.js",
+    "data/excepted-quantity-master.js",
+    "data/hazard-class-master.js",
+    "data/imdg-code-page-map.js",
+    "data/imdg-container-inspection-clauses.js",
+    "data/imdg-cross-reference.js",
+    "data/imdg-inspection-guide-summary.js",
+    "data/imdg-reference-master.js",
+    "data/imdg-section-page-map.js",
+    "data/label-master.js",
+    "data/legal-code-master-codes.js",
+    "data/legal-code-master-core.js",
+    "data/legal-code-master.js",
+    "data/organization-master.js",
+    "data/package-marking-master.js",
+    "data/part502-validation-report.js",
+    "data/publication-rights-catalog.json",
+    "data/publication-scope-policy.js",
+    "data/reference-documents.js",
+    "data/regulation-impact-registry.js",
+    "data/regulation-registry.js",
+    "data/regulation-release-registry.js",
+    "data/regulation-revision-registry.js",
+    "data/system-file-manifest.json",
+    "data/un-data.js",
+    "database/domestic/excepted-quantity-codes.json",
+    "database/domestic/package-marking-requirements.json",
+    "database/imdg/ems/schedule-master.json",
+    "database/imdg/ems/un-ems-assignments.json",
+    "database/imdg/references/container-inspection-clauses.json",
+    "database/imdg/references/cross-reference-registry.json",
+    "database/imdg/references/special-provisions.json",
+    "database/labels/label-master.json",
+    "database/regulations/domestic/dangerous-goods-notification/articles.json",
+    "database/regulations/domestic/high-pressure-gas-safety/articles.json",
+    "database/regulations/domestic/radioactive-material-transport/articles.json",
+    "database/regulations/domestic/ship-dangerous-goods/articles.json",
+    "database/regulations/domestic/ship-safety-act/articles.json",
+    "database/regulations/international/csc/clauses.json",
+    "database/regulations/international/ctu/clauses.json",
+    "database/regulations/international/imdg/clauses.json",
+    "database/regulations/international/marpol/clauses.json",
+    "database/regulations/references/cross-reference.json",
+    "database/regulations/registry.json",
+    "images/guides/package-marking-un1224-guide.png",
+    "images/labels/class1.1.png",
+    "images/labels/class1.2.png",
+    "images/labels/class1.3.png",
+    "images/labels/class1.4.png",
+    "images/labels/class1.6.png",
+    "images/labels/class1.png",
+    "images/labels/class2.1.png",
+    "images/labels/class2.2.png",
+    "images/labels/class2.3.png",
+    "images/labels/class3.png",
+    "images/labels/class4.1.png",
+    "images/labels/class4.2.png",
+    "images/labels/class4.3.png",
+    "images/labels/class5.1.png",
+    "images/labels/class5.2.png",
+    "images/labels/class6.1.png",
+    "images/labels/class6.2.png",
+    "images/labels/class7.png",
+    "images/labels/class8.png",
+    "images/labels/class9.png",
+    "images/labels/class9_lithium_battery.png",
+    "images/labels/excepted_quantity.png",
+    "images/labels/limited_quantity.png",
+    "images/labels/limited_quantity_user.png",
+    "images/labels/marine_pollutant.png",
+    "images/labels/overpack-square/class1.1.png",
+    "images/labels/overpack-square/class1.2.png",
+    "images/labels/overpack-square/class1.3.png",
+    "images/labels/overpack-square/class1.4.png",
+    "images/labels/overpack-square/class1.6.png",
+    "images/labels/overpack-square/class1.png",
+    "images/labels/overpack-square/class2.1.png",
+    "images/labels/overpack-square/class2.2.png",
+    "images/labels/overpack-square/class2.3.png",
+    "images/labels/overpack-square/class3.png",
+    "images/labels/overpack-square/class4.1.png",
+    "images/labels/overpack-square/class4.2.png",
+    "images/labels/overpack-square/class4.3.png",
+    "images/labels/overpack-square/class5.1.png",
+    "images/labels/overpack-square/class5.2.png",
+    "images/labels/overpack-square/class6.1.png",
+    "images/labels/overpack-square/class6.2.png",
+    "images/labels/overpack-square/class7.png",
+    "images/labels/overpack-square/class8.png",
+    "images/labels/overpack-square/class9.png",
+    "images/labels/overpack-square/class9_lithium_battery.png",
+    "images/labels/overpack-square/excepted_quantity.png",
+    "images/labels/overpack-square/limited_quantity.png",
+    "images/labels/overpack-square/marine_pollutant.png",
+    "images/labels/source_samples/11C.jpg",
+    "images/labels/source_samples/12C.jpg",
+    "images/labels/source_samples/13C.jpg",
+    "images/labels/source_samples/14C.jpg",
+    "images/labels/source_samples/16C.jpg",
+    "images/labels/source_samples/17C.jpg",
+    "images/labels/source_samples/21C.jpg",
+    "images/labels/source_samples/22C.jpg",
+    "images/labels/source_samples/23C.jpg",
+    "images/labels/source_samples/30C.jpg",
+    "images/labels/source_samples/41C.jpg",
+    "images/labels/source_samples/42C.jpg",
+    "images/labels/source_samples/43C.jpg",
+    "images/labels/source_samples/51C.jpg",
+    "images/labels/source_samples/52C.jpg",
+    "images/labels/source_samples/61C.jpg",
+    "images/labels/source_samples/62C.jpg",
+    "images/labels/source_samples/71C.jpg",
+    "images/labels/source_samples/72C.jpg",
+    "images/labels/source_samples/73C.jpg",
+    "images/labels/source_samples/74C.jpg",
+    "images/labels/source_samples/80C.jpg",
+    "images/labels/source_samples/90C.jpg",
+    "images/labels/source_samples/91C.jpg",
+    "images/labels/source_samples/MPC_NEW.png"
+  ],
+  "excluded": [
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-1.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-i.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-ii.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-2-iii.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-3.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-i-iii.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-iv.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-4-v.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-5-i.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-5-ii.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-6.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-7.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/judgement-criteria/note2-8.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/label-display-domestic-laws.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-bundles/package-marking-domestic-laws.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-1.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-107-107.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-109-109.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-110-110.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-111-111.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-112-112.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-113-113.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-114-114.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-115-115.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-116-116.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-118-118.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-119-119.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-120-120.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-121-121.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-122-122.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-123-123.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-124-124.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-125-125.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-127-127.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-128-128.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-130-130.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-133-133.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-134-134.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-135-135.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-139-139.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-139.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-14.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-140-140.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-141-141.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-142-142.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-142.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-143-143.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-144.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-148-148.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-148.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-149-149.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-149.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-15.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-156-156.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-159-159.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-16.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-160-160.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-161.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-164-164.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-165-165.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-17.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-171.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-174.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-175.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-177-177.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-177.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-183.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-184-184.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-184.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-191.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-195.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-196.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-198.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-2.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-20.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-201.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-202.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-205-205.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-205.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-21.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-214-214.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-214.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-215-215.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-215.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-216-216.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-217.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-22.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-23.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-24.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-25.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-268.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-269.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-270.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-271.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-272.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-273.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-274.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-275.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-276.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-279-279.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-281-281.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-282-282.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-284-284.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-285-285.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-286-286.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-287-287.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-288-288.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-289-289.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-290-290.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-291-291.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-292-292.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-293-293.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-294-294.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-295-295.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-296-296.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-297-297.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-298-298.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-3.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-307-307.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-308-308.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-309-309.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-310-310.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-311-311.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-312-312.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-313-313.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-314-314.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-315-315.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-316-316.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-317-317.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-318-318.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-319-319.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-320-320.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-323-323.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-324-324.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-325-325.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-326-326.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-327-327.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-328-328.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-329-329.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-330-330.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-331-331.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-332-332.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-333-333.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-334-334.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-338-338.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-339-339.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-340-340.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-341-341.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-342-342.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-343-343.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-344-344.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-345-345.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-346-346.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-347-347.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-351-351.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-353-353.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-354-354.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-358-358.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-363-363.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-365-365.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-366-366.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-367-367.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-368-368.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-369-369.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-370-370.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-371-371.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-372-372.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-374-374.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-375-375.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-376-376.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-7.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-8.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-9.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-94-094.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-95-095.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-96-096.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/notification/page-97-097.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/radioactive/page-1.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-14.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-15.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-16.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-18.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-19.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-2.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-3.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-4.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-5.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/domestic-law-pages/regulation/page-67.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-107.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-109.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-110.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-111.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-112.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-113.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-114.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-115.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-116.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-118.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-119.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-120.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-121.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-122.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-123.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-124.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-125.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-127.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-128.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-130.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-133.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-134.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-135.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-139.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-140.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-141.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-142.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-143.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-144.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-148.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-149.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-156.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-159.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-160.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-164.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-165.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-177.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-184.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-185.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-186.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-187.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-205.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-214.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-215.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-216.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-217.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-218.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-219.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-279.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-280.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-281.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-282.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-283.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-284.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-285.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-286.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-287.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-288.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-289.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-290.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-291.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-292.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-293.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-294.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-295.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-296.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-297.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-298.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-299.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-300.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-301.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-307.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-308.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-309.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-310.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-311.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-312.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-313.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-314.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-315.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-316.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-317.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-318.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-319.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-320.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-321.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-322.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-323.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-324.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-325.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-326.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-327.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-328.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-329.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-330.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-331.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-332.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-333.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-334.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-335.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-338.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-339.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-340.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-341.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-342.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-343.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-344.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-345.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-346.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-347.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-348.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-349.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-350.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-351.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-353.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-354.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-355.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-356.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-357.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-358.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-359.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-360.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-361.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-363.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-364.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-365.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-366.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-367.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-368.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-369.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-370.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-371.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-372.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-373.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-374.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-375.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-376.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-377.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-378.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-408.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-409.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-410.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-411.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-412.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-413.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-414.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-415.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-416.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-417.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-418.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-419.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-420.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-421.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-422.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-423.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-424.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-425.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-426.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-427.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-428.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-429.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-430.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-431.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-94.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-95.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-96.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/dangerous-goods-notification/page-97.png",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-131.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-134.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-153.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-154.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-158.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-160.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-162.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-163.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-166.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-169.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-236.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-244.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-245.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-246.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-255.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-260.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-310.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-332.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-357.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-366.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-371.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-429.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-446.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-447.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-479.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-499.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-502.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/pdf-page-images/imdg-code/page-80.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/1-3-1-p41.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/1-3-1-p42.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/1-3-1-p43.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/1-3-1-p44.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/1-3-1-p45.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-1-2-8-p561.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-4-p785.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-4-p786.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-4-p787.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-5-p788.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-5-p789.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-5-p790.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/3-5-p791.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p158.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p159.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p160.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p161.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p162.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-1-p163.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-4-p166.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-4-p167.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/4-1-4-p168.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-1-2-p274.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-1-2-p275.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-1-2-p276.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-1-2-p277.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-1-2-p278.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-1-p279.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-1-p280.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-1-p281.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p282.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p283.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p284.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p285.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p286.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p287.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-2-2-p288.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-3-1-p293.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-3-1-p294.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-3-2-p295.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-3-2-p296.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p297.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p298.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p299.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p300.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p301.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-1-p302.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-2-p303.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/5-4-2-p304.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-1-3-p318.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-1-3-p319.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-1-3-p320.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-5-2-p388.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-5-2-p389.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-5-2-p390.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/6-5-2-p391.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p486.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p487.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p488.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p489.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p490.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p491.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p492.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p493.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p494.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p495.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-2-p496.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-3-2-3-p497.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-3-2-3-p498.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-3-4-p498.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-3-4-p499.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-clauses/7-3-6-p499.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-103-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-103.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-104.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-107-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-107.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-108.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-109.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-11.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-111-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-111.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-112.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-114.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-116-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-116.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-118.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-119-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-119.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-12-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-12.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-121.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-122-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-122.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-123.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-126-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-126.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-127.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-129.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-13-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-13.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-16-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-16.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-17.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-18-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-18.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-20.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-21-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-21.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-23.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-24-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-24.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-26-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-26.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-27.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-31-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-31.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-34.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-38.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-40.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-44-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-44.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-45.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-47-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-47.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-49.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-50-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-50.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-54.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-55.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-57-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-57.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-58.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-59.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-62.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-63-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-63.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-66-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-66.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-67.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-68.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-69-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-69.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-7-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-7.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-70.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-73.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-74-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-74.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-75.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-76.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-77.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-8-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-8.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-83-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-83.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-84.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-85-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-85.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-87.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-88.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-89.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-9.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-90-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-90.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-94-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-94.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-97.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-98-focus.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "assets/reference-images/imdg-inspection-guide/page-98.jpg",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "database/reference/ai-summaries.json",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "database/references/documents.json",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-basic-check.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-completion.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-condensation.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-dangerous-goods.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-load-distribution.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-opening.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-purpose.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-responsibility-chain.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-securing.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-ctu-training.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-classification.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-ctu-placards.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-dgl-columns.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-document-sequence.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-emergency-info.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-excepted-quantity.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-foodstuffs.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-legal-status.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-limited-quantity.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-marine-pollutant.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-nos.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-overpack.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-package-marks.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-packing-certificate.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-packing-general.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-packing-instructions.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-prohibited.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-psn-selection.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-security.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-segregation.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-special-provisions.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-stowage.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/ai-imdg-training.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/notification-article-2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/notification-article-7-2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/regulation-article-2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/regulation-article-8-clean.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/regulation-article-8.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic/regulation-article-9.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/manifest.json",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-i.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-ii.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-iii.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-3.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-i-iii.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-iv.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-v.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-i.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-ii.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-6.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-7.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/judgement-criteria/note2-8.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/label-display-domestic-laws.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/domestic-bundles/package-marking-domestic-laws.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-1.3.1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-3.1.2.8.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-3.4.1-3.4.6.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-3.5.1-3.5.6.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-4.1.1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-4.1.4.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.1.2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.2.1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.2.2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.3.1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.3.2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.4.1.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-5.4.2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-6.1.3.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-6.5.2.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-7.2.3-7.2.4-7.2.8.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-7.3.2-7.3.3.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-7.3.4.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/excerpts/imdg-7.3.6.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/ctu-code-ja.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/dangerous-goods-notification.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/dangerous-goods-regulations.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/marpol-73-78-annex-ii-ja.pdf",
+      "reason": "外部公開の明示承認なし"
+    },
+    {
+      "path": "references/originals/radioactive-materials-notification.pdf",
+      "reason": "外部公開の明示承認なし"
+    }
+  ],
+  "metadataOnly": [],
+  "warnings": [],
+  "summary": {
+    "included": 375,
+    "excluded": 635,
+    "metadataOnly": 0
+  }
+}

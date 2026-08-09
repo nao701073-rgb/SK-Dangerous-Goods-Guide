@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"quality-release-governance.schema.json",
+  "title":"Part 533 quality, impact and release governance",
+  "type":"object",
+  "properties":{
+    "qualityRuleRun":{"type":"object","required":["domain","executedAt","ruleSetVersion","evaluatedCount","violationCount","criticalViolationCount","autoFixCandidateCount","manualReviewCount","falsePositivePercent","evidenceReference","evidenceSha256"]},
+    "correctionCandidate":{"type":"object","required":["ruleId","domain","entityReference","fieldName","currentValueSha256","proposedValueSha256","severity","confidencePercent","rationale","ownerUserId","detectedAt"]},
+    "changeImpact":{"type":"object","required":["changeType","sourceRelease","targetRelease","analyzedAt","changedFileCount","changedTableCount","impactedComponents","regressionTargets","riskLevel","summary","evidenceReference","evidenceSha256"]},
+    "releaseCandidate":{"type":"object","required":["releaseName","baseRelease","releaseSummary","packageSha256","rollbackPackageSha256","evidenceItems"]}
+  },
+  "$defs":{"sha256":{"type":"string","pattern":"^[a-fA-F0-9]{64}$"},"severity":{"enum":["critical","high","medium","low"]}}
+}

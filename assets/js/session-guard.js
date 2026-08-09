@@ -63,6 +63,7 @@
   };
   const logout=reason=>{
     clearTimers();
+    try{window.ISSApi?.logout?.({keepalive:true})?.catch?.(()=>{})}catch(_e){}
     try{window.ISSApi?.clearSession?.()}catch(_e){}
     const currentSessionToken=sessionStorage.getItem("iss-api-token")||"";
     sessionStorage.removeItem("iss-api-token");

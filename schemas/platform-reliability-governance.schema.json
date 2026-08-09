@@ -1,0 +1,10 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Part531 Platform Reliability Governance",
+  "type":"object",
+  "required":["healthSnapshots","baselines","drifts","actions","reviews"],
+  "properties":{
+    "healthSnapshots":{"type":"array"},"baselines":{"type":"array"},"drifts":{"type":"array"},"actions":{"type":"array"},"reviews":{"type":"array"}
+  },
+  "additionalProperties":true
+}

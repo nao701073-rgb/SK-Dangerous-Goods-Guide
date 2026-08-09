@@ -35,7 +35,7 @@ for (const file of files.filter(file => file.endsWith('.html'))) {
   stats.html += 1;
   const html = fs.readFileSync(file, 'utf8');
   const ids = [...html.matchAll(/\sid=["']([^"']+)["']/gi)].map(match => match[1]);
-  const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+  const duplicateIds = [...new Set(ids.filter((id, index) => !id.includes('${') && ids.indexOf(id) !== index))];
   for (const id of duplicateIds) findings.push({ severity: 'error', type: 'duplicate-id', file, detail: id });
 
   for (const match of html.matchAll(/(?:src|href)=["']([^"']+)["']/gi)) {

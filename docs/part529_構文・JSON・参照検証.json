@@ -1,0 +1,174 @@
+{
+  "generatedAt": "2026-08-06T10:47:51.731Z",
+  "root": "/mnt/data/SK-Dangerous-Goods-Guide_part529 本番",
+  "status": "passed",
+  "stats": {
+    "html": 67,
+    "js": 217,
+    "json": 106,
+    "refs": 1385,
+    "bytes": 317071767
+  },
+  "findingCount": 0,
+  "findings": [],
+  "oversizedAssets": [
+    {
+      "file": "references/originals/imdg-code-amendment-42-24-msc556-108.pdf",
+      "bytes": 9542439
+    },
+    {
+      "file": "references/originals/dangerous-goods-notification.pdf",
+      "bytes": 9079009
+    },
+    {
+      "file": "references/originals/ctu-code-ja.pdf",
+      "bytes": 4314214
+    },
+    {
+      "file": "data/un-data.js",
+      "bytes": 3359844
+    },
+    {
+      "file": "assets/images/login-business-background-4k.png",
+      "bytes": 2738883
+    },
+    {
+      "file": "images/labels/overpack-square/class1.1.png",
+      "bytes": 2533821
+    },
+    {
+      "file": "images/labels/overpack-square/class1.2.png",
+      "bytes": 2510683
+    },
+    {
+      "file": "images/labels/overpack-square/class1.3.png",
+      "bytes": 2507094
+    },
+    {
+      "file": "images/labels/overpack-square/class5.2.png",
+      "bytes": 2503439
+    },
+    {
+      "file": "images/labels/overpack-square/class5.1.png",
+      "bytes": 2394260
+    },
+    {
+      "file": "images/labels/overpack-square/class4.1.png",
+      "bytes": 2280459
+    },
+    {
+      "file": "images/labels/overpack-square/class4.3.png",
+      "bytes": 2270493
+    },
+    {
+      "file": "images/labels/overpack-square/class3.png",
+      "bytes": 2184422
+    },
+    {
+      "file": "images/labels/overpack-square/class1.6.png",
+      "bytes": 2181696
+    },
+    {
+      "file": "images/labels/overpack-square/class2.2.png",
+      "bytes": 2101829
+    },
+    {
+      "file": "images/labels/overpack-square/class1.4.png",
+      "bytes": 2082378
+    },
+    {
+      "file": "images/labels/overpack-square/class2.1.png",
+      "bytes": 2068946
+    },
+    {
+      "file": "references/originals/dangerous-goods-regulations.pdf",
+      "bytes": 1973645
+    },
+    {
+      "file": "assets/images/login-port-day-v365.jpg",
+      "bytes": 1950503
+    },
+    {
+      "file": "assets/images/login-port-day.jpg",
+      "bytes": 1950503
+    },
+    {
+      "file": "images/labels/overpack-square/class1.png",
+      "bytes": 1940770
+    },
+    {
+      "file": "assets/images/login-port-morning-v365.jpg",
+      "bytes": 1901849
+    },
+    {
+      "file": "assets/images/login-port-morning.jpg",
+      "bytes": 1901849
+    },
+    {
+      "file": "images/labels/overpack-square/class4.2.png",
+      "bytes": 1899267
+    },
+    {
+      "file": "images/labels/overpack-square/class6.2.png",
+      "bytes": 1877879
+    },
+    {
+      "file": "assets/images/login-port-evening-v365.jpg",
+      "bytes": 1794378
+    },
+    {
+      "file": "assets/images/login-port-evening.jpg",
+      "bytes": 1794378
+    },
+    {
+      "file": "images/labels/overpack-square/class8.png",
+      "bytes": 1773113
+    },
+    {
+      "file": "images/labels/overpack-square/class2.3.png",
+      "bytes": 1729102
+    },
+    {
+      "file": "images/labels/overpack-square/class6.1.png",
+      "bytes": 1562428
+    },
+    {
+      "file": "images/labels/overpack-square/class7.png",
+      "bytes": 1550121
+    },
+    {
+      "file": "assets/images/login-port-night-v365.jpg",
+      "bytes": 1540788
+    },
+    {
+      "file": "assets/images/login-port-night.jpg",
+      "bytes": 1540788
+    },
+    {
+      "file": "images/labels/overpack-square/class9_lithium_battery.png",
+      "bytes": 1440791
+    },
+    {
+      "file": "images/labels/overpack-square/excepted_quantity.png",
+      "bytes": 1252511
+    },
+    {
+      "file": "images/labels/overpack-square/class9.png",
+      "bytes": 1250002
+    },
+    {
+      "file": "data/legal-code-master-codes.js",
+      "bytes": 1235389
+    },
+    {
+      "file": "images/guides/package-marking-un1224-guide.png",
+      "bytes": 1143236
+    },
+    {
+      "file": "assets/domestic-law-bundles/label-display-domestic-laws.png",
+      "bytes": 1098172
+    }
+  ],
+  "release": "part529",
+  "reportName": "Part 529 構文・JSON・HTML参照検証"
+}

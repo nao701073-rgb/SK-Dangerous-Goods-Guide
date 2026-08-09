@@ -12,6 +12,8 @@
 
 html, body { min-height: 100%; }
 body.login-production {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   min-height: 100dvh;
   overflow-x: hidden;
@@ -23,9 +25,9 @@ body.login-production {
 .login-scene {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
   background-color: #eaf3fa;
-  background-image: var(--login-background);
+  background-image: var(--login-background) !important;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -36,6 +38,8 @@ body.login-production {
 .terminal-lights { display: none; }
 
 .login-wrap {
+  position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: grid;
   place-items: center;
@@ -380,4 +384,58 @@ body.login-production {
 @media (max-width: 560px) {
   .login-description span { white-space: normal; }
   .login-description-break { display: none; }
+}
+
+
+/* v1.3.20: authoritative login background.
+   User-designated original illustration only: bright white/light-blue container-yard scene.
+   Do not switch by time of day and do not fall back to the dark photo backgrounds. */
+:root{
+  --login-background:url("../images/login-business-background-4k.png") !important;
+}
+html,
+html[data-login-time="morning"],
+html[data-login-time="day"],
+html[data-login-time="evening"],
+html[data-login-time="night"]{
+  --login-background:url("../images/login-business-background-4k.png") !important;
+}
+body.login-production{
+  position:relative;
+  isolation:isolate;
+  background:#f4f9fd !important;
+  background-image:none !important;
+}
+body.login-production > .login-scene{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:0 !important;
+  display:block !important;
+  background-color:#f4f9fd !important;
+  background-image:url("../images/login-business-background-4k.png") !important;
+  background-repeat:no-repeat !important;
+  background-position:center center !important;
+  background-size:cover !important;
+  image-rendering:auto;
+  pointer-events:none;
+}
+body.login-production > .login-scene::before,
+body.login-production > .login-scene::after,
+body.login-production .terminal-silhouette,
+body.login-production .terminal-lights{
+  display:none !important;
+  content:none !important;
+  background:none !important;
+}
+body.login-production > .login-wrap{
+  position:relative;
+  z-index:1;
+}
+body.login-production > .login-success{z-index:500}
+@media (max-width:700px){
+  body.login-production > .login-scene{
+    background-image:url("../images/login-business-background-4k.png") !important;
+    background-position:center center !important;
+    background-size:cover !important;
+  }
 }

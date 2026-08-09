@@ -1,0 +1,25 @@
+{
+  "version": "part538",
+  "js": {
+    "fileCount": 263,
+    "inlineScriptCount": 9,
+    "errorCount": 0,
+    "errors": []
+  },
+  "json": {
+    "fileCount": 188,
+    "errorCount": 0,
+    "errors": []
+  },
+  "html": {
+    "fileCount": 73,
+    "versionMismatchCount": 0,
+    "versionMismatches": []
+  },
+  "references": {
+    "checked": 1505,
+    "missingCount": 0,
+    "missing": []
+  },
+  "errors": []
+}

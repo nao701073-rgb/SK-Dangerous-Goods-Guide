@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja"><head>
-  <meta name="sk-build" content="part505">
-  <script src="../data/build-manifest.js?v=505"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <meta name="sk-build" content="v1.3.4">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
 <script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ユーザー設定｜検査・検品業務サポートシステム</title>
 <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/settings.css"><link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">  <link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+<link rel="stylesheet" href="../assets/css/v1-initial.css?v=100">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v134-ui.css?v=134">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
 </head>
-<body data-page="user-settings"><header class="app-header"><a class="icon-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る">⌂</a><div><h1>ユーザー設定</h1></div></header>
+<body data-page="user-settings"><header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">ユーザー設定</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
 <main class="workspace settings-page"><div class="page-breadcrumb">ホーム ＞ ユーザー設定</div><div class="page-heading-row"><div><h1>ユーザー設定</h1><p>自分の表示、実寸補正、通知、アカウントおよびオフライン利用を設定します。</p></div></div>
 <section class="panel"><div class="panel-heading"><h2>画面の色調</h2></div><div class="panel-body settings-list"><div class="settings-row settings-row--layout"><div><strong>ログイン後の表示テーマ</strong><p>ホーム画面と各機能画面の色調だけを変更します。ログイン画面の時間帯演出には影響しません。</p></div><div class="segmented-control appearance-theme-control" role="group" aria-label="表示テーマ"><button type="button" data-app-theme-option="standard">標準</button><button type="button" data-app-theme-option="bright">明るい</button><button type="button" data-app-theme-option="calm">落ち着いた</button><button type="button" data-app-theme-option="dark">ダーク</button><button type="button" data-app-theme-option="system">端末設定</button></div></div></div></section>
 <section class="panel"><div class="panel-heading"><h2>国内法令・IMDG Code表示</h2></div><div class="panel-body settings-list">
@@ -19,7 +34,16 @@
 <section class="panel"><div class="panel-heading"><h2>アカウント・所属情報</h2></div><div class="panel-body settings-list"><div class="settings-row"><div><strong>ログイン中の利用者</strong><p>氏名、所属、権限は管理者が利用者管理画面で設定します。</p></div><span id="currentUserSummary" class="fixed-setting">未ログイン</span></div><div class="settings-actions"><a class="secondary-action" href="account-history.html">ログイン履歴・端末管理</a><a class="secondary-action" href="change-password.html">ログイン中のパスワードを変更</a><a class="secondary-action" href="reset-password.html">パスワードを忘れた場合の再設定</a><a class="secondary-action" href="login.html">ログイン画面</a></div></div></section>
 <section class="panel"><div class="panel-heading"><h2>オフライン・端末設定</h2></div><div class="panel-body settings-list"><label class="settings-row settings-row--toggle"><div><strong>オフライン利用を優先</strong><p>通信が不安定な現場では端末保存データを優先します。全体の同期方式はシステム管理者が設定します。</p></div><span class="switch"><input id="preferOffline" type="checkbox"><span class="switch-slider"></span></span></label><div class="settings-row"><div><strong>同期待ち件数</strong><p>この端末でクラウド送信を待っている更新件数です。</p></div><span id="userSyncQueueCount" class="fixed-setting">0件</span></div></div></section>
 <div id="settingsMessage" class="settings-message" aria-live="polite"></div></main>
-<script src="../assets/js/storage.js?v=216"></script><script src="../assets/js/api-client.js?v=503"></script><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/user-settings.js?v=313"></script><script src="../assets/js/session-guard.js?v=422"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
-<script src="../assets/js/unified-submenu.js?v=500"></script>
-<script src="../assets/js/version-guard.js?v=505"></script>
+<script src="../assets/js/storage.js?v=216"></script><script src="../assets/js/api-client.js?v=508"></script><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/user-settings.js?v=313"></script><script src="../assets/js/session-guard.js?v=508"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1337"></script>
+
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=134"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v101-settings.js?v=101"></script>
+<script src="../assets/js/v12-settings.js?v=120"></script>
+<script src="../assets/js/v134-settings.js?v=134"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
 </body></html>

@@ -1,0 +1,150 @@
+{
+  "part": 564,
+  "base": "part563",
+  "date": "2026-08-07",
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Part564 JS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 CSS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "workflow loads Part564 JS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "workflow loads Part564 CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "state filter active",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "state filter hard",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "state filter pending",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "state filter acknowledged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "state filter all",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reason filter implemented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review status counts implemented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "session storage implemented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "session key includes application",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "edit invalidates acknowledgement by key",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "hard issue acknowledgement remains blocked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no bulk acknowledgement button",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "warning display preserved",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "existing registration button reused",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "final registration summary preserved",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "P200/IBC/T classification strings preserved",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile responsive filter CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all html build meta Part564",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "all html guard cache Part564",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "manifest Part564",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest Part564 capability",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DB migration not introduced",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 JavaScript syntax",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML changes limited to version/Part564 intake asset switch",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

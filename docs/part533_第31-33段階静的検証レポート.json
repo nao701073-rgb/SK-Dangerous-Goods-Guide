@@ -1,0 +1,260 @@
+{
+  "release": "part533",
+  "suite": "第31～第33段階静的検証",
+  "generatedAt": "2026-08-06T12:15:09.329Z",
+  "passed": 50,
+  "total": 50,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "管理画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面JS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシー",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Schema",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アプリ版",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "モジュール",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバー版",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ビルド",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "品質実行表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "是正候補表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "影響分析表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "不具合表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布候補表",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "GET API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "品質API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "候補確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "候補適用API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "候補検証API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "影響API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "影響承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "不具合API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布候補API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "提出API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布後確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "証跡改変検知",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第31見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第32見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第33見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "入力44px",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホCSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密注意",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "API接続",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "回帰自動入力",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "必須証跡7種",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "件数回帰",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "共通案件回帰",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力回帰",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "職務分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part529維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532維持",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

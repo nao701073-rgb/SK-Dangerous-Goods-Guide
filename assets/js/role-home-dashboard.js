@@ -50,9 +50,9 @@
     },
     "guest": {
       title:"ゲストホーム",
-      lead:"危険物検索、申請番号管理、申請書確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。",
+      lead:"危険物検索、申請番号管理、申請書取込・確認、固縛力参考算出、関連法令、関連資料およびユーザー設定を利用できます。",
       links:[
-        ["危険物を検索","pages/dangerous-goods-search.html"], ["申請番号を管理","pages/applications.html"], ["申請書を確認","pages/application-verification.html"], ["固縛力を算出","pages/ctu-securing-calculator.html"], ["関連法令を確認","pages/regulations.html"], ["関連資料を確認","pages/references.html"]
+        ["危険物を検索","pages/dangerous-goods-search.html"], ["申請番号を管理","pages/applications.html"], ["申請書を取り込んで確認","pages/application-intake-workflow.html"], ["固縛力を算出","pages/ctu-securing-calculator.html"], ["関連法令を確認","pages/regulations.html"], ["関連資料を確認","pages/references.html"]
       ]
     },
     "validator": {
@@ -100,7 +100,7 @@
       "safety-environment-director":["全事業所向けの危険物情報・法令・資料を確認","許可された設定・運用確認機能を利用","申請番号の正式管理は社内既存システムを参照"],
       "safety-environment-staff":["全事業所向けの危険物情報・法令・資料を閲覧","登録・更新・削除は不可"],
       "safety-environment-admin":["全事業所・全利用者・システム設定を管理","監査・セキュリティ・運用管理を実施"],
-      "guest":["危険物検索・申請番号管理・申請書確認・固縛力参考算出・関連法令・関連資料を利用","システム設定と各種管理画面は利用不可"],
+      "guest":["危険物検索・申請番号管理・申請書取込・確認・固縛力参考算出・関連法令・関連資料を利用","システム設定と各種管理画面は利用不可"],
       "validator":["検証対象画面と資料を閲覧","業務データの本登録・更新は不可"]
     };
     return notes[user?.role] || [];

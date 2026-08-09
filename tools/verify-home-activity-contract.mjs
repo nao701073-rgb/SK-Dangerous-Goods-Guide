@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const source = readFileSync(resolve(root, 'assets/js/app.js'), 'utf8');
 const css = readFileSync(resolve(root, 'assets/css/home-dashboard.css'), 'utf8');
 const home = readFileSync(resolve(root, 'index.html'), 'utf8');
+const version = JSON.parse(readFileSync(resolve(root, 'VERSION.json'), 'utf8'));
+const currentPart = String(version.part || '').trim();
 const checks = [
   ['検索履歴は実保存データを使用', source.includes('ISSStorage?.getSearchHistory?.()')],
   ['お気に入りは実保存データを使用', source.includes('ISSStorage?.getFavorites?.()')],
@@ -17,7 +20,7 @@ const checks = [
   ['メニューEscape操作', source.includes('event.key === "Escape"')],
   ['空状態の44px操作領域', css.includes('.simple-list__empty a') && css.includes('min-height: 44px')],
   ['スマートフォン下部安全領域', css.includes('env(safe-area-inset-bottom)')],
-  ['キャッシュ識別子更新', home.includes('home-dashboard.css?v=346') && home.includes('app.js?v=346')]
+  ['キャッシュ識別子更新', Boolean(currentPart) && home.includes(`home-dashboard.css?v=${currentPart}`) && home.includes(`app.js?v=${currentPart}`)]
 ];
 const failed = checks.filter(([, ok]) => !ok);
 console.log(JSON.stringify({ status: failed.length ? 'failed' : 'passed', checkCount: checks.length, failed: failed.map(([name]) => name) }, null, 2));

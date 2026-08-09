@@ -1,0 +1,148 @@
+{
+  "release": "part541",
+  "baseRelease": "part540",
+  "generatedAt": "2026-08-07T16:55:00+09:00",
+  "summary": {
+    "passed": 33,
+    "total": 33
+  },
+  "checks": [
+    {
+      "name": "貨物ユニット複数登録",
+      "passed": true
+    },
+    {
+      "name": "ラック対応",
+      "passed": true
+    },
+    {
+      "name": "パレット対応",
+      "passed": true
+    },
+    {
+      "name": "スキッド架台対応",
+      "passed": true
+    },
+    {
+      "name": "ドラム群対応",
+      "passed": true
+    },
+    {
+      "name": "シリンダー群対応",
+      "passed": true
+    },
+    {
+      "name": "混載対応",
+      "passed": true
+    },
+    {
+      "name": "多層積付け対応",
+      "passed": true
+    },
+    {
+      "name": "写真解析呼出",
+      "passed": true
+    },
+    {
+      "name": "手入力フォールバック",
+      "passed": true
+    },
+    {
+      "name": "貨物位置候補",
+      "passed": true
+    },
+    {
+      "name": "貨物→ラック接続",
+      "passed": true
+    },
+    {
+      "name": "ラック→CTU接続",
+      "passed": true
+    },
+    {
+      "name": "拘束方向候補",
+      "passed": true
+    },
+    {
+      "name": "候補の利用者確認",
+      "passed": true
+    },
+    {
+      "name": "写真だけでMSL確定しない",
+      "passed": true
+    },
+    {
+      "name": "不足kN説明",
+      "passed": true
+    },
+    {
+      "name": "現場説明文",
+      "passed": true
+    },
+    {
+      "name": "是正後写真",
+      "passed": true
+    },
+    {
+      "name": "MSL写真マーキング",
+      "passed": true
+    },
+    {
+      "name": "確認ワークフロー",
+      "passed": true
+    },
+    {
+      "name": "取付点変更履歴",
+      "passed": true
+    },
+    {
+      "name": "MSL報告書",
+      "passed": true
+    },
+    {
+      "name": "CSV出力",
+      "passed": true
+    },
+    {
+      "name": "取付点複数写真",
+      "passed": true
+    },
+    {
+      "name": "貨物側MSL写真",
+      "passed": true
+    },
+    {
+      "name": "CTU側MSL写真",
+      "passed": true
+    },
+    {
+      "name": "固縛ライン別採用MSL",
+      "passed": true
+    },
+    {
+      "name": "引張＋支保併用",
+      "passed": true
+    },
+    {
+      "name": "海上輸送初期値",
+      "passed": true
+    },
+    {
+      "name": "TY-GARD",
+      "passed": true
+    },
+    {
+      "name": "構文JSON検証",
+      "passed": true
+    },
+    {
+      "name": "Part541ポリシー検証",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "写真解析は同一オリジン /api/ctu/photo-analysis 接続時に自動読取を行う。未接続時は手入力へフォールバック。",
+    "写真外観のみからMSL・許容荷重・木材・ラック強度・適合を確定しない。",
+    "Part540までの計算・MSL写真台帳・確認履歴を維持。"
+  ]
+}

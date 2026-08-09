@@ -1,0 +1,184 @@
+{
+  "version": "part538",
+  "generatedAt": "2026-08-06T16:16:25.218Z",
+  "total": 35,
+  "passed": 35,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Part 538 build meta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea area B is quick default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea area B is detailed default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Combined tensile/support option",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Combined support inputs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Combination confirmation gate",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Conservative combination remains available",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Approved combination remains explicit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "MSL material/size estimator",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Cargo side MSL photo capture",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU side MSL photo capture",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Photo marking required",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Photo confirmed MSL apply",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Photo can be stored against application",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Photo metadata sanitation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard quick material option",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard rail profile exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard rail profile marked rail-only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard requires confirmed evidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard reference is not applied outside rail mode",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard reference is not applied as unconfirmed reference",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Ty-Gard warning avoids direct load-to-MSL transcription",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Device/cargo/CTU MSL roles retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Application verification uses desktop table",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Application verification cards hidden",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Registered application uses same column order",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Mobile registered application cards via CSS",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Result stores combined support evidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Result stores MSL estimates",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Result stores photo evidence metadata",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Reference values generate warnings until confirmed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Cargo/CTU photo does not auto infer strength",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Current calculation functions retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Direct lashing weak-link rule retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "All application names render in table",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,906 @@
+{
+  "release": "part547",
+  "generatedAt": "2026-08-07T09:59:39.595Z",
+  "passed": 224,
+  "total": 224,
+  "failed": 0,
+  "htmlCount": 73,
+  "checks": [
+    {
+      "name": "HTML count",
+      "status": "passed"
+    },
+    {
+      "name": "index.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "index.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "index.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-control.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-control.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-control.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-governance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-governance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/access-governance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-history.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-history.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-history.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-security-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-security-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/account-security-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/activate-account.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/activate-account.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/activate-account.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-succession.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-succession.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/admin-succession.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-intake-workflow.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-intake-workflow.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-intake-workflow.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-verification.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-verification.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/application-verification.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/applications.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/applications.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/applications.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-password.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-password.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-password.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/cloud-connection.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/cloud-connection.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/cloud-connection.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/completion-roadmap.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/completion-roadmap.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/completion-roadmap.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration-legacy.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration-legacy.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration-legacy.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-migration.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-quality-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-quality-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/data-quality-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/documentation-release-center.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/documentation-release-center.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/documentation-release-center.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ems.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ems.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/ems.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/favorites.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/favorites.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/favorites.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/feedback.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/feedback.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/feedback.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/final-production-readiness.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/final-production-readiness.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/final-production-readiness.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/identity-operations-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/identity-operations-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/identity-operations-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-operations-center.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-operations-center.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-operations-center.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-verification.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-verification.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/integrated-verification.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/label-catalog.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/label-catalog.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/label-catalog.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/login.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/login.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/login.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-monitoring.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-monitoring.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/operations-monitoring.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/overpack-label-tool.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/overpack-label-tool.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/overpack-label-tool.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-launch-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-launch-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/post-launch-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-identity-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-identity-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-identity-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-operations-hub.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-operations-hub.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-operations-hub.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-readiness.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-readiness.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/production-readiness.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/prototype-completion-review.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/prototype-completion-review.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/prototype-completion-review.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/publication-rights-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/publication-rights-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/publication-rights-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/references.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/references.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/references.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-update-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-update-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulation-update-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulations.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulations.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/regulations.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/release-candidate-summary.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/release-candidate-summary.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/release-candidate-summary.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/reset-password.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/reset-password.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/reset-password.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/revision-preview.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/revision-preview.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/revision-preview.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/search-history.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/search-history.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/search-history.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/security-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/security-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/security-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/settings.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/settings.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/settings.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-maintenance.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-maintenance.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-maintenance.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-settings.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-settings.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-settings.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-wide-search.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-wide-search.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/system-wide-search.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-activity-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-activity-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-activity-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/user-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/validation-admin.html: sk-build part547",
+      "status": "passed"
+    },
+    {
+      "name": "pages/validation-admin.html: build manifest cache key",
+      "status": "passed"
+    },
+    {
+      "name": "pages/validation-admin.html: version guard cache key",
+      "status": "passed"
+    },
+    {
+      "name": "system build manifest part547",
+      "status": "passed"
+    },
+    {
+      "name": "version guard one-time retry",
+      "status": "passed"
+    },
+    {
+      "name": "version guard cache bust",
+      "status": "passed"
+    },
+    {
+      "name": "warning retained after retry",
+      "status": "passed"
+    }
+  ]
+}

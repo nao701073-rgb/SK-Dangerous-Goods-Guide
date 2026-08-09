@@ -1,0 +1,260 @@
+{
+  "release": "part533",
+  "suite": "Part531第25～第27段階回帰検証",
+  "generatedAt": "2026-08-06T12:16:28.542Z",
+  "passed": 50,
+  "total": 50,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "統合管理画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面JavaScript",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシーモジュール",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JSON Schema",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "設定画面導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531機能をPart532で維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アプリ版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理モジュール登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバー版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ビルドマニフェスト",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証スクリプト登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "健全性テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成基準テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成差分テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "改善施策テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビューサイクルテーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大度制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "統合GET API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "健全性API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成基準API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成差分API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "差分是正API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "差分検証API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "改善施策API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "改善完了API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "効果確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビューAPI",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー提出API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー確認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー承認API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "証跡改変検知",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "信頼性ゲート",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第25段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第26段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第27段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "公開画面系カード",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホCSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "秘密情報注意",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理API接続",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "バックアップ鮮度",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "復元試験鮮度",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "秘密情報拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "職務分離差分",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "職務分離改善",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "三者承認",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part529共通案件維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証機能維持",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

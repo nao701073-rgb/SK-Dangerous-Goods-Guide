@@ -1,0 +1,295 @@
+{
+  "generatedAt": "2026-08-06T15:18:53.019Z",
+  "release": "part537",
+  "status": "passed",
+  "total": 57,
+  "passed": 57,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "共通案件APIを公開",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "複数危険物正規化API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認結果変換API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力反映API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認結果を2行へ変換",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "UN1077正規化",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "UN1953正規化",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "個数を保持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "1容器正味質量を保持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "総質量を保持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "P200原文ページを保持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "UN1953許可確認を自動設定",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "UN1077は一般P200案内",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "個数合計",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "正味質量合計",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "総質量合計",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力計算質量は総質量優先",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "旧単一危険物項目への互換値",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB snake_case case_data対応",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理に共通案件欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理に複数危険物編集欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理で共通CSS使用",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理で共通JS使用",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理の現行版識別",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "案件カードから固縛力参考算出へ遷移",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CSVへ危険物明細を行単位出力",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請登録payloadにcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面に共通案件パネル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面に危険物編集欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号URL引継ぎ",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "共通案件を算出へ反映",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面から申請番号へ保存",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面の現行版識別",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認画面で共通モジュール読込",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認結果から既存案件へ自動反映",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認結果から新規案件へ危険物明細保存",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ローカル保存にcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバーcase_data取込",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同期createにcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同期updateにcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "APIスキーマにcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB登録でcase_data保存",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB更新でcase_data保存",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同期APIでcase_data更新",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査スナップショットにcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション存在",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "case_data jsonb追加",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "case_data object制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "case_data GIN索引",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "公開画面基準のネイビー色",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理用外観統一",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面用外観統一",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホ用レスポンシブ",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "VERSION現行版整合",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力参考算出をactive化",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面統一基準を設定へ記録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "共通案件スキーマ存在",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

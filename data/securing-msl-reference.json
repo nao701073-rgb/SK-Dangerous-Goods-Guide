@@ -1,0 +1,350 @@
+{
+  "version": "part538",
+  "generatedAt": "2026-08-07",
+  "policy": {
+    "priority": [
+      "manufacturer-documented-msl",
+      "marking-or-certificate",
+      "approved-test-result",
+      "reference-candidate"
+    ],
+    "note": "候補値は入力補助です。メーカー仕様、刻印、証明書、試験成績または承認資料で確認したMSLを優先してください。貨物側取付部とCTU側固縛点は、材質・断面寸法だけで溶接部、局部強度、荷重方向を評価できないため、登録済み製品・図面・試験の確認値がある場合だけ候補を表示します。 TY-GARDの耐荷重表示は製品型式、幅、貼付長さ、接着面、施工配置、輸送モードに依存するため、参考値だけでは確定せずメーカー・承認資料を確認してください。"
+  },
+  "factors": {
+    "shackle": {
+      "label": "シャックル・リング・デッキアイ・ターンバックル",
+      "value": 0.5
+    },
+    "fibre": {
+      "label": "繊維ロープ",
+      "value": 0.33
+    },
+    "web": {
+      "label": "ウェブラッシング・織物の綱",
+      "value": 0.5
+    },
+    "wireSingle": {
+      "label": "ワイヤーロープ（使い捨て）",
+      "value": 0.8
+    },
+    "wireReusable": {
+      "label": "ワイヤーロープ（再使用）",
+      "value": 0.3
+    },
+    "steelBand": {
+      "label": "鉄帯・帯鉄（使い捨て）",
+      "value": 0.7
+    },
+    "chain": {
+      "label": "チェーン",
+      "value": 0.5
+    },
+    "marked": {
+      "label": "表示・証明済みMSL",
+      "value": 1
+    }
+  },
+  "roles": {
+    "device": {
+      "label": "固縛材（1本当たり）",
+      "targetInput": "quickStrength",
+      "materials": [
+        {
+          "value": "aslash",
+          "label": "アスラッシュ・ポリエステル系"
+        },
+        {
+          "value": "steel",
+          "label": "帯鉄"
+        },
+        {
+          "value": "wire",
+          "label": "ワイヤーロープ"
+        },
+        {
+          "value": "chain",
+          "label": "チェーン"
+        },
+        {
+          "value": "web",
+          "label": "ウェブラッシング"
+        },
+        {
+          "value": "tygard",
+          "label": "TY-GARD（鉄道ラッシング）"
+        },
+        {
+          "value": "other",
+          "label": "その他・製品仕様を入力"
+        }
+      ],
+      "profiles": [
+        {
+          "id": "aslash-aw200",
+          "material": "aslash",
+          "size": "AW200",
+          "label": "AW200（最大システム強度 8,500 kgf参考）",
+          "nominalStrengthKn": 83.36,
+          "factorKey": "web",
+          "efficiency": 1,
+          "candidateMslKn": 41.7,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "aslash-aw300",
+          "material": "aslash",
+          "size": "AW300",
+          "label": "AW300（直線破断強度 6,500 kgf参考）",
+          "nominalStrengthKn": 63.74,
+          "factorKey": "web",
+          "efficiency": 1,
+          "candidateMslKn": 31.9,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "steel-31-08",
+          "material": "steel",
+          "size": "31.75×0.80 mm",
+          "label": "31.75×0.80 mm（静止試験下限参考）",
+          "nominalStrengthKn": 17.3,
+          "factorKey": "steelBand",
+          "efficiency": 1,
+          "candidateMslKn": 12.1,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "steel-31-145",
+          "material": "steel",
+          "size": "31.75×1.45 mm",
+          "label": "31.75×1.45 mm（静止試験上限参考）",
+          "nominalStrengthKn": 46.09,
+          "factorKey": "steelBand",
+          "efficiency": 1,
+          "candidateMslKn": 32.3,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "wire-16-2clip",
+          "material": "wire",
+          "size": "16 mm・クリップ2個",
+          "label": "16 mm・クリップ2個（システム強度 8,500 kgf参考）",
+          "nominalStrengthKn": 83.36,
+          "factorKey": "wireReusable",
+          "efficiency": 1,
+          "candidateMslKn": 25,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "wire-16-4clip",
+          "material": "wire",
+          "size": "16 mm・クリップ4個",
+          "label": "16 mm・クリップ4個（システム強度 17,000 kgf参考）",
+          "nominalStrengthKn": 166.71,
+          "factorKey": "wireReusable",
+          "efficiency": 1,
+          "candidateMslKn": 50,
+          "source": "既存の固縛材比較資料",
+          "referenceOnly": true
+        },
+        {
+          "id": "chain-marked-20",
+          "material": "chain",
+          "size": "表示20 kN",
+          "label": "チェーン・表示／証明済みMSL 20 kN",
+          "nominalStrengthKn": 20,
+          "factorKey": "marked",
+          "efficiency": 1,
+          "candidateMslKn": 20,
+          "source": "表示・証明値テンプレート"
+        },
+        {
+          "id": "web-marked-20",
+          "material": "web",
+          "size": "表示20 kN",
+          "label": "ウェブラッシング・表示／証明済みMSL 20 kN",
+          "nominalStrengthKn": 20,
+          "factorKey": "marked",
+          "efficiency": 1,
+          "candidateMslKn": 20,
+          "source": "表示・証明値テンプレート"
+        },
+        {
+          "id": "tygard-ds-rail-60",
+          "material": "tygard",
+          "size": "TY-GARD DS 60 cm幅・鉄道輸送",
+          "label": "TY-GARD DS 60 cm幅（鉄道輸送時の耐荷重8 ton参考）",
+          "nominalStrengthKn": 78.45,
+          "factorKey": "marked",
+          "efficiency": 1,
+          "candidateMslKn": 78.5,
+          "source": "TY-GARD日本総代理店の商品資料（鉄道輸送時の耐荷重8 ton）",
+          "referenceOnly": true,
+          "railOnly": true,
+          "requiresConfirmedEvidence": true,
+          "sourceUrl": "https://webciss.sankyu.co.jp/portal/ty-gard/asp/newsitem.asp?nw_id=1076"
+        },
+        {
+          "id": "tygard-approved-manual",
+          "material": "tygard",
+          "size": "メーカー承認配置・任意",
+          "label": "TY-GARD（承認された型式・幅・貼付長さの確認値を入力）",
+          "manual": true,
+          "factorKey": "marked",
+          "source": "メーカー仕様・AAR等の承認資料・施工要領",
+          "railOnly": true,
+          "requiresConfirmedEvidence": true
+        },
+        {
+          "id": "device-manual",
+          "material": "other",
+          "size": "任意",
+          "label": "その他（公称強度と係数を手入力）",
+          "manual": true,
+          "factorKey": "marked",
+          "source": "手入力"
+        }
+      ]
+    },
+    "cargo": {
+      "label": "貨物側取付部",
+      "targetInput": "quickCargoMsl",
+      "materials": [
+        {
+          "value": "steelEye",
+          "label": "鋼製アイ・ラグ・ブラケット"
+        },
+        {
+          "value": "castPoint",
+          "label": "鋳造取付部"
+        },
+        {
+          "value": "machinePoint",
+          "label": "機械・貨物メーカー指定取付点"
+        },
+        {
+          "value": "other",
+          "label": "その他・図面／試験値を入力"
+        }
+      ],
+      "profiles": [
+        {
+          "id": "cargo-steel-10",
+          "material": "steelEye",
+          "size": "図面・試験定格10 kN",
+          "label": "鋼製取付部・図面／試験定格 10 kN",
+          "nominalStrengthKn": 10,
+          "factorKey": "marked",
+          "candidateMslKn": 10,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "cargo-steel-20",
+          "material": "steelEye",
+          "size": "図面・試験定格20 kN",
+          "label": "鋼製取付部・図面／試験定格 20 kN",
+          "nominalStrengthKn": 20,
+          "factorKey": "marked",
+          "candidateMslKn": 20,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "cargo-steel-30",
+          "material": "steelEye",
+          "size": "図面・試験定格30 kN",
+          "label": "鋼製取付部・図面／試験定格 30 kN",
+          "nominalStrengthKn": 30,
+          "factorKey": "marked",
+          "candidateMslKn": 30,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "cargo-machine-50",
+          "material": "machinePoint",
+          "size": "メーカー指定50 kN",
+          "label": "メーカー指定取付点・確認済み 50 kN",
+          "nominalStrengthKn": 50,
+          "factorKey": "marked",
+          "candidateMslKn": 50,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "cargo-manual",
+          "material": "other",
+          "size": "任意",
+          "label": "その他（図面・試験・メーカー値を手入力）",
+          "manual": true,
+          "factorKey": "marked",
+          "source": "手入力"
+        }
+      ]
+    },
+    "ctu": {
+      "label": "CTU側固縛点",
+      "targetInput": "quickCtuMsl",
+      "materials": [
+        {
+          "value": "ctuSteelPoint",
+          "label": "鋼製CTU固縛点"
+        },
+        {
+          "value": "deckEye",
+          "label": "デッキアイ・リング"
+        },
+        {
+          "value": "railPoint",
+          "label": "レール・専用金具"
+        },
+        {
+          "value": "other",
+          "label": "その他・CTU表示／証明値を入力"
+        }
+      ],
+      "profiles": [
+        {
+          "id": "ctu-steel-10",
+          "material": "ctuSteelPoint",
+          "size": "表示10 kN",
+          "label": "CTU固縛点・表示／証明済み 10 kN",
+          "nominalStrengthKn": 10,
+          "factorKey": "marked",
+          "candidateMslKn": 10,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "ctu-steel-20",
+          "material": "ctuSteelPoint",
+          "size": "表示20 kN",
+          "label": "CTU固縛点・表示／証明済み 20 kN",
+          "nominalStrengthKn": 20,
+          "factorKey": "marked",
+          "candidateMslKn": 20,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "ctu-deck-50",
+          "material": "deckEye",
+          "size": "表示50 kN",
+          "label": "デッキアイ・表示／証明済み 50 kN",
+          "nominalStrengthKn": 50,
+          "factorKey": "marked",
+          "candidateMslKn": 50,
+          "source": "確認値テンプレート"
+        },
+        {
+          "id": "ctu-manual",
+          "material": "other",
+          "size": "任意",
+          "label": "その他（CTU表示・証明値を手入力）",
+          "manual": true,
+          "factorKey": "marked",
+          "source": "手入力"
+        }
+      ]
+    }
+  }
+}

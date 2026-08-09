@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "release": "v1.3",
+  "auditedManifestRelease": "part521",
+  "fileCount": 1869,
+  "totalBytes": 318171573,
+  "totalMiB": 303.43,
+  "exactDuplicateGroups": 18,
+  "maximumExactDuplicateReclaimBytes": 10531203,
+  "maximumExactDuplicateReclaimMiB": 10.04,
+  "cleanupPolicy": "Only exact SHA-256 duplicates that are not referenced by runtime text are candidates for deletion. Legal/IMDG/reference/placard assets are otherwise preserved.",
+  "largestAreas": [
+    {
+      "path": "images/labels",
+      "bytes": 59918193,
+      "MiB": 57.14
+    },
+    {
+      "path": "assets/domestic-law-pages",
+      "bytes": 57875362,
+      "MiB": 55.19
+    },
+    {
+      "path": "assets/pdf-page-images",
+      "bytes": 55681591,
+      "MiB": 53.1
+    },
+    {
+      "path": "references/excerpts",
+      "bytes": 41806446,
+      "MiB": 39.87
+    },
+    {
+      "path": "assets/reference-images",
+      "bytes": 34093386,
+      "MiB": 32.51
+    },
+    {
+      "path": "references/originals",
+      "bytes": 26173265,
+      "MiB": 24.96
+    },
+    {
+      "path": "assets/images",
+      "bytes": 20659099,
+      "MiB": 19.7
+    },
+    {
+      "path": "assets/domestic-law-bundles",
+      "bytes": 5947351,
+      "MiB": 5.67
+    },
+    {
+      "path": "data/un-data.js",
+      "bytes": 3359844,
+      "MiB": 3.2
+    },
+    {
+      "path": "assets/js",
+      "bytes": 1741179,
+      "MiB": 1.66
+    },
+    {
+      "path": "data/legal-code-master-codes.js",
+      "bytes": 1235389,
+      "MiB": 1.18
+    },
+    {
+      "path": "images/guides",
+      "bytes": 1143236,
+      "MiB": 1.09
+    }
+  ],
+  "exactDuplicateGroupsDetail": [
+    [
+      {
+        "path": "assets/images/login-port-day-v365.jpg",
+        "size": 1950503
+      },
+      {
+        "path": "assets/images/login-port-day.jpg",
+        "size": 1950503
+      }
+    ],
+    [
+      {
+        "path": "assets/images/login-port-morning-v365.jpg",
+        "size": 1901849
+      },
+      {
+        "path": "assets/images/login-port-morning.jpg",
+        "size": 1901849
+      }
+    ],
+    [
+      {
+        "path": "assets/images/login-port-evening-v365.jpg",
+        "size": 1794378
+      },
+      {
+        "path": "assets/images/login-port-evening.jpg",
+        "size": 1794378
+      }
+    ],
+    [
+      {
+        "path": "assets/images/login-port-night-v365.jpg",
+        "size": 1540788
+      },
+      {
+        "path": "assets/images/login-port-night.jpg",
+        "size": 1540788
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-205-205.png",
+        "size": 368747
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-205.png",
+        "size": 368747
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-214-214.png",
+        "size": 365298
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-214.png",
+        "size": 365298
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-215-215.png",
+        "size": 338738
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-215.png",
+        "size": 338738
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-177-177.png",
+        "size": 322056
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-177.png",
+        "size": 322056
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-142-142.png",
+        "size": 318160
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-142.png",
+        "size": 318160
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-184-184.png",
+        "size": 305749
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-184.png",
+        "size": 305749
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-148-148.png",
+        "size": 294508
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-148.png",
+        "size": 294508
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-149-149.png",
+        "size": 288485
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-149.png",
+        "size": 288485
+      }
+    ],
+    [
+      {
+        "path": "assets/domestic-law-pages/notification/page-139-139.png",
+        "size": 279026
+      },
+      {
+        "path": "assets/domestic-law-pages/notification/page-139.png",
+        "size": 279026
+      }
+    ],
+    [
+      {
+        "path": "assets/reference-images/imdg-clauses/7-3-2-3-p498.jpg",
+        "size": 232671
+      },
+      {
+        "path": "assets/reference-images/imdg-clauses/7-3-4-p498.jpg",
+        "size": 232671
+      }
+    ],
+    [
+      {
+        "path": "assets/reference-images/imdg-clauses/7-3-4-p499.jpg",
+        "size": 152818
+      },
+      {
+        "path": "assets/reference-images/imdg-clauses/7-3-6-p499.jpg",
+        "size": 152818
+      }
+    ],
+    [
+      {
+        "path": "docs/Part383/03_Part383_%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%A1%E3%83%A2.docx",
+        "size": 38515
+      },
+      {
+        "path": "docs/Part383/legacy_5c9fbd7597.docx",
+        "size": 38515
+      }
+    ],
+    [
+      {
+        "path": "docs/Part384/03_Part384_%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%A1%E3%83%A2.docx",
+        "size": 38515
+      },
+      {
+        "path": "docs/Part384/legacy_8fbe7fe07a.docx",
+        "size": 38515
+      }
+    ],
+    [
+      {
+        "path": "UPDATE_INSTRUCTIONS.txt",
+        "size": 399
+      },
+      {
+        "path": "UPDATE_INSTRUCTIONS_PART521_PHASE14.txt",
+        "size": 399
+      }
+    ]
+  ],
+  "automaticLossyCompression": false,
+  "legalReferenceAssetDeletion": false
+}

@@ -1,0 +1,84 @@
+{
+  "release": "part532",
+  "title": "Part 532 総合検証レポート",
+  "generatedAt": "2026-08-06T11:46:38.794276+00:00",
+  "status": "passed",
+  "scope": [
+    "第28段階 DB・検索性能と索引品質",
+    "第29段階 申請書・写真・添付資料の参照健全性",
+    "第30段階 申請番号・共通案件情報・固縛力算出の横断整合性"
+  ],
+  "automatedChecks": {
+    "passed": 367,
+    "total": 367,
+    "failed": 0,
+    "suites": [
+      {
+        "name": "第28～第30段階ポリシー単体検証",
+        "passed": 55,
+        "total": 55
+      },
+      {
+        "name": "第28～第30段階静的検証",
+        "passed": 51,
+        "total": 51
+      },
+      {
+        "name": "Part529共通案件情報回帰検証",
+        "passed": 57,
+        "total": 57
+      },
+      {
+        "name": "Part530保証・セキュリティ・外部監査回帰検証",
+        "passed": 49,
+        "total": 49
+      },
+      {
+        "name": "Part531基盤信頼性・構成管理回帰検証",
+        "passed": 50,
+        "total": 50
+      },
+      {
+        "name": "第19～第21段階ポリシー回帰検証",
+        "passed": 41,
+        "total": 41
+      },
+      {
+        "name": "第19～第21段階静的回帰検証",
+        "passed": 64,
+        "total": 64
+      }
+    ]
+  },
+  "staticQa": {
+    "status": "passed",
+    "findingCount": 0,
+    "stats": {
+      "html": 70,
+      "js": 235,
+      "json": 138,
+      "refs": 1441,
+      "bytes": 317936104
+    }
+  },
+  "syntax": {
+    "javascriptFiles": 235,
+    "javascriptErrors": 0,
+    "jsonFiles": 138,
+    "jsonErrors": 0
+  },
+  "dangerousGoodsData": {
+    "recordCount": 2725,
+    "uniqueUnCount": 2248,
+    "errors": 0,
+    "warnings": 0
+  },
+  "productionEnvironmentRequired": [
+    "PostgreSQLマイグレーションの実適用",
+    "実DB統計によるDB・検索性能測定",
+    "実ファイル保存領域の欠落・孤立・SHA-256・マルウェアスキャン確認",
+    "申請番号・共通案件情報・固縛力参考算出の実データ整合性確認",
+    "異なる利用者による是正・検証・三者承認",
+    "PC・スマートフォン実端末表示確認"
+  ]
+}

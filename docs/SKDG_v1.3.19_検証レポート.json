@@ -1,0 +1,105 @@
+{
+  "release": "v1.3.19",
+  "checks": [
+    {
+      "name": "内部バージョン v1.3.19",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "表示バージョン維持",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DB移行なし",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "login meta v1.3.19",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "login CSS cache v1319",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "従来4K港湾背景をpreload",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "従来4K港湾背景をCSS固定",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "背景指定を後続処理から保護",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "時間帯切替スクリプトを削除",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1.3.18のinline背景上書きを削除",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "背景レイヤーは表示面",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ログインUIは背景より前面",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "body独立stacking context",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "従来4K背景画像を同梱",
+      "ok": true,
+      "detail": "2738883 bytes"
+    },
+    {
+      "name": "従来4K背景サイズ 3840x2160",
+      "ok": true,
+      "detail": "(3840, 2160)"
+    },
+    {
+      "name": "manifest v1.3.19",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同梱JavaScript構文",
+      "ok": true,
+      "detail": "8 files"
+    },
+    {
+      "name": "指定背景画像はv1.3.18同梱の従来画像そのもの",
+      "ok": true,
+      "detail": "bfe95260336671535620ab85de8e0fefee9250f333266856b129a395ee8a9fcc"
+    }
+  ],
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0
+  },
+  "browserRuntime": {
+    "attempted": true,
+    "result": "timeout",
+    "note": "Chromium headlessはこのコンテナで20秒タイムアウト。ブラウザE2E成功とはしていない。"
+  }
+}

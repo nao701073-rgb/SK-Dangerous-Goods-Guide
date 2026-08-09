@@ -1,0 +1,12 @@
+{
+  "release": "part510",
+  "drillType": "full-migration",
+  "status": "passed",
+  "generatedAt": "2026-08-05T13:35:44.854869+00:00",
+  "stagedRelease": "part510-test",
+  "fileCount": 1697,
+  "totalBytes": 320149852,
+  "javascriptSyntaxErrors": 0,
+  "durationSeconds": 6,
+  "productionChanged": false
+}

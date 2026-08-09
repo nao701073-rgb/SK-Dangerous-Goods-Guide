@@ -1,0 +1,206 @@
+{
+  "release": "part544",
+  "baseRelease": "part543",
+  "generatedAt": "2026-08-07T17:45:00+09:00",
+  "summary": {
+    "passed": 47,
+    "total": 47
+  },
+  "checks": [
+    {
+      "name": "列判定は完全一致優先",
+      "passed": true
+    },
+    {
+      "name": "容器等級列を容器コードから除外",
+      "passed": true
+    },
+    {
+      "name": "IIを容器コードにしない",
+      "passed": true
+    },
+    {
+      "name": "行内容器コード補助探索",
+      "passed": true
+    },
+    {
+      "name": "Part544 policy build marker",
+      "passed": true
+    },
+    {
+      "name": "個数強調",
+      "passed": true
+    },
+    {
+      "name": "1容器当たり正味質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容容量・許容質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容値フィールドへdisplayを反映",
+      "passed": true
+    },
+    {
+      "name": "少量危険物取込フラグ対応",
+      "passed": true
+    },
+    {
+      "name": "少量30kg維持",
+      "passed": true
+    },
+    {
+      "name": "20%近接維持",
+      "passed": true
+    },
+    {
+      "name": "規定量超過維持",
+      "passed": true
+    },
+    {
+      "name": "旧公開版風の上部確認帯",
+      "passed": true
+    },
+    {
+      "name": "PC重要3項目横並び",
+      "passed": true
+    },
+    {
+      "name": "スマホ1列",
+      "passed": true
+    },
+    {
+      "name": "Part544 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 policy参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 JS参照",
+      "passed": true
+    },
+    {
+      "name": "編集フォーム維持",
+      "passed": true
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow-policy.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part544-policy.cjs",
+      "passed": true
+    },
+    {
+      "name": "JS構文 server/scripts/test-part544-container-extract.cjs",
+      "passed": true
+    },
+    {
+      "name": "VERSION JSON",
+      "passed": true
+    },
+    {
+      "name": "容器等級IIと容器コード1A1/1A2を分離して取込",
+      "passed": true
+    },
+    {
+      "name": "UN1133 PG II はP001",
+      "passed": true
+    },
+    {
+      "name": "1A1許容容量450Lデータ確認",
+      "passed": true
+    },
+    {
+      "name": "1A2許容容量250Lデータ確認",
+      "passed": true
+    },
+    {
+      "name": "450L対416kgは容量比較要確認対象",
+      "passed": true
+    },
+    {
+      "name": "450L対360kgは20%境界内",
+      "passed": true
+    },
+    {
+      "name": "450L対359kgは20%範囲外",
+      "passed": true
+    },
+    {
+      "name": "450L対100kgは警告対象外",
+      "passed": true
+    },
+    {
+      "name": "Part544 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 policy参照",
+      "passed": true
+    },
+    {
+      "name": "Part544 workflow参照",
+      "passed": true
+    },
+    {
+      "name": "個数優先表示",
+      "passed": true
+    },
+    {
+      "name": "許容容量/許容質量優先表示",
+      "passed": true
+    },
+    {
+      "name": "許容値の編集欄自動反映",
+      "passed": true
+    },
+    {
+      "name": "上部確認帯",
+      "passed": true
+    },
+    {
+      "name": "超過強調",
+      "passed": true
+    },
+    {
+      "name": "スマホ1列",
+      "passed": true
+    },
+    {
+      "name": "Part544 manifest",
+      "passed": true
+    },
+    {
+      "name": "20%ルール",
+      "passed": true
+    },
+    {
+      "name": "少量危険物ルール",
+      "passed": true
+    },
+    {
+      "name": "全画面ビルドメタPart544",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "容器等級列を容器コードとして誤認する取込不具合を修正。",
+    "危険物No.ごとに個数・1容器当たり正味質量・許容容量/許容質量をカード上部へ常時表示。",
+    "UN1133/PG IIでは1A1=450L、1A2=250Lのマスター値を確認。",
+    "Lとkgは換算せず、±20%以内の近接時だけ「容量比較 要確認」。",
+    "少量危険物の内装上限・外装30kgルールを維持。"
+  ]
+}

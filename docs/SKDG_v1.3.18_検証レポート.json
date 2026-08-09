@@ -1,0 +1,85 @@
+{
+  "release": "v1.3.18",
+  "checks": [
+    {
+      "name": "内部バージョン v1.3.18",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "表示バージョン維持",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DB移行なし",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "login meta v1.3.18",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS cache v1318",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "negative z-index上書き",
+      "ok": true,
+      "detail": "login-sceneをbody背景の背面へ置かない"
+    },
+    {
+      "name": "ログインUI前面",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "独立stacking context",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "朝背景",
+      "ok": true,
+      "detail": "assets/images/login-port-morning.jpg"
+    },
+    {
+      "name": "昼背景",
+      "ok": true,
+      "detail": "assets/images/login-port-day.jpg"
+    },
+    {
+      "name": "夕背景",
+      "ok": true,
+      "detail": "assets/images/login-port-evening.jpg"
+    },
+    {
+      "name": "夜背景",
+      "ok": true,
+      "detail": "assets/images/login-port-night.jpg"
+    },
+    {
+      "name": "旧4K背景fallback",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "file://向けDOM適用",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest v1.3.18",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0
+  }
+}

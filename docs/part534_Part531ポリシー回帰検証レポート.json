@@ -1,0 +1,250 @@
+{
+  "release": "part531",
+  "suite": "第25～第27段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T12:51:28.814Z",
+  "passed": 48,
+  "total": 48,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "重大差分期限1日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高差分期限7日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "中差分期限30日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "低差分期限90日",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "正常健全性入力",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "応答警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "エラー率重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CPU重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "メモリ警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "保存領域重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "バックアップ重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "復元試験重大",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来測定拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "割合上限拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "環境不正拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成基準正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成SHA拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "パスワード記載拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "メール記載拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "秘密鍵記載拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "保管参照必須",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "構成差分正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来差分拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "短い差分説明拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大度不正拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "責任者の自己是正拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別実施者の是正許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "是正者の自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別担当者の差分検証許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "改善責任者の自己完了拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "改善実施者の自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "別担当者の改善検証許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "作成者の自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者の自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "三者分離承認許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "正常ゲート通過",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "本番測定なし遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "本番測定古い遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "本番重大遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "バックアップ超過遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "復元試験超過遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高差分遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証済み高差分許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "中差分期限超過遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "高改善未完了遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "低改善期限超過遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証済み改善許可",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

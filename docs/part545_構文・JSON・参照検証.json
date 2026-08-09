@@ -1,0 +1,201 @@
+{
+  "release": "part545",
+  "baseRelease": "part544",
+  "generatedAt": "2026-08-07T18:30:00+09:00",
+  "summary": {
+    "passed": 38,
+    "total": 38
+  },
+  "checks": [
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/application-packing-reference-part545.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 server/scripts/verify-part545-policy.cjs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION JSON",
+      "passed": true,
+      "detail": "{'version': 'part545', 'part': 545, 'baseRelease': 'part544-application-precheck-readability', 'date': '2026-08-07', 'summary': '申請書事前審査でP・P200・IBC・ポータブルタンク要件を容器コードと危険物マスターから判別。全P/IBC/Tコードの危告示原文ジャンプ、P200許容容量とx許可案内、IBCの全材質コード・細分類に基づく最大内容積判定、Tコード要件表示に対応。', 'updatedAt': '2026-08-07T18:30:00+09:00', 'baseVersion': 'part544', 'generatedAt': '2026-08-07T18:30:00+09:00'}"
+    },
+    {
+      "name": "Part545 helper参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part545 CSS参照",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "参照包装要件表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "参照IBC要件表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "参照ポータブルタンク要件表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "P200 x指定文言",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "P200標準容量",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC全材質マスター",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC HZワイルドカード照合",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC 1250L例外",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC最大内容積原文353頁",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "20%ルール",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "少量危険物30kgルール",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part545 build manifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC全材質機能フラグ",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC材質仕様文書",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "IBC材質仕様文書Z説明",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 A",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 B",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 C",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 D",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 F",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 G",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 H",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 L",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 M",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 Z置換材質 N",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 最大内容積3000L",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 最大内容積1500L",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示353頁 最大内容積1250L",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示352頁 HZ1硬質内容器",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "危告示352頁 HZ2フレキシブル内容器",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全画面ビルドメタPart545",
+      "passed": true,
+      "detail": "stale=[], count=70"
+    }
+  ]
+}

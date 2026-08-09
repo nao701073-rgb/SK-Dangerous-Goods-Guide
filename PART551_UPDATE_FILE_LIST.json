@@ -1,0 +1,347 @@
+{
+  "version": "part551",
+  "baseVersion": "part550",
+  "fileCount": 87,
+  "files": [
+    {
+      "path": "README.md",
+      "size": 726
+    },
+    {
+      "path": "UPDATE_INSTRUCTIONS_PART551.txt",
+      "size": 751
+    },
+    {
+      "path": "VERSION.json",
+      "size": 470
+    },
+    {
+      "path": "assets/css/application-detail-part551.css",
+      "size": 6161
+    },
+    {
+      "path": "assets/css/ctu-securing-part551.css",
+      "size": 3793
+    },
+    {
+      "path": "assets/js/application-detail-part551.js",
+      "size": 10719
+    },
+    {
+      "path": "assets/js/ctu-workflow-part551.js",
+      "size": 13290
+    },
+    {
+      "path": "data/build-manifest.js",
+      "size": 8514
+    },
+    {
+      "path": "docs/Part551_固縛力算出操作簡略化・登録詳細整理.md",
+      "size": 2140
+    },
+    {
+      "path": "docs/part551_総合検証レポート.json",
+      "size": 3247
+    },
+    {
+      "path": "index.html",
+      "size": 25211
+    },
+    {
+      "path": "pages/access-control.html",
+      "size": 3006
+    },
+    {
+      "path": "pages/access-governance-admin.html",
+      "size": 4562
+    },
+    {
+      "path": "pages/account-history.html",
+      "size": 3537
+    },
+    {
+      "path": "pages/account-security-admin.html",
+      "size": 3548
+    },
+    {
+      "path": "pages/activate-account.html",
+      "size": 2213
+    },
+    {
+      "path": "pages/admin-governance-dashboard.html",
+      "size": 5534
+    },
+    {
+      "path": "pages/admin-succession.html",
+      "size": 12901
+    },
+    {
+      "path": "pages/application-detail.html",
+      "size": 2270
+    },
+    {
+      "path": "pages/application-intake-workflow.html",
+      "size": 10161
+    },
+    {
+      "path": "pages/application-verification.html",
+      "size": 15300
+    },
+    {
+      "path": "pages/applications.html",
+      "size": 54018
+    },
+    {
+      "path": "pages/assurance-security-audit-admin.html",
+      "size": 10782
+    },
+    {
+      "path": "pages/change-password.html",
+      "size": 5076
+    },
+    {
+      "path": "pages/change-release-governance-admin.html",
+      "size": 7873
+    },
+    {
+      "path": "pages/cloud-connection.html",
+      "size": 4113
+    },
+    {
+      "path": "pages/completion-roadmap.html",
+      "size": 3602
+    },
+    {
+      "path": "pages/ctu-securing-calculator.html",
+      "size": 209262
+    },
+    {
+      "path": "pages/dangerous-goods-detail.html",
+      "size": 12112
+    },
+    {
+      "path": "pages/dangerous-goods-search.html",
+      "size": 16566
+    },
+    {
+      "path": "pages/data-integrity-performance-admin.html",
+      "size": 12703
+    },
+    {
+      "path": "pages/data-migration-legacy.html",
+      "size": 4226
+    },
+    {
+      "path": "pages/data-migration.html",
+      "size": 8461
+    },
+    {
+      "path": "pages/data-quality-admin.html",
+      "size": 4091
+    },
+    {
+      "path": "pages/deployment-execution-admin.html",
+      "size": 4185
+    },
+    {
+      "path": "pages/deployment-readiness-package.html",
+      "size": 3980
+    },
+    {
+      "path": "pages/distribution-continuity-admin.html",
+      "size": 9909
+    },
+    {
+      "path": "pages/documentation-release-center.html",
+      "size": 5340
+    },
+    {
+      "path": "pages/ems.html",
+      "size": 3524
+    },
+    {
+      "path": "pages/favorites.html",
+      "size": 1852
+    },
+    {
+      "path": "pages/feedback.html",
+      "size": 6956
+    },
+    {
+      "path": "pages/final-production-readiness.html",
+      "size": 3249
+    },
+    {
+      "path": "pages/identity-operations-admin.html",
+      "size": 3339
+    },
+    {
+      "path": "pages/imdg-cross-reference.html",
+      "size": 3413
+    },
+    {
+      "path": "pages/integrated-operations-center.html",
+      "size": 4286
+    },
+    {
+      "path": "pages/integrated-verification.html",
+      "size": 3186
+    },
+    {
+      "path": "pages/kawasaki-pilot.html",
+      "size": 3510
+    },
+    {
+      "path": "pages/label-catalog.html",
+      "size": 2077
+    },
+    {
+      "path": "pages/login.html",
+      "size": 18210
+    },
+    {
+      "path": "pages/maintenance-governance-admin.html",
+      "size": 7813
+    },
+    {
+      "path": "pages/operations-acceptance-admin.html",
+      "size": 15315
+    },
+    {
+      "path": "pages/operations-assurance-admin.html",
+      "size": 4720
+    },
+    {
+      "path": "pages/operations-command-center-admin.html",
+      "size": 13148
+    },
+    {
+      "path": "pages/operations-monitoring.html",
+      "size": 9671
+    },
+    {
+      "path": "pages/overpack-label-tool.html",
+      "size": 9123
+    },
+    {
+      "path": "pages/pdf-page-viewer.html",
+      "size": 4120
+    },
+    {
+      "path": "pages/pilot-launch-admin.html",
+      "size": 7309
+    },
+    {
+      "path": "pages/platform-reliability-admin.html",
+      "size": 10426
+    },
+    {
+      "path": "pages/post-deployment-operations-admin.html",
+      "size": 5296
+    },
+    {
+      "path": "pages/post-launch-admin.html",
+      "size": 5451
+    },
+    {
+      "path": "pages/production-identity-admin.html",
+      "size": 5541
+    },
+    {
+      "path": "pages/production-operations-hub.html",
+      "size": 6566
+    },
+    {
+      "path": "pages/production-readiness.html",
+      "size": 6608
+    },
+    {
+      "path": "pages/prototype-completion-review.html",
+      "size": 4636
+    },
+    {
+      "path": "pages/publication-rights-admin.html",
+      "size": 11939
+    },
+    {
+      "path": "pages/quality-release-governance-admin.html",
+      "size": 10210
+    },
+    {
+      "path": "pages/recovery-migration-admin.html",
+      "size": 10330
+    },
+    {
+      "path": "pages/references.html",
+      "size": 7584
+    },
+    {
+      "path": "pages/regulation-approval-admin.html",
+      "size": 12521
+    },
+    {
+      "path": "pages/regulation-evidence-snapshot.html",
+      "size": 5325
+    },
+    {
+      "path": "pages/regulation-update-admin.html",
+      "size": 17098
+    },
+    {
+      "path": "pages/regulations.html",
+      "size": 5141
+    },
+    {
+      "path": "pages/release-candidate-summary.html",
+      "size": 4882
+    },
+    {
+      "path": "pages/reset-password.html",
+      "size": 2013
+    },
+    {
+      "path": "pages/revision-preview.html",
+      "size": 3572
+    },
+    {
+      "path": "pages/search-history.html",
+      "size": 2217
+    },
+    {
+      "path": "pages/security-admin.html",
+      "size": 3661
+    },
+    {
+      "path": "pages/settings.html",
+      "size": 7184
+    },
+    {
+      "path": "pages/system-maintenance.html",
+      "size": 9598
+    },
+    {
+      "path": "pages/system-settings.html",
+      "size": 42085
+    },
+    {
+      "path": "pages/system-wide-search.html",
+      "size": 3742
+    },
+    {
+      "path": "pages/user-activity-admin.html",
+      "size": 16394
+    },
+    {
+      "path": "pages/user-admin.html",
+      "size": 8693
+    },
+    {
+      "path": "pages/validation-admin.html",
+      "size": 8807
+    },
+    {
+      "path": "server/scripts/verify-part551-workflow.cjs",
+      "size": 5722
+    }
+  ]
+}

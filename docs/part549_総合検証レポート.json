@@ -1,0 +1,114 @@
+{
+  "release": "part549",
+  "generatedAt": "2026-08-07T19:22:00+09:00",
+  "status": "passed",
+  "passed": 21,
+  "total": 21,
+  "checks": [
+    {
+      "name": "application list compact card",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application list no cargo table in rendered card",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "application detail new tab",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "detail page has four tabs",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "detail CTU result rendering",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "intake one action registration",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "intake detail new tab",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu three step guide",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu assist collapsed",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu one case action",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu one registration button",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu registered detail link",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ctu review simplified",
+      "status": "passed",
+      "detail": "2"
+    },
+    {
+      "name": "no db migration",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "all html build meta part549",
+      "status": "passed",
+      "detail": "74 html"
+    },
+    {
+      "name": "all html build manifest v549",
+      "status": "passed",
+      "detail": "74 html"
+    },
+    {
+      "name": "all html version guard v549",
+      "status": "passed",
+      "detail": "74 html"
+    },
+    {
+      "name": "JS syntax applications.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax application-intake-workflow.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax application-detail-part549.js",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CTU inline JS syntax",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

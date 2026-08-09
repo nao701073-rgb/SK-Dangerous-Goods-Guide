@@ -1,0 +1,189 @@
+{
+  "release": "v1.3.6",
+  "base": "v1.3.5",
+  "generatedAt": "2026-08-08T15:20:00+09:00",
+  "scope": {
+    "dangerousGoodsRows": 2725,
+    "codeFamilies": {
+      "p": {
+        "count": 84,
+        "missing": []
+      },
+      "ibc": {
+        "count": 12,
+        "missing": []
+      },
+      "t": {
+        "count": 19,
+        "missing": []
+      },
+      "lp": {
+        "count": 13,
+        "missing": []
+      },
+      "bk": {
+        "count": 2,
+        "missing": []
+      }
+    }
+  },
+  "executionExamples": {
+    "P001": "1A1：450L",
+    "P002": "1A1：400kg",
+    "P200": "溶接容器：1,000 L／継目なし容器：3,000 L",
+    "IBC": "31A（鋼）：最大内容積 3,000 L（容器等級II）",
+    "T4": "T4：最小試験圧力 0.265 MPa／外板 －／安全装置 N／底部開口 B"
+  },
+  "ctuBrowserExecution": {
+    "status": "充足",
+    "requiredForwardKn": 14.7,
+    "currentResistanceKn": 113.2,
+    "marginKn": 98.5,
+    "pageErrors": 0,
+    "photoInputAfterApplication": true,
+    "cameraInput": true,
+    "multiPhotoUpload": true
+  },
+  "tests": [
+    {
+      "name": "Pコード原文参照カバレッジ",
+      "ok": true,
+      "detail": "84種類 / 欠落 0"
+    },
+    {
+      "name": "IBCコード原文参照カバレッジ",
+      "ok": true,
+      "detail": "12種類 / 欠落 0"
+    },
+    {
+      "name": "Tコード原文参照カバレッジ",
+      "ok": true,
+      "detail": "19種類 / 欠落 0"
+    },
+    {
+      "name": "LPコード原文参照カバレッジ",
+      "ok": true,
+      "detail": "13種類 / 欠落 0"
+    },
+    {
+      "name": "BKコード原文参照カバレッジ",
+      "ok": true,
+      "detail": "2種類 / 欠落 0"
+    },
+    {
+      "name": "登録済み危険物行数",
+      "ok": true,
+      "detail": "2725"
+    },
+    {
+      "name": "旧resolveAllowance互換",
+      "ok": true,
+      "detail": "function"
+    },
+    {
+      "name": "P001 実行確認",
+      "ok": true,
+      "detail": "1A1：450L"
+    },
+    {
+      "name": "P002 実行確認",
+      "ok": true,
+      "detail": "1A1：400kg"
+    },
+    {
+      "name": "P200 実行確認",
+      "ok": true,
+      "detail": "溶接容器：1,000 L／継目なし容器：3,000 L"
+    },
+    {
+      "name": "IBC 実行確認",
+      "ok": true,
+      "detail": "31A（鋼）：最大内容積 3,000 L（容器等級II）"
+    },
+    {
+      "name": "T4 実行確認",
+      "ok": true,
+      "detail": "最小試験圧力 0.265 MPa／安全装置 N／底部開口 B"
+    },
+    {
+      "name": "JavaScript構文 application-allowance-resolver.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 application-packing-reference-part545.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 application-intake-workflow.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 v13-ctu.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 v101-ctu-photo-ai.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 v136-ctu-flow.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "JavaScript構文 data/build-manifest.js",
+      "ok": true,
+      "detail": "node --check"
+    },
+    {
+      "name": "CTU DOM順序固定",
+      "ok": true,
+      "detail": "申請書 → 写真 → AI候補 → 登録案件 → かんたん入力"
+    },
+    {
+      "name": "写真入力が申請書の直後",
+      "ok": true,
+      "detail": "ctuExcelRoutePanel.nextElementSibling = photoInputPanel"
+    },
+    {
+      "name": "カメラ撮影入力",
+      "ok": true,
+      "detail": "cameraInput 1件"
+    },
+    {
+      "name": "写真複数アップロード入力",
+      "ok": true,
+      "detail": "photoInput multiple"
+    },
+    {
+      "name": "旧v131配置スクリプト非読込",
+      "ok": true,
+      "detail": "v131-ctu.jsなし"
+    },
+    {
+      "name": "CTU参考算出 Chromium実行",
+      "ok": true,
+      "detail": "5t / 直接固縛 / 2本 / 20kN / 45° → 前方必要14.7kN、現在113.2kN"
+    },
+    {
+      "name": "CTU Chromium pageerror",
+      "ok": true,
+      "detail": "0件"
+    },
+    {
+      "name": "自動確認 Chromium pageerror",
+      "ok": true,
+      "detail": "0件"
+    }
+  ],
+  "summary": {
+    "total": 27,
+    "passed": 27,
+    "failed": 0
+  }
+}

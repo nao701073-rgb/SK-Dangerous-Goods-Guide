@@ -1,0 +1,299 @@
+{
+  "release": "v1.3.12",
+  "base": "v1.3.11",
+  "displayVersion": "Version 1.0 試作版",
+  "status": "passed",
+  "summary": {
+    "total": 56,
+    "passed": 56,
+    "failed": 0
+  },
+  "tests": [
+    {
+      "name": "内部ビルド v1.3.12",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "表示版 Version 1.0 試作版",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU画面 technical meta v1.3.12",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "汎用コンテナ既定20FTドライ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ選択 20FT ドライコンテナ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ選択 40FT ドライコンテナ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ選択 20FT リーファーコンテナ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ選択 40FT リーファーコンテナ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ種類以外ではサイズ選択を隠す",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "入力者のコンテナ選択をAIが上書きしない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物長さAI候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物幅AI候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物高さAI候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物寸法は低確度・訂正可能",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "黒色細い平帯は帯鉄候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "アスラッシュ商品名を写真から決め打ちしない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ウェビング候補も維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "直接固縛を写真だけで自動確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MSLを外観から自動確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物側MSLを外観から自動確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU側MSLを外観から自動確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "支保力を外観から自動確定しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "重複写真AIパネル削除",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "大型AI解析ボタン非表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真測定ラベル簡素化",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Excel取込で案件名を自動生成しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Excel取込後に新規案件名を空欄維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "常時MutationObserverを使用しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU摩擦係数 原典page 109",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU摩擦例外 原典page 110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU MSL 原典page 85",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTUベルト 原典page 86",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU固縛原則 原典page 93",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU直接固縛 原典page 98",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU配置評価 原典page 101",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table1 原典PDF page 3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS 適用範囲 page 2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table2 page 5",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table3 page 7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table4 page 8",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table5 page 9",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table6 page 10",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part478照合履歴を原典索引に明記",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "算出根拠ウィンドウに原典ページへジャンプ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS一般IMOトップページを使用しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ビルドマニフェストAI寸法候補",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "添付写真回帰：帯鉄候補",
+      "status": "PASS",
+      "detail": "count=4, projectedAngle=17deg, medianBandThickness=5px, candidate=steel"
+    },
+    {
+      "name": "添付写真回帰：見える固縛帯4本候補",
+      "status": "PASS",
+      "detail": "count=4, projectedAngle=17deg, medianBandThickness=5px, candidate=steel"
+    },
+    {
+      "name": "添付写真回帰：画像角度約17°",
+      "status": "PASS",
+      "detail": "count=4, projectedAngle=17deg, medianBandThickness=5px, candidate=steel"
+    },
+    {
+      "name": "JavaScript構文 assets/js/v141-photo-ai-container-fit.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/v142-ctu-ai-assist.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/v137-ctu-usability.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/ctu-excel-route-import.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 data/build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 data/securing-msl-reference.js",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "manualVerificationRequired": [
+    "実端末Chrome/Edge/SafariでHEIC/HEIF読込後の自動候補表示",
+    "異なる撮影角度・照明・固縛材での写真AI候補精度",
+    "実機コンテナのメーカー・型式差を踏まえた内寸確認",
+    "MSC.1/Circ.1623外部PDFへ接続できない社内環境ではPart478ローカル照合索引で根拠節を確認"
+  ]
+}

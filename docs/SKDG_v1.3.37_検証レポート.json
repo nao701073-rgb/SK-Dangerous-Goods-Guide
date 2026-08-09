@@ -1,0 +1,16 @@
+{
+  "version": "v1.3.37",
+  "status": "PASS",
+  "checks": {
+    "targetPages": 17,
+    "oneStaticCommonHeaderPerTarget": true,
+    "oldV1333HeaderCssReferences": 0,
+    "oldV1334HeaderCssReferences": 0,
+    "oldV1334HeaderJsReferences": 0,
+    "commonHeaderCssPresent": true,
+    "commonHeaderJsPresent": true,
+    "javascriptSyntax": "PASS",
+    "submenuLazyCreation": true,
+    "headerDomRebuildRemoved": true
+  }
+}

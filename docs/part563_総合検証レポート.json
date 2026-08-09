@@ -1,0 +1,80 @@
+{
+  "part": 563,
+  "base": "part562",
+  "date": "2026-08-07",
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Part563 JS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part563 CSS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "workflow loads Part563 JS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "workflow loads Part563 CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review board implemented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "final summary implemented",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "hard issue acknowledgement remains blocked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "existing register button reused",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all html build meta Part563",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "all html manifest cache Part563",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "all html guard cache Part563",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "manifest Part563",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest Part563 capability",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DB migration not introduced",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

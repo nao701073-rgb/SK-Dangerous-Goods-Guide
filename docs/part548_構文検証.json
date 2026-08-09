@@ -1,0 +1,28 @@
+{
+  "release": "part548",
+  "status": "passed",
+  "passed": 4,
+  "total": 4,
+  "checks": [
+    {
+      "file": "assets/js/application-intake-workflow.js",
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "file": "assets/js/applications.js",
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "file": "assets/js/version-guard.js",
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "file": "data/build-manifest.js",
+      "passed": true,
+      "stderr": ""
+    }
+  ]
+}

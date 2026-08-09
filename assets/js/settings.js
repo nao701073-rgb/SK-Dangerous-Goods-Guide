@@ -28,6 +28,10 @@
   const syncQueueDetails = document.getElementById("syncQueueDetails");
   const refreshSyncQueue = document.getElementById("refreshSyncQueue");
   const clearCompletedSyncQueue = document.getElementById("clearCompletedSyncQueue");
+  const regulationDisplayMode = document.getElementById("regulationDisplayMode");
+  const saveRegulationDisplayMode = document.getElementById("saveRegulationDisplayMode");
+  const publicationScopeSetting = document.getElementById("publicationScopeSetting");
+  const savePublicationScopeSetting = document.getElementById("savePublicationScopeSetting");
 
   function renderSyncQueue() {
     if (!syncQueueDetails) return;
@@ -65,6 +69,8 @@
   serverEndpoint.value = window.ISSStorage.getServerEndpoint();
   syncQueueCount.textContent = `${window.ISSStorage.getSyncQueue().filter(item => ["pending", "error", "processing"].includes(item.status)).length}件`;
   renderSyncQueue();
+  if (regulationDisplayMode) regulationDisplayMode.value = localStorage.getItem("iss-regulation-display-mode") || "prototype-warning";
+  if (publicationScopeSetting) publicationScopeSetting.value = localStorage.getItem("iss-publication-scope") || window.SK_PUBLICATION_SCOPE_POLICY?.defaultMode || "prototype-review";
   const photoPolicy = window.ISSStorage.getPhotoPolicy();
   photoLimitPerApplication.value = photoPolicy.perApplication;
   photoLimitPerOffice.value = photoPolicy.perOffice;
@@ -96,6 +102,22 @@
     refreshRequirementLayout();
     showMessage("包装・運送要件を横スクロール表示に設定しました。");
   });
+  saveRegulationDisplayMode?.addEventListener("click", () => {
+    const value = regulationDisplayMode?.value === "approved-only" ? "approved-only" : "prototype-warning";
+    localStorage.setItem("iss-regulation-display-mode", value);
+    showMessage(value === "approved-only" ? "法令情報を正式運用（承認済みのみ）に設定しました。" : "法令情報を試作・参考表示に設定しました。");
+  });
+  savePublicationScopeSetting?.addEventListener("click", async () => {
+    const allowed=["prototype-review","internal-authenticated","internal-restricted","public-approved"];
+    const value=allowed.includes(publicationScopeSetting?.value)?publicationScopeSetting.value:"prototype-review";
+    localStorage.setItem("iss-publication-scope",value);
+    try {
+      if (window.ISSApi?.isConfigured?.()) await window.ISSApi.request('/admin/publication-scope',{method:'PUT',body:JSON.stringify({mode:value,note:'システム設定から更新'})});
+      showMessage(`資料の公開範囲を「${window.SK_PUBLICATION_SCOPE_POLICY?.modes?.[value]?.label||value}」に設定しました。`);
+      window.SKPublicationScope?.refresh?.();
+    } catch(error) { showMessage(error.message||'公開範囲を保存できませんでした。'); }
+  });
+
   saveOnlineSettings.addEventListener("click", () => {
     const mode = window.ISSStorage.setOperationMode(operationMode.value);
     window.ISSStorage.setServerEndpoint(serverEndpoint.value);

@@ -1,0 +1,2746 @@
+{
+  "schemaVersion": 1,
+  "reportName": "SKDG v1.3 総合検証レポート",
+  "release": "v1.3",
+  "generatedAt": "2026-08-08T09:44:00+09:00",
+  "overallStatus": "passed",
+  "summary": {
+    "release": "v1.3",
+    "total": 544,
+    "passed": 544,
+    "failed": 0,
+    "unchangedBaseFilesChecked": 41,
+    "failedTests": []
+  },
+  "scope": [
+    "74 HTMLの版情報・v1.3共通CSS",
+    "v1.2からの非対象HTML正規化一致",
+    "既存非HTML資産のバイト一致",
+    "申請書取込後の安定化構成",
+    "固縛計算の材質プルダウン・写真AI・固縛材/支保材分離",
+    "関連法令・関連資料の導入カード非表示と機能維持",
+    "容量監査・安全な重複削除スクリプト"
+  ],
+  "tests": [
+    {
+      "name": "HTML count 74",
+      "status": "PASS",
+      "detail": "74"
+    },
+    {
+      "name": "index.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "index.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/access-control.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/access-governance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/account-history.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/account-security-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/activate-account.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/admin-succession.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/application-detail.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/application-intake-workflow.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/application-verification.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/applications.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/change-password.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/cloud-connection.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/completion-roadmap.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/data-migration-legacy.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/data-migration.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/data-quality-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/documentation-release-center.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/ems.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/favorites.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/feedback.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/final-production-readiness.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/identity-operations-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/integrated-operations-center.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/integrated-verification.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/label-catalog.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/login.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/operations-monitoring.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/overpack-label-tool.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/post-launch-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/production-identity-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/production-operations-hub.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/production-readiness.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/prototype-completion-review.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/publication-rights-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/references.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/regulation-update-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/regulations.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/release-candidate-summary.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/reset-password.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/revision-preview.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/search-history.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/security-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/settings.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/system-maintenance.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/system-settings.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/system-wide-search.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/user-activity-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/user-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: meta v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: manifest 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: guard 130",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: v13 CSS once",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "pages/validation-admin.html: no legacy build manifest 110/120",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: only shared v1.3 HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: UPDATE_INSTRUCTIONS_v1.2.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: UPDATE_INSTRUCTIONS_v1.0.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: SHA256SUMS_v1.0.1.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: SHA256SUMS_v1.0.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: V101_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: V1_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: V12_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: UPDATE_INSTRUCTIONS_v1.0.1.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: SHA256SUMS_v1.1_integrated.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: UPDATE_INSTRUCTIONS_v1.1.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: SHA256SUMS_v1.2.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: V11_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.0.1_画面構成・写真AI入力補助・申請書取込安定化.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.0_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.1_操作導線・画面構成まとめ改善.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.0.1_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.2_画面整理・現場操作短縮.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.2_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.0_初版統合シンプル化仕様.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: docs/SKDG_v1.1_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/css/v1-initial.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/css/v101-ui.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/css/v12-ui.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/css/v11-ui.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v12-ctu.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-intake.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v101-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v12-applications.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v1-role-visibility.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-applications.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v101-ctu-photo-ai.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v1-ctu-simple.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-ctu.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v101-intake-layout-fix.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v12-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v101-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-home.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v11-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v12-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "base preserved: assets/js/v12-intake.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "node check assets/js/v13-home.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "node check assets/js/v13-intake.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "node check assets/js/v13-ctu.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "node check data/build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU has one core inline JS",
+      "status": "PASS",
+      "detail": "1"
+    },
+    {
+      "name": "CTU inline JS syntax 0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake legacy layout observer removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake v11 dock script removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake v12 collapse script removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake v13 loaded once",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake v13 no MutationObserver",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake v13 no scrollIntoView",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "intake stable overflow style",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "home quick launch script removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "home v13 script final include",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "home UN1203 example",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "home removes v11QuickLaunch",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "dangerous search same example",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "regulations intro removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "regulations core domestic section remains",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "references intro removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "references training remains",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "references IMDG remains",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU bad embedded report script removed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU v13 script occurs after core inline close",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU v12 auto-scroll UI not loaded",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU material core population remains",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU material fallback",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU top app route",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU top photo",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU lashing/support separate cards",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU combined maps to core",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU human AI selection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU photo AI lashing suggestions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU photo AI support suggestions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU angle candidate",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU no auto MSL confirm in v13",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU strength basis hidden",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU strict MSL estimator hidden",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU underlying attachment/angle fields hidden",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU relaxed visible MSL wording",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU seaB default preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU core calculation save preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU conservative combination core preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU v101 photo AI preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "dead home preference hidden",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "capacity audit 1869 files",
+      "status": "PASS",
+      "detail": "1869"
+    },
+    {
+      "name": "capacity audit total bytes",
+      "status": "PASS",
+      "detail": "318171573"
+    },
+    {
+      "name": "capacity audit duplicate groups",
+      "status": "PASS",
+      "detail": "18"
+    },
+    {
+      "name": "capacity audit max reclaim approx 10MiB",
+      "status": "PASS",
+      "detail": "10531203"
+    },
+    {
+      "name": "cleanup default dry run",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "cleanup SHA256 before deletion",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "cleanup reference check",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "cleanup only Apply deletes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "preserved module exists pages/dangerous-goods-search.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "preserved module exists pages/dangerous-goods-detail.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "preserved module exists pages/overpack-label-tool.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION base v1.2",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no DB migration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "manifest v1.3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "manifest critical v13 assets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "manifest preserves modules",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

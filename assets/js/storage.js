@@ -415,6 +415,13 @@
         containerNumber: "",
         vesselName: source.vesselName || "",
         voyageNumber: source.voyageNumber || "",
+        applicantName: source.applicantName || source.caseData?.applicantName || "",
+        shipper: source.shipper || source.caseData?.shipper || "",
+        loadingPort: source.loadingPort || source.caseData?.loadingPort || "",
+        dischargePort: source.dischargePort || source.caseData?.dischargePort || "",
+        containerType: source.containerType || source.caseData?.containerType || "",
+        cargoItems: JSON.parse(JSON.stringify(source.cargoItems || source.caseData?.cargoItems || [])),
+        caseData: JSON.parse(JSON.stringify(source.caseData || {})),
         unNumber: source.unNumber || "",
         japaneseName: source.japaneseName || "",
         englishName: source.englishName || "",
@@ -450,6 +457,10 @@
         id: `${Date.now()}-${Math.random().toString(16).slice(2)}`, applicationYear, numberType, applicationNumber, temporaryNumber,
         officeId: office.id, office: office.name, blockId: office.blockId || "block-01", blockName: office.blockName || "第一ブロック",
         assignee: String(record.assignee || "").trim(), containerNumber: String(record.containerNumber || "").trim(), vesselName: String(record.vesselName || "").trim(), voyageNumber: String(record.voyageNumber || "").trim(),
+        applicantName: String(record.applicantName || record.caseData?.applicantName || "").trim(), shipper: String(record.shipper || record.caseData?.shipper || "").trim(),
+        loadingPort: String(record.loadingPort || record.caseData?.loadingPort || "").trim(), dischargePort: String(record.dischargePort || record.caseData?.dischargePort || "").trim(), containerType: String(record.containerType || record.caseData?.containerType || "").trim(),
+        cargoItems: Array.isArray(record.cargoItems) ? JSON.parse(JSON.stringify(record.cargoItems)) : (Array.isArray(record.caseData?.cargoItems) ? JSON.parse(JSON.stringify(record.caseData.cargoItems)) : []),
+        caseData: { ...(record.caseData && typeof record.caseData === "object" ? JSON.parse(JSON.stringify(record.caseData)) : {}), applicantName:String(record.applicantName || record.caseData?.applicantName || "").trim(), shipper:String(record.shipper || record.caseData?.shipper || "").trim(), loadingPort:String(record.loadingPort || record.caseData?.loadingPort || "").trim(), dischargePort:String(record.dischargePort || record.caseData?.dischargePort || "").trim(), containerType:String(record.containerType || record.caseData?.containerType || "").trim(), cargoItems:Array.isArray(record.cargoItems)?JSON.parse(JSON.stringify(record.cargoItems)):(Array.isArray(record.caseData?.cargoItems)?JSON.parse(JSON.stringify(record.caseData.cargoItems)):[]) },
         unNumber: String(record.unNumber || "").trim(), japaneseName: String(record.japaneseName || "").trim(), englishName: String(record.englishName || "").trim(),
         hazardClass: String(record.hazardClass || "").trim(), subsidiaryHazardClasses: Array.isArray(record.subsidiaryHazardClasses) ? record.subsidiaryHazardClasses : [], packingGroup: String(record.packingGroup || "").trim(),
         applicationDate: String(record.applicationDate || ""), inspectionPlannedDate: String(record.inspectionPlannedDate || ""), inspectionDate: String(record.inspectionDate || ""), caseTitle: String(record.caseTitle || "").trim(), note: String(record.note || "").trim(),
@@ -477,6 +488,10 @@
       } else applicationNumber = temporaryNumber;
       Object.assign(target, { applicationYear, numberType, applicationNumber, temporaryNumber,
         assignee:String(updates.assignee ?? target.assignee ?? "").trim(), containerNumber:String(updates.containerNumber ?? target.containerNumber ?? "").trim(), vesselName:String(updates.vesselName ?? target.vesselName ?? "").trim(), voyageNumber:String(updates.voyageNumber ?? target.voyageNumber ?? "").trim(),
+        applicantName:String(updates.applicantName ?? updates.caseData?.applicantName ?? target.applicantName ?? target.caseData?.applicantName ?? "").trim(), shipper:String(updates.shipper ?? updates.caseData?.shipper ?? target.shipper ?? target.caseData?.shipper ?? "").trim(),
+        loadingPort:String(updates.loadingPort ?? updates.caseData?.loadingPort ?? target.loadingPort ?? target.caseData?.loadingPort ?? "").trim(), dischargePort:String(updates.dischargePort ?? updates.caseData?.dischargePort ?? target.dischargePort ?? target.caseData?.dischargePort ?? "").trim(), containerType:String(updates.containerType ?? updates.caseData?.containerType ?? target.containerType ?? target.caseData?.containerType ?? "").trim(),
+        cargoItems:Array.isArray(updates.cargoItems)?JSON.parse(JSON.stringify(updates.cargoItems)):(Array.isArray(updates.caseData?.cargoItems)?JSON.parse(JSON.stringify(updates.caseData.cargoItems)):JSON.parse(JSON.stringify(target.cargoItems||target.caseData?.cargoItems||[]))),
+        caseData:{ ...(target.caseData&&typeof target.caseData==="object"?JSON.parse(JSON.stringify(target.caseData)):{}), ...(updates.caseData&&typeof updates.caseData==="object"?JSON.parse(JSON.stringify(updates.caseData)):{}), applicantName:String(updates.applicantName ?? updates.caseData?.applicantName ?? target.applicantName ?? target.caseData?.applicantName ?? "").trim(), shipper:String(updates.shipper ?? updates.caseData?.shipper ?? target.shipper ?? target.caseData?.shipper ?? "").trim(), loadingPort:String(updates.loadingPort ?? updates.caseData?.loadingPort ?? target.loadingPort ?? target.caseData?.loadingPort ?? "").trim(), dischargePort:String(updates.dischargePort ?? updates.caseData?.dischargePort ?? target.dischargePort ?? target.caseData?.dischargePort ?? "").trim(), containerType:String(updates.containerType ?? updates.caseData?.containerType ?? target.containerType ?? target.caseData?.containerType ?? "").trim(), cargoItems:Array.isArray(updates.cargoItems)?JSON.parse(JSON.stringify(updates.cargoItems)):(Array.isArray(updates.caseData?.cargoItems)?JSON.parse(JSON.stringify(updates.caseData.cargoItems)):JSON.parse(JSON.stringify(target.cargoItems||target.caseData?.cargoItems||[])))},
         unNumber:String(updates.unNumber ?? target.unNumber ?? "").trim(), japaneseName:String(updates.japaneseName ?? target.japaneseName ?? "").trim(), englishName:String(updates.englishName ?? target.englishName ?? "").trim(), hazardClass:String(updates.hazardClass ?? target.hazardClass ?? "").trim(),
         subsidiaryHazardClasses:Array.isArray(updates.subsidiaryHazardClasses)?updates.subsidiaryHazardClasses:(target.subsidiaryHazardClasses||[]), packingGroup:String(updates.packingGroup ?? target.packingGroup ?? "").trim(),
         applicationDate:String(updates.applicationDate ?? target.applicationDate ?? ""), inspectionPlannedDate:String(updates.inspectionPlannedDate ?? target.inspectionPlannedDate ?? ""), inspectionDate:String(updates.inspectionDate ?? target.inspectionDate ?? ""), caseTitle:String(updates.caseTitle ?? target.caseTitle ?? "").trim(), note:String(updates.note ?? target.note ?? "").trim(), status:updates.status ?? target.status, updatedAt:nowIso()
@@ -3220,12 +3235,19 @@
         const clientId = row.client_id || row.clientId;
         let target = applications.find(item => item.serverId === serverId || (clientId && item.id === clientId));
         const officeRecord = org()?.getOfficeById(row.office_id || row.officeId);
+        const serverCaseData = row.case_data || row.caseData || {};
         const mapped = {
           id: target?.id || clientId || `server-${serverId}`,
           serverId,
           serverVersion: Number(row.version || 1),
           applicationNumber: row.application_number || row.applicationNumber || "",
-          shipper: row.shipper || "",
+          shipper: serverCaseData.shipper || row.shipper || "",
+          applicantName: serverCaseData.applicantName || "",
+          loadingPort: serverCaseData.loadingPort || "",
+          dischargePort: serverCaseData.dischargePort || "",
+          containerType: serverCaseData.containerType || "",
+          cargoItems: Array.isArray(serverCaseData.cargoItems) ? serverCaseData.cargoItems : [],
+          caseData: serverCaseData,
           cargoName: row.cargo_name || row.cargoName || "",
           note: row.note || "",
           status: row.status || "active",

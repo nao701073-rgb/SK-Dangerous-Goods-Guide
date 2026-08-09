@@ -1,0 +1,175 @@
+{
+  "release": "part540",
+  "baseRelease": "part539",
+  "generatedAt": "2026-08-07T07:22:52.759Z",
+  "passed": 33,
+  "total": 33,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "VERSION is part540",
+      "pass": true,
+      "detail": "{\"version\":\"part540\",\"part\":540}"
+    },
+    {
+      "name": "base is part539",
+      "pass": true,
+      "detail": "part539-msl-point-registry"
+    },
+    {
+      "name": "Part540 CSS linked",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Part540 badge shown",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "photo annotation panel exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "photo annotation canvas exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "photo categories defined",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "marker types defined",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "marker coordinates persisted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "photo kind persisted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "review statuses defined",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "reviewer field exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "reviewer required",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "revision/unusable reason required",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "revision/unusable excluded from active calculation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unconfirmed MSL warning exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "history stored to application",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "history survives delete",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "result snapshot includes point history",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "result snapshot includes review readiness",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "formal result review depends on point readiness",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "printable report exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSV export exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Part539 unit conversion retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Part539 line minimum logic retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Part538 combined lashing retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "TY-GARD profile retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Part540 build feature flags",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "update instructions target Part539",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no DB migration declared",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no duplicate HTML ids",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "inline JavaScript syntax",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "global HTML version refs updated",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "release": "part537",
+  "generatedAt": "2026-08-06T15:18:53.207Z",
+  "status": "passed",
+  "passed": 8,
+  "total": 8,
+  "checks": [
+    {
+      "name": "Part 537 version files",
+      "status": "passed"
+    },
+    {
+      "name": "Home has one unified intake entry",
+      "status": "passed"
+    },
+    {
+      "name": "Unified intake retains verification and registration modes",
+      "status": "passed"
+    },
+    {
+      "name": "Guest navigation uses unified intake",
+      "status": "passed"
+    },
+    {
+      "name": "Integrated verification uses current report",
+      "status": "passed"
+    },
+    {
+      "name": "All HTML build metadata is Part 537",
+      "status": "passed"
+    },
+    {
+      "name": "Build and version guard references are current",
+      "status": "passed"
+    },
+    {
+      "name": "Required integration assets exist",
+      "status": "passed"
+    }
+  ]
+}

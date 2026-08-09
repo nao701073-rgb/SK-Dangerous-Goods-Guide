@@ -1,0 +1,204 @@
+{
+  "part": 561,
+  "base": "part560",
+  "passed": 39,
+  "total": 39,
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "HTML画面数74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "全画面sk-build part561",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全画面build-manifest v561",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "全画面version-guard v561",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part561 CSS読込",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part561 JS読込",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "4段階案内の文言",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "自動確認ボタン",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "要確認確認見出し",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "既存登録ボタン維持",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "かんたん操作ガイド生成",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "4ステップ生成",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "次の要確認",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "要確認だけ表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "確認ポイント分類P200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "確認ポイント分類IBC",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "確認ポイント分類ポータブルタンク",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "原本照合者案内",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "既存登録処理呼出",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "登録後詳細確認",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "スマホ主操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "その他案件情報",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "出力折畳",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "確認済み絞込CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "要確認行表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "スマホ固定操作",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "スマホ760px",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "旧ステップ重複非表示",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part561 JS構文",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest part561",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest easy operation",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest new JS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest intake page",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION part561",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "固縛力画面は版情報以外変更なし",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "申請判定コアv549維持",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "包装参照Part545維持",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "許容値resolver維持",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

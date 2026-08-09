@@ -1,0 +1,28 @@
+/* SKDG v1.3.1 - stable top entry and import layout */
+body[data-page="ctu-securing-calculator"] #v131SourceStart{margin:0 0 14px;display:grid;gap:12px}
+body[data-page="ctu-securing-calculator"] #v131SourceStart>.panel,
+body[data-page="ctu-securing-calculator"] #v131SourceStart>#v1PhotoStep{margin:0!important;max-width:none;width:auto}
+body[data-page="ctu-securing-calculator"] #v131SourceStart .v131-source-label{display:flex;align-items:center;gap:9px;margin:0 0 8px;font-weight:800;color:#0d4777}
+body[data-page="ctu-securing-calculator"] #v131SourceStart .v131-source-no{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#11659f;color:#fff;font-size:.9rem;flex:0 0 auto}
+body[data-page="ctu-securing-calculator"] #ctuCommonCasePanel{margin-top:12px}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel{margin-top:12px}
+
+/* Import results: do not animate size/position while the parser updates DOM. */
+body[data-page="application-intake-workflow"] #intakeCheckSection,
+body[data-page="application-intake-workflow"] #intakeCheckSection *,
+body[data-page="application-intake-workflow"] .intake-finding,
+body[data-page="application-intake-workflow"] .intake-status{transition:none!important;animation:none!important}
+body[data-page="application-intake-workflow"] #intakeCheckSection{overflow-anchor:none;min-height:280px}
+body[data-page="application-intake-workflow"] .intake-findings{min-height:94px;align-items:stretch}
+body[data-page="application-intake-workflow"] .intake-finding{min-height:76px;box-sizing:border-box}
+body[data-page="application-intake-workflow"].v131-import-settling #intakeCheckSection{visibility:hidden}
+body[data-page="application-intake-workflow"] #v131ImportSettling{display:none;min-height:280px;box-sizing:border-box;padding:18px;border:1px solid #d4e1ea;border-radius:14px;background:#fff;color:#526b7b}
+body[data-page="application-intake-workflow"].v131-import-settling #v131ImportSettling{display:block}
+@media(max-width:760px){
+ body[data-page="application-intake-workflow"] #intakeCheckSection{min-height:360px}
+ body[data-page="application-intake-workflow"] #v131ImportSettling{min-height:360px}
+}
+
+/* v1.3.2 hotfix: source entry order must never depend on async generation timing. */
+body[data-page="ctu-securing-calculator"] #v131SourceStart>#ctuExcelRoutePanel{order:1}
+body[data-page="ctu-securing-calculator"] #v131SourceStart>#v1PhotoStep{order:2}

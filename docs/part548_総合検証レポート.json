@@ -1,0 +1,28 @@
+{
+  "release": "part548",
+  "status": "passed",
+  "verification": {
+    "versionConsistency": {
+      "passed": 73,
+      "total": 73
+    },
+    "registrationDetail": {
+      "passed": 16,
+      "total": 16
+    },
+    "syntax": {
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "automaticChecks": {
+    "passed": 93,
+    "total": 93
+  },
+  "migration": null,
+  "notes": [
+    "申請番号管理への登録のみを対象とし、固縛力参考算出等への引継ぎは追加しない。",
+    "登録済み申請はapplicationIdで直接詳細確認可能。",
+    "P200 x等の許可情報は上段の事前審査確認を正本表示とし、下段の重複表示を削除。"
+  ]
+}

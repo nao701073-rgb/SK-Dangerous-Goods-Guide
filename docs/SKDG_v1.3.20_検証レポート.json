@@ -1,0 +1,120 @@
+{
+  "release": "v1.3.20",
+  "purpose": "ログイン背景をユーザー指定の添付2相当イラスト1枚に固定",
+  "approvedBackground": "assets/images/login-business-background-4k.png",
+  "approvedBackgroundSha256": "bfe95260336671535620ab85de8e0fefee9250f333266856b129a395ee8a9fcc",
+  "imageSize": {
+    "width": 3840,
+    "height": 2160
+  },
+  "browserE2E": "Chromium headless did not complete in this container; not counted as a pass. Static/code/image integrity checks only.",
+  "passed": 21,
+  "total": 21,
+  "checks": [
+    {
+      "name": "technical version is v1.3.20",
+      "pass": true,
+      "detail": "v1.3.20"
+    },
+    {
+      "name": "visible version remains Version 1.0 試作版",
+      "pass": true,
+      "detail": "Version 1.0 試作版"
+    },
+    {
+      "name": "database migration is false",
+      "pass": true,
+      "detail": "False"
+    },
+    {
+      "name": "login page build meta is v1.3.20",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "login CSS cache key is v1320",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "correct background is preloaded",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "approved background image exists",
+      "pass": true,
+      "detail": "/mnt/data/v1320_work/assets/images/login-business-background-4k.png"
+    },
+    {
+      "name": "approved background is exact 4K 3840x2160",
+      "pass": true,
+      "detail": "(3840, 2160)"
+    },
+    {
+      "name": "approved background remains exact previously accepted illustration",
+      "pass": true,
+      "detail": "bfe95260336671535620ab85de8e0fefee9250f333266856b129a395ee8a9fcc"
+    },
+    {
+      "name": "approved background is bright/light-toned",
+      "pass": true,
+      "detail": "average RGB=235.6"
+    },
+    {
+      "name": "desktop scene uses approved image",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "body image disabled so only scene paints background",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "scene layer is not behind body",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "login content stays in front",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dark overlays disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile uses same approved image",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no time-of-day/dark-port refs remain in login code",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "obsolete login background files are not shipped",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest marks exact single approved background",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest marks time/fallback behavior removed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all shipped JavaScript passes node --check",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

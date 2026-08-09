@@ -1,0 +1,118 @@
+{
+  "release": "part530",
+  "suite": "第22～第24段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T11:09:55.362Z",
+  "passed": 27,
+  "total": 27,
+  "failed": 0,
+  "results": [
+    {
+      "name": "保存期限を日数で計算",
+      "status": "passed"
+    },
+    {
+      "name": "保存期間30日未満を拒否",
+      "status": "passed"
+    },
+    {
+      "name": "保存ポリシー正常",
+      "status": "passed"
+    },
+    {
+      "name": "法的保全中の廃棄拒否",
+      "status": "passed"
+    },
+    {
+      "name": "廃棄確認者の分離",
+      "status": "passed"
+    },
+    {
+      "name": "廃棄実行者の分離",
+      "status": "passed"
+    },
+    {
+      "name": "廃棄検証者の分離",
+      "status": "passed"
+    },
+    {
+      "name": "廃棄分離正常",
+      "status": "passed"
+    },
+    {
+      "name": "重大脆弱性は1日",
+      "status": "passed"
+    },
+    {
+      "name": "高脆弱性は7日",
+      "status": "passed"
+    },
+    {
+      "name": "未来の脆弱性検知を拒否",
+      "status": "passed"
+    },
+    {
+      "name": "CVSS範囲外を拒否",
+      "status": "passed"
+    },
+    {
+      "name": "脆弱性正常",
+      "status": "passed"
+    },
+    {
+      "name": "証跡メールアドレス拒否",
+      "status": "passed"
+    },
+    {
+      "name": "証跡秘密情報拒否",
+      "status": "passed"
+    },
+    {
+      "name": "証跡SHA不正拒否",
+      "status": "passed"
+    },
+    {
+      "name": "証跡正常",
+      "status": "passed"
+    },
+    {
+      "name": "脆弱性対応者と確認者を分離",
+      "status": "passed"
+    },
+    {
+      "name": "リスク受容期限不足を拒否",
+      "status": "passed"
+    },
+    {
+      "name": "脆弱性終了承認正常",
+      "status": "passed"
+    },
+    {
+      "name": "監査確認者の分離",
+      "status": "passed"
+    },
+    {
+      "name": "監査承認者の分離",
+      "status": "passed"
+    },
+    {
+      "name": "監査承認分離正常",
+      "status": "passed"
+    },
+    {
+      "name": "法的保全は保証ゲート遮断",
+      "status": "passed"
+    },
+    {
+      "name": "期限超過重大脆弱性は遮断",
+      "status": "passed"
+    },
+    {
+      "name": "未解決高監査指摘は遮断",
+      "status": "passed"
+    },
+    {
+      "name": "完了済みは許可",
+      "status": "passed"
+    }
+  ]
+}

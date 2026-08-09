@@ -1,0 +1,27 @@
+{
+  "release": "v1.3.1",
+  "base": "v1.3",
+  "changedFiles": 81,
+  "standardUpdateBytes": 277403,
+  "cleanUpdaterBytes": 274177,
+  "cleanupCandidateCount": 13,
+  "maximumReclaimBytes": 10068285,
+  "maximumReclaimMiB": 9.6,
+  "cleanupSafety": "delete only if both old/canonical files exist AND SHA-256 matches at apply time; backup before deletion",
+  "ctu": {
+    "photoGeneratorSelectorFixed": ".quick-flow fallback .quick-entry",
+    "topSourceWrapper": "v131SourceStart",
+    "order": [
+      "申請書・航路",
+      "写真",
+      "輸送条件・貨物",
+      "接触状態",
+      "固縛/支保",
+      "参考算出"
+    ]
+  },
+  "intake": {
+    "layoutShiftMitigation": "hide check section only during rapid mutation after file selection; reserve height; reveal after quiet period or 2.5s hard stop"
+  },
+  "databaseMigration": false
+}

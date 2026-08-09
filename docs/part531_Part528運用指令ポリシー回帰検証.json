@@ -1,0 +1,182 @@
+{
+  "release": "part528",
+  "phases": [
+    19,
+    20,
+    21
+  ],
+  "title": "運用指令・サービス水準・運用報告ポリシー単体検証",
+  "generatedAt": "2026-08-06T11:24:58.033Z",
+  "checks": {
+    "total": 41,
+    "passed": 41,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "重大アラート既定応答15分",
+      "status": "passed"
+    },
+    {
+      "name": "重大アラート既定復旧120分",
+      "status": "passed"
+    },
+    {
+      "name": "高アラート既定応答30分",
+      "status": "passed"
+    },
+    {
+      "name": "中アラート既定復旧24時間",
+      "status": "passed"
+    },
+    {
+      "name": "方針上書き",
+      "status": "passed"
+    },
+    {
+      "name": "不正日時拒否",
+      "status": "passed"
+    },
+    {
+      "name": "復旧期限が応答以前を拒否",
+      "status": "passed"
+    },
+    {
+      "name": "正常当番",
+      "status": "passed"
+    },
+    {
+      "name": "開始終了逆転拒否",
+      "status": "passed"
+    },
+    {
+      "name": "主副同一拒否",
+      "status": "passed"
+    },
+    {
+      "name": "主担当なし拒否",
+      "status": "passed"
+    },
+    {
+      "name": "14日超拒否",
+      "status": "passed"
+    },
+    {
+      "name": "正常エスカレーション",
+      "status": "passed"
+    },
+    {
+      "name": "段階なし拒否",
+      "status": "passed"
+    },
+    {
+      "name": "時刻降順拒否",
+      "status": "passed"
+    },
+    {
+      "name": "通知先なし拒否",
+      "status": "passed"
+    },
+    {
+      "name": "未応答期限超過",
+      "status": "passed"
+    },
+    {
+      "name": "応答済みは応答超過なし",
+      "status": "passed"
+    },
+    {
+      "name": "復旧期限超過",
+      "status": "passed"
+    },
+    {
+      "name": "復旧済みは超過なし",
+      "status": "passed"
+    },
+    {
+      "name": "SLO達成",
+      "status": "passed"
+    },
+    {
+      "name": "SLO未達",
+      "status": "passed"
+    },
+    {
+      "name": "SLO百分率",
+      "status": "passed"
+    },
+    {
+      "name": "SLO分母ゼロ拒否",
+      "status": "passed"
+    },
+    {
+      "name": "SLO成功数超過拒否",
+      "status": "passed"
+    },
+    {
+      "name": "SLO目標100超拒否",
+      "status": "passed"
+    },
+    {
+      "name": "正常容量予測",
+      "status": "passed"
+    },
+    {
+      "name": "しきい値逆転拒否",
+      "status": "passed"
+    },
+    {
+      "name": "対策期限後ろ拒否",
+      "status": "passed"
+    },
+    {
+      "name": "負数拒否",
+      "status": "passed"
+    },
+    {
+      "name": "正常報告承認",
+      "status": "passed"
+    },
+    {
+      "name": "重大アラート遮断",
+      "status": "passed"
+    },
+    {
+      "name": "復旧期限超過遮断",
+      "status": "passed"
+    },
+    {
+      "name": "測定なし遮断",
+      "status": "passed"
+    },
+    {
+      "name": "重要SLO未達遮断",
+      "status": "passed"
+    },
+    {
+      "name": "通常SLO未達は直接遮断しない",
+      "status": "passed"
+    },
+    {
+      "name": "容量期限超過遮断",
+      "status": "passed"
+    },
+    {
+      "name": "完了容量は遮断しない",
+      "status": "passed"
+    },
+    {
+      "name": "概要不足遮断",
+      "status": "passed"
+    },
+    {
+      "name": "作成確認同一遮断",
+      "status": "passed"
+    },
+    {
+      "name": "確認承認同一遮断",
+      "status": "passed"
+    }
+  ],
+  "status": "passed"
+}

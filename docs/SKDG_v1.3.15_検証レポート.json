@@ -1,0 +1,212 @@
+{
+  "release": "v1.3.15",
+  "generatedAt": "2026-08-08T20:30:00+09:00",
+  "summary": {
+    "total": 40,
+    "passed": 40,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "technical version v1.3.15",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "visible version retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no DB migration",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "applications page build meta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "applications page loads management patch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "applications page loads patch css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "card registration summary implemented",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "verification allowance badge implemented",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu registration badge implemented",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "source/title hidden on card",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "direct CTU action hidden on cards",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "single detail entry point",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "per-case delete button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "case deletion uses storage removeApplication",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "linked result deletion",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "related photo deletion path",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "related document cancel path",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail page explicit verification tab",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail page explicit CTU tab",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail page loads v1315 renderer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "verification result rendering",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU result rendering",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail history rendering",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "detail photo/document rendering",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "linked results remove API",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "linked result type summary API",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU page loads registration patch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU registration button forced clickable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "incomplete review guidance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "reviewer still required",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "existing review validation retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1.3.14 source jump preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v137-ctu-usability.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v141-photo-ai-container-fit.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v1315-application-detail.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v1315-ctu-registration.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax application-result-link.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v1315-application-management.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax v142-ctu-ai-assist.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JavaScript syntax build-manifest.js",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "browserRuntime": "not executed: container Chromium headless is known to hang in this environment"
+}

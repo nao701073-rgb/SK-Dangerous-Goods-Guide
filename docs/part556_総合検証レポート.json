@@ -1,0 +1,136 @@
+{
+  "version": "part556",
+  "date": "2026-08-07",
+  "summary": {
+    "passed": 25,
+    "total": 25,
+    "allPassed": true
+  },
+  "checks": [
+    {
+      "name": "html count 74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "all sk-build part556",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all manifest cache v556",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all version guard cache v556",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part556 js linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part556 css linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu part556 js linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu part556 css linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "latest review status card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review detail one-action open",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review card shows worst margin",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "review card shows reviewer",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore loaded condition action",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore change count",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore invalidates review by input events",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "part556 asset markers",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest part556",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest page versions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest new progressive flags",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exists assets/js/application-detail-part556.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exists assets/js/ctu-workflow-part556.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exists assets/css/application-detail-part556.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exists assets/css/ctu-securing-part556.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu inline calculation script unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no stale build meta",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

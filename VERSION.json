@@ -1,7 +1,11 @@
 {
-  "version": "part505",
-  "part": 505,
-  "date": "2026-08-03",
-  "summary": "P520包装要件（危告示PDF 320～323ページ）を原典表構造に沿って整理し、PCは整形式表、狭幅画面はカード表示へ切り替える。",
-  "updatedAt": "2026-08-03T16:23:00+09:00"
+  "version": "v1.3.41",
+  "releaseType": "home-search-layout-hotfix",
+  "baseVersion": "1.3.40",
+  "summary": "ホーム横断検索のプレースホルダー「UN1203、1203、GASOLINE、ガソリン、法令名、資料名、申請番号、機能名」が途中で見切れないよう、検索エリアの横幅配分とレスポンシブ配置を調整。文言は削除せず維持。",
+  "databaseMigration": false,
+  "displayVersion": "Version 1.0 試作版",
+  "releaseStage": "prototype",
+  "baseRelease": "v1.3.40",
+  "build": "v1.3.41-home-search-layout-hotfix"
 }

@@ -11,20 +11,58 @@ import { z } from 'zod';
 import { config } from './config.js';
 import { query, transaction } from './db.js';
 import { authenticate, requireRole, requireOperationalRead, requireOperationalWrite, requireOperationalDelete, requireAdministrator, canManageUser, signToken, officeScope, validatePassword } from './auth.js';
+import { createServerSession, rotateSessionCsrf, revokeSession, revokeAllUserSessions, clearSessionCookie, cleanupExpiredSessions } from './session-auth.js';
+import { rolePermissionSnapshot } from './permissions.js';
 import { audit } from './audit.js';
 import { sendMail, maskEmail } from './mailer.js';
 import { objectStorage, createStorageKey } from './storage.js';
+import { syncRegulationVerificationCatalog } from './regulation-catalog.js';
+import { syncPublicationRightsCatalog } from './publication-rights-catalog.js';
+import { calculateAlertDeadlines, validateShift, validateEscalationSteps, deriveAlertState, calculateSlo, validateCapacityForecast, evaluateReportGate } from './operations-command-center-policy.js';
+import { calculateRetentionDue, calculateVulnerabilityDue, validateRetentionPolicy, validateDisposalActors, validateEvidenceMetadata, validateVulnerability, validateVulnerabilityClosure, validateAuditActors, evaluateAssuranceGate } from './assurance-security-audit-policy.js';
+import { calculateDriftDue, evaluateHealthSnapshot, validateConfigurationBaseline, validateDrift, validateDriftActors, validateActionActors, validateReviewActors, evaluateReliabilityGate } from './platform-reliability-policy.js';
+import { calculateIssueDue, evaluateDatabaseSearchSnapshot, evaluateAttachmentIntegritySnapshot, evaluateCrossDataIntegritySnapshot, validateIntegrityIssue, validateIssueActors, validateDataReviewActors, evaluateDataAssuranceGate } from './data-integrity-performance-policy.js';
+import { evaluateQualityRuleRun, validateCorrectionCandidate, validateCorrectionActors, deriveRegressionTargets, evaluateChangeImpact, validateImpactActors, calculateDefectDue, validateReleaseDefect, validateReleaseCandidate, validateReleaseActors, evaluateReleaseGate } from './quality-release-governance-policy.js';
+import { evaluateDistributionPackage, validateDistributionActors, evaluateClientCompatibility, validateContinuityExercise, validateContinuityActors, evaluateDistributionContinuityGate, validateReviewActors as validateDistributionReviewActors } from './distribution-continuity-policy.js';
+import { evaluateIntakeRecord, validateIntakeActors, intakeSnapshotSha } from './application-intake-workflow-policy.js';
+
+const configurationErrors = [];
+if (config.nodeEnv === 'production') {
+  if (!config.corsOrigins.length) configurationErrors.push('CORS_ORIGINS is required in production');
+  if (!config.session.enabled) configurationErrors.push('SERVER_SESSION_ENABLED must be true in production');
+  if (!config.session.secure) configurationErrors.push('SESSION_COOKIE_SECURE must be true in production');
+  if (config.session.cookieName.startsWith('__Host-') && config.session.domain) configurationErrors.push('__Host- cookie cannot use SESSION_COOKIE_DOMAIN');
+  if (String(config.session.sameSite).toLowerCase() === 'none' && !config.session.secure) configurationErrors.push('SameSite=None requires Secure cookie');
+  if (config.session.legacyBearerEnabled) configurationErrors.push('LEGACY_BEARER_AUTH_ENABLED must be false in production');
+  if (config.jwtSecret === 'development-only-change-this-secret-immediately' || config.jwtSecret.length < 64) configurationErrors.push('JWT_SECRET must be a random value of at least 64 characters');
+  if (!config.session.csrfSecret || config.session.csrfSecret.length < 64 || config.session.csrfSecret === 'development-csrf-secret') configurationErrors.push('CSRF_SECRET must be a random value of at least 64 characters');
+}
+if (configurationErrors.length) throw new Error(`Production configuration is invalid: ${configurationErrors.join('; ')}`);
 
 fs.mkdirSync(config.photoStorageDir, { recursive: true });
 const app = express();
 app.set('trust proxy', config.trustProxy);
-app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  hsts: config.nodeEnv === 'production' ? { maxAge: 31536000, includeSubDomains: true, preload: true } : false
+}));
+if (config.enforceHttps) {
+  app.use((req,res,next) => {
+    const forwarded = String(req.get('x-forwarded-proto') || '').split(',')[0].trim();
+    if (req.secure || forwarded === 'https') return next();
+    return res.status(426).json({ error:'本番環境ではHTTPS接続が必要です。' });
+  });
+}
 app.use(cors({ origin(origin, cb) {
-  if (!origin || !config.corsOrigins.length || config.corsOrigins.includes(origin)) return cb(null, true);
+  if (!origin) return cb(null, true);
+  if (config.corsOrigins.includes(origin)) return cb(null, true);
+  if (config.nodeEnv !== 'production' && !config.corsOrigins.length) return cb(null, true);
   cb(new Error('CORS origin is not allowed'));
-}, credentials: false }));
+}, credentials: true }));
 app.use(express.json({ limit: '5mb' }));
-app.use('/api/auth/login', rateLimit({ windowMs: 15 * 60_000, limit: 20, standardHeaders: true, legacyHeaders: false }));
+const loginLimiter = rateLimit({ windowMs: 15 * 60_000, limit: 20, standardHeaders: true, legacyHeaders: false });
+app.use('/api/auth/login', loginLimiter);
+app.use('/api/auth/mfa/verify', loginLimiter);
 // 添付ファイルは認証済みAPI経由で配信します。公開静的URLは使用しません。
 
 
@@ -61,6 +99,7 @@ const detectImageType = buffer => {
 const applicationSnapshot = row => row ? {
   id:row.id, applicationNumber:row.application_number, shipper:row.shipper,
   cargoName:row.cargo_name, note:row.note, status:row.status,
+  caseData:row.case_data || {},
   officeId:row.office_id, blockId:row.block_id, version:row.version,
   deletedAt:row.deleted_at || null, updatedAt:row.updated_at || null
 } : null;
@@ -82,6 +121,12 @@ const requireDistinctRegulationActors = (row, userId, stage) => {
   const actor = String(userId);
   if (stage === 'review' && String(row.created_by || '') === actor) throw Object.assign(new Error('作成者本人は原典照合者になれません。'), { status:409 });
   if (stage === 'approve' && [row.created_by,row.reviewed_by].some(value => String(value || '') === actor)) throw Object.assign(new Error('作成者または照合者本人は承認できません。'), { status:409 });
+};
+
+const requireDistinctPublicationActors = (row, userId, stage) => {
+  const actor=String(userId);
+  if(stage==='review' && [row.prepared_by,row.submitted_by].some(value=>String(value||'')===actor)) throw Object.assign(new Error('登録・提出者本人は権利確認者になれません。'),{status:409});
+  if(stage==='approve' && [row.prepared_by,row.submitted_by,row.reviewed_by].some(value=>String(value||'')===actor)) throw Object.assign(new Error('登録・提出者または権利確認者本人は公開範囲を承認できません。'),{status:409});
 };
 
 async function issueMfaChallenge(user, purpose='login') {
@@ -118,7 +163,10 @@ app.get('/api/runtime', (_req, res) => {
     expectedUsersPilot: 50,
     expectedUsersFuture: 150,
     photoStorage: objectStorage.provider,
-    systemVersion: 'Part 503'
+    systemVersion: 'Part 535',
+    publicationScope: config.publication.defaultScope,
+    authenticationMode: config.session.enabled ? 'server-session' : (config.session.legacyBearerEnabled ? 'legacy-bearer' : 'disabled'),
+    persistentStorage: objectStorage.provider
   });
 });
 
@@ -148,7 +196,7 @@ app.put('/api/admin/system/access-policy', authenticate, requireRole('safety-env
 
 app.post('/api/auth/login', async (req, res) => {
   if (!config.allowLocalAuth) return res.status(403).json({ error: 'ローカル認証は無効です。社内認証を利用してください。' });
-  const schema = z.object({ loginId: z.string().min(1).max(100), password: z.string().min(1).max(300) });
+  const schema = z.object({ loginId: z.string().min(1).max(100), password: z.string().min(1).max(300), remember:z.boolean().optional().default(false) });
   const parsed = schema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: 'ログインIDとパスワードを確認してください。' });
   const { rows } = await query('SELECT * FROM users WHERE lower(login_id)=lower($1) AND active=true', [parsed.data.loginId.trim()]);
@@ -161,22 +209,28 @@ app.post('/api/auth/login', async (req, res) => {
     const nextCount = Number(user.failed_login_count || 0) + 1;
     const lock = nextCount >= config.loginMaxFailures;
     await query(`UPDATE users SET failed_login_count=$1,locked_until=CASE WHEN $2 THEN now()+($3 || ' minutes')::interval ELSE NULL END WHERE id=$4`, [lock ? 0 : nextCount, lock, String(config.loginLockMinutes), user.id]);
+    await query(`INSERT INTO account_security_events(user_id,event_type,ip_address,user_agent,details) VALUES($1,'login-failed',$2,$3,$4::jsonb)`,[user.id,req.ip||null,req.get('user-agent')||null,JSON.stringify({locked:lock})]).catch(()=>{});
     return res.status(401).json({ error: lock ? 'ログイン失敗回数が上限に達したため、一時ロックしました。' : 'ログイン情報が正しくありません。' });
   }
   await query('UPDATE users SET failed_login_count=0,locked_until=NULL WHERE id=$1', [user.id]);
   if (config.mfa.enabled && user.mfa_required) {
     const challenge = await issueMfaChallenge(user, 'login');
     await audit({ ...req, user }, 'mfa-issued', 'user', user.id, { purpose:'login' });
-    return res.json({ mfaRequired:true, ...challenge, resendAfterSeconds:config.mfa.resendSeconds });
+    return res.json({ mfaRequired:true, remember:parsed.data.remember, ...challenge, resendAfterSeconds:config.mfa.resendSeconds });
   }
   await query('UPDATE users SET last_login_at=now(),first_login_at=COALESCE(first_login_at,now()) WHERE id=$1', [user.id]);
-  await query(`INSERT INTO account_security_events(user_id,event_type,ip_address,user_agent,details) VALUES($1,'login-success',$2,$3,$4::jsonb)`,[user.id,req.ip||null,req.get('user-agent')||null,JSON.stringify({mfa:false})]).catch(()=>{});
+  await query(`INSERT INTO account_security_events(user_id,event_type,ip_address,user_agent,details) VALUES($1,'login-success',$2,$3,$4::jsonb)`,[user.id,req.ip||null,req.get('user-agent')||null,JSON.stringify({mfa:false,mode:config.session.enabled?'server-session':'legacy-bearer'})]).catch(()=>{});
+  if (config.session.enabled) {
+    const created = await createServerSession(user, req, res, { remember:parsed.data.remember });
+    return res.json({ authMode:'server-session', csrfToken:created.csrfToken, mfaRequired:false, passwordChangeRequired:Boolean(user.must_change_password), user:publicUser(user) });
+  }
+  if (!config.session.legacyBearerEnabled) return res.status(503).json({ error:'利用可能な認証方式が設定されていません。' });
   const token = signToken(user);
-  res.json({ token, mfaRequired:false, passwordChangeRequired:Boolean(user.must_change_password), user:publicUser(user) });
+  res.json({ authMode:'legacy-bearer', token, mfaRequired:false, passwordChangeRequired:Boolean(user.must_change_password), user:publicUser(user) });
 });
 
 app.post('/api/auth/mfa/verify', async (req,res) => {
-  const schema=z.object({ challengeId:z.string().uuid(), code:z.string().regex(/^\d{6}$/) });
+  const schema=z.object({ challengeId:z.string().uuid(), code:z.string().regex(/^\d{6}$/), remember:z.boolean().optional().default(false) });
   const parsed=schema.safeParse(req.body);
   if(!parsed.success) return res.status(400).json({error:'6桁の認証コードを確認してください。'});
   const {rows}=await query(`SELECT c.id challenge_id,c.user_id,c.code_hash,c.attempt_count,c.max_attempts,u.* FROM mfa_challenges c JOIN users u ON u.id=c.user_id
@@ -191,9 +245,14 @@ app.post('/api/auth/mfa/verify', async (req,res) => {
   await query('UPDATE mfa_challenges SET consumed_at=now() WHERE id=$1',[row.challenge_id]);
   await query('UPDATE users SET last_login_at=now(),first_login_at=COALESCE(first_login_at,now()),email_verified=true,mfa_last_verified_at=now() WHERE id=$1',[row.user_id]);
   await query(`INSERT INTO account_security_events(user_id,event_type,ip_address,user_agent,details) VALUES($1,'mfa-verified',$2,$3,$4::jsonb)`,[row.user_id,req.ip||null,req.get('user-agent')||null,JSON.stringify({purpose:'login'})]).catch(()=>{});
-  const user={ id:row.user_id, login_id:row.login_id, email:row.email, display_name:row.display_name, role:row.role, office_id:row.office_id, account_category:row.account_category, must_change_password:row.must_change_password };
+  const user={ id:row.user_id, login_id:row.login_id, email:row.email, display_name:row.display_name, role:row.role, office_id:row.office_id, account_category:row.account_category, must_change_password:row.must_change_password, token_version:row.token_version };
+  if (config.session.enabled) {
+    const created=await createServerSession(user,req,res,{remember:parsed.data.remember});
+    return res.json({authMode:'server-session',csrfToken:created.csrfToken,passwordChangeRequired:Boolean(user.must_change_password),user:publicUser(user)});
+  }
+  if (!config.session.legacyBearerEnabled) return res.status(503).json({error:'利用可能な認証方式が設定されていません。'});
   const token=signToken(user);
-  res.json({token,passwordChangeRequired:Boolean(user.must_change_password),user:publicUser(user)});
+  res.json({authMode:'legacy-bearer',token,passwordChangeRequired:Boolean(user.must_change_password),user:publicUser(user)});
 });
 
 app.post('/api/auth/mfa/resend', async (req,res) => {
@@ -234,7 +293,21 @@ app.post('/api/auth/reset-password', async (req,res) => {
   const {rows}=await query(`SELECT t.id token_id,u.id user_id FROM account_tokens t JOIN users u ON u.id=t.user_id WHERE t.token_hash=$1 AND t.token_type='password-reset' AND t.consumed_at IS NULL AND t.expires_at>now()`,[hashText(parsed.data.token)]);if(!rows[0])return res.status(400).json({error:'再設定リンクが無効または期限切れです。'});const hash=await bcrypt.hash(parsed.data.newPassword,12);await transaction(async client=>{await client.query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,failed_login_count=0,locked_until=NULL,token_version=COALESCE(token_version,1)+1 WHERE id=$2',[hash,rows[0].user_id]);await client.query('UPDATE account_tokens SET consumed_at=now() WHERE id=$1',[rows[0].token_id]);});res.status(204).end();
 });
 
-app.get('/api/auth/me', authenticate, (req, res) => res.json({ user: publicUser(req.user) }));
+app.get('/api/auth/csrf', authenticate, async (req,res) => {
+  if (req.authContext?.mode !== 'server-session') return res.json({ authMode:req.authContext?.mode || 'unknown', csrfToken:null });
+  const csrfToken=await rotateSessionCsrf(req.authContext.sessionId);
+  if (!csrfToken) return res.status(401).json({ error:'セッションが無効です。再度ログインしてください。' });
+  res.json({ authMode:'server-session', csrfToken });
+});
+
+app.post('/api/auth/logout', authenticate, async (req,res) => {
+  if (req.authContext?.sessionId) await revokeSession(req.authContext.sessionId,'logout');
+  clearSessionCookie(res);
+  await audit(req,'logout','user',req.user.id,{mode:req.authContext?.mode || 'unknown'});
+  res.status(204).end();
+});
+
+app.get('/api/auth/me', authenticate, (req, res) => res.json({ user: publicUser(req.user), authMode:req.authContext?.mode || 'unknown' }));
 
 app.get('/api/auth/security-events', authenticate, async (req, res) => {
   const limit = Math.min(Math.max(Number(req.query.limit || 50), 1), 100);
@@ -248,6 +321,8 @@ app.get('/api/auth/security-events', authenticate, async (req, res) => {
 
 app.post('/api/auth/logout-all', authenticate, async (req, res) => {
   await query('UPDATE users SET token_version=COALESCE(token_version,1)+1,last_forced_logout_at=now(),updated_at=now() WHERE id=$1', [req.user.id]);
+  await revokeAllUserSessions(req.user.id,'logout-all');
+  clearSessionCookie(res);
   await query(`INSERT INTO account_security_events(user_id,event_type,actor_user_id,ip_address,user_agent,details)
     VALUES($1,'force-logout',$1,$2,$3,$4::jsonb)`, [req.user.id, req.ip || null, req.get('user-agent') || null, JSON.stringify({ scope:'all-sessions', requestedBy:'self' })]).catch(()=>{});
   await audit(req, 'self-force-logout', 'user', req.user.id, { scope:'all-sessions' });
@@ -266,6 +341,8 @@ app.post('/api/auth/change-password' , authenticate, async (req, res) => {
   await query('UPDATE users SET password_hash=$1,password_changed_at=now(),must_change_password=false,updated_at=now(),token_version=COALESCE(token_version,1)+1 WHERE id=$2', [hash, req.user.id]);
   await query(`INSERT INTO account_security_events(user_id,event_type,actor_user_id,ip_address,user_agent,details)
     VALUES($1,'password-changed',$1,$2,$3,$4::jsonb)`, [req.user.id, req.ip || null, req.get('user-agent') || null, JSON.stringify({ source:'authenticated-change' })]).catch(()=>{});
+  await revokeAllUserSessions(req.user.id,'password-changed');
+  clearSessionCookie(res);
   await audit(req, 'change-password', 'user', req.user.id);
   res.status(204).end();
 });
@@ -290,7 +367,7 @@ app.get('/api/applications', authenticate, requireOperationalRead, async (req, r
   res.json({ applications: rows });
 });
 
-const applicationSchema = z.object({ clientId: z.string().max(100).optional(), applicationNumber: z.string().min(1).max(100), shipper: z.string().max(300).default(''), cargoName: z.string().max(500).default(''), note: z.string().max(5000).default(''), status: z.string().max(50).default('active'), officeId: z.string().min(1) });
+const applicationSchema = z.object({ clientId: z.string().max(100).optional(), applicationNumber: z.string().min(1).max(100), shipper: z.string().max(300).default(''), cargoName: z.string().max(500).default(''), note: z.string().max(5000).default(''), status: z.string().max(50).default('active'), officeId: z.string().min(1), caseData: z.record(z.any()).optional().default({}) });
 app.post('/api/applications', authenticate, requireOperationalWrite, async (req, res) => {
   const parsed = applicationSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: '申請番号の入力内容を確認してください。' });
@@ -298,9 +375,9 @@ app.post('/api/applications', authenticate, requireOperationalWrite, async (req,
   if (!officeId || officeId === '__NO_OPERATIONAL_SCOPE__') return res.status(403).json({ error: 'このアカウントでは申請番号を登録できません。' });
   try {
     const application = await transaction(async client => {
-      const { rows } = await client.query(`INSERT INTO applications(client_id,application_number,shipper,cargo_name,note,status,office_id,block_id,created_by,updated_by)
-        SELECT $1,$2,$3,$4,$5,$6,o.id,o.block_id,$7,$7 FROM offices o WHERE o.id=$8 RETURNING *`,
-        [parsed.data.clientId || null, parsed.data.applicationNumber.trim(), parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, officeId]);
+      const { rows } = await client.query(`INSERT INTO applications(client_id,application_number,shipper,cargo_name,note,status,case_data,office_id,block_id,created_by,updated_by)
+        SELECT $1,$2,$3,$4,$5,$6,$7::jsonb,o.id,o.block_id,$8,$8 FROM offices o WHERE o.id=$9 RETURNING *`,
+        [parsed.data.clientId || null, parsed.data.applicationNumber.trim(), parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, JSON.stringify(parsed.data.caseData || {}), req.user.id, officeId]);
       if (!rows[0]) throw Object.assign(new Error('事業所が見つかりません。'), { status:404 });
       const snapshot=applicationSnapshot(rows[0]);
       await recordApplicationRevision(client,{applicationId:rows[0].id,officeId:rows[0].office_id,action:'create',reason:'新規登録',before:null,after:snapshot,userId:req.user.id});
@@ -315,7 +392,7 @@ app.post('/api/applications', authenticate, requireOperationalWrite, async (req,
 });
 
 app.put('/api/applications/:id', authenticate, requireOperationalWrite, async (req, res) => {
-  const schema = z.object({ applicationNumber: z.string().min(1).max(100).optional(), shipper: z.string().max(300).optional(), cargoName: z.string().max(500).optional(), note: z.string().max(5000).optional(), status: z.string().max(50).optional(), version: z.number().int().positive(), changeReason:z.string().min(1).max(1000) });
+  const schema = z.object({ applicationNumber: z.string().min(1).max(100).optional(), shipper: z.string().max(300).optional(), cargoName: z.string().max(500).optional(), note: z.string().max(5000).optional(), status: z.string().max(50).optional(), caseData: z.record(z.any()).optional(), version: z.number().int().positive(), changeReason:z.string().min(1).max(1000) });
   const parsed = schema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: '更新内容と訂正理由を確認してください。' });
   const officeId = officeScope(req.user, req.query.officeId);
@@ -324,7 +401,7 @@ app.put('/api/applications/:id', authenticate, requireOperationalWrite, async (r
     if(!current.rows[0]) throw Object.assign(new Error('対象が見つかりません。'),{status:404});
     if(Number(current.rows[0].version)!==Number(parsed.data.version)) throw Object.assign(new Error('他の利用者が更新しました。再読み込みしてください。'),{status:409});
     const before=applicationSnapshot(current.rows[0]);
-    const { rows } = await client.query(`UPDATE applications SET application_number=COALESCE($1,application_number),shipper=COALESCE($2,shipper),cargo_name=COALESCE($3,cargo_name),note=COALESCE($4,note),status=COALESCE($5,status),updated_by=$6,version=version+1,updated_at=now() WHERE id=$7 RETURNING *`, [parsed.data.applicationNumber, parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, req.user.id, req.params.id]);
+    const { rows } = await client.query(`UPDATE applications SET application_number=COALESCE($1,application_number),shipper=COALESCE($2,shipper),cargo_name=COALESCE($3,cargo_name),note=COALESCE($4,note),status=COALESCE($5,status),case_data=COALESCE($6::jsonb,case_data),updated_by=$7,version=version+1,updated_at=now() WHERE id=$8 RETURNING *`, [parsed.data.applicationNumber, parsed.data.shipper, parsed.data.cargoName, parsed.data.note, parsed.data.status, parsed.data.caseData === undefined ? null : JSON.stringify(parsed.data.caseData), req.user.id, req.params.id]);
     const after=applicationSnapshot(rows[0]);
     await recordApplicationRevision(client,{applicationId:rows[0].id,officeId:rows[0].office_id,action:'correct',reason:parsed.data.changeReason,before,after,userId:req.user.id});
     return rows[0];
@@ -558,7 +635,7 @@ app.post('/api/sync/batch', authenticate, requireOperationalWrite, async (req, r
         const id = item.payload.id;
         const version = item.clientVersion || item.payload.version;
         const officeId = officeScope(req.user, item.payload.officeId);
-        const updated = await query(`UPDATE applications SET shipper=COALESCE($1,shipper),cargo_name=COALESCE($2,cargo_name),note=COALESCE($3,note),status=COALESCE($4,status),updated_by=$5,version=version+1,updated_at=now() WHERE id=$6 AND version=$7 AND deleted_at IS NULL AND ($8::text IS NULL OR office_id=$8) RETURNING id,version,updated_at`, [item.payload.shipper, item.payload.cargoName, item.payload.note, item.payload.status, req.user.id, id, version, officeId]);
+        const updated = await query(`UPDATE applications SET shipper=COALESCE($1,shipper),cargo_name=COALESCE($2,cargo_name),note=COALESCE($3,note),status=COALESCE($4,status),case_data=COALESCE($5::jsonb,case_data),updated_by=$6,version=version+1,updated_at=now() WHERE id=$7 AND version=$8 AND deleted_at IS NULL AND ($9::text IS NULL OR office_id=$9) RETURNING id,version,updated_at`, [item.payload.shipper, item.payload.cargoName, item.payload.note, item.payload.status, item.payload.caseData === undefined ? null : JSON.stringify(item.payload.caseData), req.user.id, id, version, officeId]);
         result = updated.rows[0] ? { status: 'updated', server: updated.rows[0] } : { status: 'conflict', error: 'サーバー側のデータが更新されています。再取得して統合してください。' };
       }
     } catch (error) {
@@ -900,20 +977,31 @@ app.get('/api/admin/preflight', authenticate, requireRole('safety-environment-ad
     push('database', '中央データベース接続', false, error.message);
   }
   let storageOk = false;
+  const storageProbeKey = createStorageKey('preflight', '.txt');
   try {
-    fs.mkdirSync(config.photoStorageDir, { recursive: true });
-    fs.accessSync(config.photoStorageDir, fs.constants.R_OK | fs.constants.W_OK);
-    const probe = path.join(config.photoStorageDir, `.preflight-${process.pid}-${Date.now()}`);
-    fs.writeFileSync(probe, 'ok'); fs.rmSync(probe, { force: true }); storageOk = true;
+    const payload = Buffer.from(`preflight:${Date.now()}`,'utf8');
+    const checksum = crypto.createHash('sha256').update(payload).digest('hex');
+    await objectStorage.put(storageProbeKey,payload,{contentType:'text/plain',sha256:checksum});
+    const restored = await objectStorage.get(storageProbeKey);
+    if (!restored.equals(payload)) throw new Error('保存後の読込み内容が一致しません。');
+    await objectStorage.delete(storageProbeKey);
+    storageOk = true;
   } catch (error) {
-    push('photo-storage', '写真保存先の読み書き', false, error.message);
+    await objectStorage.delete(storageProbeKey).catch(()=>{});
+    push('persistent-storage', '永続ストレージの保存・読込・削除', false, `${objectStorage.provider}: ${error.message}`);
   }
-  if (storageOk) push('photo-storage', '写真保存先の読み書き', true, config.photoStorageDir);
+  if (storageOk) push('persistent-storage', '永続ストレージの保存・読込・削除', true, `provider=${objectStorage.provider}`);
   const defaultSecret = 'development-only-change-this-secret-immediately';
   push('jwt-secret', 'JWT秘密鍵', config.jwtSecret.length >= 32 && config.jwtSecret !== defaultSecret, config.jwtSecret === defaultSecret ? '開発用既定値のため変更が必要です。' : `${config.jwtSecret.length}文字で設定済み`);
   push('production-mode', '本番実行モード', config.nodeEnv === 'production', `NODE_ENV=${config.nodeEnv}`, 'recommended');
   push('cors', 'CORS許可元', config.corsOrigins.length > 0, config.corsOrigins.length ? config.corsOrigins.join(', ') : '未設定（全Originを許可する開発設定）');
   push('auth', '認証方式', config.oidc.enabled || config.allowLocalAuth, config.oidc.enabled ? `OIDC: ${config.oidc.issuer}` : config.allowLocalAuth ? 'ローカル認証' : '認証方式未設定');
+  push('server-session', 'サーバーセッション', config.session.enabled, config.session.enabled ? `${config.session.cookieName} / HttpOnly / SameSite=${config.session.sameSite}` : '無効');
+  push('csrf', 'CSRF対策', config.session.enabled, config.session.enabled ? `ヘッダー: ${config.session.csrfHeader}` : 'サーバーセッションが無効です。');
+  push('cookie-secure', '認証CookieのSecure属性', config.nodeEnv !== 'production' || config.session.secure, config.session.secure ? 'Secure有効' : '開発環境のみ許容', 'required');
+  push('legacy-bearer', 'ブラウザ保存トークンの無効化', config.nodeEnv !== 'production' || !config.session.legacyBearerEnabled, config.session.legacyBearerEnabled ? '互換Bearer認証が有効です。' : '本番では無効', 'required');
+  push('office-scope', '所属事業所スコープ', true, '申請番号・写真・添付資料APIでサーバー側検証を実施');
+  push('persistent-storage-provider', '永続ストレージ方式', ['filesystem','s3'].includes(objectStorage.provider), `provider=${objectStorage.provider}`);
   const forwardedProto = String(req.headers['x-forwarded-proto'] || req.protocol || '');
   push('https', 'HTTPS経由', forwardedProto.split(',')[0].trim() === 'https', `検出プロトコル: ${forwardedProto}`, 'recommended');
   push('backup-config', 'バックアップ先', Boolean(process.env.BACKUP_DIR), process.env.BACKUP_DIR || 'BACKUP_DIR未設定', 'recommended');
@@ -941,9 +1029,9 @@ app.post('/api/admin/import', authenticate, requireAdministrator, async (req,res
       try{
         if(parsed.data.importType==='applications'){
           const officeId=officeScope(req.user,row.officeId); if(!officeId) throw new Error('事業所を指定してください。');
-          await client.query(`INSERT INTO applications(application_number,shipper,cargo_name,note,status,office_id,block_id,created_by,updated_by)
-            SELECT $1,$2,$3,$4,$5,o.id,o.block_id,$6,$6 FROM offices o WHERE o.id=$7
-            ON CONFLICT(office_id,application_number) WHERE deleted_at IS NULL DO NOTHING`,[String(row.applicationNumber||'').trim(),row.shipper||'',row.cargoName||'',row.note||'',row.status||'受付',req.user.id,officeId]);
+          await client.query(`INSERT INTO applications(application_number,shipper,cargo_name,note,status,case_data,office_id,block_id,created_by,updated_by)
+            SELECT $1,$2,$3,$4,$5,$6::jsonb,o.id,o.block_id,$7,$7 FROM offices o WHERE o.id=$8
+            ON CONFLICT(office_id,application_number) WHERE deleted_at IS NULL DO NOTHING`,[String(row.applicationNumber||'').trim(),row.shipper||'',row.cargoName||'',row.note||'',row.status||'受付',JSON.stringify(row.caseData||{}),req.user.id,officeId]);
         } else if(parsed.data.importType==='users'){
           if(req.user.role==='office-admin' && row.officeId!==req.user.office_id) throw new Error('所属事業所以外は登録できません。');
           if(req.user.role==='office-admin' && row.role!=='office-user') throw new Error('事業所管理者は検査員のみ登録できます。');
@@ -1810,7 +1898,8 @@ app.post('/api/admin/operations-acceptance-improvement-handoffs',authenticate,re
 const regulationUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 250 * 1024 * 1024, files: 1 } });
 
 app.get('/api/auth/permissions', authenticate, (req,res) => {
-  const matrix = {
+  const operational = rolePermissionSnapshot()[req.user.role] || [];
+  const ui = {
     guest: { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, administration:false },
     'office-user': { dangerousGoods:true, regulations:true, references:true, applications:true, photos:true, documents:true, administration:false },
     'office-admin': { dangerousGoods:true, regulations:true, references:true, applications:true, photos:true, documents:true, administration:'office' },
@@ -1820,7 +1909,7 @@ app.get('/api/auth/permissions', authenticate, (req,res) => {
     validator: { dangerousGoods:false, regulations:false, references:true, applications:false, photos:false, documents:false, validation:true },
     'revision-validator': { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, regulationReview:true }
   };
-  res.json({role:req.user.role,permissions:matrix[req.user.role] || {}});
+  res.json({role:req.user.role,officeId:req.user.office_id || null,permissions:ui[req.user.role] || {},serverPermissions:operational});
 });
 
 app.post('/api/regulation-sources', authenticate, requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'), regulationUpload.single('source'), async (req,res) => {
@@ -1897,6 +1986,175 @@ app.post('/api/regulation-change-sets/:id/publish',authenticate,requireRole('saf
   await audit(req,'publish','regulation-change-set',req.params.id,{releaseVersion:parsed.data.releaseVersion,effectiveFrom:parsed.data.effectiveFrom});res.status(201).json({publication:published});
 });
 
+
+// Part 508: item-level legal source verification, human approval and publication control.
+const regulationVerificationRoles=['revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const regulationVerificationChecklistKeys=['source_identity','edition_effective_date','article_table_page','numeric_values','un_code_mapping','exceptions_notes','link_destination','display_integrity'];
+const regulationVerificationChecklistLabels={
+  source_identity:'原典の名称・発行者・版を確認',edition_effective_date:'改正日・適用開始日を確認',article_table_page:'条文・別表・ページを確認',numeric_values:'数値・単位・上限値を確認',un_code_mapping:'国連番号・等級・コードの対応を確認',exceptions_notes:'例外・注記・脚注を確認',link_destination:'原文リンクと表示開始位置を確認',display_integrity:'PC・スマートフォンの整理表示を確認'
+};
+const requireDistinctVerificationActor=(row,userId,stage)=>{
+  const actor=String(userId||'');
+  if(stage==='verify'&&[row.prepared_by,row.submitted_by].some(v=>String(v||'')===actor))throw Object.assign(new Error('作成者または提出者本人は原典照合者になれません。'),{status:409});
+  if(stage==='approve'&&[row.prepared_by,row.submitted_by,row.verified_by].some(v=>String(v||'')===actor))throw Object.assign(new Error('作成者、提出者または原典照合者本人は承認できません。'),{status:409});
+};
+
+app.get('/api/regulation-verification/summary',authenticate,requireRole(...regulationVerificationRoles),async(_req,res)=>{
+  const [summary,types,statuses,lastRun]=await Promise.all([
+    query('SELECT * FROM regulation_verification_summary'),
+    query(`SELECT target_type,count(*)::int total,count(*) FILTER(WHERE status='approved')::int approved,count(*) FILTER(WHERE status='amendment-pending')::int amendment_pending FROM regulation_verification_items GROUP BY target_type ORDER BY target_type`),
+    query(`SELECT status,count(*)::int total FROM regulation_verification_items GROUP BY status ORDER BY status`),
+    query('SELECT * FROM regulation_catalog_sync_runs ORDER BY executed_at DESC LIMIT 1')
+  ]);
+  res.json({summary:summary.rows[0]||{total:0},types:types.rows,statuses:statuses.rows,lastCatalogRun:lastRun.rows[0]||null,policy:{prototype:'未承認情報は参考表示',production:'承認済み情報のみ正式利用',requiredChecklist:regulationVerificationChecklistKeys.map(key=>({key,label:regulationVerificationChecklistLabels[key]}))}});
+});
+
+app.post('/api/admin/regulation-verification/catalog/rebuild',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const result=await transaction(client=>syncRegulationVerificationCatalog(client,{actorId:req.user.id,sourceRelease:'part508'}));
+  await audit(req,'rebuild','regulation-verification-catalog',result.run.id,result.summary);res.status(201).json(result);
+});
+
+app.get('/api/admin/regulation-verification/catalog/runs',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const {rows}=await query('SELECT r.*,u.display_name executed_by_name FROM regulation_catalog_sync_runs r LEFT JOIN users u ON u.id=r.executed_by ORDER BY executed_at DESC LIMIT 100');res.json({runs:rows});
+});
+
+app.get('/api/regulation-verification/items',authenticate,requireRole(...regulationVerificationRoles),async(req,res)=>{
+  const status=String(req.query.status||'').trim();const targetType=String(req.query.targetType||'').trim();const search=String(req.query.search||'').trim();const page=Math.max(1,Number(req.query.page||1));const limit=Math.min(100,Math.max(10,Number(req.query.limit||50)));const offset=(page-1)*limit;
+  const values=[];const where=['1=1'];
+  if(status){values.push(status);where.push(`i.status=$${values.length}`);}if(targetType){values.push(targetType);where.push(`i.target_type=$${values.length}`);}if(search){values.push(`%${search}%`);where.push(`(i.target_key ILIKE $${values.length} OR i.display_label ILIKE $${values.length} OR i.regulation_id ILIKE $${values.length})`);}
+  values.push(limit,offset);const limitNo=values.length-1,offsetNo=values.length;
+  const {rows}=await query(`SELECT i.*,prep.display_name prepared_by_name,sub.display_name submitted_by_name,ver.display_name verified_by_name,appv.display_name approved_by_name,c.certificate_number,c.status certificate_status,c.valid_from,c.valid_to,COUNT(*) OVER()::int total_count
+    FROM regulation_verification_items i LEFT JOIN users prep ON prep.id=i.prepared_by LEFT JOIN users sub ON sub.id=i.submitted_by LEFT JOIN users ver ON ver.id=i.verified_by LEFT JOIN users appv ON appv.id=i.approved_by
+    LEFT JOIN LATERAL (SELECT certificate_number,status,valid_from,valid_to FROM regulation_approval_certificates c WHERE c.item_id=i.id ORDER BY created_at DESC LIMIT 1) c ON true
+    WHERE ${where.join(' AND ')} ORDER BY CASE i.status WHEN 'amendment-pending' THEN 0 WHEN 'submitted' THEN 1 WHEN 'source-verified' THEN 2 WHEN 'returned' THEN 3 WHEN 'prepared' THEN 4 WHEN 'unverified' THEN 5 WHEN 'approved' THEN 6 ELSE 7 END,i.updated_at DESC LIMIT $${limitNo} OFFSET $${offsetNo}`,values);
+  res.json({items:rows,page,limit,total:rows[0]?.total_count||0});
+});
+
+app.get('/api/regulation-verification/items/:id/events',authenticate,requireRole(...regulationVerificationRoles),async(req,res)=>{
+  const {rows}=await query(`SELECT e.*,u.display_name actor_name,u.login_id actor_login FROM regulation_verification_events e LEFT JOIN users u ON u.id=e.actor_user_id WHERE e.item_id=$1 ORDER BY e.created_at DESC`,[req.params.id]);res.json({events:rows});
+});
+
+app.post('/api/regulation-verification/items/:id/submit',authenticate,requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const parsed=z.object({comment:z.string().max(3000).optional().default('')}).safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'提出内容を確認してください。'});
+  const {rows}=await query(`UPDATE regulation_verification_items SET status='submitted',submitted_by=$1,submitted_at=now(),publication_block_reason=NULL,updated_at=now() WHERE id=$2 AND status IN ('unverified','prepared','returned','amendment-pending') RETURNING *`,[req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'この項目は原典照合へ提出できる状態ではありません。'});
+  await query(`INSERT INTO regulation_verification_events(item_id,event_type,actor_user_id,actor_role,comment,source_page_references,content_checksum_sha256) VALUES($1,'submitted',$2,$3,$4,$5::jsonb,$6)`,[rows[0].id,req.user.id,req.user.role,parsed.data.comment,JSON.stringify(rows[0].source_page_references||[]),rows[0].content_checksum_sha256]);await audit(req,'submit','regulation-verification-item',rows[0].id,{comment:parsed.data.comment});res.json({item:rows[0]});
+});
+
+app.post('/api/regulation-verification/items/:id/source-verify',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({comment:z.string().min(1).max(5000),sourceChecksum:z.string().regex(/^[0-9a-f]{64}$/i).nullable().optional(),sourcePageReferences:z.array(z.record(z.any())).min(1),checklist:z.array(z.object({key:z.string(),label:z.string().optional(),passed:z.boolean(),note:z.string().max(2000).optional().default('')})).min(regulationVerificationChecklistKeys.length)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'原典照合結果を確認してください。'});
+  const map=new Map(parsed.data.checklist.map(x=>[x.key,x]));const missing=regulationVerificationChecklistKeys.filter(key=>!map.has(key));const failed=regulationVerificationChecklistKeys.filter(key=>!map.get(key)?.passed);if(missing.length||failed.length)return res.status(400).json({error:`必須照合項目が未完了です。${[...missing,...failed].map(key=>regulationVerificationChecklistLabels[key]||key).join('、')}`});
+  const current=await query('SELECT * FROM regulation_verification_items WHERE id=$1',[req.params.id]);const row=current.rows[0];if(!row)return res.status(404).json({error:'照合対象が見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済みの項目だけを原典照合できます。'});requireDistinctVerificationActor(row,req.user.id,'verify');
+  const {rows}=await query(`UPDATE regulation_verification_items SET status='source-verified',verified_by=$1,verified_at=now(),last_source_checked_at=now(),verification_checklist=$2::jsonb,verification_note=$3,source_page_references=$4::jsonb,source_checksum_sha256=COALESCE($5,source_checksum_sha256),publication_block_reason=NULL,updated_at=now() WHERE id=$6 RETURNING *`,[req.user.id,JSON.stringify(parsed.data.checklist),parsed.data.comment,JSON.stringify(parsed.data.sourcePageReferences),parsed.data.sourceChecksum||null,req.params.id]);
+  await query(`INSERT INTO regulation_verification_events(item_id,event_type,actor_user_id,actor_role,comment,checklist,source_page_references,source_checksum_sha256,content_checksum_sha256) VALUES($1,'source-verified',$2,$3,$4,$5::jsonb,$6::jsonb,$7,$8)`,[req.params.id,req.user.id,req.user.role,parsed.data.comment,JSON.stringify(parsed.data.checklist),JSON.stringify(parsed.data.sourcePageReferences),parsed.data.sourceChecksum||null,row.content_checksum_sha256]);await audit(req,'source-verify','regulation-verification-item',req.params.id,{comment:parsed.data.comment});res.json({item:rows[0]});
+});
+
+app.post('/api/regulation-verification/items/:id/return',authenticate,requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const parsed=z.object({reason:z.string().min(1).max(5000)}).safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'差戻し理由を入力してください。'});
+  const {rows}=await query(`UPDATE regulation_verification_items SET status='returned',verified_by=NULL,verified_at=NULL,approved_by=NULL,approved_at=NULL,publication_block_reason=$1,updated_at=now() WHERE id=$2 AND status IN ('submitted','source-verified') RETURNING *`,[parsed.data.reason,req.params.id]);if(!rows[0])return res.status(409).json({error:'この項目は差し戻せる状態ではありません。'});
+  await query(`INSERT INTO regulation_verification_events(item_id,event_type,actor_user_id,actor_role,comment) VALUES($1,'returned',$2,$3,$4)`,[req.params.id,req.user.id,req.user.role,parsed.data.reason]);await audit(req,'return','regulation-verification-item',req.params.id,{reason:parsed.data.reason});res.json({item:rows[0]});
+});
+
+app.post('/api/regulation-verification/items/:id/approve',authenticate,requireRole('safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const parsed=z.object({comment:z.string().min(1).max(5000),validFrom:z.string().date().optional(),nextReviewDue:z.string().date().optional()}).safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認内容を確認してください。'});
+  const result=await transaction(async client=>{const current=await client.query('SELECT * FROM regulation_verification_items WHERE id=$1 FOR UPDATE',[req.params.id]);const row=current.rows[0];if(!row)throw Object.assign(new Error('照合対象が見つかりません。'),{status:404});if(row.status!=='source-verified'||!row.verified_by)throw Object.assign(new Error('原典照合済みの項目だけを承認できます。'),{status:409});requireDistinctVerificationActor(row,req.user.id,'approve');
+    const certificateNumber=`SK-LAW-${new Date().toISOString().slice(0,10).replaceAll('-','')}-${crypto.randomUUID().slice(0,8).toUpperCase()}`;const validFrom=parsed.data.validFrom||new Date().toISOString().slice(0,10);const nextReviewDue=parsed.data.nextReviewDue||null;
+    const updated=await client.query(`UPDATE regulation_verification_items SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,next_review_due=$3,publication_block_reason=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[req.user.id,parsed.data.comment,nextReviewDue,row.id]);
+    const certificate=await client.query(`INSERT INTO regulation_approval_certificates(item_id,certificate_number,revision_number,target_type,target_key,display_label,source_edition,source_page_references,source_checksum_sha256,content_checksum_sha256,verification_checklist,verified_by,verified_at,approved_by,valid_from)
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8::jsonb,$9,$10,$11::jsonb,$12,$13,$14,$15) RETURNING *`,[row.id,certificateNumber,row.revision_number,row.target_type,row.target_key,row.display_label,row.source_edition,JSON.stringify(row.source_page_references||[]),row.source_checksum_sha256,row.content_checksum_sha256,JSON.stringify(row.verification_checklist||[]),row.verified_by,row.verified_at,req.user.id,validFrom]);
+    await client.query(`INSERT INTO regulation_verification_events(item_id,event_type,actor_user_id,actor_role,comment,checklist,source_page_references,source_checksum_sha256,content_checksum_sha256) VALUES($1,'approved',$2,$3,$4,$5::jsonb,$6::jsonb,$7,$8)`,[row.id,req.user.id,req.user.role,parsed.data.comment,JSON.stringify(row.verification_checklist||[]),JSON.stringify(row.source_page_references||[]),row.source_checksum_sha256,row.content_checksum_sha256]);return {item:updated.rows[0],certificate:certificate.rows[0]};});
+  await audit(req,'approve','regulation-verification-item',req.params.id,{certificateNumber:result.certificate.certificate_number});res.status(201).json(result);
+});
+
+app.post('/api/regulation-verification/items/:id/suspend',authenticate,requireRole('safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const parsed=z.object({reason:z.string().min(1).max(5000)}).safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'使用停止理由を入力してください。'});
+  const result=await transaction(async client=>{const updated=await client.query(`UPDATE regulation_verification_items SET status='suspended',publication_block_reason=$1,updated_at=now() WHERE id=$2 AND status='approved' RETURNING *`,[parsed.data.reason,req.params.id]);if(!updated.rows[0])throw Object.assign(new Error('承認済みの項目だけを使用停止できます。'),{status:409});await client.query(`UPDATE regulation_approval_certificates SET status='suspended',valid_to=current_date WHERE item_id=$1 AND status='valid'`,[req.params.id]);await client.query(`INSERT INTO regulation_verification_events(item_id,event_type,actor_user_id,actor_role,comment) VALUES($1,'suspended',$2,$3,$4)`,[req.params.id,req.user.id,req.user.role,parsed.data.reason]);return updated.rows[0];});await audit(req,'suspend','regulation-verification-item',req.params.id,{reason:parsed.data.reason});res.json({item:result});
+});
+
+app.get('/api/public/regulation-approval-status',async(req,res)=>{
+  const targetType=String(req.query.targetType||'').trim();const targetKey=String(req.query.targetKey||'').trim();if(!targetType||!targetKey)return res.status(400).json({error:'照会対象を指定してください。'});
+  const {rows}=await query(`SELECT i.target_type,i.target_key,i.display_label,i.status,i.source_edition,i.last_source_checked_at,i.approved_at,i.publication_block_reason,c.certificate_number,c.valid_from,c.valid_to,c.status certificate_status
+    FROM regulation_verification_items i LEFT JOIN LATERAL (SELECT * FROM regulation_approval_certificates c WHERE c.item_id=i.id ORDER BY created_at DESC LIMIT 1)c ON true WHERE i.target_type=$1 AND i.target_key=$2`,[targetType,targetKey]);const row=rows[0];if(!row)return res.json({targetType,targetKey,status:'unregistered',approved:false});res.json({...row,approved:row.status==='approved'&&row.certificate_status==='valid'});
+});
+
+
+// Part 509: copyright, license and internal/public publication scope governance.
+const publicationReadRoles=['revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const publicationWriteRoles=['revision-validator','safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const publicationChecklistKeys=['rights-holder','terms-license','reproduction-scope','internal-scope','public-scope','attribution','expiry-update','checksum-version'];
+
+app.get('/api/publication-rights/summary',authenticate,requireRole(...publicationReadRoles),async(_req,res)=>{
+  const summary=(await query('SELECT * FROM publication_rights_summary')).rows[0]||{};
+  const latest=(await query('SELECT * FROM publication_catalog_sync_runs ORDER BY executed_at DESC LIMIT 1')).rows[0]||null;
+  const scope=(await query("SELECT setting_value FROM system_runtime_settings WHERE setting_key='publication_scope'")).rows[0]?.setting_value||{mode:config.publication.defaultScope};
+  res.json({summary,latestCatalogRun:latest,scope});
+});
+app.get('/api/publication-rights/items',authenticate,requireRole(...publicationReadRoles),async(req,res)=>{
+  const page=Math.max(1,Number(req.query.page)||1),pageSize=Math.min(100,Math.max(10,Number(req.query.pageSize)||30)),offset=(page-1)*pageSize;
+  const values=[],where=[];const add=(sql,value)=>{values.push(value);where.push(sql.replace('?',`$${values.length}`));};
+  if(req.query.status)add('status=?',String(req.query.status));
+  if(req.query.sourceClass)add('source_class=?',String(req.query.sourceClass));
+  if(req.query.riskLevel)add('risk_level=?',String(req.query.riskLevel));
+  if(req.query.search){values.push(`%${String(req.query.search).trim()}%`);where.push(`(asset_key ILIKE $${values.length} OR file_path ILIKE $${values.length} OR display_label ILIKE $${values.length})`);}
+  const clause=where.length?`WHERE ${where.join(' AND ')}`:'';
+  const total=Number((await query(`SELECT count(*) count FROM publication_rights_items ${clause}`,values)).rows[0]?.count||0);
+  const rows=(await query(`SELECT i.*,p.display_name prepared_by_name,r.display_name reviewed_by_name,a.display_name approved_by_name
+    FROM publication_rights_items i LEFT JOIN users p ON p.id=i.prepared_by LEFT JOIN users r ON r.id=i.reviewed_by LEFT JOIN users a ON a.id=i.approved_by
+    ${clause} ORDER BY CASE risk_level WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,status,file_path LIMIT $${values.length+1} OFFSET $${values.length+2}`,[...values,pageSize,offset])).rows;
+  res.json({items:rows,total,page,pageCount:Math.max(1,Math.ceil(total/pageSize))});
+});
+app.post('/api/publication-rights/catalog/rebuild',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const result=await syncPublicationRightsCatalog({executedBy:req.user.id});await audit(req,'catalog-rebuild','publication-rights','part509',result);res.status(201).json(result);
+});
+app.post('/api/publication-rights/items/:id/submit',authenticate,requireRole(...publicationWriteRoles),async(req,res)=>{
+  const schema=z.object({comment:z.string().min(1).max(5000),rightsHolder:z.string().max(500).optional().default(''),rightsBasis:z.string().max(3000).optional().default(''),licenseReference:z.string().max(1000).optional().default(''),sourceUrl:z.string().url().or(z.literal('')).optional().default(''),attributionText:z.string().max(3000).optional().default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'権利確認への提出内容を確認してください。'});const d=parsed.data;
+  const rows=(await query(`UPDATE publication_rights_items SET status='submitted',rights_holder=$1,rights_basis=$2,license_reference=$3,source_url=$4,attribution_text=$5,submitted_by=$6,submitted_at=now(),review_note=$7,updated_at=now() WHERE id=$8 AND status IN ('unreviewed','prepared','returned') RETURNING *`,[d.rightsHolder,d.rightsBasis,d.licenseReference,d.sourceUrl,d.attributionText,req.user.id,d.comment,req.params.id])).rows;
+  if(!rows[0])return res.status(409).json({error:'現在の状態では権利確認へ提出できません。'});
+  await query(`INSERT INTO publication_rights_events(item_id,event_type,actor_user_id,actor_role,comment,checksum_sha256) VALUES($1,'submitted',$2,$3,$4,$5)`,[req.params.id,req.user.id,req.user.role,d.comment,rows[0].checksum_sha256]);await audit(req,'submit','publication-rights-item',req.params.id,{comment:d.comment});res.json({item:rows[0]});
+});
+app.post('/api/publication-rights/items/:id/review',authenticate,requireRole(...publicationReadRoles),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['reviewed','returned']),comment:z.string().min(1).max(5000),checklist:z.array(z.object({key:z.string(),checked:z.boolean(),note:z.string().max(1000).optional().default('')}))});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'権利確認内容を確認してください。'});const d=parsed.data;
+  const row=(await query('SELECT * FROM publication_rights_items WHERE id=$1',[req.params.id])).rows[0];if(!row)return res.status(404).json({error:'対象資料が見つかりません。'});requireDistinctPublicationActors(row,req.user.id,'review');
+  if(d.decision==='reviewed'){const checked=new Set(d.checklist.filter(x=>x.checked).map(x=>x.key));if(publicationChecklistKeys.some(key=>!checked.has(key)))return res.status(400).json({error:'8項目すべての権利・公開範囲確認が必要です。'});}
+  const updated=(await query(`UPDATE publication_rights_items SET status=$1,reviewed_by=CASE WHEN $1='reviewed' THEN $2 ELSE NULL END,reviewed_at=CASE WHEN $1='reviewed' THEN now() ELSE NULL END,review_note=$3,rights_checklist=$4::jsonb,updated_at=now() WHERE id=$5 AND status='submitted' RETURNING *`,[d.decision,req.user.id,d.comment,JSON.stringify(d.checklist),req.params.id])).rows[0];if(!updated)return res.status(409).json({error:'現在の状態では権利確認を登録できません。'});
+  await query(`INSERT INTO publication_rights_events(item_id,event_type,actor_user_id,actor_role,comment,checklist,checksum_sha256) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7)`,[req.params.id,d.decision,req.user.id,req.user.role,d.comment,JSON.stringify(d.checklist),row.checksum_sha256]);await audit(req,d.decision,'publication-rights-item',req.params.id,{comment:d.comment});res.json({item:updated});
+});
+app.post('/api/publication-rights/items/:id/decide',authenticate,requireRole('safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['approved','restricted','metadata-only','prohibited']),allowedScopes:z.array(z.enum(['internal-authenticated','internal-restricted','public-approved'])).default([]),publicTreatment:z.enum(['full','excerpt','metadata-only','external-link-only','blocked']),comment:z.string().min(1).max(5000),rightsExpiryDate:z.string().regex(/^\d{4}-\d{2}-\d{2}$/).or(z.literal('')).optional().default(''),nextReviewDue:z.string().regex(/^\d{4}-\d{2}-\d{2}$/).or(z.literal('')).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'公開範囲の決定内容を確認してください。'});const d=parsed.data;
+  const row=(await query('SELECT * FROM publication_rights_items WHERE id=$1',[req.params.id])).rows[0];if(!row)return res.status(404).json({error:'対象資料が見つかりません。'});requireDistinctPublicationActors(row,req.user.id,'approve');
+  if(['approved','restricted','metadata-only'].includes(d.decision)&&row.status!=='reviewed')return res.status(409).json({error:'権利確認済みの資料だけを承認できます。'});
+  if(['approved','restricted','metadata-only'].includes(d.decision)&&!d.allowedScopes.length)return res.status(400).json({error:'許可する利用範囲を1つ以上選択してください。'});
+  if(d.allowedScopes.includes('public-approved') && !['approved','metadata-only'].includes(d.decision))return res.status(400).json({error:'外部公開範囲を許可する場合は、利用承認済みまたは書誌情報のみを選択してください。'});
+  if(d.allowedScopes.includes('public-approved') && !['full','excerpt','metadata-only','external-link-only'].includes(d.publicTreatment))return res.status(400).json({error:'外部公開時の表示方法を指定してください。'});
+  if(d.allowedScopes.includes('public-approved') && !String(row.rights_holder||'').trim())return res.status(400).json({error:'外部公開には権利者・発行者の確認が必要です。'});
+  if(d.allowedScopes.includes('public-approved') && !String(row.rights_basis||'').trim())return res.status(400).json({error:'外部公開には利用根拠・確認条件の記録が必要です。'});
+  if(d.publicTreatment==='external-link-only' && !String(row.source_url||'').trim())return res.status(400).json({error:'公式外部リンクのみとする場合は、公式URLを登録してください。'});
+  const updated=(await query(`UPDATE publication_rights_items SET status=$1,allowed_scopes=$2::jsonb,public_treatment=$3,approved_by=$4,approved_at=now(),restriction_reason=$5,rights_expiry_date=NULLIF($6,'')::date,next_review_due=NULLIF($7,'')::date,last_terms_checked_at=now(),updated_at=now() WHERE id=$8 RETURNING *`,[d.decision,JSON.stringify(d.allowedScopes),d.publicTreatment,req.user.id,d.comment,d.rightsExpiryDate,d.nextReviewDue,req.params.id])).rows[0];
+  await query(`INSERT INTO publication_rights_events(item_id,event_type,actor_user_id,actor_role,comment,decision_snapshot,checksum_sha256) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7)`,[req.params.id,d.decision,req.user.id,req.user.role,d.comment,JSON.stringify({allowedScopes:d.allowedScopes,publicTreatment:d.publicTreatment,rightsExpiryDate:d.rightsExpiryDate,nextReviewDue:d.nextReviewDue}),row.checksum_sha256]);await audit(req,'decide','publication-rights-item',req.params.id,{decision:d.decision,allowedScopes:d.allowedScopes});res.json({item:updated});
+});
+app.get('/api/publication-rights/export',authenticate,requireRole('safety-environment-director','safety-environment-admin'),async(req,res)=>{
+  const rows=(await query(`SELECT asset_key AS "assetKey",file_path AS "filePath",display_label AS "displayLabel",source_class AS "sourceClass",status,allowed_scopes AS "allowedScopes",public_treatment AS "publicTreatment",rights_holder AS "rightsHolder",rights_basis AS "rightsBasis",license_reference AS "licenseReference",source_url AS "sourceUrl",attribution_text AS "attributionText",rights_expiry_date AS "rightsExpiryDate",checksum_sha256 AS "checksumSha256",approved_at AS "approvedAt" FROM publication_rights_items ORDER BY file_path`)).rows;await audit(req,'export','publication-rights','decisions',{count:rows.length});res.json({release:'part509',exportedAt:new Date().toISOString(),items:rows});
+});
+app.get('/api/publication-rights/items/:id/events',authenticate,requireRole(...publicationReadRoles),async(req,res)=>{
+  const rows=(await query(`SELECT e.*,u.display_name actor_name FROM publication_rights_events e LEFT JOIN users u ON u.id=e.actor_user_id WHERE e.item_id=$1 ORDER BY e.created_at DESC`,[req.params.id])).rows;res.json({events:rows});
+});
+app.get('/api/public/publication-rights-status',async(req,res)=>{
+  const assetKey=String(req.query.assetKey||'');if(!assetKey)return res.status(400).json({error:'assetKeyが必要です。'});
+  const row=(await query(`SELECT asset_key,file_path,display_label,source_class,status,allowed_scopes,public_treatment,rights_expiry_date,restriction_reason,attribution_text,source_url,updated_at FROM publication_rights_items WHERE asset_key=$1`,[assetKey])).rows[0];
+  if(!row)return res.json({assetKey,status:'unregistered',allowed:false,publicTreatment:'blocked'});
+  const expired=row.rights_expiry_date&&String(row.rights_expiry_date).slice(0,10)<new Date().toISOString().slice(0,10);res.json({...row,expired,allowed:!expired&&['approved','restricted','metadata-only'].includes(row.status)});
+});
+app.get('/api/system/publication-scope',async(_req,res)=>{
+  const value=(await query("SELECT setting_value FROM system_runtime_settings WHERE setting_key='publication_scope'")).rows[0]?.setting_value||{mode:config.publication.defaultScope};res.json(value);
+});
+app.get('/api/admin/publication-scope',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const value=(await query("SELECT setting_value FROM system_runtime_settings WHERE setting_key='publication_scope'")).rows[0]?.setting_value||{mode:config.publication.defaultScope};res.json(value);
+});
+app.put('/api/admin/publication-scope',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({mode:z.enum(['prototype-review','internal-authenticated','internal-restricted','public-approved']),note:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'公開範囲設定を確認してください。'});const value={...parsed.data,updatedAt:new Date().toISOString(),updatedBy:req.user.id};
+  await query(`INSERT INTO system_runtime_settings(setting_key,setting_value,updated_by,updated_at) VALUES('publication_scope',$1::jsonb,$2,now()) ON CONFLICT(setting_key) DO UPDATE SET setting_value=excluded.setting_value,updated_by=excluded.updated_by,updated_at=now()`,[JSON.stringify(value),req.user.id]);await audit(req,'update','publication-scope','publication_scope',value);res.json(value);
+});
+
 app.get('/api/admin/backup-status',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
   const [settings,runs,ledger,restores]=await Promise.all([query(`SELECT * FROM system_backup_settings WHERE id='default'`),query(`SELECT * FROM system_backup_runs ORDER BY started_at DESC LIMIT 100`),query(`SELECT * FROM system_backup_ledger ORDER BY created_at DESC LIMIT 100`),query(`SELECT * FROM system_restore_history ORDER BY restored_at DESC LIMIT 100`)]);
   const latest=runs.rows[0]||null;const settingsRow=settings.rows[0]||null;const overdue=!latest||!settingsRow?true:(Date.now()-new Date(latest.started_at).getTime())>Number(settingsRow.interval_hours||24)*3600_000*1.5;const offsiteRecorded=Boolean(latest?.offsite_location);const offsiteRequiredMissing=Boolean(settingsRow?.require_offsite_copy&&!offsiteRecorded);const restoreTestDue=!latest?.verified_at||(latest?.verified_at&&Date.now()-new Date(latest.verified_at).getTime()>Number(settingsRow?.restore_test_interval_days||90)*86400_000);
@@ -1912,11 +2170,752 @@ app.post('/api/admin/backups/:id/restore-test',authenticate,requireRole('safety-
   const schema=z.object({result:z.enum(['passed','failed']),note:z.string().max(5000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'復元試験結果を確認してください。'});const {rows}=await query(`UPDATE system_backup_runs SET verified_at=now(),status=CASE WHEN $1='passed' THEN 'verified' ELSE status END,verification_result=$2::jsonb WHERE id=$3 RETURNING *`,[parsed.data.result,JSON.stringify({result:parsed.data.result,note:parsed.data.note,verifiedBy:req.user.id}),req.params.id]);if(!rows[0])return res.status(404).json({error:'バックアップ記録が見つかりません。'});await audit(req,'restore-test','system-backup-run',req.params.id,{result:parsed.data.result,note:parsed.data.note});res.json({run:rows[0]});
 });
 
+
+// Part 506: centrally store application verification and CTU calculation results.
+app.get('/api/application-results', authenticate, requireOperationalRead, async (req,res)=>{
+  const officeId=officeScope(req.user);
+  const applicationId=String(req.query.applicationId||'').trim()||null;
+  const {rows}=await query(`SELECT r.*,a.application_number,o.name office_name
+    FROM application_linked_results r JOIN applications a ON a.id=r.application_id JOIN offices o ON o.id=r.office_id
+    WHERE ($1::uuid IS NULL OR r.application_id=$1) AND ($2::text IS NULL OR r.office_id=$2)
+    ORDER BY r.created_at DESC LIMIT 1000`,[applicationId,officeId]);
+  res.json({results:rows});
+});
+
+app.post('/api/application-results', authenticate, requireOperationalWrite, async (req,res)=>{
+  const schema=z.object({clientId:z.string().max(200).optional(),applicationId:z.string().uuid(),resultType:z.enum(['dangerous-goods-verification','ctu-securing','other']),title:z.string().min(1).max(300),resultVersion:z.number().int().min(1).max(9999).optional().default(1),status:z.enum(['recorded','confirmed']).optional().default('recorded'),sourcePage:z.string().max(500).optional().default(''),payload:z.record(z.any())});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認・算出結果の登録内容を確認してください。'});const d=parsed.data;
+  const created=await transaction(async client=>{
+    const appResult=await client.query(`SELECT id,office_id FROM applications WHERE id=$1 AND deleted_at IS NULL AND ($2::text IS NULL OR office_id=$2) FOR UPDATE`,[d.applicationId,officeScope(req.user)]);const application=appResult.rows[0];if(!application)throw Object.assign(new Error('登録先の申請番号が見つかりません。'),{status:404});
+    const {rows}=await client.query(`INSERT INTO application_linked_results(client_id,application_id,office_id,result_type,title,result_version,status,source_page,payload,created_by,created_by_name)
+      VALUES(NULLIF($1,''),$2,$3,$4,$5,$6,$7,NULLIF($8,''),$9::jsonb,$10,$11)
+      ON CONFLICT(client_id) WHERE client_id IS NOT NULL DO UPDATE SET title=excluded.title,result_version=excluded.result_version,status=excluded.status,source_page=excluded.source_page,payload=excluded.payload,updated_at=now()
+      RETURNING *`,[d.clientId||'',application.id,application.office_id,d.resultType,d.title,d.resultVersion,d.status,d.sourcePage,JSON.stringify(d.payload),req.user.id,req.user.display_name||req.user.login_id||'利用者']);
+    return rows[0];
+  });
+  await audit(req,'create','application-linked-result',created.id,{applicationId:d.applicationId,resultType:d.resultType,resultVersion:d.resultVersion});res.status(201).json({result:created});
+});
+
+app.patch('/api/application-results/:id', authenticate, requireOperationalWrite, async (req,res)=>{
+  const schema=z.object({action:z.enum(['cancel','restore']),reason:z.string().max(2000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'変更内容を確認してください。'});const officeId=officeScope(req.user);
+  const {rows}=await query(`UPDATE application_linked_results SET status=CASE WHEN $1='cancel' THEN 'cancelled' ELSE CASE WHEN payload#>>'{review,status}'='confirmed' THEN 'confirmed' ELSE 'recorded' END END,cancelled_at=CASE WHEN $1='cancel' THEN now() ELSE NULL END,cancel_reason=CASE WHEN $1='cancel' THEN $2 ELSE NULL END,updated_at=now() WHERE id=$3 AND ($4::text IS NULL OR office_id=$4) RETURNING *`,[parsed.data.action,parsed.data.reason,req.params.id,officeId]);if(!rows[0])return res.status(404).json({error:'対象の確認・算出結果が見つかりません。'});await audit(req,parsed.data.action,'application-linked-result',req.params.id,{reason:parsed.data.reason});res.json({result:rows[0]});
+});
+
+// Part 506: full-system release staging. It never overwrites the active release directly.
+const migrationSafePath=value=>{
+  const v=String(value||'').replace(/\\/g,'/').replace(/^\.\//,'');
+  if(!v||v.startsWith('/')||v.includes('..')||v.includes('\0'))return null;
+  if(/(^|\/)(\.env|\.git|node_modules|server\/data|server\/storage)(\/|$)/i.test(v))return null;
+  return v;
+};
+const migrationOriginAllowed=value=>{
+  try{
+    const url=new URL(value);if(url.protocol!=='https:'&&!(url.protocol==='http:'&&['localhost','127.0.0.1'].includes(url.hostname)))return false;
+    const allowed=config.systemMigration.allowedSourceOrigins||[];if(!allowed.length)return false;
+    return allowed.some(item=>{try{return new URL(item).origin===url.origin}catch{return false}});
+  }catch{return false}
+};
+const migrationSha=buffer=>crypto.createHash('sha256').update(buffer).digest('hex');
+
+app.get('/api/admin/system-migration/diagnose',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const db=await query('SELECT now() server_time');
+  res.json({enabled:config.systemMigration.enabled,environment:config.nodeEnv,serverTime:db.rows[0].server_time,stagingDir:config.systemMigration.stagingDir,releaseDir:config.systemMigration.releaseDir,maxFiles:config.systemMigration.maxFiles,maxBytes:config.systemMigration.maxBytes,allowedSourceOrigins:config.systemMigration.allowedSourceOrigins.map(x=>{try{return new URL(x).origin}catch{return x}}),activation:'staging-only'});
+});
+
+app.post('/api/admin/system-migration/stage',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  if(!config.systemMigration.enabled)return res.status(409).json({error:'移行先サーバーでSYSTEM_MIGRATION_ENABLEDを有効にしてください。'});
+  const schema=z.object({sourceBaseUrl:z.string().url(),release:z.string().min(1).max(120),fileManifest:z.object({files:z.array(z.object({path:z.string().min(1).max(1000),size:z.number().int().nonnegative(),sha256:z.string().regex(/^[a-f0-9]{64}$/i)})).max(config.systemMigration.maxFiles),totalBytes:z.number().int().nonnegative().optional(),manifestSha256:z.string().optional()})});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'システムファイル一覧を確認してください。'});const d=parsed.data;
+  if(!migrationOriginAllowed(d.sourceBaseUrl))return res.status(400).json({error:'公開元URLが許可された移行元に登録されていません。SYSTEM_MIGRATION_SOURCE_ORIGINSを確認してください。'});
+  const safeFiles=d.fileManifest.files.map(x=>({...x,path:migrationSafePath(x.path)}));if(safeFiles.some(x=>!x.path))return res.status(400).json({error:'移行対象に安全でないファイルパスが含まれています。'});
+  const totalBytes=safeFiles.reduce((n,x)=>n+x.size,0);if(totalBytes>config.systemMigration.maxBytes)return res.status(413).json({error:'移行対象容量が上限を超えています。'});
+  const stageId=`${String(d.release).replace(/[^A-Za-z0-9._-]/g,'_')}-${Date.now()}`;const target=path.join(config.systemMigration.stagingDir,stageId);await fs.promises.mkdir(target,{recursive:true});
+  const sourceBase=d.sourceBaseUrl.replace(/\/$/,'')+'/';let completed=0,bytes=0;
+  try{
+    const concurrency=6;let cursor=0;const workers=Array.from({length:Math.min(concurrency,safeFiles.length||1)},async()=>{while(cursor<safeFiles.length){const item=safeFiles[cursor++];const url=new URL(item.path,sourceBase);const response=await fetch(url,{redirect:'follow'});if(!response.ok)throw new Error(`${item.path}: HTTP ${response.status}`);const buffer=Buffer.from(await response.arrayBuffer());if(buffer.length!==item.size)throw new Error(`${item.path}: サイズ不一致`);if(migrationSha(buffer)!==item.sha256.toLowerCase())throw new Error(`${item.path}: SHA-256不一致`);const out=path.join(target,item.path);await fs.promises.mkdir(path.dirname(out),{recursive:true});await fs.promises.writeFile(out,buffer);completed++;bytes+=buffer.length;}});await Promise.all(workers);
+    await fs.promises.writeFile(path.join(target,'STAGED_RELEASE.json'),JSON.stringify({stageId,release:d.release,sourceBaseUrl:d.sourceBaseUrl,fileCount:completed,totalBytes:bytes,stagedAt:new Date().toISOString(),manifestSha256:d.fileManifest.manifestSha256||''},null,2));
+    await query(`INSERT INTO system_migration_runs(stage_id,source_base_url,source_release,target_path,file_count,total_bytes,status,details,created_by,completed_at) VALUES($1,$2,$3,$4,$5,$6,'staged',$7::jsonb,$8,now())`,[stageId,d.sourceBaseUrl,d.release,target,completed,bytes,JSON.stringify({manifestSha256:d.fileManifest.manifestSha256||''}),req.user.id]);await audit(req,'stage','full-system-migration',stageId,{release:d.release,fileCount:completed,totalBytes:bytes});res.status(201).json({stageId,release:d.release,files:completed,bytes,status:'staged',note:'稼働中のシステムは変更していません。ステージング内容を検証後、配置管理者が切り替えてください。'});
+  }catch(error){await fs.promises.rm(target,{recursive:true,force:true});await query(`INSERT INTO system_migration_runs(stage_id,source_base_url,source_release,target_path,file_count,total_bytes,status,details,created_by,completed_at) VALUES($1,$2,$3,$4,$5,$6,'failed',$7::jsonb,$8,now()) ON CONFLICT(stage_id) DO UPDATE SET status='failed',details=excluded.details,completed_at=now()`,[stageId,d.sourceBaseUrl,d.release,target,completed,bytes,JSON.stringify({error:error.message}),req.user.id]);throw Object.assign(new Error(`システム全体のステージングに失敗しました。${error.message}`),{status:502});}
+});
+
+app.get('/api/admin/system-migration/runs',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{const {rows}=await query('SELECT * FROM system_migration_runs ORDER BY created_at DESC LIMIT 100');res.json({runs:rows});});
+
+
+// Part 510: backup verification, isolated restore, full migration, cutover and rollback drills.
+const recoveryDrillTypes=['backup-verification','isolated-restore','full-migration','cutover','rollback'];
+const recoveryStatuses=['planned','running','passed','warning','failed','cancelled'];
+const recoveryDue=(row,days)=>!row?.completed_at||Date.now()-new Date(row.completed_at).getTime()>Number(days||1)*86400_000;
+
+app.get('/api/admin/recovery/readiness',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  const [settingsResult,backupResult,drillResult,activationResult]=await Promise.all([
+    query(`SELECT * FROM system_recovery_settings WHERE id='default'`),
+    query(`SELECT * FROM system_backup_runs ORDER BY started_at DESC LIMIT 50`),
+    query(`SELECT d.*,b.backup_id,m.stage_id migration_stage_id,u.display_name executed_by_name,w.display_name witnessed_by_name
+      FROM system_recovery_drills d LEFT JOIN system_backup_runs b ON b.id=d.backup_run_id LEFT JOIN system_migration_runs m ON m.id=d.migration_run_id
+      LEFT JOIN users u ON u.id=d.executed_by LEFT JOIN users w ON w.id=d.witnessed_by ORDER BY d.created_at DESC LIMIT 100`),
+    query(`SELECT * FROM system_release_activations ORDER BY created_at DESC LIMIT 50`)
+  ]);
+  const settings=settingsResult.rows[0]||{rpo_minutes:config.recovery.rpoMinutes,rto_minutes:config.recovery.rtoMinutes,backup_verification_interval_days:7,restore_drill_interval_days:90,migration_drill_interval_days:180,require_offsite_copy:true,require_isolated_restore:true,require_rollback_test:true};
+  const latestBackup=backupResult.rows[0]||null;
+  const latestByType=Object.fromEntries(recoveryDrillTypes.map(type=>[type,drillResult.rows.find(row=>row.drill_type===type&&['passed','warning','failed'].includes(row.status))||null]));
+  const backupAgeMinutes=latestBackup?Math.round((Date.now()-new Date(latestBackup.started_at).getTime())/60000):null;
+  const checks=[
+    {key:'backup-within-rpo',label:'RPO以内のバックアップ',passed:backupAgeMinutes!=null&&backupAgeMinutes<=Number(settings.rpo_minutes),detail:backupAgeMinutes==null?'バックアップ記録なし':`${backupAgeMinutes}分前`},
+    {key:'latest-backup-completed',label:'最新バックアップ完了',passed:['completed','verified'].includes(latestBackup?.status),detail:latestBackup?.status||'記録なし'},
+    {key:'latest-backup-verified',label:'最新バックアップ整合性検証',passed:['verified'].includes(latestBackup?.status)||latestBackup?.verification_level==='full',detail:latestBackup?.verification_level||latestBackup?.status||'未検証'},
+    {key:'offsite-copy',label:'独立した保管先への複製',passed:!settings.require_offsite_copy||Boolean(latestBackup?.offsite_location),detail:latestBackup?.offsite_location||'未記録'},
+    {key:'restore-drill',label:'隔離復元試験が期限内',passed:!settings.require_isolated_restore||!recoveryDue(latestByType['isolated-restore'],settings.restore_drill_interval_days),detail:latestByType['isolated-restore']?.completed_at||'未実施'},
+    {key:'migration-drill',label:'システム全体移行試験が期限内',passed:!recoveryDue(latestByType['full-migration'],settings.migration_drill_interval_days),detail:latestByType['full-migration']?.completed_at||'未実施'},
+    {key:'rollback-drill',label:'ロールバック試験',passed:!settings.require_rollback_test||Boolean(latestByType.rollback?.completed_at&&latestByType.rollback.status==='passed'),detail:latestByType.rollback?.completed_at||'未実施'}
+  ];
+  res.json({release:'part528',settings,latestBackup,backups:backupResult.rows,drills:drillResult.rows,activations:activationResult.rows,checks,ready:checks.every(x=>x.passed)});
+});
+
+app.put('/api/admin/recovery/settings',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({rpoMinutes:z.number().int().min(5).max(10080),rtoMinutes:z.number().int().min(15).max(10080),backupVerificationIntervalDays:z.number().int().min(1).max(365),restoreDrillIntervalDays:z.number().int().min(7).max(730),migrationDrillIntervalDays:z.number().int().min(14).max(730),requireOffsiteCopy:z.boolean(),requireIsolatedRestore:z.boolean(),requireRollbackTest:z.boolean()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'復旧目標・試験間隔を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO system_recovery_settings(id,rpo_minutes,rto_minutes,backup_verification_interval_days,restore_drill_interval_days,migration_drill_interval_days,require_offsite_copy,require_isolated_restore,require_rollback_test,updated_by,updated_at)
+    VALUES('default',$1,$2,$3,$4,$5,$6,$7,$8,$9,now()) ON CONFLICT(id) DO UPDATE SET rpo_minutes=excluded.rpo_minutes,rto_minutes=excluded.rto_minutes,backup_verification_interval_days=excluded.backup_verification_interval_days,restore_drill_interval_days=excluded.restore_drill_interval_days,migration_drill_interval_days=excluded.migration_drill_interval_days,require_offsite_copy=excluded.require_offsite_copy,require_isolated_restore=excluded.require_isolated_restore,require_rollback_test=excluded.require_rollback_test,updated_by=excluded.updated_by,updated_at=now() RETURNING *`,[d.rpoMinutes,d.rtoMinutes,d.backupVerificationIntervalDays,d.restoreDrillIntervalDays,d.migrationDrillIntervalDays,d.requireOffsiteCopy,d.requireIsolatedRestore,d.requireRollbackTest,req.user.id]);
+  await audit(req,'update','system-recovery-settings','default',d);res.json({settings:rows[0]});
+});
+
+app.post('/api/admin/recovery/drills',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({drillType:z.enum(recoveryDrillTypes),status:z.enum(recoveryStatuses).optional().default('planned'),backupRunId:z.string().uuid().nullable().optional(),migrationRunId:z.string().uuid().nullable().optional(),sourceRelease:z.string().max(200).nullable().optional(),targetRelease:z.string().max(200).nullable().optional(),sourceEnvironment:z.string().max(200).nullable().optional(),targetEnvironment:z.string().max(200).nullable().optional(),rpoMinutesObserved:z.number().int().min(0).max(10080).nullable().optional(),rtoMinutesObserved:z.number().int().min(0).max(10080).nullable().optional(),expectedCounts:z.record(z.any()).optional().default({}),actualCounts:z.record(z.any()).optional().default({}),integrityChecks:z.array(z.record(z.any())).optional().default([]),evidence:z.record(z.any()).optional().default({}),notes:z.string().max(10000).optional().default(''),failureReason:z.string().max(10000).nullable().optional(),witnessedBy:z.string().uuid().nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'試験記録の内容を確認してください。'});const d=parsed.data;
+  if(['passed','warning','failed'].includes(d.status)&&!d.notes.trim())return res.status(400).json({error:'完了結果を保存する場合は、実施内容・結果を記録してください。'});
+  const nowComplete=['passed','warning','failed','cancelled'].includes(d.status);
+  const {rows}=await query(`INSERT INTO system_recovery_drills(drill_type,status,backup_run_id,migration_run_id,source_release,target_release,source_environment,target_environment,started_at,completed_at,rpo_minutes_observed,rto_minutes_observed,expected_counts,actual_counts,integrity_checks,evidence,notes,failure_reason,executed_by,witnessed_by,created_by)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,CASE WHEN $2='planned' THEN NULL ELSE now() END,CASE WHEN $9 THEN now() ELSE NULL END,$10,$11,$12::jsonb,$13::jsonb,$14::jsonb,$15::jsonb,$16,$17,$18,$19,$18) RETURNING *`,[d.drillType,d.status,d.backupRunId||null,d.migrationRunId||null,d.sourceRelease||null,d.targetRelease||null,d.sourceEnvironment||null,d.targetEnvironment||null,nowComplete,d.rpoMinutesObserved??null,d.rtoMinutesObserved??null,JSON.stringify(d.expectedCounts),JSON.stringify(d.actualCounts),JSON.stringify(d.integrityChecks),JSON.stringify(d.evidence),d.notes,d.failureReason||null,req.user.id,d.witnessedBy||null]);
+  await audit(req,'create','system-recovery-drill',rows[0].id,{drillType:d.drillType,status:d.status});res.status(201).json({drill:rows[0]});
+});
+
+app.patch('/api/admin/recovery/drills/:id',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({status:z.enum(['running','passed','warning','failed','cancelled']),rpoMinutesObserved:z.number().int().min(0).max(10080).nullable().optional(),rtoMinutesObserved:z.number().int().min(0).max(10080).nullable().optional(),actualCounts:z.record(z.any()).optional().default({}),integrityChecks:z.array(z.record(z.any())).optional().default([]),evidence:z.record(z.any()).optional().default({}),notes:z.string().max(10000).optional().default(''),failureReason:z.string().max(10000).nullable().optional(),witnessedBy:z.string().uuid().nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'試験結果を確認してください。'});const d=parsed.data;
+  const complete=['passed','warning','failed','cancelled'].includes(d.status);
+  const {rows}=await query(`UPDATE system_recovery_drills SET status=$1,started_at=COALESCE(started_at,now()),completed_at=CASE WHEN $2 THEN now() ELSE NULL END,rpo_minutes_observed=COALESCE($3,rpo_minutes_observed),rto_minutes_observed=COALESCE($4,rto_minutes_observed),actual_counts=$5::jsonb,integrity_checks=$6::jsonb,evidence=$7::jsonb,notes=$8,failure_reason=$9,executed_by=$10,witnessed_by=COALESCE($11,witnessed_by),updated_at=now() WHERE id=$12 RETURNING *`,[d.status,complete,d.rpoMinutesObserved??null,d.rtoMinutesObserved??null,JSON.stringify(d.actualCounts),JSON.stringify(d.integrityChecks),JSON.stringify(d.evidence),d.notes,d.failureReason||null,req.user.id,d.witnessedBy||null,req.params.id]);
+  if(!rows[0])return res.status(404).json({error:'対象の試験記録が見つかりません。'});await audit(req,'update','system-recovery-drill',req.params.id,{status:d.status});res.json({drill:rows[0]});
+});
+
+app.post('/api/admin/recovery/activations',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({activationId:z.string().min(1).max(200),previousRelease:z.string().max(300).nullable().optional(),targetRelease:z.string().min(1).max(300),stagePath:z.string().max(2000).nullable().optional(),activePath:z.string().max(2000).nullable().optional(),status:z.enum(['planned','validated','activated','rolled-back','failed']),preflightResults:z.array(z.record(z.any())).optional().default([]),postActivationResults:z.array(z.record(z.any())).optional().default([]),rollbackResults:z.array(z.record(z.any())).optional().default([]),details:z.record(z.any()).optional().default({})});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'切替・ロールバック記録を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO system_release_activations(activation_id,previous_release,target_release,stage_path,active_path,status,preflight_results,post_activation_results,rollback_results,details,activated_by,activated_at,rolled_back_by,rolled_back_at)
+    VALUES($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9::jsonb,$10::jsonb,CASE WHEN $6 IN ('activated','rolled-back') THEN $11 ELSE NULL END,CASE WHEN $6='activated' THEN now() ELSE NULL END,CASE WHEN $6='rolled-back' THEN $11 ELSE NULL END,CASE WHEN $6='rolled-back' THEN now() ELSE NULL END)
+    ON CONFLICT(activation_id) DO UPDATE SET previous_release=excluded.previous_release,target_release=excluded.target_release,stage_path=excluded.stage_path,active_path=excluded.active_path,status=excluded.status,preflight_results=excluded.preflight_results,post_activation_results=excluded.post_activation_results,rollback_results=excluded.rollback_results,details=excluded.details,activated_by=COALESCE(excluded.activated_by,system_release_activations.activated_by),activated_at=COALESCE(excluded.activated_at,system_release_activations.activated_at),rolled_back_by=COALESCE(excluded.rolled_back_by,system_release_activations.rolled_back_by),rolled_back_at=COALESCE(excluded.rolled_back_at,system_release_activations.rolled_back_at) RETURNING *`,[d.activationId,d.previousRelease||null,d.targetRelease,d.stagePath||null,d.activePath||null,d.status,JSON.stringify(d.preflightResults),JSON.stringify(d.postActivationResults),JSON.stringify(d.rollbackResults),JSON.stringify(d.details),req.user.id]);
+  await audit(req,'record','system-release-activation',d.activationId,{status:d.status,targetRelease:d.targetRelease});res.status(201).json({activation:rows[0]});
+});
+
+app.get('/api/admin/recovery/runbook',authenticate,requireRole('safety-environment-admin'),async(_req,res)=>{
+  res.json({release:'part528',title:'バックアップ・復元・移行試験手順',principles:['稼働環境へ直接復元せず、最初に隔離環境で復元試験する','復元前に現在環境をバックアップする','移行先へステージング後、ファイル・DB・権限・主要機能を検証する','本番切替はシンボリックリンク等で原子的に行う','ヘルスチェック失敗時は直前リリースへ戻す','試験結果と証跡を復旧訓練台帳へ保存する'],commands:{backup:'npm run backup',verify:'npm run backup:verify -- /backups/backup_xxx',restoreDrill:'npm run restore:drill -- /backups/backup_xxx',migrationDrill:'npm run migration:drill -- system-release_xxx.tar.gz',activate:'npm run release:activate -- <release-name> <health-url>',rollback:'npm run release:rollback -- <previous-release-path>'},webCommandExecution:false,note:'Web画面は設定・結果・証跡の管理に限定します。バックアップ、復元、切替コマンドは承認された運用ホストから実行してください。'});
+});
+
+// Part 528: integrated phases 19-21 - operations command center, escalation, SLO and management reporting.
+const commandCenterReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff'];
+const commandCenterWriteRoles=['safety-environment-admin'];
+const commandCenterText=value=>String(value||'').trim();
+const commandCenterSha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/operations-command-center',authenticate,requireRole(...commandCenterReadRoles),async(_req,res)=>{
+  const [users,rosters,shifts,policies,alerts,objectives,measurements,forecasts,reports]=await Promise.all([
+    query(`SELECT id,login_id,display_name,role,office_id,active FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','office-admin') ORDER BY display_name`),
+    query(`SELECT * FROM operational_on_call_rosters ORDER BY active DESC,name`),
+    query(`SELECT s.*,pu.display_name primary_name,bu.display_name backup_name,r.name roster_name FROM operational_on_call_shifts s JOIN operational_on_call_rosters r ON r.id=s.roster_id JOIN users pu ON pu.id=s.primary_user_id LEFT JOIN users bu ON bu.id=s.backup_user_id WHERE s.ends_at >= now()-interval '30 days' ORDER BY s.starts_at DESC LIMIT 100`),
+    query(`SELECT * FROM operational_escalation_policies ORDER BY active DESC,severity,name`),
+    query(`SELECT a.*,u.display_name assigned_name,r.name roster_name FROM operational_alerts a LEFT JOIN users u ON u.id=a.assigned_user_id LEFT JOIN operational_on_call_rosters r ON r.id=a.assigned_roster_id ORDER BY CASE a.status WHEN 'open' THEN 0 WHEN 'acknowledged' THEN 1 WHEN 'investigating' THEN 2 WHEN 'monitoring' THEN 3 ELSE 4 END,a.detected_at DESC LIMIT 200`),
+    query(`SELECT o.*,u.display_name owner_name FROM operational_service_objectives o LEFT JOIN users u ON u.id=o.owner_user_id ORDER BY o.active DESC,o.critical DESC,o.name`),
+    query(`SELECT m.*,o.name objective_name,o.critical,o.target_percent FROM operational_slo_measurements m JOIN operational_service_objectives o ON o.id=m.objective_id ORDER BY m.period_end DESC,m.recorded_at DESC LIMIT 200`),
+    query(`SELECT f.*,u.display_name owner_name FROM operational_capacity_forecasts f JOIN users u ON u.id=f.owner_user_id ORDER BY CASE f.status WHEN 'planned' THEN 0 WHEN 'in-progress' THEN 1 ELSE 2 END,f.due_at LIMIT 200`),
+    query(`SELECT r.*,cu.display_name creator_name,rv.display_name reviewer_name,au.display_name approver_name FROM operational_management_reports r JOIN users cu ON cu.id=r.created_by LEFT JOIN users rv ON rv.id=r.reviewed_by LEFT JOIN users au ON au.id=r.approved_by ORDER BY r.period_end DESC,r.created_at DESC LIMIT 100`)
+  ]);
+  const now=new Date();
+  const activeAlerts=alerts.rows.filter(a=>!['resolved','closed','cancelled'].includes(a.status));
+  const currentShifts=shifts.rows.filter(s=>new Date(s.starts_at)<=now&&new Date(s.ends_at)>now);
+  const summary={
+    generatedAt:now.toISOString(),
+    openAlerts:activeAlerts.length,
+    criticalAlerts:activeAlerts.filter(a=>a.severity==='critical').length,
+    acknowledgementOverdue:activeAlerts.filter(a=>deriveAlertState(a,now).acknowledgementOverdue).length,
+    resolutionOverdue:activeAlerts.filter(a=>deriveAlertState(a,now).resolutionOverdue).length,
+    activeOnCall:currentShifts.length,
+    missedSlo:measurements.rows.filter(m=>m.status==='missed').length,
+    overdueCapacityActions:forecasts.rows.filter(f=>!['completed','cancelled'].includes(f.status)&&new Date(f.due_at)<now).length
+  };
+  res.json({release:'part528',summary,users:users.rows,rosters:rosters.rows,shifts:shifts.rows,currentShifts,policies:policies.rows,alerts:alerts.rows,objectives:objectives.rows,measurements:measurements.rows,forecasts:forecasts.rows,reports:reports.rows});
+});
+
+app.post('/api/admin/operations-command-center/rosters',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({name:z.string().min(1).max(120),timezone:z.string().min(1).max(80).default('Asia/Tokyo'),active:z.boolean().default(true)});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'当番表の入力内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operational_on_call_rosters(name,timezone,active,created_by) VALUES($1,$2,$3,$4) RETURNING *`,[d.name,d.timezone,d.active,req.user.id]);
+  await audit(req,'create','operational-on-call-roster',rows[0].id,{name:d.name});res.status(201).json({roster:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/shifts',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({rosterId:z.string().uuid(),startsAt:z.string().datetime(),endsAt:z.string().datetime(),primaryUserId:z.string().uuid(),backupUserId:z.string().uuid().nullable().optional(),handoverNote:z.string().max(5000).default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'当番期間と担当者を確認してください。'});const d=parsed.data;
+  const validation=validateShift(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+  const overlap=await query(`SELECT 1 FROM operational_on_call_shifts WHERE roster_id=$1 AND tstzrange(starts_at,ends_at,'[)') && tstzrange($2::timestamptz,$3::timestamptz,'[)') LIMIT 1`,[d.rosterId,d.startsAt,d.endsAt]);
+  if(overlap.rowCount)return res.status(409).json({error:'同じ当番表に重複する期間があります。'});
+  const {rows}=await query(`INSERT INTO operational_on_call_shifts(roster_id,starts_at,ends_at,primary_user_id,backup_user_id,handover_note,created_by) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,[d.rosterId,d.startsAt,d.endsAt,d.primaryUserId,d.backupUserId||null,d.handoverNote,req.user.id]);
+  await audit(req,'create','operational-on-call-shift',rows[0].id,{rosterId:d.rosterId,startsAt:d.startsAt,endsAt:d.endsAt});res.status(201).json({shift:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/shifts/:id/acknowledge',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const found=await query(`SELECT * FROM operational_on_call_shifts WHERE id=$1`,[req.params.id]);if(!found.rows[0])return res.status(404).json({error:'当番記録が見つかりません。'});
+  if(![found.rows[0].primary_user_id,found.rows[0].backup_user_id].filter(Boolean).includes(req.user.id))return res.status(403).json({error:'当番の主担当者または副担当者のみ確認できます。'});
+  const {rows}=await query(`UPDATE operational_on_call_shifts SET acknowledged_at=now(),acknowledged_by=$1,updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);
+  await audit(req,'acknowledge','operational-on-call-shift',req.params.id,{});res.json({shift:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/escalation-policies',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({name:z.string().min(1).max(120),severity:z.enum(['critical','high','medium','low']),acknowledgementMinutes:z.number().int().min(1).max(4320),resolutionMinutes:z.number().int().min(1).max(43200),steps:z.array(z.object({afterMinutes:z.number().int().min(0).max(43200),targetRole:z.string().max(80).optional(),targetUserId:z.string().uuid().optional(),channel:z.enum(['email','phone','dashboard']).default('dashboard')})).min(1).max(10),active:z.boolean().default(true)});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'エスカレーション方針を確認してください。'});const d=parsed.data;
+  if(d.resolutionMinutes<d.acknowledgementMinutes)return res.status(400).json({error:'復旧期限は応答期限以降にしてください。'});
+  const validation=validateEscalationSteps(d.steps);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+  const {rows}=await query(`INSERT INTO operational_escalation_policies(name,severity,acknowledgement_minutes,resolution_minutes,steps,active,created_by) VALUES($1,$2,$3,$4,$5::jsonb,$6,$7) RETURNING *`,[d.name,d.severity,d.acknowledgementMinutes,d.resolutionMinutes,JSON.stringify(d.steps),d.active,req.user.id]);
+  await audit(req,'create','operational-escalation-policy',rows[0].id,{severity:d.severity});res.status(201).json({policy:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/alerts',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({alertKey:z.string().min(1).max(160),source:z.string().min(1).max(120),title:z.string().min(1).max(240),description:z.string().max(10000).default(''),severity:z.enum(['critical','high','medium','low']),detectedAt:z.string().datetime(),assignedUserId:z.string().uuid().nullable().optional(),assignedRosterId:z.string().uuid().nullable().optional(),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i).nullable().optional()});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'アラート内容を確認してください。'});const d=parsed.data;
+  const policy=await query(`SELECT * FROM operational_escalation_policies WHERE active=true AND severity=$1 ORDER BY updated_at DESC LIMIT 1`,[d.severity]);
+  const deadlines=calculateAlertDeadlines(d.severity,d.detectedAt,policy.rows[0]?{ackMinutes:policy.rows[0].acknowledgement_minutes,resolveMinutes:policy.rows[0].resolution_minutes}:{});
+  try{
+    const {rows}=await transaction(async client=>{
+      const inserted=await client.query(`INSERT INTO operational_alerts(alert_key,source,title,description,severity,detected_at,acknowledgement_due_at,resolution_due_at,assigned_user_id,assigned_roster_id,evidence_sha256,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,[d.alertKey,d.source,d.title,d.description,d.severity,d.detectedAt,deadlines.ackDueAt,deadlines.resolveDueAt,d.assignedUserId||null,d.assignedRosterId||null,d.evidenceSha256?.toLowerCase()||null,req.user.id]);
+      await client.query(`INSERT INTO operational_alert_events(alert_id,event_type,note,actor_id) VALUES($1,'detected',$2,$3)`,[inserted.rows[0].id,d.description,req.user.id]);return inserted;
+    });
+    await audit(req,'create','operational-alert',rows[0].id,{severity:d.severity,alertKey:d.alertKey});res.status(201).json({alert:rows[0]});
+  }catch(error){if(error?.code==='23505')return res.status(409).json({error:'同じアラートキーは登録済みです。'});throw error;}
+});
+
+app.post('/api/admin/operations-command-center/alerts/:id/acknowledge',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({note:z.string().min(1).max(5000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認内容を入力してください。'});const d=parsed.data;
+  const {rows}=await transaction(async client=>{
+    const updated=await client.query(`UPDATE operational_alerts SET status=CASE WHEN status='open' THEN 'acknowledged' ELSE status END,acknowledged_at=COALESCE(acknowledged_at,now()),acknowledged_by=COALESCE(acknowledged_by,$1),updated_at=now() WHERE id=$2 AND status NOT IN ('resolved','closed','cancelled') RETURNING *`,[req.user.id,req.params.id]);
+    if(!updated.rows[0])return updated;await client.query(`INSERT INTO operational_alert_events(alert_id,event_type,level,note,actor_id) VALUES($1,'acknowledged',$2,$3,$4)`,[req.params.id,updated.rows[0].escalation_level,d.note,req.user.id]);return updated;
+  });
+  if(!rows[0])return res.status(404).json({error:'未解決のアラートが見つかりません。'});await audit(req,'acknowledge','operational-alert',req.params.id,{});res.json({alert:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/alerts/:id/escalate',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({note:z.string().min(1).max(5000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'エスカレーション理由を入力してください。'});const d=parsed.data;
+  const {rows}=await transaction(async client=>{const updated=await client.query(`UPDATE operational_alerts SET escalation_level=escalation_level+1,status=CASE WHEN status='open' THEN 'investigating' ELSE status END,updated_at=now() WHERE id=$1 AND status NOT IN ('resolved','closed','cancelled') RETURNING *`,[req.params.id]);if(!updated.rows[0])return updated;await client.query(`INSERT INTO operational_alert_events(alert_id,event_type,level,note,actor_id) VALUES($1,'escalated',$2,$3,$4)`,[req.params.id,updated.rows[0].escalation_level,d.note,req.user.id]);return updated;});
+  if(!rows[0])return res.status(404).json({error:'未解決のアラートが見つかりません。'});await audit(req,'escalate','operational-alert',req.params.id,{level:rows[0].escalation_level});res.json({alert:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/alerts/:id/resolve',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({resolution:z.string().min(10).max(10000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i).optional()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'復旧内容を10文字以上で入力してください。'});const d=parsed.data;
+  const found=await query(`SELECT * FROM operational_alerts WHERE id=$1`,[req.params.id]);const alert=found.rows[0];if(!alert)return res.status(404).json({error:'アラートが見つかりません。'});
+  if(['critical','high'].includes(alert.severity)&&alert.acknowledged_by===req.user.id)return res.status(409).json({error:'重大・高アラートは、確認者とは別の利用者が復旧完了を記録してください。'});
+  const {rows}=await transaction(async client=>{const updated=await client.query(`UPDATE operational_alerts SET status='resolved',resolution=$1,resolved_at=now(),resolved_by=$2,evidence_sha256=COALESCE($3,evidence_sha256),updated_at=now() WHERE id=$4 AND status NOT IN ('resolved','closed','cancelled') RETURNING *`,[d.resolution,req.user.id,d.evidenceSha256?.toLowerCase()||null,req.params.id]);if(!updated.rows[0])return updated;await client.query(`INSERT INTO operational_alert_events(alert_id,event_type,level,note,actor_id) VALUES($1,'resolved',$2,$3,$4)`,[req.params.id,updated.rows[0].escalation_level,d.resolution,req.user.id]);return updated;});
+  if(!rows[0])return res.status(409).json({error:'このアラートはすでに終了しています。'});await audit(req,'resolve','operational-alert',req.params.id,{severity:alert.severity});res.json({alert:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/objectives',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({name:z.string().min(1).max(160),metricType:z.enum(['availability','success-rate','latency','delivery-rate','recovery-rate']),targetPercent:z.number().positive().max(100),windowDays:z.number().int().min(1).max(366).default(30),critical:z.boolean().default(false),ownerUserId:z.string().uuid().nullable().optional(),active:z.boolean().default(true)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'サービス水準目標を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO operational_service_objectives(name,metric_type,target_percent,window_days,critical,owner_user_id,active,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,[d.name,d.metricType,d.targetPercent,d.windowDays,d.critical,d.ownerUserId||null,d.active,req.user.id]);await audit(req,'create','operational-service-objective',rows[0].id,{targetPercent:d.targetPercent});res.status(201).json({objective:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/measurements',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({objectiveId:z.string().uuid(),periodStart:z.string().date(),periodEnd:z.string().date(),numerator:z.number().nonnegative(),denominator:z.number().positive(),evidenceNote:z.string().min(1).max(10000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i).optional()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'SLO測定値を確認してください。'});const d=parsed.data;
+  const objective=await query(`SELECT * FROM operational_service_objectives WHERE id=$1 AND active=true`,[d.objectiveId]);if(!objective.rows[0])return res.status(404).json({error:'有効なサービス水準目標が見つかりません。'});
+  let result;try{result=calculateSlo({numerator:d.numerator,denominator:d.denominator,targetPercent:Number(objective.rows[0].target_percent)});}catch(error){return res.status(400).json({error:error.message});}
+  const evidenceSha=(d.evidenceSha256||commandCenterSha({objectiveId:d.objectiveId,periodStart:d.periodStart,periodEnd:d.periodEnd,numerator:d.numerator,denominator:d.denominator,evidenceNote:d.evidenceNote})).toLowerCase();
+  const {rows}=await query(`INSERT INTO operational_slo_measurements(objective_id,period_start,period_end,numerator,denominator,actual_percent,status,error_budget_remaining,evidence_note,evidence_sha256,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(objective_id,period_start,period_end) DO UPDATE SET numerator=excluded.numerator,denominator=excluded.denominator,actual_percent=excluded.actual_percent,status=excluded.status,error_budget_remaining=excluded.error_budget_remaining,evidence_note=excluded.evidence_note,evidence_sha256=excluded.evidence_sha256,recorded_by=excluded.recorded_by,recorded_at=now() RETURNING *`,[d.objectiveId,d.periodStart,d.periodEnd,d.numerator,d.denominator,result.actualPercent,result.status,result.errorBudgetRemaining,d.evidenceNote,evidenceSha,req.user.id]);await audit(req,'record','operational-slo-measurement',rows[0].id,{status:result.status,actualPercent:result.actualPercent});res.status(201).json({measurement:rows[0],calculation:result});
+});
+
+app.post('/api/admin/operations-command-center/capacity-forecasts',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({resourceType:z.enum(['database','storage','api','notifications','users','sessions']),unit:z.string().min(1).max(40),currentValue:z.number().nonnegative(),warningThreshold:z.number().nonnegative(),criticalThreshold:z.number().nonnegative(),forecastValue:z.number().nonnegative(),forecastAt:z.string().date(),actionPlan:z.string().min(10).max(10000),ownerUserId:z.string().uuid(),dueAt:z.string().date()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'容量予測の入力内容を確認してください。'});const d=parsed.data;
+  const validation=validateCapacityForecast(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+  const {rows}=await query(`INSERT INTO operational_capacity_forecasts(resource_type,unit,current_value,warning_threshold,critical_threshold,forecast_value,forecast_at,action_plan,owner_user_id,due_at,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,[d.resourceType,d.unit,d.currentValue,d.warningThreshold,d.criticalThreshold,d.forecastValue,d.forecastAt,d.actionPlan,d.ownerUserId,d.dueAt,req.user.id]);await audit(req,'create','operational-capacity-forecast',rows[0].id,{resourceType:d.resourceType});res.status(201).json({forecast:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/capacity-forecasts/:id/complete',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({completionNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'完了内容を10文字以上で入力してください。'});
+  const {rows}=await query(`UPDATE operational_capacity_forecasts SET status='completed',action_plan=action_plan||E'\n\n完了記録: '||$1,completed_at=now(),completed_by=$2,updated_at=now() WHERE id=$3 AND status NOT IN ('completed','cancelled') RETURNING *`,[parsed.data.completionNote,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'未完了の容量対策が見つかりません。'});await audit(req,'complete','operational-capacity-forecast',req.params.id,{});res.json({forecast:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/reports',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({periodType:z.enum(['weekly','monthly','quarterly']),periodStart:z.string().date(),periodEnd:z.string().date(),summary:z.string().min(10).max(20000),risks:z.string().min(1).max(20000),decisions:z.string().max(20000).default(''),nextActions:z.string().min(1).max(20000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'運用報告の期間・内容を確認してください。'});const d=parsed.data;if(new Date(d.periodEnd)<new Date(d.periodStart))return res.status(400).json({error:'報告期間を確認してください。'});
+  const {rows}=await query(`INSERT INTO operational_management_reports(period_type,period_start,period_end,summary,risks,decisions,next_actions,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,[d.periodType,d.periodStart,d.periodEnd,d.summary,d.risks,d.decisions,d.nextActions,req.user.id]);await audit(req,'create','operational-management-report',rows[0].id,{periodType:d.periodType});res.status(201).json({report:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/reports/:id/submit',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const reportResult=await query(`SELECT * FROM operational_management_reports WHERE id=$1`,[req.params.id]);const report=reportResult.rows[0];if(!report)return res.status(404).json({error:'運用報告が見つかりません。'});if(report.created_by!==req.user.id)return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(report.status))return res.status(409).json({error:'この報告は提出できる状態ではありません。'});
+  const [alerts,measurements,forecasts]=await Promise.all([query(`SELECT * FROM operational_alerts WHERE detected_at::date BETWEEN $1 AND $2 OR status NOT IN ('resolved','closed','cancelled')`,[report.period_start,report.period_end]),query(`SELECT m.*,o.critical FROM operational_slo_measurements m JOIN operational_service_objectives o ON o.id=m.objective_id WHERE m.period_start<=$2 AND m.period_end>=$1`,[report.period_start,report.period_end]),query(`SELECT * FROM operational_capacity_forecasts WHERE created_at::date<=$2 AND (completed_at IS NULL OR completed_at::date>=$1)`,[report.period_start,report.period_end])]);
+  const gate=evaluateReportGate({report,alerts:alerts.rows,measurements:measurements.rows,forecasts:forecasts.rows});const snapshot={release:'part528',generatedAt:new Date().toISOString(),alertCount:alerts.rowCount,activeAlerts:alerts.rows.filter(a=>!['resolved','closed','cancelled'].includes(a.status)).length,sloMeasurementCount:measurements.rowCount,missedSlo:measurements.rows.filter(m=>m.status==='missed').length,capacityForecastCount:forecasts.rowCount,blockers:gate.blockers};const sha=commandCenterSha(snapshot);
+  const {rows}=await query(`UPDATE operational_management_reports SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_at=now(),reviewed_by=NULL,reviewed_at=NULL,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$3 RETURNING *`,[JSON.stringify(snapshot),sha,req.params.id]);await audit(req,'submit','operational-management-report',req.params.id,{blockers:gate.blockers});res.json({report:rows[0],gate});
+});
+
+app.post('/api/admin/operations-command-center/reports/:id/review',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const d=parsed.data;
+  const found=await query(`SELECT * FROM operational_management_reports WHERE id=$1`,[req.params.id]);const report=found.rows[0];if(!report)return res.status(404).json({error:'運用報告が見つかりません。'});if(report.status!=='submitted')return res.status(409).json({error:'提出済み報告だけを確認できます。'});if(report.created_by===req.user.id)return res.status(409).json({error:'作成者本人は確認者になれません。'});
+  const {rows}=await query(`UPDATE operational_management_reports SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,approval_note='',updated_at=now() WHERE id=$4 RETURNING *`,[d.decision,req.user.id,d.note,req.params.id]);await audit(req,'review','operational-management-report',req.params.id,{decision:d.decision});res.json({report:rows[0]});
+});
+
+app.post('/api/admin/operations-command-center/reports/:id/approve',authenticate,requireRole(...commandCenterWriteRoles),async(req,res)=>{
+  const schema=z.object({note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM operational_management_reports WHERE id=$1`,[req.params.id]);const report=found.rows[0];if(!report)return res.status(404).json({error:'運用報告が見つかりません。'});if(report.status!=='reviewed')return res.status(409).json({error:'確認済み報告だけを承認できます。'});if([report.created_by,report.reviewed_by].includes(req.user.id))return res.status(409).json({error:'作成者・確認者とは別の利用者が承認してください。'});
+  const currentHash=commandCenterSha(report.snapshot||{});if(currentHash!==report.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。差戻して再提出してください。'});
+  const [alerts,measurements,forecasts]=await Promise.all([query(`SELECT * FROM operational_alerts WHERE status NOT IN ('resolved','closed','cancelled') OR detected_at::date BETWEEN $1 AND $2`,[report.period_start,report.period_end]),query(`SELECT m.*,o.critical FROM operational_slo_measurements m JOIN operational_service_objectives o ON o.id=m.objective_id WHERE m.period_start<=$2 AND m.period_end>=$1`,[report.period_start,report.period_end]),query(`SELECT * FROM operational_capacity_forecasts WHERE status NOT IN ('completed','cancelled')`,[])]);
+  const gate=evaluateReportGate({report:{...report,approved_by:req.user.id},alerts:alerts.rows,measurements:measurements.rows,forecasts:forecasts.rows});if(!gate.allowed)return res.status(409).json({error:'承認条件を満たしていません。',blockers:gate.blockers});
+  const {rows}=await query(`UPDATE operational_management_reports SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','operational-management-report',req.params.id,{});res.json({report:rows[0],gate});
+});
+
+
+// Part 530: integrated phases 22-24 - retention/disposal, vulnerability management and external audit assurance.
+const assuranceReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator'];
+const assuranceWriteRoles=['safety-environment-admin'];
+const assuranceSha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/assurance-security-audit',authenticate,requireRole(...assuranceReadRoles),async(_req,res)=>{
+  const [users,policies,archives,disposals,vulnerabilities,audits,evidence,findings]=await Promise.all([
+    query(`SELECT id,login_id,display_name,role,office_id,active FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator','office-admin') ORDER BY display_name`),
+    query(`SELECT * FROM assurance_retention_policies ORDER BY active DESC,record_type`),
+    query(`SELECT b.*,p.record_type,p.retention_days,u.display_name creator_name,v.display_name verifier_name FROM assurance_archive_batches b JOIN assurance_retention_policies p ON p.id=b.policy_id JOIN users u ON u.id=b.created_by LEFT JOIN users v ON v.id=b.verified_by ORDER BY b.period_end DESC,b.created_at DESC LIMIT 200`),
+    query(`SELECT d.*,b.title archive_title,cu.display_name creator_name,ru.display_name reviewer_name,eu.display_name executor_name,vu.display_name verifier_name FROM assurance_disposal_requests d JOIN assurance_archive_batches b ON b.id=d.archive_batch_id JOIN users cu ON cu.id=d.created_by LEFT JOIN users ru ON ru.id=d.reviewed_by LEFT JOIN users eu ON eu.id=d.executed_by LEFT JOIN users vu ON vu.id=d.verified_by ORDER BY CASE d.status WHEN 'draft' THEN 0 WHEN 'reviewed' THEN 1 WHEN 'executed' THEN 2 ELSE 3 END,d.due_at LIMIT 200`),
+    query(`SELECT v.*,ou.display_name owner_name,mu.display_name mitigator_name,vu.display_name verifier_name FROM security_vulnerability_cases v JOIN users ou ON ou.id=v.owner_user_id LEFT JOIN users mu ON mu.id=v.mitigated_by LEFT JOIN users vu ON vu.id=v.verified_by ORDER BY CASE v.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,CASE WHEN v.status IN ('closed','cancelled') THEN 1 ELSE 0 END,v.due_at LIMIT 300`),
+    query(`SELECT a.*,cu.display_name creator_name,ru.display_name reviewer_name,au.display_name approver_name FROM external_audits a JOIN users cu ON cu.id=a.created_by LEFT JOIN users ru ON ru.id=a.reviewed_by LEFT JOIN users au ON au.id=a.approved_by ORDER BY a.period_end DESC,a.created_at DESC LIMIT 100`),
+    query(`SELECT e.*,u.display_name prepared_name FROM external_audit_evidence e JOIN users u ON u.id=e.prepared_by ORDER BY e.created_at DESC LIMIT 300`),
+    query(`SELECT f.*,u.display_name owner_name,ru.display_name resolver_name,vu.display_name verifier_name FROM external_audit_findings f JOIN users u ON u.id=f.owner_user_id LEFT JOIN users ru ON ru.id=f.resolved_by LEFT JOIN users vu ON vu.id=f.verified_by ORDER BY CASE f.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,CASE WHEN f.status IN ('verified','closed','cancelled') THEN 1 ELSE 0 END,f.due_at LIMIT 300`)
+  ]);
+  const gate=evaluateAssuranceGate({disposals:disposals.rows,vulnerabilities:vulnerabilities.rows,audits:audits.rows,findings:findings.rows});
+  const now=new Date();
+  res.json({release:'part530',generatedAt:now.toISOString(),users:users.rows,policies:policies.rows,archives:archives.rows,disposals:disposals.rows,vulnerabilities:vulnerabilities.rows,audits:audits.rows,evidence:evidence.rows,findings:findings.rows,gate,summary:{activePolicies:policies.rows.filter(x=>x.active).length,legalHolds:archives.rows.filter(x=>x.legal_hold).length,pendingDisposals:disposals.rows.filter(x=>!['verified','cancelled'].includes(x.status)).length,openCriticalVulnerabilities:vulnerabilities.rows.filter(x=>x.severity==='critical'&&!['closed','cancelled'].includes(x.status)).length,overdueVulnerabilities:vulnerabilities.rows.filter(x=>!['closed','cancelled'].includes(x.status)&&new Date(x.due_at)<now).length,openAuditFindings:findings.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)).length}});
+});
+
+app.post('/api/admin/assurance-security-audit/retention-policies',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({recordType:z.string().min(1).max(100),retentionDays:z.number().int().min(30).max(36500),disposition:z.enum(['archive-then-dispose','retain-only','legal-hold']),ownerRole:z.string().min(1).max(100),note:z.string().max(10000).default('')});
+  const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'保存ポリシーの入力内容を確認してください。'});const d=parsed.data;const validation=validateRetentionPolicy(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+  const {rows}=await query(`INSERT INTO assurance_retention_policies(record_type,retention_days,disposition,owner_role,note,created_by) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(record_type) DO UPDATE SET retention_days=excluded.retention_days,disposition=excluded.disposition,owner_role=excluded.owner_role,note=excluded.note,active=true,updated_at=now() RETURNING *`,[d.recordType,d.retentionDays,d.disposition,d.ownerRole,d.note,req.user.id]);await audit(req,'upsert','assurance-retention-policy',rows[0].id,d);res.status(201).json({policy:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/archive-batches',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({policyId:z.string().uuid(),title:z.string().min(1).max(300),periodStart:z.string().date(),periodEnd:z.string().date(),recordCount:z.number().int().min(0),storageReference:z.string().min(1).max(1000),manifestSha256:z.string().regex(/^[a-fA-F0-9]{64}$/),legalHold:z.boolean().default(false)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'アーカイブ記録を確認してください。'});const d=parsed.data;if(new Date(d.periodEnd)<new Date(d.periodStart))return res.status(400).json({error:'対象期間を確認してください。'});
+  const {rows}=await query(`INSERT INTO assurance_archive_batches(policy_id,title,period_start,period_end,record_count,storage_reference,manifest_sha256,legal_hold,status,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,'archived',$9) RETURNING *`,[d.policyId,d.title,d.periodStart,d.periodEnd,d.recordCount,d.storageReference,d.manifestSha256.toLowerCase(),d.legalHold,req.user.id]);await audit(req,'create','assurance-archive-batch',rows[0].id,{title:d.title,recordCount:d.recordCount,legalHold:d.legalHold});res.status(201).json({archive:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/disposals',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({archiveBatchId:z.string().uuid(),title:z.string().min(1).max(300),dueAt:z.string().date(),reason:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'廃棄申請の入力内容を確認してください。'});const d=parsed.data;const batch=await query(`SELECT * FROM assurance_archive_batches WHERE id=$1`,[d.archiveBatchId]);if(!batch.rows[0])return res.status(404).json({error:'対象アーカイブが見つかりません。'});if(batch.rows[0].legal_hold)return res.status(409).json({error:'法的保全中のアーカイブは廃棄申請できません。'});
+  const {rows}=await query(`INSERT INTO assurance_disposal_requests(archive_batch_id,title,due_at,reason,legal_hold,created_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[d.archiveBatchId,d.title,d.dueAt,d.reason,batch.rows[0].legal_hold,req.user.id]);await audit(req,'create','assurance-disposal-request',rows[0].id,{title:d.title,dueAt:d.dueAt});res.status(201).json({disposal:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/disposals/:id/review',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const found=await query(`SELECT * FROM assurance_disposal_requests WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'廃棄申請が見つかりません。'});const check=validateDisposalActors(row,req.user.id,'review');if(!check.valid)return res.status(409).json({error:check.errors.join(' ')});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'確認可能な状態ではありません。'});
+  const {rows}=await query(`UPDATE assurance_disposal_requests SET status='reviewed',reviewed_by=$1,reviewed_at=now(),updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);await audit(req,'review','assurance-disposal-request',req.params.id,{});res.json({disposal:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/disposals/:id/execute',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({executionNote:z.string().min(10).max(10000),executionSha256:z.string().regex(/^[a-fA-F0-9]{64}$/)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'廃棄結果とSHA-256を入力してください。'});const found=await query(`SELECT * FROM assurance_disposal_requests WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'廃棄申請が見つかりません。'});const check=validateDisposalActors(row,req.user.id,'execute');if(!check.valid)return res.status(409).json({error:check.errors.join(' ')});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み申請だけを実行できます。'});
+  const {rows}=await query(`UPDATE assurance_disposal_requests SET status='executed',executed_by=$1,executed_at=now(),execution_note=$2,execution_sha256=$3,updated_at=now() WHERE id=$4 RETURNING *`,[req.user.id,parsed.data.executionNote,parsed.data.executionSha256.toLowerCase(),req.params.id]);await audit(req,'execute','assurance-disposal-request',req.params.id,{});res.json({disposal:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/disposals/:id/verify',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({verificationNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'検証結果を10文字以上で入力してください。'});const found=await query(`SELECT * FROM assurance_disposal_requests WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'廃棄申請が見つかりません。'});const check=validateDisposalActors(row,req.user.id,'verify');if(!check.valid)return res.status(409).json({error:check.errors.join(' ')});if(row.status!=='executed')return res.status(409).json({error:'実行済み申請だけを検証できます。'});
+  const {rows}=await query(`UPDATE assurance_disposal_requests SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.verificationNote,req.params.id]);await audit(req,'verify','assurance-disposal-request',req.params.id,{});res.json({disposal:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/vulnerabilities',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({externalId:z.string().max(200).optional().default(''),assetName:z.string().min(1).max(300),componentName:z.string().max(300).default(''),title:z.string().min(1).max(500),severity:z.enum(['critical','high','medium','low']),cvss:z.number().min(0).max(10).nullable().optional(),detectedAt:z.string().datetime(),source:z.string().max(500).default(''),affectedVersion:z.string().max(200).default(''),fixedVersion:z.string().max(200).default(''),ownerUserId:z.string().uuid(),mitigationPlan:z.string().min(10).max(20000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'脆弱性案件の入力内容を確認してください。'});const d=parsed.data;const validation=validateVulnerability(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});const due=calculateVulnerabilityDue(d.detectedAt,d.severity);
+  const {rows}=await query(`INSERT INTO security_vulnerability_cases(external_id,asset_name,component_name,title,severity,cvss,detected_at,due_at,source,affected_version,fixed_version,owner_user_id,mitigation_plan,created_by) VALUES(NULLIF($1,''),$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *`,[d.externalId,d.assetName,d.componentName,d.title,d.severity,d.cvss??null,d.detectedAt,due.toISOString(),d.source,d.affectedVersion,d.fixedVersion,d.ownerUserId,d.mitigationPlan,req.user.id]);await audit(req,'create','security-vulnerability',rows[0].id,{severity:d.severity,dueAt:due.toISOString()});res.status(201).json({vulnerability:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/vulnerabilities/:id/mitigate',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['mitigated','accepted']),resolutionNote:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-fA-F0-9]{64}$/),fixedVersion:z.string().max(200).default(''),riskAcceptanceReason:z.string().max(10000).default(''),riskAcceptanceExpiresAt:z.string().datetime().nullable().optional()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'対応結果を確認してください。'});const d=parsed.data;if(d.decision==='accepted'&&(!d.riskAcceptanceReason.trim()||!d.riskAcceptanceExpiresAt||new Date(d.riskAcceptanceExpiresAt)<=new Date()))return res.status(400).json({error:'リスク受容理由と将来の有効期限が必要です。'});
+  const {rows}=await query(`UPDATE security_vulnerability_cases SET status=$1,resolution_note=$2,evidence_sha256=$3,fixed_version=COALESCE(NULLIF($4,''),fixed_version),risk_acceptance_reason=$5,risk_acceptance_expires_at=$6,mitigated_by=$7,mitigated_at=now(),updated_at=now() WHERE id=$8 AND status NOT IN ('closed','cancelled') RETURNING *`,[d.decision,d.resolutionNote,d.evidenceSha256.toLowerCase(),d.fixedVersion,d.riskAcceptanceReason,d.riskAcceptanceExpiresAt||null,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'未完了の脆弱性案件が見つかりません。'});await audit(req,'mitigate','security-vulnerability',req.params.id,{decision:d.decision});res.json({vulnerability:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/vulnerabilities/:id/verify',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const found=await query(`SELECT * FROM security_vulnerability_cases WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'脆弱性案件が見つかりません。'});const validation=validateVulnerabilityClosure(row,req.user.id);if(!validation.valid)return res.status(409).json({error:validation.errors.join(' ')});
+  const {rows}=await query(`UPDATE security_vulnerability_cases SET status='closed',verified_by=$1,verified_at=now(),updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);await audit(req,'verify','security-vulnerability',req.params.id,{});res.json({vulnerability:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({title:z.string().min(1).max(500),auditType:z.enum(['external','customer','certification','regulatory']),auditorOrganization:z.string().min(1).max(500),scope:z.string().min(10).max(20000),periodStart:z.string().date(),periodEnd:z.string().date(),dueAt:z.string().date()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'外部監査の入力内容を確認してください。'});const d=parsed.data;if(new Date(d.periodEnd)<new Date(d.periodStart))return res.status(400).json({error:'監査期間を確認してください。'});
+  const {rows}=await query(`INSERT INTO external_audits(title,audit_type,auditor_organization,scope,period_start,period_end,due_at,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,[d.title,d.auditType,d.auditorOrganization,d.scope,d.periodStart,d.periodEnd,d.dueAt,req.user.id]);await audit(req,'create','external-audit',rows[0].id,{title:d.title});res.status(201).json({audit:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits/:id/evidence',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({title:z.string().min(1).max(500),classification:z.enum(['public','internal','confidential','restricted']),storageReference:z.string().min(1).max(1000),sha256:z.string(),note:z.string().max(10000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'証跡情報を確認してください。'});const d=parsed.data;const validation=validateEvidenceMetadata(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+  const {rows}=await query(`INSERT INTO external_audit_evidence(audit_id,title,classification,storage_reference,sha256,note,prepared_by) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,[req.params.id,d.title,d.classification,d.storageReference,d.sha256.toLowerCase(),d.note,req.user.id]);await audit(req,'create','external-audit-evidence',rows[0].id,{auditId:req.params.id,classification:d.classification});res.status(201).json({evidence:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits/:id/findings',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({title:z.string().min(1).max(500),severity:z.enum(['critical','high','medium','low']),description:z.string().min(10).max(20000),correctivePlan:z.string().min(10).max(20000),ownerUserId:z.string().uuid(),dueAt:z.string().date()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'監査指摘の入力内容を確認してください。'});const d=parsed.data;
+  const {rows}=await query(`INSERT INTO external_audit_findings(audit_id,title,severity,description,corrective_plan,owner_user_id,due_at,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,[req.params.id,d.title,d.severity,d.description,d.correctivePlan,d.ownerUserId,d.dueAt,req.user.id]);await audit(req,'create','external-audit-finding',rows[0].id,{auditId:req.params.id,severity:d.severity});res.status(201).json({finding:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/findings/:id/resolve',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({resolutionNote:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-fA-F0-9]{64}$/)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'是正結果と証跡SHA-256を入力してください。'});
+  const {rows}=await query(`UPDATE external_audit_findings SET status='resolved',resolution_note=$1,evidence_sha256=$2,resolved_by=$3,resolved_at=now(),updated_at=now() WHERE id=$4 AND status NOT IN ('verified','closed','cancelled') RETURNING *`,[parsed.data.resolutionNote,parsed.data.evidenceSha256.toLowerCase(),req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'未完了の監査指摘が見つかりません。'});await audit(req,'resolve','external-audit-finding',req.params.id,{});res.json({finding:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/findings/:id/verify',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({verificationNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'検証所見を入力してください。'});const found=await query(`SELECT * FROM external_audit_findings WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'監査指摘が見つかりません。'});if(row.status!=='resolved')return res.status(409).json({error:'是正済みの指摘だけを検証できます。'});if([row.owner_user_id,row.resolved_by].includes(req.user.id))return res.status(409).json({error:'責任者・是正実施者とは別の利用者が検証してください。'});
+  const {rows}=await query(`UPDATE external_audit_findings SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.verificationNote,req.params.id]);await audit(req,'verify','external-audit-finding',req.params.id,{});res.json({finding:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits/:id/submit',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const found=await query(`SELECT * FROM external_audits WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'外部監査が見つかりません。'});if(row.created_by!==req.user.id)return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});const [ev,fi]=await Promise.all([query(`SELECT id,title,classification,sha256 FROM external_audit_evidence WHERE audit_id=$1 ORDER BY created_at`,[req.params.id]),query(`SELECT id,title,severity,status,due_at FROM external_audit_findings WHERE audit_id=$1 ORDER BY created_at`,[req.params.id])]);if(!ev.rowCount)return res.status(409).json({error:'提出には1件以上の証跡が必要です。'});const snapshot={release:'part530',auditId:req.params.id,evidence:ev.rows,findings:fi.rows,generatedAt:new Date().toISOString()};const sha=assuranceSha(snapshot);
+  const {rows}=await query(`UPDATE external_audits SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,reviewed_at=NULL,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),sha,req.user.id,req.params.id]);await audit(req,'submit','external-audit',req.params.id,{evidenceCount:ev.rowCount,findingCount:fi.rowCount});res.json({audit:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits/:id/review',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM external_audits WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'外部監査が見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済み監査だけを確認できます。'});const actors=validateAuditActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+  const {rows}=await query(`UPDATE external_audits SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,approval_note='',updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','external-audit',req.params.id,{decision:parsed.data.decision});res.json({audit:rows[0]});
+});
+
+app.post('/api/admin/assurance-security-audit/audits/:id/approve',authenticate,requireRole(...assuranceWriteRoles),async(req,res)=>{
+  const schema=z.object({note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM external_audits WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'外部監査が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み監査だけを承認できます。'});const actors=validateAuditActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(assuranceSha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。'});const fi=await query(`SELECT * FROM external_audit_findings WHERE audit_id=$1`,[req.params.id]);const gate=evaluateAssuranceGate({findings:fi.rows});if(!gate.allowed)return res.status(409).json({error:'未解決の監査指摘が残っています。',blockers:gate.blockers});
+  const {rows}=await query(`UPDATE external_audits SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','external-audit',req.params.id,{});res.json({audit:rows[0],gate});
+});
+
+// Part 531: integrated phases 25-27 - platform health, configuration drift and reliability improvement governance.
+const reliabilityReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator'];
+const reliabilityWriteRoles=['safety-environment-admin'];
+const reliabilitySha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/platform-reliability',authenticate,requireRole(...reliabilityReadRoles),async(_req,res)=>{
+ const [users,health,baselines,drifts,actions,reviews]=await Promise.all([
+  query(`SELECT id,display_name,role,office_id FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator','office-admin') ORDER BY display_name`),
+  query(`SELECT h.*,u.display_name recorded_name FROM platform_health_snapshots h JOIN users u ON u.id=h.recorded_by ORDER BY h.measured_at DESC LIMIT 300`),
+  query(`SELECT b.*,u.display_name creator_name FROM configuration_baselines b JOIN users u ON u.id=b.created_by ORDER BY b.active DESC,b.environment,b.component_name,b.created_at DESC LIMIT 300`),
+  query(`SELECT d.*,b.environment,b.component_name,b.baseline_version,o.display_name owner_name,r.display_name resolver_name,v.display_name verifier_name FROM configuration_drift_cases d JOIN configuration_baselines b ON b.id=d.baseline_id JOIN users o ON o.id=d.owner_user_id LEFT JOIN users r ON r.id=d.resolved_by LEFT JOIN users v ON v.id=d.verified_by ORDER BY CASE d.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,CASE WHEN d.status IN ('verified','closed','cancelled') THEN 1 ELSE 0 END,d.due_at LIMIT 400`),
+  query(`SELECT a.*,o.display_name owner_name,c.display_name completer_name,v.display_name verifier_name FROM reliability_improvement_actions a JOIN users o ON o.id=a.owner_user_id LEFT JOIN users c ON c.id=a.completed_by LEFT JOIN users v ON v.id=a.verified_by ORDER BY CASE a.priority WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,CASE WHEN a.status IN ('verified','closed','cancelled') THEN 1 ELSE 0 END,a.due_at LIMIT 400`),
+  query(`SELECT r.*,c.display_name creator_name,rv.display_name reviewer_name,a.display_name approver_name FROM reliability_review_cycles r JOIN users c ON c.id=r.created_by LEFT JOIN users rv ON rv.id=r.reviewed_by LEFT JOIN users a ON a.id=r.approved_by ORDER BY r.period_end DESC,r.created_at DESC LIMIT 100`)
+ ]);
+ const gate=evaluateReliabilityGate({healthSnapshots:health.rows,drifts:drifts.rows,actions:actions.rows});
+ const prod=health.rows.find(x=>x.environment==='production');const now=new Date();
+ const summary={productionHealth:prod?.status||null,criticalDrifts:drifts.rows.filter(x=>['critical','high'].includes(x.severity)&&!['verified','closed','cancelled'].includes(x.status)).length,overdueDrifts:drifts.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)&&new Date(x.due_at)<now).length,openActions:actions.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)).length,overdueActions:actions.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)&&new Date(`${x.due_at}T23:59:59`)<now).length,backupAgeHours:prod?.backup_age_hours??null,restoreTestAgeDays:prod?.restore_test_age_days??null};
+ res.json({users:users.rows,healthSnapshots:health.rows,baselines:baselines.rows,drifts:drifts.rows,actions:actions.rows,reviews:reviews.rows,summary,gate});
+});
+
+app.post('/api/admin/platform-reliability/health-snapshots',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({environment:z.enum(['production','staging','test','development']),measuredAt:z.string().datetime(),p95ResponseMs:z.number().nonnegative(),errorRatePercent:z.number().min(0).max(100),cpuPercent:z.number().min(0).max(100),memoryPercent:z.number().min(0).max(100),dbConnectionPercent:z.number().min(0).max(100),storagePercent:z.number().min(0).max(100),backupAgeHours:z.number().nonnegative(),restoreTestAgeDays:z.number().nonnegative(),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'健全性測定の入力内容を確認してください。'});const d=parsed.data;const result=evaluateHealthSnapshot(d);if(!result.valid)return res.status(400).json({error:result.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO platform_health_snapshots(environment,measured_at,p95_response_ms,error_rate_percent,cpu_percent,memory_percent,db_connection_percent,storage_percent,backup_age_hours,restore_test_age_days,status,blockers,warnings,evidence_sha256,evidence_reference,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb,$13::jsonb,$14,$15,$16) RETURNING *`,[d.environment,d.measuredAt,d.p95ResponseMs,d.errorRatePercent,d.cpuPercent,d.memoryPercent,d.dbConnectionPercent,d.storagePercent,d.backupAgeHours,d.restoreTestAgeDays,result.status,JSON.stringify(result.blockers),JSON.stringify(result.warnings),d.evidenceSha256.toLowerCase(),d.evidenceReference,req.user.id]);await audit(req,'record','platform-health-snapshot',rows[0].id,{environment:d.environment,status:result.status});res.status(201).json({snapshot:rows[0],evaluation:result});
+});
+
+app.post('/api/admin/platform-reliability/baselines',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({environment:z.enum(['production','staging','test','development']),componentName:z.string().min(1).max(500),baselineVersion:z.string().min(1).max(200),configurationSha256:z.string(),storageReference:z.string().min(1).max(1000),note:z.string().max(10000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'構成基準の入力内容を確認してください。'});const d=parsed.data;const validation=validateConfigurationBaseline(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO configuration_baselines(environment,component_name,baseline_version,configuration_sha256,storage_reference,note,created_by) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(environment,component_name,baseline_version) DO UPDATE SET configuration_sha256=excluded.configuration_sha256,storage_reference=excluded.storage_reference,note=excluded.note,active=true,updated_at=now() RETURNING *`,[d.environment,d.componentName,d.baselineVersion,d.configurationSha256.toLowerCase(),d.storageReference,d.note,req.user.id]);await audit(req,'upsert','configuration-baseline',rows[0].id,{environment:d.environment,component:d.componentName});res.status(201).json({baseline:rows[0]});
+});
+
+app.post('/api/admin/platform-reliability/drifts',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({baselineId:z.string().uuid(),title:z.string().min(1).max(500),severity:z.enum(['critical','high','medium','low']),detectedAt:z.string().datetime(),description:z.string().min(10).max(20000),remediationPlan:z.string().min(10).max(20000),ownerUserId:z.string().uuid()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'構成差分の入力内容を確認してください。'});const d=parsed.data;const validation=validateDrift(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});const due=calculateDriftDue(d.detectedAt,d.severity);
+ const {rows}=await query(`INSERT INTO configuration_drift_cases(baseline_id,title,severity,detected_at,due_at,description,remediation_plan,owner_user_id,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,[d.baselineId,d.title,d.severity,d.detectedAt,due.toISOString(),d.description,d.remediationPlan,d.ownerUserId,req.user.id]);await audit(req,'create','configuration-drift',rows[0].id,{severity:d.severity});res.status(201).json({drift:rows[0]});
+});
+
+app.post('/api/admin/platform-reliability/drifts/:id/resolve',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({resolutionNote:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'是正内容と証跡SHA-256を入力してください。'});const found=await query(`SELECT * FROM configuration_drift_cases WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'構成差分が見つかりません。'});const actors=validateDriftActors(row,req.user.id,'resolve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE configuration_drift_cases SET status='resolved',resolution_note=$1,evidence_sha256=$2,resolved_by=$3,resolved_at=now(),updated_at=now() WHERE id=$4 AND status NOT IN ('verified','closed','cancelled') RETURNING *`,[parsed.data.resolutionNote,parsed.data.evidenceSha256.toLowerCase(),req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'この差分は完了済みです。'});await audit(req,'resolve','configuration-drift',req.params.id,{});res.json({drift:rows[0]});
+});
+app.post('/api/admin/platform-reliability/drifts/:id/verify',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({verificationNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'検証所見を入力してください。'});const found=await query(`SELECT * FROM configuration_drift_cases WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'構成差分が見つかりません。'});if(row.status!=='resolved')return res.status(409).json({error:'是正済みの差分だけを検証できます。'});const actors=validateDriftActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE configuration_drift_cases SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.verificationNote,req.params.id]);await audit(req,'verify','configuration-drift',req.params.id,{});res.json({drift:rows[0]});
+});
+
+app.post('/api/admin/platform-reliability/actions',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({sourceType:z.enum(['health','capacity','backup','configuration','security','audit','other']),sourceReference:z.string().max(1000).default(''),title:z.string().min(1).max(500),priority:z.enum(['critical','high','medium','low']),description:z.string().min(10).max(20000),successCriteria:z.string().min(10).max(20000),ownerUserId:z.string().uuid(),dueAt:z.string().date()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'改善施策の入力内容を確認してください。'});const d=parsed.data;
+ const {rows}=await query(`INSERT INTO reliability_improvement_actions(source_type,source_reference,title,priority,description,success_criteria,owner_user_id,due_at,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,[d.sourceType,d.sourceReference,d.title,d.priority,d.description,d.successCriteria,d.ownerUserId,d.dueAt,req.user.id]);await audit(req,'create','reliability-action',rows[0].id,{priority:d.priority});res.status(201).json({action:rows[0]});
+});
+app.post('/api/admin/platform-reliability/actions/:id/complete',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({completionNote:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'実施内容と証跡SHA-256を入力してください。'});const found=await query(`SELECT * FROM reliability_improvement_actions WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'改善施策が見つかりません。'});const actors=validateActionActors(row,req.user.id,'complete');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE reliability_improvement_actions SET status='completed',completion_note=$1,evidence_sha256=$2,completed_by=$3,completed_at=now(),updated_at=now() WHERE id=$4 AND status NOT IN ('verified','closed','cancelled') RETURNING *`,[parsed.data.completionNote,parsed.data.evidenceSha256.toLowerCase(),req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'この施策は完了済みです。'});await audit(req,'complete','reliability-action',req.params.id,{});res.json({action:rows[0]});
+});
+app.post('/api/admin/platform-reliability/actions/:id/verify',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({verificationNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'効果確認所見を入力してください。'});const found=await query(`SELECT * FROM reliability_improvement_actions WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'改善施策が見つかりません。'});if(row.status!=='completed')return res.status(409).json({error:'実施完了済みの施策だけを検証できます。'});const actors=validateActionActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE reliability_improvement_actions SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.verificationNote,req.params.id]);await audit(req,'verify','reliability-action',req.params.id,{});res.json({action:rows[0]});
+});
+
+app.post('/api/admin/platform-reliability/reviews',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({periodStart:z.string().date(),periodEnd:z.string().date(),title:z.string().min(1).max(500),summary:z.string().min(10).max(20000),decision:z.string().max(20000).default(''),nextActions:z.string().min(5).max(20000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'信頼性レビューの入力内容を確認してください。'});const d=parsed.data;if(new Date(d.periodEnd)<new Date(d.periodStart))return res.status(400).json({error:'レビュー期間を確認してください。'});
+ const {rows}=await query(`INSERT INTO reliability_review_cycles(period_start,period_end,title,summary,decision,next_actions,created_by) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,[d.periodStart,d.periodEnd,d.title,d.summary,d.decision,d.nextActions,req.user.id]);await audit(req,'create','reliability-review',rows[0].id,{});res.status(201).json({review:rows[0]});
+});
+app.post('/api/admin/platform-reliability/reviews/:id/submit',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const found=await query(`SELECT * FROM reliability_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'信頼性レビューが見つかりません。'});if(row.created_by!==req.user.id)return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});
+ const [health,drifts,actions]=await Promise.all([query(`SELECT * FROM platform_health_snapshots WHERE measured_at::date BETWEEN $1 AND $2 OR environment='production' ORDER BY measured_at DESC LIMIT 500`,[row.period_start,row.period_end]),query(`SELECT * FROM configuration_drift_cases WHERE detected_at::date<=$2 AND (verified_at IS NULL OR verified_at::date>=$1)`,[row.period_start,row.period_end]),query(`SELECT * FROM reliability_improvement_actions WHERE created_at::date<=$2 AND (verified_at IS NULL OR verified_at::date>=$1)`,[row.period_start,row.period_end])]);const gate=evaluateReliabilityGate({healthSnapshots:health.rows,drifts:drifts.rows,actions:actions.rows});const snapshot={release:'part531',generatedAt:new Date().toISOString(),healthIds:health.rows.map(x=>x.id),driftIds:drifts.rows.map(x=>x.id),actionIds:actions.rows.map(x=>x.id),blockers:gate.blockers};const sha=reliabilitySha(snapshot);
+ const {rows}=await query(`UPDATE reliability_review_cycles SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,reviewed_at=NULL,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),sha,req.user.id,req.params.id]);await audit(req,'submit','reliability-review',req.params.id,{blockers:gate.blockers});res.json({review:rows[0],gate});
+});
+app.post('/api/admin/platform-reliability/reviews/:id/review',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM reliability_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'信頼性レビューが見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済みレビューだけを確認できます。'});const actors=validateReviewActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE reliability_review_cycles SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,approval_note='',updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','reliability-review',req.params.id,{decision:parsed.data.decision});res.json({review:rows[0]});
+});
+app.post('/api/admin/platform-reliability/reviews/:id/approve',authenticate,requireRole(...reliabilityWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM reliability_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'信頼性レビューが見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済みレビューだけを承認できます。'});const actors=validateReviewActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(reliabilitySha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。'});
+ const [health,drifts,actions]=await Promise.all([query(`SELECT * FROM platform_health_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM configuration_drift_cases WHERE status NOT IN ('verified','closed','cancelled')`),query(`SELECT * FROM reliability_improvement_actions WHERE status NOT IN ('verified','closed','cancelled')`)]);const gate=evaluateReliabilityGate({healthSnapshots:health.rows,drifts:drifts.rows,actions:actions.rows});if(!gate.allowed)return res.status(409).json({error:'信頼性承認条件を満たしていません。',blockers:gate.blockers});
+ const {rows}=await query(`UPDATE reliability_review_cycles SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','reliability-review',req.params.id,{});res.json({review:rows[0],gate});
+});
+
+// Part 532: integrated phases 28-30 - database/search quality, attachment integrity and cross-data consistency governance.
+const dataIntegrityReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator'];
+const dataIntegrityWriteRoles=['safety-environment-admin'];
+const dataAssuranceSha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/data-integrity-performance',authenticate,requireRole(...dataIntegrityReadRoles),async(_req,res)=>{
+ const [users,databaseSnapshots,attachmentSnapshots,integritySnapshots,issues,reviews]=await Promise.all([
+  query(`SELECT id,display_name,role,office_id FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator','office-admin') ORDER BY display_name`),
+  query(`SELECT s.*,u.display_name recorded_name FROM data_performance_snapshots s JOIN users u ON u.id=s.recorded_by ORDER BY s.measured_at DESC LIMIT 300`),
+  query(`SELECT s.*,u.display_name recorded_name FROM attachment_integrity_snapshots s JOIN users u ON u.id=s.recorded_by ORDER BY s.measured_at DESC LIMIT 300`),
+  query(`SELECT s.*,u.display_name recorded_name FROM cross_data_integrity_snapshots s JOIN users u ON u.id=s.recorded_by ORDER BY s.measured_at DESC LIMIT 300`),
+  query(`SELECT i.*,o.display_name owner_name,r.display_name resolver_name,v.display_name verifier_name FROM data_integrity_issues i JOIN users o ON o.id=i.owner_user_id LEFT JOIN users r ON r.id=i.resolved_by LEFT JOIN users v ON v.id=i.verified_by ORDER BY CASE i.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,CASE WHEN i.status IN ('verified','closed','cancelled') THEN 1 ELSE 0 END,i.due_at LIMIT 500`),
+  query(`SELECT r.*,c.display_name creator_name,rv.display_name reviewer_name,a.display_name approver_name FROM data_assurance_review_cycles r JOIN users c ON c.id=r.created_by LEFT JOIN users rv ON rv.id=r.reviewed_by LEFT JOIN users a ON a.id=r.approved_by ORDER BY r.period_end DESC,r.created_at DESC LIMIT 100`)
+ ]);
+ const gate=evaluateDataAssuranceGate({databaseSnapshots:databaseSnapshots.rows,attachmentSnapshots:attachmentSnapshots.rows,integritySnapshots:integritySnapshots.rows,issues:issues.rows});
+ const latest=(rows)=>rows.find(x=>x.environment==='production')||null;const now=new Date();
+ const summary={databaseStatus:latest(databaseSnapshots.rows)?.status||null,attachmentStatus:latest(attachmentSnapshots.rows)?.status||null,integrityStatus:latest(integritySnapshots.rows)?.status||null,openIssues:issues.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)).length,criticalIssues:issues.rows.filter(x=>['critical','high'].includes(x.severity)&&!['verified','closed','cancelled'].includes(x.status)).length,overdueIssues:issues.rows.filter(x=>!['verified','closed','cancelled'].includes(x.status)&&new Date(x.due_at)<now).length};
+ res.json({users:users.rows,databaseSnapshots:databaseSnapshots.rows,attachmentSnapshots:attachmentSnapshots.rows,integritySnapshots:integritySnapshots.rows,issues:issues.rows,reviews:reviews.rows,summary,gate});
+});
+
+app.post('/api/admin/data-integrity-performance/database-snapshots',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({environment:z.enum(['production','staging','test','development']),measuredAt:z.string().datetime(),queryP95Ms:z.number().nonnegative(),searchP95Ms:z.number().nonnegative(),failedQueryPercent:z.number().min(0).max(100),cacheHitPercent:z.number().min(0).max(100),connectionUsePercent:z.number().min(0).max(100),indexBloatPercent:z.number().min(0).max(100),noResultPercent:z.number().min(0).max(100),indexedRecordCount:z.number().int().nonnegative(),indexedUniqueUnCount:z.number().int().nonnegative(),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});
+ const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'DB・検索性能測定の入力内容を確認してください。'});const d=parsed.data;const evaluation=evaluateDatabaseSearchSnapshot(d);if(!evaluation.valid)return res.status(400).json({error:evaluation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO data_performance_snapshots(environment,measured_at,query_p95_ms,search_p95_ms,failed_query_percent,cache_hit_percent,connection_use_percent,index_bloat_percent,no_result_percent,indexed_record_count,indexed_unique_un_count,status,blockers,warnings,evidence_reference,evidence_sha256,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14::jsonb,$15,$16,$17) RETURNING *`,[d.environment,d.measuredAt,d.queryP95Ms,d.searchP95Ms,d.failedQueryPercent,d.cacheHitPercent,d.connectionUsePercent,d.indexBloatPercent,d.noResultPercent,d.indexedRecordCount,d.indexedUniqueUnCount,evaluation.status,JSON.stringify(evaluation.blockers),JSON.stringify(evaluation.warnings),d.evidenceReference,d.evidenceSha256.toLowerCase(),req.user.id]);
+ await audit(req,'record','data-performance-snapshot',rows[0].id,{environment:d.environment,status:evaluation.status});res.status(201).json({snapshot:rows[0],evaluation});
+});
+
+app.post('/api/admin/data-integrity-performance/attachment-snapshots',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({environment:z.enum(['production','staging','test','development']),measuredAt:z.string().datetime(),totalFiles:z.number().int().nonnegative(),linkedFiles:z.number().int().nonnegative(),orphanedFiles:z.number().int().nonnegative(),missingFiles:z.number().int().nonnegative(),hashMismatchFiles:z.number().int().nonnegative(),malwarePendingFiles:z.number().int().nonnegative(),malwareFailedFiles:z.number().int().nonnegative(),metadataMismatchFiles:z.number().int().nonnegative(),quarantinedFiles:z.number().int().nonnegative(),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});
+ const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'添付資料・写真健全性測定の入力内容を確認してください。'});const d=parsed.data;const evaluation=evaluateAttachmentIntegritySnapshot(d);if(!evaluation.valid)return res.status(400).json({error:evaluation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO attachment_integrity_snapshots(environment,measured_at,total_files,linked_files,orphaned_files,missing_files,hash_mismatch_files,malware_pending_files,malware_failed_files,metadata_mismatch_files,quarantined_files,status,blockers,warnings,evidence_reference,evidence_sha256,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14::jsonb,$15,$16,$17) RETURNING *`,[d.environment,d.measuredAt,d.totalFiles,d.linkedFiles,d.orphanedFiles,d.missingFiles,d.hashMismatchFiles,d.malwarePendingFiles,d.malwareFailedFiles,d.metadataMismatchFiles,d.quarantinedFiles,evaluation.status,JSON.stringify(evaluation.blockers),JSON.stringify(evaluation.warnings),d.evidenceReference,d.evidenceSha256.toLowerCase(),req.user.id]);
+ await audit(req,'record','attachment-integrity-snapshot',rows[0].id,{environment:d.environment,status:evaluation.status});res.status(201).json({snapshot:rows[0],evaluation});
+});
+
+app.post('/api/admin/data-integrity-performance/integrity-snapshots',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({environment:z.enum(['production','staging','test','development']),measuredAt:z.string().datetime(),applicationCount:z.number().int().nonnegative(),duplicateApplicationNumberCount:z.number().int().nonnegative(),invalidCaseSchemaCount:z.number().int().nonnegative(),missingCommonCaseCount:z.number().int().nonnegative(),ctuLinkMismatchCount:z.number().int().nonnegative(),documentLinkBrokenCount:z.number().int().nonnegative(),photoLinkBrokenCount:z.number().int().nonnegative(),revisionGapCount:z.number().int().nonnegative(),officeScopeMismatchCount:z.number().int().nonnegative(),danglingUserReferenceCount:z.number().int().nonnegative(),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});
+ const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'横断データ整合性測定の入力内容を確認してください。'});const d=parsed.data;const evaluation=evaluateCrossDataIntegritySnapshot(d);if(!evaluation.valid)return res.status(400).json({error:evaluation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO cross_data_integrity_snapshots(environment,measured_at,application_count,duplicate_application_number_count,invalid_case_schema_count,missing_common_case_count,ctu_link_mismatch_count,document_link_broken_count,photo_link_broken_count,revision_gap_count,office_scope_mismatch_count,dangling_user_reference_count,status,blockers,warnings,evidence_reference,evidence_sha256,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb,$16,$17,$18) RETURNING *`,[d.environment,d.measuredAt,d.applicationCount,d.duplicateApplicationNumberCount,d.invalidCaseSchemaCount,d.missingCommonCaseCount,d.ctuLinkMismatchCount,d.documentLinkBrokenCount,d.photoLinkBrokenCount,d.revisionGapCount,d.officeScopeMismatchCount,d.danglingUserReferenceCount,evaluation.status,JSON.stringify(evaluation.blockers),JSON.stringify(evaluation.warnings),d.evidenceReference,d.evidenceSha256.toLowerCase(),req.user.id]);
+ await audit(req,'record','cross-data-integrity-snapshot',rows[0].id,{environment:d.environment,status:evaluation.status});res.status(201).json({snapshot:rows[0],evaluation});
+});
+
+app.post('/api/admin/data-integrity-performance/issues',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({sourceType:z.enum(['database-search','attachment','cross-data','application-case','ctu-link','other']),sourceReference:z.string().max(1000).default(''),title:z.string().min(1).max(500),severity:z.enum(['critical','high','medium','low']),detectedAt:z.string().datetime(),description:z.string().min(10).max(20000),remediationPlan:z.string().min(10).max(20000),ownerUserId:z.string().uuid()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'整合性課題の入力内容を確認してください。'});const d=parsed.data;const validation=validateIntegrityIssue(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});const dueAt=calculateIssueDue(d.detectedAt,d.severity);
+ const {rows}=await query(`INSERT INTO data_integrity_issues(source_type,source_reference,title,severity,detected_at,due_at,description,remediation_plan,owner_user_id,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,[d.sourceType,d.sourceReference,d.title,d.severity,d.detectedAt,dueAt.toISOString(),d.description,d.remediationPlan,d.ownerUserId,req.user.id]);await audit(req,'create','data-integrity-issue',rows[0].id,{severity:d.severity});res.status(201).json({issue:rows[0]});
+});
+
+app.post('/api/admin/data-integrity-performance/issues/:id/resolve',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({resolutionNote:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'是正内容と証跡SHA-256を入力してください。'});const found=await query(`SELECT * FROM data_integrity_issues WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'整合性課題が見つかりません。'});const actors=validateIssueActors(row,req.user.id,'resolve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE data_integrity_issues SET status='resolved',resolution_note=$1,evidence_sha256=$2,resolved_by=$3,resolved_at=now(),updated_at=now() WHERE id=$4 AND status NOT IN ('verified','closed','cancelled') RETURNING *`,[parsed.data.resolutionNote,parsed.data.evidenceSha256.toLowerCase(),req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'この課題は完了済みです。'});await audit(req,'resolve','data-integrity-issue',req.params.id,{});res.json({issue:rows[0]});
+});
+
+app.post('/api/admin/data-integrity-performance/issues/:id/verify',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({verificationNote:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'検証所見を入力してください。'});const found=await query(`SELECT * FROM data_integrity_issues WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'整合性課題が見つかりません。'});if(row.status!=='resolved')return res.status(409).json({error:'是正済み課題だけを検証できます。'});const actors=validateIssueActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE data_integrity_issues SET status='verified',verification_note=$1,verified_by=$2,verified_at=now(),updated_at=now() WHERE id=$3 RETURNING *`,[parsed.data.verificationNote,req.user.id,req.params.id]);await audit(req,'verify','data-integrity-issue',req.params.id,{});res.json({issue:rows[0]});
+});
+
+app.post('/api/admin/data-integrity-performance/reviews',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({periodStart:z.string().date(),periodEnd:z.string().date(),title:z.string().min(1).max(500),summary:z.string().min(10).max(20000),decision:z.string().max(20000).default(''),nextActions:z.string().min(5).max(20000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'データ保証レビューの入力内容を確認してください。'});const d=parsed.data;if(new Date(d.periodEnd)<new Date(d.periodStart))return res.status(400).json({error:'レビュー期間を確認してください。'});
+ const {rows}=await query(`INSERT INTO data_assurance_review_cycles(period_start,period_end,title,summary,decision,next_actions,created_by) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,[d.periodStart,d.periodEnd,d.title,d.summary,d.decision,d.nextActions,req.user.id]);await audit(req,'create','data-assurance-review',rows[0].id,{});res.status(201).json({review:rows[0]});
+});
+
+app.post('/api/admin/data-integrity-performance/reviews/:id/submit',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const found=await query(`SELECT * FROM data_assurance_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'データ保証レビューが見つかりません。'});if(String(row.created_by)!==String(req.user.id))return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});
+ const [databaseSnapshots,attachmentSnapshots,integritySnapshots,issues]=await Promise.all([query(`SELECT * FROM data_performance_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM attachment_integrity_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM cross_data_integrity_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM data_integrity_issues WHERE status NOT IN ('verified','closed','cancelled')`)]);const gate=evaluateDataAssuranceGate({databaseSnapshots:databaseSnapshots.rows,attachmentSnapshots:attachmentSnapshots.rows,integritySnapshots:integritySnapshots.rows,issues:issues.rows});const snapshot={release:'part533',generatedAt:new Date().toISOString(),databaseSnapshotIds:databaseSnapshots.rows.map(x=>x.id),attachmentSnapshotIds:attachmentSnapshots.rows.map(x=>x.id),integritySnapshotIds:integritySnapshots.rows.map(x=>x.id),issueIds:issues.rows.map(x=>x.id),blockers:gate.blockers};const snapshotSha256=dataAssuranceSha(snapshot);
+ const {rows}=await query(`UPDATE data_assurance_review_cycles SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,reviewed_at=NULL,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),snapshotSha256,req.user.id,req.params.id]);await audit(req,'submit','data-assurance-review',req.params.id,{blockers:gate.blockers});res.json({review:rows[0],gate});
+});
+
+app.post('/api/admin/data-integrity-performance/reviews/:id/review',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM data_assurance_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'データ保証レビューが見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済みレビューだけを確認できます。'});const actors=validateDataReviewActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});
+ const {rows}=await query(`UPDATE data_assurance_review_cycles SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,approval_note='',updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','data-assurance-review',req.params.id,{decision:parsed.data.decision});res.json({review:rows[0]});
+});
+
+app.post('/api/admin/data-integrity-performance/reviews/:id/approve',authenticate,requireRole(...dataIntegrityWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM data_assurance_review_cycles WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'データ保証レビューが見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済みレビューだけを承認できます。'});const actors=validateDataReviewActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(dataAssuranceSha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。'});
+ const [databaseSnapshots,attachmentSnapshots,integritySnapshots,issues]=await Promise.all([query(`SELECT * FROM data_performance_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM attachment_integrity_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM cross_data_integrity_snapshots ORDER BY measured_at DESC LIMIT 500`),query(`SELECT * FROM data_integrity_issues WHERE status NOT IN ('verified','closed','cancelled')`)]);const gate=evaluateDataAssuranceGate({databaseSnapshots:databaseSnapshots.rows,attachmentSnapshots:attachmentSnapshots.rows,integritySnapshots:integritySnapshots.rows,issues:issues.rows});if(!gate.allowed)return res.status(409).json({error:'データ保証承認条件を満たしていません。',blockers:gate.blockers});
+ const {rows}=await query(`UPDATE data_assurance_review_cycles SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','data-assurance-review',req.params.id,{});res.json({review:rows[0],gate});
+});
+
+// Part 533: integrated phases 31-33 - quality rules, change impact analysis and release distribution governance.
+const qualityReleaseReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator'];
+const qualityReleaseWriteRoles=['safety-environment-admin'];
+const qualityReleaseSha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/quality-release-governance',authenticate,requireRole(...qualityReleaseReadRoles),async(_req,res)=>{
+ const [users,runs,candidates,impacts,defects,releases]=await Promise.all([
+  query(`SELECT id,display_name,role,office_id FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator','office-admin') ORDER BY display_name`),
+  query(`SELECT r.*,u.display_name recorded_name FROM quality_rule_runs r JOIN users u ON u.id=r.recorded_by ORDER BY r.executed_at DESC LIMIT 300`),
+  query(`SELECT c.*,o.display_name owner_name,cr.display_name creator_name,rv.display_name reviewer_name,ap.display_name applier_name,v.display_name verifier_name FROM quality_correction_candidates c JOIN users o ON o.id=c.owner_user_id JOIN users cr ON cr.id=c.created_by LEFT JOIN users rv ON rv.id=c.reviewed_by LEFT JOIN users ap ON ap.id=c.applied_by LEFT JOIN users v ON v.id=c.verified_by ORDER BY CASE c.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,c.detected_at DESC LIMIT 500`),
+  query(`SELECT i.*,c.display_name creator_name,r.display_name reviewer_name,a.display_name approver_name FROM change_impact_analyses i JOIN users c ON c.id=i.created_by LEFT JOIN users r ON r.id=i.reviewed_by LEFT JOIN users a ON a.id=i.approved_by ORDER BY i.analyzed_at DESC LIMIT 200`),
+  query(`SELECT d.*,o.display_name owner_name,r.display_name resolver_name,v.display_name verifier_name FROM release_governance_defects d JOIN users o ON o.id=d.owner_user_id LEFT JOIN users r ON r.id=d.resolved_by LEFT JOIN users v ON v.id=d.verified_by ORDER BY CASE d.severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,d.due_at LIMIT 500`),
+  query(`SELECT r.*,c.display_name creator_name,rv.display_name reviewer_name,a.display_name approver_name,p.display_name publisher_name,v.display_name verifier_name FROM release_distribution_candidates r JOIN users c ON c.id=r.created_by LEFT JOIN users rv ON rv.id=r.reviewed_by LEFT JOIN users a ON a.id=r.approved_by LEFT JOIN users p ON p.id=r.published_by LEFT JOIN users v ON v.id=r.verified_by ORDER BY r.created_at DESC LIMIT 100`)
+ ]);
+ const gate=evaluateReleaseGate({qualityRuns:runs.rows,correctionCandidates:candidates.rows,impactAnalyses:impacts.rows,defects:defects.rows,releaseCandidate:releases.rows[0]||null});
+ res.json({users:users.rows,qualityRuns:runs.rows,correctionCandidates:candidates.rows,impactAnalyses:impacts.rows,defects:defects.rows,releases:releases.rows,gate});
+});
+
+app.post('/api/admin/quality-release-governance/rule-runs',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({domain:z.enum(['dangerous-goods-master','domestic-law','code-mapping','application-case','ctu-link','attachment-metadata','other']),executedAt:z.string().datetime(),ruleSetVersion:z.string().min(1).max(200),evaluatedCount:z.number().int().nonnegative(),violationCount:z.number().int().nonnegative(),criticalViolationCount:z.number().int().nonnegative(),autoFixCandidateCount:z.number().int().nonnegative(),manualReviewCount:z.number().int().nonnegative(),falsePositivePercent:z.number().min(0).max(100),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'品質ルール実行結果の入力内容を確認してください。'});const d=parsed.data,evaluation=evaluateQualityRuleRun(d);if(!evaluation.valid)return res.status(400).json({error:evaluation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO quality_rule_runs(domain,executed_at,rule_set_version,evaluated_count,violation_count,critical_violation_count,auto_fix_candidate_count,manual_review_count,false_positive_percent,violation_rate,status,blockers,warnings,evidence_reference,evidence_sha256,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb,$13::jsonb,$14,$15,$16) RETURNING *`,[d.domain,d.executedAt,d.ruleSetVersion,d.evaluatedCount,d.violationCount,d.criticalViolationCount,d.autoFixCandidateCount,d.manualReviewCount,d.falsePositivePercent,evaluation.violationRate,evaluation.status,JSON.stringify(evaluation.blockers),JSON.stringify(evaluation.warnings),d.evidenceReference,d.evidenceSha256.toLowerCase(),req.user.id]);await audit(req,'record','quality-rule-run',rows[0].id,{domain:d.domain,status:evaluation.status});res.status(201).json({run:rows[0],evaluation});
+});
+
+app.post('/api/admin/quality-release-governance/candidates',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({ruleRunId:z.string().uuid().optional().nullable(),ruleId:z.string().min(1).max(200),domain:z.enum(['dangerous-goods-master','domestic-law','code-mapping','application-case','ctu-link','attachment-metadata','other']),entityReference:z.string().min(1).max(1000),fieldName:z.string().min(1).max(300),currentValueSha256:z.string().regex(/^[a-f0-9]{64}$/i),proposedValueSha256:z.string().regex(/^[a-f0-9]{64}$/i),severity:z.enum(['critical','high','medium','low']),confidencePercent:z.number().min(0).max(100),rationale:z.string().min(10).max(10000),ownerUserId:z.string().uuid(),detectedAt:z.string().datetime()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'自動是正候補の入力内容を確認してください。'});const d=parsed.data,validation=validateCorrectionCandidate(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO quality_correction_candidates(rule_run_id,rule_id,domain,entity_reference,field_name,current_value_sha256,proposed_value_sha256,severity,confidence_percent,rationale,owner_user_id,detected_at,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`,[d.ruleRunId||null,d.ruleId,d.domain,d.entityReference,d.fieldName,d.currentValueSha256.toLowerCase(),d.proposedValueSha256.toLowerCase(),d.severity,d.confidencePercent,d.rationale,d.ownerUserId,d.detectedAt,req.user.id]);await audit(req,'create','quality-correction-candidate',rows[0].id,{severity:d.severity});res.status(201).json({candidate:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/candidates/:id/review',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({decision:z.enum(['reviewed','rejected']),note:z.string().min(5).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM quality_correction_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'是正候補が見つかりません。'});if(row.status!=='open')return res.status(409).json({error:'未確認の候補だけを確認できます。'});const actors=validateCorrectionActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE quality_correction_candidates SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','quality-correction-candidate',req.params.id,{decision:parsed.data.decision});res.json({candidate:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/candidates/:id/apply',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(10).max(10000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'適用内容と証跡SHA-256を入力してください。'});const found=await query(`SELECT * FROM quality_correction_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'是正候補が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み候補だけを適用できます。'});const actors=validateCorrectionActors(row,req.user.id,'apply');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE quality_correction_candidates SET status='applied',applied_by=$1,applied_at=now(),application_note=$2,application_evidence_sha256=$3,updated_at=now() WHERE id=$4 RETURNING *`,[req.user.id,parsed.data.note,parsed.data.evidenceSha256.toLowerCase(),req.params.id]);await audit(req,'apply','quality-correction-candidate',req.params.id,{});res.json({candidate:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/candidates/:id/verify',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'効果確認所見を入力してください。'});const found=await query(`SELECT * FROM quality_correction_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'是正候補が見つかりません。'});if(row.status!=='applied')return res.status(409).json({error:'適用済み候補だけを検証できます。'});const actors=validateCorrectionActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE quality_correction_candidates SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'verify','quality-correction-candidate',req.params.id,{});res.json({candidate:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/impacts',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({changeType:z.enum(['application','database','master-data','regulation','configuration','security','mixed']),sourceRelease:z.string().min(1).max(100),targetRelease:z.string().min(1).max(100),analyzedAt:z.string().datetime(),changedFileCount:z.number().int().nonnegative(),changedTableCount:z.number().int().nonnegative(),impactedComponents:z.array(z.string().min(1)).min(1),regressionTargets:z.array(z.string().min(1)).min(1),riskLevel:z.enum(['critical','high','medium','low']),summary:z.string().min(10).max(20000),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'変更影響分析の入力内容を確認してください。'});const d=parsed.data,evaluation=evaluateChangeImpact(d);if(!evaluation.valid)return res.status(400).json({error:evaluation.errors.join(' ')});const {rows}=await query(`INSERT INTO change_impact_analyses(change_type,source_release,target_release,analyzed_at,changed_file_count,changed_table_count,impacted_components,regression_targets,risk_level,summary,evidence_reference,evidence_sha256,created_by) VALUES($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9,$10,$11,$12,$13) RETURNING *`,[d.changeType,d.sourceRelease,d.targetRelease,d.analyzedAt,d.changedFileCount,d.changedTableCount,JSON.stringify(d.impactedComponents),JSON.stringify(d.regressionTargets),d.riskLevel,d.summary,d.evidenceReference,d.evidenceSha256.toLowerCase(),req.user.id]);await audit(req,'create','change-impact-analysis',rows[0].id,{risk:d.riskLevel});res.status(201).json({impact:rows[0],evaluation});
+});
+
+app.post('/api/admin/quality-release-governance/impacts/:id/review',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(5).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM change_impact_analyses WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'変更影響分析が見つかりません。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'確認できる状態ではありません。'});const actors=validateImpactActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE change_impact_analyses SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','change-impact-analysis',req.params.id,{decision:parsed.data.decision});res.json({impact:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/impacts/:id/approve',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(5).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM change_impact_analyses WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'変更影響分析が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み分析だけを承認できます。'});const actors=validateImpactActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE change_impact_analyses SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','change-impact-analysis',req.params.id,{});res.json({impact:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/defects',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({releaseName:z.string().min(1).max(100),severity:z.enum(['critical','high','medium','low']),title:z.string().min(1).max(500),description:z.string().min(10).max(20000),detectedAt:z.string().datetime(),ownerUserId:z.string().uuid()});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'リリース不具合の入力内容を確認してください。'});const d=parsed.data,validation=validateReleaseDefect(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});const dueAt=calculateDefectDue(d.detectedAt,d.severity);const {rows}=await query(`INSERT INTO release_governance_defects(release_name,severity,title,description,detected_at,due_at,owner_user_id,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,[d.releaseName,d.severity,d.title,d.description,d.detectedAt,dueAt.toISOString(),d.ownerUserId,req.user.id]);await audit(req,'create','release-governance-defect',rows[0].id,{severity:d.severity});res.status(201).json({defect:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/defects/:id/resolve',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(10).max(20000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'解決内容と証跡SHA-256を入力してください。'});const found=await query(`SELECT * FROM release_governance_defects WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'不具合が見つかりません。'});if(String(row.owner_user_id)===String(req.user.id))return res.status(409).json({error:'責任者本人だけで解決を確定できません。'});const {rows}=await query(`UPDATE release_governance_defects SET status='resolved',resolution_note=$1,evidence_sha256=$2,resolved_by=$3,resolved_at=now(),updated_at=now() WHERE id=$4 AND status='open' RETURNING *`,[parsed.data.note,parsed.data.evidenceSha256.toLowerCase(),req.user.id,req.params.id]);if(!rows[0])return res.status(409).json({error:'解決できる状態ではありません。'});await audit(req,'resolve','release-governance-defect',req.params.id,{});res.json({defect:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/defects/:id/verify',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'検証所見を入力してください。'});const found=await query(`SELECT * FROM release_governance_defects WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'不具合が見つかりません。'});if(row.status!=='resolved')return res.status(409).json({error:'解決済み不具合だけを検証できます。'});if([row.owner_user_id,row.resolved_by].some(x=>String(x||'')===String(req.user.id)))return res.status(409).json({error:'責任者・解決実施者とは別の利用者が検証してください。'});const {rows}=await query(`UPDATE release_governance_defects SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'verify','release-governance-defect',req.params.id,{});res.json({defect:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/releases',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const evidenceSchema=z.object({type:z.string().min(1).max(100),reference:z.string().min(1).max(1000),sha256:z.string().regex(/^[a-f0-9]{64}$/i)});const schema=z.object({releaseName:z.string().regex(/^part\d+$/i),baseRelease:z.string().regex(/^part\d+$/i),releaseSummary:z.string().min(10).max(20000),packageSha256:z.string().regex(/^[a-f0-9]{64}$/i),rollbackPackageSha256:z.string().regex(/^[a-f0-9]{64}$/i),evidenceItems:z.array(evidenceSchema)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'リリース候補の入力内容を確認してください。'});const d=parsed.data,validation=validateReleaseCandidate(d);if(!validation.valid)return res.status(400).json({error:validation.errors.join(' ')});const {rows}=await query(`INSERT INTO release_distribution_candidates(release_name,base_release,release_summary,package_sha256,rollback_package_sha256,evidence_items,created_by) VALUES($1,$2,$3,$4,$5,$6::jsonb,$7) RETURNING *`,[d.releaseName.toLowerCase(),d.baseRelease.toLowerCase(),d.releaseSummary,d.packageSha256.toLowerCase(),d.rollbackPackageSha256.toLowerCase(),JSON.stringify(d.evidenceItems.map(x=>({...x,sha256:x.sha256.toLowerCase()}))),req.user.id]);await audit(req,'create','release-distribution-candidate',rows[0].id,{release:d.releaseName});res.status(201).json({release:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/releases/:id/submit',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const found=await query(`SELECT * FROM release_distribution_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'リリース候補が見つかりません。'});if(String(row.created_by)!==String(req.user.id))return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});const [runs,candidates,impacts,defects]=await Promise.all([query(`SELECT * FROM quality_rule_runs ORDER BY executed_at DESC LIMIT 300`),query(`SELECT * FROM quality_correction_candidates WHERE status NOT IN ('verified','rejected','cancelled')`),query(`SELECT * FROM change_impact_analyses ORDER BY analyzed_at DESC LIMIT 100`),query(`SELECT * FROM release_governance_defects WHERE release_name=$1 AND status NOT IN ('verified','closed','cancelled')`,[row.release_name])]);const gate=evaluateReleaseGate({qualityRuns:runs.rows,correctionCandidates:candidates.rows,impactAnalyses:impacts.rows,defects:defects.rows,releaseCandidate:row});const snapshot={release:'part534',generatedAt:new Date().toISOString(),qualityRunIds:runs.rows.map(x=>x.id),candidateIds:candidates.rows.map(x=>x.id),impactIds:impacts.rows.map(x=>x.id),defectIds:defects.rows.map(x=>x.id),blockers:gate.blockers};const snapshotSha256=qualityReleaseSha(snapshot);const {rows}=await query(`UPDATE release_distribution_candidates SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,reviewed_at=NULL,approved_by=NULL,approved_at=NULL,published_by=NULL,published_at=NULL,verified_by=NULL,verified_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),snapshotSha256,req.user.id,req.params.id]);await audit(req,'submit','release-distribution-candidate',req.params.id,{blockers:gate.blockers});res.json({release:rows[0],gate});
+});
+
+app.post('/api/admin/quality-release-governance/releases/:id/review',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(5).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM release_distribution_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'リリース候補が見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済み候補だけを確認できます。'});const actors=validateReleaseActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE release_distribution_candidates SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,approved_at=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,req.params.id]);await audit(req,'review','release-distribution-candidate',req.params.id,{decision:parsed.data.decision});res.json({release:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/releases/:id/approve',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(5).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM release_distribution_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'リリース候補が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み候補だけを承認できます。'});const actors=validateReleaseActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(qualityReleaseSha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。'});const [runs,candidates,impacts,defects]=await Promise.all([query(`SELECT * FROM quality_rule_runs ORDER BY executed_at DESC LIMIT 300`),query(`SELECT * FROM quality_correction_candidates WHERE status NOT IN ('verified','rejected','cancelled')`),query(`SELECT * FROM change_impact_analyses ORDER BY analyzed_at DESC LIMIT 100`),query(`SELECT * FROM release_governance_defects WHERE release_name=$1 AND status NOT IN ('verified','closed','cancelled')`,[row.release_name])]);const gate=evaluateReleaseGate({qualityRuns:runs.rows,correctionCandidates:candidates.rows,impactAnalyses:impacts.rows,defects:defects.rows,releaseCandidate:row});if(!gate.allowed)return res.status(409).json({error:'リリース承認条件を満たしていません。',blockers:gate.blockers});const {rows}=await query(`UPDATE release_distribution_candidates SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'approve','release-distribution-candidate',req.params.id,{});res.json({release:rows[0],gate});
+});
+
+app.post('/api/admin/quality-release-governance/releases/:id/publish',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({distributionReference:z.string().min(1).max(1000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布参照番号を入力してください。'});const found=await query(`SELECT * FROM release_distribution_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'リリース候補が見つかりません。'});if(row.status!=='approved')return res.status(409).json({error:'承認済み候補だけを配布できます。'});const actors=validateReleaseActors(row,req.user.id,'publish');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE release_distribution_candidates SET status='published',published_by=$1,published_at=now(),distribution_reference=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.distributionReference,req.params.id]);await audit(req,'publish','release-distribution-candidate',req.params.id,{reference:parsed.data.distributionReference});res.json({release:rows[0]});
+});
+
+app.post('/api/admin/quality-release-governance/releases/:id/verify',authenticate,requireRole(...qualityReleaseWriteRoles),async(req,res)=>{
+ const schema=z.object({note:z.string().min(10).max(10000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布後確認所見を入力してください。'});const found=await query(`SELECT * FROM release_distribution_candidates WHERE id=$1`,[req.params.id]);const row=found.rows[0];if(!row)return res.status(404).json({error:'リリース候補が見つかりません。'});if(row.status!=='published')return res.status(409).json({error:'配布済み候補だけを確認できます。'});const actors=validateReleaseActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE release_distribution_candidates SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,req.params.id]);await audit(req,'verify','release-distribution-candidate',req.params.id,{});res.json({release:rows[0]});
+});
+
+
+
+const distributionContinuityReadRoles=['safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator'];
+const distributionContinuityWriteRoles=['safety-environment-admin'];
+const distributionContinuitySha=value=>crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+
+app.get('/api/admin/distribution-continuity',authenticate,requireRole(...distributionContinuityReadRoles),async(_req,res)=>{
+ const [users,packages,tests,exercises,reviews]=await Promise.all([
+  query(`SELECT id,display_name,role,office_id FROM users WHERE active=true AND role IN ('safety-environment-admin','safety-environment-director','safety-environment-staff','revision-validator','office-admin') ORDER BY display_name`),
+  query(`SELECT p.*,c.display_name creator_name,e.display_name executor_name,r.display_name reviewer_name,a.display_name approver_name,pb.display_name publisher_name,v.display_name verifier_name FROM master_distribution_packages p LEFT JOIN users c ON c.id=p.created_by LEFT JOIN users e ON e.id=p.submitted_by LEFT JOIN users r ON r.id=p.reviewed_by LEFT JOIN users a ON a.id=p.approved_by LEFT JOIN users pb ON pb.id=p.published_by LEFT JOIN users v ON v.id=p.verified_by ORDER BY p.generated_at DESC LIMIT 300`),
+  query(`SELECT t.*,u.display_name recorded_name FROM client_compatibility_tests t JOIN users u ON u.id=t.recorded_by ORDER BY t.tested_at DESC LIMIT 500`),
+  query(`SELECT x.*,c.display_name creator_name,e.display_name executor_name,r.display_name reviewer_name,rs.display_name reconciler_name,v.display_name verifier_name FROM continuity_exercises x JOIN users c ON c.id=x.created_by JOIN users e ON e.id=x.executor_user_id LEFT JOIN users r ON r.id=x.reviewed_by LEFT JOIN users rs ON rs.id=x.reconciled_by LEFT JOIN users v ON v.id=x.verified_by ORDER BY x.restored_at DESC LIMIT 300`),
+  query(`SELECT r.*,u.display_name creator_name,rv.display_name reviewer_name,a.display_name approver_name FROM distribution_continuity_reviews r JOIN users u ON u.id=r.created_by LEFT JOIN users rv ON rv.id=r.reviewed_by LEFT JOIN users a ON a.id=r.approved_by ORDER BY r.period_end DESC,r.created_at DESC LIMIT 100`)
+ ]);
+ const gate=evaluateDistributionContinuityGate({packages:packages.rows,compatibilityTests:tests.rows,exercises:exercises.rows});
+ const latestDevice=device=>tests.rows.find(x=>x.device_class===device);
+ res.json({users:users.rows,packages:packages.rows,compatibilityTests:tests.rows,exercises:exercises.rows,reviews:reviews.rows,gate,summary:{distributionStatus:packages.rows[0]?.status||null,desktopStatus:latestDevice('desktop')?.status||null,smartphoneStatus:latestDevice('smartphone')?.status||null,continuityStatus:exercises.rows[0]?.status||null}});
+});
+
+app.post('/api/admin/distribution-continuity/packages',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{
+ const schema=z.object({packageType:z.enum(['full','delta','hotfix','rollback']),dataDomain:z.enum(['dangerous-goods','domestic-law','code-mapping','application-case','all']),sourceRelease:z.string().regex(/^part\d+$/i),targetRelease:z.string().regex(/^part\d+$/i),generatedAt:z.coerce.date(),schemaVersion:z.string().min(1).max(100),baseRecordCount:z.number().int().nonnegative(),addedCount:z.number().int().nonnegative(),changedCount:z.number().int().nonnegative(),removedCount:z.number().int().nonnegative(),manifestSha256:z.string().regex(/^[a-f0-9]{64}$/i),packageSha256:z.string().regex(/^[a-f0-9]{64}$/i),rollbackSha256:z.string().regex(/^[a-f0-9]{64}$/i),evidenceReference:z.string().min(1).max(1000),note:z.string().max(10000).default('')});
+ const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布候補の入力内容を確認してください。'});const d=parsed.data,r=evaluateDistributionPackage(d);if(!r.valid)return res.status(400).json({error:r.errors.join(' ')});
+ const {rows}=await query(`INSERT INTO master_distribution_packages(package_type,data_domain,source_release,target_release,generated_at,schema_version,base_record_count,added_count,changed_count,removed_count,expected_record_count,result_status,manifest_sha256,package_sha256,rollback_sha256,evidence_reference,note,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) RETURNING *`,[d.packageType,d.dataDomain,d.sourceRelease.toLowerCase(),d.targetRelease.toLowerCase(),d.generatedAt,d.schemaVersion,d.baseRecordCount,d.addedCount,d.changedCount,d.removedCount,r.expectedRecordCount,r.status,d.manifestSha256.toLowerCase(),d.packageSha256.toLowerCase(),d.rollbackSha256.toLowerCase(),d.evidenceReference,d.note,req.user.id]);await audit(req,'create','master-distribution-package',rows[0].id,{target:d.targetRelease,status:r.status});res.status(201).json({package:rows[0],evaluation:r});
+});
+app.post('/api/admin/distribution-continuity/packages/:id/submit',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const found=await query(`SELECT * FROM master_distribution_packages WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'配布候補が見つかりません。'});if(String(row.created_by)!==String(req.user.id))return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});const snapshot={release:'part534',packageId:row.id,targetRelease:row.target_release,resultStatus:row.result_status,manifestSha256:row.manifest_sha256,packageSha256:row.package_sha256,rollbackSha256:row.rollback_sha256,generatedAt:new Date().toISOString()},sha=distributionContinuitySha(snapshot);const {rows}=await query(`UPDATE master_distribution_packages SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,approved_by=NULL,published_by=NULL,verified_by=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),sha,req.user.id,row.id]);await audit(req,'submit','master-distribution-package',row.id,{});res.json({package:rows[0]});});
+app.post('/api/admin/distribution-continuity/packages/:id/review',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(5).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM master_distribution_packages WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'配布候補が見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済み候補だけを確認できます。'});const actors=validateDistributionActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE master_distribution_packages SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,row.id]);await audit(req,'review','master-distribution-package',row.id,{decision:parsed.data.decision});res.json({package:rows[0]});});
+app.post('/api/admin/distribution-continuity/packages/:id/approve',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(5).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM master_distribution_packages WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'配布候補が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み候補だけを承認できます。'});const actors=validateDistributionActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(distributionContinuitySha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の配布証跡が変更されています。'});if(row.result_status==='critical')return res.status(409).json({error:'重大状態の配布候補は承認できません。'});const {rows}=await query(`UPDATE master_distribution_packages SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'approve','master-distribution-package',row.id,{});res.json({package:rows[0]});});
+app.post('/api/admin/distribution-continuity/packages/:id/publish',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({distributionReference:z.string().min(1).max(1000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布参照番号を入力してください。'});const found=await query(`SELECT * FROM master_distribution_packages WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'配布候補が見つかりません。'});if(row.status!=='approved')return res.status(409).json({error:'承認済み候補だけを配布できます。'});const actors=validateDistributionActors(row,req.user.id,'publish');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE master_distribution_packages SET status='published',published_by=$1,published_at=now(),distribution_reference=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.distributionReference,row.id]);await audit(req,'publish','master-distribution-package',row.id,{});res.json({package:rows[0]});});
+app.post('/api/admin/distribution-continuity/packages/:id/verify',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(10).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'配布後確認所見を入力してください。'});const found=await query(`SELECT * FROM master_distribution_packages WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'配布候補が見つかりません。'});if(row.status!=='published')return res.status(409).json({error:'配布済み候補だけを確認できます。'});const actors=validateDistributionActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE master_distribution_packages SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'verify','master-distribution-package',row.id,{});res.json({package:rows[0]});});
+
+app.post('/api/admin/distribution-continuity/compatibility-tests',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({environmentId:z.string().min(1).max(200),deviceClass:z.enum(['desktop','smartphone','tablet']),browser:z.enum(['chrome','edge','safari','firefox']),browserVersion:z.string().min(1).max(100),os:z.string().min(1).max(200),testedAt:z.coerce.date(),onlineSuccess:z.boolean(),offlineStartup:z.boolean(),syncSuccess:z.boolean(),layoutSuccess:z.boolean(),pdfDeepLinkSuccess:z.boolean(),storageSuccess:z.boolean(),serviceWorkerSuccess:z.boolean(),testCount:z.number().int().positive(),failureCount:z.number().int().nonnegative(),evidenceReference:z.string().min(1).max(1000),evidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i),note:z.string().max(10000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'互換性試験の入力内容を確認してください。'});const d=parsed.data,r=evaluateClientCompatibility(d);if(!r.valid)return res.status(400).json({error:r.errors.join(' ')});const {rows}=await query(`INSERT INTO client_compatibility_tests(environment_id,device_class,browser,browser_version,os,tested_at,online_success,offline_startup,sync_success,layout_success,pdf_deep_link_success,storage_success,service_worker_success,test_count,failure_count,status,warnings,evidence_reference,evidence_sha256,note,recorded_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17::jsonb,$18,$19,$20,$21) RETURNING *`,[d.environmentId,d.deviceClass,d.browser,d.browserVersion,d.os,d.testedAt,d.onlineSuccess,d.offlineStartup,d.syncSuccess,d.layoutSuccess,d.pdfDeepLinkSuccess,d.storageSuccess,d.serviceWorkerSuccess,d.testCount,d.failureCount,r.status,JSON.stringify(r.warnings),d.evidenceReference,d.evidenceSha256.toLowerCase(),d.note,req.user.id]);await audit(req,'create','client-compatibility-test',rows[0].id,{device:d.deviceClass,status:r.status});res.status(201).json({test:rows[0],evaluation:r});});
+
+app.post('/api/admin/distribution-continuity/exercises',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({outageType:z.enum(['api','database','storage','network','authentication','master-sync','other']),startedAt:z.coerce.date(),restoredAt:z.coerce.date(),manualRecordCount:z.number().int().nonnegative(),reenteredCount:z.number().int().nonnegative(),conflictCount:z.number().int().nonnegative(),lostCount:z.number().int().nonnegative(),duplicateCount:z.number().int().nonnegative(),playbookReference:z.string().min(1).max(1000),manualExportSha256:z.string().regex(/^[a-f0-9]{64}$/i),syncEvidenceSha256:z.string().regex(/^[a-f0-9]{64}$/i),executorUserId:z.string().uuid(),note:z.string().max(10000).default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'手動継続訓練の入力内容を確認してください。'});const d=parsed.data;if(String(d.executorUserId)===String(req.user.id))return res.status(409).json({error:'記録者とは別の利用者を実行担当者にしてください。'});const r=validateContinuityExercise(d);if(!r.valid)return res.status(400).json({error:r.errors.join(' ')});const {rows}=await query(`INSERT INTO continuity_exercises(outage_type,started_at,restored_at,duration_minutes,manual_record_count,reentered_count,conflict_count,lost_count,duplicate_count,result_status,playbook_reference,manual_export_sha256,sync_evidence_sha256,note,executor_user_id,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *`,[d.outageType,d.startedAt,d.restoredAt,r.durationMinutes,d.manualRecordCount,d.reenteredCount,d.conflictCount,d.lostCount,d.duplicateCount,r.status,d.playbookReference,d.manualExportSha256.toLowerCase(),d.syncEvidenceSha256.toLowerCase(),d.note,d.executorUserId,req.user.id]);await audit(req,'create','continuity-exercise',rows[0].id,{status:r.status});res.status(201).json({exercise:rows[0],evaluation:r});});
+app.post('/api/admin/distribution-continuity/exercises/:id/review',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(10).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認所見を入力してください。'});const found=await query(`SELECT * FROM continuity_exercises WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'訓練記録が見つかりません。'});if(row.status!=='recorded')return res.status(409).json({error:'記録済み訓練だけを確認できます。'});const actors=validateContinuityActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE continuity_exercises SET status='reviewed',reviewed_by=$1,reviewed_at=now(),review_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'review','continuity-exercise',row.id,{});res.json({exercise:rows[0]});});
+app.post('/api/admin/distribution-continuity/exercises/:id/reconcile',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(10).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'再同期結果を入力してください。'});const found=await query(`SELECT * FROM continuity_exercises WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'訓練記録が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済み訓練だけを再同期完了にできます。'});const actors=validateContinuityActors(row,req.user.id,'reconcile');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE continuity_exercises SET status='reconciled',reconciled_by=$1,reconciled_at=now(),reconciliation_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'reconcile','continuity-exercise',row.id,{});res.json({exercise:rows[0]});});
+app.post('/api/admin/distribution-continuity/exercises/:id/verify',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(10).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'最終確認所見を入力してください。'});const found=await query(`SELECT * FROM continuity_exercises WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'訓練記録が見つかりません。'});if(row.status!=='reconciled')return res.status(409).json({error:'再同期済み訓練だけを最終確認できます。'});const actors=validateContinuityActors(row,req.user.id,'verify');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(row.result_status==='critical')return res.status(409).json({error:'重大状態の訓練は最終確認できません。再訓練してください。'});const {rows}=await query(`UPDATE continuity_exercises SET status='verified',verified_by=$1,verified_at=now(),verification_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'verify','continuity-exercise',row.id,{});res.json({exercise:rows[0]});});
+
+app.post('/api/admin/distribution-continuity/reviews',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const evidence=z.object({type:z.string().min(1).max(100),reference:z.string().min(1).max(1000),sha256:z.string().regex(/^[a-f0-9]{64}$/i)});const schema=z.object({targetRelease:z.string().regex(/^part\d+$/i),periodStart:z.coerce.date(),periodEnd:z.coerce.date(),summary:z.string().min(10).max(20000),evidenceItems:z.array(evidence)}),parsed=schema.safeParse(req.body);if(!parsed.success||parsed.data.periodEnd<parsed.data.periodStart)return res.status(400).json({error:'統合レビューの入力内容を確認してください。'});const d=parsed.data,gate=evaluateDistributionContinuityGate({reviewCandidate:d});if(gate.blockers.some(x=>x.startsWith('必須証跡')||x.startsWith('証跡SHA')))return res.status(400).json({error:gate.blockers.join(' ')});const {rows}=await query(`INSERT INTO distribution_continuity_reviews(target_release,period_start,period_end,summary,evidence_items,created_by) VALUES($1,$2,$3,$4,$5::jsonb,$6) RETURNING *`,[d.targetRelease.toLowerCase(),d.periodStart,d.periodEnd,d.summary,JSON.stringify(d.evidenceItems.map(x=>({...x,sha256:x.sha256.toLowerCase()}))),req.user.id]);await audit(req,'create','distribution-continuity-review',rows[0].id,{});res.status(201).json({review:rows[0]});});
+app.post('/api/admin/distribution-continuity/reviews/:id/submit',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const found=await query(`SELECT * FROM distribution_continuity_reviews WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'レビューが見つかりません。'});if(String(row.created_by)!==String(req.user.id))return res.status(403).json({error:'作成者本人が提出してください。'});if(!['draft','returned'].includes(row.status))return res.status(409).json({error:'提出できる状態ではありません。'});const [packages,tests,exercises]=await Promise.all([query(`SELECT * FROM master_distribution_packages ORDER BY generated_at DESC LIMIT 300`),query(`SELECT * FROM client_compatibility_tests ORDER BY tested_at DESC LIMIT 500`),query(`SELECT * FROM continuity_exercises ORDER BY restored_at DESC LIMIT 300`)]);const gate=evaluateDistributionContinuityGate({packages:packages.rows,compatibilityTests:tests.rows,exercises:exercises.rows,reviewCandidate:row});const snapshot={release:'part534',generatedAt:new Date().toISOString(),packageIds:packages.rows.map(x=>x.id),testIds:tests.rows.map(x=>x.id),exerciseIds:exercises.rows.map(x=>x.id),blockers:gate.blockers},sha=distributionContinuitySha(snapshot);const {rows}=await query(`UPDATE distribution_continuity_reviews SET status='submitted',snapshot=$1::jsonb,snapshot_sha256=$2,submitted_by=$3,submitted_at=now(),reviewed_by=NULL,approved_by=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[JSON.stringify(snapshot),sha,req.user.id,row.id]);await audit(req,'submit','distribution-continuity-review',row.id,{blockers:gate.blockers});res.json({review:rows[0],gate});});
+app.post('/api/admin/distribution-continuity/reviews/:id/review',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(5).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'確認結果と所見を入力してください。'});const found=await query(`SELECT * FROM distribution_continuity_reviews WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'レビューが見つかりません。'});if(row.status!=='submitted')return res.status(409).json({error:'提出済みレビューだけを確認できます。'});const actors=validateDistributionReviewActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});const {rows}=await query(`UPDATE distribution_continuity_reviews SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,approved_by=NULL,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,row.id]);await audit(req,'review','distribution-continuity-review',row.id,{decision:parsed.data.decision});res.json({review:rows[0]});});
+app.post('/api/admin/distribution-continuity/reviews/:id/approve',authenticate,requireRole(...distributionContinuityWriteRoles),async(req,res)=>{const schema=z.object({note:z.string().min(5).max(10000)}),parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'承認所見を入力してください。'});const found=await query(`SELECT * FROM distribution_continuity_reviews WHERE id=$1`,[req.params.id]),row=found.rows[0];if(!row)return res.status(404).json({error:'レビューが見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'確認済みレビューだけを承認できます。'});const actors=validateDistributionReviewActors(row,req.user.id,'approve');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(distributionContinuitySha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'提出時の証跡スナップショットが変更されています。'});const [packages,tests,exercises]=await Promise.all([query(`SELECT * FROM master_distribution_packages ORDER BY generated_at DESC LIMIT 300`),query(`SELECT * FROM client_compatibility_tests ORDER BY tested_at DESC LIMIT 500`),query(`SELECT * FROM continuity_exercises ORDER BY restored_at DESC LIMIT 300`)]);const gate=evaluateDistributionContinuityGate({packages:packages.rows,compatibilityTests:tests.rows,exercises:exercises.rows,reviewCandidate:row});if(!gate.allowed)return res.status(409).json({error:'統合レビューの承認条件を満たしていません。',blockers:gate.blockers});const {rows}=await query(`UPDATE distribution_continuity_reviews SET status='approved',approved_by=$1,approved_at=now(),approval_note=$2,updated_at=now() WHERE id=$3 RETURNING *`,[req.user.id,parsed.data.note,row.id]);await audit(req,'approve','distribution-continuity-review',row.id,{});res.json({review:rows[0],gate});});
+
+
+// Part 535: application/request intake, pre-check and handoff audit metadata.
+const intakeSchema=z.object({
+  sourceFileName:z.string().max(500).optional().default(''),
+  sourceFormat:z.enum(['xls','xlsx','csv']),
+  sourceSha256:z.string().regex(/^[a-f0-9]{64}$/i),
+  sourceSizeBytes:z.number().int().nonnegative().max(104857600).default(0),
+  originalFileStored:z.literal(false).default(false),
+  importedAt:z.string().datetime(),
+  cargoCount:z.number().int().nonnegative(),
+  validationStatus:z.enum(['ready','review','blocked']),
+  blockerCount:z.number().int().nonnegative().default(0),
+  warningCount:z.number().int().nonnegative().default(0),
+  validationSummary:z.record(z.any()).default({}),
+  checklist:z.array(z.record(z.any())).max(100).default([]),
+  applicationId:z.string().uuid().optional().nullable(),
+  status:z.enum(['imported','reviewed','registered','updated']).default('imported')
+});
+
+app.get('/api/application-intake-workflows',authenticate,requireOperationalRead,async(req,res)=>{
+  const officeId=officeScope(req.user,req.query.officeId);
+  const values=[];let where='1=1';if(officeId){values.push(officeId);where+=` AND w.office_id=$${values.length}`;}
+  const {rows}=await query(`SELECT w.id,w.application_id,w.source_label,w.source_format,w.source_sha256,w.source_size_bytes,w.imported_at,w.cargo_count,w.validation_status,w.blocker_count,w.warning_count,w.status,w.created_at,w.reviewed_at,w.registered_at,u.display_name created_by_name,ru.display_name reviewed_by_name,gu.display_name registered_by_name FROM application_intake_workflows w LEFT JOIN users u ON u.id=w.created_by LEFT JOIN users ru ON ru.id=w.reviewed_by LEFT JOIN users gu ON gu.id=w.registered_by WHERE ${where} ORDER BY w.created_at DESC LIMIT 300`,values);
+  res.json({workflows:rows});
+});
+
+app.post('/api/application-intake-workflows',authenticate,requireOperationalWrite,async(req,res)=>{
+  const parsed=intakeSchema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'申請書・依頼書の取込記録を確認してください。'});
+  const d=parsed.data,evaluation=evaluateIntakeRecord(d);if(!evaluation.allowed&&d.status!=='imported')return res.status(409).json({error:'登録条件を満たしていません。',blockers:evaluation.blockers});
+  const officeId=officeScope(req.user,req.body.officeId);if(!officeId||officeId==='__NO_OPERATIONAL_SCOPE__')return res.status(403).json({error:'取込記録を登録できる事業所権限がありません。'});
+  if(d.applicationId){const appResult=await query(`SELECT id FROM applications WHERE id=$1 AND deleted_at IS NULL AND office_id=$2`,[d.applicationId,officeId]);if(!appResult.rows[0])return res.status(404).json({error:'関連付ける申請番号が見つかりません。'});}
+  const snapshot={sourceSha256:d.sourceSha256.toLowerCase(),sourceFormat:d.sourceFormat,importedAt:d.importedAt,cargoCount:d.cargoCount,validationStatus:evaluation.status,blockerCount:d.blockerCount,warningCount:d.warningCount,applicationId:d.applicationId||null,checklist:d.checklist.map(x=>({code:String(x.code||''),complete:Boolean(x.complete)}))};
+  const sha=intakeSnapshotSha(snapshot);
+  const {rows}=await query(`INSERT INTO application_intake_workflows(office_id,application_id,source_label,source_format,source_sha256,source_size_bytes,original_file_stored,imported_at,cargo_count,validation_status,blocker_count,warning_count,validation_summary,checklist,status,created_by,snapshot,snapshot_sha256) VALUES($1,$2,$3,$4,$5,$6,false,$7,$8,$9,$10,$11,$12::jsonb,$13::jsonb,$14,$15,$16::jsonb,$17) RETURNING *`,[officeId,d.applicationId||null,evaluation.sourceLabel,d.sourceFormat,d.sourceSha256.toLowerCase(),d.sourceSizeBytes,d.importedAt,d.cargoCount,evaluation.status,d.blockerCount,d.warningCount,JSON.stringify(d.validationSummary),JSON.stringify(d.checklist),d.status,req.user.id,JSON.stringify(snapshot),sha]);
+  await audit(req,'create','application-intake-workflow',rows[0].id,{status:d.status,cargoCount:d.cargoCount,applicationId:d.applicationId||null});res.status(201).json({workflow:rows[0],evaluation});
+});
+
+app.post('/api/application-intake-workflows/:id/review',authenticate,requireOperationalWrite,async(req,res)=>{
+  const schema=z.object({decision:z.enum(['reviewed','returned']),note:z.string().min(3).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'原本照合結果と所見を入力してください。'});
+  const officeId=officeScope(req.user,req.query.officeId);const found=await query(`SELECT * FROM application_intake_workflows WHERE id=$1 AND ($2::text IS NULL OR office_id=$2)`,[req.params.id,officeId]);const row=found.rows[0];if(!row)return res.status(404).json({error:'取込記録が見つかりません。'});if(!['imported','returned'].includes(row.status))return res.status(409).json({error:'原本照合できる状態ではありません。'});
+  const actors=validateIntakeActors(row,req.user.id,'review');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(parsed.data.decision==='reviewed'&&(row.validation_status==='blocked'||row.blocker_count>0))return res.status(409).json({error:'遮断項目が残っているため照合完了にできません。'});
+  const {rows}=await query(`UPDATE application_intake_workflows SET status=$1,reviewed_by=$2,reviewed_at=now(),review_note=$3,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.decision,req.user.id,parsed.data.note,row.id]);await audit(req,'review','application-intake-workflow',row.id,{decision:parsed.data.decision});res.json({workflow:rows[0]});
+});
+
+app.post('/api/application-intake-workflows/:id/register',authenticate,requireOperationalWrite,async(req,res)=>{
+  const schema=z.object({applicationId:z.string().uuid(),note:z.string().min(3).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'申請番号と登録確認所見を入力してください。'});
+  const officeId=officeScope(req.user,req.query.officeId);const found=await query(`SELECT * FROM application_intake_workflows WHERE id=$1 AND ($2::text IS NULL OR office_id=$2)`,[req.params.id,officeId]);const row=found.rows[0];if(!row)return res.status(404).json({error:'取込記録が見つかりません。'});if(row.status!=='reviewed')return res.status(409).json({error:'原本照合済みの取込記録だけを登録完了にできます。'});
+  const actors=validateIntakeActors(row,req.user.id,'register');if(!actors.valid)return res.status(409).json({error:actors.errors.join(' ')});if(intakeSnapshotSha(row.snapshot||{})!==row.snapshot_sha256)return res.status(409).json({error:'取込時の証跡スナップショットが変更されています。'});
+  const appResult=await query(`SELECT id FROM applications WHERE id=$1 AND deleted_at IS NULL AND office_id=$2`,[parsed.data.applicationId,row.office_id]);if(!appResult.rows[0])return res.status(404).json({error:'関連付ける申請番号が見つかりません。'});
+  const {rows}=await query(`UPDATE application_intake_workflows SET application_id=$1,status='registered',registered_by=$2,registered_at=now(),registration_note=$3,updated_at=now() WHERE id=$4 RETURNING *`,[parsed.data.applicationId,req.user.id,parsed.data.note,row.id]);await audit(req,'register','application-intake-workflow',row.id,{applicationId:parsed.data.applicationId});res.json({workflow:rows[0]});
+});
+
 app.use((error, req, res, _next) => {
   console.error(error);
   const status = Number(error?.status || error?.statusCode || 500);
   const message = status >= 500 ? 'サーバー処理中にエラーが発生しました。管理者へ連絡してください。' : (error?.message || '処理を完了できませんでした。');
   if (!res.headersSent) res.status(status).json({ error: message });
 });
+
+cleanupExpiredSessions().catch(error => console.error('session cleanup failed', error));
+setInterval(() => cleanupExpiredSessions().catch(error => console.error('session cleanup failed', error)), 6 * 60 * 60_000).unref();
 
 app.listen(config.port, () => console.log(`Inspection Support API listening on ${config.port}`));

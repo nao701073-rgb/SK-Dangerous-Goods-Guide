@@ -192,9 +192,12 @@
     return `<div class="limit-block p200-reference-block"><span>危告示別表第1 P200</span>${capacityHtml}<br><a class="p200-reference-link" href="${p200PdfPath}#page=${pageStart}" target="_blank" rel="noopener">P200原文を開く（PDF ${pageLabel}頁）</a></div>`;
   }
 
+  function allowanceLinks(result){
+    return (window.ISSApplicationAllowance?.sourceLinks?.(result,p200PdfPath)||[]).map(link=>`<a class="p200-reference-link" href="${escapeHtml(link.href)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`).join('');
+  }
   function packingResult(g,q){
     const record=findRecord(g);
-    if(!record)return {html:'<span class="status-chip status-chip--review">UNデータなし</span>',status:'要確認'};
+    if(!record)return {html:'<span class="status-chip status-chip--review">UNデータなし</span>',status:'要確認',summary:'危険物マスターに該当する国連番号がありません。',coverage:'missing',links:[]};
 
     const instruction=normalize(record.smallPackingInstruction).match(/P\d{3}/)?.[0]||'';
     const profile=profiles[instruction];
@@ -203,8 +206,10 @@
     const combination=codes.some(c=>/^4[A-Z0-9]+$/.test(c));
     const state=physicalState(g,record);
     const blocks=[];
+    const plain=[];
+    const resolution=window.ISSApplicationAllowance?.resolve?.(record,{container:g.container,packingInstruction:instruction})||null;
     const p200Block=p200ReferenceBlock(g,record,instruction);
-    if(p200Block)blocks.push(p200Block);
+    if(p200Block){blocks.push(p200Block);plain.push(resolution?.summary||'P200の原文・許可条件を確認してください。');}
 
     // 少量危険物は、申請書上の4G表記をUN容器の性能表示として扱わない。
     if(g.limited){
@@ -236,13 +241,12 @@
           通常カートン等を含む実際の外装容器、内装容器の種類・容量・個数を現場で確認してください。
         </small>
       </div>`);
-
-      return {html:blocks.join(''),status:'現場確認'};
+      plain.push(`少量危険物：内装容器 ${record.limitedQuantity&&record.limitedQuantity!=='-'?record.limitedQuantity:'要確認'}、外装容器総質量 30 kg以下。`);
+      return {html:blocks.join(''),status:'現場確認',summary:plain.join(' '),coverage:'limited-quantity',links:window.ISSApplicationAllowance?.sourceLinks?.(resolution,p200PdfPath)||[],resolution};
     }
 
     // 通常危険物で4G/4GVを使用する場合は、現物の容器性能表示を確認する。
     if(combination){
-      const grossPerPackage=Number.isFinite(q.grossPerPackage)?q.grossPerPackage:'';
       blocks.push(`<div class="limit-block combination-package-block">
         <span>4G／4GV 組合せ容器</span>
         <ul>
@@ -268,15 +272,17 @@
           <small>4GVの場合も、実際の内装容器、容量・質量、個数、緩衝材・吸収材を現場で確認してください。</small>
         </div>`);
       }
-      return {html:blocks.join(''),status:'現場確認'};
+      plain.push(`4G／4GV：容器本体の許容総質量表示を現場確認。${resolution?.summary||''}`);
+      return {html:blocks.join(''),status:'現場確認',summary:plain.join(' '),coverage:'package-marking',links:window.ISSApplicationAllowance?.sourceLinks?.(resolution,p200PdfPath)||[],resolution};
     }
 
-    // 単一容器・IBC等は、危険物の性状に応じて容量または質量を表示する。
+    // P001/P002は構造化表で容器コード・容器等級に応じて照合する。
     if(profile){
       const limits=[];
+      const plainLimits=[];
       codes.forEach(code=>{
         const matches=profile.outerRows.filter(r=>rowMatches(r,code));
-        if(!matches.length){limits.push(`<li>${escapeHtml(code)}：個別照合が必要</li>`);return}
+        if(!matches.length){limits.push(`<li>${escapeHtml(code)}：個別照合が必要</li>`);plainLimits.push(`${code}：個別照合`);return}
         const valued=matches.map(r=>({row:r,value:r[pg]||'要確認',unit:limitUnit(r[pg])}));
         let selected=valued;
         if(state==='liquid'){
@@ -292,28 +298,92 @@
           if(seen.has(key))return;
           seen.add(key);
           limits.push(`<li>${escapeHtml(code)}：<strong>${escapeHtml(x.value)}</strong></li>`);
+          plainLimits.push(`${code}：${x.value}`);
         });
       });
       if(limits.length){
         blocks.push(`<div class="limit-block"><span>許容容量・許容質量</span><ul>${limits.join('')}</ul></div>`);
+      }else{
+        blocks.push(`<div class="limit-block"><span>許容容量・許容質量</span><p>申請容器コードを確認し、${escapeHtml(instruction)}の該当行を選択してください。</p></div>`);
       }
-    }else if(instruction!=='P200'){
-      blocks.push('<div>許容容量・許容質量の個別確認が必要です。</div>');
+      const links=allowanceLinks(resolution);if(links)blocks.push(`<div class="review-links">${links}</div>`);
+      plain.push(plainLimits.length?plainLimits.join('、'):(resolution?.summary||`${instruction}原文表で確認`));
+      return {html:blocks.join(''),status:plainLimits.length?'確認':'要確認',summary:plain.join(' '),coverage:'structured',links:window.ISSApplicationAllowance?.sourceLinks?.(resolution,p200PdfPath)||[],resolution};
     }
-    return {html:blocks.join(''),status:'確認'};
+
+    // その他のPコードは、全件について法令マスターの原文表へ接続する。
+    if(instruction!=='P200'){
+      const candidateRows=(resolution?.candidates||[]).flatMap(item=>item.byContainer||[]).filter(item=>item.limits?.length);
+      const candidateText=[...new Set(candidateRows.flatMap(item=>item.limits||[]))];
+      const candidateHtml=candidateRows.length
+        ? `<ul>${candidateRows.map(item=>`<li>${escapeHtml(item.containerCode)}：<strong>${escapeHtml(item.limits.join('、'))}</strong>（原文候補）</li>`).join('')}</ul>`
+        : resolution?.candidates?.some(item=>item.all?.length)
+          ? `<p>原文表に容量・質量の記載があります。申請容器コードと該当行を照合してください。</p>`
+          : `<p>容器の種類、物品の形態、追加規定等により条件が定まります。原文の該当行を確認してください。</p>`;
+      blocks.push(`<div class="limit-block"><span>${escapeHtml((resolution?.instructions||[instruction]).join('、'))} 許容容量・許容質量</span>${candidateHtml}<small>${escapeHtml(resolution?.summary||'原文表で個別確認してください。')}</small></div>`);
+      const links=allowanceLinks(resolution);if(links)blocks.push(`<div class="review-links">${links}</div>`);
+      plain.push(candidateText.length?`${instruction}原文候補：${candidateText.join('、')}`:(resolution?.summary||`${instruction}原文表で個別確認`));
+    }
+    if(!instruction){
+      blocks.push(`<div class="limit-block"><span>小型容器の許容容量・許容質量</span><p>${escapeHtml(resolution?.summary||'小型容器包装要件の指定はありません。')}</p></div>`);
+      plain.push(resolution?.summary||'小型容器包装要件の指定なし。');
+    }
+    return {html:blocks.join(''),status:resolution?.mode==='not-applicable'?'個別条件':'原文確認',summary:plain.join(' '),coverage:resolution?.mode||'source-reference',links:window.ISSApplicationAllowance?.sourceLinks?.(resolution,p200PdfPath)||[],resolution};
+  }
+
+  function verificationCard(g,index,record,q,r){
+    const links=(r.links||[]).map(link=>`<a href="${escapeHtml(link.href)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`).join('');
+    const qty=(label,value,unit='')=>`<div><span>${label}</span><strong>${Number.isFinite(Number(value))?`${formatNumber(Number(value))}${unit}`:'―'}</strong></div>`;
+    return `<article class="verification-goods-card">
+      <header class="verification-goods-card__header"><div><span class="review-un-badge">${escapeHtml(g.un)}</span><h4>${escapeHtml(record?.properShippingNameJa||g.source||'品名要確認')}</h4>${record?.properShippingName?`<small>${escapeHtml(record.properShippingName)}</small>`:''}</div><span class="review-status-badge${r.status==='確認'?' is-ok':''}">${escapeHtml(r.status)}</span></header>
+      <div class="review-card-body">
+        <dl class="review-info-grid"><div><dt>申請書位置</dt><dd>${escapeHtml(g.sheet)} ${g.row}行</dd></div><div><dt>等級</dt><dd>${escapeHtml(record?.class||g.classNo||'―')}</dd></div><div><dt>容器等級</dt><dd>${escapeHtml(g.pg||normalizePg(record?.packingGroup)||'―')}</dd></div><div><dt>容器コード</dt><dd>${escapeHtml(g.container||'要確認')}</dd></div></dl>
+        <div class="review-quantity-list">${qty('個数',q.count,'個')}${qty('1容器 N/W',q.massPerPackage,' kg')}${qty('1容器 G/W',q.grossPerPackage,' kg')}${qty('総 N/W',q.totalMass,' kg')}${qty('総 G/W',q.grossTotal,' kg')}</div>
+        <section class="review-section"><h5>許容容量・許容質量</h5>${r.html||`<p>${escapeHtml(r.summary||'要確認')}</p>`}</section>
+        ${links?`<div class="review-links">${links}</div>`:''}
+      </div></article>`;
   }
 
   function render(file,rows,goods){
     const summarySection=$('summarySection');
     if(summarySection)summarySection.hidden=false;
     $('summaryGrid').innerHTML=`<div class="summary-item"><span>ファイル</span><strong>${escapeHtml(file.name)}</strong></div><div class="summary-item"><span>シート数</span><strong>${new Set(rows.map(r=>r.sheet)).size}</strong></div><div class="summary-item"><span>抽出国連番号件数</span><strong>${goods.length}</strong></div><div class="summary-item"><span>法令接続</span><strong>${db.length?'接続済み':'未接続'}</strong></div>`;
-    $('goodsBody').innerHTML=goods.length?goods.map((g,i)=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return `<tr><td>${i+1}</td><td><strong>${g.un}</strong><br><small>${escapeHtml(g.sheet)} ${g.row}行</small></td><td>${escapeHtml(g.source)}</td><td>${g.pg||'ー'}</td><td>${g.container||'内装・外装容器とも要確認'}</td><td>${q.html}</td><td>${r.html}</td></tr>`}).join(''):'<tr><td colspan="7">国連番号を抽出できませんでした。申請書の様式または記載内容を確認してください。</td></tr>';
+    const rendered=goods.map((g,i)=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return {g,i,record,q,r};});
+    $('goodsBody').innerHTML=rendered.length?rendered.map(({g,i,record,q,r})=>{const ja=record?.properShippingNameJa||record?.japaneseName||g.source||'品名要確認';const en=record?.properShippingName||record?.englishName||'';return `<tr><td>${i+1}</td><td><strong>${escapeHtml(g.un)}</strong><br><small>${escapeHtml(g.sheet)} ${g.row}行</small></td><td><strong>${escapeHtml(ja)}</strong>${en&&en!==ja?`<br><span class="verification-original-name">${escapeHtml(en)}</span>`:''}</td><td>${escapeHtml(g.pg||normalizePg(record?.packingGroup)||'ー')}</td><td>${escapeHtml(g.container||'内装・外装容器とも要確認')}</td><td>${q.html}</td><td>${r.html}</td></tr>`}).join(''):'<tr><td colspan="7">国連番号を抽出できませんでした。申請書の様式または記載内容を確認してください。</td></tr>';
+    const cards=$('verificationGoodsCards');if(cards){cards.hidden=true;cards.setAttribute('aria-hidden','true');cards.innerHTML='';}
     const rawText=$('rawText');
     if(rawText)rawText.textContent='Excel申請書の原文データは保存しません。';
     const resultPayload={
+      schemaVersion:2,
       source:'Excel申請書（原本未保存）',
+      sourceFileName:file.name,
+      originalFileStored:false,
       checkedAt:new Date().toISOString(),
-      goods:goods.map(g=>{const record=findRecord(g);const q=applicationQuantity(g,record);const r=packingResult(g,q);return {un:g.un,name:g.source,packingGroup:g.pg,container:g.container,count:g.count,netWeight:g.netWeight,grossWeight:g.grossWeight,limited:g.limited,allowedQuantityOrMass:r.status}})
+      goods:goods.map(g=>{
+        const record=findRecord(g),q=applicationQuantity(g,record),r=packingResult(g,q);
+        const packingInstruction=normalize(record?.smallPackingInstruction).match(/P\d{3}/)?.[0]||'';
+        return {
+          un:g.un,
+          name:g.source,
+          properShippingNameJa:record?.properShippingNameJa||record?.japaneseName||'',
+          properShippingName:record?.properShippingName||record?.englishName||'',
+          hazardClass:record?.class||g.classNo||'',
+          subsidiaryHazards:record?.subsidiaryRisk||record?.subsidiaryHazard||'',
+          packingGroup:g.pg||normalizePg(record?.packingGroup),
+          container:g.container,
+          count:g.count,
+          netWeight:g.netWeight,
+          grossWeight:g.grossWeight,
+          limited:g.limited,
+          packingInstruction,
+          quantity:{state:q.state||'',unit:q.unit||'',totalMass:q.totalMass,count:q.count,massPerPackage:q.massPerPackage,grossTotal:q.grossTotal,grossPerPackage:q.grossPerPackage},
+          resultStatus:r.status,
+          allowedQuantityOrMass:r.summary||r.status,
+          allowanceCoverage:r.coverage||'',
+          allowanceSourceLinks:r.links||[],
+          warning:r.status==='確認'?'包装要件、許容容量又は許容質量を原典と現物で確認してください。':r.status==='現場確認'?'容器表示、内装条件及び現場状態の確認が必要です。':''
+        };
+      })
     };
     window.dispatchEvent(new CustomEvent('iss:application-verification-result',{detail:resultPayload}));
   }
@@ -410,7 +480,18 @@
   window.addEventListener('iss:application-verification-cleared',()=>{latest=null;const sec=$('verificationRegistrationSection');if(sec)sec.hidden=true;const msg=$('verificationRegistrationMessage');if(msg)msg.textContent='';});
   document.addEventListener('DOMContentLoaded',()=>{
     const year=$('verificationNewApplicationYear'); if(year)year.value=String(new Date().getFullYear());
-    $('saveVerificationResult')?.addEventListener('click',()=>{const msg=$('verificationRegistrationMessage');try{if(!latest)throw new Error('先にExcel申請書を解析してください。');const row=window.ISSApplicationResults.save($('verificationApplicationSelect').value,'dangerous-goods-verification','申請書確認結果',latest);msg.textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録しました。`;}catch(e){msg.textContent=e.message||'登録できませんでした。';}});
-    $('createAndSaveVerificationResult')?.addEventListener('click',()=>{const msg=$('verificationRegistrationMessage');try{if(!latest)throw new Error('先にExcel申請書を解析してください。');const app=window.ISSApplicationResults.createApplication({applicationYear:$('verificationNewApplicationYear').value,applicationNumber:$('verificationNewApplicationNumber').value,caseTitle:$('verificationNewCaseTitle').value});window.ISSApplicationResults.fillSelect($('verificationApplicationSelect'));$('verificationApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'dangerous-goods-verification','申請書確認結果',latest);msg.textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、確認結果を保存しました。`;}catch(e){msg.textContent=e.message||'新規登録できませんでした。';}});
+    $('saveVerificationResult')?.addEventListener('click',()=>{const msg=$('verificationRegistrationMessage');try{if(!latest)throw new Error('先にExcel申請書を解析してください。');if(!window.SKVerificationReview?.isComplete?.())throw new Error('申請書原本との確認を完了してください。');latest.review=window.SKVerificationReview.getData();const applicationId=$('verificationApplicationSelect').value;const row=window.ISSApplicationResults.save(applicationId,'dangerous-goods-verification','申請書確認結果',latest);const cargoItems=window.ISSApplicationCase?.updateApplicationFromVerification?.(applicationId,latest)||[];msg.textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} に登録し、危険物明細 ${cargoItems.length}件を案件情報へ反映しました。`;}catch(e){msg.textContent=e.message||'登録できませんでした。';}});
+    $('createAndSaveVerificationResult')?.addEventListener('click',()=>{const msg=$('verificationRegistrationMessage');try{if(!latest)throw new Error('先にExcel申請書を解析してください。');if(!window.SKVerificationReview?.isComplete?.())throw new Error('申請書原本との確認を完了してください。');latest.review=window.SKVerificationReview.getData();const cargoItems=window.ISSApplicationCase?.fromVerificationPayload?.(latest)||[];const compatibility=window.ISSApplicationCase?.compatibilityFromCargo?.(cargoItems)||{};const app=window.ISSApplicationResults.createApplication({applicationYear:$('verificationNewApplicationYear').value,applicationNumber:$('verificationNewApplicationNumber').value,caseTitle:$('verificationNewCaseTitle').value,cargoItems,caseData:{cargoItems},...compatibility});window.ISSApplicationResults.fillSelect($('verificationApplicationSelect'));$('verificationApplicationSelect').value=app.id;const row=window.ISSApplicationResults.save(app.id,'dangerous-goods-verification','申請書確認結果',latest);msg.textContent=`申請番号 ${row.applicationYear}-${row.applicationNumber} を新規登録し、確認結果と危険物明細 ${cargoItems.length}件を保存しました。`;}catch(e){msg.textContent=e.message||'新規登録できませんでした。';}});
   });
+})();
+
+window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/application-verification.js": "part538" });
+
+(() => {
+  "use strict"; const $=id=>document.getElementById(id); let payload=null;
+  const checks=()=>[...document.querySelectorAll('[data-verification-review]')];
+  const data=()=>{const reviewer=String($('verificationReviewer')?.value||'').trim(),confirmedItems=checks().filter(x=>x.checked).map(x=>x.dataset.verificationReview),complete=confirmedItems.length===checks().length&&Boolean(reviewer);return{status:complete?'confirmed':'unconfirmed',confirmedItems,reviewer,note:String($('verificationReviewNote')?.value||'').trim(),confirmedAt:complete?new Date().toISOString():null,sourceType:'excel-application',originalFileStored:false}};
+  function update(){const d=data(),ok=d.status==='confirmed',st=$('verificationReviewStatus');if(st){st.textContent=ok?'確認済み・登録可能':'未確認・登録できません';st.classList.toggle('is-complete',ok)}[$('saveVerificationResult'),$('createAndSaveVerificationResult')].forEach(b=>{if(b)b.disabled=!ok});if(payload)payload.review=d;window.SKVerificationReview={isComplete:()=>ok,getData:data}}
+  function reset(){checks().forEach(x=>x.checked=false);if($('verificationReviewer'))$('verificationReviewer').value='';if($('verificationReviewNote'))$('verificationReviewNote').value='';if($('verificationReviewSection'))$('verificationReviewSection').hidden=true;payload=null;update()}
+  window.addEventListener('iss:application-verification-result',e=>{payload=e.detail;if($('verificationReviewSection'))$('verificationReviewSection').hidden=false;checks().forEach(x=>x.checked=false);update()});window.addEventListener('iss:application-verification-cleared',reset);document.addEventListener('input',e=>{if(e.target.matches('[data-verification-review],#verificationReviewer,#verificationReviewNote'))update()});document.addEventListener('DOMContentLoaded',update);
 })();

@@ -1,0 +1,245 @@
+{
+  "release": "part534",
+  "suite": "Part529～533主要機能回帰検証",
+  "generatedAt": "2026-08-06T13:34:54.599Z",
+  "passed": 42,
+  "total": 47,
+  "failed": 5,
+  "checks": [
+    {
+      "name": "共通案件API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "複数危険物正規化",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請書変換",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力反映",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "危険物2行変換",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "国連番号正規化",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "個数保持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "総質量集計",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力質量優先",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請番号共通案件欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "複数危険物編集欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力遷移",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力共通案件欄",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "固縛力から案件保存",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "申請確認自動反映",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ローカルcaseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同期caseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "API caseData",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DB case_data",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "現在版申請画面",
+      "status": "failed",
+      "detail": ""
+    },
+    {
+      "name": "現在版固縛力画面",
+      "status": "failed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証監査画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証監査JS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証監査SQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530保証監査設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531基盤信頼性画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531基盤信頼性JS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531基盤信頼性SQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531基盤信頼性設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532データ整合画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532データ整合JS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532データ整合SQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532データ整合設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533品質リリース画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533品質リリースJS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533品質リリースSQL",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533品質リリース設定導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530 API維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part531 API維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part532 API維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part533 API維持",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "VERSION Part534",
+      "status": "failed",
+      "detail": ""
+    },
+    {
+      "name": "アプリPart534",
+      "status": "failed",
+      "detail": ""
+    },
+    {
+      "name": "サーバーPart534",
+      "status": "failed",
+      "detail": ""
+    },
+    {
+      "name": "ビルドPart534",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "危険物データ",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "国連番号件数",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

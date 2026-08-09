@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542">
+  <script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <script src="../assets/js/structured-data-overrides.js?v=381"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>運用指令・サービス水準管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css?v=528">
+  <link rel="stylesheet" href="../assets/css/operations-command-center.css?v=528">
+  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+  <link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+</head>
+<body data-page="operations-command-center-admin" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff">
+<main class="workspace command-center-page" id="mainContent">
+  <div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 運用指令・サービス水準管理</div>
+  <div class="page-heading-row">
+    <div><h1>運用指令・サービス水準管理</h1><p>第19～第21段階を統合し、監視、当番、エスカレーション、SLA／SLO、容量計画、週次・月次報告を一つの画面で管理します。</p></div>
+    <a class="back-link" href="system-settings.html">← 設定へ戻る</a>
+  </div>
+
+  <section class="command-summary" aria-label="運用状態概要">
+    <article><span>未解決アラート</span><strong id="summaryOpen">-</strong></article>
+    <article><span>重大アラート</span><strong id="summaryCritical">-</strong></article>
+    <article><span>応答期限超過</span><strong id="summaryAckOverdue">-</strong></article>
+    <article><span>復旧期限超過</span><strong id="summaryResolveOverdue">-</strong></article>
+    <article><span>現在の当番</span><strong id="summaryOnCall">-</strong></article>
+    <article><span>SLO未達</span><strong id="summarySlo">-</strong></article>
+    <article><span>容量対策超過</span><strong id="summaryCapacity">-</strong></article>
+  </section>
+  <div id="pageMessage" class="command-message" aria-live="polite"></div>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>第19段階：当番・監視・エスカレーション</h2><p>当番引継ぎと未応答アラートの段階連絡を管理します。</p></div><button id="reloadDashboard" type="button">再読込</button></div>
+    <div class="panel-body command-grid command-grid--2">
+      <form id="rosterForm" class="command-card" data-write-only>
+        <h3>当番表を登録</h3>
+        <label>当番表名<input name="name" required placeholder="例：システム運用当番"></label>
+        <label>タイムゾーン<input name="timezone" value="Asia/Tokyo" required></label>
+        <button class="primary-action" type="submit">当番表を登録</button>
+      </form>
+      <form id="shiftForm" class="command-card" data-write-only>
+        <h3>当番期間を登録</h3>
+        <label>当番表<select name="rosterId" id="shiftRoster" required></select></label>
+        <div class="command-inline"><label>開始<input name="startsAt" type="datetime-local" required></label><label>終了<input name="endsAt" type="datetime-local" required></label></div>
+        <div class="command-inline"><label>主担当<select name="primaryUserId" class="user-select" required></select></label><label>副担当<select name="backupUserId" class="user-select"><option value="">未設定</option></select></label></div>
+        <label>引継ぎ事項<textarea name="handoverNote" rows="3" placeholder="未解決事項、確認時刻、連絡先は社内台帳の参照番号で記載"></textarea></label>
+        <button class="primary-action" type="submit">当番期間を登録</button>
+      </form>
+      <div class="command-card command-card--wide"><h3>現在・今後の当番</h3><div id="shiftList" class="command-list"></div></div>
+      <form id="policyForm" class="command-card" data-write-only>
+        <h3>エスカレーション方針</h3>
+        <label>方針名<input name="name" required></label>
+        <div class="command-inline"><label>重要度<select name="severity"><option value="critical">重大</option><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></label><label>応答期限（分）<input name="acknowledgementMinutes" type="number" min="1" value="15" required></label><label>復旧期限（分）<input name="resolutionMinutes" type="number" min="1" value="120" required></label></div>
+        <label>通知段階（JSON）<textarea name="steps" rows="4">[{"afterMinutes":0,"targetRole":"safety-environment-admin","channel":"dashboard"},{"afterMinutes":15,"targetRole":"safety-environment-director","channel":"phone"}]</textarea></label>
+        <button class="primary-action" type="submit">方針を登録</button>
+      </form>
+      <div class="command-card"><h3>登録済み方針</h3><div id="policyList" class="command-list"></div></div>
+      <form id="alertForm" class="command-card command-card--wide" data-write-only>
+        <h3>アラートを登録</h3>
+        <div class="command-grid command-grid--3"><label>管理キー<input name="alertKey" required placeholder="monitor-20260806-001"></label><label>検知元<input name="source" required placeholder="API監視、DB監視など"></label><label>重要度<select name="severity"><option value="critical">重大</option><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></label><label>件名<input name="title" required></label><label>検知日時<input name="detectedAt" type="datetime-local" required></label><label>担当者<select name="assignedUserId" class="user-select"><option value="">当番へ割当</option></select></label></div>
+        <label>状況説明<textarea name="description" rows="3"></textarea></label>
+        <label>証跡SHA-256（任意）<input name="evidenceSha256" pattern="[a-fA-F0-9]{64}"></label>
+        <button class="primary-action" type="submit">アラートを登録</button>
+      </form>
+      <div class="command-card command-card--wide"><div class="command-card-heading"><h3>アラート一覧</h3><select id="alertStatusFilter"><option value="active">未解決のみ</option><option value="all">すべて</option></select></div><div id="alertList" class="command-list"></div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>第20段階：SLA／SLO・エラーバジェット</h2><p>稼働率、成功率、通知到達率、復旧率などを期間単位で判定します。</p></div></div>
+    <div class="panel-body command-grid command-grid--2">
+      <form id="objectiveForm" class="command-card" data-write-only>
+        <h3>サービス水準目標</h3>
+        <label>目標名<input name="name" required placeholder="例：主要API可用性"></label>
+        <div class="command-inline"><label>指標<select name="metricType"><option value="availability">可用性</option><option value="success-rate">成功率</option><option value="latency">応答時間達成率</option><option value="delivery-rate">通知到達率</option><option value="recovery-rate">復旧達成率</option></select></label><label>目標（%）<input name="targetPercent" type="number" min="0.00001" max="100" step="0.00001" value="99.9" required></label><label>期間（日）<input name="windowDays" type="number" min="1" max="366" value="30" required></label></div>
+        <label><input name="critical" type="checkbox"> 重要SLOとして扱う</label>
+        <label>責任者<select name="ownerUserId" class="user-select"><option value="">未設定</option></select></label>
+        <button class="primary-action" type="submit">目標を登録</button>
+      </form>
+      <form id="measurementForm" class="command-card" data-write-only>
+        <h3>SLO測定を登録</h3>
+        <label>目標<select name="objectiveId" id="measurementObjective" required></select></label>
+        <div class="command-inline"><label>開始日<input name="periodStart" type="date" required></label><label>終了日<input name="periodEnd" type="date" required></label></div>
+        <div class="command-inline"><label>成功数・適合数<input name="numerator" type="number" min="0" step="0.00001" required></label><label>総数<input name="denominator" type="number" min="0.00001" step="0.00001" required></label></div>
+        <label>証跡説明<textarea name="evidenceNote" rows="3" required></textarea></label>
+        <button class="primary-action" type="submit">測定を登録</button>
+      </form>
+      <div class="command-card command-card--wide"><h3>目標・測定結果</h3><div id="sloList" class="command-list"></div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading"><div><h2>第21段階：容量計画・運用報告・承認</h2><p>容量不足の予兆と週次・月次・四半期報告を管理し、作成・確認・承認を分離します。</p></div></div>
+    <div class="panel-body command-grid command-grid--2">
+      <form id="capacityForm" class="command-card" data-write-only>
+        <h3>容量予測・対策</h3>
+        <div class="command-inline"><label>資源<select name="resourceType"><option value="database">DB</option><option value="storage">保存領域</option><option value="api">API処理量</option><option value="notifications">通知件数</option><option value="users">利用者数</option><option value="sessions">同時セッション</option></select></label><label>単位<input name="unit" required placeholder="GB、件/分、名"></label></div>
+        <div class="command-grid command-grid--3"><label>現在値<input name="currentValue" type="number" min="0" step="0.01" required></label><label>警告しきい値<input name="warningThreshold" type="number" min="0" step="0.01" required></label><label>重大しきい値<input name="criticalThreshold" type="number" min="0" step="0.01" required></label><label>予測値<input name="forecastValue" type="number" min="0" step="0.01" required></label><label>予測到達日<input name="forecastAt" type="date" required></label><label>対策期限<input name="dueAt" type="date" required></label></div>
+        <label>責任者<select name="ownerUserId" class="user-select" required></select></label>
+        <label>対策計画<textarea name="actionPlan" rows="3" minlength="10" required></textarea></label>
+        <button class="primary-action" type="submit">容量予測を登録</button>
+      </form>
+      <div class="command-card"><h3>容量対策一覧</h3><div id="capacityList" class="command-list"></div></div>
+      <form id="reportForm" class="command-card" data-write-only>
+        <h3>運用報告を作成</h3>
+        <div class="command-inline"><label>報告区分<select name="periodType"><option value="weekly">週次</option><option value="monthly">月次</option><option value="quarterly">四半期</option></select></label><label>開始日<input name="periodStart" type="date" required></label><label>終了日<input name="periodEnd" type="date" required></label></div>
+        <label>概要<textarea name="summary" rows="3" minlength="10" required></textarea></label>
+        <label>リスク・未解決事項<textarea name="risks" rows="3" required></textarea></label>
+        <label>判断事項<textarea name="decisions" rows="2"></textarea></label>
+        <label>次の対応<textarea name="nextActions" rows="3" required></textarea></label>
+        <button class="primary-action" type="submit">下書きを作成</button>
+      </form>
+      <div class="command-card"><h3>報告・承認状況</h3><div id="reportList" class="command-list"></div></div>
+    </div>
+  </section>
+
+  <section class="panel"><div class="panel-heading"><h2>運用原則</h2></div><div class="panel-body"><ul class="command-principles"><li>重大・高アラートの確認者と復旧記録者を分離します。</li><li>作成者、確認者、承認者が同一の場合、運用報告を承認できません。</li><li>未解決の重大アラート、重要SLO未達、期限超過の容量対策がある場合、報告承認を遮断します。</li><li>メール本文、パスワード、トークンなどの秘密情報は登録しません。</li></ul></div></section>
+</main>
+<script src="../assets/js/api-client.js?v=528"></script>
+<script src="../assets/js/operations-command-center.js?v=528"></script>
+<script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/role-access.js?v=503"></script>
+<script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+</body>
+</html>

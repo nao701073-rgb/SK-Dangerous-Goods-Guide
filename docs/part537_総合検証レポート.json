@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "reportName": "part537 総合検証レポート",
+  "generatedAt": "2026-08-06T15:18:53.083Z",
+  "systemVersion": "part537",
+  "versionMetadata": {
+    "version": "part537",
+    "part": 537,
+    "baseRelease": "part536-review-readability-all-allowance-coverage",
+    "date": "2026-08-06",
+    "summary": "本番環境統合試験。申請書取込・確認の入口統合をホームへ完全反映し、権限別アクセス、申請番号管理、固縛力連携、PC・スマートフォン表示を通しで検証。",
+    "updatedAt": "2026-08-06T23:58:00+09:00",
+    "baseVersion": "part536",
+    "generatedAt": "2026-08-06T23:58:00+09:00"
+  },
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 18,
+    "passedCount": 18,
+    "failedCount": 0,
+    "javascriptFilesChecked": 170,
+    "requiredPagesChecked": 16,
+    "dangerousGoodsDataSha256": "975b13700f4e9b0c0d60d458df9df1954719726eb2a721342cc94c3ca5149e5f"
+  },
+  "tests": [
+    {
+      "name": "静的ファイル・参照検査",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:47.430Z",
+      "finishedAt": "2026-08-06T15:18:52.517Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"findingCount\": 0,\n  \"stats\": {\n    \"html\": 73,\n    \"js\": 261,\n    \"json\": 181,\n    \"refs\": 1507,\n    \"bytes\": 319923615\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン仕様回帰検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.517Z",
+      "finishedAt": "2026-08-06T15:18:52.543Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 49,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン視覚資産検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.543Z",
+      "finishedAt": "2026-08-06T15:18:52.573Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 21,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "表示文言統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.573Z",
+      "finishedAt": "2026-08-06T15:18:52.600Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 8,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "利用者簡易登録仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.600Z",
+      "finishedAt": "2026-08-06T15:18:52.626Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 10,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン切替・段落レスポンシブ検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.626Z",
+      "finishedAt": "2026-08-06T15:18:52.651Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 9,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "権限エラー画面仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.651Z",
+      "finishedAt": "2026-08-06T15:18:52.675Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 15,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "主要機能アイコン仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.675Z",
+      "finishedAt": "2026-08-06T15:18:52.699Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 32,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "日本語見出し統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.699Z",
+      "finishedAt": "2026-08-06T15:18:52.736Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 6,\n  \"failed\": [],\n  \"violations\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ホーム・法令画面統合表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.736Z",
+      "finishedAt": "2026-08-06T15:18:52.762Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 10,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ホーム利用履歴・お気に入り表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.762Z",
+      "finishedAt": "2026-08-06T15:18:52.787Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 12,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "全危険物・判定基準の見やすさ・国連番号表記検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.787Z",
+      "finishedAt": "2026-08-06T15:18:52.925Z",
+      "stdout": "part496 verification passed: 2725 rows / 2248 unique numbers",
+      "stderr": ""
+    },
+    {
+      "name": "国内法令の主な参照・連続表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.925Z",
+      "finishedAt": "2026-08-06T15:18:52.993Z",
+      "stdout": "part497 domestic law display verification passed",
+      "stderr": ""
+    },
+    {
+      "name": "Part529 共通案件情報・画面書式統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:52.993Z",
+      "finishedAt": "2026-08-06T15:18:53.023Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"total\": 57,\n  \"passed\": 57,\n  \"failed\": 0\n}",
+      "stderr": ""
+    },
+    {
+      "name": "役割別権限マトリクス",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:53.023Z",
+      "finishedAt": "2026-08-06T15:18:53.050Z",
+      "stdout": "OK guest: {\"applicationScope\":\"none\",\"applicationsRead\":false,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":false,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-user: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-admin: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"own-office\"}\nOK safety-environment-director: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"systemSettingsMode\":\"limited\"}\nOK safety-environment-staff: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK safety-environment-admin: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"all-offices\"}\nrole permission validation passed; report=/mnt/data/SK-Dangerous-Goods-Guide_part537 本番/docs/Part219_役割別権限監査レポート.json",
+      "stderr": ""
+    },
+    {
+      "name": "危険物データ公開判定",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-06T15:18:53.050Z",
+      "finishedAt": "2026-08-06T15:18:53.079Z",
+      "stdout": "公開判定: 合格",
+      "stderr": ""
+    },
+    {
+      "name": "主要画面・構成ファイル",
+      "status": "passed",
+      "missing": []
+    },
+    {
+      "name": "JavaScript構文検査",
+      "status": "passed",
+      "checkedFiles": 170,
+      "failures": []
+    }
+  ],
+  "manualVerificationRequired": [
+    "クラウドAPIへの実接続と認証メール送信",
+    "50名・150名を想定した実環境負荷試験",
+    "実端末でのPC・スマートフォン表示確認",
+    "写真保存領域のバックアップ・復元試験",
+    "初期利用者・所属・役割の実データ確認",
+    "申請書確認結果から申請番号管理・固縛力参考算出への実データ引継ぎ"
+  ],
+  "notes": [
+    "本レポートはソース一式に対する自動検査結果です。",
+    "クラウド契約や外部サービスを必要とする試験は、配置先決定後に実施します。",
+    "透かし表示、スクリーンショット検知・追跡、画面自動保存は未実装です。"
+  ]
+}

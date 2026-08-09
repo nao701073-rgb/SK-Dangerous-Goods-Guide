@@ -1,0 +1,21 @@
+{
+  "release": "part539",
+  "generatedAt": "2026-08-07T06:09:00+09:00",
+  "javascript": {
+    "inlineScriptsChecked": 1,
+    "errors": []
+  },
+  "json": {
+    "filesChecked": 10,
+    "errors": []
+  },
+  "references": {
+    "referencesChecked": 1271,
+    "errors": []
+  },
+  "policyScript": {
+    "exitCode": 0,
+    "output": "{\n  \"release\": \"part539\",\n  \"passed\": 12,\n  \"total\": 12,\n  \"checks\": [\n    {\n      \"name\": \"version part539\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"build version part539\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"registry heading\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"multiple photos\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"unit conversion\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"damage states\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"line linkage\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"minimum MSL\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"application persistence\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"result snapshot\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"mobile css\",\n      \"pass\": true\n    },\n    {\n      \"name\": \"old calculation retained\",\n      \"pass\": true\n    }\n  ]\n}"
+  },
+  "status": "pass"
+}

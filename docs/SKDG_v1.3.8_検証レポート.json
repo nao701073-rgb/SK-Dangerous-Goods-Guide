@@ -1,0 +1,144 @@
+{
+  "version": "v1.3.8",
+  "validatedAt": "2026-08-08T17:27:00+09:00",
+  "total": 27,
+  "passed": 27,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "internal build v1.3.8",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "visible version remains Version 1.0 試作版",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no database migration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU technical meta v1.3.8",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU loads hotfix CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "photo panel exists statically",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "photo panel prioritized over quick helper",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "legacy 写真から入力 trigger supported",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "summary trigger supported",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "legacy details forced open",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "hidden/display/visibility reset",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "photo panel reordered after route panel",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "delayed recheck after dynamic rendering",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "photo panels are not in optional collapse list",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "registered cases initially collapsible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "collapse heading preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "photo force-visible CSS present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "basis window has source column",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "basis window has exact jump button label",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "basis window has source summary section",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "relative original links made absolute",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "friction original source retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "direct lashing 75% retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "device/cargo/CTU MSL remain separate",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "generic TY-GARD sea compatibility retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "version guard patch-family behavior retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "all shipped JS syntax checks",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

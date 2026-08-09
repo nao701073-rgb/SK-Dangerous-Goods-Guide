@@ -1,0 +1,145 @@
+{
+  "release": "part543",
+  "baseRelease": "part542",
+  "generatedAt": "2026-08-07T17:28:00+09:00",
+  "summary": {
+    "passed": 32,
+    "total": 32
+  },
+  "checks": [
+    {
+      "name": "個数強調",
+      "passed": true
+    },
+    {
+      "name": "1容器当たり正味質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容容量・許容質量強調",
+      "passed": true
+    },
+    {
+      "name": "規定量超過要確認",
+      "passed": true
+    },
+    {
+      "name": "kg/L自動換算なし",
+      "passed": true
+    },
+    {
+      "name": "L/kg近接時のみ容量比較要確認",
+      "passed": true
+    },
+    {
+      "name": "少量危険物30kg",
+      "passed": true
+    },
+    {
+      "name": "少量危険物4G自動性能扱いなし",
+      "passed": true
+    },
+    {
+      "name": "4G/4GV現物確認",
+      "passed": true
+    },
+    {
+      "name": "許容値resolver接続",
+      "passed": true
+    },
+    {
+      "name": "包装数量profile接続",
+      "passed": true
+    },
+    {
+      "name": "Part543 CSS接続",
+      "passed": true
+    },
+    {
+      "name": "超過行CSS",
+      "passed": true
+    },
+    {
+      "name": "編集フォーム維持",
+      "passed": true
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "passed": true
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "passed": true
+    },
+    {
+      "name": "JSON VERSION.json",
+      "passed": true
+    },
+    {
+      "name": "Part543 CSS参照",
+      "passed": true
+    },
+    {
+      "name": "Part543 JS参照",
+      "passed": true
+    },
+    {
+      "name": "個数強調",
+      "passed": true
+    },
+    {
+      "name": "1容器正味質量強調",
+      "passed": true
+    },
+    {
+      "name": "許容値強調",
+      "passed": true
+    },
+    {
+      "name": "超過強調",
+      "passed": true
+    },
+    {
+      "name": "20%近接定数",
+      "passed": true
+    },
+    {
+      "name": "少量30kg",
+      "passed": true
+    },
+    {
+      "name": "Part543 manifest",
+      "passed": true
+    },
+    {
+      "name": "既存Part542 D&D資産維持",
+      "passed": true
+    },
+    {
+      "name": "450L対416kgは容量比較要確認対象",
+      "passed": true
+    },
+    {
+      "name": "450L対360kgは20%境界内",
+      "passed": true
+    },
+    {
+      "name": "450L対359kgは20%範囲外",
+      "passed": true
+    },
+    {
+      "name": "450L対100kgは警告対象外",
+      "passed": true
+    },
+    {
+      "name": "画面版メタPart543",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "個数・1容器当たり正味質量・許容容量/許容質量を重要項目として強調。",
+    "同一単位で比較できる規定量超過は「規定量超過・要確認」。",
+    "Lとkgは換算せず、数値差が±20%以内の場合のみ「容量比較 要確認」。",
+    "少量危険物は内装容器上限と外装容器総質量30kg以下の従来ルールを維持。"
+  ]
+}

@@ -1,0 +1,2451 @@
+{
+  "schemaVersion": 1,
+  "reportName": "SKDG v1.1 総合検証レポート",
+  "generatedAt": "2026-08-08T08:12:00+09:00",
+  "systemVersion": "v1.1",
+  "baseVersion": "v1.0.1",
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 484,
+    "passedCount": 484,
+    "failedCount": 0,
+    "htmlFiles": 74,
+    "newJavascriptFiles": 6
+  },
+  "tests": [
+    {
+      "name": "HTML file count unchanged",
+      "status": "PASS",
+      "detail": "74"
+    },
+    {
+      "name": "index.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: build meta v1.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: build manifest v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: version guard v110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: v11 CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: v11 preferences",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: only v1.1 intentional HTML delta",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-home.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-intake.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-applications.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-ctu.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS syntax v11-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "v11 CSS brace balance",
+      "status": "PASS",
+      "detail": "65/65"
+    },
+    {
+      "name": "Preserve existing asset assets/css/v1-initial.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/css/v101-ui.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v1-ctu-simple.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v1-role-visibility.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v101-ctu-photo-ai.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v101-intake-layout-fix.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v101-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve existing asset assets/js/v101-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Home quick launch six core functions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Home preference does not hide functions",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Intake single next action dock",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Intake extras collapsed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Applications list first",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Applications editor on demand",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Applications advanced filters collapsed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU AI remains human selection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU no automatic MSL confirmation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU assisted fields collapsible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Settings adds one home preference control",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest preserves dangerous goods search",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest preserves regulations",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest preserves references",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest preserves code screens",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest human AI selection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest no auto MSL",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest system state admin only",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No v1.1 SQL migration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve core page body pages/dangerous-goods-search.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve core page body pages/dangerous-goods-detail.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve core page body pages/regulations.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve core page body pages/references.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Preserve core page body pages/overpack-label-tool.html",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "packageVerification": {
+    "updatePackage": {
+      "fileCount": 89,
+      "freshExtractExact": true,
+      "embeddedChecksumEntries": 88,
+      "checksumStatus": "passed"
+    },
+    "integratedFromPart590Package": {
+      "fileCount": 107,
+      "freshExtractExact": true,
+      "embeddedChecksumEntries": 106,
+      "checksumStatus": "passed"
+    }
+  }
+}

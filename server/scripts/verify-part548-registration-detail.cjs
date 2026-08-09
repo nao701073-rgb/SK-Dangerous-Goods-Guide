@@ -1,0 +1,23 @@
+const fs=require('fs'),path=require('path');
+const root=path.resolve(__dirname,'../..');let ok=0,fail=0;function t(name,cond){if(cond){ok++;console.log('PASS',name)}else{fail++;console.error('FAIL',name)}}
+const intake=fs.readFileSync(path.join(root,'pages/application-intake-workflow.html'),'utf8');
+const js=fs.readFileSync(path.join(root,'assets/js/application-intake-workflow.js'),'utf8');
+const apps=fs.readFileSync(path.join(root,'pages/applications.html'),'utf8');
+const appjs=fs.readFileSync(path.join(root,'assets/js/applications.js'),'utf8');
+t('step 4 label',intake.includes('4 申請番号管理へ登録'));
+t('register section visible',/id="intakeRegisterSection">/.test(intake));
+t('no handoff heading',!intake.includes('4．登録・引継ぎ'));
+t('no CTU handoff link',!intake.includes('id="intakeOpenCtu"'));
+t('no verification handoff link',!intake.includes('id="intakeOpenVerification"'));
+t('register button exists',intake.includes('申請番号管理へ新規登録'));
+t('lower permit column removed',!intake.includes('<th>許可確認</th>'));
+t('lower permit editor removed',!js.includes('data-field-group="permission" data-label="許可・確認事項"'));
+t('registration deep link',js.includes('applications.html?applicationId=${encodeURIComponent(id)}&view=detail'));
+t('reference evidence persisted',js.includes('item.referenceRequirementCode=result.instruction'));
+t('reference source persisted',js.includes('item.referenceSourceHref=result.source.href'));
+t('detail dialog exists',apps.includes('id="applicationDetailDialog"'));
+t('detail button generated',appjs.includes('data-view-application-detail'));
+t('detail deep link param',appjs.includes('requestedApplicationId=requestedParams.get("applicationId")'));
+t('detail uses cargo review',appjs.includes('${cargoDetails(cargo)}'));
+t('Part548 build meta',intake.includes('content="part548"')&&apps.includes('content="part548"'));
+console.log(JSON.stringify({passed:ok,total:ok+fail,failed:fail}));process.exit(fail?1:0);

@@ -1,0 +1,154 @@
+{
+  "release": "part510",
+  "phase": 4,
+  "title": "バックアップ・復元・移行試験",
+  "generatedAt": "2026-08-05T13:42:42.509Z",
+  "checks": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "DBマイグレーションが存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復旧設定テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復旧訓練テーブル",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "リリース切替履歴",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "create-release-package.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "verify-release-package.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore-drill.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "migration-drill.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "activate-release.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "rollback-release.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "backup.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "restore.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "verify-backup.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "integrity-check.sh が存在する",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DBカスタム形式バックアップ",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "システムリリースをバックアップ対象に含む",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "秘密情報をリリース対象外にする",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復元前バックアップ",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復元確認文字列",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "隔離復元訓練",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "原子的な切替",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ヘルスチェック失敗時ロールバック",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "第4段階管理画面",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "第4段階APIクライアント",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "第4段階CSS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復旧準備API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復旧設定API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "復旧訓練API",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "status": "passed"
+}

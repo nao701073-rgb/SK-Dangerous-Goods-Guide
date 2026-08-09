@@ -1,0 +1,148 @@
+{
+  "release": "part537",
+  "generatedAt": "2026-08-06T15:15:07Z",
+  "status": "passed",
+  "passed": 23,
+  "total": 23,
+  "checks": [
+    {
+      "name": "Guest home shows unified intake",
+      "status": "passed"
+    },
+    {
+      "name": "Guest home hides application management",
+      "status": "passed"
+    },
+    {
+      "name": "Guest can open intake verification",
+      "status": "passed"
+    },
+    {
+      "name": "Guest registration controls hidden",
+      "status": "passed"
+    },
+    {
+      "name": "Guest direct application access denied",
+      "status": "passed"
+    },
+    {
+      "name": "Office user home unified entry",
+      "status": "passed"
+    },
+    {
+      "name": "Office user write mode enabled",
+      "status": "passed"
+    },
+    {
+      "name": "CSV application parsed",
+      "status": "passed"
+    },
+    {
+      "name": "Application number extracted",
+      "status": "passed"
+    },
+    {
+      "name": "Precheck displayed",
+      "status": "passed"
+    },
+    {
+      "name": "Office user registration controls visible after precheck",
+      "status": "passed"
+    },
+    {
+      "name": "Application registered",
+      "status": "passed",
+      "detail": "申請番号 2026-12345 を登録しました。"
+    },
+    {
+      "name": "Registered application stored",
+      "status": "passed",
+      "detail": "1786029301747-aaa03b63053f4"
+    },
+    {
+      "name": "Application management shows registered case",
+      "status": "passed"
+    },
+    {
+      "name": "Application management desktop no horizontal overflow",
+      "status": "passed",
+      "detail": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "bodyScroll": 1440,
+        "innerWidth": 1440,
+        "overflow": false
+      }
+    },
+    {
+      "name": "CTU case summary loaded",
+      "status": "passed"
+    },
+    {
+      "name": "CTU dangerous goods review card visible",
+      "status": "passed"
+    },
+    {
+      "name": "No internal resource request failures",
+      "status": "passed",
+      "detail": []
+    },
+    {
+      "name": "Home mobile no horizontal overflow",
+      "status": "passed",
+      "detail": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyScroll": 390,
+        "innerWidth": 390,
+        "overflow": false
+      }
+    },
+    {
+      "name": "Intake mobile no horizontal overflow",
+      "status": "passed",
+      "detail": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyScroll": 390,
+        "innerWidth": 390,
+        "overflow": false
+      }
+    },
+    {
+      "name": "Applications mobile no horizontal overflow",
+      "status": "passed",
+      "detail": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyScroll": 390,
+        "innerWidth": 390,
+        "overflow": false
+      }
+    },
+    {
+      "name": "CTU mobile no horizontal overflow",
+      "status": "passed",
+      "detail": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyScroll": 390,
+        "innerWidth": 390,
+        "overflow": false
+      }
+    },
+    {
+      "name": "Mobile application card visible",
+      "status": "passed"
+    }
+  ],
+  "manualVerificationRequired": [
+    "本番相当PostgreSQLへの接続・マイグレーション",
+    "実SMTPによるMFA・招待・再設定メール受信",
+    "申請書・写真保存領域の書込・読込・削除・復元",
+    "実際のExcel（.xls／.xlsx）様式による取込",
+    "社内PC・iPhone／Android実端末とEdge・Chrome・Safariでの確認",
+    "50名・150名想定の実負荷試験",
+    "バックアップ復元・ロールバック訓練"
+  ]
+}

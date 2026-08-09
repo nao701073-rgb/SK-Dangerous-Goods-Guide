@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = process.argv[2] ? path.resolve(process.argv[2]) : path.resolve(new URL('..', import.meta.url).pathname);
+const root = process.argv[2] ? path.resolve(process.argv[2]) : path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const detailJs = fs.readFileSync(path.join(root, 'assets/js/detail-dashboard.js'), 'utf8');
 const detailCss = fs.readFileSync(path.join(root, 'assets/css/detail-dashboard.css'), 'utf8');
 const detailHtml = fs.readFileSync(path.join(root, 'pages/dangerous-goods-detail.html'), 'utf8');

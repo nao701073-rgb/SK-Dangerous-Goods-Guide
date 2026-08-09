@@ -28,7 +28,7 @@
     {key:"home", label:"ホーム", href:`${root}index.html`, icon:"home", files:["index.html"]},
     {key:"search", label:"危険物検索", href:`${pageRoot}dangerous-goods-search.html`, icon:"search", files:["dangerous-goods-search.html","dangerous-goods-detail.html","ems.html","label-catalog.html"]},
     {key:"applications", label:"申請番号管理", href:`${pageRoot}applications.html`, icon:"applications", files:["applications.html"], permission:"applicationsRead"},
-    {key:"application-verification", label:"申請書確認", href:`${pageRoot}application-verification.html`, icon:"verify", files:["application-verification.html"]},
+    {key:"application-intake", label:"申請書取込・確認", href:`${pageRoot}application-intake-workflow.html`, icon:"applications", files:["application-intake-workflow.html","application-verification.html"]},
     {key:"ctu-securing", label:"固縛力参考算出", href:`${pageRoot}ctu-securing-calculator.html`, icon:"securing", files:["ctu-securing-calculator.html"]},
     {key:"regulations", label:"関連法令", href:`${pageRoot}regulations.html`, icon:"law", files:["regulations.html","regulation-update-admin.html","regulation-evidence-snapshot.html","imdg-cross-reference.html"]},
     {key:"references", label:"関連資料", href:`${pageRoot}references.html`, icon:"references", files:["references.html"]},
@@ -162,3 +162,5 @@
   applyVisibility();
   document.addEventListener("iss-role-ready", applyVisibility, {once:true});
 })();
+
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/unified-submenu.js':'part535'});

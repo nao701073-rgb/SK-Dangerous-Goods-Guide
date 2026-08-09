@@ -1,0 +1,14 @@
+{
+  "release": "part531",
+  "generatedAt": "2026-08-06T11:26:06.123Z",
+  "status": "passed",
+  "recordCount": 2725,
+  "uniqueUnCount": 2248,
+  "errorCount": 0,
+  "warningCount": 0,
+  "sourceReport": "docs/Part211_データ品質監査レポート.json",
+  "fileHashes": {
+    "data/un-data.js": "975b13700f4e9b0c0d60d458df9df1954719726eb2a721342cc94c3ca5149e5f",
+    "data/organization-master.js": "943f7b0e29786e3a5b7a032ea1d81fb835c4779d0c18a6af3d03d78c6e4a960a"
+  }
+}

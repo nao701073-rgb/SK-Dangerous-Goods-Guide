@@ -1,0 +1,46 @@
+{
+  "release": "part530",
+  "title": "第22～第24段階統合・総合回帰検証",
+  "generatedAt": "2026-08-06T20:30:00+09:00",
+  "status": "passed",
+  "verification": {
+    "part530Policy": "27/27 passed",
+    "part530Static": "49/49 passed",
+    "part529CommonCaseRegression": "57/57 passed",
+    "part528PolicyRegression": "41/41 passed",
+    "part528StaticRegression": "64/64 passed",
+    "automatedChecksTotal": 238,
+    "automatedChecksPassed": 238,
+    "staticQa": {
+      "status": "passed",
+      "findingCount": 0,
+      "stats": {
+        "html": 68,
+        "js": 222,
+        "json": 116,
+        "refs": 1403,
+        "bytes": 317402702
+      }
+    },
+    "dangerousGoodsData": {
+      "recordCount": 2725,
+      "uniqueUnCount": 2248,
+      "multipleEntryUnCount": 337,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    "syntaxAndJson": {
+      "javascriptFiles": 222,
+      "javascriptErrors": 0,
+      "jsonFiles": 116,
+      "jsonErrors": 0
+    }
+  },
+  "productionEnvironmentRequired": [
+    "PostgreSQLマイグレーション",
+    "実保管領域でのアーカイブ・廃棄・法的保全",
+    "脆弱性スキャナー・依存関係台帳との連携",
+    "外部監査証跡の実アクセス制御",
+    "異なる利用者による作成・確認・実行・検証・承認"
+  ]
+}

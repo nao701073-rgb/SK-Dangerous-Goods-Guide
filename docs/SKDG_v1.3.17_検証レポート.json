@@ -1,0 +1,177 @@
+{
+  "release": "v1.3.17",
+  "generatedAt": "2026-08-08T21:18:00+09:00",
+  "checks": [
+    {
+      "name": "内部技術バージョン v1.3.17",
+      "ok": true,
+      "detail": "v1.3.17"
+    },
+    {
+      "name": "ベース v1.3.16",
+      "ok": true,
+      "detail": "v1.3.16"
+    },
+    {
+      "name": "表示バージョン維持",
+      "ok": true,
+      "detail": "Version 1.0 試作版"
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "ok": true,
+      "detail": "False"
+    },
+    {
+      "name": "ログイン meta v1.3.17",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ログインCSSキャッシュ更新",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "時間帯判定スクリプト",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "時間帯背景CSS復元",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bodyへ時間帯背景を適用",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "背景フォールバック復元",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "以前のログイン背景同梱: login-port-morning.jpg",
+      "ok": true,
+      "detail": "3840x2160 / 1901849 bytes"
+    },
+    {
+      "name": "以前のログイン背景同梱: login-port-day.jpg",
+      "ok": true,
+      "detail": "3840x2160 / 1950503 bytes"
+    },
+    {
+      "name": "以前のログイン背景同梱: login-port-evening.jpg",
+      "ok": true,
+      "detail": "3840x2160 / 1794378 bytes"
+    },
+    {
+      "name": "以前のログイン背景同梱: login-port-night.jpg",
+      "ok": true,
+      "detail": "3840x2160 / 1540788 bytes"
+    },
+    {
+      "name": "以前のログイン背景同梱: login-port-background.jpg",
+      "ok": true,
+      "detail": "1920x1080 / 337911 bytes"
+    },
+    {
+      "name": "原本照合者は任意表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "原本照合者にrequiredなし",
+      "ok": true,
+      "detail": "<input id=\"intakeReviewer\" maxlength=\"80\" placeholder=\"必要な場合のみ入力\"/>"
+    },
+    {
+      "name": "原本照合者未入力許容",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "申請確認登録ボタンを単一化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同一番号検索機能",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同一番号は既存案件を再利用",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "申請確認結果を独立保存",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "固縛結果を独立保存",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同一カードに申請確認件数表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同一カードに固縛算出件数表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "カードの固縛力参考算出ボタンを非表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細を単一入口に統一",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "案件ごと削除を提供",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "詳細で申請確認と固縛を分離",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重複案件は同一案件へ追加登録案内",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "同梱JavaScript構文",
+      "ok": true,
+      "detail": "8 files / OK"
+    },
+    {
+      "name": "同一申請番号で申請確認・固縛結果を共存",
+      "ok": true,
+      "detail": "{\"sameApplicationId\":\"A1\",\"applicationCount\":1,\"summary\":{\"verification\":1,\"ctu\":1,\"total\":2}}"
+    },
+    {
+      "name": "申請番号管理observerはカード一覧内だけ",
+      "ok": true,
+      "detail": "applicationList scoped MutationObserver"
+    }
+  ],
+  "summary": {
+    "total": 33,
+    "passed": 33,
+    "failed": 0
+  },
+  "browserE2E": "Chromium headless screenshot was attempted in the container but timed out; browser E2E success is not claimed."
+}

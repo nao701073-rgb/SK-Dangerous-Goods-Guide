@@ -1,0 +1,73 @@
+{
+  "release": "v1.3.31",
+  "baseVersion": "v1.3.30",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "利用者表示名取得",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "危険物検索・詳細の既存topbar更新",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "app-header共通利用者ボタン",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ユーザー設定リンク",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "キーボード操作",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "氏名先頭文字アイコン",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "v1.3.30権限維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "共通JSキャッシュ更新",
+      "status": "PASS",
+      "detail": "v1331 refs=74, old refs=0"
+    },
+    {
+      "name": "pages/dangerous-goods-search.html topbar-user",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html topbar-user",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest構文",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "manualVerificationRequired": [
+    "実ログインで大浦等の表示名が右上に表示されること",
+    "安全環境室長・職員・検証者・システム管理者それぞれの氏名表示",
+    "右上利用者ボタンからユーザー設定へ遷移",
+    "PC・スマートフォンでヘッダー位置と折返しを確認"
+  ]
+}

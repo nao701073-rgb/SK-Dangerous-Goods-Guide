@@ -89,6 +89,10 @@
   ];
 
   function $(id){return document.getElementById(id)}
+  function userPrefs(){try{return window.SKDGUserPreferencesV11?.read?.()||{autoScroll:false}}catch{return{autoScroll:false}}}
+  function allowScroll(){return Boolean(userPrefs().autoScroll)}
+  function emit(name,detail={}){try{window.dispatchEvent(new CustomEvent(name,{detail}))}catch{}}
+  function setQuick(id,value){const el=$(id);if(!el||value==null||value==='')return;el.value=String(value);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))}
   function secureEraseBuffer(buffer){if(!buffer)return;try{new Uint8Array(buffer).fill(0)}catch(_e){}}
   function disposeWorkbook(workbook){
     if(!workbook)return;
@@ -277,7 +281,9 @@
     if(fields.loadingPort)$('loadingPort').value=fields.loadingPort;if(fields.dischargePort)$('dischargePort').value=fields.dischargePort;if(fields.refNo)$('refNo').value=fields.refNo;
     if(fields.cargoName)$('cargoDescription').value=fields.cargoName;if(fields.unNumbers)$('unNumbers').value=fields.unNumbers;if(Number.isFinite(fields.packageCount))$('packageCount').value=fields.packageCount;if(fields.containerNo)$('containerNumber').value=fields.containerNo;
     if(Number.isFinite(fields.massT)&&fields.massT>0)$('mass').value=Number(fields.massT.toFixed(3));if(Number.isFinite(fields.width)&&fields.width>0)$('width').value=Number(fields.width.toFixed(3));if(Number.isFinite(fields.length)&&fields.length>0)$('length').value=Number(fields.length.toFixed(3));if(Number.isFinite(fields.height)&&fields.height>0)$('cargoHeight').value=Number(fields.height.toFixed(3));
-    if(fields.cargoName&&!$('ctuNewCaseTitle').value)$('ctuNewCaseTitle').value=fields.cargoName.slice(0,100);
+    // v1.3.12: 案件名（任意）は新規案件で自動生成しない。貨物名は貨物名欄だけへ反映する。
+    if(Number.isFinite(fields.massT)&&fields.massT>0)setQuick('quickMass',Number(fields.massT.toFixed(3)));
+    if(fields.cargoName)setQuick('quickCargoDescription',fields.cargoName);
   }
   function parseWorkbook(workbook){const rows=workbookRows(workbook),cargoRows=parseCargoRows(rows),fields=extractFields(rows,cargoRows);return {rows,cargoRows,fields}}
   async function handleFile(file){
@@ -299,7 +305,7 @@
       $('ctuExcelStatus').textContent='Excel申請書を読み込み、入力欄へ反映しました。Excel原本は保存せず、一時解析データを破棄しました。自動取得値を申請書原本で確認してください。';
       $('ctuExcelStatus').className='import-status is-ok';
       if(fields.loadingPort&&fields.dischargePort)applyRoute(true);
-      window.calc?.();
+      emit('sk:ctu-excel-imported',{fields:state.fields,routeEstimate:state.routeEstimate||null});
     }catch(error){
       $('ctuExcelStatus').textContent=error.message||'Excel申請書を読み取れませんでした。';$('ctuExcelStatus').className='import-status is-error';
     }finally{
@@ -313,7 +319,7 @@
   }
 
   function applyRoute(silent){
-    try{const estimate=inferRoute($('loadingPort').value,$('dischargePort').value,$('departureMonth').value);state.routeEstimate=estimate;$('routeEstimate').hidden=false;$('routeEstimate').innerHTML=`<div class="route-estimate-head"><strong>推定結果：${esc(estimate.areaLabel)}</strong><span>推定確度 ${esc(estimate.confidence)}</span></div><p><strong>想定航路：</strong>${esc(estimate.route)}</p>${estimate.distanceNm?`<p><strong>港間の大圏距離（参考）：</strong>約 ${estimate.distanceNm.toLocaleString('ja-JP')} 海里</p>`:''}<p><strong>推定理由：</strong>${esc(estimate.reasons.join('。'))}</p><p class="route-caution">この結果は港名と一般的な航路からの簡易推定です。実際の寄港地、船社の予定航路、季節、気象・海象、船舶のCargo Securing Manualを確認し、必要な場合はより厳しい海域を手動選択してください。</p>`;$('transportPreset').value=estimate.area;window.applyTransportPreset?.();$('route').value=`${$('loadingPort').value} → ${$('dischargePort').value}／${estimate.route}／推定${estimate.areaLabel}`;window.updateSummary?.();window.calc?.();if(!silent)$('routeEstimate').scrollIntoView({behavior:'smooth',block:'nearest'})}catch(error){if(!silent)alert(error.message||'航路を推定できませんでした。')}
+    try{const estimate=inferRoute($('loadingPort').value,$('dischargePort').value,$('departureMonth').value);state.routeEstimate=estimate;$('routeEstimate').hidden=false;$('routeEstimate').innerHTML=`<div class="route-estimate-head"><strong>推定結果：${esc(estimate.areaLabel)}</strong><span>推定確度 ${esc(estimate.confidence)}</span></div><p><strong>想定航路：</strong>${esc(estimate.route)}</p>${estimate.distanceNm?`<p><strong>港間の大圏距離（参考）：</strong>約 ${estimate.distanceNm.toLocaleString('ja-JP')} 海里</p>`:''}<p><strong>推定理由：</strong>${esc(estimate.reasons.join('。'))}</p><p class="route-caution">この結果は港名と一般的な航路からの簡易推定です。実際の寄港地、船社の予定航路、季節、気象・海象、船舶のCargo Securing Manualを確認し、必要な場合はより厳しい海域を手動選択してください。</p>`;$('transportPreset').value=estimate.area;window.applyTransportPreset?.();setQuick('quickTransport',estimate.area);$('route').value=`${$('loadingPort').value} → ${$('dischargePort').value}／${estimate.route}／推定${estimate.areaLabel}`;window.updateSummary?.();if(!silent&&allowScroll())$('routeEstimate').scrollIntoView({behavior:'auto',block:'nearest'})}catch(error){if(!silent)alert(error.message||'航路を推定できませんでした。')}
   }
   function clearImportedField(id,importedValue){
     const el=$(id);if(!el)return;
@@ -332,19 +338,33 @@
     state.importedAt='';state.fields={};state.routeEstimate=null;
     purgeTransientExcel();
     $('ctuExcelResult').hidden=true;$('ctuExcelSummary').innerHTML='';$('routeEstimate').hidden=true;$('routeEstimate').innerHTML='';
-    $('ctuExcelStatus').textContent='取込データを消去しました。Excel原本は保存されていません。';$('ctuExcelStatus').className='import-status';
-    window.updateSummary?.();window.calc?.();
+    $('ctuExcelStatus').textContent='取込データを消去しました。Excel原本は保存されていません。';$('ctuExcelStatus').className='import-status';emit('sk:ctu-excel-cleared');
+    if(f.massT!==null&&Number($('quickMass')?.value)===Number(Number(f.massT).toFixed(3)))$('quickMass').value='';
+    if(f.cargoName&&$('quickCargoDescription')?.value===f.cargoName)$('quickCargoDescription').value='';
+    window.updateSummary?.();
+  }
+  function openFilePicker(input){
+    if(!input)return;
+    try{if(typeof input.showPicker==='function'){input.showPicker();return}}catch(_e){}
+    try{input.click()}catch(_e){}
   }
   function init(){
     const input=$('ctuExcelFile'),drop=$('ctuExcelDropZone');if(!input||!drop)return;
+    if(drop.dataset.ctuExcelImporterBound==='1')return;drop.dataset.ctuExcelImporterBound='1';
     const month=$('departureMonth');if(month&&!month.value)month.value=String(new Date().getMonth()+1);
-    $('ctuExcelSelect').addEventListener('click',e=>{e.stopPropagation();input.click()});drop.addEventListener('click',e=>{if(e.target.id!=='ctuExcelSelect')input.click()});drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});input.addEventListener('change',()=>handleFile(input.files[0]));
-    ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('is-dragover')}));['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('is-dragover')}));drop.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
-    $('inferSeaArea').addEventListener('click',()=>applyRoute(false));$('clearCtuExcel').addEventListener('click',clearImport);
-    ['loadingPort','dischargePort','departureMonth'].forEach(id=>$(id)?.addEventListener('change',()=>{if(text($('loadingPort').value)&&text($('dischargePort').value))applyRoute(true)}));
+    // The file input is visible in v1.3.3 and opens the native picker directly.
+    // The surrounding drop zone is a secondary convenience path only.
+    drop.addEventListener('click',e=>{if(e.target===input||e.target.closest?.('#ctuExcelFile'))return;openFilePicker(input)});
+    drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFilePicker(input)}});
+    input.addEventListener('change',()=>handleFile(input.files&&input.files[0]));
+    ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('is-dragover')}));
+    ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('is-dragover')}));
+    drop.addEventListener('drop',e=>handleFile(e.dataTransfer?.files?.[0]));
+    $('inferSeaArea')?.addEventListener('click',()=>applyRoute(false));$('clearCtuExcel')?.addEventListener('click',clearImport);
+    ['loadingPort','dischargePort','departureMonth'].forEach(id=>$(id)?.addEventListener('change',()=>{if(text($('loadingPort')?.value)&&text($('dischargePort')?.value))applyRoute(true)}));
   }
   window.ISSCTUExcelRoute={getState:()=>JSON.parse(JSON.stringify(state)),inferRoute,resolvePort,parseWorkbook,handleFile,clearImport};
-  window.addEventListener('DOMContentLoaded',init);
+  if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init,{once:true});else init();
   window.addEventListener('pagehide',purgeTransientExcel);
   window.addEventListener('beforeunload',purgeTransientExcel);
 })();

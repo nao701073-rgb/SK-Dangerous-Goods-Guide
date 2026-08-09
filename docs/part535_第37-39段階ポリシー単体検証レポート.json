@@ -1,0 +1,186 @@
+{
+  "release": "part535",
+  "suite": "第37～第39段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T13:42:42.665075+00:00",
+  "status": "passed",
+  "total": 35,
+  "passed": 35,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "safe xlsx label",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "unsafe extension hidden",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ready allowed",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "raw file blocked",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "bad hash blocked",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "bad format blocked",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "zero cargo blocked",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "blocker count blocks",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "warning status review",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "actor review separation",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "actor register separation",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "snapshot deterministic",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "UN cleanup",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "packing group normalization",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "quantity count",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "quantity per net",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "quantity per gross",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "quantity total net",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "quantity total gross",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "P200 extracted",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "permission detected",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "source filename not persisted",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "source label masked",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "two cargo rows",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "first UN",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "first gross",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "second permit",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "evaluation valid",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "two cargo summary",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "calculation mass aggregate",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "CTU ready",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "checklist includes permit",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "payload cargo retained",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "payload original file false",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "payload no raw filename",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

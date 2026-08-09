@@ -1,0 +1,12 @@
+Part 534 画面版・システム版不一致 修正
+
+修正内容:
+- index.html の sk-build を part531 から part534 へ修正
+- build-manifest / version-guard / home-dashboard / app のキャッシュ番号を 534 へ更新
+- version-guard.js の資産版識別を part534 へ修正
+
+適用先:
+Part534_Extracted\SKDG_Part534_Complete
+
+適用後は、開いているブラウザータブを閉じ、
+SKDG_Part534_Complete\index.html を開き直してください。

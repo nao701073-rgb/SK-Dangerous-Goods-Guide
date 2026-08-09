@@ -1,0 +1,92 @@
+{
+  "version": "v1.3.10",
+  "displayVersion": "Version 1.0 試作版",
+  "passed": 21,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "internal build v1.3.10",
+      "status": "PASS"
+    },
+    {
+      "name": "visible Version 1.0 prototype preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "CTU page loads v140 photo AI helper",
+      "status": "PASS"
+    },
+    {
+      "name": "patched v101 photo AI helper loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "photo angle correction field added",
+      "status": "PASS"
+    },
+    {
+      "name": "photo measured length correction field added",
+      "status": "PASS"
+    },
+    {
+      "name": "photo lashing count remains directly editable",
+      "status": "PASS"
+    },
+    {
+      "name": "photo input apply button covers corrected values",
+      "status": "PASS"
+    },
+    {
+      "name": "manual photo angle measurement writes editable field",
+      "status": "PASS"
+    },
+    {
+      "name": "manual photo length measurement writes editable field",
+      "status": "PASS"
+    },
+    {
+      "name": "all calculation inputs unlock after imports/AI",
+      "status": "PASS"
+    },
+    {
+      "name": "AI candidate apply does not lock fields",
+      "status": "PASS"
+    },
+    {
+      "name": "photo local analysis estimates lashing count",
+      "status": "PASS"
+    },
+    {
+      "name": "photo local analysis estimates lashing type",
+      "status": "PASS"
+    },
+    {
+      "name": "photo local analysis estimates angle",
+      "status": "PASS"
+    },
+    {
+      "name": "photo local analysis estimates timber support",
+      "status": "PASS"
+    },
+    {
+      "name": "MSL not guessed from appearance",
+      "status": "PASS"
+    },
+    {
+      "name": "no continuous MutationObserver in patched photo AI",
+      "status": "PASS"
+    },
+    {
+      "name": "database migration not required",
+      "status": "PASS"
+    },
+    {
+      "name": "node syntax assets/js/v101-ctu-photo-ai.js",
+      "status": "PASS"
+    },
+    {
+      "name": "node syntax assets/js/v140-photo-ai-editable.js",
+      "status": "PASS"
+    }
+  ]
+}

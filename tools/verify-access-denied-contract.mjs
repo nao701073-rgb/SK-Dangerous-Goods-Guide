@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const source = readFileSync(resolve(root, 'assets/js/role-access.js'), 'utf8');
 const style = readFileSync(resolve(root, 'assets/css/style.css'), 'utf8');
 const requiredOrder = [

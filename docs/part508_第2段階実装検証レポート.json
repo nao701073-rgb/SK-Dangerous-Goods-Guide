@@ -1,0 +1,60 @@
+{
+  "release": "part508",
+  "phase": 2,
+  "title": "正式運用準備 第2段階：法令情報の原典照合・承認",
+  "generatedAt": "2026-08-05T22:25:00+09:00",
+  "baseRelease": "part507-phase1",
+  "catalog": {
+    "totalTargets": 3328,
+    "dangerousGoodCriteriaRows": 2725,
+    "uniqueUnNumbers": 2248,
+    "codes": 594,
+    "regulations": 9,
+    "masterVersion": "part502",
+    "sourceEdition": "危告示 令和5年11月6日最終改正／IMDG Code Amendment 42-24"
+  },
+  "implementation": {
+    "itemLevelLedger": true,
+    "distinctActors": ["作成・提出", "原典照合", "承認"],
+    "mandatoryVerificationChecks": 8,
+    "approvalCertificate": true,
+    "contentChecksum": "SHA-256",
+    "amendmentDetection": "承認済み内容の変更時に改正再照合待ちへ移行",
+    "suspension": true,
+    "displayModes": ["prototype-warning", "approved-only"],
+    "statusBannerPages": ["危険物詳細", "関連法令", "関連資料", "EmS"]
+  },
+  "verification": {
+    "phase2StaticChecks": {"total": 16, "passed": 16, "failed": 0},
+    "javascriptSyntax": {"files": 167, "failed": 0},
+    "htmlBuildConsistency": {"pages": 64, "failed": 0},
+    "htmlDuplicateIds": {"pages": 64, "failed": 0},
+    "catalogGeneration": {"status": "passed", "generatedTargets": 3328},
+    "chromiumRendering": {
+      "status": "not-completed",
+      "reason": "この実行環境のChromiumがヘッドレス実行時に正常終了せず、スクリーンショットを取得できなかった。"
+    },
+    "productionDatabaseMigration": {
+      "status": "not-executed",
+      "reason": "導入先PostgreSQLが未指定。"
+    },
+    "multiUserApprovalWorkflow": {
+      "status": "not-executed",
+      "reason": "導入先の作成者・原典照合者・承認者アカウントとPostgreSQLが必要。"
+    },
+    "catalogPersistence": {
+      "status": "not-executed",
+      "reason": "3,328件を導入先DBへ登録する試験は未実施。"
+    }
+  },
+  "completionCriteria": [
+    "照合対象台帳が危険物2,725件、コード594件、法令9件と一致する",
+    "作成・提出者、原典照合者、承認者が別利用者である",
+    "必須8項目に未確認がある場合は原典照合済みにできない",
+    "承認証明へ原典参照、チェックサム、照合者、承認者、日時が保存される",
+    "承認済み内容を変更すると改正再照合待ちになる",
+    "使用停止した情報は正式利用可として表示されない",
+    "正式運用モードで未承認情報が正式判断用として表示されない"
+  ],
+  "status": "implemented-awaiting-production-environment-and-human-verification"
+}

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta name="sk-build" content="part505">
-  <script src="../data/build-manifest.js?v=505"></script>
-  <link rel="stylesheet" href="../assets/css/version-guard.css?v=505">
-  <script src="../assets/js/auth-bootstrap.js?v=434"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>申請書確認</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/system-layout.css">
-  <link rel="stylesheet" href="../assets/css/application-verification.css?v=459">
-
+<meta name="sk-build" content="v1.3">
+<script src="../data/build-manifest.js?v=139"></script>
+<link href="../assets/css/version-guard.css?v=542" rel="stylesheet"/>
+<script src="../assets/js/auth-bootstrap.js?v=434"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>許容容量・許容質量確認｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/application-verification.css?v=459" rel="stylesheet"/>
 <style id="part442-application-verification-layout">
   .verification-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .verification-table{width:100%;min-width:0;table-layout:fixed;}
@@ -47,8 +47,6 @@
     .verification-table td:nth-child(7)::before{content:"許容容量・許容質量";}
   }
 </style>
-
-
 <style id="part444-limited-package-layout">
   .limited-quantity-block{border:1px solid #d6e0ea;background:#fffdf7;box-shadow:none;}
   .limited-quantity-block>span,
@@ -72,7 +70,6 @@
   .quantity-highlight{display:inline-block;margin:2px 0;padding:2px 6px;border-radius:6px;background:#edf5fc;color:#0d3b66;font-weight:800;}
   .limited-quantity-label{display:inline-block;margin-top:4px;padding:3px 8px;border-radius:999px;background:#eef4f8;color:#173a5e;font-weight:800;}
 </style>
-
 <style id="part458-registration-layout">
 .result-registration-panel{width:min(100%,1180px);box-sizing:border-box;margin:22px auto 0;padding:24px;}
 .registration-existing,.quick-registration{margin-top:18px;}
@@ -86,76 +83,93 @@
 .registration-message{min-height:1.5em;margin:14px 0 0;font-weight:700;color:#173a5e;}
 @media(max-width:760px){.result-registration-panel{padding:18px 14px}.registration-action-row,.quick-registration-grid{grid-template-columns:1fr}.registration-action-row button,.quick-registration button{width:100%}}
 </style>
-  <link rel="stylesheet" href="../assets/css/unified-submenu.css?v=500">
+<link href="../assets/css/unified-submenu.css?v=500" rel="stylesheet"/>
 <style id="part502-verification-review-flow">
 .verification-review-panel{width:min(100%,1180px);box-sizing:border-box;margin:22px auto 0;padding:22px;border:1px solid #c9d9e8;border-radius:12px;background:#fff}.verification-review-panel h2{margin:0 0 6px;color:#173a5e}.verification-review-panel>p{margin:0 0 14px;color:#52606d;line-height:1.7}.verification-review-status{display:inline-flex;padding:5px 10px;border-radius:999px;background:#fff4d6;color:#755000;font-weight:800;margin-bottom:14px}.verification-review-status.is-complete{background:#e6f6ed;color:#12663f}.verification-review-checks{display:grid;gap:10px}.verification-review-checks label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid #d7e2ec;border-radius:10px;background:#f8fbfd;line-height:1.6}.verification-review-checks input[type=checkbox]{width:20px;height:20px;margin-top:2px;flex:0 0 auto}.verification-review-meta{display:grid;grid-template-columns:minmax(220px,1fr) minmax(240px,2fr);gap:12px;margin-top:14px}.verification-review-meta input{width:100%;box-sizing:border-box;min-height:44px}.registration-action-row button:disabled,.quick-registration button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:768px){.verification-review-panel{padding:18px 14px}.verification-review-meta{grid-template-columns:1fr}}
 </style>
+<link href="../assets/css/design-system-review.css?v=508" rel="stylesheet"/>
+<link href="../assets/css/publication-rights-phase3.css?v=509" rel="stylesheet"/>
+<link href="../assets/css/application-case-common.css?v=529" rel="stylesheet"/>
+<link href="../assets/css/application-review-part536.css?v=536" rel="stylesheet"/>
+<link href="../assets/css/application-review-part538.css?v=538" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
 </head>
 <body data-page="application-verification">
-<header class="app-header">
-  <a class="icon-button" href="../index.html" aria-label="ホームへ戻る">←</a>
-  <div class="app-brand"><span class="app-brand__mark"><img src="../assets/images/sk-brand-logo-v82.png" alt="SK"></span><div><h1>申請書確認</h1></div></div>
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">申請書確認</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
 </header>
 <main class="main-content verification-page">
-  <section class="verification-hero">
-    <div><p>Excel申請書をドラッグまたはドロップし、対象危険物の許容容量と許容質量を一覧化します。</p></div>
-  </section>
-
-  <section class="verification-card">
-    <h3>申請書アップロード</h3>
-    <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Excel申請書を選択またはドロップ">
-      <strong>ここへExcel申請書をドラッグ＆ドロップ</strong>
-      <span>または</span>
-      <button id="selectFileButton" type="button">ファイルを選択</button>
-      <small>対応形式：.xls / .xlsx</small>
-      <input id="fileInput" type="file" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
-    </div>
-    <div id="fileStatus" class="file-status" aria-live="polite">申請書が選択されていません。</div>
-    <div class="notice notice--info" style="margin-top:12px"><strong>Excel申請書の取扱い</strong><p>Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。解析後に一時データを破棄します。申請番号管理へ登録する場合は、画面で確認した結果情報だけを保存します。</p></div>
-  </section>
-
-  <section id="summarySection" class="verification-card" hidden>
-    <div class="section-title-row"><h3>読取り結果</h3><button id="clearButton" class="secondary-button" type="button">取込データを消去／別の申請書を読み込む</button></div>
-    <div id="summaryGrid" class="summary-grid"></div>
-    <div class="notice notice--warning"><strong>確認上の注意</strong><p>「検査対象」が対象の行だけを読み取り、申請容器に対する許容容量または許容質量を表示します。液体は原則L、固体は原則kgで表示し、性状または容器区分を一意に判断できない場合は両方の候補を表示します。組合せ容器および少量危険物は、内装容器の種類・容量・個数を申請書から判別できないため、現場確認とします。</p></div>
-    <div class="table-wrap"><div class="verification-table-wrap"><table class="verification-table"><thead><tr><th>No.</th><th>国連番号</th><th>品名・原文</th><th>容器等級</th><th>容器コード</th><th>申請数量</th><th>許容容量・許容質量</th></tr></thead><tbody id="goodsBody"></tbody></table></div></div>
-  </section>
-
-
-
-  
-<section class="verification-review-panel" id="verificationReviewSection" hidden>
-<h2>自動読取結果を確認</h2><p>申請書から取得した値は候補です。原本と照合し、相違がある場合は申請書を修正して再度読み込んでください。すべて確認するまで申請番号管理へ登録できません。</p><div id="verificationReviewStatus" class="verification-review-status">未確認</div>
-<div class="verification-review-checks"><label><input type="checkbox" data-verification-review="identity"><span><strong>国連番号・品名</strong><br>対象行、国連番号および品名を申請書原本と照合しました。</span></label><label><input type="checkbox" data-verification-review="package"><span><strong>容器等級・容器コード</strong><br>容器等級、容器記号および少量危険物の有無を確認しました。</span></label><label><input type="checkbox" data-verification-review="quantity"><span><strong>個数・正味質量・総質量</strong><br>個数と質量を確認し、1容器当たりの算出条件に相違がないことを確認しました。</span></label></div>
-<div class="verification-review-meta"><label>確認者<input id="verificationReviewer" type="text" maxlength="80" placeholder="氏名または利用者名"></label><label>確認メモ（任意）<input id="verificationReviewNote" type="text" maxlength="300" placeholder="修正・再取込・現場確認事項など"></label></div></section>
-<section class="panel result-registration-panel" id="verificationRegistrationSection" hidden>
-  <h2>確認結果を申請番号管理へ登録</h2>
-  <p>抽出した対象危険物、許容容量・許容質量および確認状況を、申請番号管理へ履歴として保存します。</p>
-  <div class="registration-existing">
-    <label for="verificationApplicationSelect">登録済みの申請番号を選択</label>
-    <div class="registration-action-row"><select id="verificationApplicationSelect"><option value="">申請番号を選択してください</option></select><button id="saveVerificationResult" type="button">申請番号管理に登録</button></div>
-  </div>
-  <div class="quick-registration">
-    <h3>申請番号を新規登録して保存</h3>
-    <p>申請番号管理に未登録の場合は、ここで申請番号を作成し、確認結果を続けて保存できます。</p>
-    <div class="quick-registration-grid">
-      <label>申請年度<input id="verificationNewApplicationYear" inputmode="numeric" maxlength="4"></label>
-      <label>申請番号<input id="verificationNewApplicationNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"></label>
-      <label class="quick-registration-title">案件名（任意）<input id="verificationNewCaseTitle" maxlength="100" placeholder="例：危険物申請書確認"></label>
-    </div>
-    <button id="createAndSaveVerificationResult" type="button">新規登録して確認結果を保存</button>
-  </div>
-  <p id="verificationRegistrationMessage" class="registration-message" aria-live="polite"></p>
+<section class="verification-hero">
+<div><p>申請書の危険物明細を読み取り、容器コード・容器等級・包装要件に応じた許容容量と許容質量を確認します。取込・登録機能は変更せず、確認結果を見やすく表示します。</p></div>
+</section>
+<section class="verification-card">
+<h3>申請書アップロード</h3>
+<div aria-label="Excel申請書を選択またはドロップ" class="drop-zone" id="dropZone" role="button" tabindex="0">
+<strong>ここへExcel申請書をドラッグ＆ドロップ</strong>
+<span>または</span>
+<button id="selectFileButton" type="button">ファイルを選択</button>
+<small>対応形式：.xls / .xlsx</small>
+<input accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden="" id="fileInput" type="file"/>
+</div>
+<div aria-live="polite" class="file-status" id="fileStatus">申請書が選択されていません。</div>
+<div class="notice notice--info" style="margin-top:12px"><strong>Excel申請書の取扱い</strong><p>Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。解析後に一時データを破棄します。申請番号管理へ登録する場合は、画面で確認した結果情報だけを保存します。</p></div>
+</section>
+<section class="verification-card" hidden="" id="summarySection">
+<div class="section-title-row"><h3>読取り結果</h3><button class="secondary-button" id="clearButton" type="button">取込データを消去／別の申請書を読み込む</button></div>
+<div class="summary-grid" id="summaryGrid"></div>
+<div class="notice notice--warning"><strong>確認上の注意</strong><p>「検査対象」が対象の行だけを読み取り、申請容器に対する許容容量または許容質量を表示します。液体は原則L、固体は原則kgで表示し、性状または容器区分を一意に判断できない場合は両方の候補を表示します。組合せ容器および少量危険物は、内装容器の種類・容量・個数を申請書から判別できないため、現場確認とします。</p></div>
+<div class="verification-goods-cards" id="verificationGoodsCards" hidden aria-hidden="true"></div><div class="table-wrap verification-table-wrap part536-compat-table part538-verification-table" aria-label="申請書確認結果一覧"><div><table class="verification-table"><thead><tr><th>No.</th><th>国連番号</th><th>品名・原文</th><th>容器等級</th><th>容器コード</th><th>申請数量</th><th>許容容量・許容質量</th></tr></thead><tbody id="goodsBody"></tbody></table></div></div>
+</section>
+<section class="verification-review-panel" hidden="" id="verificationReviewSection">
+<h2>自動読取結果を確認</h2><p>申請書から取得した値は候補です。原本と照合し、相違がある場合は申請書を修正して再度読み込んでください。すべて確認するまで申請番号管理へ登録できません。</p><div class="verification-review-status" id="verificationReviewStatus">未確認</div>
+<div class="verification-review-checks"><label><input data-verification-review="identity" type="checkbox"/><span><strong>国連番号・品名</strong><br/>対象行、国連番号および品名を申請書原本と照合しました。</span></label><label><input data-verification-review="package" type="checkbox"/><span><strong>容器等級・容器コード</strong><br/>容器等級、容器記号および少量危険物の有無を確認しました。</span></label><label><input data-verification-review="quantity" type="checkbox"/><span><strong>個数・正味質量・総質量</strong><br/>個数と質量を確認し、1容器当たりの算出条件に相違がないことを確認しました。</span></label></div>
+<div class="verification-review-meta"><label>確認者<input id="verificationReviewer" maxlength="80" placeholder="氏名または利用者名" type="text"/></label><label>確認メモ（任意）<input id="verificationReviewNote" maxlength="300" placeholder="修正・再取込・現場確認事項など" type="text"/></label></div></section>
+<section class="panel result-registration-panel" hidden="" id="verificationRegistrationSection">
+<h2>確認結果を申請番号管理へ登録</h2>
+<p>抽出した対象危険物、許容容量・許容質量および確認状況を、申請番号管理へ履歴として保存します。</p>
+<div class="registration-existing">
+<label for="verificationApplicationSelect">登録済みの申請番号を選択</label>
+<div class="registration-action-row"><select id="verificationApplicationSelect"><option value="">申請番号を選択してください</option></select><button id="saveVerificationResult" type="button">申請番号管理に登録</button></div>
+</div>
+<div class="quick-registration">
+<h3>申請番号を新規登録して保存</h3>
+<p>申請番号管理に未登録の場合は、ここで申請番号を作成し、確認結果を続けて保存できます。</p>
+<div class="quick-registration-grid">
+<label>申請年度<input id="verificationNewApplicationYear" inputmode="numeric" maxlength="4"/></label>
+<label>申請番号<input id="verificationNewApplicationNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"/></label>
+<label class="quick-registration-title">案件名（任意）<input id="verificationNewCaseTitle" maxlength="100" /></label>
+</div>
+<button id="createAndSaveVerificationResult" type="button">新規登録して確認結果を保存</button>
+</div>
+<p aria-live="polite" class="registration-message" id="verificationRegistrationMessage"></p>
 </section>
 </main>
 <script src="../data/un-data.js?v=434"></script>
 <script src="../data/domestic-packing-quantity-profiles.js?v=434"></script>
 <script src="../data/domestic-code-page-ranges.js?v=468"></script>
+<script src="../data/legal-code-master-codes.js?v=503"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-<script src="../assets/js/storage.js?v=445"></script>
-<script src="../assets/js/application-result-link.js?v=502"></script>
-<script src="../assets/js/application-verification.js?v=502"></script>
-<script src="../assets/js/unified-submenu.js?v=500"></script>
-<script src="../assets/js/version-guard.js?v=505"></script>
+<script src="../assets/js/storage.js?v=529"></script>
+<script src="../assets/js/application-result-link.js?v=529"></script>
+<script src="../assets/js/application-case-common.js?v=529"></script>
+<script src="../assets/js/application-allowance-resolver.js?v=536"></script>
+<script src="../assets/js/application-verification.js?v=536"></script>
+<script src="../assets/js/version-guard.js?v=139"></script>
+<script src="../data/publication-scope-policy.js?v=509"></script>
+<script src="../assets/js/publication-scope-gate.js?v=509"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1337"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
 </body>
 </html>

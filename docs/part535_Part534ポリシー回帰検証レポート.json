@@ -1,0 +1,235 @@
+{
+  "release": "part535-part534-policy-regression",
+  "suite": "第34～第36段階ポリシー単体検証",
+  "generatedAt": "2026-08-06T13:38:50.202Z",
+  "passed": 45,
+  "total": 45,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "配布候補正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同一版拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "危険物件数拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "削除超過拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未来生成拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "同一ZIP拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "差分0件警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "大量変更警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密情報拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "提出者自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "承認者自己配布拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布者自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "五者分離許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "PC互換性正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホ互換性正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "未対応ブラウザ拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "オフライン不合格拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "失敗件数不正拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "失敗あり警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "古い試験警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "個人情報拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "継続訓練正常",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "時刻逆転拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "件数不一致拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "欠落拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重複拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "競合警告",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "手順不足拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA不足拒否2",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "実行者自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "確認者自己再同期拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "再同期者自己検証拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "五者分離訓練許可",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "統合ゲート通過",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "PC不足遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホ不足遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "配布未確認遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "訓練未確認遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "古い訓練遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "必須証跡不足遮断",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー自己確認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー自己承認拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "レビュー三者分離許可",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}

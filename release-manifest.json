@@ -1,103 +1,79 @@
 {
-  "release": "part505",
-  "baseRelease": "part504",
-  "generatedAt": "2026-08-03T16:23:00+09:00",
-  "fileCount": 75,
+  "release": "part537",
+  "part": 537,
+  "baseRelease": "part536",
+  "generatedAt": "2026-08-06T15:19:22Z",
+  "title": "本番環境統合試験・権限・同期・端末確認",
   "features": [
-    "P520原典PDF 320～323ページの全要件を構造化",
-    "PCの見出し付き整形式表",
-    "1040px以下または768px以下でカード表示へ自動切替",
-    "注記1～7とPP21・PP22・PP94・PP95の整理表示",
-    "P520原典PDF 320～323ページの個別リンク",
-    "5列以上の同種包装要件表を狭幅時にカード化"
+    "申請書取込・確認のホーム入口完全統合",
+    "ゲスト・検証者の確認専用モード",
+    "権限別アクセス自動検証",
+    "申請書CSV取込から申請番号登録までのブラウザ統合試験",
+    "申請番号管理・固縛力参考算出のPC・スマートフォン表示検証",
+    "実環境確認項目の統合試験レポート管理"
+  ],
+  "migration": null,
+  "documents": [
+    "docs/Part537_本番環境統合試験・受入確認.md",
+    "docs/part537_本番環境統合試験レポート.json",
+    "docs/part537_ブラウザ統合試験レポート.json",
+    "docs/part537_静的統合検証レポート.json",
+    "docs/part537_総合検証レポート.json",
+    "docs/part537_構文・JSON・参照検証.json"
   ],
   "verification": {
-    "javascriptSyntax": "passed",
-    "profileRows": 74,
-    "browser": "Chromium 144.0.7559.96",
-    "viewports": [
-      "1365x900",
-      "900x900",
-      "390x844"
-    ],
-    "horizontalOverflow": false,
-    "runtimeErrors": 0
-  },
-  "files": [
-    "README.txt",
-    "UPDATE_INSTRUCTIONS.txt",
-    "VERSION.json",
-    "assets/css/detail-dashboard.css",
-    "assets/js/detail-dashboard.js",
-    "data/build-manifest.js",
-    "data/domestic-complex-packing-profiles.js",
-    "docs/Part505_P520包装要件構造化表示.md",
-    "docs/part505_実装検証レポート.json",
-    "index.html",
-    "pages/access-control.html",
-    "pages/access-governance-admin.html",
-    "pages/account-history.html",
-    "pages/account-security-admin.html",
-    "pages/activate-account.html",
-    "pages/admin-governance-dashboard.html",
-    "pages/admin-succession.html",
-    "pages/application-verification.html",
-    "pages/applications.html",
-    "pages/change-password.html",
-    "pages/change-release-governance-admin.html",
-    "pages/cloud-connection.html",
-    "pages/completion-roadmap.html",
-    "pages/ctu-securing-calculator.html",
-    "pages/dangerous-goods-detail.html",
-    "pages/dangerous-goods-search.html",
-    "pages/data-migration.html",
-    "pages/data-quality-admin.html",
-    "pages/deployment-execution-admin.html",
-    "pages/deployment-readiness-package.html",
-    "pages/documentation-release-center.html",
-    "pages/ems.html",
-    "pages/favorites.html",
-    "pages/feedback.html",
-    "pages/final-production-readiness.html",
-    "pages/identity-operations-admin.html",
-    "pages/imdg-cross-reference.html",
-    "pages/integrated-operations-center.html",
-    "pages/integrated-verification.html",
-    "pages/kawasaki-pilot.html",
-    "pages/label-catalog.html",
-    "pages/login.html",
-    "pages/maintenance-governance-admin.html",
-    "pages/operations-acceptance-admin.html",
-    "pages/operations-assurance-admin.html",
-    "pages/operations-monitoring.html",
-    "pages/overpack-label-tool.html",
-    "pages/pdf-page-viewer.html",
-    "pages/pilot-launch-admin.html",
-    "pages/post-deployment-operations-admin.html",
-    "pages/post-launch-admin.html",
-    "pages/production-identity-admin.html",
-    "pages/production-operations-hub.html",
-    "pages/production-readiness.html",
-    "pages/prototype-completion-review.html",
-    "pages/references.html",
-    "pages/regulation-approval-admin.html",
-    "pages/regulation-evidence-snapshot.html",
-    "pages/regulation-update-admin.html",
-    "pages/regulations.html",
-    "pages/release-candidate-summary.html",
-    "pages/reset-password.html",
-    "pages/revision-preview.html",
-    "pages/search-history.html",
-    "pages/security-admin.html",
-    "pages/settings.html",
-    "pages/system-maintenance.html",
-    "pages/system-settings.html",
-    "pages/system-wide-search.html",
-    "pages/user-activity-admin.html",
-    "pages/user-admin.html",
-    "pages/validation-admin.html",
-    "tools/verify-part505-p520-responsive.mjs",
-    "release-manifest.json",
-    "SHA256SUMS.txt"
-  ]
+    "automaticChecks": {
+      "passed": 68,
+      "total": 68
+    },
+    "staticReference": {
+      "html": 73,
+      "js": 261,
+      "json": 183,
+      "refs": 1507,
+      "bytes": 319944364
+    },
+    "dataQuality": {
+      "recordCount": 2725,
+      "uniqueUnCount": 2248,
+      "multipleEntryUnCount": 337,
+      "errorCount": 0,
+      "warningCount": 0
+    },
+    "syntaxAndJson": {
+      "javascriptFiles": 261,
+      "javascriptErrors": 0,
+      "jsonFiles": 183,
+      "jsonErrors": 0,
+      "errors": [],
+      "jsonErrorDetails": []
+    },
+    "allowanceCoverage": {
+      "records": 2725,
+      "uniqueUnNumbers": 2248,
+      "recordsWithSmallPackingInstruction": 2683,
+      "recordsWithoutSmallPackingInstruction": 42,
+      "usedSmallPackingCodes": 84,
+      "missingOriginalSources": 0,
+      "uncoveredRecords": 0,
+      "modes": {
+        "source-reference": 915,
+        "p200": 170,
+        "structured": 1598,
+        "not-applicable": 42
+      }
+    },
+    "browserIntegration": {
+      "passed": 23,
+      "total": 23
+    },
+    "integratedRegression": {
+      "passed": 18,
+      "total": 18
+    },
+    "part537Static": {
+      "passed": 8,
+      "total": 8
+    }
+  }
 }

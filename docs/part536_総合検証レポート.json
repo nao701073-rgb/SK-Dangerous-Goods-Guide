@@ -1,0 +1,76 @@
+{
+  "release": "part536",
+  "part": 536,
+  "baseRelease": "part535",
+  "generatedAt": "2026-08-06T14:46:30.180821+00:00",
+  "status": "passed",
+  "title": "登録後再確認画面・全危険物許容容量／許容質量表示見直し",
+  "automaticChecks": {
+    "passed": 92,
+    "total": 92,
+    "groups": {
+      "allDangerousGoodsAllowanceCoverage": {
+        "passed": 19,
+        "total": 19
+      },
+      "reviewReadabilityStatic": {
+        "passed": 26,
+        "total": 26
+      },
+      "existingFunctionsUnchanged": {
+        "passed": 12,
+        "total": 12
+      },
+      "part535IntakePolicyRegression": {
+        "passed": 35,
+        "total": 35,
+        "source": "server/scripts/verify-part535-policy.js"
+      }
+    }
+  },
+  "staticReference": {
+    "html": 73,
+    "js": 260,
+    "json": 177,
+    "refs": 1506,
+    "bytes": 319669745
+  },
+  "syntaxAndJson": {
+    "javascriptFiles": 260,
+    "javascriptErrors": 0,
+    "jsonFiles": 177,
+    "jsonErrors": 0,
+    "errors": [],
+    "jsonErrorDetails": []
+  },
+  "dataQuality": {
+    "recordCount": 2725,
+    "uniqueUnCount": 2248,
+    "multipleEntryUnCount": 337,
+    "errorCount": 0,
+    "warningCount": 0
+  },
+  "allowanceCoverage": {
+    "records": 2725,
+    "uniqueUnNumbers": 2248,
+    "recordsWithSmallPackingInstruction": 2683,
+    "recordsWithoutSmallPackingInstruction": 42,
+    "usedSmallPackingCodes": 84,
+    "missingOriginalSources": 0,
+    "uncoveredRecords": 0,
+    "modes": {
+      "source-reference": 915,
+      "p200": 170,
+      "structured": 1598,
+      "not-applicable": 42
+    }
+  },
+  "functionalScope": {
+    "applicationIntakeAndVerification": "existing import, precheck, input fields and registration retained",
+    "ctuSecuring": "calculation functions, coefficients, inputs and result registration unchanged",
+    "uiChange": "registered case review only: cards, wrapping, responsive layout, no horizontal scroll"
+  },
+  "limitations": [
+    "Actual Excel formats, PostgreSQL, role-based operation, offline synchronization and real PC/mobile rendering require confirmation in the production-equivalent environment."
+  ]
+}

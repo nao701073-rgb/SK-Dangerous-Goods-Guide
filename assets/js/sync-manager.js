@@ -25,6 +25,7 @@
           cargoName: p.cargoName || "",
           note: p.note || "",
           status: p.status || "active",
+          caseData: p.caseData || { applicantName:p.applicantName||"", shipper:p.shipper||"", loadingPort:p.loadingPort||"", dischargePort:p.dischargePort||"", containerType:p.containerType||"", cargoItems:Array.isArray(p.cargoItems)?p.cargoItems:[] },
           officeId: p.officeId
         });
         window.ISSStorage.setApplicationServerId(p.id || item.id, result.application.id, result.application.version || 1);
@@ -36,6 +37,7 @@
       if (item.action === "update") {
         const result = await window.ISSApi.updateApplication(serverId, {
           applicationNumber: p.applicationNumber || local?.applicationNumber || "", shipper: p.shipper || "", cargoName: p.cargoName || "", note: p.note || "", status: p.status || "active",
+          caseData: p.caseData || local?.caseData || { applicantName:p.applicantName||local?.applicantName||"", shipper:p.shipper||local?.shipper||"", loadingPort:p.loadingPort||local?.loadingPort||"", dischargePort:p.dischargePort||local?.dischargePort||"", containerType:p.containerType||local?.containerType||"", cargoItems:Array.isArray(p.cargoItems)?p.cargoItems:(local?.cargoItems||[]) },
           version: Number(p.serverVersion || local?.serverVersion || 1),
           changeReason: p.changeReason || "オフライン入力の同期反映"
         });
@@ -75,6 +77,27 @@
         return window.ISSApi.updateApplicationDocumentStatus(serverId,{action,reason:document.cancellationReason||document.changeReason||"状態変更"});
       }
       return {skipped:true,reason:"未対応の添付資料操作"};
+    }
+
+    if (item.entity === "application-result") {
+      const local = window.ISSApplicationResults?.read?.().find(row => row.id === p.id) || p;
+      const application = window.ISSStorage.getApplications({ scope:"all" }).find(app => app.id === local.applicationId);
+      if (!application?.serverId) return { skipped:true, reason:"先に申請番号を同期してください" };
+      if (item.action === "create" || !local.serverId) {
+        const result = await window.ISSApi.createApplicationResult({
+          clientId: local.id,
+          applicationId: application.serverId,
+          resultType: local.type || "other",
+          title: local.title || "確認・算出結果",
+          resultVersion: Number(local.version || 1),
+          status: local.payload?.review?.status === "confirmed" ? "confirmed" : "recorded",
+          sourcePage: local.sourcePage || "",
+          payload: local.payload || {}
+        });
+        window.ISSApplicationResults?.setServerId?.(local.id, result.result.id);
+        return result;
+      }
+      return { skipped:true, reason:"登録済み結果の更新は新しい版として保存してください" };
     }
     if (item.entity === "photo") {
       if (item.action === "create") {
@@ -119,10 +142,12 @@
     window.ISSStorage.mergeServerPhotos(photoResult.photos || [], assetBaseFromEndpoint());
     const documentResult = await window.ISSApi.listApplicationDocuments(params);
     window.ISSStorage.mergeServerApplicationDocuments(documentResult.documents || [], assetBaseFromEndpoint());
+    let resultRows=[];
+    try { const resultResponse=await window.ISSApi.listApplicationResults(params); resultRows=resultResponse.results||[]; window.ISSApplicationResults?.mergeServerResults?.(resultRows); } catch (error) { console.warn("確認・算出結果の取得に失敗しました。",error); }
     localStorage.setItem("iss-last-data-pull-at", new Date().toISOString());
     window.dispatchEvent(new CustomEvent("iss:applications-changed"));
     window.dispatchEvent(new CustomEvent("iss:application-documents-changed"));
-    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length, documents:(documentResult.documents || []).length };
+    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length, documents:(documentResult.documents || []).length, results:resultRows.length };
   }
 
   window.ISSSync = {
@@ -162,3 +187,5 @@
     }
   };
 })();
+
+window.__SK_ASSET_BUILD__ = Object.assign(window.__SK_ASSET_BUILD__ || {}, { "assets/js/sync-manager.js": "part529" });

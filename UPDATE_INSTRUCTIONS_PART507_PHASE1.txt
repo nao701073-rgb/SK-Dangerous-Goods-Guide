@@ -1,0 +1,19 @@
+Part 507 更新手順
+
+1. Part 506再構築版のフォルダを複製してバックアップしてください。
+2. 本ZIPの内容を、フォルダ構成を維持して上書きしてください。
+3. server/.env.exampleを参考に、本番用環境変数を設定してください。
+4. serverフォルダで npm install を実行してください。
+5. npm run migrate を実行してください。
+6. APIを再起動してください。
+7. ブラウザを終了し、再起動後にCtrl+F5で読み直してください。
+8. システム管理者の「セキュリティ・監査管理」で第1段階診断を実行してください。
+
+本番必須：
+SERVER_SESSION_ENABLED=true
+SESSION_COOKIE_SECURE=true
+LEGACY_BEARER_AUTH_ENABLED=false
+ENFORCE_HTTPS=true
+CORS_ORIGINS=https://正式なWeb画面URL
+JWT_SECRET=64文字以上のランダム値
+CSRF_SECRET=64文字以上のランダム値

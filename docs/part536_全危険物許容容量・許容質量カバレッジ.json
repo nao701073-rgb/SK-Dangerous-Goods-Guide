@@ -1,0 +1,106 @@
+{
+  "release": "part536",
+  "generatedAt": "2026-08-06T14:42:56.056Z",
+  "status": "passed",
+  "passed": 19,
+  "total": 19,
+  "coverage": {
+    "records": 2725,
+    "uniqueUnNumbers": 2248,
+    "recordsWithSmallPackingInstruction": 2683,
+    "recordsWithoutSmallPackingInstruction": 42,
+    "usedSmallPackingCodes": 84,
+    "missingOriginalSources": 0,
+    "uncoveredRecords": 0,
+    "modes": {
+      "source-reference": 915,
+      "p200": 170,
+      "structured": 1598,
+      "not-applicable": 42
+    }
+  },
+  "interpretation": {
+    "structured": "P001/P002は構造化表で容器コード・容器等級に応じて照合",
+    "p200": "P200は原文・容器種類・充てん条件・許可内容を照合",
+    "sourceReference": "その他のPコードは危告示の正確な原文ページへ接続し、申請容器の該当行で確定",
+    "notApplicable": "小型容器包装要件がないものは、タンク・IBC・大型容器・放射性輸送物等の個別条件へ明示的に誘導"
+  },
+  "checks": [
+    {
+      "name": "dangerous goods row count",
+      "status": "passed"
+    },
+    {
+      "name": "unique UN count",
+      "status": "passed"
+    },
+    {
+      "name": "allowance resolver available",
+      "status": "passed"
+    },
+    {
+      "name": "all 84 used P codes have exact source text",
+      "status": "passed"
+    },
+    {
+      "name": "all 2725 records covered",
+      "status": "passed"
+    },
+    {
+      "name": "all results have a readable summary",
+      "status": "passed"
+    },
+    {
+      "name": "records with P code",
+      "status": "passed"
+    },
+    {
+      "name": "records without P code explicitly classified",
+      "status": "passed"
+    },
+    {
+      "name": "no-P records use not-applicable mode",
+      "status": "passed"
+    },
+    {
+      "name": "structured P001/P002 records covered",
+      "status": "passed"
+    },
+    {
+      "name": "P200 records covered",
+      "status": "passed"
+    },
+    {
+      "name": "other P-code source-reference records covered",
+      "status": "passed"
+    },
+    {
+      "name": "not-applicable / alternative transport records covered",
+      "status": "passed"
+    },
+    {
+      "name": "P001 sample resolves structured",
+      "status": "passed"
+    },
+    {
+      "name": "P002 sample resolves structured",
+      "status": "passed"
+    },
+    {
+      "name": "P200 sample resolves original source",
+      "status": "passed"
+    },
+    {
+      "name": "P112 sample resolves exact original source",
+      "status": "passed"
+    },
+    {
+      "name": "source links include PDF page",
+      "status": "passed"
+    },
+    {
+      "name": "container code extraction",
+      "status": "passed"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "release": "part537",
+  "generatedAt": "2026-08-06T15:19:22Z",
+  "status": "passed",
+  "summary": {
+    "coreAutomaticChecks": {
+      "passed": 68,
+      "total": 68
+    },
+    "allowanceCoverage": {
+      "passed": 19,
+      "total": 19,
+      "records": 2725,
+      "uniqueUnNumbers": 2248,
+      "uncoveredRecords": 0
+    },
+    "part537Static": {
+      "passed": 8,
+      "total": 8
+    },
+    "browserIntegration": {
+      "passed": 23,
+      "total": 23
+    },
+    "integratedRegression": {
+      "passed": 18,
+      "total": 18
+    },
+    "staticReference": {
+      "html": 73,
+      "javascript": 261,
+      "json": 183,
+      "references": 1507,
+      "findings": 0
+    },
+    "dataQuality": {
+      "records": 2725,
+      "uniqueUnNumbers": 2248,
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "verifiedFlows": [
+    "ゲストが申請書取込・確認を確認専用で開けること",
+    "ゲストから申請番号管理への直接アクセスが拒否されること",
+    "事業所利用者がCSVを取り込み、事前チェック後に申請番号へ登録できること",
+    "登録案件が申請番号管理へ表示されること",
+    "登録案件を固縛力参考算出へ読み込み、案件概要と危険物明細を確認できること",
+    "PCおよび幅390pxのスマートフォン表示で横スクロールが発生しないこと",
+    "危険物2,725件すべてに許容容量・許容質量の確認経路があること"
+  ],
+  "environmentLimitations": [
+    "ブラウザ統合試験はローカル配布物を仮想HTTPSオリジンから応答する方式で実施した。",
+    "実際のPostgreSQL、SMTP、添付保存領域、実Excel様式、実端末、負荷試験はこの環境では未実施。",
+    "現行Excel取込は外部SheetJS参照を含むため、完全オフライン運用では社内配布またはローカル同梱の確認が必要。"
+  ],
+  "manualVerificationRequired": [
+    "本番相当PostgreSQLへの接続およびPart535までのマイグレーション確認",
+    "実SMTPによるMFA・招待・パスワード再設定メールの受信確認",
+    "申請書・写真保存領域の書込・読込・削除・復元確認",
+    "実際に使用するExcel（.xls／.xlsx）様式による取込確認",
+    "オフライン環境でのExcel解析依存ライブラリの提供方法確認",
+    "社内PC・iPhone／Android実端末とEdge・Chrome・Safariでの確認",
+    "50名・150名想定の実負荷試験",
+    "バックアップ復元・ロールバック訓練"
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "release": "v1.3.14",
+  "generatedAt": "2026-08-08T19:52:00+09:00",
+  "scope": "固縛力参考算出―使用根拠 原典ジャンプ再検証",
+  "sourceVerification": {
+    "ctuCodeLocalOriginal": "references/originals/ctu-code-ja.pdf",
+    "cssCode": "MSC.1/Circ.1623 Annex 13 / Part478 mapping",
+    "note": "CTU Code PDFのページ17/18/81/85/94/98/109/110を実テキストで照合。CSS CodeはMSC.1/Circ.1623のAnnexページ番号とPDF物理ページ対応を再確認。"
+  },
+  "checks": [
+    {
+      "name": "内部技術版 v1.3.14",
+      "status": "PASS",
+      "detail": "v1.3.14"
+    },
+    {
+      "name": "表示版 Version 1.0 試作版",
+      "status": "PASS",
+      "detail": "Version 1.0 試作版"
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "status": "PASS",
+      "detail": "False"
+    },
+    {
+      "name": "CTU画面 build meta v1.3.14",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest cache v144",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "使用根拠JS cache v144",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海域A/B/CはCTU Code page17",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海域Bの定義文",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海域Bの係数文",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Table2を海域A/B/C根拠にしない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU PDF p17に海域B",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU PDF p17にcy=0.7",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU PDF p18に海域地理区分",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "直接固定75%はCTU p81",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU p81に静摩擦75%",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "摩擦係数表 CTU p109",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "摩擦例外 CTU p110",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU p109に推奨摩擦係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU p110に油脂0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS Annex13 Table1 PDF page3",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU p85にMSL/破壊強度表",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU p98に貨物・CTU固定位置の最弱要素",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物側取付部MSL CTU+CSS二原典",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU側固縛点MSL CTU+CSS二原典",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "採用MSLに最弱要素原典",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "鉛直角 直接固縛 CTU p98",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "支保併用 CTU p94",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU構造区分の原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "コンテナ寸法の原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛方法の原典ボタンなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "原典まとめ表示なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part478索引で海域ABCとCSSを区別",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 v137-ctu-usability.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "summary": {
+    "total": 34,
+    "passed": 34,
+    "failed": 0
+  }
+}

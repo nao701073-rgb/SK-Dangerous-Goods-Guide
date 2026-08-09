@@ -1,0 +1,143 @@
+{
+  "release": "v1.3.7",
+  "displayVersion": "Version 1.0 試作版",
+  "base": "v1.3.6",
+  "generatedAt": "2026-08-08T16:55:00+09:00",
+  "tests": [
+    {
+      "name": "利用者向けVersion 1.0 試作版",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "内部技術ビルドv1.3.7",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "版不一致はpatch差を無視",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "indexの旧v1.1技術metaを解消",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "写真から登録の補助ハンドラ",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "写真入力は常時表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "登録済み案件は初期折りたたみ",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "他の補助系も初期折りたたみ",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "案件名は空欄開始",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "貨物名は空欄開始",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "汎用コンテナ初期値",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "③の摩擦入力を非表示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "④でCTU Code摩擦係数候補",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "直接固縛75%摩擦",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "固縛材MSLを取付部へミラーしない",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "材質別MSL候補",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "本数でMSL合計追従",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS Annex13 MSL係数根拠",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "TY-GARD一般ラベル鉄道専用表記なし",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "TY-GARD一般手動profile海上利用可",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "鉄道専用8ton profileだけrailOnly維持",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "海上時rail-only profileを一覧から除外",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "一般TY-GARD鉄道限定警告削除",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "算出根拠要約",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "算出根拠別ウィンドウ",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "summary": {
+    "total": 26,
+    "passed": 26,
+    "failed": 0
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "version": "part551",
+  "generatedAt": "2026-08-07T10:46:03.305Z",
+  "passed": 40,
+  "total": 40,
+  "failed": 0,
+  "inlineCalculationSha256": "b4bfc03c15a502bb510923a6634e872a11f907804ee9ab52dcbfb4e07fbb8c25",
+  "tests": [
+    {
+      "name": "HTMLは74画面",
+      "ok": true
+    },
+    {
+      "name": "全HTML画面版part551",
+      "ok": true
+    },
+    {
+      "name": "全HTML build-manifest v551",
+      "ok": true
+    },
+    {
+      "name": "全HTML version-guard v551",
+      "ok": true
+    },
+    {
+      "name": "旧画面版part550なし",
+      "ok": true
+    },
+    {
+      "name": "VERSION part551",
+      "ok": true
+    },
+    {
+      "name": "manifest part551",
+      "ok": true
+    },
+    {
+      "name": "manifest Part551検証レポート",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart551 CSS",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart551 JS",
+      "ok": true
+    },
+    {
+      "name": "申請詳細Part551 CSS",
+      "ok": true
+    },
+    {
+      "name": "申請詳細Part551 JS",
+      "ok": true
+    },
+    {
+      "name": "入力進捗ガイド実装",
+      "ok": true
+    },
+    {
+      "name": "次へ導線実装",
+      "ok": true
+    },
+    {
+      "name": "登録案件危険物明細を折りたたみ",
+      "ok": true
+    },
+    {
+      "name": "申請書・航路入力補助を折りたたみ",
+      "ok": true
+    },
+    {
+      "name": "写真入力補助を折りたたみ",
+      "ok": true
+    },
+    {
+      "name": "鉛直角は現在値を見出し表示",
+      "ok": true
+    },
+    {
+      "name": "登録結果を新規タブ確認",
+      "ok": true
+    },
+    {
+      "name": "再計算URL復元維持",
+      "ok": true
+    },
+    {
+      "name": "申請詳細で最新版を先表示",
+      "ok": true
+    },
+    {
+      "name": "過去結果を折りたたみ",
+      "ok": true
+    },
+    {
+      "name": "再計算ボタン維持",
+      "ok": true
+    },
+    {
+      "name": "最新結果バッジ維持",
+      "ok": true
+    },
+    {
+      "name": "固縛力算出タブ維持",
+      "ok": true
+    },
+    {
+      "name": "登録1ボタン維持",
+      "ok": true
+    },
+    {
+      "name": "最終確認1チェック維持",
+      "ok": true
+    },
+    {
+      "name": "貨物側MSL入力維持",
+      "ok": true
+    },
+    {
+      "name": "CTU側MSL入力維持",
+      "ok": true
+    },
+    {
+      "name": "鉛直角入力維持",
+      "ok": true
+    },
+    {
+      "name": "MSL候補機能維持",
+      "ok": true
+    },
+    {
+      "name": "取付点台帳維持",
+      "ok": true
+    },
+    {
+      "name": "方向別結果維持",
+      "ok": true
+    },
+    {
+      "name": "不足説明サポート維持",
+      "ok": true
+    },
+    {
+      "name": "Part551 CSS入力進捗",
+      "ok": true
+    },
+    {
+      "name": "Part551 CSS履歴折りたたみ",
+      "ok": true
+    },
+    {
+      "name": "manifest progressive workflow",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体インラインスクリプト存在",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体Part550同一ハッシュ",
+      "ok": true
+    },
+    {
+      "name": "必要ファイル存在",
+      "ok": true
+    }
+  ]
+}

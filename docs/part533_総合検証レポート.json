@@ -1,0 +1,84 @@
+{
+  "release": "part533",
+  "generatedAt": "2026-08-06T12:18:56.107642+00:00",
+  "automatedVerification": {
+    "passed": 420,
+    "total": 420,
+    "failed": 0,
+    "reports": [
+      {
+        "file": "docs/part533_第31-33段階ポリシー単体検証レポート.json",
+        "passed": 54,
+        "total": 54,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_第31-33段階静的検証レポート.json",
+        "passed": 50,
+        "total": 50,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_第19-21段階ポリシー回帰検証レポート.json",
+        "passed": 41,
+        "total": 41,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_第19-21段階静的回帰検証レポート.json",
+        "passed": 64,
+        "total": 64,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_Part529共通案件情報回帰検証レポート.json",
+        "passed": 57,
+        "total": 57,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_Part530保証監査回帰検証レポート.json",
+        "passed": 49,
+        "total": 49,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_Part531基盤信頼性回帰検証レポート.json",
+        "passed": 50,
+        "total": 50,
+        "failed": 0
+      },
+      {
+        "file": "docs/part533_Part532データ整合性ポリシー回帰検証レポート.json",
+        "passed": 55,
+        "total": 55,
+        "failed": 0
+      }
+    ]
+  },
+  "staticQa": {
+    "status": "passed",
+    "findingCount": 0,
+    "stats": {
+      "html": 71,
+      "js": 242,
+      "json": 150,
+      "refs": 1456,
+      "bytes": 318853261
+    }
+  },
+  "syntax": {
+    "javascriptFiles": 242,
+    "javascriptErrors": 0,
+    "jsonFiles": 150,
+    "jsonErrors": 0
+  },
+  "dataQuality": {
+    "recordCount": 2725,
+    "uniqueUnCount": 2248,
+    "multipleEntryUnCount": 337,
+    "errorCount": 0,
+    "warningCount": 0
+  },
+  "decision": "pass"
+}

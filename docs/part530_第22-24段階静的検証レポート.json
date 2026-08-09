@@ -1,0 +1,255 @@
+{
+  "release": "part530",
+  "suite": "第22～第24段階静的検証",
+  "generatedAt": "2026-08-06T11:09:55.337Z",
+  "passed": 49,
+  "total": 49,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "統合管理画面",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面JavaScript",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "画面CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシーモジュール",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "JSON Schema",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "設定画面導線",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part530版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アプリ版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理モジュール登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "サーバー版情報",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "検証スクリプト登録",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "保存ポリシーテーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アーカイブテーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "廃棄申請テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "脆弱性テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "外部監査テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査証跡テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査指摘テーブル",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "法的保全列",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "SHA-256制約",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "統合GET API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "保存ポリシーAPI",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "アーカイブAPI",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "廃棄API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "廃棄確認分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "廃棄実行分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "廃棄検証分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "脆弱性API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "重大度別期限",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "脆弱性終了承認",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "外部監査API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査証跡API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査指摘API",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査提出スナップショット",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査確認分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "監査承認分離",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "保証ゲート",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第22段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第23段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "第24段階見出し",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "公開中画面系カード",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "スマホ1列CSS",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "機密情報注意",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "管理API接続",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "法的保全UI",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "ポリシー秘密情報拒否",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "リスク受容期限",
+      "status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "Part529共通案件維持",
+      "status": "passed",
+      "detail": ""
+    }
+  ]
+}
