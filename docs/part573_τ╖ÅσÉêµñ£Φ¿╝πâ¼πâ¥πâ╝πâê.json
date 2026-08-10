@@ -1,0 +1,2451 @@
+{
+  "part": 573,
+  "basePart": 572,
+  "type": "static-regression",
+  "generatedAt": "2026-08-07T22:30:00+09:00",
+  "total": 488,
+  "passed": 488,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "index.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "index.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "index.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: build meta part573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: build manifest cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: version guard cache 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "index.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html: Part572 normalized HTML identical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART566_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART567_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART568_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART569_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART570_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART571_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PART572_UPDATE_FILE_LIST.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART566.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART567.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART568.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART569.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART570.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART571.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "SHA256SUMS_PART572.txt: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part565.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part566.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part567.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part571.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part565.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part566.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part567.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part568.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part569.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part570.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part571.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part572.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part566.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part567.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part568.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part569.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part570.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part571.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part572.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part566.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part567.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part568.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part569.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part570.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part571.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part572.css: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part565.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part566.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part567.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part571.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part565.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part566.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part567.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part568.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part569.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part570.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part571.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part572.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part566.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part567.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part568.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part569.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part570.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part571.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part572.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part566.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part567.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part568.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part569.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part570.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part571.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part572.js: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part565_申請書確認記録・登録後追跡.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part566_かんたん操作・案件導線改善.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part567_案件コンテキスト・MSL確認性改善.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part568_要確認高速ナビ・現場入力補助.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part569_確認理由・写真MSL連携改善.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part570_見落とし防止・案件状況・MSL根拠整合.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part571_前回確認参照・案件連続操作・計算前チェック.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part572_差分確認・案件確認リスト・登録前最終サマリー.md: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part565_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part566_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part567_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part568_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part569_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part570_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part571_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/part572_総合検証レポート.json: existing file preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part573.js: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part573.css: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part573.js: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part573.css: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part573.js: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part573.css: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docs/Part573_全差分ナビ・案件引継ぎ・算出後変更点.md: exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part565.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part566.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part567.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-detail-part571.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part565.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part566.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part567.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part568.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part569.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part570.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part571.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part572.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-intake-part573.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part566.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part567.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part568.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part569.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part570.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part571.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part572.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/application-management-part573.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part566.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part567.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part568.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part569.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part570.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part571.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part572.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/js/ctu-easy-operation-part573.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "data/build-manifest.js: node syntax",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: all diff build",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: sessionStorage only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: progress checked set",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: previous navigation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: next navigation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: unchecked navigation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: explicit non-review note",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "intake573: no application update call",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "management573: handoff summary",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "management573: clipboard explicit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "management573: clipboard API",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "management573: fallback copy",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "management573: no auto copy on render",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: tracked fields",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: capture on calculate",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: changed field diff",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: old to new display",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: focus changed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: no save call",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu573: no calculation override",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: manifest version",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: full diff flag",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: handoff flag",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: change list flag",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: review evidence preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: combined tensile support preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: sea transport default preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: limiting MSL preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: MSL registry preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest: calculation preflight preserved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION: part 573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION: base part572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: include application-intake-part572.css?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: include application-intake-part573.css?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: include application-intake-part572.js?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html: include application-intake-part573.js?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: include application-management-part572.css?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: include application-management-part573.css?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: include application-management-part572.js?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html: include application-management-part573.js?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: include ctu-securing-part572.css?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: include ctu-securing-part573.css?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: include ctu-easy-operation-part572.js?v=572",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html: include ctu-easy-operation-part573.js?v=573",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part565.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part566.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part567.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-detail-part571.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part565.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part566.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part567.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part568.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part569.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part570.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part571.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part572.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-intake-part573.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part566.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part567.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part568.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part569.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part570.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part571.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part572.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/application-management-part573.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part566.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part567.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part568.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part569.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part570.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part571.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part572.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "assets/css/ctu-securing-part573.css: CSS brace balance",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

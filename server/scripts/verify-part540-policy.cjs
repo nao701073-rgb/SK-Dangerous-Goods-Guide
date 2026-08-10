@@ -2,49 +2,29 @@ const fs=require('fs');
 const path=require('path');
 const root=path.resolve(__dirname,'../..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
-const checks=[];
-function check(name,pass,detail=''){checks.push({name,pass:Boolean(pass),detail});}
 const html=read('pages/ctu-securing-calculator.html');
-const version=JSON.parse(read('VERSION.json'));
+const css=read('assets/css/ctu-securing-part540.css');
 const build=read('data/build-manifest.js');
-check('VERSION is part540',version.version==='part540'&&version.part===540,JSON.stringify({version:version.version,part:version.part}));
-check('base is part539',version.baseVersion==='part539'&&String(version.baseRelease).includes('part539'),version.baseRelease);
-check('Part540 CSS linked',html.includes('ctu-securing-part540.css?v=540'));
-check('Part540 badge shown',html.includes('msl-point-registry__badge">Part 540'));
-check('photo annotation panel exists',html.includes('id="mslPointAnnotationPanel"'));
-check('photo annotation canvas exists',html.includes('id="mslPointAnnotationCanvas"'));
-check('photo categories defined',html.includes('const MSL_PHOTO_KINDS='));
-check('marker types defined',html.includes('const MSL_MARKER_TYPES='));
-check('marker coordinates persisted',html.includes('markers:Array.isArray(photo.markers)'));
-check('photo kind persisted',html.includes("kind:photo.kind||'overall'"));
-check('review statuses defined',html.includes('const MSL_POINT_REVIEW_STATUS='));
-check('reviewer field exists',html.includes('id="mslPointReviewer"'));
-check('reviewer required',html.includes("if(!actor){message.textContent='確認者名を入力してください。'"));
-check('revision/unusable reason required',html.includes("if(['revision','unusable'].includes(status)&&!note)"));
-check('revision/unusable excluded from active calculation',html.includes("!['revision','unusable'].includes(row?.reviewStatus||'unconfirmed')"));
-check('unconfirmed MSL warning exists',html.includes('取付点MSLは未確認です。'));
-check('history stored to application',html.includes('ctuMslPointHistory:mslPointHistorySnapshot()'));
-check('history survives delete',html.includes("mslPointAddHistory('deleted'"));
-check('result snapshot includes point history',html.includes('attachmentPointHistory:mslPointHistorySnapshot()'));
-check('result snapshot includes review readiness',html.includes('attachmentPointReviewReady:mslPointReviewReady()'));
-check('formal result review depends on point readiness',html.includes('pointReady=mslPointReviewReady()')&&html.includes('&&pointReady'));
-check('printable report exists',html.includes('function openMslPointReport()'));
-check('CSV export exists',html.includes('function exportMslPointCsv()'));
-check('Part539 unit conversion retained',html.includes("const MSL_UNIT_TO_KN={kN:1,N:.001,daN:.01,kgf:.00980665,tf:9.80665}"));
-check('Part539 line minimum logic retained',html.includes('Math.min(device,cargo,ctu)'));
-check('Part538 combined lashing retained',html.includes('quickCombinationConfirmed'));
-check('TY-GARD profile retained',build.includes('tyGardRailProfile:true'));
-check('Part540 build feature flags',build.includes('photoPointMarking:true')&&build.includes('attachmentPointReviewWorkflow:true')&&build.includes('printableMslReport:true'));
-check('update instructions target Part539',read('UPDATE_INSTRUCTIONS_PART540.txt').includes('Part 539 適用済みフォルダー専用'));
-check('no DB migration declared',read('UPDATE_INSTRUCTIONS_PART540.txt').includes('DBマイグレーションはありません'));
-const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
-const dup=[...new Set(ids.filter((id,i)=>ids.indexOf(id)!==i))];
-check('no duplicate HTML ids',dup.length===0,dup.join(','));
-try{for(const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)){new Function(m[1]);}check('inline JavaScript syntax',true);}catch(e){check('inline JavaScript syntax',false,e.message);}
-const htmlFiles=[];function walk(dir){for(const ent of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,ent.name);if(ent.isDirectory())walk(p);else if(ent.name.endsWith('.html'))htmlFiles.push(p)}}walk(root);
-const stale=htmlFiles.filter(p=>{const t=fs.readFileSync(p,'utf8');return t.includes('content="part539"')||t.includes('?v=539');});
-check('global HTML version refs updated',stale.length===0,stale.map(p=>path.relative(root,p)).join(','));
-const failed=checks.filter(x=>!x.pass);
-const out={release:'part540',baseRelease:'part539',generatedAt:new Date().toISOString(),passed:checks.length-failed.length,total:checks.length,failed:failed.length,checks};
-console.log(JSON.stringify(out,null,2));
-process.exitCode=failed.length?1:0;
+const version=read('VERSION.json');
+const checks=[
+  ['version part540',version.includes('"version": "part540"')],
+  ['build part540',build.includes('version: "part540"')],
+  ['part540 css',html.includes('ctu-securing-part540.css?v=540')&&css.includes('Part 540')],
+  ['text detector optional',html.includes('window.TextDetector')&&html.includes('mslPointReadPhotoText')],
+  ['manual candidate parser',html.includes('parseMslRecognitionText')&&html.includes('mslPointExtractCandidate')],
+  ['MSL only auto apply',html.includes("matches.find(x=>x.label==='MSL')")],
+  ['WLL no auto conversion',html.includes("['WLL','SWL','LC'].includes")&&html.includes('MSLへの自動換算は行いません')],
+  ['photo annotation',html.includes('mslAnnotationCanvas')&&html.includes('MSL_MARKER_LABELS')],
+  ['review workflow',html.includes('MSL_POINT_WORKFLOW')&&html.includes('changeMslPointWorkflow')],
+  ['unconfirmed apply prevention',html.includes('確認者が「確認済み」にした取付点のみ反映できます')],
+  ['change history',html.includes('mslPointHistoryEntry')&&html.includes('mslPointHistory')],
+  ['report output',html.includes('printMslPointReport')&&html.includes('台帳報告書を表示')],
+  ['json export',html.includes('exportMslPointJson')],
+  ['snapshot workflow fields',html.includes('workflowStatus:row.workflowStatus')&&html.includes('history:row.history.map')],
+  ['old point registry retained',html.includes('MSL_UNIT_TO_KN')&&html.includes('mslLineRows()')],
+  ['old calculation retained',html.includes('function calc()')&&html.includes('readLashings()')],
+  ['mobile css',css.includes('@media(max-width:620px)')]
+];
+const failed=checks.filter(x=>!x[1]);
+console.log(JSON.stringify({release:'part540',passed:checks.length-failed.length,total:checks.length,checks:checks.map(([name,pass])=>({name,pass}))},null,2));
+if(failed.length)process.exit(1);

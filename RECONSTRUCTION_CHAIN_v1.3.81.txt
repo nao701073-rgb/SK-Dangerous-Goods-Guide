@@ -1,0 +1,12 @@
+SKDG v1.3.81 完全版 再構築チェーン
+
+1. SKDG v1.3.78 COMPLETE SYSTEM（完全基礎）
+2. v1.3.79 CTU MSL Material Linkage
+3. v1.3.80 CTU/CSS Resistance Logic Re-audit
+4. v1.3.81 Three-State Reference Assessment（VERIFIED SAFE内容を含む）
+
+統合方針:
+- v1.3.78完全版の server/database/references 等を保持
+- v1.3.79～v1.3.81の同名ファイルを新しい版で上書き
+- database migration はなし
+- 現在のVERSION.jsonはv1.3.81

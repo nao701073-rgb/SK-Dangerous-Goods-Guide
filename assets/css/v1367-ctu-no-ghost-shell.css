@@ -1,0 +1,7 @@
+/* SKDG v1.3.67: retired CTU shell suppression. */
+body[data-page="ctu-securing-calculator"] details.part551-assist-details{display:contents!important;border:0!important;margin:0!important;padding:0!important;background:transparent!important;box-shadow:none!important;}
+body[data-page="ctu-securing-calculator"] details.part551-assist-details>summary{display:none!important;}
+body[data-page="ctu-securing-calculator"] [data-v1367-legacy-empty="1"],
+body[data-page="ctu-securing-calculator"] .part553-completion:empty,
+body[data-page="ctu-securing-calculator"] .part553-journey:empty,
+body[data-page="ctu-securing-calculator"] .part553-sticky-next:empty{display:none!important;margin:0!important;padding:0!important;border:0!important;height:0!important;min-height:0!important;}

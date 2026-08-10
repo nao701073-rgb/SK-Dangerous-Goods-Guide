@@ -1,0 +1,18 @@
+/* SKDG v1.3.80 CTU/CSS directional-load and resistance logic audit */
+.ctu-directional-load-audit{margin:12px 0 14px;padding:12px 14px;border:1px solid #b8cce3;border-radius:12px;background:#f7fbff;color:#17385f}
+.ctu-directional-load-audit .v1380-audit-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+.ctu-directional-load-audit .v1380-audit-title strong{font-size:15px;color:#133f70}
+.ctu-directional-load-audit .v1380-audit-title span{font-size:11px;color:#5b6d82}
+.ctu-directional-load-audit p{margin:6px 0 10px;line-height:1.55;font-size:13px}
+.ctu-directional-load-audit .v1380-audit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ctu-directional-load-audit .v1380-audit-dir{display:grid;gap:3px;padding:9px;border:1px solid #d5e1ee;border-radius:9px;background:#fff;min-width:0}
+.ctu-directional-load-audit .v1380-audit-dir>span{font-size:12px;font-weight:700;color:#405a78}
+.ctu-directional-load-audit .v1380-audit-dir>strong{font-size:16px;color:#164f88}
+.ctu-directional-load-audit .v1380-audit-dir>small{font-size:11px;line-height:1.45;color:#65768a;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .ctu-directional-load-audit{padding:10px;margin:10px 0}
+ .ctu-directional-load-audit .v1380-audit-title{align-items:flex-start;flex-direction:column;gap:2px}
+ .ctu-directional-load-audit .v1380-audit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ctu-directional-load-audit .v1380-audit-dir{padding:8px}
+}
+@media(max-width:430px){.ctu-directional-load-audit .v1380-audit-grid{grid-template-columns:1fr}}

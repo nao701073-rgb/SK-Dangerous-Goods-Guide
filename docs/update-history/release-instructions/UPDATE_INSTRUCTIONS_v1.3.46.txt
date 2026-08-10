@@ -1,0 +1,24 @@
+SKDG v1.3.46 CTU Photo Entry Linkage Restore Hotfix
+
+【修正内容】
+- v1.3.45で「写真から入力する」旧detailsを親ごと削除していた処理を撤回しました。
+- 旧details内に写真入力本体（v1PhotoStep / photoInputPanel / photoRecognitionPanel等）がある場合、summaryだけを外し、本体要素をそのまま残します。
+- 「写真から入力を始める」、写真選択、AI候補、入力反映の既存ID・イベント連携を維持します。
+- 中身を持たない旧ショートカットだけを削除します。
+- 常時MutationObserverやポーリングは追加していません。
+
+【更新方法】
+1. ZIPを展開します。
+2. stageフォルダ自体ではなく、stageの中身をSK-Dangerous-Goods-Guideのルートへ上書きしてください。
+3. VS Codeターミナルで以下を実行してください。
+   git status
+   git add -A
+   git commit -m "Update SKDG to v1.3.46"
+   git push origin main
+4. ブラウザでCtrl+F5を1回実行して確認してください。
+
+【確認箇所】
+- 固縛力参考算出で「写真から入力を始める」本体が表示されること
+- 写真を撮る・選ぶ操作が使えること
+- 写真AI候補・入力反映が使えること
+- 旧「写真から入力する（必要な場合のみ）」の重複summaryだけが表示されないこと

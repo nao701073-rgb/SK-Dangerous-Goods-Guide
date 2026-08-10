@@ -1,0 +1,1867 @@
+{
+  "part": 571,
+  "base": "part570",
+  "verificationType": "static-regression-and-package-precheck",
+  "checkedAt": "2026-08-07T22:13:00+09:00",
+  "total": 370,
+  "passed": 370,
+  "failed": 0,
+  "notes": [
+    "Part570 HTMLは、Part571のbuild meta・version guard・新規CSS/JS読込行を除いて正規化比較。",
+    "Part570までの既存追加JS/CSS・過去検証レポート・過去更新一覧はバイト単位で維持確認。",
+    "Part571は表示・移動・参照補助のみを追加し、前回の確認済み状態を現在の申請書へ自動反映しない。",
+    "固縛力の計算前チェックはquickCalcBtnを遮断・置換せず、既存計算式・保存処理を変更しない。"
+  ],
+  "checks": [
+    {
+      "name": "js-syntax:assets/js/application-detail-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-detail-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-detail-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-detail-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:data/build-manifest.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-build-meta:pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard-cache:pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:PART566_UPDATE_FILE_LIST.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:PART567_UPDATE_FILE_LIST.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:PART568_UPDATE_FILE_LIST.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:PART569_UPDATE_FILE_LIST.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:PART570_UPDATE_FILE_LIST.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:SHA256SUMS_PART566.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:SHA256SUMS_PART567.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:SHA256SUMS_PART568.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:SHA256SUMS_PART569.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:SHA256SUMS_PART570.txt",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-detail-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-detail-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-detail-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-intake-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-management-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-management-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-management-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-management-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/application-management-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/ctu-securing-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/ctu-securing-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/ctu-securing-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/ctu-securing-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/css/ctu-securing-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-detail-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-detail-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-detail-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-management-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-management-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-management-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-management-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/ctu-easy-operation-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/ctu-easy-operation-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/ctu-easy-operation-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/ctu-easy-operation-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part565_申請書確認記録・登録後追跡.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part566_かんたん操作・案件導線改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part567_案件コンテキスト・MSL確認性改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part568_要確認高速ナビ・現場入力補助.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part569_確認理由・写真MSL連携改善.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/Part570_見落とし防止・案件状況・MSL根拠整合.md",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part565_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part566_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part567_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part568_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part569_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "base-file-preserved:docs/part570_総合検証レポート.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-core-preserved:pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/application-intake-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/application-intake-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/application-management-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/application-management-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/application-detail-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/application-detail-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/ctu-easy-operation-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/ctu-securing-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/application-intake-workflow.html:application-intake-part571.css?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/application-intake-workflow.html:application-intake-part571.js?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/applications.html:application-management-part571.css?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/applications.html:application-management-part571.js?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/application-detail.html:application-detail-part571.css?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/application-detail.html:application-detail-part571.js?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/ctu-securing-calculator.html:ctu-securing-part571.css?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page-ref:pages/ctu-securing-calculator.html:ctu-easy-operation-part571.js?v=571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:前回確認記録",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:previousUns(app)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:currentUns()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:前回の確認済み状態は引き継がず",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:reviewEvidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part571.js:application-detail.html?applicationId=",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:この案件の次の確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:MSL取付点 未確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:申請番号管理",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:申請書確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:固縛力算出",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-detail-part571.js:lastRenderKey",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part571.js:選択案件を保持して連続操作",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part571.js:part569PhotoNow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part571.js:application-intake-workflow.html?applicationId=",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part571.js:ctu-securing-calculator.html?applicationId=",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:計算前チェック",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:最初の不足・未確認へ",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:既存の算出ボタンは変更していません",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:quickCalcBtn",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:evidenceOk()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:quickCombinationConfirmed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part571.js:quickFriction",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guard:no-review-state-auto-apply",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guard:no-calc-prevent-default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guard:no-new-storage-write-intake",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "guard:no-new-storage-write-ctu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:Math.min(device,cargo,ctu)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:海上輸送 海域B（標準）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:attachmentPointRegistry:mslPointRegistrySnapshot()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:quickMslPhotoSnapshot()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:combined",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:ISSApplicationResults.save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:mslPointReviewReady()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "existing-storage-field:reviewEvidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "existing-storage-field:ctuMslPointRegistry",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no-part571-sql",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:version: \"part571\", part: 571",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:previousReviewReference:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:previousCurrentCargoComparison:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:previousReviewNotAutoApplied:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:selectedCaseContinuationBar:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:applicationDetailNextTaskCard:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:calculationPreflightSummary:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:preflightProblemFocus:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:preflightDoesNotOverrideCalculation:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "readme-part571",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

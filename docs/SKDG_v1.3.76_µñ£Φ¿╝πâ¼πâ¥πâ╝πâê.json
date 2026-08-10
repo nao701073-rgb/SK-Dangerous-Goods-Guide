@@ -1,0 +1,183 @@
+{
+  "version": "v1.3.76",
+  "total": 35,
+  "passed": 35,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "six canonical step cards",
+      "ok": true,
+      "detail": "1,2,3,4,5,6"
+    },
+    {
+      "name": "no duplicate ids",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1376 core loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1376 restore loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1376 friction sync loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "v1376 advanced popup loaded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "advanced popup invalidates stale calculation state",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wall payload has no fixed default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wall resistance requires explicit confirmation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "all-direction wording is explicit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wall preset does not auto check",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU wall eligibility requires check and payload",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "direct friction uses 75 percent",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Step4 and quick friction are synchronized",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "wood steel broad category uses conservative 0.20 candidate",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "snow and oil limits retained in friction sync",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "saved result stores contact surface snapshot",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy restore delegates to friction sync",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "topover formula uses 1.8 STF and applicable friction",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "topover quick mode is labelled vertical-reference",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quick topover does not misuse STF as MSL",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "weakest MSL used in CTU direct",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "conservative CTU composition uses strongest mechanical mechanism only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quick support-direct confirmation does not authorize arithmetic addition",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "support-direct checkbox copy requires detailed approved basis for addition",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "quick confirmation does not globally approve all combination",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS CS safety factors retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS advanced factor retained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS 2020 vertical-force fz table added",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS longitudinal friction applies fz correction",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS advanced longitudinal component is capped at 0.5 CS without halving f",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS top-over excluded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy wall restore needs explicit new confirmation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "deficiency badge is protected from wrapping",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no raw core function embedded in html",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

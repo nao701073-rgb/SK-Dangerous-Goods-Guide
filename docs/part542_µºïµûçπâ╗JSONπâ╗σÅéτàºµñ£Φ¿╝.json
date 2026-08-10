@@ -1,0 +1,13 @@
+{
+  "release": "part542",
+  "generatedAt": "2026-08-07T08:54:00+09:00",
+  "javascriptFilesChecked": [
+    "assets/js/detail-dashboard.js",
+    "data/build-manifest.js",
+    "server/scripts/verify-part542-policy.cjs"
+  ],
+  "javascriptErrors": [],
+  "jsonErrors": [],
+  "htmlFiles": 73,
+  "allHtmlPart542": true
+}

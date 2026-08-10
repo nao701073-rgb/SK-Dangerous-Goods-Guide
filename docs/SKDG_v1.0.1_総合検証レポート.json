@@ -1,0 +1,2077 @@
+{
+  "schemaVersion": 1,
+  "reportName": "SKDG v1.0.1 総合検証レポート",
+  "generatedAt": "2026-08-08T03:25:00+09:00",
+  "systemVersion": "v1.0.1",
+  "baseVersion": "v1.0",
+  "legacyDevelopmentBase": "part590",
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 407,
+    "passedCount": 407,
+    "failedCount": 0,
+    "htmlFilesChecked": 74,
+    "dangerousGoodsExpectedRecords": 2725,
+    "dangerousGoodsExpectedUniqueUn": 2248
+  },
+  "implemented": [
+    "固縛力参考算出を申請書読取先行へ再構成",
+    "申請書読取後の航路・海域候補確認",
+    "写真読取結果をAI候補カードとして表示し検査員が選択",
+    "材質・接触状態から参考摩擦係数候補を表示",
+    "申請書取込後の横幅崩れ防止とスマホ危険物カード表示",
+    "ユーザー設定へ文字サイズ・大きな操作部品・動き抑制を追加",
+    "システム状態をシステム管理者だけに表示",
+    "危険物検索・関連法令・関連資料等を本文変更せず維持"
+  ],
+  "preserved": [
+    "危険物検索・危険物詳細",
+    "関連法令・IMDG原文参照",
+    "関連資料",
+    "P/LP/IBC/T/TP/BK/PP/B/VV/CV/V/SW/S/SP等コード画面",
+    "危険物マスター件数契約 2725件／固有国連番号2248件",
+    "固縛力既存計算式・海域B初期値・併用条件・既存保存処理"
+  ],
+  "environmentLimitations": [
+    "実際の社内ネットワーク、PostgreSQL、添付保存領域はこの静的検証に含まれない。",
+    "写真AI候補の実認識精度は接続する画像解析サービス、撮影品質、対象物の写り方に依存する。",
+    "実申請書様式の全パターン、iPhone/Android、Edge/Chrome/Safariの実端末確認は本番相当環境で実施する。"
+  ],
+  "tests": [
+    {
+      "name": "JS構文 assets/js/v101-user-preferences.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v101-settings.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v101-intake-layout-fix.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v101-ctu-photo-ai.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v1-role-visibility.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTMLファイル数74",
+      "status": "PASS",
+      "detail": "74"
+    },
+    {
+      "name": "index.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html sk-build v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html v101共通CSS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html ユーザー表示設定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html システム状態権限制御",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html 専用改善",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html 専用改善",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html 専用改善",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "assets/css/v1-initial.css v1.0から変更なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "assets/js/v1-ctu-simple.js v1.0から変更なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "index.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-control.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/access-governance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-history.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/account-security-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/activate-account.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-governance-dashboard.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/admin-succession.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-detail.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-verification.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/assurance-security-audit-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-password.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/change-release-governance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/cloud-connection.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/completion-roadmap.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-integrity-performance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration-legacy.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-migration.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/data-quality-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-execution-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/deployment-readiness-package.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/distribution-continuity-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/documentation-release-center.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/ems.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/favorites.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/feedback.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/final-production-readiness.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/identity-operations-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/imdg-cross-reference.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-operations-center.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/integrated-verification.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/kawasaki-pilot.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/label-catalog.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/login.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/maintenance-governance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-acceptance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-assurance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-command-center-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/operations-monitoring.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/overpack-label-tool.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pdf-page-viewer.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/pilot-launch-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/platform-reliability-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-deployment-operations-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/post-launch-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-identity-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-operations-hub.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/production-readiness.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/prototype-completion-review.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/publication-rights-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/quality-release-governance-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/recovery-migration-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-approval-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-evidence-snapshot.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulation-update-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/release-candidate-summary.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/reset-password.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/revision-preview.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/search-history.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/security-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/settings.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-maintenance.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-settings.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/system-wide-search.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-activity-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/user-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/validation-admin.html 本文回帰",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-search.html 内容維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/dangerous-goods-detail.html 内容維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/regulations.html 内容維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/references.html 内容維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU 申請書先行",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU 申請書後の航路推定",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU AI候補カード",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU 人による候補選択",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU 既存候補反映再利用",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU MSL候補は候補扱い",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS 取込後横幅封じ込め",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS スマホ危険物カード",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS 申請書先頭表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CSS AI候補カード整形",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "システム状態はシステム管理者のみ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ユーザー設定 文字サイズ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ユーザー設定 大きい操作部品",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ユーザー設定 動き抑制",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ユーザー設定に高度機能ON/OFFを追加しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION base v1.0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest v1.0.1",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "危険物2725件契約維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固有UN2248件契約維持",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,1532 @@
+{
+  "part": 570,
+  "base": "part569",
+  "verificationType": "static-regression-and-package-integrity",
+  "checkedAt": "2026-08-07T22:05:00+09:00",
+  "total": 303,
+  "passed": 303,
+  "failed": 0,
+  "notes": [
+    "既存Part569 HTMLは、Part570のbuild meta・version guard・新規CSS/JS読込行を除いて一致確認。",
+    "Part565〜Part569の追加JS/CSSはバイト単位で維持。",
+    "新規Part570 JSおよびbuild-manifest.jsはnode --check合格。",
+    "ブラウザ実機・社内ネットワーク環境での動作確認は本静的検証には含まない。"
+  ],
+  "checks": [
+    {
+      "name": "js-syntax:data/build-manifest.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "js-syntax:assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-total",
+      "ok": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "build-meta:index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "build-meta:pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-guard:pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "html-preserve:index.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/access-control.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/access-governance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/account-history.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/account-security-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/activate-account.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/admin-succession.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/application-detail.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/application-verification.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/applications.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/change-password.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/cloud-connection.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/completion-roadmap.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/data-migration.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/data-quality-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/documentation-release-center.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/ems.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/favorites.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/feedback.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/final-production-readiness.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/integrated-verification.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/label-catalog.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/login.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/operations-monitoring.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/post-launch-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/production-identity-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/production-operations-hub.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/production-readiness.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/references.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/regulations.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/reset-password.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/revision-preview.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/search-history.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/security-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/settings.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/system-maintenance.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/system-settings.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/system-wide-search.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/user-activity-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/user-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "html-preserve:pages/validation-admin.html",
+      "ok": true,
+      "detail": "only build metadata/cache bust/Part570 include lines may differ"
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-detail-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-detail-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-detail-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-intake-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-intake-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-intake-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-intake-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-intake-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-management-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-management-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-management-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/application-management-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/ctu-securing-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/ctu-securing-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/ctu-securing-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/css/ctu-securing-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-detail-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-detail-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-detail-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-intake-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-intake-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-intake-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-intake-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-intake-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-management-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-management-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-management-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/application-management-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/ctu-easy-operation-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/ctu-easy-operation-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/ctu-easy-operation-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prior-asset-byte-preserve:assets/js/ctu-easy-operation-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part570.js:part570ReviewIndex",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part570.js:登録前の最終確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part570.js:data-part570-index",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-intake-part570.js:globalIssues()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/application-intake-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/application-intake-part570.css:.part570-review-index",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/application-intake-part570.css:.part570-index-focus",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part570.js:part570CaseOverview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part570.js:申請書：",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part570.js:MSL取付点：",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/application-management-part570.js:最終更新",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/application-management-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/application-management-part570.css:.part570-case-overview",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/application-management-part570.css:.part570-case-overview__facts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part570.js:part570EvidenceCheck",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part570.js:registryMin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part570.js:Math.min(...confirmed.map",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part570.js:取付点台帳の最小値と差異",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/js/ctu-easy-operation-part570.js:差異・未確認へ移動",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-asset-exists:assets/css/ctu-securing-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/ctu-securing-part570.css:.part570-evidence-check",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "new-feature:assets/css/ctu-securing-part570.css:.part570-evidence-check__grid",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:Math.min(device,cargo,ctu)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:海域B",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:attachmentPointRegistry:mslPointRegistrySnapshot()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:quickMslPhotoSnapshot()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:combined",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:ISSApplicationResults.save",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu-core-landmark:mslPointReviewReady()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "no-part570-sql",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "existing-storage-field:reviewEvidence",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "existing-storage-field:ctuMslPointRegistry",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "version-json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:version: \"part570\", part: 570",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:reviewIndex:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:finalPreRegistrationCheck:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:selectedCaseOverview:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:mslEvidenceConsistencyCheck:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest:registryMinimumEvidencePriority:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "readme-part570",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "part570-doc",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

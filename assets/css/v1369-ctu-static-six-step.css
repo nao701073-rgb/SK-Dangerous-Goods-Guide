@@ -1,0 +1,94 @@
+/* SKDG v1.3.69 - static six-step canonical CTU layout.
+   The numbered workflow is HTML-owned. Historical PART workflow layers are retired. */
+body[data-page="ctu-securing-calculator"]{
+  --ctu69-border:#c7d7e4;
+  --ctu69-radius:12px;
+  --ctu69-head:#edf5fb;
+  --ctu69-gap:16px;
+}
+/* The one progress/status bar follows below the fixed common header. */
+body[data-page="ctu-securing-calculator"] #ctuStickyStatus{
+  position:sticky!important;
+  top:var(--sk38-header-height,40px)!important;
+  z-index:980!important;
+  margin:14px 0 16px!important;
+  background:#fff!important;
+  box-shadow:0 5px 16px rgba(16,59,102,.12)!important;
+}
+/* Canonical cards are always visible; old runtime must not hide them. */
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="3"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="4"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="5"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="6"]{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel{
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  margin-top:var(--ctu69-gap)!important;
+  padding:0!important;
+}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow{
+  display:grid!important;
+  gap:var(--ctu69-gap)!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+/* Historical shells must have zero geometry even if an old cached script creates them once. */
+body[data-page="ctu-securing-calculator"] details.part551-assist-details,
+body[data-page="ctu-securing-calculator"] #v131SourceStart,
+body[data-page="ctu-securing-calculator"] #v1PhotoStep,
+body[data-page="ctu-securing-calculator"] #part551QuickProgress,
+body[data-page="ctu-securing-calculator"] #part552ModeBadge,
+body[data-page="ctu-securing-calculator"] #part552ConditionSummary,
+body[data-page="ctu-securing-calculator"] #part552CalcProceed,
+body[data-page="ctu-securing-calculator"] #part553Completion,
+body[data-page="ctu-securing-calculator"] #part553Journey,
+body[data-page="ctu-securing-calculator"] #part553StickyNext,
+body[data-page="ctu-securing-calculator"] #part559Guide,
+body[data-page="ctu-securing-calculator"] [data-v1356-legacy-progress-hidden="1"]{
+  display:none!important;
+  height:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+/* Eliminate old global bottom padding left by Part553 fixed navigation. */
+body[data-page="ctu-securing-calculator"]{padding-bottom:0!important}
+/* Stable scroll target under the two sticky headers. */
+body[data-page="ctu-securing-calculator"] [data-ctu-step],
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel{
+  scroll-margin-top:150px!important;
+}
+/* Step 5: one panel fills width. A second column appears only for combined mode. */
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:14px!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuPrimarySecuringPanel{width:100%!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__num{
+  font-variant-numeric:tabular-nums!important;
+}
+/* Current step tracking: status remains semantic while a subtle outline shows scroll position. */
+body[data-page="ctu-securing-calculator"] .ctu-status-chip.is-current-step{
+  outline:2px solid #1768a2!important;
+  outline-offset:1px!important;
+}
+@media(max-width:900px){
+ body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined{grid-template-columns:minmax(0,1fr)!important}
+}
+@media print{body[data-page="ctu-securing-calculator"] #ctuStickyStatus{display:none!important}}

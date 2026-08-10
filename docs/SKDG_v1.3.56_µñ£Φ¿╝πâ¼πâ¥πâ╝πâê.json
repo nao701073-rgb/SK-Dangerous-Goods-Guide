@@ -1,0 +1,15 @@
+{
+  "version": "v1.3.56",
+  "checkedAt": "2026-08-09T15:33:00+09:00",
+  "scope": "固縛力参考算出 6カード表示・独立化・互換性",
+  "checks": [
+    {"id":"js-syntax","status":"PASS","detail":"v1356-ctu-six-card-layout.js を node --check で確認"},
+    {"id":"html-static-steps","status":"PASS","detail":"①②③⑤⑥を初期HTML上で共通カード構造として確認"},
+    {"id":"dynamic-step4","status":"PASS","detail":"v1ContactStepを④『貨物底面とCTU床面』として共通化する処理を確認"},
+    {"id":"photo-step-linkage","status":"PASS","detail":"v1PhotoStepを削除せず②写真カードへ移動し、既存DOM/イベントを保持する処理を確認"},
+    {"id":"independent-card-layout","status":"PASS","detail":"①②は個別panel、③〜⑥は外枠を持たないquickEntryPanel内の独立カードとして構成"},
+    {"id":"legacy-wrapper-retirement","status":"PASS","detail":"v1.3.55のランタイムbodyラップを復元し、後続スクリプトのdirect-child前提を保護"},
+    {"id":"legacy-green-progress","status":"PASS","detail":"重複する旧『基本条件は入力済み』表示を追尾ステータスへ一本化"},
+    {"id":"performance","status":"PASS","detail":"setInterval/MutationObserverは追加せず有限回の互換初期化のみ"}
+  ]
+}

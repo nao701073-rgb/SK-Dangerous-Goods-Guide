@@ -1,0 +1,22 @@
+{
+  "version": "v1.3.49",
+  "checks": {
+    "v1349_css_loaded": true,
+    "v1349_js_loaded": true,
+    "new_js_last_after_v1348": true,
+    "sticky_fixed_mode": true,
+    "no_setInterval": true,
+    "no_global_mutation_observer": true,
+    "legacy_part551_removed": true,
+    "legacy_4step_detection": true,
+    "quick_heading_hidden": true,
+    "result_integration": true,
+    "old_result_panel_removed": true,
+    "calculation_core_untouched": true,
+    "version_1349": true,
+    "zip_has_page": true,
+    "zip_has_js": true,
+    "zip_has_css": true
+  },
+  "pass": true
+}

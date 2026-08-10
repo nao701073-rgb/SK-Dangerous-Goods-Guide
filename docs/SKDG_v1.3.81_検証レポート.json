@@ -1,0 +1,188 @@
+{
+  "version": "1.3.81",
+  "passed": 36,
+  "total": 36,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Sea A forward remains 0.3g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea A transverse remains 0.5g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea B forward remains 0.3g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea B transverse remains 0.7g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea C forward remains 0.4g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Sea C transverse remains 0.8g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "10t Sea C transverse = 78.48kN",
+      "pass": true,
+      "detail": 78.48000000000002
+    },
+    {
+      "name": "Direct friction still 75 percent mu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Weakest MSL still selects CTU 10kN",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Incomplete MSL still gets zero credit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy sufficient",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy unresolved overrides negative margin",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy unresolved overrides positive margin",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy confirmed negative is insufficient",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy confirmed mandatory securing is insufficient",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Policy non-applicable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Overall confirm has priority",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Overall insuff when fully confirmed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Overall sufficient",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core has confirmation issue collector",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core checks three MSL elements",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core checks CTU boundary only when requested",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core checks friction basis",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core checks combined support basis",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Quick direct missing MSL no longer hard-stops calculation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Core serializes three-state overall",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Quick status distinguishes confirmation difference",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Unresolved message states not final failure",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Page loads v1381 policy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Page loads v1381 core",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Page loads v1381 CSS",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide shows all three labels",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Guide explains unresolved is not final insufficiency",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Amber confirmation styling exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Mobile guide becomes one column",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Version is 1.3.81",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

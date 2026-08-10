@@ -1,0 +1,242 @@
+{
+  "part": 555,
+  "base": "part554",
+  "date": "2026-08-07",
+  "tests": [
+    {
+      "name": "HTML files 74",
+      "passed": true,
+      "detail": "74"
+    },
+    {
+      "name": "all sk-build part555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all build manifest cache 555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all version guard cache 555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part555 js linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "application detail part555 css linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu part555 js linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu part555 css linked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 判定",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 貨物質量",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 輸送条件",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 固縛方法",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 材質",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 本数・個数",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 固縛材MSL",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 貨物側MSL",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field CTU側MSL",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "comparison field 最厳方向の余裕・不足",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "latest recalc action",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "new calculation action",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "history action",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "first result state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "changed items panel",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "history preservation notice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "registered case context",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "recalc context",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile app detail css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile ctu css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "version json part555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest part555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest verification report",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest asset ctu-workflow-part555.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest asset ctu-securing-part555.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest asset application-detail-part555.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest asset application-detail-part555.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest ctu page part555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest detail page part555",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no sql migration",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "ctu inline calculation scripts unchanged",
+      "passed": true,
+      "detail": "56950b63844b 56950b63844b"
+    },
+    {
+      "name": "legacy asset unchanged assets/js/ctu-workflow-part554.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy asset unchanged assets/js/ctu-workflow-part553.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy asset unchanged assets/js/application-detail-part554.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy asset unchanged assets/css/ctu-securing-part554.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy asset unchanged assets/css/ctu-securing-part553.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy asset unchanged assets/css/application-detail-part554.css",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "total": 46,
+  "passed": 46,
+  "failed": 0,
+  "calculationCoreChanged": false,
+  "databaseMigration": false
+}

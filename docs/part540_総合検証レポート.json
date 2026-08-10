@@ -1,41 +1,27 @@
 {
   "release": "part540",
   "baseRelease": "part539",
-  "title": "MSL写真マーキング・確認履歴・報告書連携",
-  "generatedAt": "2026-08-07T16:23:00+09:00",
-  "verification": {
-    "passed": 33,
-    "total": 33,
-    "failed": 0
+  "generatedAt": "2026-08-07T06:19:00+09:00",
+  "result": "pass",
+  "checks": {
+    "part540Policy": {
+      "passed": 17,
+      "total": 17
+    },
+    "part539Regression": {
+      "passed": 17,
+      "total": 17
+    },
+    "syntaxJsonReferences": {
+      "passed": 1,
+      "total": 1
+    }
   },
-  "implemented": [
-    "根拠写真の写真区分登録",
-    "写真上の使用取付点・MSL表示・要確認・損傷・不使用マーキング",
-    "取付点ごとの未確認・確認済み・修正依頼・使用不可",
-    "確認者・確認日時・確認メモ",
-    "案件単位の変更・確認履歴",
-    "未確認取付点がある場合の正式結果登録抑止",
-    "取付点MSL確認報告書プレビュー・印刷",
-    "UTF-8 BOM付き取付点台帳CSV出力"
-  ],
-  "retainedFromPart539": [
-    "複数取付点",
-    "複数写真",
-    "kN/N/daN/kgf/tf換算",
-    "損傷除外",
-    "固縛ライン紐付け",
-    "ライン別最小MSL・制限要因"
-  ],
-  "retainedFromPart538": [
-    "引張系固縛材＋支保・当て材併用",
-    "海上輸送初期値",
-    "材質・サイズMSL候補",
-    "TY-GARD鉄道ラッシング",
-    "貨物側・CTU側代表写真確認"
-  ],
-  "dbMigration": false,
+  "totalPassed": 35,
+  "totalChecks": 35,
   "notes": [
-    "自動画像認識でMSLを確定する機能は本Partには含めず、写真・刻印・資料を利用者が照合する仕様を維持。",
-    "Part 539の計算式、摩擦、転倒評価、ライン別最小MSL計算式は変更していない。"
+    "TextDetector is optional and browser-dependent. Manual recognized-text candidate extraction is retained as fallback.",
+    "WLL, SWL and LC are not automatically converted to MSL.",
+    "This package was statically verified; actual camera/OCR behavior depends on the deployed browser and device."
   ]
 }

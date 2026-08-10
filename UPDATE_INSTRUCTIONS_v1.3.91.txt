@@ -1,0 +1,16 @@
+SKDG v1.3.91 CTU 申請番号登録欄 直接同期修正版
+
+適用対象: v1.3.90
+
+更新ファイル:
+- pages/ctu-securing-calculator.html
+- assets/js/ctu-excel-route-import.js
+- assets/js/v1391-ctu-application-number-registration-link.js
+- data/build-manifest.js
+
+修正内容:
+1. Excel取込完了時、申請番号管理登録欄の「申請年度」「申請番号」へ直接値をセットします。
+2. 申請番号連携スクリプトをExcel取込スクリプトより先に読み込み、イベント取りこぼしを防止します。
+3. SheetJSが申請日を 7/21/26 のような2桁年表記で返す場合も、2026-07-21 / 申請年度2026へ正規化します。
+4. 既存登録済み番号がある場合は従来どおり既存案件へ照合します。
+5. CTU/CSS計算、MSL、支保、三段階判定には変更ありません。

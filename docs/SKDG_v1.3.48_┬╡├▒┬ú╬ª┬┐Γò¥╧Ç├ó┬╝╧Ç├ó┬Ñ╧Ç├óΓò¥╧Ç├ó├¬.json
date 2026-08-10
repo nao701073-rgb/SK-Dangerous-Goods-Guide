@@ -1,0 +1,16 @@
+{
+  "version": "v1.3.48",
+  "status": "PASS",
+  "checks": {
+    "registered_case_panel_before_excel_photo": true,
+    "old_step3_heading_removed": true,
+    "static_three_step_guide_removed": true,
+    "sticky_status_present": true,
+    "sticky_status_mobile_css": true,
+    "no_page_wide_mutation_observer_added": true,
+    "no_setInterval_added": true,
+    "photo_input_ids_preserved": true,
+    "quick_calculation_ids_preserved": true,
+    "registration_ids_preserved": true
+  }
+}

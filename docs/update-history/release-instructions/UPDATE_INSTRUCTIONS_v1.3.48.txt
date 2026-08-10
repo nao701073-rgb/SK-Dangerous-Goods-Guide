@@ -1,0 +1,19 @@
+SKDG v1.3.48 CTU Sticky Input Status Hotfix
+
+1. ZIPを展開します。
+2. stageフォルダそのものではなく、stage配下の中身を既存のSK-Dangerous-Goods-Guide直下へ上書きしてください。
+3. 今回はORGANIZE_UPDATE_HISTORY.cmdの再実行は不要です。
+4. VS Codeターミナルで以下を実行します。
+   git status
+   git add -A
+   git commit -m "Update SKDG to v1.3.48"
+   git push origin main
+5. GitHub Pages反映後、ブラウザでCtrl+F5を1回実行してください。
+
+確認箇所:
+- 登録済み案件から入力する欄がページ上部にある。
+- 「③ 不足項目を確認して参考算出」が表示されない。
+- 旧かんたん操作ガイドが表示されない。
+- スクロールしても入力状況バーがヘッダー直下に追尾する。
+- 不足/確認ボタンで該当入力箇所へ移動できる。
+- 写真から入力・写真AI・算出・登録が従来どおり使用できる。

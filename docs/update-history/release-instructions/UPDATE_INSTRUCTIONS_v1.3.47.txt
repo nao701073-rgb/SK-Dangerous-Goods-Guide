@@ -1,0 +1,16 @@
+SKDG v1.3.47 CTU Legacy Easy Guide Removal Hotfix
+
+適用方法
+1. stage フォルダの「中身」を既存の SK-Dangerous-Goods-Guide 直下へ上書きしてください。
+2. ブラウザのSKDGタブを閉じて開き直し、Ctrl+F5 を1回実行してください。
+3. 固縛力参考算出で以下を確認してください。
+   - 旧「かんたん操作ガイド／確認中／1/4／次へ／詳細設定を表示」の補助ブロックが表示されない。
+   - 案件・貨物、固縛条件、算出・登録の実入力は残っている。
+   - 本来の「詳細設定を表示」は利用できる。
+   - 写真撮影・アップロード、写真から入力、AI候補、入力反映が利用できる。
+
+GitHub反映
+git status
+git add -A
+git commit -m "Update SKDG to v1.3.47"
+git push origin main

@@ -1,0 +1,35 @@
+{
+  "version": "1.3.81",
+  "displayVersion": "v1.3.81",
+  "packageType": "complete-system-all-in-one",
+  "baseCompleteVersion": "1.3.78",
+  "updateChain": [
+    "1.3.79",
+    "1.3.80",
+    "1.3.81"
+  ],
+  "databaseMigration": false,
+  "payloadFileCount": 2739,
+  "payloadBytes": 326516064,
+  "validation": {
+    "jsonErrors": 0,
+    "jsSyntaxErrors": 0,
+    "htmlMissingLocalRefs": 0,
+    "cssMissingUrlRefs": 0,
+    "ctuV1381": "36/36 PASS"
+  },
+  "criticalDirectories": [
+    "assets",
+    "data",
+    "database",
+    "pages",
+    "server",
+    "schemas",
+    "templates",
+    "tools",
+    "references",
+    "docs"
+  ],
+  "createdAt": "2026-08-10T16:30:00+09:00",
+  "notes": "Complete reconstruction baseline through v1.3.81. Frontend, server, database/reference assets, tools, templates and documentation included. External live DB/localStorage case data are outside this package."
+}

@@ -1,0 +1,105 @@
+{
+  "version": "v1.3.79",
+  "baseVersion": "v1.3.78",
+  "validationType": "static-code-and-reference-validation",
+  "summary": {
+    "passed": 16,
+    "total": 16,
+    "allPassed": true
+  },
+  "example": {
+    "material": "帯鉄",
+    "deviceCandidateMslKn": 12.1,
+    "cargoMslKn": 20,
+    "ctuMslKn": 10,
+    "adoptedMslKn": 10,
+    "limiting": "CTU側固縛点"
+  },
+  "checks": [
+    {
+      "name": "v1.3.79 JS loaded",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "v1.3.79 CSS loaded",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "main material mapping steel",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "main material mapping aslash",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "main material mapping wire",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no unsupported PET auto-MSL carryover",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "no unsupported PP auto-MSL carryover",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "auto candidate uses existing MSL apply function",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "stale target cleared on manual profile",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "topover clears MSL before STF input",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "adopted MSL uses min of device cargo CTU",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU limiting tie display priority",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "core calculation weakest-link rule preserved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "core quick sync passes all three MSL values",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "steel default candidate 12.1 kN",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU 10 kN template remains available",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "notes": [
+    "ブラウザ実機E2Eは未実行。",
+    "CTU/CSSの計算式は変更せず、入力連動と表示を追加。",
+    "参考候補は確認済み値ではなく、メーカー仕様・刻印・証明書等を優先。"
+  ]
+}

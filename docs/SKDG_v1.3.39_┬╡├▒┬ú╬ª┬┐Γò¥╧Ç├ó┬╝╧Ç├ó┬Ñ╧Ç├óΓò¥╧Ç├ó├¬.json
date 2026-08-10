@@ -1,0 +1,10 @@
+{
+  "version": "v1.3.39",
+  "status": "PASS",
+  "checks": [
+    "ctu-securing-calculator.html の共通ヘッダースクリプトがメインインラインscript終了後に存在",
+    "MSL報告書テンプレート内の誤った共通ヘッダースクリプト参照を削除",
+    "v1338-common-header.js JavaScript構文PASS",
+    "v1-role-visibility.js JavaScript構文PASS"
+  ]
+}

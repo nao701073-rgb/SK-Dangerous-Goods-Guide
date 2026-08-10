@@ -1,0 +1,16 @@
+SKDG v1.3.89 Application Intake Remark Weight Autofill Hotfix
+
+適用対象:
+- v1.3.88 を基準とした環境
+
+更新ファイル:
+- assets/js/application-intake-workflow-policy.js
+- pages/application-intake-workflow.html
+- data/build-manifest.js
+
+仕様:
+- 備考欄に「UN1954 正味重量:14.988(Kg) / 総重量:1,829.988(Kg)」のような記載がある場合、UN1954の危険物明細へ総N/W=14.988kg、総G/W=1,829.988kgを自動反映します。
+- 個数が33個なら、1容器当たりN/WとG/Wも総重量÷個数で自動算出します。
+- 社内既存システムの重量欄が0または整数でも、同一UN番号の備考に明示された重量を優先します。
+- 「UN番号 + 重量ラベル」の明示がない一般的な備考数字は重量として解釈しません。
+- 取込後は従来どおり利用者が画面上で修正できます。

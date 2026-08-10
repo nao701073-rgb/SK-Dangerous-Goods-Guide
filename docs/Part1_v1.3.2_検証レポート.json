@@ -1,0 +1,42 @@
+{
+  "part": "Part 1",
+  "release": "v1.3.2",
+  "base": "Part 1 / v1.3.1",
+  "focus": "application intake layout shift elimination",
+  "implementation": {
+    "v131PlaceholderDisabled": true,
+    "intermediateSectionsRemovedFromLayoutDuringImport": [
+      "intakeEditSection",
+      "intakeCheckSection"
+    ],
+    "quietWindowMs": 800,
+    "hardStopMs": 30000,
+    "separateLoadingPlaceholder": false,
+    "scrollAnchoringDisabled": true,
+    "automaticScrollIntoViewAdded": false,
+    "manualScrollPreserved": true,
+    "registerSectionKeptInFlow": true
+  },
+  "partNaming": {
+    "public": "Part 1 / v1.3.2",
+    "legacyPartNumbers": "internal history only"
+  },
+  "databaseMigration": false,
+  "browserRegression": {
+    "tool": "Chromium/Playwright headless",
+    "scenario": "file change -> edit rows added -> yellow finding -> green final finding -> registration state change",
+    "tailTopBeforePx": [
+      170
+    ],
+    "tailTopDuringIntermediateUpdatesPx": [
+      170
+    ],
+    "tailTopAfterFinalRevealPx": [
+      465
+    ],
+    "intermediateLayoutMovement": false,
+    "finalRevealCount": "one layout position change",
+    "obsoletePlaceholderPresent": false,
+    "result": "PASS"
+  }
+}

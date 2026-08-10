@@ -1,0 +1,32 @@
+SKDG v1.3.78 COMPLETE SYSTEM - RECONSTRUCTION CHAIN
+
+1. Full system base
+   - SKDG Part534 full snapshot (23 split archives)
+   - Part534 update
+   - Part534 version hotfix
+
+2. Part updates applied sequentially
+   - Part535 through Part574
+   - Part580 update package
+   - Part585 update package
+   - Part590 update package
+
+3. Version-series updates applied sequentially
+   - v1.0 Initial Update
+   - v1.0.1 Update
+   - v1.1 Update
+   - v1.2 Update
+   - v1.3 Update
+   - v1.3.1 Update
+   - v1.3.2 Update
+   - v1.3.2 Hotfix
+   - v1.3.3 through v1.3.28 Hotfix/Performance Hotfix updates
+
+4. Latest cumulative overlay
+   - v1.3.78 Full Cumulative / Mobile System Readability Audit update
+   - This carries forward the v1.3.29+ cumulative-update lineage through v1.3.78.
+
+5. Complete-package integrity repair
+   - Removed three stale HTML asset references whose target files were absent from every recovered release archive and therefore always produced missing-file requests.
+   - No calculation, application-verification, application-number-management, authentication, permission, or stored-data logic was changed by this packaging repair.
+   - Six historical documentation entries whose ZIP-internal mojibake names exceeded common filesystem filename limits were preserved under docs/legacy-filename-recovered/ with ORIGINAL_FILENAME_MAP.json.

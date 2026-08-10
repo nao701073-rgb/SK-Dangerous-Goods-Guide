@@ -1,0 +1,11 @@
+{
+  "version": "v1.3.46",
+  "status": "PASS",
+  "checks": {
+    "v1.3.45_destructive_cleanup_removed": true,
+    "photo_entry_wrapper_unwrap_preserves_children": true,
+    "photo_input_ids_preserved": ["v1PhotoStep", "photoInputPanel", "photoRecognitionPanel", "v1PhotoInput", "photoInput", "cameraInput"],
+    "no_continuous_mutation_observer_added": true,
+    "javascript_syntax": "PASS"
+  }
+}

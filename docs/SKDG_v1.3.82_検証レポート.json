@@ -1,0 +1,113 @@
+{
+  "version": "1.3.82",
+  "checks": [
+    {
+      "name": "VERSION is 1.3.82",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU page meta build updated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "v1382 CSS linked",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "v1382 JS linked",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest cache-busted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "overlay is absolute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "overlay text white",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "loaded-photo overlay hidden",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "drag state styled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "main drop bridge",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "cargo MSL drop bridge",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CTU MSL drop bridge",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "point photo drop bridge",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "queue support",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest marker",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged assets/js/ctu-securing-calculator-core-v1381.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged data/ctu-code-rules-v1380.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged data/ctu-assessment-policy-v1381.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged assets/js/v1379-ctu-msl-material-linkage.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unchanged assets/css/v1381-ctu-three-state-assessment.css",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "modified page local refs complete",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "passed": 21,
+  "total": 21,
+  "missingLocalRefs": []
+}

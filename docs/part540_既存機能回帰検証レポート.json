@@ -1,0 +1,77 @@
+{
+  "release": "part540",
+  "baseRelease": "part539",
+  "generatedAt": "2026-08-07T06:19:00+09:00",
+  "passed": 17,
+  "total": 17,
+  "checks": [
+    {
+      "name": "Part539 point registry retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 multiple photos retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 unit conversion retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 damage exclusion retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 line linkage retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 minimum MSL retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 application persistence retained",
+      "pass": true
+    },
+    {
+      "name": "Part539 result snapshot retained",
+      "pass": true
+    },
+    {
+      "name": "Part538 combined tensile support retained",
+      "pass": true
+    },
+    {
+      "name": "Part538 sea transport default retained",
+      "pass": true
+    },
+    {
+      "name": "Part538 material-size MSL candidate retained",
+      "pass": true
+    },
+    {
+      "name": "Part538 TY-GARD profile retained",
+      "pass": true
+    },
+    {
+      "name": "Part538 quick photo evidence retained",
+      "pass": true
+    },
+    {
+      "name": "Existing direct/top-over calculation retained",
+      "pass": true
+    },
+    {
+      "name": "CSS Annex 13 calculation retained",
+      "pass": true
+    },
+    {
+      "name": "Application result registration retained",
+      "pass": true
+    },
+    {
+      "name": "Mobile layout retained",
+      "pass": true
+    }
+  ]
+}

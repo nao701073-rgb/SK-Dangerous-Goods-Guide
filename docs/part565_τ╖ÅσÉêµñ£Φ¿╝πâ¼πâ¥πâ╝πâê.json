@@ -1,0 +1,110 @@
+{
+  "part": 565,
+  "base": "part564",
+  "date": "2026-08-07",
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Part565 intake JS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part565 detail JS exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "workflow loads Part565 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "detail loads Part565 assets",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "policy payload wrapper exists",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "evidence uses existing caseData intake",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "human review reason persisted",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dedicated review tab added dynamically",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "legacy memo fallback present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "registered cargo human badge present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all html meta Part565",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "all html manifest cache Part565",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "all html version guard Part565",
+      "passed": true,
+      "detail": "74 files"
+    },
+    {
+      "name": "manifest Part565",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest review evidence capability",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no DB migration added",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 core retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Part564 CSS retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-intake-part565.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JS syntax assets/js/application-detail-part565.js",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+SKDG v1.3.78 Mobile System Readability Audit
+
+Base: v1.3.77
+Database migration: none
+
+1. Deploy this package over the existing site, preserving the directory structure.
+2. Hard-refresh the browser after deployment.
+3. On a phone, verify CTU securing calculator, application verification, application number management/detail, dangerous goods search/detail, regulations, references, and settings.
+4. Desktop behavior and calculation/business logic are unchanged.
+
+Primary new asset:
+- assets/css/v1378-mobile-system-audit.css

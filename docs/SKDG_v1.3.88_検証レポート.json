@@ -1,0 +1,32 @@
+{
+  "version": "v1.3.88",
+  "base": "v1.3.87",
+  "actualWorkbook": "SKShinsei_z1785551414000(1).xls",
+  "actualWorkbookChecks": {
+    "applicationYear": "2026",
+    "applicationNumber": "1434",
+    "applicationDate": "2026-07-21",
+    "inspectionPlannedDate": "",
+    "inspectionDate": "2026-07-23",
+    "applicantName": "日本酸素株式会社",
+    "shipper": "日本酸素株式会社",
+    "caseTitle": "",
+    "vesselName": "MILD ROSE",
+    "voyageNumber": "2630S",
+    "containerNumber": "TWCU2140451",
+    "containerType": "",
+    "loadingPort": "横浜",
+    "dischargePort": "SHANGHAI",
+    "cargoCount": 8,
+    "status": "PASS"
+  },
+  "optionalFieldPresenceTest": {
+    "inspectionPlannedDate": "2026-08-15",
+    "caseTitle": "試験案件",
+    "containerType": "40FT HC",
+    "status": "PASS"
+  },
+  "dateNormalizationTests": "PASS",
+  "javascriptSyntax": "PASS",
+  "pageReferenceCheck": "PASS"
+}

@@ -1,0 +1,18 @@
+{
+  "version":"v1.3.58",
+  "scope":"CTU securing calculator overall audit",
+  "checks":[
+    {"name":"global sea area A/B/C inference","status":"PASS"},
+    {"name":"unknown port safe fallback to seaB + confirmation","status":"PASS"},
+    {"name":"Yokohama-Shanghai July -> seaA","status":"PASS"},
+    {"name":"Rotterdam-New York January -> seaC","status":"PASS"},
+    {"name":"Yokohama-Singapore -> seaB","status":"PASS"},
+    {"name":"route -> quickTransport + transportPreset + applyTransportPreset","status":"PASS"},
+    {"name":"actual uploaded XLS port/month extraction (Yokohama/Shanghai/July)","status":"PASS"},
+    {"name":"existing route linkage regression","status":"PASS"},
+    {"name":"JavaScript syntax","status":"PASS"},
+    {"name":"v1.3.58 CSS/JS HTML references","status":"PASS"},
+    {"name":"registration success limited to real registration event","status":"PASS_BY_GUARD_DESIGN"}
+  ],
+  "notes":"Calculation formulas were not changed. Route inference is an input-assistance candidate and retains manual A/B/C selection. Unknown/unresolved ports use seaB as the initial candidate and require human confirmation."
+}

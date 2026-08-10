@@ -1,0 +1,21 @@
+{
+  "release": "v1.3.30",
+  "status": "PASS",
+  "privilegedRoles": [
+    "safety-environment-director",
+    "safety-environment-staff",
+    "validator",
+    "safety-environment-admin"
+  ],
+  "checks": {
+    "mainMenuUnified": true,
+    "directUrlGuard": true,
+    "legacyOfficeGateRemovedOnOverpack": true,
+    "cacheBustedRoleGate": true,
+    "javascriptSyntax": true,
+    "jsonSyntax": true
+  },
+  "errors": [],
+  "databaseMigration": false,
+  "displayVersion": "Version 1.0 試作版"
+}

@@ -1,0 +1,46 @@
+/* SKDG v1.3.58 - CTU overall card spacing / independent workflow cards */
+body[data-page="ctu-securing-calculator"]{
+  --ctu-v1358-gap:24px;
+  --ctu-v1358-pad:20px;
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel .ctu-v1357-independent-card{
+  margin-left:0!important;margin-right:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel::before,
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel::after,
+body[data-page="ctu-securing-calculator"] #photoInputPanel::before,
+body[data-page="ctu-securing-calculator"] #photoInputPanel::after{content:none!important;display:none!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel{margin-top:18px!important;margin-bottom:0!important}
+body[data-page="ctu-securing-calculator"] #photoInputPanel{margin-top:var(--ctu-v1358-gap)!important;margin-bottom:0!important;clear:both!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel + #photoInputPanel{margin-top:var(--ctu-v1358-gap)!important}
+body[data-page="ctu-securing-calculator"] #photoRecognitionPanel{margin-top:var(--ctu-v1358-gap)!important;margin-bottom:0!important}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel{margin-top:var(--ctu-v1358-gap)!important}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow{gap:var(--ctu-v1358-gap)!important}
+body[data-page="ctu-securing-calculator"] .ctu-step-card__head{padding:13px 18px!important;min-height:54px!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel > .ctu-step-card__body,
+body[data-page="ctu-securing-calculator"] #photoInputPanel > .ctu-step-card__body,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel .ctu-v1357-independent-card > .quick-step__body,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel .ctu-v1357-independent-card > .v1-step-body{padding:var(--ctu-v1358-pad)!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .quick-grid,
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .route-input-grid{column-gap:18px!important;row-gap:20px!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .quick-grid > div,
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .route-input-grid > div{min-width:0!important;align-self:start!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card label{display:block!important;margin:0 0 8px!important;line-height:1.45!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card input,
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card select,
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card textarea{box-sizing:border-box!important;width:100%;min-height:44px!important;margin:0!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .hint{display:block!important;margin:8px 0 0!important;line-height:1.6!important;overflow-wrap:anywhere}
+body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card p{line-height:1.65}
+body[data-page="ctu-securing-calculator"] #ctuRegistrationSection [data-v1358-false-registration="1"]{display:none!important}
+body[data-page="ctu-securing-calculator"] #ctuRegistrationMessage.is-v1358-valid-registration{display:block!important;margin-top:14px!important;padding:10px 12px!important;border:1px solid #9acbb1!important;border-radius:9px!important;background:#edf9f3!important;color:#115d3d!important}
+@media(max-width:768px){
+  body[data-page="ctu-securing-calculator"]{--ctu-v1358-gap:18px;--ctu-v1358-pad:15px}
+  body[data-page="ctu-securing-calculator"] .ctu-step-card__head{min-height:50px!important;padding:12px 14px!important}
+  body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .quick-grid,
+  body[data-page="ctu-securing-calculator"] .ctu-v1357-independent-card .route-input-grid{grid-template-columns:minmax(0,1fr)!important;row-gap:17px!important}
+}

@@ -1,0 +1,31 @@
+{
+  "release": "part541",
+  "passed": 6,
+  "total": 6,
+  "checks": {
+    "existing_combination": {
+      "passed": true,
+      "detail": ""
+    },
+    "existing_transport_default": {
+      "passed": true,
+      "detail": ""
+    },
+    "existing_msl_registry": {
+      "passed": true,
+      "detail": ""
+    },
+    "existing_review_workflow": {
+      "passed": true,
+      "detail": ""
+    },
+    "position_logic_cases": {
+      "passed": true,
+      "detail": ""
+    },
+    "direction_logic_cases": {
+      "passed": true,
+      "detail": ""
+    }
+  }
+}

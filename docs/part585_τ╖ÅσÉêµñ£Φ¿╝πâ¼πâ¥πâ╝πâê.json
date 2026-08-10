@@ -1,0 +1,1348 @@
+{
+  "version": "part585",
+  "baseVersion": "part580",
+  "generatedAt": "2026-08-08T00:37:00+09:00",
+  "scope": "静的回帰・新規資産構文・既存資産保持・重要仕様保持",
+  "summary": {
+    "total": 267,
+    "passed": 267,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "JS構文 assets/js/application-intake-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/application-management-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/ctu-easy-operation-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML build pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html Part585参照 application-intake-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/css/application-intake-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html Part585参照 application-intake-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/js/application-intake-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html Part585参照 application-management-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/css/application-management-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html Part585参照 application-management-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/js/application-management-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html Part585参照 ctu-securing-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/css/ctu-securing-part585.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html Part585参照 ctu-easy-operation-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Part585資産存在 assets/js/ctu-easy-operation-part585.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part565.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part566.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part567.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part568.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part569.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part570.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part571.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part572.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part573.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part574.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part580.css",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part565.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part566.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part567.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part568.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part569.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part570.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part571.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part572.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part573.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part574.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part580.js",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 index.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/access-control.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/access-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/account-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/account-security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/activate-account.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/admin-governance-dashboard.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/admin-succession.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/application-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/application-intake-workflow.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/application-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/applications.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/assurance-security-audit-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/change-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/change-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/cloud-connection.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/completion-roadmap.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/ctu-securing-calculator.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/dangerous-goods-detail.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/dangerous-goods-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/data-integrity-performance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/data-migration-legacy.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/data-migration.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/data-quality-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/deployment-execution-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/deployment-readiness-package.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/distribution-continuity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/documentation-release-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/ems.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/favorites.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/feedback.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/final-production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/identity-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/imdg-cross-reference.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/integrated-operations-center.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/integrated-verification.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/kawasaki-pilot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/label-catalog.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/login.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/maintenance-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/operations-acceptance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/operations-assurance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/operations-command-center-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/operations-monitoring.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/overpack-label-tool.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/pdf-page-viewer.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/pilot-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/platform-reliability-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/post-deployment-operations-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/post-launch-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/production-identity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/production-operations-hub.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/production-readiness.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/prototype-completion-review.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/publication-rights-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/quality-release-governance-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/recovery-migration-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/references.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/regulation-approval-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/regulation-evidence-snapshot.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/regulation-update-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/regulations.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/release-candidate-summary.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/reset-password.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/revision-preview.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/search-history.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/security-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/system-maintenance.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/system-settings.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/system-wide-search.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/user-activity-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/user-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HTML本文回帰 pages/validation-admin.html",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 海上輸送海域B初期値",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 併用条件確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 最小MSL採用",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 取付点台帳",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 取付点履歴",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 既存登録前確認",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "重要仕様 申請確認記録",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-intake-part585.js importantCargo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-intake-part585.js sessionStorage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-intake-part585.js part585FocusImportant",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-intake-part585.js part585SetBaseline",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-intake-part585.js officialReady()",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-management-part585.js dayDiff",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-management-part585.js 期限超過",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-management-part585.js part585SelectPriority",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-management-part585.js priority(a)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/application-management-part585.js 要確認一覧をコピー",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/ctu-easy-operation-part585.js mslLineRows",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/ctu-easy-operation-part585.js weakest(lines)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/ctu-easy-operation-part585.js part585FocusWeakLine",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/ctu-easy-operation-part585.js latestCtuResult",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "新機能 assets/js/ctu-easy-operation-part585.js 現場引継ぎ要点",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest version: \"part585\", part: 585",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest importantDifferenceTriage:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest dueDatePriorityQueue:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest lineMslCoverage:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest calculationFreshnessSummary:true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest \"pages/ctu-securing-calculator.html\":\"part585\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest \"pages/application-intake-workflow.html\":\"part585\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifest \"pages/applications.html\":\"part585\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "VERSION part585",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bundledParts 581-585",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "仕様メモ存在",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

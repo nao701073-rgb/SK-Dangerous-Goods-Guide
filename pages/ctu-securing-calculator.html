@@ -2,8 +2,8 @@
 
 <html lang="ja">
 <head>
-<meta content="v1.3.75" name="sk-build"/>
-<script src="../data/build-manifest.js?v=1374"></script>
+<meta content="v1.3.91" name="sk-build"/>
+<script src="../data/build-manifest.js?v=1391"></script>
 <link href="../assets/css/version-guard.css?v=542" rel="stylesheet"/>
 <script src="../assets/js/auth-bootstrap.js?v=439"></script>
 <meta charset="utf-8"/>
@@ -15,6 +15,15 @@
 <link href="../assets/css/v137-ctu.css?v=138" rel="stylesheet"/>
 <link data-v141-ctu-ai="1" href="../assets/css/v141-ctu-ai.css?v=143" rel="stylesheet"/>
 <link href="../assets/css/v142-ctu-cleanup.css?v=143" rel="stylesheet"/>
+<link href="../assets/css/v1379-ctu-msl-material-linkage.css?v=1379" rel="stylesheet"/>
+<link href="../assets/css/v1380-ctu-resistance-logic-audit.css?v=1380" rel="stylesheet"/>
+<link href="../assets/css/v1381-ctu-three-state-assessment.css?v=1381" rel="stylesheet"/>
+<link href="../assets/css/v1382-ctu-photo-drop-visibility.css?v=1382" rel="stylesheet"/>
+<link href="../assets/css/v1383-ctu-combined-panel-overflow.css?v=1383" rel="stylesheet"/>
+<link href="../assets/css/v1384-ctu-combined-always-stacked.css?v=1384" rel="stylesheet"/>
+<link href="../assets/css/v1385-ctu-dual-use-checkbox.css?v=1385" rel="stylesheet"/>
+<link href="../assets/css/v1387-ctu-step5-photo-cleanup.css?v=1387" rel="stylesheet"/>
+<link href="../assets/css/v1390-ctu-application-number-registration-link.css?v=1390" rel="stylesheet"/>
 <style>
     :root{--navy:#103b66;--navy2:#17608c;--line:#cbd8e5;--soft:#f3f7fb;--soft2:#eaf2f9;--ok:#116b45;--ng:#a12b2b;--warn:#8a5900;--text:#102a43}
     *{box-sizing:border-box}
@@ -177,7 +186,6 @@
 <link href="../assets/css/ctu-securing-part539.css?v=540" rel="stylesheet"/>
 <link href="../assets/css/ctu-securing-part540.css?v=540" rel="stylesheet"/>
 <link href="../assets/css/ctu-securing-part541.css?v=541" rel="stylesheet"/>
-<link href="../assets/css/ctu-securing-part542.css?v=542" rel="stylesheet"/>
 <link href="../assets/css/ctu-securing-part549.css?v=549" rel="stylesheet"/>
 
 <link href="../assets/css/v1316-ctu-cleanup.css?v=146" rel="stylesheet"/>
@@ -195,6 +203,8 @@
 <link href="../assets/css/v1375-ctu-confirm-advanced.css?v=1375" rel="stylesheet"/>
 
 <link href="../assets/css/v1376-ctu-resistance-audit.css?v=1376" rel="stylesheet"/>
+<link href="../assets/css/v1377-ctu-bracing-path.css?v=1377" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
 </head>
 <body data-page="ctu-securing-calculator">
 <header class="sk-v1338-header" data-sk-common-header="1">
@@ -308,7 +318,7 @@
 <h2 class="ctu-step-card__head"><span class="ctu-step-card__num">2</span><span class="ctu-step-card__title">写真を撮影・アップロードする</span></h2>
 <div class="ctu-step-card__body">
 <div class="photo-grid">
-<div aria-label="現場写真のドラッグ＆ドロップ領域" class="photo-stage part542-photo-drop" data-part542-drop="main" id="photoStage" tabindex="0"><div class="photo-placeholder" id="photoPlaceholder">現場写真を撮影またはアップロードしてください。<br/>画像上の2点を指定して、固縛角度や寸法を測定できます。</div><canvas hidden="" id="photoCanvas"></canvas><div aria-hidden="true" class="part542-drop-overlay"><strong>ここへ写真をドラッグ＆ドロップ</strong><span>複数枚をまとめて追加できます</span></div></div>
+<div aria-label="現場写真のドラッグ＆ドロップ領域" class="photo-stage part542-photo-drop" data-part542-drop="main" id="photoStage" tabindex="0"><div class="photo-placeholder" id="photoPlaceholder">現場写真を撮影またはアップロードしてください。<br/>画像上の2点を指定して、固縛角度や寸法を測定できます。</div><canvas hidden="" id="photoCanvas"></canvas><div aria-hidden="true" class="part542-drop-overlay"><strong>ここへ写真をドラッグ＆ドロップ</strong><span>ドロップした写真を読み込みます</span></div></div>
 <div class="photo-controls">
 <input accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence" capture="environment" class="camera-input" id="cameraInput" type="file"/><label class="btn primary camera-label" for="cameraInput">カメラで撮影</label>
 <input accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence" class="camera-input" id="photoInput" multiple="" type="file"/><label class="btn camera-label" for="photoInput">写真をアップロード（複数可）</label>
@@ -372,11 +382,11 @@
 <section class="ctu-step5-panel ctu-step5-panel--primary" id="ctuPrimarySecuringPanel">
 <div class="ctu-step5-panel__head">
 <div class="ctu-step5-panel__title-wrap"><h3 class="ctu-step5-panel__title" id="ctuPrimarySecuringPanelTitle">固縛材</h3></div>
-<div aria-label="使用状態" class="ctu-step5-panel__state"><span class="ctu-step5-panel__check">✓</span><span class="ctu-step5-panel__state-text" id="ctuPrimarySecuringPanelStateText">使用する</span></div>
+<label class="ctu-use-toggle" for="quickUseTensile"><input checked="" id="quickUseTensile" type="checkbox"/><span class="ctu-use-toggle__box" aria-hidden="true">✓</span><span class="ctu-step5-panel__state-text" id="ctuPrimarySecuringPanelStateText">計算に使用する</span></label>
 </div>
 <div class="ctu-step5-panel__body">
 <div class="quick-grid">
-<div><label for="quickMaterialCategory">使用方法</label><select id="quickMaterialCategory"><option value="tensile">引張系固縛材</option><option value="support">支保・当て材</option><option value="combined">引張系固縛材＋支保・当て材（併用）</option></select></div>
+<div class="ctu-internal-category" aria-hidden="true"><label for="quickMaterialCategory">使用方法</label><select id="quickMaterialCategory" tabindex="-1"><option value="tensile">引張系固縛材</option><option value="support">支保・当て材</option><option selected="" value="combined">引張系固縛材＋支保・当て材（併用）</option></select></div>
 <div><label for="quickMethod">固縛方法</label><select id="quickMethod"><option value="direct">直接固縛</option><option value="topover">トップオーバー（垂直掛け参考）</option></select></div>
 <div><label for="quickMaterial">材質</label><select id="quickMaterial"></select></div>
 <div><label for="quickDirection">対象方向</label><select id="quickDirection"><option selected="" value="">作用方向を選択してください</option><option value="all">各評価方向に同じ有効本数を適用（要確認）</option><option value="forward">前方（前壁側）</option><option value="rear">後方（扉・後壁側）</option><option value="left">左方向</option><option value="right">右方向</option></select></div>
@@ -389,13 +399,13 @@
 </div>
 </div>
 </section>
-<section aria-labelledby="quickSupportFieldsTitle" class="ctu-step5-panel ctu-step5-panel--support quick-combined-panel" hidden="" id="ctuSupportSecuringPanel">
+<section aria-labelledby="quickSupportFieldsTitle" class="ctu-step5-panel ctu-step5-panel--support quick-combined-panel" id="ctuSupportSecuringPanel">
 <div class="ctu-step5-panel__head">
 <div class="ctu-step5-panel__title-wrap"><h3 class="ctu-step5-panel__title" id="quickSupportFieldsTitle">支保・あて材</h3></div>
-<div aria-label="使用状態" class="ctu-step5-panel__state"><span class="ctu-step5-panel__check">✓</span><span class="ctu-step5-panel__state-text" id="ctuSupportSecuringPanelStateText">使用する</span></div>
+<label class="ctu-use-toggle" for="quickUseSupport"><input checked="" id="quickUseSupport" type="checkbox"/><span class="ctu-use-toggle__box" aria-hidden="true">✓</span><span class="ctu-step5-panel__state-text" id="ctuSupportSecuringPanelStateText">計算に使用する</span></label>
 </div>
 <div class="ctu-step5-panel__body">
-<section hidden="" id="quickSupportFields">
+<section id="quickSupportFields">
 <div class="quick-combined-grid">
 <div><label for="quickSupportMaterial">材質</label><select id="quickSupportMaterial"><option value="timber">木材</option><option value="frp">強化プラスチック（FRP等）</option><option value="otherSupport">その他の支保・当て材</option></select></div>
 <div><label for="quickSupportDirection">対象方向</label><select id="quickSupportDirection"><option selected="" value="">作用方向を選択してください</option><option value="all">各評価方向に同じ有効本数を適用（要確認）</option><option value="forward">前方（前壁側）</option><option value="rear">後方（扉・後壁側）</option><option value="left">左方向</option><option value="right">右方向</option></select></div>
@@ -403,15 +413,43 @@
 <div><label for="quickSupportStrength">支保力（1個当たり・kN）</label><input id="quickSupportStrength" min="0" step="0.1" type="number" value="10"/></div>
 <div style="grid-column:1/-1"><label for="quickSupportBasis">支保力の根拠</label><input id="quickSupportBasis" placeholder="例：材種・等級・断面寸法、メーカー仕様、試験成績、施工図" type="text"/></div>
 </div>
-<div class="quick-combination-confirm" id="quickCombinationConfirm">
-<label><input id="quickCombinationConfirmed" type="checkbox"/><span><strong>引張系固縛材と支保・当て材の荷重分担・作用方向・接触状態を確認しました。</strong><br/>この確認は作用方向・接触状態の確認記録です。このチェックだけでは、同一方向の支保力と直接固縛力を単純加算しません。承認された荷重分担・剛性条件に基づき加算する場合は「詳細設定」で承認根拠を確認してください。</span></label>
-<p class="quick-combination-note">同一の抵抗力を二重計上しないよう、支保材が実際に作用する方向と、固縛材の取付角度・取付点を現場で確認してください。</p>
-</div>
+<input id="quickCombinationConfirmed" type="checkbox" hidden aria-hidden="true" tabindex="-1"/> 
 </section>
 <p class="ctu-step5-panel__lead ctu-step5-panel__lead--after">木材・FRP等を併用する場合だけ入力します。強度の根拠入力は不要です。</p>
 </div>
 </section>
 </div>
+<section class="ctu-bracing-assist" hidden id="ctuBracingAssist" aria-labelledby="ctuBracingAssistTitle">
+<div class="ctu-bracing-assist__head">
+<div><h3 id="ctuBracingAssistTitle">支保からCTU壁／フレームへ荷重を伝える場合</h3><p>木材・パレット・横木等で貨物を壁側へ寄せて支保する場合は、支保材とCTU受け部を一つの荷重経路として評価します。採用能力は弱い方を上限とします。</p></div>
+<span class="ctu-bracing-assist__badge">CTU Code 支保経路</span>
+</div>
+<div class="ctu-bracing-grid">
+<label>支保能力の求め方<select id="quickSupportCalcMode"><option value="manual">確認済み支保能力（従来の単独評価）</option><option value="manualPath">壁／フレームへの支保経路（支保材能力を手入力）</option><option value="timberBattens">木材横木フェンス（CTU Code Annex 7 Appendix 4）</option></select></label>
+<label>CTU側の受け方<select id="quickSupportReceiverType"><option value="frontWall">汎用コンテナ前壁へ広く荷重分散（0.4P上限）</option><option value="frameConfirmed">強いフレーム／コルゲーションへ支保（Appendix 4成立確認）</option><option value="frame">bottom/top rail・corner post等のフレーム（確認値）</option><option value="manual">その他の受け部（確認値）</option></select></label>
+<label id="quickSupportPayloadField">CTU最大積載量 P（t）<input id="quickSupportPayload" min="0" step="0.1" type="number" placeholder="CSC等の確認値"/></label>
+<label id="quickSupportReceiverCapacityField" hidden>CTU受け部の確認済み能力（kN）<input id="quickSupportReceiverCapacity" min="0" step="0.1" type="number" placeholder="図面・メーカー・承認資料等"/></label>
+</div>
+<div class="ctu-batten-fields" id="ctuBattenFields" hidden>
+<div class="ctu-bracing-grid">
+<label>横木本数 n<input id="quickBattenCount" min="1" step="1" type="number" value="6"/></label>
+<label>横木厚さ w（cm）<input id="quickBattenThickness" min="0.1" step="0.1" type="number" value="5"/></label>
+<label>横木高さ h（cm）<input id="quickBattenHeight" min="0.1" step="0.1" type="number" value="10"/></label>
+<label>自由長 L（m）<input id="quickBattenLength" min="0.1" step="0.1" type="number" value="2.2"/></label>
+</div>
+<p class="ctu-bracing-formula">CTU Code Annex 7 Appendix 4 の横木フェンス参考式を使用します。横木端部を強いコルゲーションまたはフレーム構造へ適切に支保し、局部過負荷を避ける条件で使用してください。</p>
+</div>
+<div class="ctu-bracing-check">
+<label><input id="quickSupportTransferConfirmed" type="checkbox"/><span><strong>隙間・衝撃荷重を避け、横木等で荷重を分散し、CTUの強い壁／フレームへ確実に荷重を伝達できることを確認しました。</strong><br/>この確認がない場合、支保経路の能力は算入しません。</span></label>
+</div>
+<div class="ctu-bracing-output" id="ctuBracingOutput">
+<div><span>支保材側能力</span><strong id="quickSupportMaterialCapacity">－</strong></div>
+<div><span>CTU受け部能力</span><strong id="quickSupportReceiverCapacityOut">－</strong></div>
+<div class="is-adopted"><span>採用支保能力</span><strong id="quickSupportAdoptedCapacity">－</strong></div>
+<div><span>前方等への算入</span><strong id="quickSupportRouteStatus">要確認</strong></div>
+</div>
+<p class="ctu-bracing-note" id="quickSupportRouteNote">支保材側能力とCTU受け部能力の小さい方を採用し、同じ荷重経路の壁抵抗を別途二重加算しません。</p>
+</section>
 <p class="support-note" hidden="" id="quickSupportNote">支保・当て材を使う場合は、写真または現場で確認した材質・個数・参考支保力を入力してください。</p>
 <details class="msl-estimator" id="quickMslEstimatorPanel">
 <summary>材質・サイズからMSL候補を算出</summary>
@@ -527,11 +565,17 @@
 <div aria-live="polite" class="quick-status" id="quickStatus">必要事項を入力し、「この条件で算出する」を押してください。</div>
 <section class="ctu-step6-section ctu-step6-result-section" id="ctuStep6ResultSection">
 <div class="ctu-step6-section__head"><h3>算出結果</h3></div>
+<div class="v1381-assessment-guide" id="ctuAssessmentGuide" aria-label="参考算出の判定区分">
+<div class="v1381-guide-item is-ok"><strong>参考上十分</strong><span>必要条件が確認済みで、必要抵抗力を満たす</span></div>
+<div class="v1381-guide-item is-check"><strong>要確認</strong><span>MSL・接触・支保成立条件等に未確認項目がある</span></div>
+<div class="v1381-guide-item is-ng"><strong>参考上不足</strong><span>必要条件を確認済みでも、必要抵抗力を満たさない</span></div>
+</div>
 <div class="notice" id="overall">入力後、「算出する」を押してください。</div>
 <div class="result-summary" id="metrics"></div>
-<p class="simple-result-note">最も厳しい方向の必要抵抗力、現在の評価抵抗力、余裕または不足量を優先して表示します。</p>
+<div class="ctu-directional-load-audit" id="ctuDirectionalLoadAudit"><div class="v1380-audit-title"><strong>方向別設計荷重</strong><span>算出後に表示</span></div><p>前後方向と側面方向を独立した荷重ケースとして確認します。</p></div>
+<p class="simple-result-note">未確認項目がある場合は「要確認」とし、確認済み条件だけで不足が確定した場合のみ「参考上不足」と表示します。「要確認」は固縛不良の確定判定ではありません。</p>
 <details class="result-details"><summary>方向別の詳細結果・確認事項を表示</summary><div class="result-details__body">
-<div class="result-table-wrap"><table id="resultTable"><thead><tr><th>方向</th><th>c<sub>x,y</sub>/c<sub>z</sub></th><th>作用力</th><th>摩擦抵抗</th><th>CTU境界</th><th>根止め</th><th>直接固縛</th><th>トップオーバー</th><th>評価抵抗</th><th>余裕</th><th>判定</th></tr></thead><tbody></tbody></table></div>
+<div class="result-table-wrap"><table id="resultTable"><thead><tr><th>方向</th><th>c<sub>x,y</sub>/c<sub>z</sub></th><th>方向別作用力</th><th>摩擦抵抗</th><th>CTU境界</th><th>支保・根止め</th><th>直接固縛</th><th>トップオーバー</th><th>評価抵抗（重複制限後）</th><th>余裕</th><th>判定</th></tr></thead><tbody></tbody></table></div>
 <h3>転倒確認</h3><div id="tipResult"></div>
 <div class="css-result-card" hidden="" id="cssDetailedResult"></div>
 <h3>確認事項</h3><div class="notice info" id="warnings"><ul id="warningList"><li>算出後に確認事項を表示します。</li></ul></div>
@@ -563,7 +607,7 @@
 <div><label for="refNo">案件番号</label><input id="refNo" placeholder="任意" type="text"/></div>
 <div><label for="frictionPolicy">接触面の状態</label><select id="frictionPolicy"><option value="verified">別表値・試験値・認証値を使用</option><option selected="" value="unknown">組合せ不明または未検証（上限0.3）</option><option value="unclean">完全に清められていない（上限0.3）</option><option value="snow">霜・氷・雪（上限0.2）</option><option value="oil">油脂付着・シートパレット（0.1）</option></select></div>
 <div><label for="mu">入力摩擦係数 μ</label><input id="mu" max="1" min="0" step="0.01" type="number" value="0.20"/><div class="hint">算出時に接触面条件の上限を適用します。</div></div>
-<div><label for="combinationMode">剛性の異なる固縛の併用</label><select id="combinationMode"><option value="conservative">保守的評価（独立性未確認の抵抗を単純加算しない）</option><option value="approved">承認された方法・荷重経路に基づき加算</option></select></div>
+<div><label for="combinationMode">剛性の異なる固縛の併用</label><select id="combinationMode"><option value="conservative">保守的評価（独立性未確認の抵抗を単純加算しない）</option><option value="approved">承認済み併用（根拠記録のみ・この参考算出では単純加算しない）</option></select></div>
 <div><label for="route">輸送条件メモ</label><input id="route" type="text"/></div>
 </div>
 <div class="check-row"><input id="wallUniform" type="checkbox"/><label for="wallUniform">貨物がCTU境界へ密着し、隙間・衝撃荷重・局部過負荷を避けて荷重を境界へ伝達できることを個別に確認したため、境界抵抗を算入する（「すべて確認しました」の一括確認対象外）。</label></div>
@@ -584,7 +628,8 @@
 <div><label for="cssShipLength">垂線間長 L（m）</label><input id="cssShipLength" max="300" min="50" step="0.1" type="number" value="100"/></div>
 <div><label for="cssShipBreadth">船幅 B（m）</label><input id="cssShipBreadth" min="0" step="0.1" type="number" value="20"/></div>
 <div><label for="cssShipGM">GM（m）</label><input id="cssShipGM" min="0" step="0.01" type="number" value="1.6"/></div>
-<div><label for="cssShipSpeed">航海速力（kn）</label><input id="cssShipSpeed" min="0" step="0.1" type="number" value="15"/></div>
+<div><label for="cssShipSpeed">船舶の service speed（kn）</label><input id="cssShipSpeed" min="0" step="0.1" type="number" value="15"/></div>
+<div class="hint css-service-speed-note">減速運航の速力ではなく、船舶の service speed を入力します。CSS Code Annex 13 7.2.6.3に基づく減速運航を用いる場合、横加速度には減速補正を使用できないため、この参考算出ではCargo Securing Manual等の確認値を手動入力してください。</div>
 <div><label for="cssStowageLevel">積載高さ区分</label><select id="cssStowageLevel"><option value="high">甲板上・高い</option><option selected="" value="low">甲板上・低い</option><option value="tween">中甲板</option><option value="lower">ロワーホールド</option></select></div>
 <div><label for="cssLongPosition">船長方向位置（L比）</label><select id="cssLongPosition"><option value="0.1">0.1L</option><option value="0.2">0.2L</option><option value="0.3">0.3L</option><option value="0.4">0.4L</option><option selected="" value="0.5">0.5L</option><option value="0.6">0.6L</option><option value="0.7">0.7L</option><option value="0.8">0.8L</option><option value="0.9">0.9L</option></select></div>
 <div><label for="cssAccelerationSource">加速度の取得元</label><select id="cssAccelerationSource"><option value="table2">CSS Code Annex 13 表2を使用</option><option value="manual">Cargo Securing Manual等の確認値を使用</option></select></div>
@@ -672,14 +717,14 @@
 <p class="formula">横滑り：Fy ≤ μmg + Σ(fy × CS)</p>
 <p class="formula">縦滑り：Fx ≤ μ(mg − fz×Fz) + Σ(fx × CS)</p><p class="formula-note">fz は MSC.1/Circ.1623 Annex 13 の縦力補正係数（摩擦係数に応じた表値）を使用します。</p>
 <p class="formula">横転倒：横転倒モーメント ≤ bmg + 0.9Σ(CS × c)</p>
-<p>直接固定を含む方向では、CTUコード付属書7 2.2.2.2に従い、摩擦係数を入力値の75%として評価します。CTU境界抵抗は、貨物が強い境界内に密着して積み付けられ、荷重を境界へ適切に分散できること、および実際のCTU最大積載量Pを確認した場合だけ算入します。CTU種類の選択だけでは算入しません。支保・当て材と直接固縛は、簡易確認だけでは単純加算しません。詳細設定で承認された荷重分担・剛性・独立した荷重経路を確認した場合だけ加算モードを使用します。CTU境界抵抗と支保・直接固縛も、独立した荷重経路・剛性・承認根拠が確認できない限り単純加算せず、保守的に大きい方を採用します。</p>
+<p>直接固定を含む方向では、CTUコード付属書7 2.2.2.2に従い、摩擦係数を入力値の75%として評価します。貨物を木材・パレット・横木等でCTU壁／フレームへ支保する場合は、支保材とCTU受け部を直列の一つの荷重経路として扱い、採用支保能力を両者の小さい方とします。木材横木フェンスはAnnex 7 Appendix 4の参考式に対応します。同じ支保経路で使用したCTU壁抵抗を別途加算しません。直接固縛との併用は、CTU Code Annex 7 4.1.6に従い、剛性の異なる要素を同じ滑動抵抗として単純加算しません。支保・CTU境界の剛性経路が成立する場合はその経路を優先し、直接固縛は別途確認します。</p>
 <p>CSS Code Annex 13では、固縛器具の最小MSL、安全係数、固縛角度、転倒軸から固縛作用線までの距離、風圧力、波洗い力、船長・速力・B/GM補正および弾性差を確認します。頂部を越える固縛は、CSS Code Annex 13の平衡計算では抵抗力として算入しません。</p>
 <p>本機能は参考算出です。非常に重い貨物・非常に大型の貨物、新規または特殊な用途、局部強度・溶接部・船体構造の評価が必要な場合は、検証済みの詳細計算、承認されたCargo Securing Manualおよび主管庁の指示を優先してください。</p>
 <div class="source-links"><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=93" rel="noopener" target="_blank">固縛の原則（付属書7 4.1）</a><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=96" rel="noopener" target="_blank">直接固縛・転倒（4.3）</a><a class="btn" href="../references/originals/ctu-code-ja.pdf#page=100" rel="noopener" target="_blank">固縛配置の評価（4.4）</a></div>
 </section>
 <section class="panel no-print result-registration-panel ctu-simple-registration" id="ctuRegistrationSection">
 <h2>申請番号管理へ登録</h2>
-<p>上で登録済み申請を選択している場合は、その案件へ現在の算出結果を保存します。未選択の場合だけ、新しい申請番号を入力してください。</p>
+<p>Excel申請書から申請番号を取得できた場合は、その番号を登録先として照合します。登録済みなら同じ案件へ保存し、未登録なら申請書と同じ番号で新規登録します。申請書から番号を取得できない場合は、従来どおり手入力してください。</p>
 <div class="ctu-registration-target" id="ctuRegistrationTarget"><span>登録先</span><strong>新しい申請番号</strong></div>
 <details class="ctu-new-application-details" id="ctuNewApplicationDetails"><summary>未登録の案件として申請番号を入力</summary><div class="quick-registration-grid"><label>申請年度<input id="ctuNewApplicationYear" inputmode="numeric" maxlength="4"/></label><label>申請番号<input id="ctuNewApplicationNumber" inputmode="numeric" maxlength="5" placeholder="4桁または5桁"/></label><label>案件名（任意）<input id="ctuNewCaseTitle" maxlength="100" /></label></div></details>
 <select aria-hidden="true" hidden="" id="ctuApplicationSelect"><option value=""></option></select>
@@ -692,18 +737,22 @@
 <script src="../assets/js/storage.js?v=529"></script>
 <script src="../assets/js/application-result-link.js?v=147"></script>
 <script src="../assets/js/application-case-common.js?v=529"></script>
+<script src="../assets/js/v1391-ctu-application-number-registration-link.js?v=1391"></script>
 <script async src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-<script src="../assets/js/ctu-excel-route-import.js?v=1357"></script>
+<script src="../assets/js/ctu-excel-route-import.js?v=1391"></script>
 <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/heic-to@1.5.2/dist/iife/heic-to.js"></script>
 <script src="../assets/js/image-format-support.js?v=479"></script>
 <script src="../data/securing-msl-reference.js?v=538"></script>
-<script src="../assets/js/ctu-securing-calculator-core-v1376.js?v=1376"></script>
+<script src="../data/ctu-code-rules-v1380.js?v=1380"></script>
+<script src="../data/ctu-assessment-policy-v1381.js?v=1381"></script>
+<script src="../assets/js/ctu-securing-calculator-core-v1386.js?v=1386"></script>
+<script defer src="../assets/js/v1386-ctu-dual-use-toggle.js?v=1386"></script>
+<script defer src="../assets/js/v1382-ctu-photo-drop-bridge.js?v=1382"></script>
+<script defer src="../assets/js/v1377-ctu-bracing-path.js?v=1377"></script>
 <script defer src="../assets/js/v1376-ctu-friction-sync.js?v=1376"></script>
 <script src="../assets/js/v1338-common-header.js?v=1339"></script>
-<script defer src="../assets/js/v1376-ctu-case-restore.js?v=1376"></script>
+<script defer src="../assets/js/v1385-ctu-case-restore.js?v=1385"></script>
 
-<script defer src="../assets/js/ctu-field-assist-part541.js?v=541"></script>
-<script defer src="../assets/js/ctu-field-correction-part542.js?v=542"></script>
 <script defer src="../assets/js/version-guard.js?v=147"></script>
 <script defer src="../assets/js/v1-role-visibility.js?v=1337"></script>
 <script defer src="../assets/js/v11-user-preferences.js?v=110"></script>
@@ -712,13 +761,14 @@
 <script defer src="../assets/js/v133-ctu-upload.js?v=133"></script>
 <script defer src="../assets/js/v135-ctu-stability.js?v=135"></script>
 <script defer src="../assets/js/v137-ctu-usability.js?v=144"></script>
+<script defer src="../assets/js/v1379-ctu-msl-material-linkage.js?v=1379"></script>
 <script defer src="../assets/js/v137-prototype-ui.js?v=139"></script>
 <script defer src="../assets/js/v140-photo-ai-editable.js?v=140"></script>
 <script defer src="../assets/js/v141-photo-ai-container-fit.js?v=143"></script>
 <script defer src="../assets/js/v142-ctu-ai-assist.js?v=1354"></script>
 <script defer src="../assets/js/v1316-ctu-cleanup.js?v=1355"></script>
 
-<script defer src="../assets/js/v1348-ctu-sticky-status.js?v=1374"></script>
+<script defer src="../assets/js/v1386-ctu-sticky-status.js?v=1386"></script>
 <script defer src="../assets/js/v1357-ctu-excel-route-linkage.js?v=1357"></script>
 <script defer src="../assets/js/v1357-ctu-state-guard.js?v=1357"></script>
 <script defer src="../assets/js/v1358-ctu-global-sea-area.js?v=1358"></script>

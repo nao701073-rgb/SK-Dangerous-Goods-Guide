@@ -1,0 +1,318 @@
+{
+  "part": 567,
+  "base": "part566",
+  "generatedAt": "2026-08-07T21:39:00+09:00",
+  "summary": {
+    "total": 60,
+    "passed": 60,
+    "failed": 0
+  },
+  "scope": [
+    "申請書確認かんたん操作化",
+    "申請番号管理",
+    "固縛力参考算出",
+    "既存仕様・計算ロジック保全"
+  ],
+  "checks": [
+    {
+      "name": "HTML build meta Part567統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "build-manifest cache bust v567統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "version-guard cache bust v567統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "旧Part566 build meta残存なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/application-management-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/application-management-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/application-intake-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/application-intake-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/application-detail-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/application-detail-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/ctu-easy-operation-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/ctu-securing-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-management-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-intake-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-detail-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/ctu-easy-operation-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/applications.html Part567資産読込",
+      "status": "PASS",
+      "detail": "application-management-part567.css?v=567, application-management-part567.js?v=567"
+    },
+    {
+      "name": "pages/application-intake-workflow.html Part567資産読込",
+      "status": "PASS",
+      "detail": "application-intake-part567.css?v=567, application-intake-part567.js?v=567"
+    },
+    {
+      "name": "pages/application-detail.html Part567資産読込",
+      "status": "PASS",
+      "detail": "application-detail-part567.css?v=567, application-detail-part567.js?v=567"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html Part567資産読込",
+      "status": "PASS",
+      "detail": "ctu-securing-part567.css?v=567, ctu-easy-operation-part567.js?v=567"
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part565.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part565.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part565.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part565.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文・計算コード保持",
+      "status": "PASS",
+      "detail": "74/74 files"
+    },
+    {
+      "name": "Build manifest Part567",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Build manifest検証レポートPart567",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理 requestedApplicationRestore",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認 requestedApplicationContext",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 adoptedMslSummary",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 limitingPointImmediateDisplay",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛 combinedConditionImmediateDisplay",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION part=567",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION baseVersion=part566",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号管理→申請書確認 applicationId引継ぎ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "案件検索 Enter選択",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "簡易メモ未保存表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請書確認 対象案件表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号一致表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号不一致警告",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "直接固縛 採用MSL最小値表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "制限箇所表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "トップオーバー STF表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "併用未確認 保守評価説明",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛画面→申請書確認 applicationId引継ぎ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海上輸送 海域B初期値維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "併用成立条件既存説明維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "直接固縛 最小MSL既存説明維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "取付点MSL台帳維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MSL写真登録維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "reviewEvidence保存ロジック保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション追加なし",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

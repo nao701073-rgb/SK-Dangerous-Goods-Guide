@@ -18,9 +18,35 @@
     return t.includes('かんたん操作ガイド') && t.includes('条件入力') && t.includes('算出') && t.includes('確認') && t.includes('登録');
   }
   function removeEasyGuide(){
-    const candidates=[...document.querySelectorAll('section,aside,div')].filter(isEasyGuide);
-    // 親まで誤って消さないよう、同条件を満たす子要素を持たない最小ブロックだけを削除する。
-    candidates.filter(node=>![...node.children].some(isEasyGuide)).forEach(node=>node.remove());
+    // v1.3.48: 旧4段階「かんたん操作ガイド」を最小単位で除去する。
+    // 旧ガイドが既存の「算出」「詳細設定」ボタンを移動している場合は、先に本来の位置へ戻す。
+    const structuralProtected='#quickEntryPanel,#photoInputPanel,#photoRecognitionPanel,#v1PhotoStep,#ctuStickyStatus';
+    const labels=[...document.querySelectorAll('section,aside,div,p,span,strong,small')].filter(node=>norm(node.textContent).includes('かんたん操作ガイド'));
+    const targets=new Set();
+    labels.forEach(label=>{
+      let node=label;
+      let best=null;
+      while(node&&node!==document.body){
+        const t=norm(node.textContent);
+        if(t.includes('かんたん操作ガイド')&&t.includes('条件入力')&&t.includes('算出')&&t.includes('確認')&&t.includes('登録')){
+          if(!node.matches(structuralProtected)&&!node.querySelector(structuralProtected))best=node;
+          else break;
+        }
+        node=node.parentElement;
+      }
+      if(best)targets.add(best);
+    });
+    [...document.querySelectorAll('section,aside,div')].filter(isEasyGuide).forEach(node=>{
+      if(!node.matches(structuralProtected)&&!node.querySelector(structuralProtected))targets.add(node);
+    });
+    const quickActions=$('quickEntryPanel')?.querySelector('.quick-actions');
+    [...targets].forEach(node=>{
+      // 旧ガイドへ移されていた実ボタンを失わないよう、静的な入力欄へ戻す。
+      if(quickActions){
+        ['quickCalcBtn','toggleAdvanced'].forEach(id=>{const control=$(id);if(control&&node.contains(control))quickActions.appendChild(control)});
+      }
+      node.remove();
+    });
   }
 
   function removeNextCalcButtons(){
@@ -42,16 +68,14 @@
   }
 
   function keepRegistrationOpen(){
-    const btn=$('ctuRegisterSimple');
-    if(btn){btn.disabled=false;btn.removeAttribute('disabled');btn.removeAttribute('aria-disabled');}
-    ['saveCtuResult','createAndSaveCtuResult'].forEach(id=>{const b=$(id);if(b)b.disabled=false;});
-    // 後続の旧補助スクリプトがレビュー状態を参照しても登録を止めない。
+    // v1.3.52: old confirmation gate stays retired, but registration availability is controlled
+    // by the system-linked CTU progress state after an actual calculation.
     const current=window.SKCTUReview;
     if(!current || current.isComplete?.()!==true){
       window.SKCTUReview={
         isComplete:()=>true,
         getData:()=>({status:'not-required',confirmedItems:[],reviewer:'',note:'',confirmedAt:null,registrationConfirmationRequired:false,inputSources:{excel:false,photo:false,manual:true}}),
-        invalidate:()=>keepRegistrationOpen()
+        invalidate:()=>{}
       };
     }
   }
@@ -65,6 +89,8 @@
   }
   function lightweightCleanup(){
     removeKnownRedundantPanels();
+    removeEasyGuide();
+    removeNextCalcButtons();
     document.querySelectorAll('#ctuNextCalculation,[data-legacy-ctu-nav]').forEach(node=>node.remove());
     const msg=$('ctuRegistrationMessage');
     if(msg && norm(msg.textContent).includes('入力値・強度根拠・算出結果を確認しました'))msg.textContent='';
@@ -75,7 +101,9 @@
   // 後続スクリプトの追補にはID中心の軽量版を使い、同じ走査を重ねない。
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',cleanup,{once:true});else cleanup();
   window.addEventListener('load',lightweightCleanup,{once:true});
-  setTimeout(lightweightCleanup,180);
+  // defer読み込みの旧補助UIが後から生成される場合に備え、初期表示中だけ有限回再確認する。
+  // 常時監視・setIntervalは使用しない。
+  [180,450,900].forEach(delay=>setTimeout(lightweightCleanup,delay));
 
   // 旧ワークフロー補助が入力操作後に重複ナビを再生成する場合だけ、
   // ユーザー操作1回につき最大1回の軽量クリーンアップを行う。常時DOM監視はしない。
@@ -86,15 +114,9 @@
     if(event.target?.closest?.('[data-ctu-workflow],.ctu-workflow,.part551-single-check'))scheduleCleanup();
   },true));
 
-  // 監視対象は登録ボタン1個のdisabled属性だけ。画面全体のMutationObserverは使用しない。
-  const observeButton=()=>{
-    const btn=$('ctuRegisterSimple');
-    if(!btn||btn.dataset.v1316Observed==='1')return;
-    btn.dataset.v1316Observed='1';
-    new MutationObserver(()=>{if(btn.disabled){btn.disabled=false;btn.removeAttribute('disabled');}btn.removeAttribute('aria-disabled');})
-      .observe(btn,{attributes:true,attributeFilter:['disabled','aria-disabled']});
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',observeButton,{once:true});else observeButton();
+  // v1.3.52: registration buttons are no longer force-enabled by legacy cleanup.
+  // v1348-ctu-sticky-status.js controls them from the actual calculate/register progress.
 
-  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1316-ctu-cleanup.js':'v1.3.26'});
+
+  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1316-ctu-cleanup.js':'v1.3.52'});
 })();

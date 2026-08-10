@@ -522,8 +522,8 @@
                 marineLabel
                   ? `<div class="label-card label-card--actual">
                        <img src="${escapeHtml(marineLabel.src)}" alt="${escapeHtml(marineLabel.nameJa)}">
-                       <strong>海洋汚染物質</strong>
-                       <small>Marine Pollutant</small>
+                       <strong>標札</strong>
+                       <small>海洋汚染物質</small>
                      </div>`
                   : ""
               }

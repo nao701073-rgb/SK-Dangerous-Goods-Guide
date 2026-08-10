@@ -1,0 +1,983 @@
+{
+  "part": 569,
+  "base": "part568",
+  "generatedAt": "2026-08-07T21:55:00+09:00",
+  "summary": {
+    "total": 193,
+    "passed": 193,
+    "failed": 0
+  },
+  "scope": [
+    "申請書確認かんたん操作化",
+    "申請番号管理",
+    "固縛力参考算出",
+    "既存仕様・計算ロジック保全"
+  ],
+  "checks": [
+    {
+      "name": "HTMLファイル数維持",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "HTML build meta Part569統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "build-manifest cache bust v569統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "version-guard cache bust v569統一",
+      "status": "PASS",
+      "detail": "74 files"
+    },
+    {
+      "name": "旧Part568 build meta残存なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "旧build-manifest v568残存なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "旧version-guard v568残存なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/application-intake-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/application-intake-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/application-management-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/application-management-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/js/ctu-easy-operation-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規資産存在 assets/css/ctu-securing-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-intake-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/application-management-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 assets/js/ctu-easy-operation-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JavaScript構文 data/build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "pages/application-intake-workflow.html Part569資産読込",
+      "status": "PASS",
+      "detail": "application-intake-part569.css?v=569, application-intake-part569.js?v=569"
+    },
+    {
+      "name": "pages/applications.html Part569資産読込",
+      "status": "PASS",
+      "detail": "application-management-part569.css?v=569, application-management-part569.js?v=569"
+    },
+    {
+      "name": "pages/ctu-securing-calculator.html Part569資産読込",
+      "status": "PASS",
+      "detail": "ctu-securing-part569.css?v=569, ctu-easy-operation-part569.js?v=569"
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part565.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-detail-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part565.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-intake-part568.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/application-management-part568.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part566.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part567.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/css/ctu-securing-part568.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part565.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-detail-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part565.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-intake-part568.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/application-management-part568.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part566.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part567.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存資産保持 assets/js/ctu-easy-operation-part568.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 PART566_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 PART567_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 PART568_UPDATE_FILE_LIST.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 SHA256SUMS_PART566.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 SHA256SUMS_PART567.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 SHA256SUMS_PART568.txt",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/Part565_申請書確認記録・登録後追跡.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/Part566_かんたん操作・案件導線改善.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/Part567_案件コンテキスト・MSL確認性改善.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/Part568_要確認高速ナビ・現場入力補助.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/part565_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/part566_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/part567_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存更新資料保持 docs/part568_総合検証レポート.json",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 index.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/access-control.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/access-governance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/account-history.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/account-security-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/activate-account.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/admin-governance-dashboard.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/admin-succession.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/application-detail.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/application-intake-workflow.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/application-verification.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/applications.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/assurance-security-audit-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/change-password.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/change-release-governance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/cloud-connection.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/completion-roadmap.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/ctu-securing-calculator.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/dangerous-goods-detail.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/dangerous-goods-search.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/data-integrity-performance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/data-migration-legacy.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/data-migration.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/data-quality-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/deployment-execution-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/deployment-readiness-package.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/distribution-continuity-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/documentation-release-center.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/ems.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/favorites.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/feedback.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/final-production-readiness.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/identity-operations-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/imdg-cross-reference.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/integrated-operations-center.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/integrated-verification.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/kawasaki-pilot.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/label-catalog.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/login.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/maintenance-governance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/operations-acceptance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/operations-assurance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/operations-command-center-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/operations-monitoring.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/overpack-label-tool.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/pdf-page-viewer.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/pilot-launch-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/platform-reliability-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/post-deployment-operations-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/post-launch-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/production-identity-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/production-operations-hub.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/production-readiness.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/prototype-completion-review.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/publication-rights-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/quality-release-governance-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/recovery-migration-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/references.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/regulation-approval-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/regulation-evidence-snapshot.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/regulation-update-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/regulations.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/release-candidate-summary.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/reset-password.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/revision-preview.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/search-history.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/security-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/settings.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/system-maintenance.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/system-settings.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/system-wide-search.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/user-activity-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/user-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文保持 pages/validation-admin.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML既存本文・計算コード保持",
+      "status": "PASS",
+      "detail": "74/74 files"
+    },
+    {
+      "name": "確認理由コンパクト表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "確認理由展開ボタン",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "現在確認理由サマリー",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "UN番号付き理由表示",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "理由span本文を書換えない",
+      "status": "PASS",
+      "detail": "既存理由spanは削除・書換えせずCSSで折りたたみ"
+    },
+    {
+      "name": "reviewEvidence保存ロジック保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "確認理由全件取得ロジック保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "判定クラスの自動変更なし",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part568要確認ナビ保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "メモ保存＋写真撮影ワンタッチ",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真をすぐ追加",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存写真登録先引継ぎを再利用",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "申請番号未選択時ブロック",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alt+P写真ショートカット",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "新規保存形式を追加しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part567 Ctrl+Enterメモ保存保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "kN換算係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "N換算係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "daN換算係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "kgf換算係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tf換算係数",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真表示値・単位入力補助",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "刻印文字から候補化",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "候補値は自動確定しない注意",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "kN欄へ換算",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "既存MSL反映処理再利用",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "反映＋案件写真登録",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MSL反映後入力状態更新",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "写真選択後刻印欄へ誘導",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "固縛計算関数を新規定義しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "併用モードを新規変更しない",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "海上輸送 海域B初期値維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "併用成立条件既存説明維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "MSL写真登録維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "取付点MSL台帳維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "直接固縛採用MSL計算コード保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "貨物側写真入力維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CTU側写真入力維持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part568現場入力チェック保持",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest Part569",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Part569検証レポート参照",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ compactReviewReasons:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ activeReviewReasonSummary:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ memoPhotoOneTouch:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ directPhotoCapture:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ photoValueUnitConversion:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ markingValueCandidate:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ confirmedPhotoToMslLink:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "build-manifest機能フラグ photoApplyAndSave:true",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/js/application-intake-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/css/application-intake-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/js/application-management-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/css/application-management-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/js/ctu-easy-operation-part569.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "criticalAssets登録 assets/css/ctu-securing-part569.css",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION.json Part569",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "VERSION base Part568",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーション追加なし",
+      "status": "PASS",
+      "detail": "base=0, part569=0"
+    }
+  ]
+}

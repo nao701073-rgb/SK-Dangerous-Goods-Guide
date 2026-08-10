@@ -1,0 +1,118 @@
+/* SKDG v1.3.48 - CTU input/confirmation sticky status. */
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status{
+  position:sticky;
+  top:var(--sk38-header-height,58px);
+  z-index:920;
+  margin:10px 0 14px;
+  padding:8px 10px;
+  border:1px solid #b9cee1;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(16,59,102,.10);
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__inner{
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) auto auto;
+  gap:10px;
+  align-items:center;
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__summary{
+  min-width:0;
+  display:grid;
+  gap:2px;
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__summary strong{
+  color:#103b66;
+  font-size:.94rem;
+  line-height:1.35;
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__summary span{
+  color:#52677a;
+  font-size:.78rem;
+  line-height:1.35;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__steps{
+  display:flex;
+  gap:6px;
+  min-width:0;
+}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip{
+  display:grid;
+  grid-template-columns:auto auto;
+  grid-template-areas:"num label" "num state";
+  column-gap:7px;
+  align-items:center;
+  min-width:126px;
+  min-height:44px;
+  padding:5px 9px;
+  border:1px solid #cad8e5;
+  border-radius:10px;
+  background:#f5f8fb;
+  color:#173a5e;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip:hover{border-color:#7aa9d1;background:#eef6fc}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip__num{
+  grid-area:num;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#dfe9f2;
+  color:#31546f;
+  font-weight:800;
+  font-size:.82rem;
+}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip__label{grid-area:label;font-weight:800;font-size:.82rem;white-space:nowrap}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip em{grid-area:state;font-style:normal;font-weight:700;font-size:.72rem;color:#607489;white-space:nowrap}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ok"]{background:#edf8f2;border-color:#a7d6bc}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ok"] .ctu-status-chip__num{background:#168356;color:#fff}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="review"]{background:#fff8e7;border-color:#e5c56d}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="review"] .ctu-status-chip__num{background:#b47b00;color:#fff}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="missing"],
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ng"]{background:#fff1f1;border-color:#dfabab}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="missing"] .ctu-status-chip__num,
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ng"] .ctu-status-chip__num{background:#ad3535;color:#fff}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ready"]{background:#edf6ff;border-color:#9cc4e7}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ready"] .ctu-status-chip__num{background:#1768a2;color:#fff}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__jump{
+  min-height:38px;
+  border:1px solid #17608c;
+  border-radius:9px;
+  padding:7px 11px;
+  background:#17608c;
+  color:#fff;
+  font-weight:800;
+  white-space:nowrap;
+  cursor:pointer;
+}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__jump[hidden]{display:none!important}
+body[data-page="ctu-securing-calculator"] #ctuCommonCasePanel{scroll-margin-top:130px}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel,
+body[data-page="ctu-securing-calculator"] #overall,
+body[data-page="ctu-securing-calculator"] #ctuRegistrationSection{scroll-margin-top:138px}
+body[data-page="ctu-securing-calculator"] .ctu-status-focus{outline:3px solid rgba(23,96,140,.30)!important;outline-offset:3px!important;transition:outline .2s ease}
+
+@media(max-width:820px){
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status__inner{grid-template-columns:1fr auto}
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status__steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  body[data-page="ctu-securing-calculator"] .ctu-status-chip{min-width:0}
+}
+@media(max-width:620px){
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status{top:var(--sk38-header-height,54px);margin:6px 0 10px;padding:7px;border-radius:10px}
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status__inner{grid-template-columns:1fr auto;gap:6px}
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status__summary span{font-size:.72rem}
+  body[data-page="ctu-securing-calculator"] .ctu-status-chip{padding:5px 6px;column-gap:5px;min-height:42px}
+  body[data-page="ctu-securing-calculator"] .ctu-status-chip__num{width:23px;height:23px;font-size:.74rem}
+  body[data-page="ctu-securing-calculator"] .ctu-status-chip__label{font-size:.74rem}
+  body[data-page="ctu-securing-calculator"] .ctu-status-chip em{font-size:.66rem}
+  body[data-page="ctu-securing-calculator"] .ctu-sticky-status__jump{padding:6px 8px;font-size:.78rem}
+}
+@media print{body[data-page="ctu-securing-calculator"] .ctu-sticky-status{display:none!important}}

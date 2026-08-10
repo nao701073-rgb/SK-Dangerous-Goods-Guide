@@ -1,0 +1,26 @@
+/* SKDG Part 1 / v1.3.2 - application intake single-reveal stabilization */
+body[data-page="application-intake-workflow"] .intake-page{overflow-anchor:none}
+body[data-page="application-intake-workflow"] #intakeFileStatus{
+  min-height:46px;box-sizing:border-box;display:flex;align-items:center;
+}
+body[data-page="application-intake-workflow"] #intakeEditSection,
+body[data-page="application-intake-workflow"] #intakeCheckSection,
+body[data-page="application-intake-workflow"] #intakeRegisterSection,
+body[data-page="application-intake-workflow"] #intakeEditSection *,
+body[data-page="application-intake-workflow"] #intakeCheckSection *,
+body[data-page="application-intake-workflow"] #intakeRegisterSection *{
+  animation:none!important;transition:none!important;
+}
+/* During parsing/checking, intermediate yellow/green/result DOM never participates in layout. */
+body[data-page="application-intake-workflow"].v132-intake-settling #intakeEditSection,
+body[data-page="application-intake-workflow"].v132-intake-settling #intakeCheckSection{
+  display:none!important;
+}
+/* Final state is painted once, without transition. */
+body[data-page="application-intake-workflow"].v132-intake-reveal #intakeEditSection,
+body[data-page="application-intake-workflow"].v132-intake-reveal #intakeCheckSection,
+body[data-page="application-intake-workflow"].v132-intake-reveal #intakeRegisterSection{
+  transition:none!important;animation:none!important;
+}
+/* Never re-enable the obsolete v1.3.1 placeholder. */
+body[data-page="application-intake-workflow"] #v131ImportSettling{display:none!important}

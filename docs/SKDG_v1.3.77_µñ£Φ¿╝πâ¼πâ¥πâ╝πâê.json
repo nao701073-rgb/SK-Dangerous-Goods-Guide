@@ -1,0 +1,111 @@
+{
+  "version": "1.3.77",
+  "verification": {
+    "static_new_checks": {
+      "passed": 23,
+      "total": 23
+    },
+    "v1376_regression_checks": {
+      "passed": 42,
+      "total": 42
+    },
+    "browser_minimal": {
+      "app4": {
+        "active": true,
+        "enabled": true,
+        "calcMode": "timberBattens",
+        "direction": "forward",
+        "material": "timber",
+        "materialCapacity": 24.35064935064935,
+        "receiverCapacity": Infinity,
+        "receiverType": "frameConfirmed",
+        "frameConfirmed": true,
+        "confirmed": true,
+        "valid": true,
+        "adoptedCapacity": 24.35064935064935,
+        "manualTotal": 20,
+        "needsReceiverValue": true,
+        "payload": 0,
+        "batten": {
+          "count": 6,
+          "thicknessCm": 5,
+          "heightCm": 10,
+          "freeLengthM": 2.2,
+          "capacityKn": 24.35064935064935
+        }
+      },
+      "wall": {
+        "active": true,
+        "enabled": true,
+        "calcMode": "manualPath",
+        "direction": "forward",
+        "material": "timber",
+        "materialCapacity": 150,
+        "receiverCapacity": 109.87200000000001,
+        "receiverType": "frontWall",
+        "frameConfirmed": false,
+        "confirmed": true,
+        "valid": true,
+        "adoptedCapacity": 109.87200000000001,
+        "manualTotal": 150,
+        "needsReceiverValue": false,
+        "payload": 28,
+        "batten": {
+          "count": 6,
+          "thicknessCm": 5,
+          "heightCm": 10,
+          "freeLengthM": 2.2,
+          "capacityKn": 24.35064935064935
+        }
+      },
+      "unconfirmed": {
+        "active": true,
+        "enabled": true,
+        "calcMode": "manualPath",
+        "direction": "forward",
+        "material": "timber",
+        "materialCapacity": 150,
+        "receiverCapacity": 109.87200000000001,
+        "receiverType": "frontWall",
+        "frameConfirmed": false,
+        "confirmed": false,
+        "valid": false,
+        "adoptedCapacity": 0,
+        "manualTotal": 150,
+        "needsReceiverValue": false,
+        "payload": 28,
+        "batten": {
+          "count": 6,
+          "thicknessCm": 5,
+          "heightCm": 10,
+          "freeLengthM": 2.2,
+          "capacityKn": 24.35064935064935
+        }
+      }
+    },
+    "ui_overflow": {
+      "desktop": "1000/1000",
+      "mobile": "390/390"
+    },
+    "ctu_appendix4_example": {
+      "n": 6,
+      "w_cm": 5,
+      "h_cm": 10,
+      "L_m": 2.2,
+      "calculated_kN": 24.35064935064935,
+      "rounded_official_example_kN": 24
+    },
+    "unchanged_core_functions": [
+      "lashingForDirectionCtu",
+      "lashingForDirectionCss",
+      "cssVerticalForceCorrection",
+      "cssExternalForces",
+      "frictionLimit"
+    ]
+  },
+  "notes": [
+    "Support path adopts weaker of support-side and CTU receiver capacity.",
+    "Same wall/frame path is not double-counted as wall resistance.",
+    "Legacy manual support mode remains available."
+  ]
+}

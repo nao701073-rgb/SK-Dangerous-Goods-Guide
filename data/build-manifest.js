@@ -1,10 +1,10 @@
 window.SK_BUILD_MANIFEST = {
-  version: "v1.3.28",
+  version: "v1.3.81",
   part: 593,
   legacyDevelopmentBase: "part593",
-  baseRelease: "v1.3.21",
-  buildId: "2026-08-09-skdg-v1.3.28-performance-hotfix",
-  releasedAt: "2026-08-09T10:31:00+09:00",
+  baseRelease: "v1.3.80",
+  buildId: "2026-08-10-skdg-v1.3.81-three-state-reference-assessment",
+  releasedAt: "2026-08-10T09:39:00+09:00",
   dataVersion: "dangerous-goods-2026-08-03",
   legalMasterVersion: "part503",
   expectedRecordCount: 2725,
@@ -12,6 +12,7 @@ window.SK_BUILD_MANIFEST = {
   minorRelease: true,
   displayVersion: "Version 1.0 試作版",
   prototypeStage: true,
+  ctuAssessmentV1381: { labels:['参考上十分','要確認','参考上不足'], unresolvedIsNotFinalFailure:true, confirmedOnlyCredit:true, baseLogic:'v1.3.80' },
   preservedModules: { dangerousGoodsSearch:true, dangerousGoodsDetail:true, regulations:true, references:true, codeScreens:true, overpackTool:true, searchHistory:true },
   applicationManagementV1315: {
     cardShowsRegisteredContentTypes:true,
@@ -169,3 +170,67 @@ window.SK_BUILD_MANIFEST_V1333=Object.assign(window.SK_BUILD_MANIFEST_V1333||{},
 
 // v1.3.34 closed-by-default submenu + lightweight header runtime
 window.SK_BUILD_MANIFEST_V1334=Object.assign(window.SK_BUILD_MANIFEST_V1334||{},{submenuClosedByDefault:true,submenuOpensOnlyOnMenuButton:true,applicationManagementStyleHeaderRestored:true,headerLeftAlignedMenuHomeTitle:true,currentUserAtHeaderRight:true,legacyUnifiedSubmenuRuntimeRemovedFromPrimaryPages:true,fullDomMutationObserverRemoved:true,quarterSecondRolePollingRemoved:true,roleGateRunsOnInitialLoadAndPageShow:true,noDatabaseMigration:true});
+
+// v1.3.58 CTU global sea-area coverage + overall audit
+window.SK_BUILD_MANIFEST_V1358=Object.assign(window.SK_BUILD_MANIFEST_V1358||{},{ctuGlobalSeaAreaCoverage:true,seaAreaCandidates:["seaA","seaB","seaC"],unknownPortDefaultsToSeaBAndRequiresConfirmation:true,excelPortMonthRouteTransportCoefficientLinked:true,ctuIndependentCardsOneToSix:true,ctuCardSpacingPolished:true,falseRegistrationSuccessGuard:true,noDatabaseMigration:true});
+
+// v1.3.59 CTU six-step status + independent card visual hotfix
+window.SK_BUILD_MANIFEST_V1359=Object.assign(window.SK_BUILD_MANIFEST_V1359||{},{ctuSixStepStatus:true,ctuStatusSteps:[1,2,3,4,5,6],ctuIndependentCardFrames:true,ctuLegacySharedDeckFrameDisabled:true,ctuStepNumberAlwaysVisible:true,ctuCompletionCheckmarkSecondary:true,ctuMissingDetailIncludesStepNumber:true,noDatabaseMigration:true});
+
+// v1.3.64 CTU ghost frame root-cause fix
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {
+  "assets/css/v1364-ctu-canonical-layout.css":"v1.3.64",
+  "assets/js/v1364-ctu-ghost-card-cleanup.js":"v1.3.64"
+});
+
+// v1.3.72 CTU canonical runtime / legacy layout mutator retirement
+window.SK_BUILD_MANIFEST_V1372=Object.assign(window.SK_BUILD_MANIFEST_V1372||{},{ctuCanonicalSixStep:true,legacyCtuLayoutMutatorsRetired:true,stickyTrackerFlatOuterShell:true,quickMethodDirectAndTopover:true,calculationCoreUnchanged:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"assets/js/v1372-ctu-canonical-guard.js":"v1.3.73","assets/css/v1372-ctu-canonical-final.css":"v1.3.73"});
+
+// v1.3.78 system-wide mobile readability audit
+window.SK_BUILD_MANIFEST_V1378=Object.assign(window.SK_BUILD_MANIFEST_V1378||{},{mobileSystemReadabilityAudit:true,ctuMobileStatusCompact:true,applicationVerificationMobileCards:true,applicationManagementMobileSingleColumn:true,dangerousGoodsMobileAudit:true,regulationsReferencesSettingsMobileAudit:true,desktopLayoutPreserved:true,calculationLogicUnchanged:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"assets/css/v1378-mobile-system-audit.css":"v1.3.78"});
+// v1.3.79 CTU lashing material / MSL linkage
+window.SK_BUILD_MANIFEST_V1379=Object.assign(window.SK_BUILD_MANIFEST_V1379||{},{ctuMaterialMslAutoLink:true,ctuAdoptedMslSummary:true,ctuSideMslPrimaryReview:true,weakestLinkMslRulePreserved:true,staleMslCarryoverPrevented:true,topoverMslStfSeparation:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"assets/js/v1379-ctu-msl-material-linkage.js":"v1.3.79","assets/css/v1379-ctu-msl-material-linkage.css":"v1.3.79"});
+
+// v1.3.80 CTU/CSS directional-load and resistance logic re-audit
+window.SK_BUILD_MANIFEST_V1380=Object.assign(window.SK_BUILD_MANIFEST_V1380||{},{ctuDirectionalLoadReaudit:true,ctuSeaAreaABCIndependentDirectionCases:true,noFortySixtyMassSplit:true,ctuDirectFrictionUsesSeventyFivePercentStaticMu:true,ctuBoundaryRequiresConfirmedLoadTransfer:true,bracingWallDoubleCountPrevented:true,stiffMechanicalPathPriority:true,directMslRequiresAllThreeElements:true,cssDirectMslRequiresAllThreeElements:true,cssShipSpecificAccelerationPreserved:true,cssAnnex13Table2Verified:true,cssAnnex13Table3Verified:true,cssAnnex13Table4Verified:true,cssAnnex13Table5Verified:true,cssServiceSpeedBelow15NotClamped:true,cssReducedOperationalSpeedNotUsedForTransverseReduction:true,annex7_4_1_6ParallelSumBlocked:true,approvedModeNoSimpleAddition:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"data/ctu-code-rules-v1380.js":"v1.3.80","assets/js/ctu-securing-calculator-core-v1380.js":"v1.3.80","assets/css/v1380-ctu-resistance-logic-audit.css":"v1.3.80"});
+
+// v1.3.81 three-state reference assessment
+window.SK_BUILD_MANIFEST.ctuAssessmentV1381 = {labels:['参考上十分','要確認','参考上不足'],unresolvedIsNotFinalFailure:true,confirmedOnlyCredit:true,baseLogic:'v1.3.80'};
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"data/ctu-assessment-policy-v1381.js":"v1.3.81","assets/js/ctu-securing-calculator-core-v1381.js":"v1.3.81","assets/css/v1381-ctu-three-state-assessment.css":"v1.3.81"});
+// v1.3.83 CTU photo drop visibility / bridge hotfix
+window.SK_BUILD_MANIFEST_V1383=Object.assign(window.SK_BUILD_MANIFEST_V1382||{},{ctuPhotoDropOverlayReadable:true,ctuPhotoDropOverlayAbsolute:true,ctuPhotoDropBridgeRestored:true,ctuMslEvidenceDropBridge:true,ctuPointPhotoDropBridge:true,calculationLogicUnchanged:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {"assets/css/v1382-ctu-photo-drop-visibility.css":"v1.3.83","assets/js/v1382-ctu-photo-drop-bridge.js":"v1.3.83"});
+
+;window.SKDG_BUILD_EXTENSIONS=window.SKDG_BUILD_EXTENSIONS||[];window.SKDG_BUILD_EXTENSIONS.push({version:"v1.3.84",build:"1384",feature:"ctu-combined-always-stacked"});
+
+;window.SKDG_BUILD_EXTENSIONS=window.SKDG_BUILD_EXTENSIONS||[];window.SKDG_BUILD_EXTENSIONS.push({version:"v1.3.85",build:"1385",feature:"ctu-dual-use-checkbox",bothPanelsAlwaysVisible:true,defaultBothChecked:true,checkedOnlyCalculation:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {
+  "assets/css/v1385-ctu-dual-use-checkbox.css":"v1.3.85",
+  "assets/js/v1385-ctu-dual-use-toggle.js":"v1.3.85",
+  "assets/js/ctu-securing-calculator-core-v1385.js":"v1.3.85",
+  "assets/js/v1385-ctu-case-restore.js":"v1.3.85",
+  "assets/js/v1385-ctu-sticky-status.js":"v1.3.85"
+});
+
+;window.__SK_BUILD_EXTENSIONS__=Object.assign(window.__SK_BUILD_EXTENSIONS__||{}, {
+  v1387:{version:"v1.3.87",base:"v1.3.85",summary:"CTU Step 5の併用確認・長文説明ボックスを画面から撤去。固縛材/支保材の使用チェックと二重計上防止ロジックは維持。"}
+});
+
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/application-intake-workflow-policy.js':'v1.3.88','pages/application-intake-workflow.html':'v1.3.88'});
+
+;window.SKDG_BUILD_EXTENSIONS=window.SKDG_BUILD_EXTENSIONS||[];window.SKDG_BUILD_EXTENSIONS.push({version:'v1.3.89',build:'1389',feature:'application-intake-remark-weight-autofill',exactUnMatch:true,remarkDecimalWeightPriority:true,perPackageDerivedFromCount:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/application-intake-workflow-policy.js':'v1.3.89','pages/application-intake-workflow.html':'v1.3.89'});
+
+;window.SKDG_BUILD_EXTENSIONS=window.SKDG_BUILD_EXTENSIONS||[];window.SKDG_BUILD_EXTENSIONS.push({version:'v1.3.90',build:'1390',feature:'ctu-imported-application-number-registration-link',importedApplicationNumberAutoLink:true,existingApplicationReuse:true,registrationIdentityConsistencyCheck:true,manualFallbackWhenNoImportedIdentity:true,noDatabaseMigration:true});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {
+  'assets/js/ctu-excel-route-import.js':'v1.3.90',
+  'assets/js/v1390-ctu-application-number-registration-link.js':'v1.3.90',
+  'assets/css/v1390-ctu-application-number-registration-link.css':'v1.3.90',
+  'pages/ctu-securing-calculator.html':'v1.3.90'
+});
+
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/ctu-excel-route-import.js':'v1.3.91','assets/js/v1391-ctu-application-number-registration-link.js':'v1.3.91'});

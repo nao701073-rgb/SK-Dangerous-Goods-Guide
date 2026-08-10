@@ -5,3 +5,21 @@
 .part551-select-note{display:block;margin-top:6px;color:#49657d;font-weight:600;line-height:1.45}.ctu-part551-restore{display:grid;gap:4px;margin-top:16px;padding:13px 15px;border:1px solid #8db8d7;border-left:5px solid #17649f;border-radius:11px;background:#edf7fd;color:#173d5c}.ctu-part551-restore strong{font-size:1rem}.ctu-part551-restore span{line-height:1.55}
 .part551-progress{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 16px}.part551-progress>div{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;padding:10px 11px;border:1px solid #cad9e6;border-radius:11px;background:#f8fbfd}.part551-progress span{grid-row:1/3;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#dce8f1;color:#31526d;font-weight:800}.part551-progress strong{font-size:.88rem}.part551-progress small{color:#61788b}.part551-progress>div.is-ready{background:#eef8f3;border-color:#b7d8c6}.part551-progress>div.is-ready span{background:#1f7a4d;color:#fff}.part551-next{display:flex!important;width:max-content;margin-top:12px;margin-left:auto}.part551-case-review-details,.part551-assist-details,.part551-optional-details{border:1px solid #c9d9e5;border-radius:11px;background:#f8fbfd;margin-top:12px;overflow:hidden}.part551-case-review-details>summary,.part551-assist-details>summary,.part551-optional-details>summary{cursor:pointer;list-style:none;padding:11px 13px;color:#0b5a94;font-weight:800;background:#f8fbfd}.part551-case-review-details>summary::-webkit-details-marker,.part551-assist-details>summary::-webkit-details-marker,.part551-optional-details>summary::-webkit-details-marker{display:none}.part551-case-review-details>summary:before,.part551-assist-details>summary:before,.part551-optional-details>summary:before{content:'▶';display:inline-block;margin-right:8px;font-size:.7rem;transition:transform .15s ease}.part551-case-review-details[open]>summary:before,.part551-assist-details[open]>summary:before,.part551-optional-details[open]>summary:before{transform:rotate(90deg)}.part551-case-review-details>.ctu-case-review-shell,.part551-assist-details>.panel{margin:0;border:0;border-top:1px solid #d4e0e9;border-radius:0;box-shadow:none}.part551-optional-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;background:#fff;border-top:1px solid #d4e0e9}.part551-optional-grid .quick-field{display:block!important}.part551-assist-details{margin:14px 0}.part551-assist-details>.panel{background:#fff}.ctu-simple-registration #ctuOpenRegisteredDetail:not([hidden]){display:inline-flex;margin-left:8px}
 @media(max-width:760px){.part551-progress{grid-template-columns:1fr}.part551-next{width:100%;justify-content:center}.part551-optional-grid{grid-template-columns:1fr}.ctu-part551-restore{margin-top:10px}.ctu-simple-registration #ctuOpenRegisteredDetail:not([hidden]){display:flex;width:100%;margin:8px 0 0;justify-content:center}}
+
+/* v1.3.65: Part551 legacy assist wrapper retired. */
+body[data-page="ctu-securing-calculator"] details.part551-assist-details{border:0!important;border-radius:0!important;background:transparent!important;margin:0!important;padding:0!important;box-shadow:none!important;overflow:visible!important}
+body[data-page="ctu-securing-calculator"] details.part551-assist-details>summary{display:none!important}
+body[data-page="ctu-securing-calculator"] details.part551-assist-details>#ctuExcelRoutePanel,body[data-page="ctu-securing-calculator"] details.part551-assist-details>#photoInputPanel{margin:0!important}
+
+/* SKDG v1.3.66: Part551 legacy assist wrapper is no longer a visual box.
+   It may exist transiently when an older runtime is cached, but it must occupy no space. */
+body[data-page="ctu-securing-calculator"] details.part551-assist-details{
+  display:contents!important;
+  border:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+body[data-page="ctu-securing-calculator"] details.part551-assist-details>summary{display:none!important}
+body[data-page="ctu-securing-calculator"] [data-v1366-legacy-empty="1"]{display:none!important}

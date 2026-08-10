@@ -1,0 +1,25 @@
+SKDG v1.3.90 CTU 申請書取得番号・申請番号管理登録連動
+
+適用対象:
+- v1.3.89 を基準とした環境
+
+更新ファイル:
+- pages/ctu-securing-calculator.html
+- assets/js/ctu-excel-route-import.js
+- assets/js/v1390-ctu-application-number-registration-link.js
+- assets/css/v1390-ctu-application-number-registration-link.css
+- data/build-manifest.js
+
+動作:
+1. 固縛力参考算出でExcel申請書を読み込む。
+2. 申請書の「申請番号」を取得する。
+3. 申請年度は、明記された申請年度、申請番号の年表記、または申請日から取得する。
+4. 申請番号管理に同じ年度・番号が存在する場合、その既存案件を登録先として自動選択する。
+5. 未登録の場合は、同じ年度・番号を新規登録欄へ自動入力する。
+6. 登録ボタン押下時に再度番号を照合し、不一致の場合は登録を停止する。
+7. 「取込データを消去」すると番号連動も解除され、従来の手入力登録に戻る。
+
+注意:
+- 申請番号または申請年度を安全に確定できないExcelでは自動紐付けしません。
+- 別番号へ登録する必要がある場合は、まずExcel取込データを消去してから手入力してください。
+- CTU/CSS計算、MSL、摩擦、支保、三段階判定ロジックには変更ありません。

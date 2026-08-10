@@ -1,0 +1,41 @@
+/* SKDG v1.3.68 - canonical CTU runtime / legacy PART retirement */
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status{
+  position:sticky!important;
+  top:var(--sk38-header-height,58px)!important;
+  z-index:950!important;
+  box-shadow:0 5px 16px rgba(16,59,102,.12)!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel .quick-step[data-ctu-step]{
+  scroll-margin-top:calc(var(--sk38-header-height,58px) + 112px)!important;
+}
+/* Retired runtime shells must never occupy geometry even if an old cached script recreates one. */
+body[data-page="ctu-securing-calculator"] details.part551-assist-details,
+body[data-page="ctu-securing-calculator"] #v131SourceStart,
+body[data-page="ctu-securing-calculator"] #v1PhotoStep,
+body[data-page="ctu-securing-calculator"] [data-v1356-legacy-progress-hidden="1"]{
+  display:contents!important;
+  margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important;
+}
+body[data-page="ctu-securing-calculator"] #v1PhotoStep{display:none!important}
+body[data-page="ctu-securing-calculator"] .v1368-contact-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;
+}
+body[data-page="ctu-securing-calculator"] .v1368-contact-grid label{font-weight:700;color:#344c5d}
+body[data-page="ctu-securing-calculator"] .v1368-contact-grid select{width:100%;margin-top:7px;min-height:44px}
+body[data-page="ctu-securing-calculator"] .v1368-mu-output{
+  margin-top:16px;padding:12px 14px;border:1px solid #c4dfee;border-radius:10px;background:#eef7fc;
+  display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+}
+body[data-page="ctu-securing-calculator"] .v1368-mu-output div{display:grid;gap:2px}
+body[data-page="ctu-securing-calculator"] .v1368-mu-output span{font-size:.78rem;color:#587086}
+body[data-page="ctu-securing-calculator"] .v1368-mu-output strong{color:#0b477b;font-size:1rem}
+body[data-page="ctu-securing-calculator"] .v1368-mu-output small{color:#52677a;line-height:1.55}
+/* Step 5: one card uses the full width; two columns only when support is actually shown. */
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels{grid-template-columns:minmax(0,1fr)!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels:has(#ctuSupportSecuringPanel:not([hidden])){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+body[data-page="ctu-securing-calculator"] #ctuPrimarySecuringPanel{width:100%!important}
+@media(max-width:900px){body[data-page="ctu-securing-calculator"] #ctuStep5Panels:has(#ctuSupportSecuringPanel:not([hidden])){grid-template-columns:minmax(0,1fr)!important}}
+@media(max-width:700px){body[data-page="ctu-securing-calculator"] .v1368-contact-grid{grid-template-columns:1fr}}
+@media print{body[data-page="ctu-securing-calculator"] .ctu-sticky-status{display:none!important}}

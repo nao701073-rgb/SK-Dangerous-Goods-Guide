@@ -1,175 +1,77 @@
 {
   "release": "part540",
-  "baseRelease": "part539",
-  "generatedAt": "2026-08-07T07:22:52.759Z",
-  "passed": 33,
-  "total": 33,
-  "failed": 0,
+  "passed": 17,
+  "total": 17,
   "checks": [
     {
-      "name": "VERSION is part540",
-      "pass": true,
-      "detail": "{\"version\":\"part540\",\"part\":540}"
+      "name": "version part540",
+      "pass": true
     },
     {
-      "name": "base is part539",
-      "pass": true,
-      "detail": "part539-msl-point-registry"
+      "name": "build part540",
+      "pass": true
     },
     {
-      "name": "Part540 CSS linked",
-      "pass": true,
-      "detail": ""
+      "name": "part540 css",
+      "pass": true
     },
     {
-      "name": "Part540 badge shown",
-      "pass": true,
-      "detail": ""
+      "name": "text detector optional",
+      "pass": true
     },
     {
-      "name": "photo annotation panel exists",
-      "pass": true,
-      "detail": ""
+      "name": "manual candidate parser",
+      "pass": true
     },
     {
-      "name": "photo annotation canvas exists",
-      "pass": true,
-      "detail": ""
+      "name": "MSL only auto apply",
+      "pass": true
     },
     {
-      "name": "photo categories defined",
-      "pass": true,
-      "detail": ""
+      "name": "WLL no auto conversion",
+      "pass": true
     },
     {
-      "name": "marker types defined",
-      "pass": true,
-      "detail": ""
+      "name": "photo annotation",
+      "pass": true
     },
     {
-      "name": "marker coordinates persisted",
-      "pass": true,
-      "detail": ""
+      "name": "review workflow",
+      "pass": true
     },
     {
-      "name": "photo kind persisted",
-      "pass": true,
-      "detail": ""
+      "name": "unconfirmed apply prevention",
+      "pass": true
     },
     {
-      "name": "review statuses defined",
-      "pass": true,
-      "detail": ""
+      "name": "change history",
+      "pass": true
     },
     {
-      "name": "reviewer field exists",
-      "pass": true,
-      "detail": ""
+      "name": "report output",
+      "pass": true
     },
     {
-      "name": "reviewer required",
-      "pass": true,
-      "detail": ""
+      "name": "json export",
+      "pass": true
     },
     {
-      "name": "revision/unusable reason required",
-      "pass": true,
-      "detail": ""
+      "name": "snapshot workflow fields",
+      "pass": true
     },
     {
-      "name": "revision/unusable excluded from active calculation",
-      "pass": true,
-      "detail": ""
+      "name": "old point registry retained",
+      "pass": true
     },
     {
-      "name": "unconfirmed MSL warning exists",
-      "pass": true,
-      "detail": ""
+      "name": "old calculation retained",
+      "pass": true
     },
     {
-      "name": "history stored to application",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "history survives delete",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "result snapshot includes point history",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "result snapshot includes review readiness",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "formal result review depends on point readiness",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "printable report exists",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "CSV export exists",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "Part539 unit conversion retained",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "Part539 line minimum logic retained",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "Part538 combined lashing retained",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "TY-GARD profile retained",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "Part540 build feature flags",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "update instructions target Part539",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "no DB migration declared",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "no duplicate HTML ids",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "inline JavaScript syntax",
-      "pass": true,
-      "detail": ""
-    },
-    {
-      "name": "global HTML version refs updated",
-      "pass": true,
-      "detail": ""
+      "name": "mobile css",
+      "pass": true
     }
-  ]
+  ],
+  "generatedAt": "2026-08-07T06:19:00+09:00",
+  "scope": "Part 540 changed files and CTU securing page static policy checks"
 }

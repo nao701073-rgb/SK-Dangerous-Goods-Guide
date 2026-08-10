@@ -1,0 +1,18 @@
+{
+  "version": "v1.3.33",
+  "status": "pass",
+  "checks": {
+    "javascriptSyntax": true,
+    "sharedHomeSvg": true,
+    "dangerousGoodsSearchStaticHome": true,
+    "dangerousGoodsDetailStaticHome": true,
+    "applicationIntakeHomeUnified": true,
+    "ctuStaticHeader": true,
+    "ctuDuplicateHomeRemoved": true,
+    "feedbackHomeStyleUnified": true,
+    "searchHistoryHomeStyleUnified": true,
+    "userHeaderShortcutPreserved": true,
+    "permissionGatePreserved": true,
+    "databaseMigration": false
+  }
+}

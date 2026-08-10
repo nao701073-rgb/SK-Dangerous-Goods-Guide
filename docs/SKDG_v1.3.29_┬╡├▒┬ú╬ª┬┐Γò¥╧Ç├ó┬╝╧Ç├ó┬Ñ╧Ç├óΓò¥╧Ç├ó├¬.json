@@ -1,0 +1,52 @@
+{
+  "version": "v1.3.29",
+  "type": "cumulative-performance-hotfix",
+  "checks": [
+    {
+      "name": "VERSION JSON",
+      "status": "PASS",
+      "detail": "v1.3.29"
+    },
+    {
+      "name": "JS構文 assets/js/v1315-application-management.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/v1316-ctu-cleanup.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 assets/js/application-intake-workflow.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "JS構文 data/build-manifest.js",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML内JS構文 pages/applications.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML内JS構文 pages/ctu-securing-calculator.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "HTML内JS構文 pages/application-intake-workflow.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "status": "PASS",
+      "detail": "databaseMigration=false"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,258 @@
+{
+  "version": "1.3.80",
+  "passed": 50,
+  "total": 50,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "seaA forward c/cz",
+      "pass": true,
+      "detail": "[0.3,0.5]"
+    },
+    {
+      "name": "seaA rear c/cz",
+      "pass": true,
+      "detail": "[0.3,0.5]"
+    },
+    {
+      "name": "seaA left c/cz",
+      "pass": true,
+      "detail": "[0.5,1]"
+    },
+    {
+      "name": "seaA right c/cz",
+      "pass": true,
+      "detail": "[0.5,1]"
+    },
+    {
+      "name": "seaB forward c/cz",
+      "pass": true,
+      "detail": "[0.3,0.3]"
+    },
+    {
+      "name": "seaB rear c/cz",
+      "pass": true,
+      "detail": "[0.3,0.3]"
+    },
+    {
+      "name": "seaB left c/cz",
+      "pass": true,
+      "detail": "[0.7,1]"
+    },
+    {
+      "name": "seaB right c/cz",
+      "pass": true,
+      "detail": "[0.7,1]"
+    },
+    {
+      "name": "seaC forward c/cz",
+      "pass": true,
+      "detail": "[0.4,0.2]"
+    },
+    {
+      "name": "seaC rear c/cz",
+      "pass": true,
+      "detail": "[0.4,0.2]"
+    },
+    {
+      "name": "seaC left c/cz",
+      "pass": true,
+      "detail": "[0.8,1]"
+    },
+    {
+      "name": "seaC right c/cz",
+      "pass": true,
+      "detail": "[0.8,1]"
+    },
+    {
+      "name": "Sea A longitudinal force 10t = 29.43kN",
+      "pass": true,
+      "detail": 29.43
+    },
+    {
+      "name": "Sea A transverse force 10t = 49.05kN",
+      "pass": true,
+      "detail": 49.050000000000004
+    },
+    {
+      "name": "Sea B longitudinal force 10t = 29.43kN",
+      "pass": true,
+      "detail": 29.43
+    },
+    {
+      "name": "Sea B transverse force 10t = 68.67kN",
+      "pass": true,
+      "detail": 68.67
+    },
+    {
+      "name": "Sea C longitudinal force 10t = 39.24kN",
+      "pass": true,
+      "detail": 39.24000000000001
+    },
+    {
+      "name": "Sea C transverse force 10t = 78.48kN",
+      "pass": true,
+      "detail": 78.48000000000002
+    },
+    {
+      "name": "No 40/60 mass split model",
+      "pass": true,
+      "detail": "directionalForce uses m*g*c"
+    },
+    {
+      "name": "Direct securing friction uses 75% static mu",
+      "pass": true,
+      "detail": 0.30000000000000004
+    },
+    {
+      "name": "Non-direct friction keeps static mu",
+      "pass": true,
+      "detail": 0.4
+    },
+    {
+      "name": "Sea C longitudinal friction reflects cz=0.2",
+      "pass": true,
+      "detail": 3.924000000000001
+    },
+    {
+      "name": "Weakest MSL complete selects CTU 10kN",
+      "pass": true,
+      "detail": "{\"complete\":true,\"value\":10,\"limiting\":\"CTU側固縛点\",\"values\":{\"device\":12.1,\"cargo\":20,\"ctu\":10}}"
+    },
+    {
+      "name": "Incomplete MSL is zero and not creditable",
+      "pass": true,
+      "detail": "{\"complete\":false,\"value\":0,\"limiting\":\"未確定\",\"values\":{\"device\":12.1,\"cargo\":20,\"ctu\":0}}"
+    },
+    {
+      "name": "CTU wall formula uses P*r*g",
+      "pass": true,
+      "detail": 164.808
+    },
+    {
+      "name": "Core requires three MSL elements before direct credit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Quick calculation stops when cargo/CTU MSL missing",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Stiff path governs when CTU boundary/support coexists with direct lashing",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Approved mode does not re-enable arithmetic parallel sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Annex 7 4.1.6 parallel-load warning present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Advanced UI records approved combination without simple addition",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Bracing path suppresses duplicated wall credit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS branch uses ship-specific external-force routine",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS Table 2 basic accelerations match MSC.1/Circ.1623",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS Table 3 length/service-speed formula matches amendment",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS service speed below 15 kn is not incorrectly clamped to 15 kn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS reduced operational speed warning is documented",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS Table 4 B/GM corrections match amendment",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS Table 5 friction caps match amendment",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS longitudinal fz correction table matches amendment",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS MSL conversion factors match amended Annex 13",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS advanced method uses CS = MSL/1.5",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS alternative method uses CS = MSL/1.35",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS top-over lashings are excluded from Annex 13 balance credit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS weather reduction formula matches fR expression",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS wind and sea simple loads use 1 kN/m2 area basis",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Page loads v1380 audited rules",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Page loads v1380 core",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Old v1377 core not active",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Directional audit UI exists",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

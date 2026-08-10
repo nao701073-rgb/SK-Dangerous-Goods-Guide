@@ -1,0 +1,134 @@
+{
+  "baseline": "Part478 source-mapped CSS Annex 13 implementation",
+  "current": "v1.3.76 re-audit",
+  "total": 12,
+  "unchanged": 11,
+  "intentionally_corrected": 1,
+  "unexpected_changes": [],
+  "corrections": [
+    "CSS 2020 advanced longitudinal lashing component: cap Table-6 efficiency at 0.5 CS rather than multiply it by 0.5.",
+    "CSS 2020 longitudinal sliding friction: apply fz correction μ×(m×g−fz×Fz), with interpolation supported. This correction is in calc() and therefore not represented by the Part478 function hash list."
+  ],
+  "checks": [
+    {
+      "type": "function",
+      "name": "cssT3",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "8ef5c1bb92dcdfb765d47b7f5a9bc0edcbe9f12f5c7928de94816a8cc11dae15",
+      "current_sha256": "8ef5c1bb92dcdfb765d47b7f5a9bc0edcbe9f12f5c7928de94816a8cc11dae15",
+      "status": "unchanged"
+    },
+    {
+      "type": "function",
+      "name": "cssT4",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "62a442b459c75e0ceb29ac19bb3e5e15b7278a92957f443de214b996381efcb4",
+      "current_sha256": "62a442b459c75e0ceb29ac19bb3e5e15b7278a92957f443de214b996381efcb4",
+      "status": "unchanged"
+    },
+    {
+      "type": "function",
+      "name": "cssWeatherFactor",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "a3d3a5243bc360719f5138c0adec64d263fe619d8fa09de3c3fb7865904cbd94",
+      "current_sha256": "a3d3a5243bc360719f5138c0adec64d263fe619d8fa09de3c3fb7865904cbd94",
+      "status": "unchanged"
+    },
+    {
+      "type": "function",
+      "name": "cssAccelerationContext",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "36f4837e443ee1e3a8d5defb3f87dfb87b093597abaa002e20aa14210ecd4f27",
+      "current_sha256": "36f4837e443ee1e3a8d5defb3f87dfb87b093597abaa002e20aa14210ecd4f27",
+      "status": "unchanged"
+    },
+    {
+      "type": "function",
+      "name": "eligibleCssRows",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "d634d27f09c7e07344c5e59c4bca736f3511704a2627d65be7445364727d05af",
+      "current_sha256": "d634d27f09c7e07344c5e59c4bca736f3511704a2627d65be7445364727d05af",
+      "status": "unchanged"
+    },
+    {
+      "type": "function",
+      "name": "lashingForDirectionCss",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": false,
+      "baseline_sha256": "b6b95fad22d6e053ab8c5527bd56601d5f57d0936c57d63c498e2d2fea692cd8",
+      "current_sha256": "f4a81629363bfd0ee38f38354fa2cb22e57bdd5e0961193116041066894b7b91",
+      "status": "intentionally_corrected"
+    },
+    {
+      "type": "function",
+      "name": "cssExternalForces",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "fc9188be77f768577cc779066be9857e5c9d9e9cd950cf0abad9c5f50c9d15fb",
+      "current_sha256": "fc9188be77f768577cc779066be9857e5c9d9e9cd950cf0abad9c5f50c9d15fb",
+      "status": "unchanged"
+    },
+    {
+      "type": "constant",
+      "name": "CSS_MSL_FACTORS",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "1021738c33cbbe641098a36cc2d0812c59ec4a28677e29577039695fe6489678",
+      "current_sha256": "1021738c33cbbe641098a36cc2d0812c59ec4a28677e29577039695fe6489678",
+      "status": "unchanged"
+    },
+    {
+      "type": "constant",
+      "name": "CSS_TABLE2",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "fb1a5b569dbc98dfe57a8996b13806f4e247d2786bdb7768c49028e940407200",
+      "current_sha256": "fb1a5b569dbc98dfe57a8996b13806f4e247d2786bdb7768c49028e940407200",
+      "status": "unchanged"
+    },
+    {
+      "type": "constant",
+      "name": "CSS_TABLE4",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "34f5378a3ffce282e4598e3d0a696ee76998eb5287da9961c7bdf93017018ec3",
+      "current_sha256": "34f5378a3ffce282e4598e3d0a696ee76998eb5287da9961c7bdf93017018ec3",
+      "status": "unchanged"
+    },
+    {
+      "type": "constant",
+      "name": "CSS_FRICTION_CAPS",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "3517670df057530a9295171274255ef8951c59322347f9f4a5a7a94d02b1445c",
+      "current_sha256": "3517670df057530a9295171274255ef8951c59322347f9f4a5a7a94d02b1445c",
+      "status": "unchanged"
+    },
+    {
+      "type": "constant",
+      "name": "CSS_ELASTICITY_RANK",
+      "baseline_found": true,
+      "current_found": true,
+      "normalized_equal": true,
+      "baseline_sha256": "0e20232215c9a8c05f850b24740a152d85f6ba953a2647d58902fdbebf7296a7",
+      "current_sha256": "0e20232215c9a8c05f850b24740a152d85f6ba953a2647d58902fdbebf7296a7",
+      "status": "unchanged"
+    }
+  ]
+}

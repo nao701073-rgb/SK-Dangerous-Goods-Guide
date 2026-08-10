@@ -1,0 +1,41 @@
+{
+  "version": "v1.3.53",
+  "verifiedAt": "2026-08-09T14:56:00+09:00",
+  "scope": [
+    "Excel/CSV application extraction",
+    "CTU Excel import event linkage",
+    "photo AI prediction event linkage",
+    "AI candidate apply event linkage",
+    "CTU progress/registration state"
+  ],
+  "findings": [
+    {
+      "id": "AI_PROGRESS_EVENT_GAP",
+      "status": "fixed",
+      "detail": "v1.3.52 progress did not consume sk:ctu-ai-applied / sk:ctu-photo-ai-requested, so programmatically populated AI values could be absent from progress provenance."
+    },
+    {
+      "id": "PHOTO_LOAD_REGISTRATION_RECHECK",
+      "status": "fixed",
+      "detail": "photo-loaded now causes a progress re-evaluation without accepting any field, preventing photo presence alone from completing progress."
+    },
+    {
+      "id": "EXCEL_IMPORT_LINKAGE",
+      "status": "pass",
+      "detail": "sk:ctu-excel-imported remains the source event after imported values are written to quickMass/quickCargoDescription and route fields."
+    },
+    {
+      "id": "APPLICATION_POLICY_EXTRACTION",
+      "status": "pass",
+      "detail": "Sample application rows extracted year 2026, application 1234, applicant, vessel, POL/POD, UN1203, package count and N/W/G/W correctly."
+    },
+    {
+      "id": "PROGRESS_EVENT_SIMULATION",
+      "status": "pass",
+      "detail": "Initial defaults stay unaccepted; Excel marks cargo only; photo load alone changes nothing; photo AI marks changed securing candidates; AI apply marks confirmed changed values; calculation then enables registration."
+    }
+  ],
+  "limitations": [
+    "Photo AI image-recognition quality depends on the actual uploaded photo; the verification here covers code path and system-event linkage, not accuracy for every real-world image."
+  ]
+}

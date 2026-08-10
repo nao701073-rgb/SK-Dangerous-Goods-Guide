@@ -1,0 +1,53 @@
+{
+  "version": "v1.3.90",
+  "base": "v1.3.89",
+  "actualXlsFixture": {
+    "applicationYear": "2026",
+    "applicationNumber": "1434",
+    "applicationDate": "2026-07-21",
+    "pass": true
+  },
+  "identityVariantTests": {
+    "count": 4,
+    "passed": 4
+  },
+  "registrationLinkTests": {
+    "existingChecks": {
+      "selected": true,
+      "fields": true,
+      "closed": true,
+      "prepare": true,
+      "target": true
+    },
+    "newChecks": {
+      "newInitial": true,
+      "blocked": true,
+      "corrected": true
+    },
+    "pass": true
+  },
+  "javascriptSyntax": {
+    "files": 433,
+    "failures": 0
+  },
+  "jsonValidation": {
+    "files": 396,
+    "failures": 0
+  },
+  "htmlReferences": {
+    "checked": 2473,
+    "missing": 0
+  },
+  "cssReferences": {
+    "checked": 5,
+    "missing": 0
+  },
+  "calculationCriticalFilesUnchanged": {
+    "assets/js/ctu-securing-calculator-core-v1386.js": true,
+    "data/ctu-code-rules-v1380.js": true,
+    "data/ctu-assessment-policy-v1381.js": true,
+    "assets/js/v1377-ctu-bracing-path.js": true,
+    "assets/js/v1379-ctu-msl-material-linkage.js": true
+  },
+  "databaseMigration": false
+}

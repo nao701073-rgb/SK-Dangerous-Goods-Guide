@@ -1,0 +1,67 @@
+{
+  "version": "part554",
+  "baseVersion": "part553",
+  "checks": [
+    {
+      "name": "CTU Part554 CSS link",
+      "passed": true
+    },
+    {
+      "name": "CTU Part554 JS link",
+      "passed": true
+    },
+    {
+      "name": "Application detail Part554 CSS link",
+      "passed": true
+    },
+    {
+      "name": "Application detail Part554 JS link",
+      "passed": true
+    },
+    {
+      "name": "Registration summary implemented",
+      "passed": true
+    },
+    {
+      "name": "Registration target shown in button",
+      "passed": true
+    },
+    {
+      "name": "Post-registration detail guide",
+      "passed": true
+    },
+    {
+      "name": "Detail progressive disclosure",
+      "passed": true
+    },
+    {
+      "name": "Detail tab deep-link persistence",
+      "passed": true
+    },
+    {
+      "name": "All 74 HTML build metadata unified",
+      "passed": true
+    },
+    {
+      "name": "All manifest cache-bust unified",
+      "passed": true
+    },
+    {
+      "name": "All version-guard cache-bust unified",
+      "passed": true
+    },
+    {
+      "name": "Core calculation inline script unchanged",
+      "passed": true
+    },
+    {
+      "name": "No database migration file added",
+      "passed": true
+    }
+  ],
+  "passed": 14,
+  "total": 14,
+  "allPassed": true,
+  "htmlCount": 74,
+  "dbMigration": false
+}

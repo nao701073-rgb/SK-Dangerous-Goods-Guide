@@ -1,0 +1,148 @@
+{
+  "version": "part553",
+  "generatedAt": "2026-08-07T21:10:00+09:00",
+  "passed": 33,
+  "total": 33,
+  "failed": 0,
+  "inlineCalculationSha256": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d",
+  "baseInlineCalculationSha256": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d",
+  "tests": [
+    {
+      "name": "HTMLは74画面",
+      "ok": true,
+      "detail": 74
+    },
+    {
+      "name": "全HTML画面版part553",
+      "ok": true
+    },
+    {
+      "name": "全HTML build-manifest v553",
+      "ok": true
+    },
+    {
+      "name": "全HTML version-guard v553",
+      "ok": true
+    },
+    {
+      "name": "VERSION part553",
+      "ok": true
+    },
+    {
+      "name": "manifest completionCounter:true",
+      "ok": true
+    },
+    {
+      "name": "manifest requiredFieldState:true",
+      "ok": true
+    },
+    {
+      "name": "manifest nextActionGuide:true",
+      "ok": true
+    },
+    {
+      "name": "manifest registeredCaseAutoInputBadge:true",
+      "ok": true
+    },
+    {
+      "name": "manifest restoredConditionChangeDetection:true",
+      "ok": true
+    },
+    {
+      "name": "manifest fourStageJourney:true",
+      "ok": true
+    },
+    {
+      "name": "manifest mobileStickyNext:true",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart553 CSS",
+      "ok": true
+    },
+    {
+      "name": "CTUページPart553 JS",
+      "ok": true
+    },
+    {
+      "name": "入力完了カウンタ",
+      "ok": true
+    },
+    {
+      "name": "不足項目移動",
+      "ok": true
+    },
+    {
+      "name": "4段階ガイド",
+      "ok": true
+    },
+    {
+      "name": "案件自動入力表示",
+      "ok": true
+    },
+    {
+      "name": "再計算変更検知",
+      "ok": true
+    },
+    {
+      "name": "スマホ固定ナビ",
+      "ok": true
+    },
+    {
+      "name": "既存必須ID貨物質量",
+      "ok": true
+    },
+    {
+      "name": "既存必須ID材質",
+      "ok": true
+    },
+    {
+      "name": "既存必須ID本数",
+      "ok": true
+    },
+    {
+      "name": "既存必須IDMSL",
+      "ok": true
+    },
+    {
+      "name": "登録1ボタン参照",
+      "ok": true
+    },
+    {
+      "name": "復元コンテキスト参照",
+      "ok": true
+    },
+    {
+      "name": "スマホ固定ナビCSS",
+      "ok": true
+    },
+    {
+      "name": "印刷時固定ナビ非表示",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体インラインスクリプト存在",
+      "ok": true
+    },
+    {
+      "name": "CTU計算本体Part552同一ハッシュ",
+      "ok": true,
+      "detail": {
+        "part553": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d",
+        "part552": "56950b63844ba767df90592562e9da0b1969fb3844990c929e126009638e9f7d"
+      }
+    },
+    {
+      "name": "DBマイグレーションなし",
+      "ok": true
+    },
+    {
+      "name": "Part553仕様書存在",
+      "ok": true
+    },
+    {
+      "name": "Part552簡易モード資産維持",
+      "ok": true
+    }
+  ]
+}

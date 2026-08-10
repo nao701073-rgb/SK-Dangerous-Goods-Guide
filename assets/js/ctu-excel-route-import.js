@@ -112,6 +112,7 @@
     const f=fields||{};
     return {
       loadingPort:text(f.loadingPort),dischargePort:text(f.dischargePort),refNo:text(f.refNo),containerNo:text(f.containerNo),
+      applicationYear:text(f.applicationYear),applicationNumber:text(f.applicationNumber),applicationDate:text(f.applicationDate),
       cargoName:text(f.cargoName),unNumbers:text(f.unNumbers),packageCount:Number.isFinite(f.packageCount)?f.packageCount:null,
       massT:Number.isFinite(f.massT)?f.massT:null,massKind:text(f.massKind),length:Number.isFinite(f.length)?f.length:null,
       width:Number.isFinite(f.width)?f.width:null,height:Number.isFinite(f.height)?f.height:null
@@ -122,6 +123,62 @@
   function num(v){const m=text(v).replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):NaN}
   function esc(v){return text(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function cleanValue(v,labels){let out=text(v);for(const label of labels)out=out.replace(new RegExp('^'+label.source+'\\s*[：:]?\\s*','i'),'');return out.trim()}
+
+  function normalizeApplicationNumber(value){
+    const s=text(value);if(!s)return '';
+    const paired=s.match(/(?:^|\D)((?:19|20)\d{2})\s*[-\/.]\s*(\d{4,5})(?:\D|$)/);
+    if(paired)return paired[2];
+    const exact=s.match(/^\s*(\d{4,5})\s*$/);if(exact)return exact[1];
+    const labeled=s.match(/(?:申請(?:番号)?|application\s*(?:no\.?|number))\s*[：:#-]?\s*(\d{4,5})/i);if(labeled)return labeled[1];
+    return '';
+  }
+  function excelSerialYear(value){
+    const n=Number(String(value??'').replace(/,/g,''));if(!Number.isFinite(n)||n<20000||n>80000)return '';
+    const ms=Date.UTC(1899,11,30)+Math.floor(n)*86400000,d=new Date(ms);return Number.isFinite(d.getTime())?String(d.getUTCFullYear()):'';
+  }
+  function yearFromValue(value){
+    if(value instanceof Date&&!Number.isNaN(value.getTime()))return String(value.getFullYear());
+    const s=text(value);if(!s)return '';
+    const western=s.match(/\b((?:19|20)\d{2})\b/);if(western)return western[1];
+    // Excel raw:false may format [$-409]m/d/yyyy as m/d/yy depending on the browser/SheetJS path.
+    // Treat a trailing two-digit year as 2000-2069 / 1970-1999, matching common JS date conventions.
+    const shortWestern=s.match(/(?:^|\D)\d{1,2}[\/.-]\d{1,2}[\/.-](\d{2})(?:\D|$)/);
+    if(shortWestern){const yy=Number(shortWestern[1]);return String(yy<=69?2000+yy:1900+yy)}
+    const reiwa=s.match(/令和\s*(元|\d{1,2})\s*年?/);if(reiwa)return String(2018+(reiwa[1]==='元'?1:Number(reiwa[1])));
+    const heisei=s.match(/平成\s*(元|\d{1,2})\s*年?/);if(heisei)return String(1988+(heisei[1]==='元'?1:Number(heisei[1])));
+    return excelSerialYear(s);
+  }
+  function dateText(value){
+    const s=text(value);if(!s)return '';
+    const serial=Number(s.replace(/,/g,''));
+    if(Number.isFinite(serial)&&serial>=20000&&serial<=80000){const d=new Date(Date.UTC(1899,11,30)+Math.floor(serial)*86400000);if(Number.isFinite(d.getTime()))return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;}
+    const m=s.match(/((?:19|20)\d{2})\D+(\d{1,2})\D+(\d{1,2})/);if(m)return `${m[1]}-${String(Number(m[2])).padStart(2,'0')}-${String(Number(m[3])).padStart(2,'0')}`;
+    const us=s.match(/(?:^|\D)(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2}|(?:19|20)\d{2})(?:\D|$)/);if(us){const yy=Number(us[3]),y=String(us[3]).length===2?(yy<=69?2000+yy:1900+yy):yy;return `${y}-${String(Number(us[1])).padStart(2,'0')}-${String(Number(us[2])).padStart(2,'0')}`;}
+    const r=s.match(/令和\s*(元|\d{1,2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?/);if(r){const y=2018+(r[1]==='元'?1:Number(r[1]));return `${y}-${String(Number(r[2])).padStart(2,'0')}-${String(Number(r[3])).padStart(2,'0')}`;}
+    return s;
+  }
+  function applicationIdentity(refNo,explicitYear,applicationDate){
+    const raw=text(refNo),pair=raw.match(/(?:^|\D)((?:19|20)\d{2})\s*[-\/.]\s*(\d{4,5})(?:\D|$)/);
+    const applicationNumber=normalizeApplicationNumber(raw);
+    const applicationYear=yearFromValue(explicitYear)||(pair?.[1]||'')||yearFromValue(applicationDate);
+    return {applicationYear,applicationNumber,applicationDate:dateText(applicationDate)};
+  }
+
+  function prefillRegistrationIdentity(fields){
+    const f=fields||{};
+    const identity=applicationIdentity(f.applicationNumber||f.refNo||'',f.applicationYear||'',f.applicationDate||'');
+    if(!identity.applicationNumber)return null;
+    // Final fallback only for the registration UI. Prefer Excel-derived year/date first.
+    const year=identity.applicationYear||text($('ctuNewApplicationYear')?.value)||String(new Date().getFullYear());
+    const number=identity.applicationNumber;
+    const y=$('ctuNewApplicationYear'),n=$('ctuNewApplicationNumber'),details=$('ctuNewApplicationDetails'),target=$('ctuRegistrationTarget');
+    if(y)y.value=year;
+    if(n)n.value=number;
+    if(details)details.open=true;
+    if(target)target.innerHTML=`<span>登録先（申請書から取得）</span><strong>${esc(year)}-${esc(number)}</strong><small>申請番号管理との照合を行います。</small>`;
+    emit('sk:ctu-application-number-prefilled',{applicationYear:year,applicationNumber:number,applicationDate:identity.applicationDate||text(f.applicationDate),source:'ctu-excel-route-import'});
+    return {applicationYear:year,applicationNumber:number,applicationDate:identity.applicationDate||text(f.applicationDate)};
+  }
 
   function workbookRows(workbook){
     const rows=[];
@@ -195,6 +252,8 @@
       loadingPort:[/^船積港$/,/^積出港$/,/^積港$/,/^積地$/,/^portofloading$/,/^loadingport$/,/^pol$/],
       dischargePort:[/^陸揚港$/,/^揚港$/,/^揚地$/,/^仕向港$/,/^portofdischarge$/,/^dischargeport$/,/^pod$/],
       refNo:[/^申請番号$/,/^案件番号$/,/^受付番号$/,/^applicationnumber$/,/^referencenumber$/],
+      applicationYear:[/^申請年度$/,/^年度$/,/^applicationyear$/],
+      applicationDate:[/^申請日$/,/^申請年月日$/,/^applicationdate$/,/^dateofapplication$/],
       containerNo:[/^コンテナ番号$/,/^コンテナno$/,/^containernumber$/,/^containerno$/],
       cargoName:[/^貨物名$/,/^品名$/,/^商品名$/,/^cargodescription$/,/^descriptionofgoods$/],
       grossMass:[/^貨物総質量$/,/^総質量$/,/^総重量$/,/^gwkg$/,/^grossweight$/],
@@ -209,8 +268,10 @@
     const names=[...new Set(cargoRows.map(x=>x.name||x.un).filter(Boolean))];
     const firstOrFallback=(field,entry)=>{const first=firstFinite(cargoRows,field);return Number.isFinite(first)?first:dimensionMeters(entry?.value,entry?.value)};
     const counts=cargoRows.map(x=>x.count).filter(Number.isFinite);
+    const identity=applicationIdentity(found.refNo?.value||'',found.applicationYear?.value||'',found.applicationDate?.value||'');
     return {
       loadingPort:found.loadingPort?.value||'',dischargePort:found.dischargePort?.value||'',refNo:found.refNo?.value||'',containerNo:found.containerNo?.value||'',
+      applicationYear:identity.applicationYear,applicationNumber:identity.applicationNumber,applicationDate:identity.applicationDate,
       cargoName:names.slice(0,5).join('／')||found.cargoName?.value||'',unNumbers:[...new Set(cargoRows.map(x=>x.un).filter(Boolean))].join('、'),packageCount:counts.length?counts.reduce((a,b)=>a+b,0):NaN,
       massT:Number.isFinite(massKg)?massKg/1000:NaN,massKind,
       length:firstOrFallback('length',found.length),width:firstOrFallback('width',found.width),height:firstOrFallback('height',found.height),
@@ -273,7 +334,7 @@
   function renderImportSummary(fields,cargoRows){
     const items=[
       ['船積港',fields.loadingPort||'未取得'],['陸揚港',fields.dischargePort||'未取得'],['貨物質量',Number.isFinite(fields.massT)?fields.massT.toLocaleString('ja-JP',{maximumFractionDigits:3})+' t（'+fields.massKind+'）':'未取得'],
-      ['貨物名',fields.cargoName||'未取得'],['個数',Number.isFinite(fields.packageCount)?fields.packageCount.toLocaleString('ja-JP')+'個':'未取得'],['コンテナ番号',fields.containerNo||'未取得'],['案件番号',fields.refNo||'未取得'],['対象危険物',fields.unNumbers||'未取得']
+      ['貨物名',fields.cargoName||'未取得'],['個数',Number.isFinite(fields.packageCount)?fields.packageCount.toLocaleString('ja-JP')+'個':'未取得'],['コンテナ番号',fields.containerNo||'未取得'],['申請番号',fields.applicationNumber?`${fields.applicationYear?fields.applicationYear+'-':''}${fields.applicationNumber}`:(fields.refNo||'未取得')],['対象危険物',fields.unNumbers||'未取得']
     ];
     $('ctuExcelSummary').innerHTML=items.map(([a,b])=>`<div class="import-summary-item"><strong>${esc(a)}</strong><span>${esc(b)}</span></div>`).join('');
   }
@@ -299,6 +360,8 @@
       const cargoRows=parsed.cargoRows,fields=parsed.fields;
       state.importedAt=new Date().toISOString();
       state.fields=sanitizeFields(fields);
+      const registrationIdentity=prefillRegistrationIdentity(state.fields);
+      if(registrationIdentity){state.fields.applicationYear=registrationIdentity.applicationYear;state.fields.applicationNumber=registrationIdentity.applicationNumber;state.fields.applicationDate=registrationIdentity.applicationDate;}
       applyFields(fields);
       renderImportSummary(fields,cargoRows);
       $('ctuExcelResult').hidden=false;
@@ -363,7 +426,7 @@
     $('inferSeaArea')?.addEventListener('click',()=>applyRoute(false));$('clearCtuExcel')?.addEventListener('click',clearImport);
     ['loadingPort','dischargePort','departureMonth'].forEach(id=>$(id)?.addEventListener('change',()=>{if(text($('loadingPort')?.value)&&text($('dischargePort')?.value))applyRoute(true)}));
   }
-  window.ISSCTUExcelRoute={getState:()=>JSON.parse(JSON.stringify(state)),inferRoute,resolvePort,parseWorkbook,handleFile,clearImport};
+  window.ISSCTUExcelRoute={getState:()=>JSON.parse(JSON.stringify(state)),inferRoute,resolvePort,parseWorkbook,handleFile,clearImport,applicationIdentity,normalizeApplicationNumber,yearFromValue,prefillRegistrationIdentity};
   if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',init,{once:true});else init();
   window.addEventListener('pagehide',purgeTransientExcel);
   window.addEventListener('beforeunload',purgeTransientExcel);

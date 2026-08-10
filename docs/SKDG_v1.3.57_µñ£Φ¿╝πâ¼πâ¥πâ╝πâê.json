@@ -1,0 +1,26 @@
+{
+  "version": "v1.3.57",
+  "checkedAt": "2026-08-09T15:58:00+09:00",
+  "scope": "固縛力参考算出：カード構造、実Excel航路補完、輸送海域連携、登録状態表示",
+  "sampleExcel": {
+    "name": "SKShinsei_z1785551414000.xls",
+    "sha256": "a5ae3b35bd88169e1deac8ba445b7a18c49108037fcbecc2c9521ef04e1dde5a",
+    "expected": {
+      "loadingPort": "横浜",
+      "dischargePort": "SHANGHAI",
+      "departureMonth": 7
+    }
+  },
+  "checks": [
+    {"id":"js-syntax","status":"PASS","detail":"v1357-ctu-card-layout.js / v1357-ctu-excel-route-linkage.js / v1357-ctu-state-guard.js を node --check で確認"},
+    {"id":"card-static-separation","status":"PASS","detail":"①②からpanel共通外枠依存を除去し、各カード直下を見出し→本文の独立構造に変更"},
+    {"id":"card-deck-separation","status":"PASS","detail":"quickEntryPanelを外枠なしデッキとし、③〜⑥を独立カードとして配置する処理を確認"},
+    {"id":"dynamic-step4","status":"PASS","detail":"後生成されるv1ContactStepを④貨物底面とCTU床面として表示・再配置する互換処理を確認"},
+    {"id":"sample-xls-extraction","status":"PASS","detail":"実申請書由来の行データから 船積地=横浜、陸揚地=SHANGHAI、発航予定年月日=46227→7月 を抽出"},
+    {"id":"route-trigger","status":"PASS","detail":"補完後に既存inferSeaAreaボタン処理を起動することをテスト"},
+    {"id":"sea-area-sync","status":"PASS","detail":"航路推定結果seaAをquickTransportおよびtransportPresetの両方へ同期しapplyTransportPreset/updateSummaryを呼ぶことをテスト"},
+    {"id":"false-registration-success","status":"PASS","detail":"登録イベントなしの『登録が完了しました』を消去し、実sk:ctu-registered時のみ成功表示、再算出時に解除する状態ガードをテスト"},
+    {"id":"legacy-readiness","status":"PASS","detail":"旧『入力ミス防止チェック／基本条件は入力済み』表示を追尾ステータスと競合しないよう抑止"},
+    {"id":"no-db-migration","status":"PASS","detail":"データベース移行なし"}
+  ]
+}

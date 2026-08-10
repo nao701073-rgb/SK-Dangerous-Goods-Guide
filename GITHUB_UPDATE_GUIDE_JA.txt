@@ -1,0 +1,18 @@
+SKDG GitHub更新ツール
+=====================
+
+使い方
+1. この3ファイルを SK-Dangerous-Goods-Guide の一番上のフォルダへコピーします。
+2. GITHUB_UPDATE.cmd をダブルクリックします。
+3. 初回のみ、GitHubリポジトリURLを求められたら貼り付けます。
+   例: https://github.com/USERNAME/REPOSITORY.git
+4. 変更一覧を必ず確認します。
+5. 問題なければ Y を入力します。
+6. 初回push時にGitHubの認証画面が出た場合は、ブラウザで認証します。
+7. 「GitHubへの更新が完了しました」と表示されたら完了です。
+
+重要
+- このツールは force push を行いません。
+- GitHub側に新しい変更がありpushが拒否された場合は、自動で上書きせず停止します。
+- GitHub Pagesを使う場合、公開対象に data / database / references 等の機密・社内情報が含まれないか確認してください。
+- GitHub Pagesの公開設定は GitHub の Repository > Settings > Pages で設定します。

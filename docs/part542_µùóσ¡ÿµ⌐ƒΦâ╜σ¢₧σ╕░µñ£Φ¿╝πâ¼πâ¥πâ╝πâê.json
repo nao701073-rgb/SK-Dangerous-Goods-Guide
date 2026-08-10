@@ -1,0 +1,17 @@
+{
+  "release": "part542",
+  "baseRelease": "part541",
+  "generatedAt": "2026-08-07T08:54:00+09:00",
+  "passed": 7,
+  "total": 7,
+  "checks": {
+    "dangerous_goods_search_preserved": true,
+    "detail_record_resolution_preserved": true,
+    "marine_pollutant_status_preserved": true,
+    "domestic_law_links_preserved": true,
+    "mobile_navigation_preserved": true,
+    "part541_securing_features_preserved": true,
+    "no_database_migration": true
+  },
+  "errors": []
+}

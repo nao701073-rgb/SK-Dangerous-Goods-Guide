@@ -1,1 +1,15 @@
-const fs=require('fs'),path=require('path');const root=path.resolve(__dirname,'../..');const html=fs.readFileSync(path.join(root,'pages/ctu-securing-calculator.html'),'utf8');const js=fs.readFileSync(path.join(root,'assets/js/ctu-field-correction-part542.js'),'utf8');const css=fs.readFileSync(path.join(root,'assets/css/ctu-securing-part542.css'),'utf8');const checks=[['メイン写真ドロップ',html.includes('data-part542-drop="main"')&&js.includes("bindDrop(stage")],['複数写真選択',html.includes('id="photoInput"')&&html.includes('multiple>')],['写真キュー',html.includes('part542PhotoQueue')&&js.includes('photoQueue')],['貨物側MSLドロップ',html.includes('msl-cargo')&&js.includes("loadMslPhoto('cargo'")],['CTU側MSLドロップ',html.includes('msl-ctu')&&js.includes("loadMslPhoto('ctu'")],['取付点複数写真ドロップ',html.includes('msl-points')&&js.includes('loadMslPointDraftPhotos')],['不足方向フォロー',html.includes('part542CorrectionPlanList')&&js.includes('initialShortageKn')],['是正進捗',js.includes('是正作業中')&&js.includes('再計算・再確認済み')],['是正説明コピー',html.includes('part542CopyCorrectionSummary')&&js.includes('correctionSummary')],['写真だけで強度確定しない',fs.readFileSync(path.join(root,'docs/Part542_写真ドラッグ登録・現場是正フォロー.md'),'utf8').includes('写真だけから安全・適合')],['既存Part541維持',html.includes('ctu-field-assist-part541.js?v=541')],['モバイルCSS',css.includes('@media(max-width:620px)')]];const failed=checks.filter(x=>!x[1]);console.log(JSON.stringify({release:'part542',passed:checks.length-failed.length,total:checks.length,checks:checks.map(([name,passed])=>({name,passed})),failed:failed.map(x=>x[0])},null,2));process.exit(failed.length?1:0);
+const fs=require('fs');
+const path=require('path');
+const root=path.resolve(__dirname,'../..');
+const js=fs.readFileSync(path.join(root,'assets/js/detail-dashboard.js'),'utf8');
+const html=fs.readFileSync(path.join(root,'pages/dangerous-goods-detail.html'),'utf8');
+const checks={
+  heading_label: js.includes('<strong>標札</strong>'),
+  marine_name_ja: js.includes('<small>海洋汚染物質</small>'),
+  old_block_removed: !js.includes('<strong>海洋汚染物質</strong>\n                       <small>Marine Pollutant</small>'),
+  detail_cache_version: html.includes('detail-dashboard.js?v=542'),
+  build_version: html.includes('content="part542"')
+};
+const failed=Object.entries(checks).filter(([,v])=>!v).map(([k])=>k);
+console.log(JSON.stringify({release:'part542',passed:Object.keys(checks).length-failed.length,total:Object.keys(checks).length,checks,failed},null,2));
+process.exit(failed.length?1:0);

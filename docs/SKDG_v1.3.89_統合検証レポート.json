@@ -1,0 +1,37 @@
+{
+  "version": "v1.3.89",
+  "remarkWeightTests": {
+    "passed": 12,
+    "total": 12,
+    "allPassed": true
+  },
+  "actualSampleExpected": {
+    "UN1954": {
+      "packageCount": 33,
+      "totalNetMassKg": 14.988,
+      "totalGrossMassKg": 1829.988,
+      "netMassPerPackageKg": 0.454182,
+      "grossMassPerPackageKg": 55.454182
+    },
+    "UN1956": {
+      "packageCount": 1,
+      "totalNetMassKg": 12.2,
+      "totalGrossMassKg": 67.2,
+      "netMassPerPackageKg": 12.2,
+      "grossMassPerPackageKg": 67.2
+    }
+  },
+  "fullOverlayValidation": {
+    "javascriptFiles": 432,
+    "javascriptSyntaxFailures": 0,
+    "jsonFiles": 396,
+    "jsonFailures": 0,
+    "htmlFiles": 75,
+    "htmlLocalReferences": 2471,
+    "htmlMissingReferences": 0,
+    "cssFiles": 195,
+    "cssLocalReferences": 5,
+    "cssMissingReferences": 0
+  },
+  "privacy": "User Excel/source rows are not included in the update package."
+}

@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "visible_combination_box_removed": true,
+    "compat_checkbox_hidden": true,
+    "core_v1386_loaded": true,
+    "toggle_v1386_loaded": true,
+    "sticky_v1386_loaded": true,
+    "js_syntax_ok": true,
+    "no_combination_confirmation_assessment_issue": true,
+    "no_combination_review_item": true,
+    "double_count_guard_preserved": true,
+    "usage_check_preserved": true
+  },
+  "allPassed": true,
+  "jsFailures": []
+}

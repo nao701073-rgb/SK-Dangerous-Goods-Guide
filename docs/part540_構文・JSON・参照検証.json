@@ -1,22 +1,29 @@
 {
   "release": "part540",
-  "baseRelease": "part539",
-  "generatedAt": "2026-08-07T16:23:00+09:00",
-  "javascript": {
-    "inlineSyntax": "passed",
-    "source": "pages/ctu-securing-calculator.html"
-  },
-  "html": {
-    "duplicateIds": 0,
-    "globalVersionRefs": "part540"
-  },
-  "json": {
-    "VERSION.json": "passed"
-  },
-  "references": {
-    "part540Css": "passed",
-    "buildManifest": "passed",
-    "updateInstructions": "passed"
-  },
-  "errors": []
+  "generatedAt": "2026-08-07T06:19:00+09:00",
+  "scope": "Part 540 update workspace",
+  "javascriptFilesChecked": 3,
+  "javascriptErrors": [],
+  "jsonFilesChecked": 12,
+  "jsonErrors": [],
+  "references": [
+    {
+      "reference": "assets/css/ctu-securing-part540.css",
+      "present": true
+    },
+    {
+      "reference": "data/build-manifest.js",
+      "present": true
+    },
+    {
+      "reference": "docs/Part540_MSL写真候補読取・マーキング・確認履歴・報告書.md",
+      "present": true
+    },
+    {
+      "reference": "server/scripts/verify-part540-policy.cjs",
+      "present": true
+    }
+  ],
+  "htmlFilesWithPart540Build": 73,
+  "pass": true
 }

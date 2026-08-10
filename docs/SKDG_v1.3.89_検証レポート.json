@@ -1,0 +1,107 @@
+{
+  "version": "v1.3.89",
+  "actualFileRows": "v1388_actual_rows.json",
+  "tests": [
+    {
+      "name": "actual_UN1954_totalNet",
+      "pass": true,
+      "detail": 14.988
+    },
+    {
+      "name": "actual_UN1954_totalGross",
+      "pass": true,
+      "detail": 1829.988
+    },
+    {
+      "name": "actual_UN1954_netPer",
+      "pass": true,
+      "detail": 0.454182
+    },
+    {
+      "name": "actual_UN1954_grossPer",
+      "pass": true,
+      "detail": 55.454182
+    },
+    {
+      "name": "actual_UN1956_totalNet",
+      "pass": true,
+      "detail": 12.2
+    },
+    {
+      "name": "actual_UN1956_totalGross",
+      "pass": true,
+      "detail": 67.2
+    },
+    {
+      "name": "actual_UN1956_per",
+      "pass": true,
+      "detail": {
+        "net": 12.2,
+        "gross": 67.2
+      }
+    },
+    {
+      "name": "remark_overrides_integer_table",
+      "pass": true,
+      "detail": {
+        "unNumber": "1954",
+        "packageCount": 2,
+        "totalNetMassKg": 14.988,
+        "totalGrossMassKg": 99.876,
+        "netMassPerPackageKg": 7.494,
+        "grossMassPerPackageKg": 49.938,
+        "weightSource": "remarks-un",
+        "weightSourceLabel": "備考欄のUN番号別重量から自動反映"
+      }
+    },
+    {
+      "name": "unmatched_UN_preserved",
+      "pass": true,
+      "detail": {
+        "unNumber": "1956",
+        "packageCount": 1,
+        "totalNetMassKg": 12,
+        "totalGrossMassKg": 67
+      }
+    },
+    {
+      "name": "unstructured_number_not_used",
+      "pass": true,
+      "detail": {
+        "unNumber": "1954",
+        "packageCount": 2,
+        "totalNetMassKg": 15,
+        "totalGrossMassKg": 100
+      }
+    },
+    {
+      "name": "NW_GW_aliases",
+      "pass": true,
+      "detail": {
+        "unNumber": "1954",
+        "packageCount": 2,
+        "totalNetMassKg": 14.5,
+        "totalGrossMassKg": 100.5,
+        "netMassPerPackageKg": 7.25,
+        "grossMassPerPackageKg": 50.25,
+        "weightSource": "remarks-un",
+        "weightSourceLabel": "備考欄のUN番号別重量から自動反映"
+      }
+    },
+    {
+      "name": "one_mass_only_preserves_other",
+      "pass": true,
+      "detail": {
+        "unNumber": "1954",
+        "packageCount": 2,
+        "totalNetMassKg": 14.25,
+        "totalGrossMassKg": 100,
+        "netMassPerPackageKg": 7.125,
+        "weightSource": "remarks-un",
+        "weightSourceLabel": "備考欄のUN番号別重量から自動反映"
+      }
+    }
+  ],
+  "passed": 12,
+  "total": 12
+}

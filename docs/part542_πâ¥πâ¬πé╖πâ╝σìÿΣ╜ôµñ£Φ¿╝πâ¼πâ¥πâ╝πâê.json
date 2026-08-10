@@ -1,0 +1,18 @@
+{
+  "release": "part542",
+  "baseRelease": "part541",
+  "generatedAt": "2026-08-07T08:54:00+09:00",
+  "passed": 8,
+  "total": 8,
+  "checks": {
+    "upper_caption_is_label": true,
+    "lower_caption_is_marine_pollutant_ja": true,
+    "old_english_caption_removed_from_target": true,
+    "desktop_mobile_shared_template": true,
+    "marine_status_logic_unchanged": true,
+    "legal_reference_unchanged": true,
+    "overpack_tool_unchanged": true,
+    "database_migration_none": true
+  },
+  "errors": []
+}

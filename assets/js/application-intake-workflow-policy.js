@@ -6,13 +6,37 @@
   const cleanUn=value=>{const m=normalize(value).toUpperCase().replace(/^UN\s*/,'').match(/(?:^|\D)(\d{4})(?:\D|$)/);return m?m[1]:''};
   const normalizePg=value=>{const t=normalize(value).toUpperCase().replace(/Ⅰ/g,'I').replace(/Ⅱ/g,'II').replace(/Ⅲ/g,'III').replace(/容器等級|PACKINGGROUP|PG/g,'');if(/III/.test(t))return'III';if(/II/.test(t))return'II';if(/I/.test(t))return'I';return''};
   const isTruthy=value=>/^(?:○|〇|有|対象|yes|true|1|必要)$/i.test(normalize(value));
+  const toHalfWidthDigits=value=>String(value??'').replace(/[０-９]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0xFEE0));
+  function normalizeDateValue(value){
+    let s=toHalfWidthDigits(normalize(value));if(!s||/^(?:なし|無し|未定|未確定|―|-|n\/?a)$/i.test(s))return'';
+    const serial=Number(s.replace(/,/g,''));
+    if(Number.isFinite(serial)&&serial>=1&&serial<100000&&/^\d+(?:\.\d+)?$/.test(s.replace(/,/g,''))){
+      const ms=Math.round((serial-25569)*86400000),d=new Date(ms);if(!Number.isNaN(d.getTime()))return d.toISOString().slice(0,10);
+    }
+    s=s.replace(/[（(][^）)]*[）)]/g,'').trim();
+    let m=s.match(/^(20\d{2})\s*[年\/.\-]\s*(\d{1,2})\s*[月\/.\-]\s*(\d{1,2})\s*日?$/);
+    if(m)return `${m[1]}-${String(Number(m[2])).padStart(2,'0')}-${String(Number(m[3])).padStart(2,'0')}`;
+    m=s.match(/^(20\d{2})(\d{2})(\d{2})$/);if(m)return `${m[1]}-${m[2]}-${m[3]}`;
+    m=s.match(/^(令和|R|平成|H|昭和|S)\s*(\d{1,2}|元)\s*[年\/.\-]\s*(\d{1,2})\s*[月\/.\-]\s*(\d{1,2})\s*日?$/i);
+    if(m){const era=m[1].toUpperCase(),ey=m[2]==='元'?1:Number(m[2]),base=era==='令和'||era==='R'?2018:era==='平成'||era==='H'?1988:1925;return `${base+ey}-${String(Number(m[3])).padStart(2,'0')}-${String(Number(m[4])).padStart(2,'0')}`}
+    m=s.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](20\d{2})$/);if(m)return `${m[3]}-${String(Number(m[1])).padStart(2,'0')}-${String(Number(m[2])).padStart(2,'0')}`;
+    return'';
+  }
   const safeSourceLabel=source=>{const name=normalize(source?.name||source?.sourceFileName);const ext=(name.split('.').pop()||'').toLowerCase();return['xls','xlsx','csv'].includes(ext)?`申請データ（.${ext}）`:'申請データ'};
   const labelMap={
     applicationYear:['申請年度','年度'],applicationNumber:['申請番号','受付番号','applicationno','applicationnumber'],
-    applicationDate:['申請日','受付日'],inspectionPlannedDate:['検査予定日','予定検査日'],inspectionDate:['検査実施日','検査日'],
-    applicantName:['申請者','依頼元','申請者依頼元'],shipper:['荷主','荷送人','shipper','consignor'],caseTitle:['案件名','件名'],
-    vesselName:['船名','本船名','vessel'],voyageNumber:['航海番号','voyageno','voyage'],loadingPort:['積地','船積港','portfrom','pol'],dischargePort:['揚地','陸揚港','portto','pod'],
-    containerNumber:['コンテナ番号','containerno','containernumber'],containerType:['コンテナ種類','コンテナサイズ種類','containertype','sizetype']
+    applicationDate:['申請日','申請年月日','受付日','受付年月日'],
+    inspectionPlannedDate:['検査予定日','予定検査日','検査予定年月日','検査実施予定日','検査予定'],
+    inspectionDate:['検査実施日','検査日','検査年月日'],
+    applicantName:['申請者','申請人','申請者名','申請人名','依頼元','申請者依頼元'],
+    shipper:['荷主','荷送人','荷送人名','shipper','consignor'],
+    caseTitle:['案件名','案件名称','件名','業務名','業務名称','案件タイトル'],
+    vesselName:['船名','本船名','船舶名','vessel'],voyageNumber:['航海番号','航海No','voyageno','voyage'],
+    loadingPort:['積地','船積地','船積港','船積み港','積込地','積込港','積出地','積出港','portfrom','pol'],
+    dischargePort:['揚地','陸揚地','陸揚げ地','陸揚港','荷揚地','荷揚港','portto','pod'],
+    containerNumber:['コンテナ番号','コンテナNo','containerno','containernumber'],
+    containerType:['コンテナ種類','コンテナサイズ種類','コンテナサイズ・種類','コンテナ型式','コンテナタイプ','コンテナサイズ','containertype','containersizetype','sizetype','isotype'],
+    note:['備考','特記事項','remarks','remark']
   };
   const cargoHeaders={
     unNumber:['国連番号','un番号','unnumber'],target:['検査対象','対象'],name:['品名','品名原文','化学品名','正式品名','proper shipping name'],
@@ -43,6 +67,32 @@
       totalNetMassKg:matchNumber(text,[/(?:^|\n)\s*(?:申請総正味質量(?:\s*[（(]N\/?W[）)])?|申請総N\/?W|総正味質量)\s*[:：]?\s*(\d+(?:\.\d+)?)\s*kg/im]),
       totalGrossMassKg:matchNumber(text,[/(?:^|\n)\s*(?:申請総質量(?:\s*[（(]G\/?W[）)])?|申請総G\/?W|総質量)\s*[:：]?\s*(\d+(?:\.\d+)?)\s*kg/im])
     };
+  }
+  function normalizeMassText(value){return toHalfWidthDigits(String(value??'')).replace(/[，]/g,',').replace(/[．]/g,'.').replace(/［/g,'[').replace(/］/g,']').replace(/（/g,'(').replace(/）/g,')')}
+  function parseRemarkCargoMasses(value){
+    const text=normalizeMassText(value);const result={};
+    if(!text)return result;
+    const blocks=[];const re=/\bUN\s*([0-9]{4})\b/gi;let match;
+    while((match=re.exec(text)))blocks.push({unNumber:match[1],start:match.index,end:re.lastIndex});
+    blocks.forEach((block,index)=>{
+      const body=text.slice(block.end,index+1<blocks.length?blocks[index+1].start:text.length);
+      const massNumber=label=>{const pattern=new RegExp(label+'\\s*[:：]?\\s*([0-9][0-9,]*(?:\\.[0-9]+)?)\\s*(?:\\(?\\s*[Kk][Gg]\\s*\\)?)?','i');const m=body.match(pattern);return m?Number(m[1].replace(/,/g,'')):NaN};
+      const net=massNumber('(?:正味(?:重量|質量)|申請総正味(?:重量|質量)?|N\\s*\\/?\\s*W)');
+      const gross=massNumber('(?:総(?:重量|質量)|申請総(?:重量|質量)|G\\s*\\/?\\s*W)');
+      if(Number.isFinite(net)||Number.isFinite(gross))result[block.unNumber]={totalNetMassKg:net,totalGrossMassKg:gross};
+    });
+    return result;
+  }
+  function applyRemarkCargoMasses(items,note){
+    const masses=parseRemarkCargoMasses(note);
+    return (Array.isArray(items)?items:[]).map(item=>{
+      const un=String(item?.unNumber||'').replace(/^UN/i,'').padStart(4,'0'),remark=masses[un];if(!remark)return item;
+      const out={...item};const count=numberValue(out.packageCount);let applied=false;
+      if(Number.isFinite(remark.totalNetMassKg)){out.totalNetMassKg=Number(remark.totalNetMassKg.toFixed(6));out.netMassPerPackageKg=Number.isFinite(count)&&count>0?Number((remark.totalNetMassKg/count).toFixed(6)):out.netMassPerPackageKg;applied=true}
+      if(Number.isFinite(remark.totalGrossMassKg)){out.totalGrossMassKg=Number(remark.totalGrossMassKg.toFixed(6));out.grossMassPerPackageKg=Number.isFinite(count)&&count>0?Number((remark.totalGrossMassKg/count).toFixed(6)):out.grossMassPerPackageKg;applied=true}
+      if(applied){out.weightSource='remarks-un';out.weightSourceLabel='備考欄のUN番号別重量から自動反映'}
+      return out;
+    });
   }
   function splitName(value){const text=String(value??'').trim();const lines=text.split(/\n|\r|\s{2,}/).map(normalize).filter(Boolean);const english=lines.find(line=>/[A-Z]{3,}/.test(line))||'';const japanese=lines.find(line=>/[ぁ-んァ-ヶ一-龠]/.test(line))||'';return{originalName:text,properShippingNameJa:japanese,properShippingNameEn:english}}
   function parseAllowance(value,explicitInstruction=''){
@@ -95,10 +145,12 @@
   }
   function extractCase(rows,source={}){
     const fields={};Object.entries(labelMap).forEach(([key,aliases])=>fields[key]=findLabelValue(rows,aliases));
+    fields.applicationDate=normalizeDateValue(fields.applicationDate);fields.inspectionPlannedDate=normalizeDateValue(fields.inspectionPlannedDate);fields.inspectionDate=normalizeDateValue(fields.inspectionDate);
     let year=normalize(fields.applicationYear).match(/20\d{2}/)?.[0]||'';let applicationNumber=normalize(fields.applicationNumber).match(/\d{4,5}/)?.[0]||'';
     if(!year){const match=normalize(fields.applicationDate).match(/20\d{2}/);if(match)year=match[0]}
-    const cargoItems=extractCargo(rows);const ext=(normalize(source.name).split('.').pop()||normalize(source.type)).toLowerCase();
-    return {schemaVersion:2,sourceLabel:safeSourceLabel(source),sourceFormat:['xls','xlsx','csv'].includes(ext)?ext:'csv',sourceSize:Number(source.size||0),sourceSha256:source.sha256||'',originalFileStored:false,importedAt:new Date().toISOString(),applicationYear:year,applicationNumber,numberType:applicationNumber?'official':'temporary',status:'received',...fields,cargoItems,caseData:{applicantName:fields.applicantName||'',shipper:fields.shipper||'',loadingPort:fields.loadingPort||'',dischargePort:fields.dischargePort||'',containerType:fields.containerType||'',cargoItems}};
+    fields.applicationYear=year;fields.applicationNumber=applicationNumber;
+    const cargoItems=applyRemarkCargoMasses(extractCargo(rows),fields.note);const ext=(normalize(source.name).split('.').pop()||normalize(source.type)).toLowerCase();
+    return {schemaVersion:2,sourceLabel:safeSourceLabel(source),sourceFormat:['xls','xlsx','csv'].includes(ext)?ext:'csv',sourceSize:Number(source.size||0),sourceSha256:source.sha256||'',originalFileStored:false,importedAt:new Date().toISOString(),...fields,applicationYear:year,applicationNumber,numberType:applicationNumber?'official':'temporary',status:'received',cargoItems,caseData:{applicantName:fields.applicantName||'',shipper:fields.shipper||'',loadingPort:fields.loadingPort||'',dischargePort:fields.dischargePort||'',containerType:fields.containerType||'',cargoItems}};
   }
   function evaluateCase(caseData,{existingApplications=[],unDatabase=[]}={}){
     const blockers=[],warnings=[],passed=[];const goods=(Array.isArray(caseData?.cargoItems)?caseData.cargoItems:[]).filter(item=>item&&Object.values(item).some(Boolean));
@@ -133,7 +185,7 @@
     const goods=Array.isArray(caseData?.cargoItems)?caseData.cargoItems:[];const first=goods[0]||{};
     return {applicationYear:String(caseData?.applicationYear||new Date().getFullYear()),numberType:caseData?.numberType==='temporary'?'temporary':'official',applicationNumber:String(caseData?.applicationNumber||''),status:'received',applicantName:normalize(caseData?.applicantName),shipper:normalize(caseData?.shipper),containerNumber:normalize(caseData?.containerNumber),containerType:normalize(caseData?.containerType),vesselName:normalize(caseData?.vesselName),voyageNumber:normalize(caseData?.voyageNumber),loadingPort:normalize(caseData?.loadingPort),dischargePort:normalize(caseData?.dischargePort),applicationDate:normalize(caseData?.applicationDate),inspectionPlannedDate:normalize(caseData?.inspectionPlannedDate),inspectionDate:normalize(caseData?.inspectionDate),caseTitle:normalize(caseData?.caseTitle),unNumber:first.unNumber||'',japaneseName:first.properShippingNameJa||first.originalName||'',englishName:first.properShippingNameEn||'',hazardClass:first.hazardClass||'',packingGroup:first.packingGroup||'',cargoItems:goods,caseData:{applicantName:normalize(caseData?.applicantName),shipper:normalize(caseData?.shipper),loadingPort:normalize(caseData?.loadingPort),dischargePort:normalize(caseData?.dischargePort),containerType:normalize(caseData?.containerType),cargoItems:goods,intake:{sourceLabel:caseData?.sourceLabel||'申請データ',sourceFormat:caseData?.sourceFormat||'',sourceSha256:caseData?.sourceSha256||'',importedAt:caseData?.importedAt||'',originalFileStored:false}},note:normalize(caseData?.note)};
   }
-  const api={normalize,compact,numberValue,cleanUn,normalizePg,safeSourceLabel,parseQuantitySummary,parseAllowance,extractCargo,extractCase,evaluateCase,buildChecklist,toApplicationPayload};global.ISSApplicationIntakePolicy=api;
+  const api={normalize,compact,normalizeDateValue,numberValue,cleanUn,normalizePg,safeSourceLabel,parseQuantitySummary,parseRemarkCargoMasses,applyRemarkCargoMasses,parseAllowance,extractCargo,extractCase,evaluateCase,buildChecklist,toApplicationPayload};global.ISSApplicationIntakePolicy=api;
 })(typeof window!=='undefined'?window:globalThis);
 if(typeof window!=='undefined')window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/application-intake-workflow-policy.js':'part535'});
-window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/application-intake-workflow-policy.js':'v1.3.17'});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/application-intake-workflow-policy.js':'v1.3.89'});

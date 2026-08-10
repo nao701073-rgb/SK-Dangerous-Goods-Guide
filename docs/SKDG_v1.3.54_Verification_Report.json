@@ -1,0 +1,53 @@
+{
+  "version": "v1.3.54",
+  "verifiedAt": "2026-08-09T15:12:00+09:00",
+  "scope": [
+    "Excel application import linkage",
+    "photo AI suggestion linkage",
+    "explicit AI candidate application",
+    "photo measurement helper linkage",
+    "MSL helper/photo evidence linkage",
+    "progress/sticky state",
+    "calculation/registration gate"
+  ],
+  "findings": [
+    {
+      "id": "PROGRAMMATIC_HELPER_EVENT_GAP",
+      "status": "fixed",
+      "detail": "Photo measurement and several MSL helper actions wrote quick-entry values programmatically without an explicit progress-source event. They now dispatch sk:ctu-system-applied/sk:ctu-photo-applied with the affected field ids."
+    },
+    {
+      "id": "AI_AUTO_CANDIDATE_CONFIRMATION",
+      "status": "fixed",
+      "detail": "Automatic photo-AI values are tracked as suggested/review-required and are not treated as operator-confirmed values until explicit AI apply or trusted operator confirmation."
+    },
+    {
+      "id": "DEFAULT_VALUE_PROVENANCE",
+      "status": "pass",
+      "detail": "HTML defaults do not mark progress complete. A real operator/helper action can still confirm a value even when it equals the original default."
+    },
+    {
+      "id": "EXCEL_EVENT_ORDER",
+      "status": "pass",
+      "detail": "The current importer writes quickMass/quickCargoDescription before emitting sk:ctu-excel-imported."
+    },
+    {
+      "id": "REGISTRATION_GATE",
+      "status": "fixed",
+      "detail": "Legacy updateCtuReview no longer force-enables registration. Registration buttons are enabled only after a current successful calculation with no invalidating input changes."
+    },
+    {
+      "id": "BROWSER_STATE_TRANSITION",
+      "status": "pass",
+      "detail": "Automated Chromium simulation passed: initial -> Excel -> AI suggested -> AI confirmed -> MSL confirmed -> calculated -> edited/recalculation-required, with registration gating at each state."
+    },
+    {
+      "id": "STICKY_STATUS",
+      "status": "pass",
+      "detail": "Automated Chromium scroll test kept ctuStickyStatus at the shared header boundary (58px in the test harness)."
+    }
+  ],
+  "limitations": [
+    "Image-recognition accuracy for every real-world photo is not asserted; this verification covers the code/event/input/progress linkage and safety gating."
+  ]
+}

@@ -1,0 +1,15 @@
+SKDG v1.3.83 CTU Combined Panel Overflow Hotfix
+
+適用対象:
+- v1.3.82 を基準とした環境
+
+更新ファイル:
+- pages/ctu-securing-calculator.html
+- assets/css/v1383-ctu-combined-panel-overflow.css
+- data/build-manifest.js
+
+内容:
+- Step 5 で「引張系固縛材＋支保・当て材（併用）」を選択した際、2種類表示によって入力欄・採用MSL表示が横にはみ出す問題を修正。
+- 併用時は標準で「固縛材」「支保・あて材」を縦に独立表示し、横幅不足による崩れを防止。
+- 併用時の固縛材側 quick-grid を2列化。採用MSLの3要素表示は枠内に収まるよう折返し改善。
+- CTU/CSS の計算ロジック、三段階判定、写真ドラッグ＆ドロップ修正には変更なし。

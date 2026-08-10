@@ -1,0 +1,43 @@
+{
+  "version": "v1.3.59",
+  "scope": "CTU six-step card/status visual correction",
+  "checks": [
+    {
+      "name": "sticky status contains step chips 1-6",
+      "status": "PASS"
+    },
+    {
+      "name": "step 1/2 independent card border reset",
+      "status": "PASS"
+    },
+    {
+      "name": "quickEntryPanel and quick-flow shared frame disabled",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy pseudo-frame suppression",
+      "status": "PASS"
+    },
+    {
+      "name": "step number remains visible in completed state",
+      "status": "PASS"
+    },
+    {
+      "name": "completed checkmark scaled as secondary status glyph",
+      "status": "PASS"
+    },
+    {
+      "name": "missing/review items carry step number 1-6",
+      "status": "PASS"
+    },
+    {
+      "name": "registration state remains event-gated",
+      "status": "PASS_BY_GUARD_DESIGN"
+    },
+    {
+      "name": "v1.3.58 global sea-area logic untouched",
+      "status": "PASS_BY_DIFF_SCOPE"
+    }
+  ],
+  "notes": "Visual/state hotfix only. Calculation formulas are unchanged."
+}
