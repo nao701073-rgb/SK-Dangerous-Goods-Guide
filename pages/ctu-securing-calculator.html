@@ -2,8 +2,8 @@
 
 <html lang="ja">
 <head>
-<meta content="v1.3.91" name="sk-build"/>
-<script src="../data/build-manifest.js?v=1391"></script>
+<meta content="v1.3.103" name="sk-build"/>
+<script src="../data/build-manifest.js?v=13103"></script>
 <link href="../assets/css/version-guard.css?v=542" rel="stylesheet"/>
 <script src="../assets/js/auth-bootstrap.js?v=439"></script>
 <meta charset="utf-8"/>
@@ -24,6 +24,9 @@
 <link href="../assets/css/v1385-ctu-dual-use-checkbox.css?v=1385" rel="stylesheet"/>
 <link href="../assets/css/v1387-ctu-step5-photo-cleanup.css?v=1387" rel="stylesheet"/>
 <link href="../assets/css/v1390-ctu-application-number-registration-link.css?v=1390" rel="stylesheet"/>
+<link href="../assets/css/v1392-ctu-result-readability.css?v=1392" rel="stylesheet"/>
+<link href="../assets/css/v1393-ctu-photo-helper-compact.css?v=1393" rel="stylesheet"/>
+<link href="../assets/css/v1394-ctu-gap-wall-assist.css?v=1394" rel="stylesheet"/>
 <style>
     :root{--navy:#103b66;--navy2:#17608c;--line:#cbd8e5;--soft:#f3f7fb;--soft2:#eaf2f9;--ok:#116b45;--ng:#a12b2b;--warn:#8a5900;--text:#102a43}
     *{box-sizing:border-box}
@@ -205,6 +208,15 @@
 <link href="../assets/css/v1376-ctu-resistance-audit.css?v=1376" rel="stylesheet"/>
 <link href="../assets/css/v1377-ctu-bracing-path.css?v=1377" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+<link href="../assets/css/v1398-ctu-complete-layout-wall-audit.css?v=1398" rel="stylesheet"/>
+<link href="../assets/css/v13100-ctu-complete-visual-system.css?v=13100" rel="stylesheet"/>
+<link href="../assets/css/v13101-ctu-screen-print-polish.css?v=13101" rel="stylesheet"/>
+<link href="../assets/css/v13102-ctu-expanded-print-polish.css?v=13102" rel="stylesheet"/>
+<link href="../assets/css/v13103-ctu-actionable-confirmation-guide.css?v=13103" rel="stylesheet"/>
+<link href="../assets/css/v13103-ctu-material-strength-linkage.css?v=13103" rel="stylesheet"/>
+<link href="../assets/css/v13104-ctu-timber-dimension-ai.css?v=13104" rel="stylesheet"/>
+<link href="../assets/css/v13105-ctu-guided-usability.css?v=13105" rel="stylesheet"/>
+<link href="../assets/css/v13109-ctu-step-confirmation.css?v=13109" rel="stylesheet"/>
 </head>
 <body data-page="ctu-securing-calculator">
 <header class="sk-v1338-header" data-sk-common-header="1">
@@ -214,9 +226,19 @@
   <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
 </header>
 <main class="calc-shell">
-<section class="hero">
+<section class="hero v1398-hero">
+<div class="v1398-hero-copy">
 <h1>固縛力参考算出</h1>
 <p>申請書・写真・手入力から条件を登録し、必要抵抗力と現在の固縛力を比較します。専門的な条件は必要な場合だけ「詳細設定」から確認できます。</p>
+</div>
+<div class="v1398-layout-toolbar no-print" id="ctuLayoutToolbar" aria-label="PCカード表示切替">
+  <span class="v1398-layout-toolbar__label">画面レイアウト</span>
+  <div class="v1398-layout-switch" role="group" aria-label="1列または2列表示">
+    <button type="button" class="v1398-layout-btn is-active" id="ctuLayoutOne" data-layout="one" aria-pressed="true">1列表示</button>
+    <button type="button" class="v1398-layout-btn" id="ctuLayoutTwo" data-layout="two" aria-pressed="false">2列表示</button>
+  </div>
+  <small id="ctuLayoutHint">初期表示は1列です。</small>
+</div>
 </section>
 <div class="top-actions">
 <button class="btn primary advanced-section" id="calcBtn" type="button">詳細条件で算出</button>
@@ -269,13 +291,14 @@
       <strong id="ctuStickyHeadline">入力状況を確認しています</strong>
       <span id="ctuStickyDetail">入力内容に応じて不足・確認事項を表示します。</span>
     </div>
-    <div class="ctu-sticky-status__steps" role="group" aria-label="①から⑥までの入力状況">
+    <div class="ctu-sticky-status__steps" role="group" aria-label="①から⑦までの入力状況">
       <button type="button" class="ctu-status-chip" data-ctu-stage="step1" data-ctu-step="1"><span class="ctu-status-chip__num">1</span><span class="ctu-status-chip__label">申請書・航路</span><em id="ctuStatusStep1">確認中</em></button>
       <button type="button" class="ctu-status-chip" data-ctu-stage="step2" data-ctu-step="2"><span class="ctu-status-chip__num">2</span><span class="ctu-status-chip__label">写真</span><em id="ctuStatusStep2">確認中</em></button>
       <button type="button" class="ctu-status-chip" data-ctu-stage="step3" data-ctu-step="3"><span class="ctu-status-chip__num">3</span><span class="ctu-status-chip__label">輸送・貨物</span><em id="ctuStatusStep3">確認中</em></button>
       <button type="button" class="ctu-status-chip" data-ctu-stage="step4" data-ctu-step="4"><span class="ctu-status-chip__num">4</span><span class="ctu-status-chip__label">接触面</span><em id="ctuStatusStep4">確認中</em></button>
       <button type="button" class="ctu-status-chip" data-ctu-stage="step5" data-ctu-step="5"><span class="ctu-status-chip__num">5</span><span class="ctu-status-chip__label">固縛・支保</span><em id="ctuStatusStep5">確認中</em></button>
-      <button type="button" class="ctu-status-chip" data-ctu-stage="step6" data-ctu-step="6"><span class="ctu-status-chip__num">6</span><span class="ctu-status-chip__label">算出・登録</span><em id="ctuStatusStep6">算出前</em></button>
+      <button type="button" class="ctu-status-chip" data-ctu-stage="step6" data-ctu-step="6"><span class="ctu-status-chip__num">6</span><span class="ctu-status-chip__label">壁抵抗</span><em id="ctuStatusStep6">未使用</em></button>
+      <button type="button" class="ctu-status-chip" data-ctu-stage="step7" data-ctu-step="7"><span class="ctu-status-chip__num">7</span><span class="ctu-status-chip__label">算出・登録</span><em id="ctuStatusStep7">算出前</em></button>
     </div>
     <div class="ctu-sticky-status__actions">
       <button class="ctu-sticky-status__confirm-all" id="ctuConfirmAll" type="button">すべて確認しました</button>
@@ -283,8 +306,9 @@
     </div>
   </div>
 </nav>
+<div class="v1398-pair v1398-pair--step12">
 <section class="ctu-numbered-step-card ctu-numbered-step-card--panel ctu-v1357-independent-card" id="ctuExcelRoutePanel" data-ctu-step="1">
-<h2 class="ctu-step-card__head"><span class="ctu-step-card__num">1</span><span class="ctu-step-card__title">申請書・航路から入力する</span></h2>
+<h2 class="ctu-step-card__head"><span class="ctu-step-card__num">1</span><span class="ctu-step-card__title">申請書・航路から入力する</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep1" aria-pressed="false">このStepを確認</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span></h2>
 <div class="ctu-step-card__body">
 <div class="notice info">Excel申請書を端末内で読み取り、貨物情報・船積港・陸揚港の候補を入力欄へ反映します。取込後は必ず申請書原本と照合してください。</div><details class="result-details"><summary>申請書データの取扱いを確認</summary><div class="result-details__body"><p class="hint">Excel原本は端末内の一時メモリだけで解析し、システム、ブラウザ保存領域、申請番号管理またはログへ保存しません。申請番号管理へ登録する場合は、確認・算出した結果情報だけを保存します。自動取得できない項目は手入力してください。</p></div></details>
 <div class="import-layout" style="margin-top:14px">
@@ -315,7 +339,7 @@
 </div>
 </section>
 <section class="ctu-numbered-step-card ctu-numbered-step-card--panel ctu-v1357-independent-card" id="photoInputPanel" data-ctu-step="2">
-<h2 class="ctu-step-card__head"><span class="ctu-step-card__num">2</span><span class="ctu-step-card__title">写真を撮影・アップロードする</span></h2>
+<h2 class="ctu-step-card__head"><span class="ctu-step-card__num">2</span><span class="ctu-step-card__title">写真を撮影・アップロードする</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep2" aria-pressed="false">確認して一括反映</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span></h2>
 <div class="ctu-step-card__body">
 <div class="photo-grid">
 <div aria-label="現場写真のドラッグ＆ドロップ領域" class="photo-stage part542-photo-drop" data-part542-drop="main" id="photoStage" tabindex="0"><div class="photo-placeholder" id="photoPlaceholder">現場写真を撮影またはアップロードしてください。<br/>画像上の2点を指定して、固縛角度や寸法を測定できます。</div><canvas hidden="" id="photoCanvas"></canvas><div aria-hidden="true" class="part542-drop-overlay"><strong>ここへ写真をドラッグ＆ドロップ</strong><span>ドロップした写真を読み込みます</span></div></div>
@@ -337,9 +361,21 @@
 </div>
 <div class="part542-drop-help"><strong>ドラッグ＆ドロップ対応：</strong>PCでは写真を上の黒い領域へそのままドロップできます。複数枚の場合は写真一覧から、読み取り・測定に使用する写真を選択してください。</div>
 <div aria-live="polite" class="part542-photo-queue" id="part542PhotoQueue"><p>写真一覧はまだありません。</p></div>
+<section class="v13104-upload-timber-ai" id="quickTimberUploadAiPanel" data-state="idle" aria-labelledby="quickTimberUploadAiTitle">
+  <div class="v13104-upload-timber-ai__head">
+    <div><h3 id="quickTimberUploadAiTitle">木材支保の寸法AI候補</h3><p>写真をアップロードした直後に木材支保の <strong>w（厚さ）／h（高さ）／L（自由長）</strong> を先に予想します。</p></div>
+    <span class="v13104-reference-badge">写真アップロード時</span>
+  </div>
+  <div class="v13104-upload-timber-ai__body">
+    <div class="v13104-upload-timber-ai__result"><span>AI予想候補</span><strong id="quickTimberUploadAiCandidate">写真をアップロードすると解析します</strong><small id="quickTimberUploadAiBasis">写真だけで実寸を確定しません。メジャー・定規・既知寸法などの基準が写るほど信頼度が上がります。</small></div>
+    <div class="v13104-upload-timber-ai__state" id="quickTimberUploadAiState">候補は⑤の入力値として確定しません。AI候補を先行補完しても、現場実測・施工状態の確認が必要です。</div>
+  </div>
+  <div class="v13104-upload-timber-ai__actions no-print"><button class="btn primary" id="quickTimberUploadAiJump" type="button" disabled>⑤で確認・補正する</button><button class="btn" id="quickTimberUploadAiReapply" type="button" disabled>AI候補を再反映</button></div>
+</section>
 <div class="notice" style="margin-top:14px">写真は入力補助です。貨物質量、重心位置、摩擦係数、MSL・STF、貨物側取付部およびCTU側固縛点の強度は、銘板・仕様書・現場確認値を使用してください。</div>
 </div>
 </section>
+</div><!-- /v1398-pair step1+2 -->
 <section class="panel part541-field-panel" id="photoRecognitionPanel">
 <div class="part541-heading"><div><h2>写真AI候補を確認する</h2><p>写真から固縛材・支保材・ラック等の候補、掛け位置、拘束方向、本数を整理します。読み取れない箇所は手入力できます。</p></div><span class="part541-badge">写真補助</span></div>
 <div class="photo-assist-warning"><strong>重要：</strong>写真の外観だけからMSL、許容荷重、木材強度、ラック強度を確定しません。刻印・銘板の文字候補が取得できても、利用者の確認後に確定してください。</div>
@@ -351,13 +387,16 @@
 <div class="photo-analysis-summary" id="fieldPhotoAnalysisSummary"></div>
 <div class="field-element-table-wrap"><table class="field-element-table"><thead><tr><th>固縛・支保要素</th><th>材質候補</th><th>貨物の位置</th><th>接続・作用</th><th>拘束方向</th><th>本数</th><th>確度</th><th>確認</th><th>備考</th><th></th></tr></thead><tbody id="fieldSecuringElementRows"><tr><td colspan="10">候補はまだありません。</td></tr></tbody></table></div>
 <div class="field-assist-actions no-print"><button class="btn primary" id="fieldApplyConfirmedElements" type="button">確認済み候補を入力欄へ反映</button><button class="btn" id="fieldSavePhotoAssist" type="button">写真読取結果を一時保存</button></div>
-</section><section class="ctu-step-deck ctu-v1357-deck" id="quickEntryPanel">
+</section>
+
+<section class="ctu-step-deck ctu-v1357-deck" id="quickEntryPanel">
 <div class="quick-flow">
+<div class="v1398-pair v1398-pair--step34">
 <div class="quick-step ctu-numbered-step-card ctu-v1357-independent-card" data-ctu-step="3">
-<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">3</span><span class="ctu-step-card__title">輸送条件と貨物を確認</span></div>
+<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">3</span><span class="ctu-step-card__title">輸送条件と貨物を確認</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep3" aria-pressed="false">このStepを確認</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span></div>
 <div class="quick-step__body quick-grid">
 <div><label for="quickTransport">輸送条件</label><select id="quickTransport"><option value="road">道路輸送</option><option value="rail">鉄道輸送（通常）</option><option value="railShock">鉄道輸送（短時間衝撃）</option><option value="seaA">海上輸送 海域A</option><option selected="" value="seaB">海上輸送 海域B（標準）</option><option value="seaC">海上輸送 海域C</option></select></div>
-<div><label for="quickCtu">CTUの種類</label><select id="quickCtu"><option selected="" value="container">汎用コンテナ</option><option value="swap">スワップボディ</option><option value="roadL">道路車両 Code L</option><option value="roadXL">道路車両 Code XL</option><option value="none">壁強度を算入しない</option></select></div>
+<div><label for="quickCtu">CTUの種類</label><select id="quickCtu"><option selected="" value="container">汎用コンテナ</option><option value="swap">スワップボディ</option><option value="roadL">道路車両 Code L</option><option value="roadXL">道路車両 Code XL</option><option value="none">壁強度を算入しない</option><option value="manual">手動入力</option></select></div>
 <div><label for="quickMass">貨物質量（t）</label><input id="quickMass" min="0" step="0.001" type="number" value="5"/></div>
 <div><label for="quickCargoDescription">貨物名・品名</label><input id="quickCargoDescription" type="text"/></div>
 <div hidden aria-hidden="true"><label for="quickFriction">接触面の状態</label><select id="quickFriction"><option value="unknown">組合せ不明・未検証</option><option value="verified">確認済みの摩擦係数を使用</option><option value="unclean">完全に清められていない</option><option value="snow">霜・氷・雪</option><option value="oil">油脂付着・シートパレット</option></select></div>
@@ -365,7 +404,7 @@
 </div>
 </div>
 <div class="quick-step ctu-numbered-step-card ctu-v1357-independent-card" data-ctu-step="4" id="v1ContactStep">
-<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">4</span><span class="ctu-step-card__title">貨物底面とCTU床面を確認</span></div>
+<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">4</span><span class="ctu-step-card__title">貨物底面とCTU床面を確認</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep4" aria-pressed="false">このStepを確認</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span></div>
 <div class="quick-step__body">
 <div class="v1368-contact-grid">
 <label>貨物・パレット側<select id="v1CargoSurface"><option value="wood">木・木製パレット</option><option value="plastic">プラスチック・樹脂パレット</option><option value="metal">金属・金属製容器</option><option value="rubber">ゴム面</option><option value="other">その他・不明</option></select></label>
@@ -375,8 +414,10 @@
 <div class="v1368-mu-output"><div><span>参考摩擦係数</span><strong id="v1MuValue">μ = 0.20</strong></div><small id="v1MuNote">材質の組合せと表面状態から保守側の参考候補を設定します。</small></div>
 </div>
 </div>
+</div><!-- /v1398-pair step3+4 -->
+<div class="v1398-pair v1398-pair--step5wall">
 <div class="quick-step ctu-numbered-step-card ctu-v1357-independent-card" data-ctu-step="5">
-<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">5</span><span class="ctu-step-card__title">固縛・支保条件を確認</span></div>
+<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">5</span><span class="ctu-step-card__title">固縛・支保条件を確認</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep5" aria-pressed="false">このStepを確認</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span></div>
 <div class="quick-step__body">
 <div class="ctu-step5-panels" id="ctuStep5Panels">
 <section class="ctu-step5-panel ctu-step5-panel--primary" id="ctuPrimarySecuringPanel">
@@ -385,13 +426,14 @@
 <label class="ctu-use-toggle" for="quickUseTensile"><input checked="" id="quickUseTensile" type="checkbox"/><span class="ctu-use-toggle__box" aria-hidden="true">✓</span><span class="ctu-step5-panel__state-text" id="ctuPrimarySecuringPanelStateText">計算に使用する</span></label>
 </div>
 <div class="ctu-step5-panel__body">
-<div class="quick-grid">
+<div class="quick-grid v1398-primary-grid">
 <div class="ctu-internal-category" aria-hidden="true"><label for="quickMaterialCategory">使用方法</label><select id="quickMaterialCategory" tabindex="-1"><option value="tensile">引張系固縛材</option><option value="support">支保・当て材</option><option selected="" value="combined">引張系固縛材＋支保・当て材（併用）</option></select></div>
 <div><label for="quickMethod">固縛方法</label><select id="quickMethod"><option value="direct">直接固縛</option><option value="topover">トップオーバー（垂直掛け参考）</option></select></div>
-<div><label for="quickMaterial">材質</label><select id="quickMaterial"></select></div>
+<div><label for="quickMaterial">固縛材質</label><select id="quickMaterial"></select></div>
+<div class="v13103-strength-spec-field"><label for="quickMaterialProfile">規格・サイズ／表示値</label><select id="quickMaterialProfile"><option value="">固縛材質を選択してください</option></select><small id="quickMaterialProfileStatus">材質だけではMSLを確定しません。実物の規格・表示に合う項目を選択してください。</small></div>
 <div><label for="quickDirection">対象方向</label><select id="quickDirection"><option selected="" value="">作用方向を選択してください</option><option value="all">各評価方向に同じ有効本数を適用（要確認）</option><option value="forward">前方（前壁側）</option><option value="rear">後方（扉・後壁側）</option><option value="left">左方向</option><option value="right">右方向</option></select></div>
-<div><label for="quickCount">本数・個数</label><input id="quickCount" min="0" step="1" type="number" value="2"/></div>
-<div><label for="quickStrength" id="quickStrengthLabel">MSL（1本当たり・kN）</label><input id="quickStrength" min="0" step="0.1" type="number" value="20"/></div>
+<div><label for="quickCount">数量（本数）</label><input id="quickCount" min="0" step="1" type="number" value="2"/></div>
+<div><label for="quickStrength" id="quickStrengthLabel">固縛材MSL（1本当たり・kN）</label><input id="quickStrength" min="0" step="0.1" type="number" value=""/></div>
 <div class="quick-field" id="quickCargoMslField"><label for="quickCargoMsl">貨物側取付部MSL（kN）</label><input id="quickCargoMsl" min="0" step="0.1" type="number" value="20"/></div>
 <div class="quick-field" id="quickCtuMslField"><label for="quickCtuMsl">CTU側固縛点MSL（kN）</label><input id="quickCtuMsl" min="0" step="0.1" type="number" value="10"/></div>
 <div class="quick-field" id="quickAngleField"><label for="quickAngle">鉛直角（°）</label><input id="quickAngle" max="90" min="0" step="1" type="number" value="45"/></div>
@@ -402,24 +444,48 @@
 <section aria-labelledby="quickSupportFieldsTitle" class="ctu-step5-panel ctu-step5-panel--support quick-combined-panel" id="ctuSupportSecuringPanel">
 <div class="ctu-step5-panel__head">
 <div class="ctu-step5-panel__title-wrap"><h3 class="ctu-step5-panel__title" id="quickSupportFieldsTitle">支保・あて材</h3></div>
-<label class="ctu-use-toggle" for="quickUseSupport"><input checked="" id="quickUseSupport" type="checkbox"/><span class="ctu-use-toggle__box" aria-hidden="true">✓</span><span class="ctu-step5-panel__state-text" id="ctuSupportSecuringPanelStateText">計算に使用する</span></label>
+<label class="ctu-use-toggle" for="quickUseSupport"><input id="quickUseSupport" type="checkbox"/><span class="ctu-use-toggle__box" aria-hidden="true">✓</span><span class="ctu-step5-panel__state-text" id="ctuSupportSecuringPanelStateText">計算に使用する</span></label>
 </div>
 <div class="ctu-step5-panel__body">
 <section id="quickSupportFields">
-<div class="quick-combined-grid">
-<div><label for="quickSupportMaterial">材質</label><select id="quickSupportMaterial"><option value="timber">木材</option><option value="frp">強化プラスチック（FRP等）</option><option value="otherSupport">その他の支保・当て材</option></select></div>
+<div class="quick-combined-grid v1398-support-grid">
+<div><label for="quickSupportMaterial">支保材質</label><select id="quickSupportMaterial"><option value="timber">木材</option><option value="frp">強化プラスチック（FRP等）</option><option value="otherSupport">その他の支保・当て材</option></select></div>
+<div class="v13103-strength-spec-field"><label for="quickSupportProfile">支保仕様／寸法</label><select id="quickSupportProfile"><option value="">支保材質を選択してください</option></select><small id="quickSupportProfileStatus">木材は寸法・自由長から参考支保力を算出します。FRP等は確認値を入力してください。</small></div>
 <div><label for="quickSupportDirection">対象方向</label><select id="quickSupportDirection"><option selected="" value="">作用方向を選択してください</option><option value="all">各評価方向に同じ有効本数を適用（要確認）</option><option value="forward">前方（前壁側）</option><option value="rear">後方（扉・後壁側）</option><option value="left">左方向</option><option value="right">右方向</option></select></div>
-<div><label for="quickSupportCount">個数</label><input id="quickSupportCount" min="0" step="1" type="number" value="2"/></div>
-<div><label for="quickSupportStrength">支保力（1個当たり・kN）</label><input id="quickSupportStrength" min="0" step="0.1" type="number" value="10"/></div>
+<div><label for="quickSupportCount">数量（個数）</label><input id="quickSupportCount" min="0" step="1" type="number" value="2"/></div>
+<div><label for="quickSupportStrength">支保力（1個当たり・kN）</label><input id="quickSupportStrength" min="0" step="0.1" type="number" value=""/></div>
 <div style="grid-column:1/-1"><label for="quickSupportBasis">支保力の根拠</label><input id="quickSupportBasis" placeholder="例：材種・等級・断面寸法、メーカー仕様、試験成績、施工図" type="text"/></div>
 </div>
+<section class="v13104-timber-dimensions" id="quickTimberDimensionPanel" aria-labelledby="quickTimberDimensionTitle">
+  <div class="v13104-timber-dimensions__head">
+    <div><h4 id="quickTimberDimensionTitle">木材支保の寸法・自由長</h4><p><strong>w＝厚さ</strong>、<strong>h＝高さ</strong>、<strong>L＝支点間の自由長</strong>として入力します。数量 n は上の「数量（個数）」と自動連動します。</p></div>
+    <span class="v13104-reference-badge">参考算出</span>
+  </div>
+  <div class="v13104-timber-dimension-grid">
+    <label>厚さ w（mm）<input id="quickTimberThicknessW" min="1" step="1" type="number" inputmode="decimal" placeholder="例：50"/></label>
+    <label>高さ h（mm）<input id="quickTimberHeightH" min="1" step="1" type="number" inputmode="decimal" placeholder="例：100"/></label>
+    <label>自由長 L（m）<input id="quickTimberFreeLengthL" min="0.01" step="0.01" type="number" inputmode="decimal" placeholder="例：2.20"/></label>
+    <div class="v13104-linked-count"><span>数量 n</span><strong id="quickTimberLinkedCount">－</strong><small>⑤「数量（個数）」と連動</small></div>
+  </div>
+  <div class="v13104-timber-strength-output">
+    <div><span>1個当たり参考支保力</span><strong id="quickTimberStrengthPerUnit">－</strong></div>
+    <div><span>数量 n を含む参考合計</span><strong id="quickTimberStrengthTotal">－</strong></div>
+    <small id="quickTimberFormulaNote">w・h・Lを入力すると参考式から即時再計算します。</small>
+  </div>
+  <div class="v13104-timber-ai" id="quickTimberAiPanel">
+    <div class="v13104-timber-ai__summary"><span>写真AI予想</span><strong id="quickTimberAiCandidate">写真をアップロードすると候補を表示します</strong><small id="quickTimberAiBasis">写真だけで実寸を確定しません。基準寸法・メジャー・既知寸法が写る写真ほど信頼度が上がります。</small></div>
+    <div class="v13104-timber-ai__actions no-print"><button class="btn" id="quickTimberAiApply" type="button" disabled>AI候補を w・h・L へ反映</button><button class="btn" id="quickTimberAiReanalyze" type="button">現在の写真を再解析</button></div>
+  </div>
+  <label class="v13104-timber-confirm"><input id="quickTimberDimensionsConfirmed" type="checkbox"/><span><strong>寸法・自由長・施工状態を確認しました。</strong><br/>AI候補・標準寸法を反映しただけでは確認済みになりません。現場実測、写真、施工状態を確認してからチェックしてください。</span></label>
+  <p class="v13104-timber-status" id="quickTimberDimensionStatus">木材支保を使用する場合は、w・h・Lを入力または標準寸法／写真AI候補から反映してください。</p>
+</section>
 <input id="quickCombinationConfirmed" type="checkbox" hidden aria-hidden="true" tabindex="-1"/> 
 </section>
-<p class="ctu-step5-panel__lead ctu-step5-panel__lead--after">木材・FRP等を併用する場合だけ入力します。強度の根拠入力は不要です。</p>
+<p class="ctu-step5-panel__lead ctu-step5-panel__lead--after">支保・あて材を使用する場合に入力します。確認済み支保力を計算へ使用する場合は、材種・等級・断面寸法、メーカー仕様、試験成績、施工図などの確認根拠も記録してください。</p>
 </div>
 </section>
 </div>
-<section class="ctu-bracing-assist" hidden id="ctuBracingAssist" aria-labelledby="ctuBracingAssistTitle">
+<section class="ctu-bracing-assist advanced-section" hidden id="ctuBracingAssist" aria-labelledby="ctuBracingAssistTitle">
 <div class="ctu-bracing-assist__head">
 <div><h3 id="ctuBracingAssistTitle">支保からCTU壁／フレームへ荷重を伝える場合</h3><p>木材・パレット・横木等で貨物を壁側へ寄せて支保する場合は、支保材とCTU受け部を一つの荷重経路として評価します。採用能力は弱い方を上限とします。</p></div>
 <span class="ctu-bracing-assist__badge">CTU Code 支保経路</span>
@@ -558,16 +624,48 @@
 </details>
 </div>
 </div>
-<div class="quick-step ctu-numbered-step-card ctu-v1357-independent-card" data-ctu-step="6">
-<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">6</span><span class="ctu-step-card__title">参考算出を確認</span></div>
+<section class="quick-step ctu-numbered-step-card ctu-v1357-independent-card v1394-wall-gap-panel v1398-wall-step-card" id="wallGapAssistPanel" aria-labelledby="wallGapAssistTitle" data-ctu-step="6" data-ctu-substep="wall">
+<div class="quick-step__head ctu-step-card__head v13100-wall-step-head"><span class="ctu-step-card__num">6</span><span class="ctu-step-card__title" id="wallGapAssistTitle">壁面の隙間・壁抵抗利用を確認</span><span class="v13109-step-confirm-action no-print"><span class="v13109-step-confirm-state" aria-live="polite"></span><button type="button" class="v13109-step-confirm-btn" id="v13109ConfirmStep6" aria-pressed="false">このStepを確認</button><small class="v13109-step-confirm-message" hidden aria-live="polite"></small></span><span class="v1394-wall-gap-badge">15 cm基準</span></div>
+<div class="quick-step__body v13100-wall-step-body">
+<p class="v13100-step-lead">CTU Codeの「水平方向の隙間合計 15 cm以下」を写真・測定値から候補判定します。AI候補だけでは壁抵抗を算入せず、検査員が方向ごとの荷重伝達を確認した場合だけ計算へ使用します。</p>
+<div class="v1398-wall-condition-grid">
+  <label>CTUの種類<select id="wallCtuPresetQuick">
+    <option value="none">壁強度を算入しない</option>
+    <option value="container">汎用貨物コンテナ</option>
+    <option value="swap">スワップボディ EN283</option>
+    <option value="roadL">道路車両 Code L</option>
+    <option value="roadXL">道路車両 Code XL</option>
+    <option value="manual">手動入力</option>
+  </select></label>
+  <label>CTU最大積載量 P（t）<input id="wallPayloadQuick" min="0" step="0.1" type="number" placeholder="CSC安全承認板等の確認値"></label>
+  <div class="v1398-wall-readiness" id="wallResistanceReadiness" aria-live="polite"><strong>壁抵抗の計算条件</strong><span>壁抵抗を使用する場合は、CTU種類と最大積載量Pの確認が必要です。</span></div>
+</div>
+<div class="v1394-gap-axis-grid">
+<article class="v1394-gap-axis-card"><span>前後方向の隙間合計</span><strong id="wallGapLongitudinalResult">判定不能</strong><small id="wallGapLongitudinalNote">前方・後方の隙間、または貨物長さとコンテナ内長から候補を算出します。</small></article>
+<article class="v1394-gap-axis-card"><span>左右方向の隙間合計</span><strong id="wallGapTransverseResult">判定不能</strong><small id="wallGapTransverseNote">左・右の隙間、または貨物幅とコンテナ内幅から候補を算出します。</small></article>
+</div>
+<div class="v1394-gap-actions no-print"><button class="btn" id="wallGapAnalyzeBtn" type="button">写真・寸法から15 cm候補を更新</button><label>写真測定値の反映先<select id="wallGapMeasuredDirection"><option value="forward">前方</option><option value="rear">後方</option><option value="left">左</option><option value="right">右</option></select></label><button class="btn" id="wallGapApplyMeasuredBtn" type="button">現在の写真測定値を隙間へ反映</button></div>
+<div class="v1394-wall-direction-grid">
+<article class="v1394-wall-direction-card" data-wall-dir="forward"><h3>前方（前壁側）</h3><label>確認した隙間（cm）<input id="wallGapForwardCm" type="number" min="0" step="0.1" placeholder="未測定なら空欄"></label><label class="v1394-wall-use"><input id="wallUseForward" type="checkbox"><span>前壁まで貨物／適切な緩衝・支保材が有効に連続し、衝撃荷重・局部過負荷を避けて荷重伝達できることを確認したため、前壁抵抗を使用</span></label><small id="wallUseForwardStatus">未確認：壁抵抗は算入しません。</small></article>
+<article class="v1394-wall-direction-card" data-wall-dir="rear"><h3>後方（扉・後壁側）</h3><label>確認した隙間（cm）<input id="wallGapRearCm" type="number" min="0" step="0.1" placeholder="未測定なら空欄"></label><label class="v1394-wall-use"><input id="wallUseRear" type="checkbox"><span>扉・後壁側まで貨物／適切な緩衝・支保材が有効に連続し、扉開放時の危険・衝撃荷重を避けて荷重伝達できることを確認したため、後方境界抵抗を使用</span></label><small id="wallUseRearStatus">未確認：壁抵抗は算入しません。</small></article>
+<article class="v1394-wall-direction-card" data-wall-dir="left"><h3>左方向（左側壁）</h3><label>確認した隙間（cm）<input id="wallGapLeftCm" type="number" min="0" step="0.1" placeholder="未測定なら空欄"></label><label class="v1394-wall-use"><input id="wallUseLeft" type="checkbox"><span>左側壁まで貨物／適切な緩衝・支保材が有効に連続し、荷重を側壁へ分散して伝達できることを確認したため、左側壁抵抗を使用</span></label><small id="wallUseLeftStatus">未確認：壁抵抗は算入しません。</small></article>
+<article class="v1394-wall-direction-card" data-wall-dir="right"><h3>右方向（右側壁）</h3><label>確認した隙間（cm）<input id="wallGapRightCm" type="number" min="0" step="0.1" placeholder="未測定なら空欄"></label><label class="v1394-wall-use"><input id="wallUseRight" type="checkbox"><span>右側壁まで貨物／適切な緩衝・支保材が有効に連続し、荷重を側壁へ分散して伝達できることを確認したため、右側壁抵抗を使用</span></label><small id="wallUseRightStatus">未確認：壁抵抗は算入しません。</small></article>
+</div>
+<div class="notice info v1394-wall-gap-caution"><strong>判定の扱い：</strong>15 cm以下はタイトストウェージの候補です。写真AIの候補だけで壁強度を自動採用しません。壁抵抗を使う方向は、実際の接触・緩衝材／支保材による連続した荷重経路、壁への荷重分散、CTU最大積載量Pを検査員が確認してください。</div>
+</div>
+</section>
+</div><!-- /v1398-pair step5+wall -->
+<div class="quick-step ctu-numbered-step-card ctu-v1357-independent-card" data-ctu-step="7">
+<div class="quick-step__head ctu-step-card__head"><span class="ctu-step-card__num">7</span><span class="ctu-step-card__title">参考算出を確認</span></div>
 <div class="quick-step__body">
 <div class="quick-actions"><button class="btn primary" id="quickCalcBtn" type="button">この条件で算出する</button><button aria-expanded="false" class="btn advanced-toggle" id="toggleAdvanced" type="button">詳細設定を表示</button></div>
 <div aria-live="polite" class="quick-status" id="quickStatus">必要事項を入力し、「この条件で算出する」を押してください。</div>
+<div class="v1398-calc-condition-summary" id="ctuCalcConditionSummary" aria-label="現在の算出条件"><span>算出条件を確認しています。</span></div>
 <section class="ctu-step6-section ctu-step6-result-section" id="ctuStep6ResultSection">
 <div class="ctu-step6-section__head"><h3>算出結果</h3></div>
 <div class="v1381-assessment-guide" id="ctuAssessmentGuide" aria-label="参考算出の判定区分">
 <div class="v1381-guide-item is-ok"><strong>参考上十分</strong><span>必要条件が確認済みで、必要抵抗力を満たす</span></div>
-<div class="v1381-guide-item is-check"><strong>要確認</strong><span>MSL・接触・支保成立条件等に未確認項目がある</span></div>
+<div class="v1381-guide-item is-check"><strong>要確認</strong><span>未確認項目がある。下の「確認が必要な入力」から該当欄へ移動できます</span></div>
 <div class="v1381-guide-item is-ng"><strong>参考上不足</strong><span>必要条件を確認済みでも、必要抵抗力を満たさない</span></div>
 </div>
 <div class="notice" id="overall">入力後、「算出する」を押してください。</div>
@@ -581,18 +679,7 @@
 <h3>確認事項</h3><div class="notice info" id="warnings"><ul id="warningList"><li>算出後に確認事項を表示します。</li></ul></div>
 </div></details>
 </section>
-<section class="part541-deficiency-panel ctu-step6-section ctu-step6-support-section" id="deficiencySupportPanel">
-<div class="part541-heading ctu-step6-section__head"><div><h3>不足内容・現場説明サポート</h3><p>参考算出、写真読取候補、確認状況から、検査員が現場関係者へ説明するための不足点を整理します。</p></div><span class="part541-badge" id="fieldDeficiencyBadge">算出待ち</span></div>
-<div class="deficiency-grid"><div><h3>不足・要確認事項</h3><div class="deficiency-issues" id="fieldDeficiencyIssues"><p>算出後に表示します。</p></div></div><div><h3>確認・是正の検討候補</h3><div class="correction-candidates" id="fieldCorrectionCandidates"><p>算出後に表示します。</p></div></div></div>
-<section aria-labelledby="part542CorrectionTitle" class="part542-correction-follow">
-<div class="part542-correction-head"><div><h3 id="part542CorrectionTitle">現場是正フォロー</h3><p>不足方向ごとに、説明・是正・再確認の進捗を残します。必要不足量は参考値として表示し、具体的な是正方法の成立は確認済み強度と現場条件で判断します。</p></div></div>
-<div class="part542-correction-list" id="part542CorrectionPlanList"><p>不足がある場合、算出後に是正フォロー行を作成します。</p></div>
-<div class="field-assist-actions no-print"><button class="btn" id="part542AddManualCorrection" type="button">＋ 手動で確認項目を追加</button><button class="btn" id="part542SaveCorrectionPlan" type="button">是正フォローを一時保存</button><button class="btn" id="part542CopyCorrectionSummary" type="button">是正依頼文をコピー</button></div>
-</section>
-<label class="field-explanation-label">現場への説明文（参考）<textarea id="fieldExplanationText" placeholder="算出後に説明文を作成します。" rows="8"></textarea></label>
-<div class="field-assist-actions no-print"><button class="btn" id="fieldCopyExplanation" type="button">説明文をコピー</button><button class="btn" id="fieldCorrectionPhoto" type="button">是正後写真を確認する</button><button class="btn primary" id="fieldRefreshDeficiency" type="button">不足説明を更新</button></div>
-<div class="photo-assist-warning"><strong>使用上の注意：</strong>本表示は検査員の説明補助です。「安全」「適合」を写真だけで自動判定するものではありません。具体的な是正方法は、貨物・CTU・固縛材の確認済み強度、承認資料、現場条件を確認して決定してください。</div>
-</section>
+
 </div>
 </div>
 </div>
@@ -610,7 +697,8 @@
 <div><label for="combinationMode">剛性の異なる固縛の併用</label><select id="combinationMode"><option value="conservative">保守的評価（独立性未確認の抵抗を単純加算しない）</option><option value="approved">承認済み併用（根拠記録のみ・この参考算出では単純加算しない）</option></select></div>
 <div><label for="route">輸送条件メモ</label><input id="route" type="text"/></div>
 </div>
-<div class="check-row"><input id="wallUniform" type="checkbox"/><label for="wallUniform">貨物がCTU境界へ密着し、隙間・衝撃荷重・局部過負荷を避けて荷重を境界へ伝達できることを個別に確認したため、境界抵抗を算入する（「すべて確認しました」の一括確認対象外）。</label></div>
+<div class="check-row v1394-legacy-wall-uniform" hidden aria-hidden="true"><input id="wallUniform" type="checkbox"/><label for="wallUniform">旧版互換：CTU境界抵抗の一括確認</label></div>
+<div class="notice info v1394-advanced-wall-note">CTU境界抵抗の採用は、上部「壁面の隙間・壁抵抗利用を確認」の方向別チェックで指定します。詳細設定ではCTU種類・最大積載量P・方向別壁抵抗係数を確認してください。</div>
 <div class="condition-summary" id="presetSummary"></div>
 <div class="source-links">
 <a class="btn" href="../references/originals/ctu-code-ja.pdf#page=17" rel="noopener" target="_blank">加速度係数（第5章）</a>
@@ -745,13 +833,14 @@
 <script src="../data/securing-msl-reference.js?v=538"></script>
 <script src="../data/ctu-code-rules-v1380.js?v=1380"></script>
 <script src="../data/ctu-assessment-policy-v1381.js?v=1381"></script>
-<script src="../assets/js/ctu-securing-calculator-core-v1386.js?v=1386"></script>
+<script src="../assets/js/v1392-ctu-direction-tie-label.js?v=1392"></script>
+<script src="../assets/js/ctu-securing-calculator-core-v1398.js?v=13108"></script>
 <script defer src="../assets/js/v1386-ctu-dual-use-toggle.js?v=1386"></script>
 <script defer src="../assets/js/v1382-ctu-photo-drop-bridge.js?v=1382"></script>
 <script defer src="../assets/js/v1377-ctu-bracing-path.js?v=1377"></script>
 <script defer src="../assets/js/v1376-ctu-friction-sync.js?v=1376"></script>
 <script src="../assets/js/v1338-common-header.js?v=1339"></script>
-<script defer src="../assets/js/v1385-ctu-case-restore.js?v=1385"></script>
+<script defer src="../assets/js/v1385-ctu-case-restore.js?v=13106"></script>
 
 <script defer src="../assets/js/version-guard.js?v=147"></script>
 <script defer src="../assets/js/v1-role-visibility.js?v=1337"></script>
@@ -760,23 +849,36 @@
 
 <script defer src="../assets/js/v133-ctu-upload.js?v=133"></script>
 <script defer src="../assets/js/v135-ctu-stability.js?v=135"></script>
-<script defer src="../assets/js/v137-ctu-usability.js?v=144"></script>
-<script defer src="../assets/js/v1379-ctu-msl-material-linkage.js?v=1379"></script>
+<script defer src="../assets/js/v137-ctu-usability.js?v=13108"></script>
+<script defer src="../assets/js/v1379-ctu-msl-material-linkage.js?v=13108"></script>
 <script defer src="../assets/js/v137-prototype-ui.js?v=139"></script>
 <script defer src="../assets/js/v140-photo-ai-editable.js?v=140"></script>
 <script defer src="../assets/js/v141-photo-ai-container-fit.js?v=143"></script>
+<script defer src="../assets/js/v1394-ctu-gap-wall-assist.js?v=1394"></script>
 <script defer src="../assets/js/v142-ctu-ai-assist.js?v=1354"></script>
 <script defer src="../assets/js/v1316-ctu-cleanup.js?v=1355"></script>
 
-<script defer src="../assets/js/v1386-ctu-sticky-status.js?v=1386"></script>
+<script defer src="../assets/js/v1386-ctu-sticky-status.js?v=13111"></script>
 <script defer src="../assets/js/v1357-ctu-excel-route-linkage.js?v=1357"></script>
 <script defer src="../assets/js/v1357-ctu-state-guard.js?v=1357"></script>
 <script defer src="../assets/js/v1358-ctu-global-sea-area.js?v=1358"></script>
 <script defer src="../assets/js/v1358-ctu-state-consistency.js?v=1358"></script>
-<script defer src="../assets/js/v1372-ctu-canonical-guard.js?v=1373"></script>
+<script defer src="../assets/js/v1372-ctu-canonical-guard.js?v=13110"></script>
 <script defer src="../assets/js/v1375-ctu-confirm-all.js?v=1375"></script>
 <script defer src="../assets/js/v1376-ctu-advanced-window.js?v=1376"></script>
 <script defer src="../assets/js/v1376-ctu-final-guard.js?v=1376"></script>
+<script defer src="../assets/js/v1395-ctu-wall-result-sync.js?v=1395"></script>
+<script defer src="../assets/js/v1398-ctu-layout-wall-sync.js?v=13100"></script>
+<script defer src="../assets/js/v1398-ctu-usability.js?v=13100"></script>
+<script defer src="../assets/js/v13100-ctu-ui-consistency.js?v=13100"></script>
+<script defer src="../assets/js/v13101-ctu-print-state.js?v=13101"></script>
+<script defer src="../assets/js/v13102-ctu-expanded-print-state.js?v=13102"></script>
+<script defer src="../assets/js/v13103-ctu-actionable-confirmation-guide.js?v=13109"></script>
+<script defer src="../assets/js/v13103-ctu-material-strength-linkage.js?v=13103"></script>
+<script defer src="../assets/js/v13104-ctu-timber-dimensions-ai.js?v=13104"></script>
+<script defer src="../assets/js/v13105-ctu-guided-usability.js?v=13105"></script>
+<script defer src="../assets/js/v13106-ctu-confirmation-retention.js?v=13109"></script>
+<script defer src="../assets/js/v13109-ctu-step-confirmation.js?v=13110"></script>
 
 </body>
 </html>

@@ -1,0 +1,15 @@
+{
+  "files": 3018,
+  "codeFiles": 459,
+  "jsonFiles": 426,
+  "jsonErrors": [],
+  "htmlFiles": 75,
+  "htmlLocalRefs": 2490,
+  "htmlMissing": [],
+  "cssFiles": 207,
+  "cssLocalRefs": 5,
+  "cssMissing": [],
+  "codeSyntaxErrors": 0,
+  "codeSyntaxErrorDetails": [],
+  "pass": true
+}

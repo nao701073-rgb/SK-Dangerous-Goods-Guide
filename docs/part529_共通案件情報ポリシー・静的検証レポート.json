@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-06T15:18:53.019Z",
-  "release": "part537",
-  "status": "passed",
+  "generatedAt": "2026-08-10T13:12:03.780Z",
+  "release": "v1.3.98",
+  "status": "failed",
   "total": 57,
-  "passed": 57,
-  "failed": 0,
+  "passed": 51,
+  "failed": 6,
   "checks": [
     {
       "name": "共通案件APIを公開",
@@ -123,8 +123,8 @@
     },
     {
       "name": "申請番号管理の現行版識別",
-      "status": "passed",
-      "detail": ""
+      "status": "failed",
+      "detail": "part0"
     },
     {
       "name": "案件カードから固縛力参考算出へ遷移",
@@ -153,23 +153,23 @@
     },
     {
       "name": "申請番号URL引継ぎ",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
       "name": "共通案件を算出へ反映",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
       "name": "固縛力画面から申請番号へ保存",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
       "name": "固縛力画面の現行版識別",
-      "status": "passed",
-      "detail": ""
+      "status": "failed",
+      "detail": "part0"
     },
     {
       "name": "申請書確認画面で共通モジュール読込",
@@ -273,8 +273,8 @@
     },
     {
       "name": "VERSION現行版整合",
-      "status": "passed",
-      "detail": ""
+      "status": "failed",
+      "detail": "{\"version\":\"v1.3.98\",\"base\":\"v1.3.91-complete\",\"title\":\"CTU Complete Verified Integration, Usability and Calculation Re-audit\",\"summary\":\"v1.3.91完成版を完全ベースとしてv1.3.92以降の必要変更を再統合。通常PCは既存幅の1列を初期表示とし、ページ上部のボタンでStep 1/2・3/4・5/壁抵抗を実際の2列カードへ切替可能。壁抵抗確認をStep 5とStep 6の間へ配置し、方向別壁抵抗、15cm候補、算出状態同期、同率方向表示を統合。Step 5の入力順・4列リズムとStep 6の条件要約・重点確認方向を整理し、実Chromium表示と計算シナリオで検証済み。\",\"calculationLogicChanged\":true,\"calculationChangeScope\":\"CTU Code既存式の変更ではなく、v1.3.94以降の方向別壁抵抗採否を正式統合し、v1.3.96で見つかった壁抵抗共通関数・同率方向要約参照の不具合を修正。摩擦・MSL・支保・直接固縛の重複制限方針は維持。\",\"completeBuild\":true,\"rebuildBaseline\":\"v1.3.91 complete reconstructed from v1.3.78 complete + v1.3.79-v1.3.91 updates\",\"ui\":{\"defaultLayout\":\"one-column\",\"twoColumnPairs\":[\"Step 1 + Step 2\",\"Step 3 + Step 4\",\"Step 5 + wall resistance\"],\"step6FullWidth\":true,\"layoutToggleAtPageTop\":true},\"verification\":{\"integrationChecks\":\"40/40 PASS\",\"directionTieChecks\":\"5/5 PASS\",\"browserRender\":\"Chromium 144 production DOM/CSS/JS harness\",\"static\":\"JS 363 / JSON 397 / HTML 75; errors 0\",\"defaultOneColumnVerified\":true,\"actualTwoColumnVerified\":true,\"wallAutoRecalcVerified\":true}}"
     },
     {
       "name": "固縛力参考算出をactive化",

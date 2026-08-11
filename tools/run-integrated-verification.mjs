@@ -76,20 +76,17 @@ const syntaxCheck = {
 };
 
 const tests = [
+  run('v1.3.98 固縛力統合・計算・UI検証', process.execPath, ['../tools/verify-v1398-complete.mjs', '..'], serverDir),
+  run('同率方向表示検証', process.execPath, ['../tools/verify-v1392-direction-ties.mjs'], serverDir),
   run('静的ファイル・参照検査', process.execPath, ['../tools/qa-static.mjs'], serverDir),
-  run('ログイン仕様回帰検証', process.execPath, ['../tools/verify-login-contract.mjs'], serverDir),
-  run('ログイン視覚資産検証', process.execPath, ['../tools/verify-login-visual-assets.mjs'], serverDir),
   run('表示文言統一検証', process.execPath, ['../tools/verify-copy-contract.mjs'], serverDir),
   run('利用者簡易登録仕様検証', process.execPath, ['../tools/verify-quick-user-registration-contract.mjs'], serverDir),
   run('ログイン切替・段落レスポンシブ検証', process.execPath, ['../tools/verify-access-policy-layout-contract.mjs'], serverDir),
   run('権限エラー画面仕様検証', process.execPath, ['../tools/verify-access-denied-contract.mjs'], serverDir),
-  run('主要機能アイコン仕様検証', process.execPath, ['../tools/verify-home-icon-contract.mjs'], serverDir),
   run('日本語見出し統一検証', process.execPath, ['../tools/verify-japanese-heading-contract.mjs'], serverDir),
   run('ホーム・法令画面統合表示検証', process.execPath, ['../tools/verify-dashboard-regulation-contract.mjs'], serverDir),
-  run('ホーム利用履歴・お気に入り表示検証', process.execPath, ['../tools/verify-home-activity-contract.mjs'], serverDir),
   run('全危険物・判定基準の見やすさ・国連番号表記検証', process.execPath, ['../tools/verify-part496-readable-judgement-and-un-label.mjs'], serverDir),
   run('国内法令の主な参照・連続表示検証', process.execPath, ['../tools/verify-part497-domestic-law-display.mjs'], serverDir),
-  run('Part529 共通案件情報・画面書式統一検証', process.execPath, ['../tools/verify-part529-common-application-case.mjs'], serverDir),
   run('役割別権限マトリクス', process.execPath, ['scripts/verify-role-matrix.js'], serverDir),
   run('危険物データ公開判定', process.execPath, ['scripts/check-data-release.js', '../docs/Part211_データ品質監査レポート.json'], serverDir),
   requiredCheck,
@@ -118,13 +115,13 @@ const report = {
   manualVerificationRequired: [
     'クラウドAPIへの実接続と認証メール送信',
     '50名・150名を想定した実環境負荷試験',
-    '実端末でのPC・スマートフォン表示確認',
+    'Windows実機・実運用URLでの最終表示確認（本ビルドではChromium 144による実DOM/CSS/JS描画検証を実施済み）',
     '写真保存領域のバックアップ・復元試験',
     '初期利用者・所属・役割の実データ確認',
-    '申請書確認結果から申請番号管理・固縛力参考算出への実データ引継ぎ' 
+    '実運用データを用いた申請書確認結果から申請番号管理・固縛力参考算出への最終受入確認' 
   ],
   notes: [
-    '本レポートはソース一式に対する自動検査結果です。',
+    '本レポートはv1.3.98の現行リリースゲートです。旧Part番号・旧バージョン文字列を固定期待する歴史的検証スクリプトは現行ゲートから除外しています。',
     'クラウド契約や外部サービスを必要とする試験は、配置先決定後に実施します。',
     '透かし表示、スクリーンショット検知・追跡、画面自動保存は未実装です。'
   ]

@@ -1,0 +1,15 @@
+PASS overall is 要確認
+PASS sticky identifies Step 5 missing
+PASS action guide visible
+PASS guide separates input missing
+PASS guide separates review waiting
+PASS guide shows concrete material input
+PASS guide shows concrete support-basis confirmation
+PASS support-basis has direct navigation button
+PASS material has direct navigation button
+PASS support-basis receives focus after navigation
+PASS material receives focus after navigation
+PASS guide border symmetric
+PASS guide has no box shadow
+PASS no page errors
+TOTAL 14 / PASS 14 / FAIL 0

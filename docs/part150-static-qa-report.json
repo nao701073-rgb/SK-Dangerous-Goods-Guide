@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-06T15:21:32.677Z",
-  "root": "/mnt/data/SK-Dangerous-Goods-Guide_part537 本番",
+  "generatedAt": "2026-08-10T13:28:48.000Z",
+  "root": "/mnt/data/SKDG_v1.3.98_COMPLETE_WORK",
   "status": "passed",
   "stats": {
-    "html": 73,
-    "js": 261,
-    "json": 183,
-    "refs": 1507,
-    "bytes": 319944364
+    "html": 75,
+    "js": 430,
+    "json": 400,
+    "refs": 2482,
+    "bytes": 328711954
   },
   "findingCount": 0,
   "findings": [],

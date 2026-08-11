@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "output": "docs/v1.3.98_総合検証レポート.json",
+  "summary": {
+    "testCount": 15,
+    "passedCount": 15,
+    "failedCount": 0,
+    "javascriptFilesChecked": 327,
+    "requiredPagesChecked": 16,
+    "dangerousGoodsDataSha256": "975b13700f4e9b0c0d60d458df9df1954719726eb2a721342cc94c3ca5149e5f"
+  }
+}

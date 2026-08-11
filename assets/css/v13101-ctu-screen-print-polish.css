@@ -1,0 +1,406 @@
+/* SKDG v1.3.101 — CTU two-column + print polish
+   Screen: keep the v1.3.100 card system and make the Step 5/6 two-column pair slightly calmer.
+   Print: convert the interactive calculator into a compact, readable A4 report.
+   Calculation logic is not changed.
+*/
+
+/* Screen-only refinements for the dense Step 5 + Step 6 desktop pair. */
+@media screen and (min-width:1280px){
+  body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair--step5wall{
+    gap:20px!important;
+  }
+  body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair--step5wall > .ctu-numbered-step-card{
+    min-width:0!important;
+  }
+  body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair--step5wall .quick-step__body,
+  body[data-page="ctu-securing-calculator"].ctu-layout-two #wallGapAssistPanel > .quick-step__body{
+    padding:13px!important;
+  }
+  body[data-page="ctu-securing-calculator"].ctu-layout-two #ctuStep5Panels{
+    gap:12px!important;
+  }
+  body[data-page="ctu-securing-calculator"].ctu-layout-two .v1394-wall-direction-grid{
+    gap:10px!important;
+  }
+  body[data-page="ctu-securing-calculator"].ctu-layout-two .v1394-wall-direction-card{
+    padding:11px!important;
+  }
+}
+
+@media print{
+  @page{
+    size:A4 portrait;
+    margin:9mm 9mm 11mm 9mm;
+  }
+
+  html,body{
+    width:auto!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+  }
+  body[data-page="ctu-securing-calculator"]{
+    color:#173f65!important;
+    font-size:9pt!important;
+    line-height:1.4!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+
+  /* App chrome and interactive-only controls must never leak into paper output. */
+  html body[data-page="ctu-securing-calculator"] .sk-v1338-header,
+  html body[data-page="ctu-securing-calculator"] #ctuStickyStatus,
+  html body[data-page="ctu-securing-calculator"] .top-actions,
+  html body[data-page="ctu-securing-calculator"] .v1398-layout-toolbar,
+  html body[data-page="ctu-securing-calculator"] .part553-sticky-next,
+  html body[data-page="ctu-securing-calculator"] .no-print,
+  html body[data-page="ctu-securing-calculator"] #ctuCommonCasePanel,
+  html body[data-page="ctu-securing-calculator"] #ctuRegistrationSection,
+  html body[data-page="ctu-securing-calculator"] .advanced-section,
+  html body[data-page="ctu-securing-calculator"] #photoRecognitionPanel,
+  html body[data-page="ctu-securing-calculator"] #fieldCargoUnitPanel{
+    display:none!important;
+  }
+
+  html body[data-page="ctu-securing-calculator"] .calc-shell{
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  /* Compact title block. */
+  html body[data-page="ctu-securing-calculator"] .hero,
+  html body[data-page="ctu-securing-calculator"] .v1398-hero{
+    display:block!important;
+    margin:0 0 4mm!important;
+    padding:4mm 4.5mm!important;
+    border:1px solid #bfd1df!important;
+    border-radius:3mm!important;
+    background:#f6fafd!important;
+    box-shadow:none!important;
+    break-inside:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .hero h1{
+    margin:0 0 1.2mm!important;
+    font-size:16pt!important;
+    line-height:1.2!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .hero p{
+    margin:0!important;
+    font-size:8.5pt!important;
+    line-height:1.45!important;
+  }
+
+  /* Paper is always a single main flow, regardless of the screen's one/two-column state. */
+  html body[data-page="ctu-securing-calculator"] .v1398-pair,
+  html body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair,
+  html body[data-page="ctu-securing-calculator"] .quick-flow{
+    display:block!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .v1398-pair > *,
+  html body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair > *{
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0 0 4mm!important;
+  }
+
+  /* Keep the card language from the screen, but reduce bulk for A4. */
+  html body[data-page="ctu-securing-calculator"] .quick-step.ctu-numbered-step-card,
+  html body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+  html body[data-page="ctu-securing-calculator"] #photoInputPanel,
+  html body[data-page="ctu-securing-calculator"] #wallGapAssistPanel{
+    width:auto!important;
+    max-width:none!important;
+    margin:0 0 4mm!important;
+    border:1px solid #b8ccd9!important;
+    border-radius:2.5mm!important;
+    background:#fff!important;
+    box-shadow:none!important;
+    overflow:visible!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-step-card__head,
+  html body[data-page="ctu-securing-calculator"] .quick-step__head.ctu-step-card__head,
+  html body[data-page="ctu-securing-calculator"] #wallGapAssistPanel > .ctu-step-card__head{
+    min-height:0!important;
+    margin:0!important;
+    padding:2.4mm 3mm!important;
+    border:0!important;
+    border-bottom:1px solid #d8e4ec!important;
+    border-radius:0!important;
+    background:#eef6fb!important;
+    box-shadow:none!important;
+    break-after:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-step-card__num{
+    width:6mm!important;
+    height:6mm!important;
+    flex-basis:6mm!important;
+    font-size:8pt!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-step-card__title{
+    font-size:10.5pt!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .quick-step__body,
+  html body[data-page="ctu-securing-calculator"] #wallGapAssistPanel > .quick-step__body,
+  html body[data-page="ctu-securing-calculator"] .ctu-step-card__body{
+    padding:3mm!important;
+  }
+
+  /* Remove large upload/camera interaction surfaces; retain route values and the photo queue/status. */
+  html body[data-page="ctu-securing-calculator"] #ctuExcelDropZone,
+  html body[data-page="ctu-securing-calculator"] #clearCtuExcel,
+  html body[data-page="ctu-securing-calculator"] #photoStage,
+  html body[data-page="ctu-securing-calculator"] .photo-controls,
+  html body[data-page="ctu-securing-calculator"] .part542-drop-help{
+    display:none!important;
+  }
+  html body[data-page="ctu-securing-calculator"] #photoInputPanel .photo-grid{
+    display:block!important;
+  }
+  html body[data-page="ctu-securing-calculator"] #part542PhotoQueue{
+    margin:0 0 2mm!important;
+  }
+
+  /* Dense fields stay readable in two columns on paper. */
+  html body[data-page="ctu-securing-calculator"] .grid,
+  html body[data-page="ctu-securing-calculator"] .grid.two,
+  html body[data-page="ctu-securing-calculator"] .quick-grid,
+  html body[data-page="ctu-securing-calculator"] .route-input-grid,
+  html body[data-page="ctu-securing-calculator"] .v1398-primary-grid,
+  html body[data-page="ctu-securing-calculator"] .v1398-support-grid,
+  html body[data-page="ctu-securing-calculator"] .v1398-wall-condition-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:3mm!important;
+    row-gap:2.2mm!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .route-input-grid > button,
+  html body[data-page="ctu-securing-calculator"] .v1398-wall-readiness{
+    grid-column:1/-1!important;
+  }
+
+  html body[data-page="ctu-securing-calculator"] label,
+  html body[data-page="ctu-securing-calculator"] .hint,
+  html body[data-page="ctu-securing-calculator"] small{
+    font-size:7.8pt!important;
+    line-height:1.35!important;
+  }
+  html body[data-page="ctu-securing-calculator"] input,
+  html body[data-page="ctu-securing-calculator"] select,
+  html body[data-page="ctu-securing-calculator"] textarea{
+    min-height:7mm!important;
+    padding:1.2mm 1.8mm!important;
+    border:1px solid #c6d6e1!important;
+    border-radius:1.5mm!important;
+    background:#fff!important;
+    color:#173f65!important;
+    font-size:8.3pt!important;
+    box-shadow:none!important;
+  }
+  html body[data-page="ctu-securing-calculator"] textarea{
+    min-height:14mm!important;
+  }
+  html body[data-page="ctu-securing-calculator"] button,
+  html body[data-page="ctu-securing-calculator"] .btn{
+    box-shadow:none!important;
+  }
+
+  /* Helper boxes: smaller padding, never a left stripe. */
+  html body[data-page="ctu-securing-calculator"] .notice,
+  html body[data-page="ctu-securing-calculator"] .quick-status,
+  html body[data-page="ctu-securing-calculator"] .v1398-calc-condition-summary,
+  html body[data-page="ctu-securing-calculator"] .v1398-wall-readiness,
+  html body[data-page="ctu-securing-calculator"] .v1394-gap-axis-card{
+    margin:0 0 2mm!important;
+    padding:2.2mm!important;
+    border:1px solid #d3e0e9!important;
+    border-left-width:1px!important;
+    border-radius:1.8mm!important;
+    box-shadow:none!important;
+    break-inside:avoid-page!important;
+  }
+
+  /* Step 5: keep the two internal material cards intact where possible. */
+  html body[data-page="ctu-securing-calculator"] #ctuStep5Panels{
+    gap:3mm!important;
+  }
+  html body[data-page="ctu-securing-calculator"] #ctuPrimarySecuringPanel,
+  html body[data-page="ctu-securing-calculator"] #ctuSupportSecuringPanel{
+    border:1px solid #d8e4ec!important;
+    border-radius:2mm!important;
+    box-shadow:none!important;
+    overflow:visible!important;
+    break-inside:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-step5-panel__head{
+    min-height:0!important;
+    padding:2mm 2.5mm!important;
+    border-bottom:1px solid #d8e4ec!important;
+    background:#f6fafd!important;
+    break-after:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-step5-panel__body{
+    padding:2.5mm!important;
+  }
+
+  /* Step 6: two-by-two direction cards are more readable and avoid excessive pages. */
+  html body[data-page="ctu-securing-calculator"] .v1394-gap-axis-grid,
+  html body[data-page="ctu-securing-calculator"] .v1394-wall-direction-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:2.5mm!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .v1394-wall-direction-card{
+    padding:2.5mm!important;
+    border:1px solid #d8e4ec!important;
+    border-radius:2mm!important;
+    box-shadow:none!important;
+    break-inside:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .v1394-wall-direction-card.is-wall-selected,
+  html body[data-page="ctu-securing-calculator"] .v1394-wall-direction-card.is-selected,
+  html body[data-page="ctu-securing-calculator"] .v1394-wall-direction-card[data-selected="true"]{
+    border:1.5px solid #5f9dca!important;
+    box-shadow:none!important;
+  }
+
+  /* Step 7: print the actual answer prominently and keep metrics as a readable 2xN grid. */
+  html body[data-page="ctu-securing-calculator"] [data-ctu-step="7"]{
+    break-before:page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] [data-ctu-step="7"] .quick-actions{
+    display:none!important;
+  }
+  html body[data-page="ctu-securing-calculator"] #ctuStep6ResultSection,
+  html body[data-page="ctu-securing-calculator"] .ctu-step6-section{
+    box-shadow:none!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .v1381-assessment-guide,
+  html body[data-page="ctu-securing-calculator"] .result-summary{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:2.5mm!important;
+  }
+  html body[data-page="ctu-securing-calculator"] #overall,
+  html body[data-page="ctu-securing-calculator"] .result-summary .metric,
+  html body[data-page="ctu-securing-calculator"] .result-summary .metric-worst-direction,
+  html body[data-page="ctu-securing-calculator"] .result-summary .metric-assessment,
+  html body[data-page="ctu-securing-calculator"] .v1381-guide-item{
+    padding:2.5mm!important;
+    border-width:1px!important;
+    box-shadow:none!important;
+    break-inside:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-directional-load-audit,
+  html body[data-page="ctu-securing-calculator"] #deficiencySupportPanel,
+  html body[data-page="ctu-securing-calculator"] .part542-correction-follow{
+    break-inside:auto!important;
+  }
+
+  /* Tables: do not print as a horizontally clipped desktop table. */
+  html body[data-page="ctu-securing-calculator"] .result-table-wrap,
+  html body[data-page="ctu-securing-calculator"] .material-table-wrap,
+  html body[data-page="ctu-securing-calculator"] .field-element-table-wrap{
+    overflow:visible!important;
+  }
+  html body[data-page="ctu-securing-calculator"] table{
+    width:100%!important;
+    min-width:0!important;
+    table-layout:fixed!important;
+    font-size:6.6pt!important;
+  }
+  html body[data-page="ctu-securing-calculator"] th,
+  html body[data-page="ctu-securing-calculator"] td{
+    padding:1.2mm!important;
+    overflow-wrap:anywhere!important;
+  }
+  html body[data-page="ctu-securing-calculator"] thead{
+    display:table-header-group!important;
+  }
+  html body[data-page="ctu-securing-calculator"] tr{
+    break-inside:avoid-page!important;
+  }
+
+  /* Avoid orphan headings and suppress blank trailing content. */
+  html body[data-page="ctu-securing-calculator"] h2,
+  html body[data-page="ctu-securing-calculator"] h3,
+  html body[data-page="ctu-securing-calculator"] summary{
+    break-after:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] [hidden],
+  html body[data-page="ctu-securing-calculator"] .ctu-hidden{
+    display:none!important;
+  }
+}
+
+@media print{
+  /* The print state bridge removes unused sections without altering the screen. */
+  html body[data-page="ctu-securing-calculator"].ctu-print-support-off #ctuSupportSecuringPanel,
+  html body[data-page="ctu-securing-calculator"].ctu-print-tensile-off #ctuPrimarySecuringPanel,
+  html body[data-page="ctu-securing-calculator"].ctu-print-result-sufficient #deficiencySupportPanel{
+    display:none!important;
+  }
+
+  /* The legend explains all three states on screen; paper should prioritize the actual current result. */
+  html body[data-page="ctu-securing-calculator"] .v1381-assessment-guide{
+    display:none!important;
+  }
+
+  /* A4 report sectioning: start the dense verification stages at clean page boundaries. */
+  html body[data-page="ctu-securing-calculator"] [data-ctu-step="5"],
+  html body[data-page="ctu-securing-calculator"] #wallGapAssistPanel{
+    break-before:page!important;
+  }
+
+  /* Buttons are actions, not report content. */
+  html body[data-page="ctu-securing-calculator"] button,
+  html body[data-page="ctu-securing-calculator"] .camera-label,
+  html body[data-page="ctu-securing-calculator"] .msl-point-actions,
+  html body[data-page="ctu-securing-calculator"] .msl-photo-actions,
+  html body[data-page="ctu-securing-calculator"] .msl-review-actions{
+    display:none!important;
+  }
+
+  /* If deficiency support is printed, omit empty workflow controls and large explanation editor. */
+  html body[data-page="ctu-securing-calculator"] #deficiencySupportPanel .part542-correction-follow,
+  html body[data-page="ctu-securing-calculator"] #deficiencySupportPanel .field-explanation-label,
+  html body[data-page="ctu-securing-calculator"] #deficiencySupportPanel .field-assist-actions{
+    display:none!important;
+  }
+}
+
+@media print{
+  /* Keep the seven-step report grouped by purpose: 1-2, 3-4, 5, 6, then result. */
+  html body[data-page="ctu-securing-calculator"] [data-ctu-step="3"]{
+    break-before:page!important;
+  }
+
+  /* Closed helper/advanced disclosures are screen controls; print only details intentionally opened. */
+  html body[data-page="ctu-securing-calculator"] details:not([open]){
+    display:none!important;
+  }
+
+  /* When support is not selected, omit the entire support/load-path assistance from the paper report. */
+  html body[data-page="ctu-securing-calculator"].ctu-print-support-off #ctuBracingAssist,
+  html body[data-page="ctu-securing-calculator"].ctu-print-support-off #quickSupportNote{
+    display:none!important;
+  }
+}
+
+@media print{
+  /* Result summary stays together; detailed directional loads begin on the next report page. */
+  html body[data-page="ctu-securing-calculator"] .result-summary{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    break-inside:avoid-page!important;
+  }
+  html body[data-page="ctu-securing-calculator"] .ctu-directional-load-audit{
+    break-before:page!important;
+  }
+}

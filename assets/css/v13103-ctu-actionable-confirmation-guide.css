@@ -1,0 +1,24 @@
+/* v1.3.103: actionable "要確認" guidance. No left-only accent borders. */
+.ctu-action-guide{margin:12px 0 14px;padding:14px;border:1px solid #d7b35a;border-radius:12px;background:#fffaf0;color:#17324d;box-shadow:none}
+.ctu-action-guide[hidden]{display:none!important}
+.ctu-action-guide__head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:10px}
+.ctu-action-guide__head>div{min-width:0;display:grid;gap:3px}
+.ctu-action-guide__eyebrow{font-size:.76rem;font-weight:800;color:#7d5b00}
+.ctu-action-guide__head strong{font-size:1rem;color:#5f4500}
+.ctu-action-guide__head small{color:#52606d;line-height:1.5}
+.ctu-action-guide__recalc,.ctu-action-guide__item button,.ctu-action-guide__fallback button{appearance:none;border:1px solid #17608c;border-radius:8px;background:#fff;color:#124f78;font-weight:800;min-height:36px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.ctu-action-guide__recalc:hover,.ctu-action-guide__item button:hover,.ctu-action-guide__fallback button:hover{background:#eef7fd}
+.ctu-action-guide__items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ctu-action-guide__item,.ctu-action-guide__fallback{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:10px 11px;border:1px solid #d7dfe7;border-radius:10px;background:#fff;box-shadow:none}
+.ctu-action-guide__item.is-missing{border-color:#d9a6a6;background:#fffafa}
+.ctu-action-guide__item.is-review{border-color:#dec984;background:#fffdf6}
+.ctu-action-guide__item-main{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 8px;align-items:center;min-width:0}
+.ctu-action-guide__item-main strong{font-size:.9rem;line-height:1.35;overflow-wrap:anywhere}
+.ctu-action-guide__item-main small{grid-column:2;color:#66788a;font-size:.75rem;line-height:1.35}
+.ctu-action-guide__badge{grid-row:1/3;display:inline-flex;align-items:center;justify-content:center;border:1px solid currentColor;border-radius:999px;padding:3px 7px;font-size:.7rem;font-weight:800;white-space:nowrap}
+.is-missing .ctu-action-guide__badge{color:#a93434;background:#fff1f1}
+.is-review .ctu-action-guide__badge{color:#8b6200;background:#fff4cf}
+.ctu-action-target-focus{outline:3px solid rgba(23,96,140,.36)!important;outline-offset:3px!important;border-radius:8px}
+.ctu-action-block-focus{box-shadow:0 0 0 3px rgba(23,96,140,.13)!important}
+@media(max-width:900px){.ctu-action-guide__head{align-items:stretch;flex-direction:column}.ctu-action-guide__recalc{align-self:flex-start}.ctu-action-guide__items{grid-template-columns:1fr}.ctu-action-guide__item{align-items:flex-start}.ctu-action-guide__item button{flex:0 0 auto}}
+@media print{#ctuActionGuide{display:none!important}}

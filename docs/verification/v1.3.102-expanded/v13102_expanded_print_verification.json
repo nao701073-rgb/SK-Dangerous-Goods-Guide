@@ -1,0 +1,306 @@
+{
+  "audit": {
+    "classes": [
+      "ctu-print-support-off",
+      "ctu-layout-two",
+      "ctu-print-result-sufficient",
+      "ctu-print-application-expanded",
+      "ctu-print-photo-has-files"
+    ],
+    "headerDisplay": "none",
+    "stickyDisplay": "none",
+    "toolbarDisplay": "none",
+    "commonCaseDisplay": "none",
+    "supportDisplay": "none",
+    "bracingDisplay": "none",
+    "deficiencyDisplay": "none",
+    "photoQueueDisplay": "none",
+    "closedDetailsDisplays": [
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      "none"
+    ],
+    "pairDisplay": "block",
+    "step3": {
+      "display": "grid",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "grid": "22px minmax(0px, 1fr)",
+      "borders": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step5": {
+      "display": "grid",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "grid": "22px minmax(0px, 1fr)",
+      "borders": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step6": {
+      "display": "block",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "grid": "none",
+      "borders": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step7": {
+      "display": "grid",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "grid": "22px minmax(0px, 1fr)",
+      "borders": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "resultGrid": {
+      "display": "grid",
+      "breakBefore": "auto",
+      "breakInside": "avoid-page",
+      "grid": "545.031px 545.047px 545.047px",
+      "borders": [
+        "0px",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "shadow": "none"
+    },
+    "directional": {
+      "display": "block",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "grid": "none",
+      "borders": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "wall": [
+      {
+        "display": "block",
+        "borders": [
+          "1px",
+          "1px",
+          "1px",
+          "1px"
+        ],
+        "shadow": "none"
+      },
+      {
+        "display": "block",
+        "borders": [
+          "1px",
+          "1px",
+          "1px",
+          "1px"
+        ],
+        "shadow": "none"
+      },
+      {
+        "display": "block",
+        "borders": [
+          "1px",
+          "1px",
+          "1px",
+          "1px"
+        ],
+        "shadow": "none"
+      },
+      {
+        "display": "block",
+        "borders": [
+          "1px",
+          "1px",
+          "1px",
+          "1px"
+        ],
+        "shadow": "none"
+      }
+    ],
+    "overflow": false,
+    "overall": "参考上十分\n確認済み条件の範囲で、評価対象方向の必要抵抗力を満たしています。",
+    "metrics": "総合判定\n参考上十分\n重点確認方向\n後方\n余裕／不足量が最も小さい方向\n必要抵抗力\n25.2 kN\n重点確認方向の作用力\n評価抵抗力（重複制限後）\n44.5 kN\n余裕\n19.4 kN"
+  },
+  "pageCount": 6,
+  "checks": [
+    {
+      "name": "print state has support-off class",
+      "pass": true
+    },
+    {
+      "name": "print state has sufficient-result class",
+      "pass": true
+    },
+    {
+      "name": "app header hidden",
+      "pass": true
+    },
+    {
+      "name": "sticky progress hidden",
+      "pass": true
+    },
+    {
+      "name": "layout toolbar hidden",
+      "pass": true
+    },
+    {
+      "name": "registered-case UI hidden",
+      "pass": true
+    },
+    {
+      "name": "unused support panel hidden",
+      "pass": true
+    },
+    {
+      "name": "unused support load-path helper hidden",
+      "pass": true
+    },
+    {
+      "name": "deficiency support hidden for sufficient result",
+      "pass": true
+    },
+    {
+      "name": "closed details hidden",
+      "pass": true
+    },
+    {
+      "name": "print pair uses single flow",
+      "pass": true
+    },
+    {
+      "name": "expanded print keeps Step 3 new-page grouping",
+      "pass": true
+    },
+    {
+      "name": "Step 5 starts new print page",
+      "pass": true
+    },
+    {
+      "name": "Step 6 starts new print page",
+      "pass": true
+    },
+    {
+      "name": "Step 7 starts new print page",
+      "pass": true
+    },
+    {
+      "name": "result summary has three print columns",
+      "pass": true
+    },
+    {
+      "name": "directional load detail starts new print page",
+      "pass": true
+    },
+    {
+      "name": "no horizontal overflow in print media",
+      "pass": true
+    },
+    {
+      "name": "print main card borders remain symmetric",
+      "pass": true
+    },
+    {
+      "name": "print cards have no shadows",
+      "pass": true
+    },
+    {
+      "name": "calculation remains sufficient",
+      "pass": true
+    },
+    {
+      "name": "required resistance remains 25.2 kN",
+      "pass": true
+    },
+    {
+      "name": "evaluated resistance remains 44.5 kN",
+      "pass": true
+    },
+    {
+      "name": "margin remains 19.4 kN",
+      "pass": true
+    },
+    {
+      "name": "expanded A4 report remains six pages",
+      "pass": true
+    },
+    {
+      "name": "page 1 contains imported application summary",
+      "pass": true
+    },
+    {
+      "name": "page 1 contains photo step with imported Step 1",
+      "pass": true
+    },
+    {
+      "name": "page 2 contains Steps 3 and 4",
+      "pass": true
+    },
+    {
+      "name": "expanded state has application-expanded class",
+      "pass": true
+    },
+    {
+      "name": "expanded state has photo-files class",
+      "pass": true
+    },
+    {
+      "name": "expanded screen has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "expanded two-column Step 1 and 2 remain side by side",
+      "pass": true
+    },
+    {
+      "name": "expanded Step 3 begins below taller Step 1/2 row",
+      "pass": true
+    },
+    {
+      "name": "expanded photo count is 12",
+      "pass": true
+    },
+    {
+      "name": "photo filename queue is removed from print flow",
+      "pass": true
+    },
+    {
+      "name": "v1.3.102 adaptive print CSS is loaded",
+      "pass": true
+    },
+    {
+      "name": "v1.3.102 adaptive print JS is loaded",
+      "pass": true
+    }
+  ],
+  "passCount": 37,
+  "failCount": 0,
+  "pdf": "/mnt/data/v13105_work/docs/verification/v1.3.102-expanded/v13102_expanded_application_photos_A4.pdf"
+}

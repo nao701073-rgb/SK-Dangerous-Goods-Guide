@@ -1,0 +1,27 @@
+{
+  "version": "v1.3.92",
+  "base": "v1.3.91",
+  "directionTieTests": {
+    "passed": 5,
+    "failed": 0,
+    "cases": [
+      "左・右同率 -> 側面方向（左・右同率）",
+      "前・後同率 -> 前後方向（前・後同率）",
+      "4方向同率 -> 前後・側面方向（全方向同率）",
+      "単独最厳方向 -> 個別方向表示",
+      "0.1kN表示単位で同率 -> 同率表示"
+    ]
+  },
+  "fullOverlayAudit": {
+    "javascriptFilesChecked": 437,
+    "javascriptSyntaxFailures": 0,
+    "jsonFilesChecked": 396,
+    "jsonParseFailures": 0,
+    "htmlLocalReferencesChecked": 2475,
+    "htmlMissingReferences": 0,
+    "cssLocalReferencesChecked": 5,
+    "cssMissingReferences": 0
+  },
+  "calculationFormulaChanged": false,
+  "databaseMigration": false
+}

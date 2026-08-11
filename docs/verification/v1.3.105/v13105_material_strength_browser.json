@@ -1,0 +1,274 @@
+{
+  "errors": [],
+  "cases": {
+    "steel": {
+      "msl": "8.7",
+      "status": "参考MSL 8.7 kN / 根拠: CTU Code Annex 7 2.4.2の帯鉄50%推奨＋既存比較資料の破断強度。実物の規格・表示・使用条件を確認後、「すべて確認しました」または該当欄の確認を行ってください。",
+      "reference": "1"
+    },
+    "chain": {
+      "msl": "100.0",
+      "status": "参考MSL 100.0 kN / 根拠: CTU Code Annex 7 2.4.14：Grade 8・13 mmチェーン MSL 100 kN。実物の規格・表示・使用条件を確認後、「すべて確認しました」または該当欄の確認を行ってください。"
+    },
+    "wire": {
+      "msl": "102.4",
+      "status": "参考MSL 102.4 kN / 根拠: CTU Code Annex 7 2.4.9：一方向使用ワイヤ MSL = 40 d² [kN]（d: cm）。曲げ・クリップ・接続条件は別途確認。。実物の規格・表示・使用条件を確認後、「すべて確認しました」または該当欄の確認を行ってください。"
+    },
+    "pp": {
+      "msl": "10.2",
+      "status": "参考MSL 10.2 kN / 根拠: CTU Code Annex 7 2.4.5：Polypropylene rope MSL = 4 d² [kN]（d: cm）。実物の規格・表示・使用条件を確認後、「すべて確認しました」または該当欄の確認を行ってください。"
+    },
+    "web": {
+      "msl": "25.0",
+      "status": "参考MSL 25.0 kN / 根拠: 製品ラベル・証明書の表示値テンプレート。実物の規格・表示・使用条件を確認後、「すべて確認しました」または該当欄の確認を行ってください。"
+    },
+    "pet": {
+      "msl": "",
+      "status": "PET／ポリエステル帯状バンド（メーカーMSL/LCを入力）: 実物の表示LC/MSL・証明書等を確認してMSLを入力してください。 根拠: 製品仕様・刻印・証明書（材質名だけではMSLを確定しない）"
+    },
+    "timber": {
+      "force": "4.1",
+      "basis": "横木 50×100 mm（厚さw=50／高さh=100）・自由長2.2 m（1本） / CTU Code Annex 7 Appendix 4：F = n·w²·h/(28L)。n=1として1本当たりを算出。",
+      "status": "参考支保力 4.1 kN/個（幅50mm・高さ100mm・自由長2.2m）。実際の寸法・自由長・受け部・施工状態を確認してください。"
+    },
+    "frp": {
+      "force": "",
+      "status": "FRP等（メーカー許容荷重／試験値を入力）: メーカー資料・試験値・設計値等で確認した支保力を入力してください。"
+    }
+  },
+  "progress": {
+    "missing": [
+      {
+        "label": "貨物質量",
+        "id": "quickMass",
+        "stage": "cargo",
+        "type": "missing",
+        "step": 3
+      },
+      {
+        "label": "対象方向",
+        "id": "quickDirection",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "固縛本数",
+        "id": "quickCount",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "固縛材質",
+        "id": "quickMaterial",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "支保の対象方向",
+        "id": "quickSupportDirection",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "支保材の個数",
+        "id": "quickSupportCount",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "木材支保の厚さ w",
+        "id": "quickTimberThicknessW",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "木材支保の高さ h",
+        "id": "quickTimberHeightH",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      },
+      {
+        "label": "木材支保の自由長 L",
+        "id": "quickTimberFreeLengthL",
+        "stage": "securing",
+        "type": "missing",
+        "step": 5
+      }
+    ],
+    "review": [
+      {
+        "label": "接触面条件",
+        "id": "v1ContactStep",
+        "stage": "contact",
+        "type": "review",
+        "step": 4
+      },
+      {
+        "label": "固縛材MSL（参考候補の実物確認）",
+        "id": "quickMaterialProfile",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      },
+      {
+        "label": "貨物側取付部MSL",
+        "id": "quickCargoMsl",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      },
+      {
+        "label": "CTU側固縛点MSL",
+        "id": "quickCtuMsl",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      },
+      {
+        "label": "鉛直角",
+        "id": "quickAngle",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      },
+      {
+        "label": "支保力（参考候補の寸法・施工確認）",
+        "id": "quickSupportProfile",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      },
+      {
+        "label": "支保力の根拠",
+        "id": "quickSupportBasis",
+        "stage": "securing",
+        "type": "review",
+        "step": 5
+      }
+    ],
+    "calculated": false,
+    "registered": false,
+    "resultNg": false,
+    "dirtyAfterCalculation": false,
+    "wallSelected": [],
+    "wallReady": true,
+    "cargoStarted": false,
+    "securingStarted": true,
+    "excelImported": false,
+    "routeApplied": false,
+    "photoLoaded": false,
+    "photoApplied": false,
+    "contactTouched": false
+  },
+  "checks": [
+    {
+      "name": "visible material spec dropdown exists",
+      "pass": true
+    },
+    {
+      "name": "visible support spec dropdown exists",
+      "pass": true
+    },
+    {
+      "name": "initial lashing MSL is not a stale fixed default",
+      "pass": true
+    },
+    {
+      "name": "initial support force is not a stale fixed default",
+      "pass": true
+    },
+    {
+      "name": "chain is selectable",
+      "pass": true
+    },
+    {
+      "name": "steel profiles include CTU 50% recommendation",
+      "pass": true
+    },
+    {
+      "name": "steel 31.75x0.80 recommended profile reflects 8.7 kN",
+      "pass": true
+    },
+    {
+      "name": "steel candidate stays review-required",
+      "pass": true
+    },
+    {
+      "name": "Grade 8 13mm chain reflects 100.0 kN",
+      "pass": true
+    },
+    {
+      "name": "16mm one-way wire CTU formula reflects 102.4 kN",
+      "pass": true
+    },
+    {
+      "name": "16mm PP rope CTU formula reflects 10.2 kN",
+      "pass": true
+    },
+    {
+      "name": "web labelled LC/MSL 25 reflects 25.0 kN",
+      "pass": true
+    },
+    {
+      "name": "web label template remains review-required",
+      "pass": true
+    },
+    {
+      "name": "PET band does not invent material-only MSL",
+      "pass": true
+    },
+    {
+      "name": "timber 50x100 L2.2 reflects 4.1 kN per batten",
+      "pass": true
+    },
+    {
+      "name": "timber reference writes basis",
+      "pass": true
+    },
+    {
+      "name": "timber candidate remains review-required",
+      "pass": true
+    },
+    {
+      "name": "FRP does not invent material-only support force",
+      "pass": true
+    },
+    {
+      "name": "Step5 lashing card border remains symmetric",
+      "pass": true
+    },
+    {
+      "name": "Step5 support card border remains symmetric",
+      "pass": true
+    },
+    {
+      "name": "one-column no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "reference lashing candidate appears as review",
+      "pass": true
+    },
+    {
+      "name": "reference support candidate appears as review",
+      "pass": true
+    },
+    {
+      "name": "wide two-column no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "wide two-column mode is active",
+      "pass": true
+    }
+  ],
+  "passCount": 25,
+  "failCount": 0
+}

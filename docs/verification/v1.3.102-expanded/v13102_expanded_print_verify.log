@@ -1,0 +1,38 @@
+PASS print state has support-off class
+PASS print state has sufficient-result class
+PASS app header hidden
+PASS sticky progress hidden
+PASS layout toolbar hidden
+PASS registered-case UI hidden
+PASS unused support panel hidden
+PASS unused support load-path helper hidden
+PASS deficiency support hidden for sufficient result
+PASS closed details hidden
+PASS print pair uses single flow
+PASS expanded print keeps Step 3 new-page grouping
+PASS Step 5 starts new print page
+PASS Step 6 starts new print page
+PASS Step 7 starts new print page
+PASS result summary has three print columns
+PASS directional load detail starts new print page
+PASS no horizontal overflow in print media
+PASS print main card borders remain symmetric
+PASS print cards have no shadows
+PASS calculation remains sufficient
+PASS required resistance remains 25.2 kN
+PASS evaluated resistance remains 44.5 kN
+PASS margin remains 19.4 kN
+PASS expanded A4 report remains six pages
+PASS page 1 contains imported application summary
+PASS page 1 contains photo step with imported Step 1
+PASS page 2 contains Steps 3 and 4
+PASS expanded state has application-expanded class
+PASS expanded state has photo-files class
+PASS expanded screen has no horizontal overflow
+PASS expanded two-column Step 1 and 2 remain side by side
+PASS expanded Step 3 begins below taller Step 1/2 row
+PASS expanded photo count is 12
+PASS photo filename queue is removed from print flow
+PASS v1.3.102 adaptive print CSS is loaded
+PASS v1.3.102 adaptive print JS is loaded
+TOTAL 37 / PASS 37 / FAIL 0

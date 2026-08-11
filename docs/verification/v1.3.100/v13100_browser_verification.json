@@ -1,0 +1,2375 @@
+{
+  "errors": [],
+  "normalPc": {
+    "layout": "one",
+    "geometry": {
+      "s1": {
+        "x": 256,
+        "y": 1016.3,
+        "w": 1208,
+        "h": 638.4,
+        "right": 1464,
+        "bottom": 1654.7
+      },
+      "s2": {
+        "x": 256,
+        "y": 1670.7,
+        "w": 1208,
+        "h": 720.3,
+        "right": 1464,
+        "bottom": 2391
+      },
+      "s3": {
+        "x": 256,
+        "y": 2407,
+        "w": 1208,
+        "h": 236.3,
+        "right": 1464,
+        "bottom": 2643.2
+      },
+      "s4": {
+        "x": 256,
+        "y": 2659.2,
+        "w": 1208,
+        "h": 333.4,
+        "right": 1464,
+        "bottom": 2992.7
+      },
+      "s5": {
+        "x": 256,
+        "y": 3008.7,
+        "w": 1208,
+        "h": 1749.7,
+        "right": 1464,
+        "bottom": 4758.4
+      },
+      "s6": {
+        "x": 256,
+        "y": 4774.4,
+        "w": 1208,
+        "h": 964.3,
+        "right": 1464,
+        "bottom": 5738.6
+      },
+      "s7": {
+        "x": 256,
+        "y": 5754.6,
+        "w": 1208,
+        "h": 1555.5,
+        "right": 1464,
+        "bottom": 7310.1
+      }
+    },
+    "visualBeforeCalc": {
+      "main": [
+        {
+          "step": 1,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 2,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 3,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 4,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 5,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 6,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 7,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        }
+      ],
+      "sub": [
+        {
+          "selector": "#ctuPrimarySecuringPanel",
+          "id": "ctuPrimarySecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#ctuSupportSecuringPanel",
+          "id": "ctuSupportSecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-assessment",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-worst-direction",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#overall",
+          "id": "overall",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        }
+      ],
+      "overflow": false,
+      "innerWidth": 1720,
+      "scrollWidth": 1720,
+      "clientWidth": 1720
+    },
+    "step5Primary": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(216, 228, 236)",
+      "cr": "rgb(216, 228, 236)",
+      "cb": "rgb(216, 228, 236)",
+      "cl": "rgb(216, 228, 236)",
+      "shadow": "none",
+      "bg": "rgb(255, 255, 255)"
+    },
+    "step5Support": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(216, 228, 236)",
+      "cr": "rgb(216, 228, 236)",
+      "cb": "rgb(216, 228, 236)",
+      "cl": "rgb(216, 228, 236)",
+      "shadow": "none",
+      "bg": "rgb(255, 255, 255)"
+    },
+    "wallIdle": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(216, 228, 236)",
+      "cr": "rgb(216, 228, 236)",
+      "cb": "rgb(216, 228, 236)",
+      "cl": "rgb(216, 228, 236)",
+      "shadow": "none",
+      "bg": "rgb(251, 253, 255)"
+    },
+    "toolbarDisplay": "flex",
+    "twoButtonDisplay": "block",
+    "finalCssRuleSeen": true
+  },
+  "manualTwo": {
+    "layout": "two",
+    "geometry": {
+      "s1": {
+        "x": 32,
+        "y": 988.3,
+        "w": 819,
+        "h": 659.2,
+        "right": 851,
+        "bottom": 1647.5
+      },
+      "s2": {
+        "x": 869,
+        "y": 988.3,
+        "w": 819,
+        "h": 780.8,
+        "right": 1688,
+        "bottom": 1769.1
+      },
+      "s3": {
+        "x": 32,
+        "y": 1785.1,
+        "w": 819,
+        "h": 236.3,
+        "right": 851,
+        "bottom": 2021.4
+      },
+      "s4": {
+        "x": 869,
+        "y": 1785.1,
+        "w": 819,
+        "h": 352.4,
+        "right": 1688,
+        "bottom": 2137.5
+      },
+      "s5": {
+        "x": 32,
+        "y": 2153.5,
+        "w": 818,
+        "h": 2037.4,
+        "right": 850,
+        "bottom": 4190.9
+      },
+      "s6": {
+        "x": 870,
+        "y": 2153.5,
+        "w": 818,
+        "h": 1081.2,
+        "right": 1688,
+        "bottom": 3234.7
+      },
+      "s7": {
+        "x": 32,
+        "y": 4206.9,
+        "w": 1656,
+        "h": 1539.4,
+        "right": 1688,
+        "bottom": 5746.3
+      }
+    },
+    "visual": {
+      "main": [
+        {
+          "step": 1,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 2,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 3,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 4,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 5,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 6,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 7,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        }
+      ],
+      "sub": [
+        {
+          "selector": "#ctuPrimarySecuringPanel",
+          "id": "ctuPrimarySecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#ctuSupportSecuringPanel",
+          "id": "ctuSupportSecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-assessment",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-worst-direction",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#overall",
+          "id": "overall",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        }
+      ],
+      "overflow": false,
+      "innerWidth": 1720,
+      "scrollWidth": 1720,
+      "clientWidth": 1720
+    }
+  },
+  "calc": {
+    "overall": "参考上十分\n確認済み条件の範囲で、評価対象方向の必要抵抗力を満たしています。",
+    "metrics": "総合判定\n参考上十分\n重点確認方向\n後方\n余裕／不足量が最も小さい方向\n必要抵抗力\n25.2 kN\n重点確認方向の作用力\n評価抵抗力（重複制限後）\n44.5 kN\n余裕\n19.4 kN",
+    "status": "参考上十分：後方の必要抵抗力 25.2 kN、現在の評価抵抗力 44.5 kN、余裕 19.4 kNです。\n摩擦（計算 μ=0.150）\n6.3 kN\nCTU境界\n0.0 kN（未算入）\n支保・当て材\n0.0 kN\n引張系固縛材\n38.3 kN\nトップオーバー\n0.0 kN\n\n評価式：摩擦＋トップオーバー＋直接固縛",
+    "step6": "3方向使用",
+    "step7": "算出済",
+    "overallStyle": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(156, 203, 176)",
+      "cr": "rgb(156, 203, 176)",
+      "cb": "rgb(156, 203, 176)",
+      "cl": "rgb(156, 203, 176)",
+      "shadow": "none",
+      "bg": "rgb(241, 250, 245)"
+    },
+    "metricWorst": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(168, 199, 220)",
+      "cr": "rgb(168, 199, 220)",
+      "cb": "rgb(168, 199, 220)",
+      "cl": "rgb(168, 199, 220)",
+      "shadow": "none",
+      "bg": "rgb(246, 250, 252)"
+    },
+    "metricAssessment": {
+      "bt": "1px",
+      "br": "1px",
+      "bb": "1px",
+      "bl": "1px",
+      "ct": "rgb(168, 199, 220)",
+      "cr": "rgb(168, 199, 220)",
+      "cb": "rgb(168, 199, 220)",
+      "cl": "rgb(168, 199, 220)",
+      "shadow": "none",
+      "bg": "rgb(246, 250, 252)"
+    },
+    "wallSelected": {
+      "forward": {
+        "bt": "2px",
+        "br": "2px",
+        "bb": "2px",
+        "bl": "2px",
+        "ct": "rgb(95, 157, 202)",
+        "cr": "rgb(95, 157, 202)",
+        "cb": "rgb(95, 157, 202)",
+        "cl": "rgb(95, 157, 202)",
+        "shadow": "none",
+        "bg": "rgb(242, 248, 253)"
+      },
+      "rear": {
+        "bt": "1px",
+        "br": "1px",
+        "bb": "1px",
+        "bl": "1px",
+        "ct": "rgb(216, 228, 236)",
+        "cr": "rgb(216, 228, 236)",
+        "cb": "rgb(216, 228, 236)",
+        "cl": "rgb(216, 228, 236)",
+        "shadow": "none",
+        "bg": "rgb(251, 253, 255)"
+      },
+      "left": {
+        "bt": "2px",
+        "br": "2px",
+        "bb": "2px",
+        "bl": "2px",
+        "ct": "rgb(95, 157, 202)",
+        "cr": "rgb(95, 157, 202)",
+        "cb": "rgb(95, 157, 202)",
+        "cl": "rgb(95, 157, 202)",
+        "shadow": "none",
+        "bg": "rgb(242, 248, 253)"
+      },
+      "right": {
+        "bt": "2px",
+        "br": "2px",
+        "bb": "2px",
+        "bl": "2px",
+        "ct": "rgb(95, 157, 202)",
+        "cr": "rgb(95, 157, 202)",
+        "cb": "rgb(95, 157, 202)",
+        "cl": "rgb(95, 157, 202)",
+        "shadow": "none",
+        "bg": "rgb(242, 248, 253)"
+      }
+    },
+    "visualAfterCalc": {
+      "main": [
+        {
+          "step": 1,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 2,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 3,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 4,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 5,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 6,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 7,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        }
+      ],
+      "sub": [
+        {
+          "selector": "#ctuPrimarySecuringPanel",
+          "id": "ctuPrimarySecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#ctuSupportSecuringPanel",
+          "id": "ctuSupportSecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card is-wall-selected",
+          "borders": [
+            "2px",
+            "2px",
+            "2px",
+            "2px"
+          ],
+          "colors": [
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card is-wall-selected",
+          "borders": [
+            "2px",
+            "2px",
+            "2px",
+            "2px"
+          ],
+          "colors": [
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card is-wall-selected",
+          "borders": [
+            "2px",
+            "2px",
+            "2px",
+            "2px"
+          ],
+          "colors": [
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)",
+            "rgb(95, 157, 202)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-assessment",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-worst-direction",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#overall",
+          "id": "overall",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(156, 203, 176)",
+            "rgb(156, 203, 176)",
+            "rgb(156, 203, 176)",
+            "rgb(156, 203, 176)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        }
+      ],
+      "overflow": false,
+      "innerWidth": 1720,
+      "scrollWidth": 1720,
+      "clientWidth": 1720
+    }
+  },
+  "wideAuto": {
+    "layout": "two",
+    "geometry": {
+      "s1": {
+        "x": 32,
+        "y": 988.3,
+        "w": 1259,
+        "h": 638.4,
+        "right": 1291,
+        "bottom": 1626.7
+      },
+      "s2": {
+        "x": 1309,
+        "y": 988.3,
+        "w": 1259,
+        "h": 720.3,
+        "right": 2568,
+        "bottom": 1708.6
+      },
+      "s3": {
+        "x": 32,
+        "y": 1724.6,
+        "w": 1259,
+        "h": 236.3,
+        "right": 1291,
+        "bottom": 1960.9
+      },
+      "s4": {
+        "x": 1309,
+        "y": 1724.6,
+        "w": 1259,
+        "h": 333.4,
+        "right": 2568,
+        "bottom": 2058
+      },
+      "s5": {
+        "x": 32,
+        "y": 2074,
+        "w": 1258,
+        "h": 1919.6,
+        "right": 1290,
+        "bottom": 3993.6
+      },
+      "s6": {
+        "x": 1310,
+        "y": 2074,
+        "w": 1258,
+        "h": 1025.5,
+        "right": 2568,
+        "bottom": 3099.5
+      },
+      "s7": {
+        "x": 32,
+        "y": 4009.6,
+        "w": 2536,
+        "h": 1539.4,
+        "right": 2568,
+        "bottom": 5549
+      }
+    },
+    "visual": {
+      "main": [
+        {
+          "step": 1,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 2,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 3,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 4,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 5,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 6,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 7,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        }
+      ],
+      "sub": [
+        {
+          "selector": "#ctuPrimarySecuringPanel",
+          "id": "ctuPrimarySecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#ctuSupportSecuringPanel",
+          "id": "ctuSupportSecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-assessment",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-worst-direction",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#overall",
+          "id": "overall",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        }
+      ],
+      "overflow": false,
+      "innerWidth": 2600,
+      "scrollWidth": 2600,
+      "clientWidth": 2600
+    }
+  },
+  "mobile": {
+    "layout": "one",
+    "twoButtonDisplay": "none",
+    "visual": {
+      "main": [
+        {
+          "step": 1,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 2,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 3,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 4,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 5,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 6,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        },
+        {
+          "step": 7,
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none",
+          "overlap": false,
+          "gap": 0
+        }
+      ],
+      "sub": [
+        {
+          "selector": "#ctuPrimarySecuringPanel",
+          "id": "ctuPrimarySecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#ctuSupportSecuringPanel",
+          "id": "ctuSupportSecuringPanel",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".v1394-wall-direction-card",
+          "id": "v1394-wall-direction-card",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)",
+            "rgb(216, 228, 236)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-assessment",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric metric-worst-direction",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)",
+            "rgb(168, 199, 220)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": ".result-summary .metric",
+          "id": "metric",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)",
+            "rgb(191, 209, 223)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        },
+        {
+          "selector": "#overall",
+          "id": "overall",
+          "borders": [
+            "1px",
+            "1px",
+            "1px",
+            "1px"
+          ],
+          "colors": [
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)",
+            "rgb(221, 177, 173)"
+          ],
+          "symmetric": true,
+          "shadow": "none"
+        }
+      ],
+      "overflow": false,
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    "geometry": {
+      "s1": {
+        "x": 10,
+        "y": 1871.8,
+        "w": 370,
+        "h": 827.3,
+        "right": 380,
+        "bottom": 2699.1
+      },
+      "s2": {
+        "x": 10,
+        "y": 2715.1,
+        "w": 370,
+        "h": 1188.7,
+        "right": 380,
+        "bottom": 3903.8
+      },
+      "s3": {
+        "x": 10,
+        "y": 3919.8,
+        "w": 370,
+        "h": 402.6,
+        "right": 380,
+        "bottom": 4322.4
+      },
+      "s4": {
+        "x": 10,
+        "y": 4338.4,
+        "w": 370,
+        "h": 384.4,
+        "right": 380,
+        "bottom": 4722.8
+      },
+      "s5": {
+        "x": 10,
+        "y": 4738.8,
+        "w": 370,
+        "h": 3320.4,
+        "right": 380,
+        "bottom": 8059.1
+      },
+      "s6": {
+        "x": 10,
+        "y": 8075.1,
+        "w": 370,
+        "h": 2030.1,
+        "right": 380,
+        "bottom": 10105.2
+      },
+      "s7": {
+        "x": 10,
+        "y": 10121.2,
+        "w": 370,
+        "h": 2823.9,
+        "right": 380,
+        "bottom": 12945.1
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "final v1.3.100 CSS present in Chromium",
+      "pass": true
+    },
+    {
+      "name": "normal PC defaults to one column",
+      "pass": true
+    },
+    {
+      "name": "manual two-column works at desktop width",
+      "pass": true
+    },
+    {
+      "name": "wide effective viewport auto switches to two columns",
+      "pass": true
+    },
+    {
+      "name": "mobile is one column",
+      "pass": true
+    },
+    {
+      "name": "mobile two-column button hidden",
+      "pass": true
+    },
+    {
+      "name": "normal no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "normal main card borders symmetric",
+      "pass": true
+    },
+    {
+      "name": "normal no header/body overlap",
+      "pass": true
+    },
+    {
+      "name": "manualTwo no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "manualTwo main card borders symmetric",
+      "pass": true
+    },
+    {
+      "name": "manualTwo no header/body overlap",
+      "pass": true
+    },
+    {
+      "name": "wideAuto no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "wideAuto main card borders symmetric",
+      "pass": true
+    },
+    {
+      "name": "wideAuto no header/body overlap",
+      "pass": true
+    },
+    {
+      "name": "mobile no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "mobile main card borders symmetric",
+      "pass": true
+    },
+    {
+      "name": "mobile no header/body overlap",
+      "pass": true
+    },
+    {
+      "name": "afterCalc no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "afterCalc main card borders symmetric",
+      "pass": true
+    },
+    {
+      "name": "afterCalc no header/body overlap",
+      "pass": true
+    },
+    {
+      "name": "normal main cards are exactly 1px on all sides",
+      "pass": true
+    },
+    {
+      "name": "normal main cards have no shadow",
+      "pass": true
+    },
+    {
+      "name": "normal header/body boundary gap is zero",
+      "pass": true
+    },
+    {
+      "name": "Step5 primary border symmetric",
+      "pass": true
+    },
+    {
+      "name": "Step5 support border symmetric",
+      "pass": true
+    },
+    {
+      "name": "Step5 primary border is exactly 1px",
+      "pass": true
+    },
+    {
+      "name": "Step5 support border is exactly 1px",
+      "pass": true
+    },
+    {
+      "name": "Step5 primary/support have no shadow",
+      "pass": true
+    },
+    {
+      "name": "wall idle border symmetric",
+      "pass": true
+    },
+    {
+      "name": "wall forward border symmetric",
+      "pass": true
+    },
+    {
+      "name": "wall rear border symmetric",
+      "pass": true
+    },
+    {
+      "name": "wall left border symmetric",
+      "pass": true
+    },
+    {
+      "name": "wall right border symmetric",
+      "pass": true
+    },
+    {
+      "name": "wall selected forward/left/right use 2px on all sides",
+      "pass": true
+    },
+    {
+      "name": "wall unselected rear remains 1px on all sides",
+      "pass": true
+    },
+    {
+      "name": "wall cards have no inset or outer shadow",
+      "pass": true
+    },
+    {
+      "name": "overall result border symmetric",
+      "pass": true
+    },
+    {
+      "name": "worst-direction metric border symmetric",
+      "pass": true
+    },
+    {
+      "name": "assessment metric border symmetric",
+      "pass": true
+    },
+    {
+      "name": "overall and result metrics remain exactly 1px",
+      "pass": true
+    },
+    {
+      "name": "result cards have no shadow",
+      "pass": true
+    },
+    {
+      "name": "calculation overall sufficient",
+      "pass": true
+    },
+    {
+      "name": "calculation required resistance 25.2 kN",
+      "pass": true
+    },
+    {
+      "name": "calculation evaluated resistance 44.5 kN",
+      "pass": true
+    },
+    {
+      "name": "calculation margin 19.4 kN",
+      "pass": true
+    },
+    {
+      "name": "Step6 status says 3 directions used",
+      "pass": true
+    },
+    {
+      "name": "Step7 status calculated",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    }
+  ],
+  "passCount": 49,
+  "failCount": 0
+}

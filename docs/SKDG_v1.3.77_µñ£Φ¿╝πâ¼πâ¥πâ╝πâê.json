@@ -17,7 +17,7 @@
         "direction": "forward",
         "material": "timber",
         "materialCapacity": 24.35064935064935,
-        "receiverCapacity": Infinity,
+        "receiverCapacity": null,
         "receiverType": "frameConfirmed",
         "frameConfirmed": true,
         "confirmed": true,

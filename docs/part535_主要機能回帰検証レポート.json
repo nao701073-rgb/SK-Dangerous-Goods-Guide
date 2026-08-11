@@ -1,10 +1,10 @@
 {
   "release": "part535",
   "suite": "Part529～533主要機能回帰検証",
-  "generatedAt": "2026-08-06T13:46:52.927Z",
-  "passed": 47,
+  "generatedAt": "2026-08-10T13:13:09.759Z",
+  "passed": 41,
   "total": 47,
-  "failed": 0,
+  "failed": 6,
   "checks": [
     {
       "name": "共通案件API",
@@ -73,7 +73,7 @@
     },
     {
       "name": "固縛力から案件保存",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
@@ -103,12 +103,12 @@
     },
     {
       "name": "現在版申請画面",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
       "name": "現在版固縛力画面",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
@@ -213,12 +213,12 @@
     },
     {
       "name": "VERSION Part535",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
       "name": "アプリPart535",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
@@ -228,7 +228,7 @@
     },
     {
       "name": "ビルドPart535",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {

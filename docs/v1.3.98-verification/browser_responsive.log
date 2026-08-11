@@ -1,0 +1,8 @@
+1720 {'vw': 1720, 'sw': 1705, 'toolbar': 'flex', 'twoDisabled': False, 'body': 'has-sk-v1338-header', 's1w': 1208}
+1366 {'vw': 1366, 'sw': 1351, 'toolbar': 'flex', 'twoDisabled': False, 'body': 'has-sk-v1338-header', 's1w': 1208}
+1280 {'vw': 1280, 'sw': 1265, 'toolbar': 'flex', 'twoDisabled': False, 'body': 'has-sk-v1338-header', 's1w': 1205}
+1279 {'vw': 1279, 'sw': 1264, 'toolbar': 'none', 'twoDisabled': True, 'body': 'has-sk-v1338-header', 's1w': 1204}
+1200 {'vw': 1200, 'sw': 1185, 'toolbar': 'none', 'twoDisabled': True, 'body': 'has-sk-v1338-header', 's1w': 1125}
+900 {'vw': 900, 'sw': 885, 'toolbar': 'none', 'twoDisabled': True, 'body': 'has-sk-v1338-header', 's1w': 825}
+768 {'vw': 768, 'sw': 768, 'toolbar': 'none', 'twoDisabled': True, 'body': 'has-sk-v1338-header', 's1w': 708}
+390 {'vw': 390, 'sw': 390, 'toolbar': 'none', 'twoDisabled': True, 'body': 'has-sk-v1338-header', 's1w': 370}

@@ -1,0 +1,15 @@
+SKDG v1.3.87 CTU Step5 Residual Frame and Photo Text Cleanup Hotfix
+
+適用対象:
+- v1.3.86 を基準とした環境
+
+更新ファイル:
+- pages/ctu-securing-calculator.html
+- assets/css/v1387-ctu-step5-photo-cleanup.css
+- data/build-manifest.js
+
+内容:
+- Step 5「支保・あて材」付近に残っていた空の枠・不要な擬似要素を抑制。
+- 「木材・FRP等を併用する場合だけ入力します…」周辺の間隔を整理。
+- 写真の黒い表示領域の下にあるドラッグ＆ドロップ案内と「写真一覧はまだありません。」の間隔を広げ、読みやすく調整。
+- 計算ロジック、三段階判定、MSL採用、写真ドラッグ＆ドロップの機能自体には変更なし。

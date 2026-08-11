@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "reportName": "v1.3.98 総合検証レポート",
+  "generatedAt": "2026-08-10T13:27:58.615Z",
+  "systemVersion": "v1.3.98",
+  "versionMetadata": {
+    "version": "v1.3.98",
+    "base": "v1.3.91-complete",
+    "title": "CTU Complete Verified Integration, Usability and Calculation Re-audit",
+    "summary": "v1.3.91完成版を完全ベースとしてv1.3.92以降の必要変更を再統合。通常PCは既存幅の1列を初期表示とし、ページ上部のボタンでStep 1/2・3/4・5/壁抵抗を実際の2列カードへ切替可能。壁抵抗確認をStep 5とStep 6の間へ配置し、方向別壁抵抗、15cm候補、算出状態同期、同率方向表示を統合。Step 5の入力順・4列リズムとStep 6の条件要約・重点確認方向を整理し、実Chromium表示と計算シナリオで検証済み。",
+    "calculationLogicChanged": true,
+    "calculationChangeScope": "CTU Code既存式の変更ではなく、v1.3.94以降の方向別壁抵抗採否を正式統合し、v1.3.96で見つかった壁抵抗共通関数・同率方向要約参照の不具合を修正。摩擦・MSL・支保・直接固縛の重複制限方針は維持。",
+    "completeBuild": true,
+    "rebuildBaseline": "v1.3.91 complete reconstructed from v1.3.78 complete + v1.3.79-v1.3.91 updates",
+    "ui": {
+      "defaultLayout": "one-column",
+      "twoColumnPairs": [
+        "Step 1 + Step 2",
+        "Step 3 + Step 4",
+        "Step 5 + wall resistance"
+      ],
+      "step6FullWidth": true,
+      "layoutToggleAtPageTop": true
+    },
+    "verification": {
+      "releaseGate": "15/15 PASS",
+      "integrationChecks": "45/45 PASS",
+      "directionTieChecks": "5/5 PASS",
+      "browserRender": "Chromium 144 production DOM/CSS/JS harness",
+      "static": "JS/MJS 430 / JSON 400 / HTML 75; errors 0",
+      "defaultOneColumnVerified": true,
+      "actualTwoColumnVerified": true,
+      "step5FourColumnRhythmVerified": true,
+      "wallAutoRecalcVerified": true,
+      "calculationScenarioVerified": true,
+      "unintendedProductionDifferencesFromV1391": 0
+    }
+  },
+  "overallStatus": "passed",
+  "summary": {
+    "testCount": 15,
+    "passedCount": 15,
+    "failedCount": 0,
+    "javascriptFilesChecked": 327,
+    "requiredPagesChecked": 16,
+    "dangerousGoodsDataSha256": "975b13700f4e9b0c0d60d458df9df1954719726eb2a721342cc94c3ca5149e5f"
+  },
+  "tests": [
+    {
+      "name": "v1.3.98 固縛力統合・計算・UI検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:50.486Z",
+      "finishedAt": "2026-08-10T13:27:50.512Z",
+      "stdout": "PASS VERSION is v1.3.98\nPASS rebuild base is v1.3.91 complete\nPASS completeBuild is true\nPASS page loads v1398 calculation core\nPASS page loads v1398 UI CSS\nPASS page loads layout sync\nPASS page loads usability helper\nPASS v1.3.91 imported application-number registration link remains active\nPASS v1.3.91 Excel route/application-number import remains active\nPASS v1.3.91 application-number prefill and mismatch guard retained\nPASS Excel import emits application-number prefill event\nPASS v1.3.89 remark UN-weight autofill remains retained\nPASS old v1394 core is not active\nPASS Step 5 -> wall check -> Step 6 order\nPASS three true pair wrappers exist\nPASS layout toggle is at page top before Step 1\nPASS explicit 1-column / 2-column buttons exist\nPASS two-column mode uses a real 2-column grid\nPASS two-column shell has dedicated sizing\nPASS current calculation conditions summary is visually labeled\nPASS result-state emphasis helper exists\nPASS confirmed wall directions are visually emphasized\nPASS layout choice persistence is implemented\nPASS four direction-specific wall confirmation checkboxes exist\nPASS four direction-specific wall gap fields exist\nPASS 15 cm horizontal-gap candidate threshold is explicit\nPASS photo/AI gap helper never auto-checks wall resistance\nPASS wall resistance is direction-eligible only after confirmation\nPASS calculation snapshot stores direction wall confirmation and gap\nPASS legacy all-direction wall checkbox remains hidden\nPASS CTU reusable rule module loads\nPASS Sea A coefficients 0.3/0.5 longitudinal and 0.5/1.0 transverse\nPASS Sea B coefficients 0.3/0.3 longitudinal and 0.7/1.0 transverse\nPASS Sea C coefficients 0.4/0.2 longitudinal and 0.8/1.0 transverse\nPASS directional force m*g*c verified\nPASS direct-lashing friction uses 75% static mu\nPASS front/door wall 0.4P example\nPASS side wall 0.6P example\nPASS weakest MSL picks CTU-side 10 kN\nPASS core uses reusable wall-resistance function with cap\nPASS wall and blocking are not double-counted\nPASS stiff restraint and direct lashing are not simply added in same sliding path\nPASS final CTU resistance composition is friction + topover + one mechanical path\nPASS tied-direction summary uses latest result safely\nPASS result labels use usability wording\nTOTAL 45 / PASS 45 / FAIL 0",
+      "stderr": ""
+    },
+    {
+      "name": "同率方向表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:50.512Z",
+      "finishedAt": "2026-08-10T13:27:50.547Z",
+      "stdout": "PASS left/right: 側面方向（左・右同率）\nPASS forward/rear: 前後方向（前・後同率）\nPASS all: 前後・側面方向（全方向同率）\nPASS single: 左方向\nPASS display rounding: 前後方向（前・後同率）\nPASS 5/5",
+      "stderr": ""
+    },
+    {
+      "name": "静的ファイル・参照検査",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:50.547Z",
+      "finishedAt": "2026-08-10T13:27:58.200Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"findingCount\": 0,\n  \"stats\": {\n    \"html\": 75,\n    \"js\": 430,\n    \"json\": 400,\n    \"refs\": 2482,\n    \"bytes\": 328711772\n  }\n}",
+      "stderr": ""
+    },
+    {
+      "name": "表示文言統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.200Z",
+      "finishedAt": "2026-08-10T13:27:58.223Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 8,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "利用者簡易登録仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.223Z",
+      "finishedAt": "2026-08-10T13:27:58.247Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 10,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ログイン切替・段落レスポンシブ検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.247Z",
+      "finishedAt": "2026-08-10T13:27:58.271Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 9,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "権限エラー画面仕様検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.271Z",
+      "finishedAt": "2026-08-10T13:27:58.294Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checked\": 15,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "日本語見出し統一検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.294Z",
+      "finishedAt": "2026-08-10T13:27:58.338Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 6,\n  \"failed\": [],\n  \"violations\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "ホーム・法令画面統合表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.338Z",
+      "finishedAt": "2026-08-10T13:27:58.362Z",
+      "stdout": "{\n  \"status\": \"passed\",\n  \"checkCount\": 10,\n  \"failed\": []\n}",
+      "stderr": ""
+    },
+    {
+      "name": "全危険物・判定基準の見やすさ・国連番号表記検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.362Z",
+      "finishedAt": "2026-08-10T13:27:58.498Z",
+      "stdout": "part496 verification passed: 2725 rows / 2248 unique numbers",
+      "stderr": ""
+    },
+    {
+      "name": "国内法令の主な参照・連続表示検証",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.498Z",
+      "finishedAt": "2026-08-10T13:27:58.561Z",
+      "stdout": "part497 domestic law display verification passed",
+      "stderr": ""
+    },
+    {
+      "name": "役割別権限マトリクス",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.561Z",
+      "finishedAt": "2026-08-10T13:27:58.587Z",
+      "stdout": "OK guest: {\"applicationScope\":\"none\",\"applicationsRead\":false,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":false,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-user: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK office-admin: {\"applicationScope\":\"own-office\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"own-office\"}\nOK safety-environment-director: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"systemSettingsMode\":\"limited\"}\nOK safety-environment-staff: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":false,\"applicationsDelete\":false,\"photosRead\":true,\"photosWrite\":false,\"photosDelete\":false,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":false}\nOK safety-environment-admin: {\"applicationScope\":\"all-offices\",\"applicationsRead\":true,\"applicationsWrite\":true,\"applicationsDelete\":true,\"photosRead\":true,\"photosWrite\":true,\"photosDelete\":true,\"dangerousGoodsSearch\":true,\"regulationsRead\":true,\"referencesRead\":true,\"userSettings\":true,\"systemSettings\":true,\"userAdministration\":\"all-offices\"}\nrole permission validation passed; report=/mnt/data/SKDG_v1.3.98_COMPLETE_WORK/docs/Part219_役割別権限監査レポート.json",
+      "stderr": ""
+    },
+    {
+      "name": "危険物データ公開判定",
+      "status": "passed",
+      "exitCode": 0,
+      "startedAt": "2026-08-10T13:27:58.587Z",
+      "finishedAt": "2026-08-10T13:27:58.610Z",
+      "stdout": "公開判定: 合格",
+      "stderr": ""
+    },
+    {
+      "name": "主要画面・構成ファイル",
+      "status": "passed",
+      "missing": []
+    },
+    {
+      "name": "JavaScript構文検査",
+      "status": "passed",
+      "checkedFiles": 327,
+      "failures": []
+    }
+  ],
+  "manualVerificationRequired": [
+    "クラウドAPIへの実接続と認証メール送信",
+    "50名・150名を想定した実環境負荷試験",
+    "Windows実機・実運用URLでの最終表示確認（本ビルドではChromium 144による実DOM/CSS/JS描画検証を実施済み）",
+    "写真保存領域のバックアップ・復元試験",
+    "初期利用者・所属・役割の実データ確認",
+    "実運用データを用いた申請書確認結果から申請番号管理・固縛力参考算出への最終受入確認"
+  ],
+  "notes": [
+    "本レポートはv1.3.98の現行リリースゲートです。旧Part番号・旧バージョン文字列を固定期待する歴史的検証スクリプトは現行ゲートから除外しています。",
+    "クラウド契約や外部サービスを必要とする試験は、配置先決定後に実施します。",
+    "透かし表示、スクリーンショット検知・追跡、画面自動保存は未実装です。"
+  ]
+}

@@ -2,7 +2,7 @@
 'use strict';
 if(document.body?.dataset?.page!=='ctu-securing-calculator')return;
 const $=id=>document.getElementById(id);
-const TITLES={1:'申請書・航路から入力する',2:'写真を撮影・アップロードする',3:'輸送条件と貨物を確認',4:'貨物底面とCTU床面を確認',5:'固縛・支保条件を確認',6:'参考算出を確認'};
+const TITLES={1:'申請書・航路から入力する',2:'写真を撮影・アップロードする',3:'輸送条件と貨物を確認',4:'貨物底面とCTU床面を確認',5:'固縛・支保条件を確認',6:'壁面の隙間・壁抵抗利用を確認',7:'参考算出を確認'};
 const norm=v=>String(v||'').replace(/[\s\u3000]+/g,' ').trim();
 let enforcing=false, queued=false;
 function canonicalCards(){
@@ -11,8 +11,9 @@ function canonicalCards(){
   const three=$('quickTransport')?.closest('.quick-step');
   const four=[...document.querySelectorAll('#v1CargoSurface')].map(e=>e.closest('.quick-step')).find(Boolean)||[...document.querySelectorAll('#v1ContactStep')].find(e=>e.classList.contains('quick-step'))||null;
   const five=$('quickMaterialCategory')?.closest('.quick-step');
-  const six=$('quickCalcBtn')?.closest('.quick-step');
-  return [one,two,three,four,five,six];
+  const six=$('wallGapAssistPanel');
+  const seven=$('quickCalcBtn')?.closest('.quick-step');
+  return [one,two,three,four,five,six,seven];
 }
 function makeHeader(card,n){
   if(!card)return;
@@ -30,28 +31,60 @@ function makeHeader(card,n){
   if(!title){title=document.createElement('span');title.className='ctu-step-card__title';}
   if(num.textContent!==String(n))num.textContent=String(n);
   if(title.textContent!==TITLES[n])title.textContent=TITLES[n];
-  const desired=[num,title];
+  const extras=[...head.children].filter(child=>child.classList?.contains('v13109-step-confirm-action')||child.classList?.contains('v1394-wall-gap-badge'));
+  const desired=[num,title,...extras];
   const children=[...head.children];
-  if(children.length!==2||children[0]!==num||children[1]!==title){head.replaceChildren(...desired)}
+  if(children.length!==desired.length||children.some((child,i)=>child!==desired[i])){head.replaceChildren(...desired)}
+}
+function layoutWrapper(className,parent,before=null){
+  let wrap=parent?.querySelector?.(`:scope > .${className}`)||document.querySelector(`.${className}`);
+  if(!wrap&&parent){wrap=document.createElement('div');wrap.className=`v1398-pair ${className}`;if(before)parent.insertBefore(wrap,before);else parent.appendChild(wrap)}
+  return wrap;
 }
 function canonicalOrder(cards){
   const main=document.querySelector('main.calc-shell'),status=$('ctuStickyStatus'),quick=$('quickEntryPanel'),flow=quick?.querySelector(':scope > .quick-flow');
-  const [one,two,three,four,five,six]=cards;
+  const [one,two,three,four,five,six,seven]=cards;
   if(main&&status&&one&&two){
-    if(one.parentElement!==main||status.nextElementSibling!==one)main.insertBefore(one,status.nextElementSibling);
-    if(two.parentElement!==main||one.nextElementSibling!==two)main.insertBefore(two,one.nextElementSibling);
     const photoAi=$('photoRecognitionPanel');
-    if(photoAi&&photoAi.parentElement!==main)main.insertBefore(photoAi,two.nextElementSibling);
-    const anchor=photoAi?.parentElement===main?photoAi:two;
-    if(quick&&quick.parentElement!==main)main.insertBefore(quick,anchor.nextElementSibling);
-    if(quick&&anchor.nextElementSibling!==quick)main.insertBefore(quick,anchor.nextElementSibling);
+    const pair12=layoutWrapper('v1398-pair--step12',main,status.nextElementSibling);
+    if(pair12){
+      if(status.nextElementSibling!==pair12)main.insertBefore(pair12,status.nextElementSibling);
+      if(one.parentElement!==pair12)pair12.appendChild(one);
+      if(two.parentElement!==pair12)pair12.appendChild(two);
+      if(pair12.firstElementChild!==one)pair12.insertBefore(one,pair12.firstElementChild);
+      if(one.nextElementSibling!==two)pair12.insertBefore(two,one.nextElementSibling);
+    }
+    const anchor=pair12||two;
+    if(photoAi){
+      if(photoAi.parentElement!==main||anchor.nextElementSibling!==photoAi)main.insertBefore(photoAi,anchor.nextElementSibling);
+    }
+    const quickAnchor=photoAi?.parentElement===main?photoAi:anchor;
+    if(quick&&quick.parentElement!==main)main.insertBefore(quick,quickAnchor.nextElementSibling);
+    if(quick&&quickAnchor.nextElementSibling!==quick)main.insertBefore(quick,quickAnchor.nextElementSibling);
   }
   if(flow){
-    const wanted=[three,four,five,six].filter(Boolean);
-    wanted.forEach((card,index)=>{
-      const at=flow.children[index];
-      if(at!==card)flow.insertBefore(card,at||null);
-    });
+    const wall=six||$('wallGapAssistPanel');
+    const pair34=layoutWrapper('v1398-pair--step34',flow,flow.firstElementChild);
+    const pair5wall=layoutWrapper('v1398-pair--step5wall',flow,pair34?.nextElementSibling||null);
+    if(pair34){
+      if(flow.firstElementChild!==pair34)flow.insertBefore(pair34,flow.firstElementChild);
+      if(three&&three.parentElement!==pair34)pair34.appendChild(three);
+      if(four&&four.parentElement!==pair34)pair34.appendChild(four);
+      if(three&&pair34.firstElementChild!==three)pair34.insertBefore(three,pair34.firstElementChild);
+      if(three&&four&&three.nextElementSibling!==four)pair34.insertBefore(four,three.nextElementSibling);
+    }
+    if(pair5wall){
+      if(pair34&&pair34.nextElementSibling!==pair5wall)flow.insertBefore(pair5wall,pair34.nextElementSibling);
+      if(five&&five.parentElement!==pair5wall)pair5wall.appendChild(five);
+      if(wall&&wall.parentElement!==pair5wall)pair5wall.appendChild(wall);
+      if(five&&pair5wall.firstElementChild!==five)pair5wall.insertBefore(five,pair5wall.firstElementChild);
+      if(five&&wall&&five.nextElementSibling!==wall)pair5wall.insertBefore(wall,five.nextElementSibling);
+    }
+    if(seven){
+      const after=pair5wall||pair34;
+      if(seven.parentElement!==flow)flow.appendChild(seven);
+      if(after&&after.nextElementSibling!==seven)flow.insertBefore(seven,after.nextElementSibling);
+    }
   }
 }
 function unwrap(node){
@@ -69,7 +102,7 @@ function retireLegacy(){
 }
 function removeEmptyVisualShells(cards){
   const protectedNodes=new Set(cards.filter(Boolean));
-  [$('ctuStickyStatus'),$('quickEntryPanel'),$('photoRecognitionPanel'),$('ctuRegistrationSection'),$('deficiencySupportPanel'),$('ctuCommonCasePanel')].filter(Boolean).forEach(n=>protectedNodes.add(n));
+  [$('ctuStickyStatus'),$('quickEntryPanel'),$('photoRecognitionPanel'),$('ctuRegistrationSection'),$('deficiencySupportPanel'),$('ctuCommonCasePanel'),document.querySelector('.v1398-pair--step12'),document.querySelector('.v1398-pair--step34'),document.querySelector('.v1398-pair--step5wall')].filter(Boolean).forEach(n=>protectedNodes.add(n));
   const parents=[document.querySelector('main.calc-shell'),$('quickEntryPanel')?.querySelector(':scope > .quick-flow')].filter(Boolean);
   parents.forEach(parent=>[...parent.children].forEach(node=>{
     if(protectedNodes.has(node)||node.matches?.('.hero,.top-actions,.advanced-section,.result-registration-panel,.part541-deficiency-panel'))return;
@@ -169,5 +202,5 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 window.addEventListener('load',()=>setTimeout(enforce,0),{once:true});
-window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1372-ctu-canonical-guard.js':'v1.3.73'});
+window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1372-ctu-canonical-guard.js':'v1.3.110-preserve-step-actions'});
 })();

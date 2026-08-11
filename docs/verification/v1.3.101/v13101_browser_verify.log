@@ -1,0 +1,52 @@
+PASS v1.3.100 card CSS remains active
+PASS v1.3.101 print polish CSS is loaded
+PASS v1.3.101 print state bridge is loaded
+PASS normal PC defaults to one column
+PASS manual two-column works at desktop width
+PASS wide effective viewport auto switches to two columns
+PASS mobile is one column
+PASS mobile two-column button hidden
+PASS normal no horizontal overflow
+PASS normal main card borders symmetric
+PASS normal no header/body overlap
+PASS manualTwo no horizontal overflow
+PASS manualTwo main card borders symmetric
+PASS manualTwo no header/body overlap
+PASS wideAuto no horizontal overflow
+PASS wideAuto main card borders symmetric
+PASS wideAuto no header/body overlap
+PASS mobile no horizontal overflow
+PASS mobile main card borders symmetric
+PASS mobile no header/body overlap
+PASS afterCalc no horizontal overflow
+PASS afterCalc main card borders symmetric
+PASS afterCalc no header/body overlap
+PASS normal main cards are exactly 1px on all sides
+PASS normal main cards have no shadow
+PASS normal header/body boundary gap is zero
+PASS Step5 primary border symmetric
+PASS Step5 support border symmetric
+PASS Step5 primary border is exactly 1px
+PASS Step5 support border is exactly 1px
+PASS Step5 primary/support have no shadow
+PASS wall idle border symmetric
+PASS wall forward border symmetric
+PASS wall rear border symmetric
+PASS wall left border symmetric
+PASS wall right border symmetric
+PASS wall selected forward/left/right use 2px on all sides
+PASS wall unselected rear remains 1px on all sides
+PASS wall cards have no inset or outer shadow
+PASS overall result border symmetric
+PASS worst-direction metric border symmetric
+PASS assessment metric border symmetric
+PASS overall and result metrics remain exactly 1px
+PASS result cards have no shadow
+PASS calculation overall sufficient
+PASS calculation required resistance 25.2 kN
+PASS calculation evaluated resistance 44.5 kN
+PASS calculation margin 19.4 kN
+PASS Step6 status says 3 directions used
+PASS Step7 status calculated
+PASS no page errors
+TOTAL 51 / PASS 51 / FAIL 0

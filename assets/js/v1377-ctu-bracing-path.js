@@ -6,7 +6,7 @@ function num(id){return Math.max(0,Number($(id)?.value)||0)}
 function category(){return $('quickMaterialCategory')?.value||''}
 function supportDirection(){return category()==='combined'?($('quickSupportDirection')?.value||''):($('quickDirection')?.value||'')}
 function supportMaterial(){return category()==='combined'?($('quickSupportMaterial')?.value||''):($('quickMaterial')?.value||'')}
-function supportEnabled(){return category()==='support'||category()==='combined'}
+function supportEnabled(){const toggle=$('quickUseSupport');if(toggle)return Boolean(toggle.checked);return category()==='support'||category()==='combined'}
 function supportManualTotal(){
  const combined=category()==='combined';
  const count=combined?num('quickSupportCount'):num('quickCount');
@@ -14,7 +14,7 @@ function supportManualTotal(){
  return count*strength;
 }
 function battenCapacity(){
- const n=num('quickBattenCount'),w=num('quickBattenThickness'),h=num('quickBattenHeight'),L=num('quickBattenLength');
+ const n=num('quickSupportCount')||num('quickBattenCount'),w=(num('quickTimberThicknessW')/10)||num('quickBattenThickness'),h=(num('quickTimberHeightH')/10)||num('quickBattenHeight'),L=num('quickTimberFreeLengthL')||num('quickBattenLength');
  if(!(n>0&&w>0&&h>0&&L>0))return 0;
  // CTU Code Annex 7 Appendix 4: F = n * w^2 * h / (28 * L) [kN]
  return n*w*w*h/(28*L);
@@ -47,7 +47,7 @@ function getState(){
  const geometryValid=!frameConfirmed||calcMode==='timberBattens';
  const valid=active&&confirmed&&dir&&materialCapacity>0&&receiverValid&&geometryValid;
  const adopted=valid?(frameConfirmed?materialCapacity:Math.min(materialCapacity,recv)):0;
- return {active,enabled,calcMode,direction:dir,material:supportMaterial(),materialCapacity,receiverCapacity:recv,receiverType,frameConfirmed,confirmed,valid,adoptedCapacity:adopted,manualTotal:supportManualTotal(),needsReceiverValue,payload:num('quickSupportPayload')||num('payload'),batten:{count:num('quickBattenCount'),thicknessCm:num('quickBattenThickness'),heightCm:num('quickBattenHeight'),freeLengthM:num('quickBattenLength'),capacityKn:battenCapacity()}};
+ return {active,enabled,calcMode,direction:dir,material:supportMaterial(),materialCapacity,receiverCapacity:recv,receiverType,frameConfirmed,confirmed,valid,adoptedCapacity:adopted,manualTotal:supportManualTotal(),needsReceiverValue,payload:num('quickSupportPayload')||num('payload'),batten:{count:num('quickSupportCount')||num('quickBattenCount'),thicknessCm:(num('quickTimberThicknessW')/10)||num('quickBattenThickness'),heightCm:(num('quickTimberHeightH')/10)||num('quickBattenHeight'),freeLengthM:num('quickTimberFreeLengthL')||num('quickBattenLength'),capacityKn:battenCapacity()}};
 }
 function appliesToDirection(key){
  const st=getState();
@@ -71,7 +71,7 @@ function render(){
  const combined=category()==='combined';
  const countInput=combined?$('quickSupportCount'):$('quickCount');
  const strengthInput=combined?$('quickSupportStrength'):$('quickStrength');
- if(countInput)countInput.disabled=mode==='timberBattens';
+ if(countInput)countInput.disabled=false;
  if(strengthInput)strengthInput.disabled=mode==='timberBattens';
  const p=num('quickSupportPayload'); if(p>0&&$('payload'))$('payload').value=String(p);
  const st=getState();
@@ -100,7 +100,7 @@ function render(){
 }
 function syncPayload(){if(num('quickSupportPayload')>0&&$('payload'))$('payload').value=String(num('quickSupportPayload'))}
 function bind(){
- ['quickMaterialCategory','quickMaterial','quickSupportMaterial','quickDirection','quickSupportDirection','quickSupportCalcMode','quickSupportReceiverType','quickSupportPayload','quickSupportReceiverCapacity','quickBattenCount','quickBattenThickness','quickBattenHeight','quickBattenLength','quickSupportTransferConfirmed','quickCount','quickStrength','quickSupportCount','quickSupportStrength','quickCtu'].forEach(id=>{
+ ['quickMaterialCategory','quickMaterial','quickSupportMaterial','quickDirection','quickSupportDirection','quickSupportCalcMode','quickSupportReceiverType','quickSupportPayload','quickSupportReceiverCapacity','quickBattenCount','quickBattenThickness','quickBattenHeight','quickBattenLength','quickSupportTransferConfirmed','quickCount','quickStrength','quickSupportCount','quickSupportStrength','quickTimberThicknessW','quickTimberHeightH','quickTimberFreeLengthL','quickTimberDimensionsConfirmed','quickCtu'].forEach(id=>{
    const el=$(id);if(!el)return;el.addEventListener('change',()=>{syncPayload();render()});el.addEventListener('input',()=>{syncPayload();render()});
  });
  render();

@@ -1,0 +1,27 @@
+PASS visible material spec dropdown exists
+PASS visible support spec dropdown exists
+PASS initial lashing MSL is not a stale fixed default
+PASS initial support force is not a stale fixed default
+PASS chain is selectable
+PASS steel profiles include CTU 50% recommendation
+PASS steel 31.75x0.80 recommended profile reflects 8.7 kN
+PASS steel candidate stays review-required
+PASS Grade 8 13mm chain reflects 100.0 kN
+PASS 16mm one-way wire CTU formula reflects 102.4 kN
+PASS 16mm PP rope CTU formula reflects 10.2 kN
+PASS web labelled LC/MSL 25 reflects 25.0 kN
+PASS web label template remains review-required
+PASS PET band does not invent material-only MSL
+PASS timber 50x100 L2.2 reflects 4.1 kN per batten
+PASS timber reference writes basis
+PASS timber candidate remains review-required
+PASS FRP does not invent material-only support force
+PASS Step5 lashing card border remains symmetric
+PASS Step5 support card border remains symmetric
+PASS one-column no horizontal overflow
+PASS reference lashing candidate appears as review
+PASS reference support candidate appears as review
+PASS wide two-column no horizontal overflow
+PASS wide two-column mode is active
+TOTAL 25 / PASS 25 / FAIL 0
+ERRORS 0

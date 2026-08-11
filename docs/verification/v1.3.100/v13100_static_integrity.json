@@ -1,0 +1,15 @@
+{
+  "totalFiles": 2864,
+  "jsMjs": 432,
+  "jsSyntaxErrors": [],
+  "json": 403,
+  "jsonErrors": [],
+  "html": 75,
+  "htmlLocalRefs": 2484,
+  "htmlMissingRefs": [],
+  "css": 201,
+  "cssLocalUrls": 5,
+  "cssMissingUrls": [],
+  "fontFiles": 0,
+  "status": "passed"
+}

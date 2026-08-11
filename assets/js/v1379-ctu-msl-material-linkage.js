@@ -13,9 +13,10 @@
     aslash:'aslash',
     steel:'steel',
     wire:'wire',
+    chain:'chain',
     tygard:'tygard',
-    pet:'other',
-    pp:'other',
+    pet:'petBand',
+    pp:'ppRope',
     other:'other'
   };
   let internalSync=false;
@@ -35,17 +36,24 @@
   function clearEstimateState(role){
     try{if(typeof quickMslEstimateState!=='undefined'&&quickMslEstimateState)quickMslEstimateState[role]=null}catch(_e){}
   }
-  function signalTarget(role,source){
+  function signalTarget(role,source,{reference=false}={}){
     const target=$(ROLE[role]?.target);if(!target)return;
     target.dispatchEvent(new Event('input',{bubbles:true}));
     target.dispatchEvent(new Event('change',{bubbles:true}));
-    window.dispatchEvent(new CustomEvent('sk:ctu-system-applied',{detail:{source,fields:[ROLE[role].target]}}));
+    if(reference){
+      target.dataset.v13103ReferenceCandidate='1';
+      window.dispatchEvent(new CustomEvent('sk:ctu-reference-candidate-applied',{detail:{source,fields:[ROLE[role].target]}}));
+    }else{
+      delete target.dataset.v13103ReferenceCandidate;
+      window.dispatchEvent(new CustomEvent('sk:ctu-system-applied',{detail:{source,fields:[ROLE[role].target]}}));
+    }
   }
   function clearTarget(role,message){
     const target=$(ROLE[role]?.target),ids=roleIds(role);if(!target)return;
     target.value='';
     target.dataset.v1379AutoCandidate='';
     target.dataset.v1379AutoProfile='';
+    delete target.dataset.v13103ReferenceCandidate;
     clearEstimateState(role);
     if($(ids?.status)&&message)$(ids.status).textContent=message;
     signalTarget(role,'v1379-msl-candidate-cleared');
@@ -73,12 +81,6 @@
       renderAdoptedMsl();
       return false;
     }
-    if(profile.requiresConfirmedEvidence&&evidence==='reference'){
-      clearTarget(role,'この製品は施工条件で強度が変わるため、メーカー仕様書・刻印・試験成績等の確認根拠を選択してください。');
-      if(role==='device')setMainHint('施工条件依存のため参考値だけではMSLへ反映しません。メーカー・承認資料を確認してください。','review');
-      renderAdoptedMsl();
-      return false;
-    }
     const value=candidateValue(role);
     if(value<=0){
       clearTarget(role,'MSL候補を算出できません。確認済みの公称強度またはMSLを入力してください。');
@@ -86,16 +88,20 @@
       renderAdoptedMsl();
       return false;
     }
+    const isReference=evidence==='reference'||Boolean(profile.referenceOnly)||Boolean(profile.requiresConditionReview)||Boolean(profile.requiresConfirmedEvidence);
+    target.value=value.toFixed(1);
     try{
-      if(typeof applyMslCandidate==='function')applyMslCandidate(role);
-      else target.value=value.toFixed(1);
-    }catch(_e){target.value=value.toFixed(1)}
+      if(typeof quickMslEstimateState!=='undefined'&&quickMslEstimateState){
+        quickMslEstimateState[role]={role,profileId:profile.id||'reference',material:$(ids.material)?.value||'',size:profile.size||'任意',nominalStrengthKn:Number(profile.nominalStrengthKn||0),factor:Number(window.ISS_SECURING_MSL_REFERENCE?.factors?.[profile.factorKey]?.value??profile.factor??1),candidateMslKn:value,evidence,confirmed:!isReference,appliedAt:new Date().toISOString(),source:profile.source||'参照マスター'};
+      }
+    }catch(_e){}
     target.dataset.v1379AutoCandidate='1';
     target.dataset.v1379AutoProfile=profile.id||'';
-    signalTarget(role,'v1379-msl-candidate-auto-reflect');
+    signalTarget(role,'v1379-msl-candidate-auto-reflect',{reference:isReference});
     if(role==='device'){
       const size=profile.size||profile.label||'選択仕様';
-      setMainHint(`${size} の参考MSL候補 ${value.toFixed(1)} kNを自動反映しました。実機の刻印・メーカー仕様・証明書等の確認値を優先してください。`,'candidate');
+      const suffix=isReference?'実物の規格・刻印・メーカー仕様等との一致を確認してください。':'確認根拠を反映しました。';
+      setMainHint(`${size} のMSL候補 ${value.toFixed(1)} kNを自動反映しました。${suffix}`,'candidate');
     }
     renderAdoptedMsl();
     return true;
@@ -113,7 +119,9 @@
       select.dispatchEvent(new Event('change',{bubbles:true}));
       internalSync=false;
     }
-    autoReflectRole('device','main-material');
+    clearTarget('device','材質だけではMSLを確定しません。上の「規格・サイズ／表示値」を選択してください。');
+    setMainHint('固縛材の規格・サイズ／表示値を選ぶと、その条件に対応するMSL候補を自動反映します。','review');
+    renderAdoptedMsl();
   }
   function ensureSummary(){
     if($('v1379AdoptedMslSummary'))return;
@@ -158,7 +166,14 @@
   }
   function bindEstimator(role){
     const ids=roleIds(role);if(!ids)return;
-    $(ids.material)?.addEventListener('change',()=>{if(internalSync)return;setTimeout(()=>autoReflectRole(role,'estimator-material'),0)});
+    $(ids.material)?.addEventListener('change',()=>{
+      const el=$(ids.material);
+      if(internalSync||!el)return;
+      const current=String(el.value||'');
+      if(el.dataset.v1379LastMaterial===current)return;
+      el.dataset.v1379LastMaterial=current;
+      setTimeout(()=>{clearTarget(role,'材質を変更しました。規格・サイズ／製品仕様を選択してください。');renderAdoptedMsl()},0)
+    });
     $(ids.profile)?.addEventListener('change',()=>setTimeout(()=>autoReflectRole(role,'estimator-profile'),0));
     $(ids.evidence)?.addEventListener('change',()=>setTimeout(()=>autoReflectRole(role,'estimator-evidence'),0));
   }
@@ -177,12 +192,12 @@
       }else syncMainMaterial();
     },0));
     ['quickStrength','quickCargoMsl','quickCtuMsl'].forEach(id=>{
-      $(id)?.addEventListener('input',renderAdoptedMsl);
-      $(id)?.addEventListener('change',renderAdoptedMsl);
+      $(id)?.addEventListener('input',event=>{if(event.isTrusted)delete event.currentTarget.dataset.v13103ReferenceCandidate;renderAdoptedMsl()});
+      $(id)?.addEventListener('change',event=>{if(event.isTrusted)delete event.currentTarget.dataset.v13103ReferenceCandidate;renderAdoptedMsl()});
     });
     window.addEventListener('sk:ctu-system-applied',renderAdoptedMsl);
   }
   function init(){ensureSummary();bind();renderAdoptedMsl()}
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>setTimeout(init,40)):setTimeout(init,40);
-  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1379-ctu-msl-material-linkage.js':'v1.3.79'});
+  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1379-ctu-msl-material-linkage.js':'v1.3.108-ignore-duplicate-material-change'});
 })();

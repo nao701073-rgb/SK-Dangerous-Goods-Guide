@@ -33,7 +33,10 @@ function selectedProfile(){
  return profiles.find(p=>p.material===material && (!p.railOnly||['rail','railShock'].includes(mode)))||null;
 }
 function syncDeviceEstimator(){
- const map=materialMap[$('quickMaterial')?.value]||'';const sel=$('quickDeviceMslMaterial');if(sel&&map&&[...sel.options].some(o=>o.value===map)){sel.value=map;sel.dispatchEvent(new Event('change',{bubbles:true}));}
+ const map=materialMap[$('quickMaterial')?.value]||'';const sel=$('quickDeviceMslMaterial');
+ // v1.3.108: calc/transport synchronization may call this even when the material is unchanged.
+ // A duplicate change event must not be emitted because downstream MSL logic correctly clears the old MSL only for a real material change.
+ if(sel&&map&&[...sel.options].some(o=>o.value===map)&&sel.value!==map){sel.value=map;sel.dispatchEvent(new Event('change',{bubbles:true}));}
  setTimeout(refreshMslAssist,0);
 }
 function refreshMslAssist(){const box=$('v137MslAssist');if(box)box.remove();}

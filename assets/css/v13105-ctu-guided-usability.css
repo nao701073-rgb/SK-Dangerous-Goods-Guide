@@ -1,0 +1,78 @@
+/* v1.3.105 — beginner-friendly input guidance, missing/review highlighting, compact optional panels */
+body[data-page="ctu-securing-calculator"] .v13105-simple-guide{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+  margin:0 0 14px;padding:12px 14px;border:1px solid #b9d3e5;border-radius:10px;
+  background:#f4f9fd;color:#244a68;box-shadow:none;
+}
+body[data-page="ctu-securing-calculator"] .v13105-simple-guide strong{display:block;margin-bottom:3px;color:#0b4e7d;font-size:.94rem}
+body[data-page="ctu-securing-calculator"] .v13105-simple-guide span{display:block;font-size:.84rem;line-height:1.55}
+body[data-page="ctu-securing-calculator"] .v13105-simple-guide .v13105-simple-guide__legend{display:flex;gap:7px;flex-wrap:wrap;flex:0 0 auto}
+body[data-page="ctu-securing-calculator"] .v13105-legend{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border:1px solid #d8e1e8;border-radius:999px;background:#fff;font-size:.75rem;font-weight:800;white-space:nowrap}
+body[data-page="ctu-securing-calculator"] .v13105-legend::before{content:"";width:9px;height:9px;border-radius:3px;background:#d8e1e8}
+body[data-page="ctu-securing-calculator"] .v13105-legend.is-missing::before{background:#d93535}
+body[data-page="ctu-securing-calculator"] .v13105-legend.is-review::before{background:#e2a31a}
+body[data-page="ctu-securing-calculator"] .v13105-legend.is-ok::before{background:#2c9562}
+
+/* An unused lashing/support group is reduced to its header. The user turns it on only when needed. */
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels > .ctu-step5-panel.is-not-used > .ctu-step5-panel__body{display:none!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels > .ctu-step5-panel.is-not-used{opacity:1!important;background:#f7f9fb!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels > .ctu-step5-panel.is-not-used > .ctu-step5-panel__head{border-radius:8px!important;background:#f7f9fb!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels > .ctu-step5-panel.is-not-used .ctu-step5-panel__title::after{content:"（使用する場合だけON）";margin-left:8px;color:#6b7e8e;font-size:.74rem;font-weight:600}
+
+/* Timber derives support strength/basis from w/h/L. Do not ask the user to type the same information twice. */
+body[data-page="ctu-securing-calculator"] .v13105-auto-hidden{display:none!important}
+body[data-page="ctu-securing-calculator"] .v13105-timber-auto-note{grid-column:1/-1;margin:0;padding:9px 11px;border:1px solid #cbdce8;border-radius:8px;background:#f8fbfd;color:#496276;font-size:.8rem;line-height:1.55}
+
+/* Missing = red. Review/candidate = amber. Confirmed = quiet green. All emphasis is symmetric on four sides. */
+body[data-page="ctu-securing-calculator"] input.v13105-field-missing,
+body[data-page="ctu-securing-calculator"] select.v13105-field-missing,
+body[data-page="ctu-securing-calculator"] textarea.v13105-field-missing{
+  border:2px solid #d93535!important;background:#fff3f3!important;box-shadow:0 0 0 2px rgba(217,53,53,.08)!important;color:#243746!important
+}
+body[data-page="ctu-securing-calculator"] input.v13105-field-review,
+body[data-page="ctu-securing-calculator"] select.v13105-field-review,
+body[data-page="ctu-securing-calculator"] textarea.v13105-field-review{
+  border:2px solid #d89a12!important;background:#fff9e8!important;box-shadow:0 0 0 2px rgba(216,154,18,.07)!important;color:#243746!important
+}
+body[data-page="ctu-securing-calculator"] .v13105-control-missing{
+  border:2px solid #d93535!important;background:#fff3f3!important;box-shadow:0 0 0 2px rgba(217,53,53,.08)!important
+}
+body[data-page="ctu-securing-calculator"] .v13105-control-review{
+  border:2px solid #d89a12!important;background:#fff9e8!important;box-shadow:0 0 0 2px rgba(216,154,18,.07)!important
+}
+body[data-page="ctu-securing-calculator"] .v13105-field-message{display:block;margin:5px 0 0;font-size:.76rem;line-height:1.45;font-weight:800}
+body[data-page="ctu-securing-calculator"] .v13105-field-message.is-missing{color:#b62222}
+body[data-page="ctu-securing-calculator"] .v13105-field-message.is-review{color:#936300}
+body[data-page="ctu-securing-calculator"] label:has(> .v13105-field-missing),
+body[data-page="ctu-securing-calculator"] .quick-field:has(.v13105-field-missing){color:#a82323}
+body[data-page="ctu-securing-calculator"] label:has(> .v13105-field-review),
+body[data-page="ctu-securing-calculator"] .quick-field:has(.v13105-field-review){color:#815a00}
+
+/* Keep the quick result screen focused on actions/results; specialist calculation is in the popup. */
+body[data-page="ctu-securing-calculator"] #toggleAdvanced{white-space:nowrap}
+body[data-page="ctu-securing-calculator"] .v13105-details-hint{margin:8px 0 0;color:#667b8d;font-size:.78rem;line-height:1.5}
+
+@media(max-width:768px){
+  body[data-page="ctu-securing-calculator"] .v13105-simple-guide{display:grid}
+  body[data-page="ctu-securing-calculator"] .v13105-simple-guide .v13105-simple-guide__legend{justify-content:flex-start}
+}
+
+@media print{
+  body[data-page="ctu-securing-calculator"] .v13105-simple-guide,
+  body[data-page="ctu-securing-calculator"] .v13105-field-message,
+  body[data-page="ctu-securing-calculator"] .v13105-details-hint{display:none!important}
+  body[data-page="ctu-securing-calculator"] input.v13105-field-missing,
+  body[data-page="ctu-securing-calculator"] select.v13105-field-missing,
+  body[data-page="ctu-securing-calculator"] textarea.v13105-field-missing,
+  body[data-page="ctu-securing-calculator"] input.v13105-field-review,
+  body[data-page="ctu-securing-calculator"] select.v13105-field-review,
+  body[data-page="ctu-securing-calculator"] textarea.v13105-field-review{box-shadow:none!important;border-width:1px!important;background:#fff!important}
+}
+
+/* Normal operation stays simple: calculation components/formulas are available in the separate detail window. */
+@media screen{
+  body[data-page="ctu-securing-calculator"] #quickStatus .quick-status-breakdown,
+  body[data-page="ctu-securing-calculator"] #quickStatus .quick-resistance-rule,
+  body[data-page="ctu-securing-calculator"] #quickStatus .quick-combination-note,
+  body[data-page="ctu-securing-calculator"] #quickStatus .quick-topover-note{display:none!important}
+}

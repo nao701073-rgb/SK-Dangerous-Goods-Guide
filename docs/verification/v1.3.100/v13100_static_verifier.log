@@ -1,0 +1,64 @@
+PASS VERSION is v1.3.100
+PASS base is v1.3.98 complete
+PASS completeBuild is true
+PASS calculation formula is unchanged from v1.3.98
+PASS VERSION declares seven-step workflow
+PASS automatic two-column threshold is 2200 CSS px
+PASS build manifest is v1.3.100 and contains v13100 extension
+PASS progress tracker has exactly steps 1 through 7
+PASS step 6 wall / step 7 calculation statuses exist
+PASS wall resistance is formal Step 6
+PASS calculation result is formal Step 7
+PASS no legacy 5B numbering remains in active page/status/guard
+PASS workflow order is Step 5 -> Step 6 wall -> Step 7 result
+PASS v13100 complete visual CSS is loaded last
+PASS v13100 UI consistency JS is loaded
+PASS v1.3.98 audited calculation core is retained
+PASS obsolete v1394 calculation core is not active
+PASS v1.3.91 application-number linkage remains active
+PASS v1.3.91 Excel route/application import remains active
+PASS application-number prefill/mismatch guard retained
+PASS Excel import emits application-number prefill
+PASS remark UN-weight autofill retained
+PASS three real pair wrappers are present
+PASS layout toggle is at page top before Step 1
+PASS explicit one/two-column buttons exist
+PASS two-column mode is a real 2-column grid
+PASS canonical guard builds 1+2, 3+4, 5+6 wrappers and preserves Step 7
+PASS normal one-column / effective-width auto two-column policy is active
+PASS layout hint uses seven-step numbering
+PASS Step 5 primary/support panels have common rules
+PASS selected wall cards have explicit whole-card selected style
+PASS result metric cards have final common border rules
+PASS legacy step-header decorative pseudo-elements are neutralized
+PASS UI consistency runtime normalizes headers and removes legacy inline residue
+PASS status runtime has Step 7 and calculated state
+PASS calculated event synchronizes Step 7 state
+PASS final visual system contains no legacy left-only 3px+ accent
+PASS selected wall card uses equal 2px border on all four sides
+PASS final visual system contains no left-only inset shadow
+PASS overall result border is normalized on all four sides
+PASS legacy helper stripes are covered by four-side helper-box rules
+PASS main workflow cards explicitly declare four equal sides
+PASS header/body boundary has explicit zero-gap rule
+PASS four direction-specific wall confirmation checkboxes exist
+PASS four direction-specific wall gap fields exist
+PASS 15 cm candidate threshold remains explicit
+PASS AI/photo helper never auto-enables wall resistance
+PASS wall resistance remains direction-eligible after inspector confirmation
+PASS calculation snapshot stores wall confirmation/gap
+PASS CTU reusable rules load
+PASS Sea A directional coefficients retained
+PASS Sea B directional coefficients retained
+PASS Sea C directional coefficients retained
+PASS directional force m*g*c verified
+PASS direct-lashing friction remains 75% of static mu
+PASS front/rear boundary 0.4P example retained
+PASS side wall 0.6P example retained
+PASS weakest MSL remains 10 kN CTU-side
+PASS wall and blocking are not double-counted
+PASS stiff restraint/direct lashing are not simply added
+PASS final resistance remains friction + topover + one mechanical path
+PASS tied-direction summary uses latest result safely
+PASS result usability labels retained
+TOTAL 63 / PASS 63 / FAIL 0

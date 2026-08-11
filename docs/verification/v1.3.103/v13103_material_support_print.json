@@ -1,0 +1,207 @@
+{
+  "errors": [],
+  "screen": {
+    "primary": {
+      "x": 49,
+      "y": -1778.5,
+      "w": 784,
+      "h": 730.765625,
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "support": {
+      "x": 49,
+      "y": -1035.734375,
+      "w": 784,
+      "h": 935.265625,
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step5": {
+      "x": 32,
+      "y": -1841.5,
+      "w": 818,
+      "h": 2276.109375,
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step6": {
+      "x": 870,
+      "y": -1841.5,
+      "w": 818,
+      "h": 1126.5,
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "overflow": false,
+    "material": "chain",
+    "profile": "chain-g8-13",
+    "msl": "100.0",
+    "supportProfile": "timber-batten-75x100-l22",
+    "supportForce": "9.1",
+    "supportBasis": "横木 75×100 mm（厚さw=75／高さh=100）・自由長2.2 m（1本） / CTU Code Annex 7 Appendix 4：F = n·w²·h/(28L)。n=1として1本当たりを算出。"
+  },
+  "printAudit": {
+    "classes": [
+      "ctu-layout-two"
+    ],
+    "support": {
+      "display": "block",
+      "breakBefore": "auto",
+      "breakInside": "avoid-page",
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step5": {
+      "display": "block",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step6": {
+      "display": "block",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "step7": {
+      "display": "block",
+      "breakBefore": "page",
+      "breakInside": "auto",
+      "b": [
+        "1px",
+        "1px",
+        "1px",
+        "1px"
+      ],
+      "shadow": "none"
+    },
+    "overflow": false,
+    "profileStatus": "none",
+    "supportStatus": "none",
+    "overall": "要確認\n未確認項目があるため、固縛不良とは確定しません。下の「確認が必要な入力」から該当欄へ移動し、確認後に再算出してください。"
+  },
+  "pageCount": 9,
+  "checks": [
+    {
+      "name": "two-column screen has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Step 5 and Step 6 remain side by side in two-column screen",
+      "pass": true
+    },
+    {
+      "name": "lashing and support subcards remain stacked inside Step 5",
+      "pass": true
+    },
+    {
+      "name": "lashing card border is four-side symmetric",
+      "pass": true
+    },
+    {
+      "name": "support card border is four-side symmetric",
+      "pass": true
+    },
+    {
+      "name": "chain Grade 8 13mm selection reflects 100.0 kN",
+      "pass": true
+    },
+    {
+      "name": "timber 75x100 w75 h100 L2.2 reflects 9.1 kN",
+      "pass": true
+    },
+    {
+      "name": "support basis records Appendix 4",
+      "pass": true
+    },
+    {
+      "name": "support panel remains visible in print",
+      "pass": true
+    },
+    {
+      "name": "Step 5 starts on a new print page",
+      "pass": true
+    },
+    {
+      "name": "Step 6 starts on a new print page",
+      "pass": true
+    },
+    {
+      "name": "Step 7 starts on a new print page",
+      "pass": true
+    },
+    {
+      "name": "print media has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "print Step 5 border remains symmetric",
+      "pass": true
+    },
+    {
+      "name": "print support border remains symmetric",
+      "pass": true
+    },
+    {
+      "name": "screen-only reference help is hidden in print",
+      "pass": true
+    },
+    {
+      "name": "printed report contains lashing spec selection",
+      "pass": true
+    },
+    {
+      "name": "printed report contains support spec/force",
+      "pass": true
+    },
+    {
+      "name": "support-enabled print is within reasonable page count",
+      "pass": false
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    }
+  ],
+  "passCount": 19,
+  "failCount": 1,
+  "pdf": "/mnt/data/v13104_work/docs/verification/v1.3.103/v13103_material_support_A4.pdf"
+}

@@ -1,0 +1,6 @@
+PASS left/right: 側面方向（左・右同率）
+PASS forward/rear: 前後方向（前・後同率）
+PASS all: 前後・側面方向（全方向同率）
+PASS single: 左方向
+PASS display rounding: 前後方向（前・後同率）
+PASS 5/5

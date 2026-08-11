@@ -1,0 +1,99 @@
+{
+  "errors": [],
+  "overall": "要確認\n未確認項目があるため、固縛不良とは確定しません。下の「確認が必要な入力」から該当欄へ移動し、確認後に再算出してください。",
+  "stickyHeadline": "入力不足 4件",
+  "stickyDetail": "不足項目：⑤ 固縛材質・木材支保の厚さ w・木材支保の高さ h・木材支保の自由長 L",
+  "guideHidden": false,
+  "guideTitle": "入力不足 4件・確認待ち 1件",
+  "guideText": "入力不足\n⑤ 固縛材質\n値を入力してください。\n入力欄へ\n入力不足\n⑤ 木材支保の厚さ w\n値を入力してください。\n入力欄へ\n入力不足\n⑤ 木材支保の高さ h\n値を入力してください。\n入力欄へ\n入力不足\n⑤ 木材支保の自由長 L\n値を入力してください。\n入力欄へ\n確認待ち\n⑤ 支保力の根拠\n値・根拠・成立条件を確認してください。\n確認欄へ",
+  "guideCount": 5,
+  "missingCount": 4,
+  "reviewCount": 1,
+  "targetButtons": [
+    "入力欄へ",
+    "入力欄へ",
+    "入力欄へ",
+    "入力欄へ",
+    "確認欄へ"
+  ],
+  "guideStyle": {
+    "b": [
+      "1px",
+      "1px",
+      "1px",
+      "1px"
+    ],
+    "c": [
+      "rgb(215, 179, 90)",
+      "rgb(215, 179, 90)",
+      "rgb(215, 179, 90)",
+      "rgb(215, 179, 90)"
+    ],
+    "shadow": "none"
+  },
+  "reviewButtonCount": 1,
+  "activeAfterReviewJump": "quickSupportBasis",
+  "reviewFocusOutline": "3px",
+  "materialButtonCount": 1,
+  "activeAfterMaterialJump": "quickMaterial",
+  "checks": [
+    {
+      "name": "overall is 要確認",
+      "pass": true
+    },
+    {
+      "name": "sticky identifies Step 5 missing",
+      "pass": true
+    },
+    {
+      "name": "action guide visible",
+      "pass": true
+    },
+    {
+      "name": "guide separates input missing",
+      "pass": true
+    },
+    {
+      "name": "guide separates review waiting",
+      "pass": true
+    },
+    {
+      "name": "guide shows concrete material input",
+      "pass": true
+    },
+    {
+      "name": "guide shows concrete support-basis confirmation",
+      "pass": true
+    },
+    {
+      "name": "support-basis has direct navigation button",
+      "pass": true
+    },
+    {
+      "name": "material has direct navigation button",
+      "pass": true
+    },
+    {
+      "name": "support-basis receives focus after navigation",
+      "pass": true
+    },
+    {
+      "name": "material receives focus after navigation",
+      "pass": true
+    },
+    {
+      "name": "guide border symmetric",
+      "pass": true
+    },
+    {
+      "name": "guide has no box shadow",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    }
+  ],
+  "passCount": 14,
+  "failCount": 0
+}

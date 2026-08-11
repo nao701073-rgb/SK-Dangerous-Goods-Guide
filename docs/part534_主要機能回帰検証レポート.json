@@ -1,10 +1,10 @@
 {
   "release": "part534",
   "suite": "Part529～533主要機能回帰検証",
-  "generatedAt": "2026-08-06T13:34:54.599Z",
-  "passed": 42,
+  "generatedAt": "2026-08-10T13:13:09.791Z",
+  "passed": 40,
   "total": 47,
-  "failed": 5,
+  "failed": 7,
   "checks": [
     {
       "name": "共通案件API",
@@ -73,7 +73,7 @@
     },
     {
       "name": "固縛力から案件保存",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {
@@ -228,7 +228,7 @@
     },
     {
       "name": "ビルドPart534",
-      "status": "passed",
+      "status": "failed",
       "detail": ""
     },
     {

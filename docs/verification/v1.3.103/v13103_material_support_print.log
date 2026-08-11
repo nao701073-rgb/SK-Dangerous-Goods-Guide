@@ -1,0 +1,21 @@
+PASS two-column screen has no horizontal overflow
+PASS Step 5 and Step 6 remain side by side in two-column screen
+PASS lashing and support subcards remain stacked inside Step 5
+PASS lashing card border is four-side symmetric
+PASS support card border is four-side symmetric
+PASS chain Grade 8 13mm selection reflects 100.0 kN
+PASS timber 75x100 w75 h100 L2.2 reflects 9.1 kN
+PASS support basis records Appendix 4
+PASS support panel remains visible in print
+PASS Step 5 starts on a new print page
+PASS Step 6 starts on a new print page
+PASS Step 7 starts on a new print page
+PASS print media has no horizontal overflow
+PASS print Step 5 border remains symmetric
+PASS print support border remains symmetric
+PASS screen-only reference help is hidden in print
+PASS printed report contains lashing spec selection
+PASS printed report contains support spec/force
+FAIL support-enabled print is within reasonable page count
+PASS no page errors
+TOTAL 20 / PASS 19 / FAIL 1

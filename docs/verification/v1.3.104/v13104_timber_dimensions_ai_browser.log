@@ -1,0 +1,43 @@
+PASS quickTimberThicknessW exists
+PASS quickTimberHeightH exists
+PASS quickTimberFreeLengthL exists
+PASS quickTimberDimensionsConfirmed exists
+PASS quickTimberAiApply exists
+PASS quickTimberUploadAiPanel exists
+PASS quickTimberUploadAiCandidate exists
+PASS quickTimberUploadAiJump exists
+PASS initial upload shows timber w/h/L candidate in Step2
+PASS initial upload stages candidate before Step5 timber selection
+PASS initial upload labels candidate as unconfirmed
+PASS initial upload enables jump to Step5
+PASS jump from Step2 points to support material before timber selection
+PASS staged AI dimensions are visible after selecting timber
+PASS profile fills w=50mm
+PASS profile fills h=100mm
+PASS profile fills L=2.2m
+PASS profile recalculates 4.1kN per unit
+PASS linked n shows current support count
+PASS profile leaves dimensions unconfirmed
+PASS progress includes timber dimension/installation confirmation
+PASS manual w edit recalculates per-unit strength to 9.1kN
+PASS manual edit clears confirmation
+PASS n follows support count after edit
+PASS total output follows n
+PASS photo AI produces w/h/L candidate
+PASS AI candidate is visibly low/medium confidence
+PASS photo AI does not overwrite measurements before apply
+PASS AI apply button enabled
+PASS actual photo upload triggers timber AI prediction
+PASS AI apply still leaves confirmation unchecked
+PASS AI applied dimensions remain editable
+PASS snapshot stores w/h/L
+PASS snapshot stores confirmation
+PASS restore brings back w
+PASS restore brings back h
+PASS restore brings back L
+PASS restore brings back confirmation
+PASS no horizontal overflow
+PASS timber dimensions remain printable
+PASS AI action buttons hidden in print
+TOTAL 41 / PASS 41 / FAIL 0
+ERRORS 0

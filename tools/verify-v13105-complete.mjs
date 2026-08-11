@@ -1,0 +1,239 @@
+import fs from 'fs';
+import vm from 'vm';
+import path from 'path';
+const root=path.resolve(process.argv[2]||'.');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+let pass=0,fail=0;
+function ok(cond,msg){if(cond){pass++;console.log('PASS',msg)}else{fail++;console.error('FAIL',msg)}}
+const html=read('pages/ctu-securing-calculator.html');
+const css=read('assets/css/v13100-ctu-complete-visual-system.css');
+const css101=read('assets/css/v13101-ctu-screen-print-polish.css');
+const css102=read('assets/css/v13102-ctu-expanded-print-polish.css');
+const core=read('assets/js/ctu-securing-calculator-core-v1398.js');
+const layout=read('assets/js/v1398-ctu-layout-wall-sync.js');
+const guard=read('assets/js/v1372-ctu-canonical-guard.js');
+const sticky=read('assets/js/v1386-ctu-sticky-status.js');
+const consistency=read('assets/js/v13100-ctu-ui-consistency.js');
+const printState=read('assets/js/v13101-ctu-print-state.js');
+const expandedPrintState=read('assets/js/v13102-ctu-expanded-print-state.js');
+const gapAssist=read('assets/js/v1394-ctu-gap-wall-assist.js');
+const appLink=read('assets/js/v1391-ctu-application-number-registration-link.js');
+const excelRoute=read('assets/js/ctu-excel-route-import.js');
+const intakePolicy=read('assets/js/application-intake-workflow-policy.js');
+const manifest=read('data/build-manifest.js');
+const version=JSON.parse(read('VERSION.json'));
+
+ok(version.version==='v1.3.105','VERSION is v1.3.105');
+ok(version.base==='v1.3.104','base is v1.3.104 complete');
+ok(version.completeBuild===true,'completeBuild is true');
+ok(version.calculationLogicChanged===false,'calculation formula is unchanged from v1.3.98');
+ok(version.ui?.workflowSteps===7,'VERSION declares seven-step workflow');
+ok(version.ui?.automaticTwoColumnEffectiveWidthPx===2200,'automatic two-column threshold is 2200 CSS px');
+ok(manifest.includes("v13105:{version:'v1.3.105'")&&manifest.includes("'assets/css/v13105-ctu-guided-usability.css':'v1.3.105'"),'build manifest contains v1.3.105 extension and assets');
+
+const chips=[...html.matchAll(/data-ctu-stage="step(\d)" data-ctu-step="(\d)"/g)].map(m=>[m[1],m[2]]);
+ok(chips.length===7 && chips.every((x,i)=>x[0]===String(i+1)&&x[1]===String(i+1)),'progress tracker has exactly steps 1 through 7');
+ok(html.includes('id="ctuStatusStep6">未使用</em>')&&html.includes('id="ctuStatusStep7">算出前</em>'),'step 6 wall / step 7 calculation statuses exist');
+ok(html.includes('id="wallGapAssistPanel"')&&html.includes('data-ctu-step="6"'),'wall resistance is formal Step 6');
+ok(html.includes('data-ctu-step="7"')&&html.includes('7</span><span class="ctu-step-card__title">参考算出を確認'),'calculation result is formal Step 7');
+ok(!html.includes('5B')&&!sticky.includes('5B')&&!guard.includes('5B'),'no legacy 5B numbering remains in active page/status/guard');
+const flowStart=html.indexOf('class="quick-flow"');
+const i5=html.indexOf('data-ctu-step="5"',flowStart), i6=html.indexOf('id="wallGapAssistPanel"',i5), i7=html.indexOf('data-ctu-step="7"',i6);
+ok(i5>=0&&i6>i5&&i7>i6,'workflow order is Step 5 -> Step 6 wall -> Step 7 result');
+
+ok(html.includes('v13100-ctu-complete-visual-system.css?v=13100'),'v13100 complete visual CSS is retained');
+ok(html.includes('v13101-ctu-screen-print-polish.css?v=13101'),'v13101 screen/print polish CSS is loaded after v13100');
+ok(html.indexOf('v13101-ctu-screen-print-polish.css?v=13101') > html.indexOf('v13100-ctu-complete-visual-system.css?v=13100'),'v13101 CSS is later in cascade than v13100');
+ok(html.includes('v13100-ctu-ui-consistency.js?v=13100'),'v13100 UI consistency JS is loaded');
+ok(html.includes('v13101-ctu-print-state.js?v=13101'),'v13101 print-state bridge is loaded');
+ok(html.includes('ctu-securing-calculator-core-v1398.js?v=1398'),'v1.3.98 audited calculation core is retained');
+ok(!/src="[^"]*core-v1394\.js/.test(html),'obsolete v1394 calculation core is not active');
+ok(html.includes('v1391-ctu-application-number-registration-link.js?v=1391'),'v1.3.91 application-number linkage remains active');
+ok(html.includes('ctu-excel-route-import.js?v=1391'),'v1.3.91 Excel route/application import remains active');
+ok(appLink.includes('sk:ctu-application-number-prefilled')&&appLink.includes('申請番号の整合性を確認してください。'),'application-number prefill/mismatch guard retained');
+ok(excelRoute.includes("emit('sk:ctu-application-number-prefilled'")&&excelRoute.includes('prefillRegistrationIdentity'),'Excel import emits application-number prefill');
+ok(intakePolicy.includes("weightSource='remarks-un'")&&intakePolicy.includes('備考欄のUN番号別重量から自動反映'),'remark UN-weight autofill retained');
+
+ok(html.includes('v1398-pair--step12')&&html.includes('v1398-pair--step34')&&html.includes('v1398-pair--step5wall'),'three real pair wrappers are present');
+ok(html.indexOf('id="ctuLayoutToolbar"') < html.indexOf('id="ctuExcelRoutePanel"'),'layout toggle is at page top before Step 1');
+ok(html.includes('id="ctuLayoutOne"')&&html.includes('id="ctuLayoutTwo"'),'explicit one/two-column buttons exist');
+ok(css.includes('body[data-page="ctu-securing-calculator"].ctu-layout-two .v1398-pair')&&css.includes('grid-template-columns:repeat(2,minmax(0,1fr))'),'two-column mode is a real 2-column grid');
+ok(guard.includes('v1398-pair--step12')&&guard.includes('v1398-pair--step34')&&guard.includes('v1398-pair--step5wall')&&guard.includes('const seven'),'canonical guard builds 1+2, 3+4, 5+6 wrappers and preserves Step 7');
+ok(layout.includes('AUTO_TWO_COLUMN_WIDTH=2200')&&layout.includes('automaticLayout()')&&layout.includes('preferredLayout()'),'normal one-column / effective-width auto two-column policy is active');
+ok(layout.includes('⑤/⑥')&&layout.includes('⑦算出結果'),'layout hint uses seven-step numbering');
+
+ok(css.includes('#ctuPrimarySecuringPanel')&&css.includes('#ctuSupportSecuringPanel'),'Step 5 primary/support panels have common rules');
+ok(css.includes('.v1394-wall-direction-card.is-wall-selected'),'selected wall cards have explicit whole-card selected style');
+ok(css.includes('.result-summary .metric-worst-direction'),'result metric cards have final common border rules');
+ok(css.includes('.ctu-step-card__head::before')&&css.includes('.ctu-step-card__head::after'),'legacy step-header decorative pseudo-elements are neutralized');
+ok(consistency.includes('normalizeStepHeaders')&&consistency.includes("removeProperty('border-left')")&&consistency.includes("removeProperty('box-shadow')"),'UI consistency runtime normalizes headers and removes legacy inline residue');
+ok(sticky.includes("setChip(7,'ready','算出済'")&&sticky.includes('①〜⑦'),'status runtime has Step 7 and calculated state');
+ok(sticky.includes('sk:ctu-calculated')&&sticky.includes('calculated=true;registered=false;dirtyAfterCalculation=false'),'calculated event synchronizes Step 7 state');
+
+// Visual hardening assertions: no left-only accent may survive in the final canonical layer.
+ok(!/border-left\s*:\s*[3-9]px/i.test(css),'final visual system contains no legacy left-only 3px+ accent');
+ok(css.includes('border-top:2px solid #5f9dca!important')&&css.includes('border-right:2px solid #5f9dca!important')&&css.includes('border-bottom:2px solid #5f9dca!important')&&css.includes('border-left:2px solid #5f9dca!important'),'selected wall card uses equal 2px border on all four sides');
+ok(!/box-shadow\s*:\s*inset\s+[1-9][0-9.-]*px\s+0/i.test(css),'final visual system contains no left-only inset shadow');
+ok(css.includes('#overall.ok')&&css.includes('border-width:1px!important'),'overall result border is normalized on all four sides');
+ok(css.includes('.v1381-quick-confirm')&&css.includes('.ctu-bracing-result-inline'),'legacy helper stripes are covered by four-side helper-box rules');
+ok(css.includes('border-top:1px solid var(--ctu100-border)!important')&&css.includes('border-right:1px solid var(--ctu100-border)!important')&&css.includes('border-bottom:1px solid var(--ctu100-border)!important')&&css.includes('border-left:1px solid var(--ctu100-border)!important'),'main workflow cards explicitly declare four equal sides');
+ok(css.includes('margin-top:0!important')&&css.includes('.ctu-step-card__head + .quick-step__body'),'header/body boundary has explicit zero-gap rule');
+
+ok(['wallUseForward','wallUseRear','wallUseLeft','wallUseRight'].every(id=>html.includes(`id="${id}"`)),'four direction-specific wall confirmation checkboxes exist');
+ok(['wallGapForwardCm','wallGapRearCm','wallGapLeftCm','wallGapRightCm'].every(id=>html.includes(`id="${id}"`)),'four direction-specific wall gap fields exist');
+ok(gapAssist.includes('THRESHOLD_CM=15'),'15 cm candidate threshold remains explicit');
+ok(!/\.checked\s*=\s*true/.test(gapAssist),'AI/photo helper never auto-enables wall resistance');
+ok(core.includes('wallState.eligibleFor(key)'),'wall resistance remains direction-eligible after inspector confirmation');
+ok(core.includes('wallDirectionConfirmed')&&core.includes('wallGapCm'),'calculation snapshot stores wall confirmation/gap');
+
+// Recheck exact reusable CTU rules used by the v1.3.98 core.
+const code=read('data/ctu-code-rules-v1380.js');
+const ctx={globalThis:{}}; vm.createContext(ctx); vm.runInContext(code,ctx);
+const R=ctx.globalThis.SKCTU_CODE_RULES_V1380;
+const eq=(a,b,t=1e-9)=>Math.abs(a-b)<=t;
+ok(!!R,'CTU reusable rules load');
+ok(eq(R.TRANSPORT_PRESETS.seaA.v.forward[0],.3)&&eq(R.TRANSPORT_PRESETS.seaA.v.left[0],.5),'Sea A directional coefficients retained');
+ok(eq(R.TRANSPORT_PRESETS.seaB.v.forward[0],.3)&&eq(R.TRANSPORT_PRESETS.seaB.v.left[0],.7),'Sea B directional coefficients retained');
+ok(eq(R.TRANSPORT_PRESETS.seaC.v.forward[0],.4)&&eq(R.TRANSPORT_PRESETS.seaC.v.left[0],.8),'Sea C directional coefficients retained');
+ok(eq(R.directionalForce(8.559,.3),25.189137,1e-6),'directional force m*g*c verified');
+ok(eq(R.frictionForce(8.559,.2,.5,true),6.29728425,1e-6),'direct-lashing friction remains 75% of static mu');
+ok(eq(R.wallResistance(28,.4,0),109.872,1e-6),'front/rear boundary 0.4P example retained');
+ok(eq(R.wallResistance(28,.6,0),164.808,1e-6),'side wall 0.6P example retained');
+const w=R.weakestMsl(12.1,20,10); ok(w.complete&&eq(w.value,10)&&w.limiting==='CTU側固縛点','weakest MSL remains 10 kN CTU-side');
+ok(core.includes('Math.max(wall,blocking)'),'wall and blocking are not double-counted');
+ok(core.includes('mechanical=stiff>0?stiff:direct'),'stiff restraint/direct lashing are not simply added');
+ok(core.includes('friction+top+mechanical'),'final resistance remains friction + topover + one mechanical path');
+ok(core.includes('latestCtuResult?.directions'),'tied-direction summary uses latest result safely');
+ok(core.includes('必要抵抗力')&&core.includes('重点確認方向'),'result usability labels retained');
+
+
+// v1.3.101 two-column and A4 print-only verification.
+ok(css101.includes('@media screen and (min-width:1280px)')&&css101.includes('.v1398-pair--step5wall'),'screen polish targets the Step 5 + Step 6 desktop pair only');
+ok(css101.includes('gap:20px!important'),'two-column Step 5 + Step 6 gap is explicitly polished to 20px');
+ok(css101.includes('@page')&&css101.includes('size:A4 portrait'),'print stylesheet declares A4 portrait');
+ok(css101.includes('.sk-v1338-header')&&css101.includes('#ctuStickyStatus')&&css101.includes('.no-print'),'print stylesheet suppresses app chrome and no-print controls');
+ok(css101.includes('details:not([open])'),'closed details are omitted from print');
+ok(css101.includes('[data-ctu-step="3"]')&&css101.includes('[data-ctu-step="5"]')&&css101.includes('#wallGapAssistPanel'),'print page grouping includes Step 3, Step 5 and Step 6 boundaries');
+ok(css101.includes('.result-summary')&&css101.includes('grid-template-columns:repeat(3,minmax(0,1fr))'),'print result summary uses three readable columns');
+ok(css101.includes('.ctu-directional-load-audit')&&css101.includes('break-before:page!important'),'directional load audit begins a clean print page');
+ok(css101.includes('.ctu-print-support-off #ctuSupportSecuringPanel')&&css101.includes('.ctu-print-support-off #ctuBracingAssist'),'unused support input/load-path assistance is omitted from print');
+ok(css101.includes('.ctu-print-result-sufficient #deficiencySupportPanel'),'sufficient result omits unnecessary deficiency support from print');
+ok(printState.includes("window.addEventListener('beforeprint', syncPrintState)"),'print state synchronizes immediately before browser printing');
+ok(printState.includes('ctu-print-support-off')&&printState.includes('ctu-print-tensile-off'),'print state follows the two securing-use checkboxes');
+ok(printState.includes('ctu-print-result-sufficient')&&printState.includes("text.startsWith('参考上十分')"),'print state detects a sufficient calculation without touching calculation logic');
+ok(version.ui?.printLayout==='A4 portrait single-flow report','VERSION declares the A4 single-flow print report');
+ok(version.ui?.printResultSummaryColumns===3,'VERSION declares three-column print result summary');
+
+// v1.3.102 upload-expanded print hardening.
+ok(html.includes('v13102-ctu-expanded-print-polish.css?v=13102'),'v13102 expanded print CSS is loaded');
+ok(html.indexOf('v13102-ctu-expanded-print-polish.css?v=13102') > html.indexOf('v13101-ctu-screen-print-polish.css?v=13101'),'v13102 print CSS is last in print cascade');
+ok(html.includes('v13102-ctu-expanded-print-state.js?v=13102'),'v13102 expanded print state JS is loaded');
+ok(css102.includes('ctu-print-application-expanded')&&css102.includes('#ctuExcelSummary.import-summary'),'expanded application result receives dedicated paper layout');
+ok(css102.includes('grid-template-columns:repeat(4,minmax(0,1fr))'),'imported application summary compacts to four print columns');
+ok(css102.includes('#part542PhotoQueue')&&css102.includes('display:none!important'),'photo filename queue cannot expand printed pages');
+ok(css102.includes('.import-summary-item')&&css102.includes('break-inside:avoid-page!important'),'import summary items do not split across paper pages');
+ok(expandedPrintState.includes('ctu-print-application-expanded')&&expandedPrintState.includes('ctu-print-photo-has-files'),'expanded print runtime detects application/photo state');
+ok(expandedPrintState.includes('MutationObserver')&&expandedPrintState.includes("window.addEventListener('beforeprint'"),'expanded print state stays synchronized through uploads and before printing');
+ok(expandedPrintState.includes('SKDG_CTU_PRINT_EXPANDED_SYNC_V13102'),'expanded print verifier hook is exposed');
+ok(version.ui?.printApplicationSummaryCompactColumns===4,'VERSION declares four-column imported application print summary');
+ok(version.ui?.printPhotoFileQueueHidden===true,'VERSION declares photo queue hidden on paper');
+ok(version.ui?.expandedUploadScreenLayoutVerified===true&&version.ui?.expandedUploadPrintLayoutVerified===true,'VERSION records expanded upload screen/print verification');
+
+
+// v1.3.103 actionable confirmation and material/spec strength linkage.
+const actionCss=read('assets/css/v13103-ctu-actionable-confirmation-guide.css');
+const actionJs=read('assets/js/v13103-ctu-actionable-confirmation-guide.js');
+const materialCss=read('assets/css/v13103-ctu-material-strength-linkage.css');
+const materialJs=read('assets/js/v13103-ctu-material-strength-linkage.js');
+const mslRef=read('data/securing-msl-reference.js');
+const restore=read('assets/js/v1385-ctu-case-restore.js');
+ok(html.includes('v13103-ctu-actionable-confirmation-guide.css?v=13103')&&html.includes('v13103-ctu-actionable-confirmation-guide.js?v=13103'),'v13103 actionable confirmation guide assets are loaded');
+ok(html.includes('v13103-ctu-material-strength-linkage.css?v=13103')&&html.includes('v13103-ctu-material-strength-linkage.js?v=13103'),'v13103 material/spec strength linkage assets are loaded');
+ok(html.includes('id="quickMaterialProfile"')&&html.includes('規格・サイズ／表示値'),'visible lashing material profile selector exists');
+ok(html.includes('id="quickSupportProfile"')&&html.includes('支保仕様／寸法'),'visible support profile selector exists');
+ok(/id="quickStrength"[^>]*value=""/.test(html),'lashing MSL has no stale fixed default');
+ok(/id="quickSupportStrength"[^>]*value=""/.test(html),'support force has no stale fixed default');
+ok(materialJs.includes("chain: 'chain'")&&materialJs.includes("pp: 'ppRope'")&&materialJs.includes("pet: 'petBand'"),'main material dropdown maps chain/PP/PET to the reference catalog');
+ok(materialJs.includes('材質名だけではMSLを確定しません')&&materialJs.includes('実物の規格・径・表示LC/MSL'),'material name alone is not treated as a confirmed MSL');
+ok(mslRef.includes('webSingle')&&mslRef.includes('webReusable')&&mslRef.includes('steelBandRecommended'),'CTU material MSL factors include web single/reusable and steel-band recommended factor');
+ok(mslRef.includes('chain-g8-13')&&mslRef.includes('candidateMslKn": 100'),'Grade 8 13 mm chain 100 kN reference candidate is present');
+ok(mslRef.includes('wire-oneway-16')&&mslRef.includes('candidateMslKn": 102.4'),'16 mm one-way wire CTU formula candidate is present');
+ok(mslRef.includes('pp-rope-16')&&mslRef.includes('candidateMslKn": 10.2'),'16 mm polypropylene rope CTU formula candidate is present');
+ok(mslRef.includes('web-marked-25')&&mslRef.includes('requiresConfirmedEvidence'),'web lashing uses labelled/certified value templates and requires evidence confirmation');
+ok(mslRef.includes('pet-band-manual')&&mslRef.includes('FRPという材質名だけでは支保力を確定しない'),'PET/FRP do not receive invented material-only strengths');
+ok(mslRef.includes('timber-batten-75x100-l22')&&mslRef.includes('厚さw=75／高さh=100')&&mslRef.includes('candidateStrengthKn": 9.13'),'timber support profile explicitly records orientation and Appendix 4 reference strength');
+ok(materialJs.includes('data.v13103ReferenceCandidate')||materialJs.includes('v13103ReferenceCandidate'),'auto-reflected strength is marked as a reference candidate');
+ok(sticky.includes('quickMaterialProfile')&&sticky.includes('quickSupportProfile'),'progress/review tracking includes lashing and support profile selectors');
+ok(core.includes("materialProfile:$('quickMaterialProfile')?.value||''")&&core.includes("profile:$('quickSupportProfile')?.value||''"),'calculation snapshot stores selected lashing/support profiles');
+ok(restore.includes('v13103RestoreValue')&&restore.includes('quickMaterialProfile')&&restore.includes('quickSupportProfile'),'registered cases restore selected profile IDs');
+ok(actionJs.includes('確認が必要な入力')&&actionJs.includes('入力欄へ'),'要確認 result provides concrete direct-input navigation');
+ok(actionCss.includes('border-top')||actionCss.includes('border:'),'action guide has explicit card styling');
+ok(materialCss.includes('border: 1px solid')&&!/border-left\s*:\s*[2-9]px/i.test(materialCss),'material/spec status boxes use symmetric borders without left-only emphasis');
+ok(version.ui?.materialSpecMslLinkage===true&&version.ui?.supportSpecStrengthLinkage===true,'VERSION declares lashing/support strength linkage');
+ok(version.ui?.referenceCandidateRequiresConfirmation===true,'VERSION declares reference candidates require confirmation');
+ok(version.verification?.materialStrengthBrowserVerifier==='25/25 PASS'&&version.verification?.supportEnabledPrintVerifier==='20/20 PASS','VERSION records v1.3.103 browser and support-print verification');
+
+
+
+// v1.3.104 timber w/h/L direct input and initial-upload photo AI staging.
+const timberCss=read('assets/css/v13104-ctu-timber-dimension-ai.css');
+const timberJs=read('assets/js/v13104-ctu-timber-dimensions-ai.js');
+ok(html.includes('v13104-ctu-timber-dimension-ai.css?v=13104')&&html.includes('v13104-ctu-timber-dimensions-ai.js?v=13104'),'v13104 timber dimension assets are loaded');
+ok(['quickTimberThicknessW','quickTimberHeightH','quickTimberFreeLengthL','quickTimberDimensionsConfirmed'].every(id=>html.includes(`id="${id}"`)),'timber w/h/L direct inputs and confirmation exist');
+ok(html.includes('w＝厚さ')&&html.includes('h＝高さ')&&html.includes('L＝支点間の自由長'),'w/h/L orientation is explicitly explained');
+ok(timberJs.includes("num('quickSupportCount')")&&timberJs.includes('quickTimberLinkedCount'),'timber quantity n is linked to support count');
+ok(timberJs.includes('calcPerUnit')&&timberJs.includes('w*w*h/(28*L)'),'timber reference force uses Appendix 4 per-unit formula');
+ok(timberJs.includes("quickSupportProfile")&&timberJs.includes('profileChanged')&&timberJs.includes('widthMm')&&timberJs.includes('freeLengthM'),'standard timber profile fills w/h/L');
+ok(timberJs.includes('dimensionUserChanged')&&timberJs.includes('現場入力／実測寸法'),'w/h/L remain directly editable and recalculate on manual correction');
+ok(html.includes('id="quickTimberUploadAiPanel"')&&html.includes('写真をアップロードした直後'),'Step 2 contains initial-upload timber AI candidate panel');
+ok(timberJs.includes("window.addEventListener('sk:ctu-photo-ai-requested'")&&timberJs.includes("analyzePhoto('photo-upload')"),'initial photo AI event triggers timber w/h/L analysis');
+ok(timberJs.includes('stageAiCandidate')&&timberJs.includes('canAutoStage'),'photo AI can pre-stage empty w/h/L fields');
+ok(timberJs.includes('v13104AutoAiStage')&&timberJs.includes('既に入力済みのw・h・Lを上書きしていません'),'AI staging does not overwrite existing measured/manual values');
+ok(timberJs.includes('clearConfirmation()')&&timberJs.includes('未確認'),'AI candidate never auto-confirms timber dimensions');
+ok(timberJs.includes('quickTimberUploadAiJump')&&timberJs.includes('jumpToTimber'),'Step 2 candidate can navigate directly to Step 5 confirmation');
+ok(core.includes('timberDimensions:window.SKCTUTimberDimensions?.snapshot?.()'),'calculation snapshot stores timber dimensions');
+ok(restore.includes('SKCTUTimberRestorePayload'),'registered case restore carries timber dimensions');
+ok(sticky.includes('quickTimberThicknessW')&&sticky.includes('quickTimberDimensionsConfirmed'),'progress tracking includes timber dimensions and confirmation');
+ok(timberCss.includes('.v13104-upload-timber-ai')&&timberCss.includes('border:1px solid'),'initial-upload AI card has symmetric card styling');
+ok(timberCss.includes('@media print')&&timberCss.includes('.v13104-upload-timber-ai{display:none!important'),'intermediate Step 2 AI candidate is hidden from paper report');
+ok(timberCss.includes('.v13104-timber-ai{display:none!important'),'duplicate Step 5 AI helper is hidden from paper report');
+ok(version.ui?.timberDirectDimensions===true&&version.ui?.timberCountLinkedToSupportCount===true,'VERSION declares direct timber dimensions and n linkage');
+ok(version.ui?.timberPhotoAiCandidate===true&&version.ui?.timberAiNeverAutoConfirms===true,'VERSION declares photo AI candidate and no auto-confirm');
+
+
+// v1.3.105 guided beginner UI and calculation-detail separation.
+const guidedCss=read('assets/css/v13105-ctu-guided-usability.css');
+const guidedJs=read('assets/js/v13105-ctu-guided-usability.js');
+const advancedJs=read('assets/js/v1376-ctu-advanced-window.js');
+const bracingJs=read('assets/js/v1377-ctu-bracing-path.js');
+ok(html.includes('v13105-ctu-guided-usability.css?v=13105')&&html.includes('v13105-ctu-guided-usability.js?v=13105'),'v13105 guided UI assets are loaded');
+ok(/id="quickUseSupport" type="checkbox"\s*\/>/.test(html),'support is not checked by default in initial HTML');
+ok(html.includes('ctu-bracing-assist advanced-section'),'specialist bracing helper is moved out of normal screen');
+ok(guidedJs.includes('赤い「未入力」から順に入力すれば迷わず進められます')&&guidedJs.includes('計算式や係数を知らなくても通常操作できます'),'beginner guide explains simple normal workflow');
+ok(guidedCss.includes('.v13105-field-missing')&&guidedCss.includes('border:2px solid #d93535!important'),'missing fields use clear red four-side border');
+ok(guidedCss.includes('.v13105-field-review')&&guidedCss.includes('border:2px solid #d89a12!important'),'review candidates use clear amber four-side border');
+ok(!/\.v13105-field-missing[^}]*border-left\s*:/s.test(guidedCss)&&!/\.v13105-field-review[^}]*border-left\s*:/s.test(guidedCss),'guided highlighting has no left-only border rule');
+ok(guidedCss.includes('.is-not-used > .ctu-step5-panel__body{display:none!important}'),'unused optional support panel body is collapsed');
+ok(guidedJs.includes("[strength,basis].forEach(x=>x?.classList.toggle('v13105-auto-hidden',timber))"),'timber derived strength/basis duplicate inputs are hidden');
+ok(guidedJs.includes('Profile selectors are helpers, not duplicate required inputs'),'profile selector is treated as helper rather than duplicate mandatory input');
+ok(!guidedJs.includes("v13105-field-message is-${kind}"),'yellow review state does not generate repetitive visible helper messages');
+ok(sticky.includes("item('対象方向','quickDirection'")&&sticky.includes("item('支保の対象方向','quickSupportDirection'"),'progress detects missing lashing/support direction');
+ok(bracingJs.includes("$('quickUseSupport')")&&bracingJs.includes('toggle.checked'),'specialist bracing activation follows actual support toggle');
+ok(advancedJs.includes('計算の詳細・専門設定')&&advancedJs.includes('通常画面の入力だけで算出できます'),'detail window explains specialist-only purpose');
+ok(advancedJs.includes('advanced-popup-overview')&&advancedJs.includes('採用MSL'),'detail window shows current calculation summary and adopted MSL');
+ok(advancedJs.includes("class=\"advanced-popup-section${basis?' is-basis':''}\"")&&advancedJs.includes("${basis?'open':''}"),'calculation basis opens first while specialist sections are collapsible');
+ok(advancedJs.includes('@media(max-width:760px)')&&advancedJs.includes('grid-template-columns:repeat(2,minmax(0,1fr))'),'detail window has mobile responsive rules');
+ok(advancedJs.includes('white-space:nowrap')&&advancedJs.includes('closeAdvancedWindow'),'detail close control remains readable on mobile');
+ok(version.ui?.guidedBeginnerInput===true&&version.ui?.normalScreenCalculationKnowledgeRequired===false,'VERSION declares beginner workflow without calculation knowledge');
+ok(version.ui?.missingFieldRed===true&&version.ui?.reviewFieldAmber===true&&version.ui?.supportDefaultOff===true,'VERSION declares red missing, amber review and optional support default-off');
+ok(version.ui?.calculationDetailSeparateWindow===true&&version.ui?.calculationDetailMobileResponsive===true,'VERSION declares separate responsive calculation detail window');
+
+
+ok(guidedCss.includes('#quickStatus .quick-status-breakdown')&&guidedCss.includes('#quickStatus .quick-resistance-rule')&&guidedCss.includes('@media screen'),'normal screen hides calculation breakdown/formula only on screen media');
+ok(advancedJs.includes('function currentResultMarkup()')&&advancedJs.includes('現在の算出内訳'),'detail window carries current resistance breakdown after calculation');
+ok(advancedJs.includes("querySelectorAll('section.advanced-section')"),'detail window excludes stray advanced buttons/links from section list');
+ok(version.ui?.normalScreenFormulaHidden===true&&version.ui?.normalScreenResistanceBreakdownHidden===true,'VERSION declares simple normal result screen');
+ok(version.ui?.detailCurrentResultBreakdown===true&&version.ui?.detailOnlySectionFiltering===true,'VERSION declares clean detailed current-result view');
+
+console.log(`TOTAL ${pass+fail} / PASS ${pass} / FAIL ${fail}`);
+process.exitCode=fail?1:0;

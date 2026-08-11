@@ -1,0 +1,193 @@
+{
+  "checks": [
+    {
+      "name": "quickTimberThicknessW exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberHeightH exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberFreeLengthL exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberDimensionsConfirmed exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberAiApply exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberUploadAiPanel exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberUploadAiCandidate exists",
+      "pass": true
+    },
+    {
+      "name": "quickTimberUploadAiJump exists",
+      "pass": true
+    },
+    {
+      "name": "initial upload shows timber w/h/L candidate in Step2",
+      "pass": true
+    },
+    {
+      "name": "initial upload stages candidate before Step5 timber selection",
+      "pass": true
+    },
+    {
+      "name": "initial upload labels candidate as unconfirmed",
+      "pass": true
+    },
+    {
+      "name": "initial upload enables jump to Step5",
+      "pass": true
+    },
+    {
+      "name": "jump from Step2 points to support material before timber selection",
+      "pass": true
+    },
+    {
+      "name": "staged AI dimensions are visible after selecting timber",
+      "pass": true
+    },
+    {
+      "name": "profile fills w=50mm",
+      "pass": true
+    },
+    {
+      "name": "profile fills h=100mm",
+      "pass": true
+    },
+    {
+      "name": "profile fills L=2.2m",
+      "pass": true
+    },
+    {
+      "name": "profile recalculates 4.1kN per unit",
+      "pass": true
+    },
+    {
+      "name": "linked n shows current support count",
+      "pass": true
+    },
+    {
+      "name": "profile leaves dimensions unconfirmed",
+      "pass": true
+    },
+    {
+      "name": "progress includes timber dimension/installation confirmation",
+      "pass": true
+    },
+    {
+      "name": "manual w edit recalculates per-unit strength to 9.1kN",
+      "pass": true
+    },
+    {
+      "name": "manual edit clears confirmation",
+      "pass": true
+    },
+    {
+      "name": "n follows support count after edit",
+      "pass": true
+    },
+    {
+      "name": "total output follows n",
+      "pass": true
+    },
+    {
+      "name": "photo AI produces w/h/L candidate",
+      "pass": true
+    },
+    {
+      "name": "AI candidate is visibly low/medium confidence",
+      "pass": true
+    },
+    {
+      "name": "photo AI does not overwrite measurements before apply",
+      "pass": true
+    },
+    {
+      "name": "AI apply button enabled",
+      "pass": true
+    },
+    {
+      "name": "actual photo upload triggers timber AI prediction",
+      "pass": true
+    },
+    {
+      "name": "AI apply still leaves confirmation unchecked",
+      "pass": true
+    },
+    {
+      "name": "AI applied dimensions remain editable",
+      "pass": true
+    },
+    {
+      "name": "snapshot stores w/h/L",
+      "pass": true
+    },
+    {
+      "name": "snapshot stores confirmation",
+      "pass": true
+    },
+    {
+      "name": "restore brings back w",
+      "pass": true
+    },
+    {
+      "name": "restore brings back h",
+      "pass": true
+    },
+    {
+      "name": "restore brings back L",
+      "pass": true
+    },
+    {
+      "name": "restore brings back confirmation",
+      "pass": true
+    },
+    {
+      "name": "no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "timber dimensions remain printable",
+      "pass": true
+    },
+    {
+      "name": "AI action buttons hidden in print",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "cases": {
+    "initialUploadEarlyAiText": "w 50 mm ／ h 100 mm ／ L 2.20 m　（信頼度：低）",
+    "initialUploadEarlyAiState": "AI候補を⑤のw・h・Lへ先行補完しました（未確認）。現場実測・自由長・施工状態を確認して補正してください。",
+    "aiText": "w 50 mm ／ h 100 mm ／ L 2.20 m　（信頼度：低）",
+    "actualUploadAiText": "w 50 mm ／ h 100 mm ／ L 2.20 m　（信頼度：低）",
+    "snapshot": {
+      "wMm": 50,
+      "hMm": 100,
+      "freeLengthM": 2.2,
+      "count": 3,
+      "referenceStrengthPerUnitKn": 4.058441558441558,
+      "confirmed": true,
+      "source": "CTU Code Annex 7 Appendix 4 参考式 / w=50 mm / h=100 mm / L=2.2 m / n=3 / 写真AI候補を再反映AI予想（信頼度low） / 参考支保力 4.1 kN/個",
+      "aiPrediction": {
+        "wMm": 50,
+        "hMm": 100,
+        "freeLengthM": 2.2,
+        "confidence": "low",
+        "basis": "写真内の木材らしい長方形の縦横比から標準寸法候補「横木 50×100 mm（厚さw=50／高さh=100）・自由長2.2 m（1本）」に近いものを提示。縮尺がないため低信頼です。"
+      }
+    }
+  },
+  "passCount": 41,
+  "failCount": 0
+}

@@ -1,0 +1,46 @@
+PASS VERSION is v1.3.98
+PASS rebuild base is v1.3.91 complete
+PASS completeBuild is true
+PASS page loads v1398 calculation core
+PASS page loads v1398 UI CSS
+PASS page loads layout sync
+PASS page loads usability helper
+PASS v1.3.91 imported application-number registration link remains active
+PASS v1.3.91 Excel route/application-number import remains active
+PASS v1.3.91 application-number prefill and mismatch guard retained
+PASS Excel import emits application-number prefill event
+PASS v1.3.89 remark UN-weight autofill remains retained
+PASS old v1394 core is not active
+PASS Step 5 -> wall check -> Step 6 order
+PASS three true pair wrappers exist
+PASS layout toggle is at page top before Step 1
+PASS explicit 1-column / 2-column buttons exist
+PASS two-column mode uses a real 2-column grid
+PASS two-column shell has dedicated sizing
+PASS current calculation conditions summary is visually labeled
+PASS result-state emphasis helper exists
+PASS confirmed wall directions are visually emphasized
+PASS layout choice persistence is implemented
+PASS four direction-specific wall confirmation checkboxes exist
+PASS four direction-specific wall gap fields exist
+PASS 15 cm horizontal-gap candidate threshold is explicit
+PASS photo/AI gap helper never auto-checks wall resistance
+PASS wall resistance is direction-eligible only after confirmation
+PASS calculation snapshot stores direction wall confirmation and gap
+PASS legacy all-direction wall checkbox remains hidden
+PASS CTU reusable rule module loads
+PASS Sea A coefficients 0.3/0.5 longitudinal and 0.5/1.0 transverse
+PASS Sea B coefficients 0.3/0.3 longitudinal and 0.7/1.0 transverse
+PASS Sea C coefficients 0.4/0.2 longitudinal and 0.8/1.0 transverse
+PASS directional force m*g*c verified
+PASS direct-lashing friction uses 75% static mu
+PASS front/door wall 0.4P example
+PASS side wall 0.6P example
+PASS weakest MSL picks CTU-side 10 kN
+PASS core uses reusable wall-resistance function with cap
+PASS wall and blocking are not double-counted
+PASS stiff restraint and direct lashing are not simply added in same sliding path
+PASS final CTU resistance composition is friction + topover + one mechanical path
+PASS tied-direction summary uses latest result safely
+PASS result labels use usability wording
+TOTAL 45 / PASS 45 / FAIL 0

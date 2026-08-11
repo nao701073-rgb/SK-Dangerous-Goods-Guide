@@ -1,0 +1,104 @@
+===== static =====
+PASS factor shackle=0.5
+PASS factor fibre=0.33
+PASS factor webSingle=0.75
+PASS factor webReusable=0.5
+PASS factor wireSingle=0.8
+PASS factor wireReusable=0.3
+PASS factor steelBand=0.7
+PASS factor steelBandRecommended=0.5
+PASS factor chain=0.5
+PASS chain Grade8 13mm = 100 kN
+PASS wire 8mm MSL=40d2
+PASS wire 10mm MSL=40d2
+PASS wire 12mm MSL=40d2
+PASS wire 14mm MSL=40d2
+PASS wire 16mm MSL=40d2
+PASS wire 18mm MSL=40d2
+PASS wire 20mm MSL=40d2
+PASS PP 10mm MSL=4d2
+PASS PP 12mm MSL=4d2
+PASS PP 14mm MSL=4d2
+PASS PP 16mm MSL=4d2
+PASS PP 18mm MSL=4d2
+PASS PP 20mm MSL=4d2
+PASS PP 24mm MSL=4d2
+PASS timber-batten-50x100-l22 F=n*w2*h/(28L)
+PASS timber-batten-50x100-l24 F=n*w2*h/(28L)
+PASS timber-batten-50x150-l22 F=n*w2*h/(28L)
+PASS timber-batten-75x100-l22 F=n*w2*h/(28L)
+PASS timber-batten-75x150-l22 F=n*w2*h/(28L)
+PASS timber-batten-100x100-l22 F=n*w2*h/(28L)
+PASS aslash-aw200 has source
+PASS aslash-aw200 auto value stays confirmation-aware
+PASS aslash-aw300 has source
+PASS aslash-aw300 auto value stays confirmation-aware
+PASS steel-31-08-rec50 has source
+PASS steel-31-08-rec50 auto value stays confirmation-aware
+PASS steel-31-08 has source
+PASS steel-31-08 auto value stays confirmation-aware
+PASS steel-31-145-rec50 has source
+PASS steel-31-145-rec50 auto value stays confirmation-aware
+PASS steel-31-145 has source
+PASS steel-31-145 auto value stays confirmation-aware
+PASS wire-oneway-8 has source
+PASS wire-oneway-8 auto value stays confirmation-aware
+PASS wire-oneway-10 has source
+PASS wire-oneway-10 auto value stays confirmation-aware
+PASS wire-oneway-12 has source
+PASS wire-oneway-12 auto value stays confirmation-aware
+PASS wire-oneway-14 has source
+PASS wire-oneway-14 auto value stays confirmation-aware
+PASS wire-oneway-16 has source
+PASS wire-oneway-16 auto value stays confirmation-aware
+PASS wire-oneway-18 has source
+PASS wire-oneway-18 auto value stays confirmation-aware
+PASS wire-oneway-20 has source
+PASS wire-oneway-20 auto value stays confirmation-aware
+PASS wire-16-2clip has source
+PASS wire-16-2clip auto value stays confirmation-aware
+PASS wire-16-4clip has source
+PASS wire-16-4clip auto value stays confirmation-aware
+PASS chain-g8-13 has source
+PASS chain-g8-13 auto value stays confirmation-aware
+PASS chain-marked-20 has source
+PASS chain-marked-20 auto value stays confirmation-aware
+PASS web-marked-5 has source
+PASS web-marked-5 auto value stays confirmation-aware
+PASS web-marked-10 has source
+PASS web-marked-10 auto value stays confirmation-aware
+PASS web-marked-20 has source
+PASS web-marked-20 auto value stays confirmation-aware
+PASS web-marked-25 has source
+PASS web-marked-25 auto value stays confirmation-aware
+PASS web-marked-40 has source
+PASS web-marked-40 auto value stays confirmation-aware
+PASS web-marked-50 has source
+PASS web-marked-50 auto value stays confirmation-aware
+PASS tygard-ds-rail-60 has source
+PASS tygard-ds-rail-60 auto value stays confirmation-aware
+PASS pp-rope-10 has source
+PASS pp-rope-10 auto value stays confirmation-aware
+PASS pp-rope-12 has source
+PASS pp-rope-12 auto value stays confirmation-aware
+PASS pp-rope-14 has source
+PASS pp-rope-14 auto value stays confirmation-aware
+PASS pp-rope-16 has source
+PASS pp-rope-16 auto value stays confirmation-aware
+PASS pp-rope-18 has source
+PASS pp-rope-18 auto value stays confirmation-aware
+PASS pp-rope-20 has source
+PASS pp-rope-20 auto value stays confirmation-aware
+PASS pp-rope-24 has source
+PASS pp-rope-24 auto value stays confirmation-aware
+PASS PET band is manual-only
+PASS FRP support is manual-only
+PASS visible lashing profile select exists
+PASS visible support profile select exists
+PASS lashing strength stale default removed
+PASS support strength stale default removed
+PASS calculation result stores selected lashing profile
+PASS calculation result stores selected support profile
+PASS registered result restores lashing profile id
+PASS registered result restores support profile id
+TOTAL 102 / PASS 102 / FAIL 0

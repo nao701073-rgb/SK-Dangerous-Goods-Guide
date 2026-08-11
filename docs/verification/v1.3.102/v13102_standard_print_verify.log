@@ -1,0 +1,29 @@
+PASS print state has support-off class
+PASS print state has sufficient-result class
+PASS app header hidden
+PASS sticky progress hidden
+PASS layout toolbar hidden
+PASS registered-case UI hidden
+PASS unused support panel hidden
+PASS unused support load-path helper hidden
+PASS deficiency support hidden for sufficient result
+PASS closed details hidden
+PASS print pair uses single flow
+PASS Step 3 starts new print page
+PASS Step 5 starts new print page
+PASS Step 6 starts new print page
+PASS Step 7 starts new print page
+PASS result summary has three print columns
+PASS directional load detail starts new print page
+PASS no horizontal overflow in print media
+PASS print main card borders remain symmetric
+PASS print cards have no shadows
+PASS calculation remains sufficient
+PASS required resistance remains 25.2 kN
+PASS evaluated resistance remains 44.5 kN
+PASS margin remains 19.4 kN
+PASS standard A4 report remains six pages
+PASS standard state has no application-expanded class
+PASS v1.3.102 adaptive print CSS is loaded
+PASS v1.3.102 adaptive print JS is loaded
+TOTAL 28 / PASS 28 / FAIL 0

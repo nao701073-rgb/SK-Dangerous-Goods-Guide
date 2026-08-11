@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "findingCount": 0,
+  "stats": {
+    "html": 75,
+    "js": 430,
+    "json": 400,
+    "refs": 2482,
+    "bytes": 328711954
+  }
+}
