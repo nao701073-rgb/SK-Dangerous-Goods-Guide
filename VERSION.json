@@ -1,10 +1,10 @@
 {
-  "version": "1.3.112",
-  "base": "v1.3.111",
-  "title": "Dangerous Goods Search Result Navigation Update",
-  "summary": "危険物検索のスマートフォン操作を改善。検索実行後は検索結果見出しと先頭結果カードが見える位置へ自動スクロールし、検索履歴の「再検索」は同条件を再検索して結果が1件の場合に危険物詳細を直接開く。複数件の場合は検索結果一覧へ自動スクロールする。",
+  "version": "1.3.114",
+  "base": "v1.3.113",
+  "title": "Conservative CTU Payload Estimate and First-Paint Layout Fix",
+  "summary": "CTU最大積載量Pの概算を見直し、CSC・扉表示を確認できない場合のみ、コンテナ種類ごとの0.1t単位の保守的概算Pを使用。概算値は実物MAX PAYLOADと明確に区別し、実物CSC値は常に優先する。固縛力参考算出を開いた瞬間の1列→2列表示フラッシュを解消し、保存済みレイアウトを初回描画前に適用する。",
   "calculationLogicChanged": false,
-  "calculationChangeScope": "固縛力参考算出・CTU/CSS計算ロジックへの変更なし。危険物検索・検索履歴の画面遷移のみ。",
+  "calculationChangeScope": "CTU Codeの壁抵抗係数・方向別必要力・重複制限式は変更なし。CSC不明時にのみ使う保守的Pフォールバック値・根拠表示と、初期レイアウト描画を修正。",
   "completeBuild": true,
   "rebuildBaseline": "v1.3.104 complete verified system",
   "ui": {
@@ -98,7 +98,26 @@
     "dangerousGoodsSearchAutoScrollToResults": true,
     "dangerousGoodsSearchMobileResultPositionOptimized": true,
     "searchHistoryRequeryOpensSingleDetail": true,
-    "searchHistoryMultiResultFallsBackToResults": true
+    "searchHistoryMultiResultFallsBackToResults": true,
+    "wallPayloadRepresentativeDefault": true,
+    "wallPayloadRoundedTo100Kg": true,
+    "wallPayloadActualCscOverride": true,
+    "wallDirectionCheckboxIsConfirmation": true,
+    "wallDirectionNoDuplicateReview": true,
+    "focusDirectionAfterWallResistance": true,
+    "focusDirectionUsesSmallestMargin": true,
+    "wallPayloadUnknownUsesConservativeFallback": true,
+    "wallPayloadFormulaExplainedAsGrossMinusTare": true,
+    "wallPayloadFallbackValuesT": {
+      "dry20": 21.8,
+      "dry40": 26.8,
+      "reefer20": 21.2,
+      "reefer40": 25.9
+    },
+    "layoutFirstPaintMatchesSavedPreference": true,
+    "twoColumnOpeningFlashRemoved": true,
+    "wallPayloadFallbackClearlySeparatedFromActualMaxPayload": true,
+    "stalePageBuildMetaUpdated": true
   },
   "verification": {
     "browserRender": "Chromium 144 production DOM/CSS/calculation-layout runtime harness (auth/external network isolated)",
@@ -158,7 +177,12 @@
     "searchResultScrollOffsetBelowStickyHeaderVerified": true,
     "searchHistorySingleUnResultOpensDetailVerified": true,
     "searchHistoryAdvancedConditionFallbackVerified": true,
-    "searchNavigationPageErrors": 0
+    "searchNavigationPageErrors": 0,
+    "v13114PayloadLayoutBrowserVerifier": "30/30 PASS",
+    "savedTwoColumnFirstPaintVerified": true,
+    "normalPcInitialOneColumnVerified": true,
+    "mobileInitialOneColumnVerified": true,
+    "pageErrors": 0
   },
-  "build": "v1.3.112-update-only-search-result-navigation"
+  "build": "v1.3.114-update-only-payload-layout-fix"
 }
