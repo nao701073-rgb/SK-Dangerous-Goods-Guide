@@ -1,0 +1,39 @@
+<!doctype html><html lang="ja"><head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>クラウド接続設定｜検査・検品業務サポートシステム</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/cloud-connection.css">  <script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head><body>
+<main class="cloud-setup-page">
+<p><a href="system-settings.html">← 設定へ戻る</a></p>
+<header class="cloud-setup-hero"><div><span>Cloud Connection</span><h1>クラウド接続・試験運用設定</h1><p>社内サーバーを設置せず、クラウド上の認証APIとデータベースへ接続するための初期設定画面です。</p></div><strong>Part 193</strong></header>
+<section class="panel"><div class="panel-heading"><h2>1. API接続先</h2></div><div class="panel-body">
+<form id="connectionForm" class="cloud-form"><label>クラウドAPI URL<input id="apiEndpoint" type="url" placeholder="https://api.example.jp/api" required><small>末尾の「/」は不要です。通常は「/api」まで含めます。</small></label><div class="cloud-actions"><button type="submit">接続先を保存</button><button id="clearEndpoint" type="button" class="secondary">設定を消去</button></div></form>
+<p id="saveStatus" class="status-line"></p></div></section>
+<section class="panel"><div class="panel-heading"><h2>2. 接続テスト</h2><button id="runTest" type="button">接続を確認</button></div><div class="panel-body"><div id="testResult" class="test-result is-idle"><strong>未確認</strong><p>API URLを保存してから接続確認を実行してください。</p></div><dl id="runtimeDetails" class="runtime-details" hidden></dl></div></section>
+<section class="panel"><div class="panel-heading"><h2>3. 試験運用準備チェック</h2></div><div class="panel-body"><div class="readiness-list">
+<label><input type="checkbox" data-ready="https"> HTTPSで接続できる</label>
+<label><input type="checkbox" data-ready="database"> PostgreSQLへの接続が正常</label>
+<label><input type="checkbox" data-ready="cors"> 公開画面URLがCORS許可先に登録済み</label>
+<label><input type="checkbox" data-ready="mail"> 認証メールの送信方法を設定済み</label>
+<label><input type="checkbox" data-ready="backup"> 日次バックアップを設定済み</label>
+<label><input type="checkbox" data-ready="admin"> 初期管理者のパスワードを変更済み</label>
+<label><input type="checkbox" data-ready="users"> 利用者CSVをdry-runで検証済み</label>
+<label><input type="checkbox" data-ready="safety"> 安全環境室6名の権限を確認済み</label>
+</div><div class="readiness-summary"><strong id="readyCount">0 / 8</strong><span id="readyMessage">準備項目を確認してください。</span></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>4. 次の操作</h2></div><div class="panel-body cloud-links"><a href="login.html">ログイン画面を開く</a><a href="user-admin.html">利用者管理を開く</a><a href="production-readiness.html">本番導入・リリース判定を開く</a><a href="operations-monitoring.html">運用監視・障害対応を開く</a></div></section>
+</main><script src="../assets/js/storage.js?v=193"></script><script src="../assets/js/api-client.js?v=508"></script><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/cloud-connection.js?v=193"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+</body></html>

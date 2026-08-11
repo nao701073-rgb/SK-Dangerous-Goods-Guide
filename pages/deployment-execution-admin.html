@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>導入・切替実行管理｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/admin-tools.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="deployment-execution-admin" data-required-roles="safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">導入・切替実行管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="workspace admin-tool-page">
+<div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 導入・切替実行管理</div>
+<section class="readiness-hero"><div><span id="executionBadge">Part 249</span><h2>配置から運用開始後の初期確認までを一括管理</h2><p>設定投入、マイグレーション、初期利用者、切替、ロールバック準備、開始後確認を順番に記録します。</p></div><div class="readiness-actions"><button id="saveExecution" type="button">保存</button><button id="exportExecution" type="button">JSON出力</button></div></section>
+<section class="panel"><div class="panel-heading"><h2>導入基本情報</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>対象環境</strong><p>試験、本番など対象環境を記録します。</p></div><input id="environment" type="text" placeholder="例：クラウド試験環境"/></label>
+<label class="settings-row settings-row--select"><div><strong>対象バージョン</strong><p>配置する版を記録します。</p></div><input id="targetVersion" type="text" value="Part 249"/></label>
+<label class="settings-row settings-row--select"><div><strong>切替予定日時</strong><p>利用者への案内と合わせて設定します。</p></div><input id="switchAt" type="datetime-local"/></label>
+<label class="settings-row settings-row--select"><div><strong>実施責任者</strong><p>切替判断と記録の責任者を入力します。</p></div><input id="owner" type="text"/></label>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>実行フェーズ</h2></div><div class="panel-body"><div id="executionChecklist" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>切替・ロールバック判定</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>現在の判定</strong><p>未確認項目がある場合は「保留」にします。</p></div><select id="decision"><option value="pending">保留</option><option value="go">切替可</option><option value="rollback">ロールバック</option><option value="completed">切替完了</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>判定理由・残課題</strong><p>切替判断、障害、暫定対応、次の担当を記録します。</p></div><textarea id="notes" rows="6"></textarea></label>
+<div class="fixed-setting" id="executionStatus">未保存</div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>運用開始後の初期点検</h2></div><div class="panel-body"><p>開始後1日、7日、30日の確認結果を記録します。</p><div id="postLaunchChecks" class="check-list"></div></div></section>
+</main>
+<script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/deployment-execution-admin.js"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

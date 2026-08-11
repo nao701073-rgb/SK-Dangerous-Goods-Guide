@@ -1,0 +1,226 @@
+
+.regulations-page {
+  display: grid;
+  gap: 28px;
+}
+
+.regulation-intro,
+.cross-reference-card {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.regulation-intro h2 {
+  margin: 12px 0 8px;
+}
+
+.regulation-intro p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.regulation-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.regulation-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.regulation-card h3 {
+  margin: 0;
+}
+
+.regulation-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.regulation-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.regulation-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--navy);
+  font-size: .76rem;
+  font-weight: 800;
+}
+
+.regulation-status.active {
+  background: #e8f6ee;
+  color: #246b43;
+}
+
+.regulation-status.future {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.reference-flow {
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.reference-flow > div {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--surface-soft);
+  font-weight: 800;
+}
+
+.reference-flow small {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+@media (min-width: 720px) {
+  .regulation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reference-flow {
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+  }
+}
+
+
+.regulation-identifiers {
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.6;
+}
+
+
+.regulation-source-area {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.regulation-source-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 44px;
+  padding: 8px 2px;
+  border-radius: 8px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.regulation-source-attribution {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-width: 0;
+  padding-top: 10px;
+  border-top: 1px solid #d8e4ef;
+  color: #355a7a;
+  line-height: 1.5;
+}
+
+.regulation-source-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 26px;
+  padding: 3px 9px;
+  border: 1px solid #b8cee2;
+  border-radius: 999px;
+  background: #eef6fd;
+  color: #0b5da9;
+  font-size: .75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.regulation-source-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.regulation-source-body > strong {
+  color: #123d63;
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+}
+
+.regulation-source-body > small {
+  color: #667f97;
+  font-size: .72rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+
+
+/* Part 345: regulation cards readability and consistent actions */
+.regulation-section .section-heading {
+  margin-bottom: 14px;
+}
+.regulation-card {
+  min-width: 0;
+  min-height: 100%;
+  grid-template-rows: auto auto auto 1fr auto;
+  align-content: start;
+}
+.regulation-card h3,
+.regulation-card p,
+.regulation-identifiers {
+  overflow-wrap: anywhere;
+}
+.regulation-source-link:hover,
+.regulation-source-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.regulation-source-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 60%, white);
+  outline-offset: 2px;
+}
+@media (max-width: 719px) {
+  .regulations-page {
+    gap: 22px;
+  }
+  .regulation-intro,
+  .cross-reference-card {
+    padding: 20px;
+  }
+  .regulation-card {
+    padding: 18px 16px;
+  }
+
+  .regulation-source-attribution {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .regulation-source-label {
+    min-width: 0;
+    width: fit-content;
+  }
+}

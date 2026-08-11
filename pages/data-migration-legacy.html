@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="ja"><head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>データ移行管理</title><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/admin-tools.css?v=178"><link rel="stylesheet" href="../assets/css/data-migration.css?v=178">  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head><body data-page="data-migration" data-required-roles="safety-environment-admin"><main class="migration-page"><p><a href="system-settings.html">← 設定へ戻る</a></p><h1>データ移行管理</h1><p class="notice">川崎事業所の試験運用を優先し、CSVの事前検証後に登録します。エラーがある行は登録されません。実行結果は監査ログへ記録します。</p>
+<section class="panel"><div class="panel-heading"><h2>1. 移行対象を選択</h2></div><div class="panel-body"><div class="type-grid"><button class="type-card is-active" data-type="applications"><strong>申請番号</strong><span>申請番号・荷主・貨物名・状態</span></button><button class="type-card" data-type="users"><strong>利用者</strong><span>ログインID・表示名・権限・所属</span></button><button class="type-card" data-type="offices"><strong>事業所</strong><span>他ブロック・他事業所の追加</span></button><button class="type-card" data-type="browser"><strong>ブラウザ保存データ</strong><span>ローカルデータを中央DBへ移行</span></button></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>2. ファイル選択と事前検証</h2><div class="actions"><button id="downloadTemplate" type="button">CSV雛形を保存</button></div></div><div class="panel-body"><div id="csvArea"><label class="file-drop">CSVファイル<input id="csvFile" type="file" accept=".csv,text/csv"><span>クリックして選択、またはCSVをドロップ</span></label></div><div id="browserArea" hidden><p>現在のブラウザに保存されている申請番号・写真メタデータ・設定を読み取り、移行候補を作成します。写真画像そのものは別途アップロードが必要です。</p><button id="readBrowserData" type="button">ブラウザ保存データを読み取る</button></div><div class="actions"><button id="validateData" class="primary-action" type="button">事前検証する</button><button id="clearData" type="button">クリア</button></div><p id="status"></p></div></section>
+<section class="panel"><div class="panel-heading"><h2>3. 検証結果</h2><div id="summary" class="summary"></div></div><div class="panel-body"><div class="table-wrap"><table><thead id="previewHead"></thead><tbody id="previewBody"></tbody></table></div><div class="actions"><button id="commitImport" class="primary-action" type="button" disabled>エラーのないデータを登録</button><button id="downloadErrors" type="button" disabled>エラー一覧CSV</button></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>4. 移行履歴</h2><button id="reloadHistory" type="button">再読込</button></div><div class="panel-body"><div class="table-wrap"><table><thead><tr><th>日時</th><th>対象</th><th>結果</th><th>登録</th><th>エラー</th><th>実行者</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
+</main><script src="../assets/js/storage.js?v=178"></script><script src="../assets/js/api-client.js?v=508"></script><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/data-migration.js?v=178"></script>  <script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+</body></html>

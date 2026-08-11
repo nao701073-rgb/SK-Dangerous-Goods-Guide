@@ -1,0 +1,8 @@
+/* Part 548: 申請番号管理への登録を明示し、下段の許可情報重複を廃止 */
+#intakeRegisterSection{border-color:#9fc4eb;background:#fbfdff}
+.intake-register-state{margin:0 0 12px;padding:10px 12px;border:1px solid #c9dff4;border-radius:8px;background:#eef6ff;color:#164b7a;font-weight:700}
+#intakeRegisterNew:disabled,#intakeUpdateExisting:disabled{opacity:.48;cursor:not-allowed}
+.intake-actions--secondary{margin-top:14px;border-top:1px solid #dbe8f5;padding-top:12px}
+/* 許可・確認事項は上段の事前審査確認を正本表示とする */
+#intakeCargoBody [data-field-group="permission"]{display:none!important}
+@media(max-width:760px){.intake-register-state{font-size:.92rem}.intake-actions--secondary{display:grid;grid-template-columns:1fr}.intake-actions--secondary button{width:100%}}

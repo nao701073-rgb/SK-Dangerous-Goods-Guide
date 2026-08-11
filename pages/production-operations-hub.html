@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>正式運用統合管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css">
+  <link rel="stylesheet" href="../assets/css/production-operations-hub.css">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="production-operations-hub" data-required-roles="safety-environment-admin">
+  <main class="workspace production-operations-hub">
+    <p><a href="system-settings.html">← システム設定へ戻る</a></p>
+    <section class="readiness-hero">
+      <div>
+        <span id="hubStatusBadge">確認中</span>
+        <h1>正式運用統合管理</h1>
+        <p>利用者・権限、認証、法令データ、バックアップ、障害対応、監査を横断して確認します。</p>
+      </div>
+      <div class="readiness-actions">
+        <button id="exportHubReport" type="button">確認結果JSON出力</button>
+        <button id="resetHubChecklist" type="button">確認状態を初期化</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>管理機能の分類</h2><p>目的別に既存の管理画面を整理しています。</p></div></div>
+      <div class="panel-body hub-category-grid" id="hubCategoryGrid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>正式運用確認チェック</h2><p>正式運用前または大きな更新後に、必要な確認事項を記録します。</p></div><span id="hubProgressText" class="fixed-setting">0 / 0</span></div>
+      <div class="panel-body">
+        <div class="hub-progress" aria-hidden="true"><span id="hubProgressBar"></span></div>
+        <form id="hubChecklistForm" class="hub-checklist"></form>
+      </div>
+    </section>
+
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>本番運用開始手続き</h2><p>開始前確認から移行、公開、初動確認までを段階ごとに記録します。</p></div><span id="cutoverProgressText" class="fixed-setting">0 / 0</span></div>
+      <div class="panel-body">
+        <div class="hub-progress" aria-hidden="true"><span id="cutoverProgressBar"></span></div>
+        <form id="cutoverChecklistForm" class="hub-checklist"></form>
+        <div class="readiness-actions hub-cutover-actions">
+          <button id="exportCutoverReport" type="button">開始手続き記録JSON出力</button>
+          <button id="resetCutoverChecklist" type="button">開始手続きを初期化</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>開始承認記録</h2><p>本番公開の判断、実施予定日時、責任者および差戻し条件を記録します。</p></div></div>
+      <div class="panel-body">
+        <form id="cutoverApprovalForm" class="admin-form-grid">
+          <label>開始判断
+            <select id="cutoverDecision">
+              <option value="hold">保留</option>
+              <option value="conditional">条件付き開始可</option>
+              <option value="approved">開始承認</option>
+              <option value="rollback">差戻し</option>
+            </select>
+          </label>
+          <label>本番開始予定日時<input id="cutoverAt" type="datetime-local"></label>
+          <label>実施責任者<input id="cutoverOwner" type="text" maxlength="120" placeholder="氏名または役職"></label>
+          <label>立会確認者<input id="cutoverWitness" type="text" maxlength="120" placeholder="氏名または役職"></label>
+          <label class="admin-form-wide">開始条件・差戻し条件<textarea id="cutoverConditions" rows="4" maxlength="3000" placeholder="未完了事項、許容条件、差戻し判断基準を記録"></textarea></label>
+          <div class="admin-form-wide readiness-actions"><button type="submit">開始承認記録を保存</button></div>
+        </form>
+        <p id="cutoverSavedStatus" class="admin-status">未保存</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><div><h2>運用責任者記録</h2><p>確認時点の所見と次回確認予定を端末内へ保存します。</p></div></div>
+      <div class="panel-body">
+        <form id="hubReviewForm" class="admin-form-grid">
+          <label>総合判定
+            <select id="hubConclusion">
+              <option value="hold">保留</option>
+              <option value="pilot">試験運用継続可</option>
+              <option value="production">正式運用可</option>
+            </select>
+          </label>
+          <label>次回確認日<input id="hubNextReview" type="date"></label>
+          <label class="admin-form-wide">確認所見<textarea id="hubReviewNote" rows="4" maxlength="3000"></textarea></label>
+          <div class="admin-form-wide readiness-actions"><button type="submit">確認記録を保存</button></div>
+        </form>
+        <p id="hubSavedStatus" class="admin-status">未保存</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>運用上の基本方針</h2></div>
+      <div class="panel-body hub-policy-list">
+        <p><strong>本システムの利用は任意です。</strong></p>
+        <p>利用履歴は、セキュリティ確認、不適切利用の調査、障害調査および運用改善の目的に限定して取り扱います。</p>
+        <p>透かし表示、スクリーンショット検知・追跡および画面自動保存は、現時点では実装しません。</p>
+      </div>
+    </section>
+  </main>
+  <script src="../assets/js/api-client.js?v=508"></script>
+  <script src="../assets/js/role-access.js?v=503"></script>
+  <script src="../assets/js/production-operations-hub.js?v=308"></script>
+  <script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+</body>
+</html>

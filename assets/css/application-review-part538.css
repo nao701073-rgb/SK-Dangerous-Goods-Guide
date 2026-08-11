@@ -1,0 +1,61 @@
+/* Part 538: desktop confirmation table + responsive registered-case review */
+:root{--part538-line:#c8d9e8;--part538-head:#e9f2fa;--part538-soft:#f1f6fb;--part538-navy:#083f78;--part538-text:#102a43}
+
+/* The desktop table is the primary confirmation view. */
+.verification-table-wrap.part536-compat-table.part538-verification-table{
+  position:static!important;inline-size:auto!important;block-size:auto!important;
+  overflow-x:auto!important;clip:auto!important;white-space:normal!important;
+  margin-top:14px;border:1px solid var(--part538-line);border-radius:10px;background:#fff;
+}
+.part538-verification-table .verification-table{width:100%;min-width:1020px;table-layout:fixed;border-collapse:collapse}
+.part538-verification-table .verification-table th,
+.part538-verification-table .verification-table td{border:0;border-right:1px solid var(--part538-line);border-bottom:1px solid var(--part538-line);padding:12px 10px;text-align:left;vertical-align:top;line-height:1.6;color:var(--part538-text);overflow-wrap:anywhere}
+.part538-verification-table .verification-table th:last-child,
+.part538-verification-table .verification-table td:last-child{border-right:0}
+.part538-verification-table .verification-table tbody tr:last-child td{border-bottom:0}
+.part538-verification-table .verification-table th{background:var(--part538-head);color:#0b355f;font-weight:800;white-space:normal}
+.part538-verification-table .verification-table th:nth-child(1),.part538-verification-table .verification-table td:nth-child(1){width:5%}
+.part538-verification-table .verification-table th:nth-child(2),.part538-verification-table .verification-table td:nth-child(2){width:12%}
+.part538-verification-table .verification-table th:nth-child(3),.part538-verification-table .verification-table td:nth-child(3){width:19%}
+.part538-verification-table .verification-table th:nth-child(4),.part538-verification-table .verification-table td:nth-child(4){width:9%}
+.part538-verification-table .verification-table th:nth-child(5),.part538-verification-table .verification-table td:nth-child(5){width:11%}
+.part538-verification-table .verification-table th:nth-child(6),.part538-verification-table .verification-table td:nth-child(6){width:23%}
+.part538-verification-table .verification-table th:nth-child(7),.part538-verification-table .verification-table td:nth-child(7){width:21%}
+.part538-verification-table .verification-table td:nth-child(2) strong{font-size:1.02rem;color:#003d78}
+.part538-verification-table .verification-table td:nth-child(2) small{display:block;margin-top:5px;color:#315778;line-height:1.45}
+.part538-verification-table .verification-original-name{display:inline-block;margin-top:4px;color:#17446f;line-height:1.5}
+.part538-verification-table .quantity-highlight{display:inline-block;margin:2px 0;padding:2px 6px;border-radius:6px;background:#eaf3fb;color:#073b70;font-weight:800}
+.part538-verification-table .limit-block{margin:0 0 8px;padding:10px;border:1px solid #c5d8e8;border-radius:9px;background:#f8fbfe}
+.part538-verification-table .limit-block:last-child{margin-bottom:0}
+.part538-verification-table .limit-block>span{display:block;margin-bottom:6px;color:#173a5e;font-weight:800}
+.part538-verification-table .p200-reference-link,.part538-verification-table .review-links a{min-height:38px}
+#verificationGoodsCards{display:none!important}
+
+/* Registered application details use the same information order. */
+.application-cargo-table-wrap{margin-top:12px;overflow-x:auto;border:1px solid var(--part538-line);border-radius:10px;background:#fff}
+.application-cargo-table{width:100%;min-width:1000px;border-collapse:collapse;table-layout:fixed}
+.application-cargo-table th,.application-cargo-table td{padding:11px 10px;border-right:1px solid var(--part538-line);border-bottom:1px solid var(--part538-line);vertical-align:top;text-align:left;line-height:1.55;overflow-wrap:anywhere}
+.application-cargo-table th{background:var(--part538-head);color:#0b355f;font-weight:800}
+.application-cargo-table th:last-child,.application-cargo-table td:last-child{border-right:0}.application-cargo-table tbody tr:last-child td{border-bottom:0}
+.application-cargo-table th:nth-child(1),.application-cargo-table td:nth-child(1){width:5%}.application-cargo-table th:nth-child(2),.application-cargo-table td:nth-child(2){width:11%}.application-cargo-table th:nth-child(3),.application-cargo-table td:nth-child(3){width:20%}.application-cargo-table th:nth-child(4),.application-cargo-table td:nth-child(4){width:8%}.application-cargo-table th:nth-child(5),.application-cargo-table td:nth-child(5){width:10%}.application-cargo-table th:nth-child(6),.application-cargo-table td:nth-child(6){width:23%}.application-cargo-table th:nth-child(7),.application-cargo-table td:nth-child(7){width:23%}
+.application-cargo-table .cargo-un{font-weight:800;color:#003d78}.application-cargo-table .cargo-original{display:block;margin-top:4px;color:#17446f}.application-cargo-table .cargo-quantity{display:grid;gap:4px}.application-cargo-table .cargo-quantity strong{display:inline-block;padding:2px 6px;border-radius:6px;background:#eaf3fb;color:#073b70}.application-cargo-table .cargo-allowance{padding:9px;border:1px solid #c5d8e8;border-radius:9px;background:#f8fbfe}.application-cargo-table .cargo-permission{margin-top:8px;padding:8px;border-radius:8px;background:#fff3cd;color:#6b4b00}.application-cargo-table .review-links{margin-top:8px}
+
+@media(max-width:760px){
+  .verification-table-wrap.part536-compat-table.part538-verification-table,.application-cargo-table-wrap{overflow:visible;border:0;background:transparent}
+  .part538-verification-table .verification-table,.application-cargo-table{min-width:0;table-layout:auto}
+  .part538-verification-table .verification-table thead,.application-cargo-table thead{display:none}
+  .part538-verification-table .verification-table,.part538-verification-table .verification-table tbody,.part538-verification-table .verification-table tr,.part538-verification-table .verification-table td,
+  .application-cargo-table,.application-cargo-table tbody,.application-cargo-table tr,.application-cargo-table td{display:block;width:100%!important;box-sizing:border-box}
+  .part538-verification-table .verification-table tr,.application-cargo-table tr{margin:0 0 14px;border:1px solid var(--part538-line);border-radius:12px;overflow:hidden;background:#fff}
+  .part538-verification-table .verification-table td,.application-cargo-table td{border:0;border-bottom:1px solid #e3ebf2;padding:10px 12px 10px 42%;position:relative;min-height:44px}
+  .part538-verification-table .verification-table td:last-child,.application-cargo-table td:last-child{border-bottom:0}
+  .part538-verification-table .verification-table td::before,.application-cargo-table td::before{position:absolute;left:12px;top:10px;width:36%;font-weight:800;color:#173a5e}
+  .part538-verification-table .verification-table td:nth-child(1)::before,.application-cargo-table td:nth-child(1)::before{content:"No."}
+  .part538-verification-table .verification-table td:nth-child(2)::before,.application-cargo-table td:nth-child(2)::before{content:"国連番号"}
+  .part538-verification-table .verification-table td:nth-child(3)::before,.application-cargo-table td:nth-child(3)::before{content:"品名・原文"}
+  .part538-verification-table .verification-table td:nth-child(4)::before,.application-cargo-table td:nth-child(4)::before{content:"容器等級"}
+  .part538-verification-table .verification-table td:nth-child(5)::before,.application-cargo-table td:nth-child(5)::before{content:"容器コード"}
+  .part538-verification-table .verification-table td:nth-child(6)::before,.application-cargo-table td:nth-child(6)::before{content:"申請数量"}
+  .part538-verification-table .verification-table td:nth-child(7)::before,.application-cargo-table td:nth-child(7)::before{content:"許容容量・許容質量"}
+}
+@media(max-width:460px){.part538-verification-table .verification-table td,.application-cargo-table td{padding-left:12px;padding-top:34px}.part538-verification-table .verification-table td::before,.application-cargo-table td::before{width:auto;right:12px;top:8px}}

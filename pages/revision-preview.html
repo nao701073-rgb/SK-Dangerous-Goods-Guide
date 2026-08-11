@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542">
+  <script src="../assets/js/auth-bootstrap.js?v=388"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>改正検証プレビュー｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/admin-tools.css">
+  <link rel="stylesheet" href="../assets/css/revision-preview.css?v=381">
+  <script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="revision-preview" data-required-roles="revision-validator,safety-environment-admin,safety-environment-director,safety-environment-staff">
+  <header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">改正検証プレビュー</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+  <main class="main-content revision-preview-page">
+    <section class="preview-alert"><strong>本番未反映</strong><p>この画面と改正検証者アカウントの各機能には、更新候補データが一時的に反映されます。一般利用者が参照する本番データは変更されません。</p></section>
+    <section class="panel"><div class="panel-heading"><h2>更新候補一覧</h2><button id="reloadPreview" type="button">再読込</button></div><div id="candidateList" class="candidate-list"></div></section>
+    <section class="panel"><div class="panel-heading"><h2>確認する機能</h2></div><div class="preview-link-grid">
+      <a href="dangerous-goods-search.html"><strong>危険物検索</strong><span>国連番号、品名、等級、標札、容器等級を確認</span></a>
+      <a href="dangerous-goods-search.html?query=UN1170"><strong>代表データ検索</strong><span>代表的な国連番号で更新内容を確認</span></a>
+      <a href="regulations.html"><strong>関連法令</strong><span>版情報、条文、改正履歴を確認</span></a>
+      <a href="imdg-cross-reference.html"><strong>国内法令・IMDG対照</strong><span>対照データと条文リンクを確認</span></a>
+      <a href="references.html"><strong>関連資料</strong><span>関連資料との参照関係を確認</span></a>
+      <a data-feature="overpack-label" href="overpack-label-tool.html"><strong>オーバーパック表示用作成</strong><span>標札、OVERPACK、国連番号、英語品名の表示内容を確認</span></a>
+    </div></section>
+    <section class="panel"><div class="panel-heading"><h2>検証記録</h2></div><div id="reviewEditor" class="review-editor"><p>更新候補を選択してください。</p></div></section>
+  </main>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/api-client.js?v=508"></script>
+  <script src="../assets/js/role-access.js?v=503"></script>
+  <script src="../assets/js/revision-preview.js?v=381"></script>
+  <script src="../assets/js/office-feature-gates.js?v=382"></script>
+  <script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文書・リリース統合管理｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head><body data-required-roles="safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">文書・リリース統合管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 文書・リリース統合管理</div>
+<section class="readiness-hero"><div><span id="releaseBadge">Part 243</span><h2>完成版文書とリリース情報を一元確認</h2><p>仕様書、実施要領書、役割別使用要領書、検証レポート、残課題を一画面で整理します。</p></div><div class="readiness-actions"><button id="downloadReleaseManifest" type="button">リリース構成JSON</button><a href="prototype-completion-review.html">試作完成判定</a></div></section>
+<section class="admin-card-grid" id="documentSummary"></section>
+
+<section class="panel"><div class="panel-heading"><div><h2>Part 243 完成版文書</h2><p>現在の機能・権限・運用方針を反映したWord文書です。</p></div><span class="fixed-setting">7文書</span></div><div class="panel-body"><div class="admin-link-grid">
+<span class="fixed-setting">システム仕様書（未同梱）</span>
+<span class="fixed-setting">実施要領書（未同梱）</span>
+<span class="fixed-setting">ゲスト用使用要領書（未同梱）</span>
+<span class="fixed-setting">事業所利用者用使用要領書（未同梱）</span>
+<span class="fixed-setting">事業所管理者用使用要領書（未同梱）</span>
+<span class="fixed-setting">安全環境室用使用要領書（未同梱）</span>
+<span class="fixed-setting">システム管理者用使用要領書（未同梱）</span>
+</div></div></section>
+<section class="panel"><div class="panel-heading"><div><h2>正式文書の更新対象</h2><p>試作完成版へ反映すべき文書を確認します。</p></div><span class="fixed-setting" id="documentProgress">0 / 0</span></div><div class="panel-body"><div id="documentChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><div><h2>リリース構成</h2><p>完成版へ含める主要機能と検証結果です。</p></div></div><div class="panel-body"><div id="releaseComponents" class="admin-link-grid"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>残課題と次の工程</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>文書統合状態</strong><p>全項目完了後に「完成版文書確定」を選択します。</p></div><select id="documentationDecision"><option value="in-progress">更新中</option><option value="review">確認待ち</option><option value="complete">完成版文書確定</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>残課題・引継事項</strong></div><textarea id="documentationNotes" rows="6" placeholder="クラウド配置後の設定、実利用者情報、最終承認など"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>次回確認日</strong></div><input id="documentationReviewDate" type="date"></label>
+<div class="settings-actions"><button class="primary-action" id="saveDocumentationReview" type="button">確認結果を保存</button><a class="secondary-action" href="integrated-verification.html">総合自動検査</a></div><div id="documentationMessage" class="settings-message" aria-live="polite"></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>現行方針</h2></div><div class="panel-body"><ul><li>本システムの利用は任意です。</li><li>ゲストは危険物検索、関連法令、関連資料、ユーザー設定を利用できます。</li><li>安全環境室長は全事業所の申請番号・写真を閲覧、登録、編集できますが、削除はできません。</li><li>システム管理者専用の利用履歴確認機能を備えます。</li><li>透かし表示、スクリーンショット検知・追跡、画面自動保存は現時点では実装しません。</li></ul></div></section>
+</main><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/session-guard.js?v=508"></script><script src="../assets/js/documentation-release-center.js?v=243"></script><script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

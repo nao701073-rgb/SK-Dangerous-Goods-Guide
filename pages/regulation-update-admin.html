@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法令改正・データ更新管理｜検査・検品業務サポートシステム</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/system-layout.css">
+  <link rel="stylesheet" href="../assets/css/regulation-update-admin.css?v=380">
+  <link rel="stylesheet" href="../assets/css/typography-quality.css?v=187">
+  <link rel="stylesheet" href="../assets/css/governance-part503.css?v=503">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="regulations" data-required-roles="safety-environment-admin,safety-environment-director,safety-environment-staff,validator">
+  <header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">法令改正・データ更新管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+  <main class="main-content revision-page">
+    <div class="part503-actions" style="margin-bottom:14px"><a class="primary-action" href="regulation-approval-admin.html">中央サーバーの原典照合・承認管理を開く</a></div>
+
+    <section class="revision-hero">
+      <span class="status-badge status-badge--blue">管理者向け</span>
+      <h2>PDF原本を起点に、確認・承認後にデータベースへ反映</h2>
+      <p>危規則、危告示、IMDG Code、その他の国内・国際法令を同じ更新手順で管理します。PDFを追加しただけで本番データを自動上書きせず、原本登録、構造化データ取込、差分確認、承認、公開の順に処理します。</p>
+    </section>
+
+
+    <section class="revision-panel easy-update-panel">
+      <div class="section-heading"><div><h2>かんたん更新モード</h2></div></div>
+      <p>最新版PDFと、必要に応じて更新用CSV／JSONを選択すると、ファイル形式、版情報、データ件数、重複、必須項目を確認し、管理者確認用の更新候補を作成します。</p>
+      <div class="easy-update-steps" aria-label="かんたん更新手順">
+        <article><strong>1</strong><span>法令と版を選ぶ</span></article>
+        <article><strong>2</strong><span>PDF・更新データを選ぶ</span></article>
+        <article><strong>3</strong><span>検証して更新候補を出力</span></article>
+      </div>
+      <form id="easyUpdateForm" class="easy-update-form">
+        <label>資料区分<select id="easyRegulation" required>
+          <option value="">選択してください</option>
+          <option value="dangerous-goods-regulations">危規則</option>
+          <option value="dangerous-goods-notification">危告示</option>
+          <option value="radioactive-materials-notification">放告示</option>
+          <option value="imdg-code">IMDG Code</option>
+          <option value="ctu-code">CTU Code</option>
+          <option value="marpol">MARPOL</option>
+          <option value="csc">CSC</option>
+        </select></label>
+        <label>版・改正番号<input id="easyEdition" required placeholder="例：Amendment 43-26／令和○年改正"></label>
+        <label>適用開始日<input id="easyEffectiveFrom" type="date" required></label>
+        <label>更新担当者<input id="easyPreparedBy" required placeholder="氏名または社員番号"></label>
+        <label class="wide">最新版PDF<input id="easyPdf" type="file" accept="application/pdf,.pdf" required><small>PDF原本は版ごとに別名で保存します。同じファイル名での上書きは避けてください。</small></label>
+        <label class="wide">更新用データ（任意）<input id="easyDataset" type="file" accept="application/json,.json,text/csv,.csv"><small>国連番号、包装要件、特別規定などを更新する場合にCSVまたはJSONを選択します。</small></label>
+        <label>識別キー<input id="easyRecordKey" value="id" placeholder="例：unNumber / code / id"></label>
+        <label>旧版データ（任意）<input id="easyBaseline" type="file" accept="application/json,.json,text/csv,.csv"></label>
+        <label class="wide">更新概要<textarea id="easySummary" rows="3" placeholder="主な改正内容、対象条文、別表、UN番号など"></textarea></label>
+        <div class="wide form-actions"><button class="primary-button" type="submit">更新候補を作成</button><button class="secondary-button" type="button" id="resetEasyUpdate">入力をクリア</button></div>
+      </form>
+      <div id="easyUpdateResult" class="easy-update-result" aria-live="polite"></div>
+      <div id="easyUpdateActions" class="form-actions" hidden>
+        <button class="secondary-button" type="button" id="downloadEasyManifest">更新マニフェストJSON</button>
+        <button class="secondary-button" type="button" id="downloadEasyReport">検証結果JSON</button>
+      </div>
+      <div class="easy-update-notice"><strong>重要：</strong>PDFのみを差し替えても、国連番号・包装要件・条文リンク等は自動確定しません。抽出・差分候補を人が原文と照合し、承認済みデータのみ公開します。</div>
+    </section>
+
+
+    <section class="revision-panel structured-update-panel" id="structuredUpdateCenter">
+      <div class="section-heading"><div><h2>構造化データ更新センター</h2><p>更新対象ごとのCSVひな型をダウンロードし、CSVまたはJSONを検証・承認して反映します。</p></div></div>
+      <div class="template-download-grid" id="structuredTemplateGrid" aria-label="更新用ひな型"></div>
+      <div class="structured-update-form">
+        <label>更新対象<select id="structuredDatasetType"><option value="">選択してください</option></select></label>
+        <label>版・改正番号<input id="structuredEdition" placeholder="例：Amendment 43-26／令和8年改正"></label>
+        <label>適用開始日<input id="structuredEffectiveFrom" type="date"></label>
+        <label>更新担当者<input id="structuredPreparedBy" placeholder="氏名または社員番号"></label>
+        <label class="wide">更新用CSV／JSON<input id="structuredDatasetFile" type="file" accept=".csv,.json,text/csv,application/json"></label>
+        <label class="wide">更新概要<textarea id="structuredSummary" rows="3" placeholder="更新内容、根拠PDF、該当頁、対象UN番号など"></textarea></label>
+        <label class="confirm-row wide"><input id="structuredOriginalChecked" type="checkbox">PDF原文・版番号・適用開始日と照合した</label>
+        <div class="wide form-actions"><button class="primary-button" type="button" id="validateStructuredDataset">ファイルを検証</button><button class="secondary-button" type="button" id="stageStructuredDataset" disabled>更新候補として保存</button><button class="secondary-button" type="button" id="applyStructuredDataset" disabled>承認済みデータを反映</button></div>
+      </div>
+      <div id="structuredValidationResult" class="validation-result" aria-live="polite"></div>
+      <div id="structuredPreview" class="structured-preview"></div>
+      <div class="structured-history-wrap"><h3>構造化データ更新履歴</h3><div class="table-wrap"><table><thead><tr><th>更新日時</th><th>対象</th><th>版</th><th>件数</th><th>状態</th><th>担当者</th></tr></thead><tbody id="structuredHistoryRows"></tbody></table></div></div>
+      <div class="easy-update-notice"><strong>安全設計：</strong>検証だけでは本番データへ反映しません。更新候補を保存し、原文照合チェック後に「承認済みデータを反映」を実行します。削除を含む全件置換は件数警告を表示します。</div>
+    </section>
+
+    <section class="workflow-grid" aria-label="更新手順">
+      <article><strong>1</strong><h3>原本PDF登録</h3><p>法令、版、公布日、施行日、言語、出典を記録し、SHA-256を保存。</p></article>
+      <article><strong>2</strong><h3>データ作成</h3><p>PDFに対応するJSONまたはCSVを作成し、対象データとスキーマ版を指定。</p></article>
+      <article><strong>3</strong><h3>差分・整合性確認</h3><p>追加・変更・削除件数、UN番号重複、参照切れ、必須項目を検査。</p></article>
+      <article><strong>4</strong><h3>承認・公開</h3><p>安全環境室が承認し、適用開始日に公開。旧版は削除せず保管。</p></article>
+    </section>
+
+    <section class="revision-panel">
+      <div class="section-heading"><div><h2>改正版の登録準備</h2></div></div>
+      <form id="revisionForm" class="revision-form">
+        <label>法令・規則<select id="regulationId" required></select></label>
+        <label>版・改正番号<input id="editionLabel" required placeholder="例：令和8年国土交通省令第○号 / Amendment 43-26"></label>
+        <label>公布・採択日<input id="publicationDate" type="date"></label>
+        <label>適用開始日<input id="effectiveFrom" type="date" required></label>
+        <label>適用終了日<input id="effectiveTo" type="date"><small>次版の施行日前日など。現行・将来版は空欄可。</small></label>
+        <label>更新種別<select id="updateType" required><option value="amendment">改正</option><option value="new-edition">新版</option><option value="correction">訂正</option><option value="translation-update">翻訳・参考資料更新</option></select></label>
+        <label>対象データ<input id="targetKeys" placeholder="例：UN_DATA, DOMESTIC_CODE_ORIGINALS" required></label>
+        <label>原本PDF<input id="sourcePdf" type="file" accept="application/pdf,.pdf" required></label>
+        <label>新しい構造化データ<input id="datasetFile" type="file" accept="application/json,.json,text/csv,.csv"></label>
+        <label>比較元データ<input id="baselineFile" type="file" accept="application/json,.json,text/csv,.csv"></label>
+        <label>レコード識別キー<input id="recordKey" value="id" placeholder="例：unNumber / code / id"></label>
+        <label class="wide">影響する法令・規程<input id="affectedRegulations" placeholder="法令選択後に候補を表示。必要に応じてカンマ区切りで追加"></label>
+        <fieldset class="wide impact-checklist"><legend>影響分野の確認</legend><div id="impactDomains"><span class="muted-note">法令を選択すると候補を表示します。</span></div></fieldset>
+        <label>データ作成者<input id="preparedBy" placeholder="氏名または社員番号" required></label>
+        <label>公開承認者<input id="approvedBy" placeholder="作成者とは別の管理者" required></label>
+        <label class="wide">改正概要<textarea id="changeSummary" rows="3" placeholder="変更された条文、別表、UN番号、包装要件など"></textarea></label>
+        <fieldset class="wide review-checklist"><legend>原文照合予定項目</legend><label><input type="checkbox" name="checkedItem" value="条文" checked>条文</label><label><input type="checkbox" name="checkedItem" value="別表" checked>別表</label><label><input type="checkbox" name="checkedItem" value="UN番号" checked>UN番号</label><label><input type="checkbox" name="checkedItem" value="包装要件" checked>包装要件</label><label><input type="checkbox" name="checkedItem" value="特別規定" checked>特別規定</label><label><input type="checkbox" name="checkedItem" value="施行日" checked>施行日</label></fieldset>
+        <div class="wide form-actions"><button class="primary-button" type="submit">登録内容と差分を検査</button><button class="secondary-button" type="button" id="downloadManifest">更新マニフェスト雛形</button></div>
+      </form>
+      <div id="validationResult" class="validation-result" aria-live="polite"></div>
+      <div id="diffPreview" class="diff-preview" aria-live="polite"></div>
+      <section class="asof-panel"><h3>基準日時点の適用版確認</h3><div class="asof-controls"><label>基準日<input id="asOfDate" type="date"></label><label>法令<select id="asOfRegulation"></select></label><button class="secondary-button" type="button" id="resolveAsOf">適用版を確認</button></div><div id="asOfResult" class="validation-result" aria-live="polite"></div></section>
+    </section>
+
+    <section class="revision-panel integrity-panel">
+      <div class="section-heading"><div><h2>公開版の整合性再監査</h2></div></div>
+      <p>保存済みの更新マニフェスト、原本PDF、構造化データを選択し、登録時のSHA-256・件数・識別キーと現在のファイルを照合します。</p>
+      <div class="integrity-form">
+        <label>更新マニフェスト<input id="auditManifest" type="file" accept="application/json,.json"></label>
+        <label>原本PDF<input id="auditPdf" type="file" accept="application/pdf,.pdf"></label>
+        <label>構造化データ<input id="auditDataset" type="file" accept="application/json,.json"></label>
+        <div class="form-actions"><button class="primary-button" type="button" id="runIntegrityAudit">整合性を監査</button><button class="secondary-button" type="button" id="downloadAuditReport" disabled>監査結果JSON</button></div>
+      </div>
+      <div id="integrityAuditResult" class="validation-result" aria-live="polite"></div>
+    </section>
+
+    <section class="revision-panel release-panel">
+      <div class="section-heading"><div><h2>公開判定・公開計画</h2></div></div>
+      <p>整合性監査、承認者分離、影響確認、適用開始日、ロールバック先を一括確認し、条件を満たした更新だけ公開計画を作成します。</p>
+      <div class="release-form">
+        <label>更新マニフェスト<input id="releaseManifest" type="file" accept="application/json,.json"></label>
+        <label>整合性監査結果<input id="releaseAudit" type="file" accept="application/json,.json"></label>
+        <label>公開方式<select id="releaseMode"><option value="immediate">即時公開</option><option value="scheduled">予約公開</option></select></label>
+        <label id="scheduledAtWrap" hidden>公開予定日時<input id="releaseScheduledAt" type="datetime-local"></label>
+        <label>ロールバック先版ID<input id="rollbackRevisionId" placeholder="例：imdg-42-24"></label>
+        <div class="form-actions"><button class="primary-button" type="button" id="evaluateReleaseGate">公開可否を判定</button><button class="secondary-button" type="button" id="downloadReleasePlan" disabled>公開計画JSON</button></div>
+      </div>
+      <div id="releaseGateResult" class="validation-result" aria-live="polite"></div>
+      <div class="table-wrap"><table><thead><tr><th>公開ID</th><th>法令</th><th>版</th><th>方式</th><th>公開日時</th><th>状態</th></tr></thead><tbody id="releaseRows"></tbody></table></div>
+    </section>
+
+    <section class="revision-panel">
+      <div class="section-heading"><div><h2>改正・公開履歴</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>法令</th><th>版</th><th>適用期間</th><th>状態</th><th>原本</th><th>対象データ</th></tr></thead><tbody id="revisionRows"></tbody></table></div>
+    </section>
+
+    <section class="revision-panel caution-panel">
+      <h2>更新時の重要ルール</h2>
+      <p>PDFは証拠原本として保存しますが、PDFだけから本番データを無確認で自動生成しません。OCR・AI抽出結果は必ず人が原文照合し、承認済みの構造化データのみ公開対象とします。適用開始日前の版は予約公開とし、現行版と将来版を同時に保持します。</p>
+    </section>
+  </main>
+  <script src="../data/regulation-registry.js"></script>
+  <script src="../data/regulation-revision-registry.js"></script>
+  <script src="../data/regulation-impact-registry.js"></script>
+  <script src="../data/regulation-release-registry.js"></script>
+  <script src="../assets/js/easy-regulation-update.js?v=189"></script>
+  <script src="../assets/js/structured-data-update-center.js?v=380"></script>
+  <script src="../assets/js/regulation-update-admin.js?v=189"></script>
+  <script src="../assets/js/regulation-release-admin.js"></script>
+  <script src="../assets/js/system-shell.js?v=508"></script>
+<script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body>
+</html>

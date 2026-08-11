@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>完成版統合チェック｜検査・検品業務サポートシステム</title>
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/system-layout.css"><link rel="stylesheet" href="../assets/css/admin-tools.css"><link rel="stylesheet" href="../assets/css/settings.css">
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head><body data-required-roles="safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">完成版統合チェック</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="workspace admin-tool-page"><div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 完成版統合チェック</div>
+<section class="readiness-hero"><div><span id="roadmapBadge">統合フェーズ</span><h2>完成版に向けた残作業を集約</h2><p>重複機能を整理し、総合試験と文書更新までを一つの進捗として管理します。</p></div><div class="readiness-actions"><button id="exportRoadmap" type="button">JSON出力</button><button id="resetRoadmap" type="button">入力を初期化</button></div></section>
+<section class="panel"><div class="panel-heading"><div><h2>統合進捗</h2><p>各分野を確認し、証跡・残課題を記録してください。</p></div><span class="fixed-setting" id="roadmapProgress">0 / 8</span></div><div class="panel-body"><div id="roadmapChecks" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>総括</h2></div><div class="panel-body settings-list"><label class="settings-row settings-row--select"><div><strong>現在の判定</strong><p>すべて完了後に「試作完成」を選択できます。</p></div><select id="roadmapDecision"><option value="in-progress">統合作業中</option><option value="review">総合確認中</option><option value="complete">試作完成</option></select></label><label class="settings-row settings-row--select"><div><strong>残課題・確認事項</strong></div><textarea id="roadmapNotes" rows="5" placeholder="クラウド配置時に必要な設定など"></textarea></label><div class="settings-actions"><button class="primary-action" id="saveRoadmap" type="button">進捗を保存</button><a class="secondary-action" href="operations-acceptance-admin.html">運用受入・定期点検</a></div><div id="roadmapMessage" class="settings-message" aria-live="polite"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>完成の範囲</h2></div><div class="panel-body"><p>本画面での「試作完成」は、画面、権限、API仕様、データ構造、運用手順、総合検査が整った状態を示します。クラウド契約、専用URL、メール配信、実利用者登録は配置先決定後の作業です。</p></div></section>
+</main><script src="../assets/js/role-access.js?v=503"></script><script src="../assets/js/session-guard.js?v=508"></script><script src="../assets/js/completion-roadmap.js?v=239"></script><script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

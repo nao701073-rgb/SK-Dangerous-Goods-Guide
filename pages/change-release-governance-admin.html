@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>変更要求・次期版管理｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/admin-tools.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="change-release-governance-admin" data-required-roles="safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">変更要求・次期版管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="workspace admin-tool-page">
+<div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 変更要求・次期版管理</div>
+<section class="readiness-hero"><div><span>Part 252</span><h2>変更要求からリリース候補までを一括管理</h2><p>機能追加、法令更新、改善、不具合修正、廃止・置換について、影響評価、承認、試験、リリース候補化までを記録します。</p></div><div class="readiness-actions"><button id="exportChangeRegister" type="button">JSON出力</button></div></section>
+<section class="panel"><div class="panel-heading"><h2>変更要求の登録</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>変更件名</strong><p>利用者が判断しやすい簡潔な名称を入力します。</p></div><input id="changeTitle" type="text"/></label>
+<label class="settings-row settings-row--select"><div><strong>変更区分</strong><p>要求の性質を選択します。</p></div><select id="changeType"><option value="feature">機能追加</option><option value="improvement">改善</option><option value="defect">不具合修正</option><option value="regulation">法令・データ更新</option><option value="security">セキュリティ</option><option value="performance">性能・容量</option><option value="retirement">廃止・置換</option><option value="document">文書更新</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>対象機能・画面</strong><p>影響する機能、画面、データを記録します。</p></div><input id="targetArea" type="text"/></label>
+<label class="settings-row settings-row--select"><div><strong>要求内容・理由</strong><p>変更の目的、背景、期待する結果を記録します。</p></div><textarea id="changeDescription" rows="5"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>優先度</strong><p>業務影響と期限を考慮して選択します。</p></div><select id="priority"><option value="normal">通常</option><option value="high">高</option><option value="urgent">緊急</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>希望適用日</strong><p>法令施行日や運用予定日がある場合に入力します。</p></div><input id="requestedDate" type="date"/></label>
+<label class="settings-row settings-row--select"><div><strong>申請者・部門</strong><p>要求元を記録します。</p></div><input id="requester" type="text"/></label>
+<div class="management-actions"><button id="addChangeRequest" type="button">変更要求を登録</button></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>変更要求一覧</h2></div><div class="panel-body"><div id="changeRequestList" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>影響評価・承認</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>対象変更要求</strong><p>評価・承認する要求を選択します。</p></div><select id="assessmentRequest"></select></label>
+<label class="settings-row settings-row--select"><div><strong>影響範囲</strong><p>業務、権限、法令、データ、性能、セキュリティ、文書への影響を記録します。</p></div><textarea id="impactAssessment" rows="5"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>リスクと対策</strong><p>誤表示、データ損失、権限逸脱、停止時間等を評価します。</p></div><textarea id="riskAssessment" rows="5"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>判定</strong><p>却下、保留、承認、緊急対応を選択します。</p></div><select id="approvalDecision"><option value="pending">保留</option><option value="approved">承認</option><option value="rejected">却下</option><option value="emergency">緊急対応承認</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>承認・判断メモ</strong><p>判断根拠、条件、承認者を記録します。</p></div><textarea id="approvalNotes" rows="4"></textarea></label>
+<div class="management-actions"><button id="saveAssessment" type="button">評価・承認を保存</button></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>テスト・リリース候補</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>対象変更要求</strong><p>承認済みの要求を選択します。</p></div><select id="releaseRequest"></select></label>
+<label class="settings-row settings-row--select"><div><strong>リリース候補版</strong><p>例：Version 1.1 RC1、Part 260等を入力します。</p></div><input id="releaseCandidate" type="text"/></label>
+<label class="settings-row settings-row--select"><div><strong>テスト計画</strong><p>対象機能、役割別試験、データ検証、端末確認、ロールバック確認を記録します。</p></div><textarea id="testPlan" rows="5"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>テスト結果</strong><p>合格・不合格、残課題、証跡を記録します。</p></div><textarea id="testResult" rows="5"></textarea></label>
+<label class="settings-row settings-row--select"><div><strong>候補判定</strong><p>リリース候補化には承認済みかつテスト合格が必要です。</p></div><select id="releaseDecision"><option value="draft">準備中</option><option value="testing">試験中</option><option value="candidate">リリース候補</option><option value="cancelled">中止</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>ロールバック・廃止判断</strong><p>旧機能の維持、段階的廃止、復旧手順、データ互換性を記録します。</p></div><textarea id="rollbackRetirement" rows="5"></textarea></label>
+<div class="management-actions"><button id="saveReleasePlan" type="button">テスト・候補判定を保存</button></div>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>次期版サマリー</h2></div><div class="panel-body"><div id="releaseSummary" class="admin-card-grid"></div><div class="fixed-setting" id="changeGovernanceStatus">未保存</div></div></section>
+</main>
+<script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/change-release-governance-admin.js"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

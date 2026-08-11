@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="sk-build" content="v1.3">
+  <script src="../data/build-manifest.js?v=130"></script>
+  <link rel="stylesheet" href="../assets/css/version-guard.css?v=542"><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>配置・実運用準備パッケージ｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/settings.css" rel="stylesheet"/>
+<link href="../assets/css/admin-tools.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/design-system-review.css?v=508">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="deployment-readiness-package" data-required-roles="safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">配置・実運用準備パッケージ</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="workspace admin-tool-page">
+<div class="page-breadcrumb">ホーム ＞ システム設定 ＞ 配置・実運用準備パッケージ</div>
+<section class="readiness-hero"><div><span id="readinessBadge">Part 248</span><h2>配置先決定後の作業を一括管理</h2><p>クラウド接続、初期利用者、メール、性能、バックアップ、実端末確認、承認・周知を記録します。</p></div><div class="readiness-actions"><button id="saveReadiness" type="button">保存</button><button id="exportReadiness" type="button">JSON出力</button></div></section>
+<section class="panel"><div class="panel-heading"><h2>基本情報</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>配置環境名</strong><p>試験環境または本番環境の名称を入力します。</p></div><input id="environmentName" type="text" placeholder="例：クラウド試験環境"/></label>
+<label class="settings-row settings-row--select"><div><strong>公開URL</strong><p>決定後にHTTPSのURLを入力します。</p></div><input id="publicUrl" type="url" placeholder="https://example.com"/></label>
+<label class="settings-row settings-row--select"><div><strong>API URL</strong><p>認証・業務APIの接続先を入力します。</p></div><input id="apiUrl" type="url" placeholder="https://api.example.com/api"/></label>
+<label class="settings-row settings-row--select"><div><strong>想定利用者数</strong><p>試験運用は約50名、将来は約150名を想定します。</p></div><input id="expectedUsers" type="number" min="1" max="500" value="50"/></label>
+</div></section>
+<section class="panel"><div class="panel-heading"><h2>配置前チェック</h2></div><div class="panel-body"><div id="readinessChecklist" class="check-list"></div></div></section>
+<section class="panel"><div class="panel-heading"><h2>総合判定</h2></div><div class="panel-body settings-list">
+<label class="settings-row settings-row--select"><div><strong>判定</strong><p>未完了項目がある場合は「保留」としてください。</p></div><select id="decision"><option value="pending">保留</option><option value="pilot-ready">試験運用開始可</option><option value="production-ready">正式運用開始可</option></select></label>
+<label class="settings-row settings-row--select"><div><strong>所見・残課題</strong><p>判断理由、未完了事項、次の担当を記録します。</p></div><textarea id="notes" rows="6"></textarea></label>
+<div class="fixed-setting" id="readinessStatus">未保存</div>
+</div></section>
+</main>
+<script src="../assets/js/session-guard.js?v=508"></script>
+<script src="../assets/js/deployment-readiness-package.js"></script>
+<script src="../assets/js/version-guard.js?v=131"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1336"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body></html>

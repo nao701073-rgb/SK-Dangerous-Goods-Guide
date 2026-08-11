@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta name="sk-build" content="v1.3.22">
+<script src="../data/build-manifest.js?v=324"></script>
+<link href="../assets/css/version-guard.css?v=542" rel="stylesheet"/><script src="../assets/js/auth-bootstrap.js?v=388"></script>
+<script src="../assets/js/structured-data-overrides.js?v=381"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>申請番号管理｜検査・検品業務サポートシステム</title>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<link href="../assets/css/system-layout.css" rel="stylesheet"/>
+<link href="../assets/css/photo-management.css?v=321" rel="stylesheet"/>
+<link href="../assets/css/application-role-mode.css?v=321" rel="stylesheet"/>
+<link href="../assets/css/organization-management.css" rel="stylesheet"/>
+<link href="../assets/css/typography-quality.css?v=187" rel="stylesheet"/>
+<link href="../assets/css/unified-submenu.css?v=500" rel="stylesheet"/>
+<link href="../assets/css/design-system-review.css?v=508" rel="stylesheet"/>
+<link href="../assets/css/application-results.css?v=506" rel="stylesheet"/>
+<link href="../assets/css/application-case-common.css?v=529" rel="stylesheet"/>
+<link href="../assets/css/application-review-part536.css?v=536" rel="stylesheet"/>
+<link href="../assets/css/application-review-part538.css?v=538" rel="stylesheet"/><link rel="stylesheet" href="../assets/css/application-part548.css?v=548"/><link rel="stylesheet" href="../assets/css/application-part549.css?v=549"/>
+<link rel="stylesheet" href="../assets/css/v1-initial.css?v=100">
+
+<link rel="stylesheet" href="../assets/css/v101-ui.css?v=101">
+<link rel="stylesheet" href="../assets/css/v11-ui.css?v=110">
+<link rel="stylesheet" href="../assets/css/v12-ui.css?v=120">
+<link rel="stylesheet" href="../assets/css/v13-ui.css?v=130">
+<link rel="stylesheet" href="../assets/css/v131-ui.css?v=131">
+<link rel="stylesheet" href="../assets/css/v1315-applications.css?v=152">
+
+<link rel="stylesheet" href="../assets/css/v1338-common-header.css?v=1338">
+<link rel="stylesheet" href="../assets/css/v1342-mobile-readability.css?v=1342">
+<link rel="stylesheet" href="../assets/css/v1378-mobile-system-audit.css?v=1378">
+</head>
+<body data-page="applications" data-required-roles="office-user,office-admin,safety-environment-director,safety-environment-staff,safety-environment-admin">
+<header class="sk-v1338-header" data-sk-common-header="1">
+  <button type="button" class="sk-v1338-menu-button" aria-label="メニューを開く" title="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <a class="sk-v1338-home-button" href="../index.html" aria-label="ホームへ戻る" title="ホームへ戻る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5 12 4l7.5 6.5v8a1 1 0 0 1-1 1h-4.25v-5.5h-4.5V19.5H5.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="sk-v1338-title">申請番号管理</div>
+  <div class="sk-v1338-actions"><a class="sk-current-user-link" href="settings.html" aria-label="ユーザー設定を開く" title="ユーザー設定を開く"><span class="sk-current-user-avatar" aria-hidden="true">利</span><span class="sk-current-user-name">利用者</span></a></div>
+</header>
+<main class="main-content photo-page application-support-mode">
+<section aria-labelledby="applicationSupportTitle" class="application-support-intro">
+<div>
+<h2 id="applicationSupportTitle">社内既存システムを補完する簡易管理</h2>
+<p>正式な申請番号管理は社内既存システムで行います。この画面では、申請番号に関連する<strong>共通案件情報・危険物明細・許容容量／許容質量・写真・簡易メモ・添付資料</strong>を整理し、申請書取込・確認と固縛力参考算出へ引き継ぎます。</p>
+</div>
+<ul>
+<li>必要な情報だけ登録</li>
+<li>複雑な期限・承認管理なし</li>
+<li>写真と資料を申請番号に紐付け</li>
+</ul>
+</section>
+<section aria-labelledby="applicationRoleModeTitle" class="application-role-mode" id="applicationRoleMode">
+<div>
+<h2 id="applicationRoleModeTitle">権限に応じた補完機能</h2>
+<p id="applicationRoleModeDescription">ログイン中の権限を確認しています。</p>
+</div>
+<dl>
+<div><dt>現在の権限</dt><dd id="applicationRoleName">確認中</dd></div>
+<div><dt>対象範囲</dt><dd id="applicationRoleScope">確認中</dd></div>
+<div><dt>利用できる操作</dt><dd id="applicationRoleActions">確認中</dd></div>
+</dl>
+</section>
+<nav aria-label="申請番号管理の項目" class="application-section-nav">
+<a class="button-link" href="application-intake-workflow.html">申請書取込・確認</a>
+<button data-application-section="applicationQuickSection" type="button">かんたん登録</button>
+<button data-application-section="applicationListSection" type="button">登録済み</button>
+<button data-application-section="applicationDocumentSection" type="button">添付資料</button>
+<button data-application-section="applicationPhotoSection" type="button">関連写真</button>
+<button data-application-section="applicationRegisterSection" type="button">基本情報</button>
+</nav>
+<section class="management-panel application-primary-section application-quick-section" id="applicationQuickSection">
+<div class="management-heading">
+<div><h2>申請番号を選んで、メモ・写真を追加</h2></div>
+</div>
+<p class="scope-note">社内既存システムの申請番号を選び、メモ・写真・添付資料を追加します。複雑な進捗設定はありません。</p>
+<div class="application-quick-grid">
+<label>申請番号
+          <select id="quickApplicationSelect"><option value="">選択してください</option></select>
+</label>
+<label class="application-quick-memo">簡易メモ
+          <textarea id="quickApplicationMemo" maxlength="2000" placeholder="現場で確認した内容や引継ぎ事項など" rows="3"></textarea>
+</label>
+</div>
+<div class="application-quick-actions">
+<button class="primary-action" id="quickSaveMemo" type="button">メモを保存</button>
+<button id="quickAddPhoto" type="button">写真を追加</button>
+<button id="quickAddDocument" type="button">添付資料を追加</button>
+<button id="quickCreateApplication" type="button">申請番号を新規登録</button>
+<a class="button-link" href="application-intake-workflow.html">申請書を取り込んで確認する</a>
+<span aria-live="polite" class="form-message" id="quickApplicationMessage"></span>
+</div>
+</section>
+<section class="management-panel organization-context-panel application-support-optional" hidden="" id="applicationScopeSection">
+<div class="management-heading">
+<div>
+<h2>表示範囲・所属</h2>
+</div>
+<span class="scope-badge" id="currentRoleBadge"></span>
+</div>
+<div class="organization-context-grid">
+<label>
+          表示範囲
+          <select id="applicationScope">
+<option value="office">所属事業所</option>
+<option value="all">全事業所（安全環境室）</option>
+</select>
+</label>
+<label>
+          事業所
+          <select id="applicationOfficeFilter"></select>
+</label>
+</div>
+<div class="office-summary-grid" id="officeSummary"></div>
+<div aria-label="進捗状況別件数" class="application-status-summary" hidden="" id="applicationStatusSummary"></div>
+<p class="scope-note">社内既存システムの申請番号を手掛かりに、補完情報を確認します。権限に応じて所属事業所または全事業所を表示します。</p>
+</section>
+<section class="management-panel application-primary-section" id="applicationRegisterSection">
+<div class="section-heading">
+<div>
+<h2>案件情報・メモを登録</h2>
+</div>
+</div>
+<form class="application-form application-form--expanded" id="applicationForm">
+<input id="editingApplicationId" type="hidden"/>
+<div class="application-form__wide application-form-note">申請年度と申請番号を登録し、必要に応じて簡易メモを追加します。詳細情報の入力は任意です。</div>
+<div class="application-form__wide application-simple-actions"><button aria-expanded="false" id="toggleApplicationDetails" type="button">詳細項目を表示</button><small>通常は申請番号とメモだけで登録できます。</small></div>
+<label>
+          申請年度 <span class="required-mark">必須</span>
+<input id="applicationYear" inputmode="numeric" maxlength="4" placeholder="例：2026" required=""/>
+</label>
+<label>
+          番号の登録方法
+          <select id="applicationNumberMode">
+<option value="official">正式申請番号を入力</option>
+<option value="temporary">仮番号で登録</option>
+</select>
+</label>
+<label id="officialApplicationNumberField">
+          正式申請番号 <span class="required-mark">必須</span>
+<input id="applicationNumber" inputmode="numeric" maxlength="5" placeholder="現在4桁・将来5桁対応"/>
+<small class="field-help">現在は4桁を標準とし、将来の5桁化にも対応します。先頭の0を保持します。</small>
+</label>
+<label hidden="" id="temporaryApplicationNumberField">
+          仮番号
+          <input id="temporaryApplicationNumber" placeholder="保存時に自動発行" readonly=""/>
+</label>
+<label id="registrationOfficeField">
+          受付事業所 <span class="required-mark">必須</span>
+<select id="registrationOffice"></select>
+</label>
+<label data-application-detail-field="" hidden="">
+          進捗状況
+          <select id="applicationStatus">
+<option value="draft">下書き</option>
+<option value="received">受付済み</option>
+<option value="in_progress">対応中</option>
+<option value="completed">完了</option>
+<option value="cancelled">取消</option>
+</select>
+</label>
+<label data-application-detail-field="" hidden="">担当者<input id="applicationAssignee" placeholder="任意"/></label>
+<label>コンテナ番号<input id="containerNumber" placeholder="任意"/></label>
+<label>船名<input id="vesselName" placeholder="任意"/></label>
+<label>航海番号<input id="voyageNumber" placeholder="任意"/></label>
+<section aria-labelledby="applicationCommonCaseTitle" class="case-section application-form__wide" id="applicationCommonCaseSection">
+<div class="case-section__heading">
+<div>
+<h3 id="applicationCommonCaseTitle">共通案件情報</h3>
+<p>申請番号管理と固縛力参考算出で共通利用します。一度登録した内容は、固縛力参考算出の入力欄へ反映できます。</p>
+</div>
+</div>
+<div class="case-form-grid">
+<label>申請者・依頼元<input id="applicantName" maxlength="200" placeholder="任意"/></label>
+<label>荷主・荷送人<input id="shipperName" maxlength="300" placeholder="任意"/></label>
+<label>コンテナ種類<input id="containerType" maxlength="100" placeholder="例：20FT DRY"/></label>
+<label>船積港<input id="loadingPort" maxlength="150" placeholder="例：横浜港"/></label>
+<label>陸揚港<input id="dischargePort" maxlength="150" placeholder="例：シンガポール港"/></label>
+</div>
+</section>
+<section aria-labelledby="applicationCargoTitle" class="case-section application-form__wide" id="applicationCargoSection">
+<div class="case-section__heading">
+<div>
+<h3 id="applicationCargoTitle">申請危険物・許容容量／許容質量</h3>
+<p>添付の申請書確認結果と同じ項目構成で、複数の危険物を登録できます。個数と1容器当たり質量を入力すると、申請総質量を自動計算します。</p>
+</div>
+</div>
+<div class="case-cargo-editor" id="applicationCargoEditor"></div>
+</section>
+
+<label class="un-number-field case-hidden-compat" hidden="">国連番号
+          <div class="inline-input-action"><input id="unNumber" inputmode="numeric" maxlength="4" placeholder="任意・例：2218"/><button id="lookupUnData" type="button">候補を表示</button></div>
+<small class="field-help">4桁の国連番号から、日本語名・英語名・等級・副次危険性等級・容器等級を候補表示します。</small>
+</label>
+<div class="application-form__wide un-candidate-panel case-hidden-compat" hidden="" id="unCandidatePanel">
+<div class="un-candidate-panel__heading"><strong>危険物データベースの候補</strong><button id="closeUnCandidate" type="button">閉じる</button></div>
+<label>候補<select id="unCandidateSelect"></select></label>
+<div class="un-candidate-preview" id="unCandidatePreview"></div>
+<div class="un-candidate-options">
+<label><input checked="" data-un-apply="japaneseName" type="checkbox"/> 日本語名</label>
+<label><input checked="" data-un-apply="englishName" type="checkbox"/> 英語名</label>
+<label><input checked="" data-un-apply="hazardClass" type="checkbox"/> 等級</label>
+<label><input checked="" data-un-apply="subsidiary" type="checkbox"/> 副次危険性等級</label>
+<label><input checked="" data-un-apply="packingGroup" type="checkbox"/> 容器等級</label>
+</div>
+<p class="case-inline-notice application-form__wide">登録した危険物明細は、申請書取込・確認結果の保存時にも更新でき、固縛力参考算出で再利用できます。正式な許可判断は原典・許可証・現物表示を確認してください。</p><div class="form-actions"><button class="primary-action" id="applyUnCandidate" type="button">選択した項目を反映</button><span class="form-message" id="unCandidateMessage"></span></div>
+</div>
+<label class="case-hidden-compat" hidden="">日本語名<input id="japaneseName" placeholder="任意"/></label>
+<label class="case-hidden-compat" hidden="">英語名<input id="englishName" placeholder="任意"/></label>
+<label class="case-hidden-compat" hidden="">
+          等級
+          <select id="hazardClass">
+<option value="">未入力</option>
+<option value="1">1．火薬類（1.1～1.6）</option>
+<option value="2">2．高圧ガス（2.1～2.3）</option>
+<option value="4">4．可燃性物質類（4.1～4.3）</option>
+<option value="5">5．酸化性物質類（5.1～5.2）</option>
+<option value="6">6．毒物類（6.1～6.2）</option>
+<option value="1.1">1.1 火薬類</option><option value="1.2">1.2 火薬類</option><option value="1.3">1.3 火薬類</option>
+<option value="1.4">1.4 火薬類</option><option value="1.5">1.5 火薬類</option><option value="1.6">1.6 火薬類</option>
+<option value="2.1">2.1 引火性高圧ガス</option><option value="2.2">2.2 非引火性・非毒性高圧ガス</option><option value="2.3">2.3 毒性高圧ガス</option>
+<option value="3">3 引火性液体類</option>
+<option value="4.1">4.1 可燃性物質</option><option value="4.2">4.2 自然発火性物質</option><option value="4.3">4.3 水反応可燃性物質</option>
+<option value="5.1">5.1 酸化性物質</option><option value="5.2">5.2 有機過酸化物</option>
+<option value="6.1">6.1 毒物</option><option value="6.2">6.2 病毒をうつしやすい物質</option>
+<option value="7">7 放射性物質</option><option value="8">8 腐食性物質</option><option value="9">9 有害性物質</option>
+</select>
+</label>
+<label class="case-hidden-compat" hidden="">
+          副次危険性等級
+          <select id="subsidiaryHazardClasses" multiple="" size="5">
+<option value="1">1．火薬類</option><option value="2.1">2.1 引火性高圧ガス</option><option value="3">3 引火性液体類</option>
+<option value="4.1">4.1 可燃性物質</option><option value="4.2">4.2 自然発火性物質</option><option value="4.3">4.3 水反応可燃性物質</option>
+<option value="5.1">5.1 酸化性物質</option><option value="6.1">6.1 毒物</option><option value="8">8 腐食性物質</option>
+</select>
+<small class="field-help">複数選択可。表示は「3/6.1」のように統一します。</small>
+</label>
+<label class="case-hidden-compat" hidden="">
+          容器等級
+          <select id="packingGroup"><option value="">未入力</option><option>I</option><option>II</option><option>III</option><option value="not_applicable">該当なし</option></select>
+</label>
+<label>申請日<input id="applicationDate" type="date"/></label>
+<label>検査予定日<input id="inspectionPlannedDate" type="date"/></label>
+<label>検査実施日<input id="inspectionDate" type="date"/></label>
+<label class="application-form__wide">案件名・対象概要<input id="caseTitle" placeholder="任意"/></label>
+<label class="application-form__wide">
+          備考
+          <textarea id="applicationNote" placeholder="任意" rows="3"></textarea>
+</label>
+<div class="application-form__wide form-actions">
+<button class="primary-action" id="applicationSubmitButton" type="submit">登録</button>
+<button hidden="" id="applicationEditCancel" type="button">編集を取消</button>
+<span class="form-message" id="applicationMessage"></span>
+</div>
+</form>
+</section>
+<section class="management-panel application-primary-section" id="applicationResultSection">
+<div class="management-heading"><div><h2>確認・算出結果</h2><p>申請書取込・確認と固縛力参考算出の登録履歴を表示します。</p></div></div>
+<label>申請番号<select id="linkedResultApplicationSelect"><option value="">申請番号を選択してください</option></select></label>
+<div id="linkedApplicationResults"><p>申請番号を選択すると登録結果を表示します。</p></div>
+</section>
+<section class="management-panel application-primary-section" id="applicationListSection">
+<div class="management-heading">
+<div>
+<h2>登録済み案件</h2>
+</div>
+<div class="application-filter-tools">
+<input id="applicationFilter" placeholder="申請番号・メモで検索" type="search"/>
+<select id="applicationYearFilter"><option value="">すべての年度</option></select>
+<details class="application-advanced-tools"><summary>詳細な絞り込み</summary><div>
+<select id="applicationStatusFilter"><option value="">すべての進捗</option><option value="draft">下書き</option><option value="received">受付済み</option><option value="in_progress">対応中</option><option value="completed">完了</option><option value="cancelled">取消</option></select>
+<select aria-label="申請案件の並び順" id="applicationSort">
+<option value="updated-desc">更新日：新しい順</option>
+<option value="updated-asc">更新日：古い順</option>
+<option value="year-number-desc">申請年度・番号：降順</option>
+<option value="year-number-asc">申請年度・番号：昇順</option>
+<option value="application-date-desc">申請日：新しい順</option>
+<option value="application-date-asc">申請日：古い順</option>
+<option value="inspection-planned-asc">検査予定日：近い順</option>
+<option value="inspection-planned-desc">検査予定日：遠い順</option>
+<option value="inspection-date-desc">検査実施日：新しい順</option>
+<option value="inspection-date-asc">検査実施日：古い順</option>
+<option value="un-asc">国連番号：昇順</option>
+<option value="un-desc">国連番号：降順</option>
+<option value="vessel-asc">船名：昇順</option>
+<option value="vessel-desc">船名：降順</option>
+<option value="assignee-asc">担当者：昇順</option>
+<option value="assignee-desc">担当者：降順</option>
+<option value="status">進捗状況順</option>
+</select>
+<select id="savedApplicationView"><option value="">保存した表示条件</option></select>
+<button id="saveApplicationView" type="button">現在の条件を保存</button>
+<button id="resetApplicationFilters" type="button">条件をリセット</button>
+<button id="toggleApplicationDisplaySettings" type="button">表示項目</button>
+<button id="exportApplicationsCsv" type="button">CSV出力</button>
+</div></details>
+</div>
+</div>
+<div aria-live="polite" class="application-list-summary">
+<strong id="applicationResultCount">0件</strong>
+<div aria-label="適用中の絞り込み条件" class="application-active-filters" id="applicationActiveFilters"></div>
+</div>
+<div class="application-display-settings" hidden="" id="applicationDisplaySettings">
+<strong>カードに表示する項目</strong>
+<label><input checked="" data-application-display="assignee" type="checkbox"/> 担当者</label>
+<label><input checked="" data-application-display="container" type="checkbox"/> コンテナ番号</label>
+<label><input checked="" data-application-display="vessel" type="checkbox"/> 船名・航海番号</label>
+<label><input checked="" data-application-display="dangerous" type="checkbox"/> 危険物情報</label>
+<label><input checked="" data-application-display="counts" type="checkbox"/> 写真・資料件数</label>
+<label><input checked="" data-application-display="updated" type="checkbox"/> 更新日時</label>
+<button id="resetApplicationDisplaySettings" type="button">初期表示に戻す</button>
+</div>
+<div class="application-list" id="applicationList"></div>
+</section>
+<section class="management-panel application-primary-section" id="applicationDocumentSection">
+<div class="management-heading">
+<div><h2>添付資料を管理</h2></div>
+<div class="application-filter-tools">
+<input id="documentFilter" placeholder="申請番号・ファイル名・説明で検索" type="search"/>
+<select id="documentCategoryFilter"><option value="">すべての資料分類</option><option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option></select>
+<select id="documentTypeFilter"><option value="">すべての形式</option><option value="pdf">PDF</option><option value="word">Word</option><option value="excel">Excel</option><option value="csv">CSV</option><option value="text">テキスト</option><option value="image">画像</option></select>
+<label class="check-field"><input id="showCancelledDocuments" type="checkbox"/> 取消済みも表示</label>
+</div>
+</div>
+<p class="scope-note">案件ごとに取得できた資料だけを登録できます。資料分類は任意で、未登録の資料があっても案件の保存や完了を妨げません。</p>
+<form class="application-document-form" id="applicationDocumentForm">
+<label>申請案件 <select id="documentApplication" required=""><option value="">選択してください</option></select></label>
+<label>登録方法
+          <select id="documentRegistrationMode"><option value="new">新しい資料として登録</option><option value="version">既存資料の更新版として登録</option></select>
+</label>
+<label hidden="" id="documentParentField">更新対象資料
+          <select id="documentParent"><option value="">選択してください</option></select>
+</label>
+<label>資料分類
+          <select id="documentCategory">
+<option value="application">申請書</option><option value="power-of-attorney">委任状</option><option value="dangerous-goods-statement">危険物明細書</option><option value="advance-notice">事前連絡表</option><option value="container-permit">容器許可証</option><option value="container-document">コンテナ関係書類</option><option value="certificate">証明書</option><option value="reference">参考資料</option><option value="other">その他</option>
+</select>
+</label>
+<label>ファイル <input accept="application/pdf,.pdf,application/msword,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,text/csv,.csv,text/plain,.txt,image/jpeg,.jpg,.jpeg,image/png,.png,image/webp,.webp,image/heic,.heic,image/heif,.heif" id="documentFile" multiple="" required="" type="file"/><small class="field-help">PDF、Excel（.xls／.xlsx）、Word（.doc／.docx）、CSV、テキスト、JPEG、PNG、WebP、HEIC／HEIFを登録できます。複数ファイルをまとめて選択可能です。開発版では1ファイル5MB以下。実行ファイルや圧縮ファイルは登録できません。</small></label>
+<label>登録者 <input id="documentUploadedBy" value="利用者"/></label>
+<label class="application-document-form__wide">説明 <textarea id="documentDescription" placeholder="任意" rows="2"></textarea></label>
+<label class="application-document-form__wide" hidden="" id="documentChangeReasonField">変更理由 <textarea id="documentChangeReason" placeholder="更新版を登録する理由を入力してください" rows="2"></textarea></label>
+<div class="application-document-form__wide form-actions"><button class="primary-action" type="submit">資料を登録</button><span class="form-message" id="documentMessage"></span></div>
+</form>
+<div class="application-document-list" id="applicationDocumentList"></div>
+</section>
+<section class="management-panel application-primary-section" id="applicationPhotoSection">
+<div class="section-heading">
+<div>
+<h2>関連写真を登録</h2>
+</div>
+</div>
+<p class="scope-note" id="photoPolicyInfo"></p>
+<form class="photo-form" id="photoForm">
+<label>
+          申請番号
+          <select id="photoApplication" required="">
+<option value="">選択してください</option>
+</select>
+</label>
+<label>
+          写真
+          <input accept="image/*,.heic,.heif,image/heic,image/heif,image/heic-sequence,image/heif-sequence" capture="environment" id="photoFile" required="" type="file"/>
+<small class="field-help">ファイル選択のほか、下のプレビュー枠へドラッグ＆ドロップ、または画像を貼り付けできます。</small>
+</label>
+<label>
+          画像保存サイズ
+          <select id="photoResize">
+<option value="auto">自動圧縮（推奨・容量上限内）</option>
+<option value="1600">長辺1600px</option>
+<option value="2048">長辺2048px</option>
+<option value="original">元サイズ相当（EXIF除去）</option>
+</select>
+<small class="field-help">自動圧縮では、長辺とJPEG画質を段階的に調整し、原則1MB以下かつ事業所設定の上限内にします。</small>
+</label>
+<label class="check-field"><input id="photoRepresentative" type="checkbox"/> この申請番号の代表写真にする</label>
+<label class="check-field"><input id="photoKeepGps" type="checkbox"/> 写真の位置情報を業務記録として保存する</label>
+<p class="photo-form__wide metadata-policy-note">保存画像からEXIF・端末情報を除去します。GPSは上記にチェックした場合のみ、画像とは別の管理項目として保存します。</p>
+<label>
+          撮影日時
+          <input id="shootingAt" type="datetime-local"/>
+<small class="field-help">JPEG写真に撮影日時が含まれる場合は自動反映します。含まれない場合はファイル日時を使用します。</small>
+</label>
+<label>
+          登録者
+          <input id="registeredBy" value="利用者"/>
+</label>
+<label class="photo-form__wide">
+          コメント
+          <textarea id="photoComment" placeholder="写真の内容や確認事項" rows="3"></textarea>
+</label>
+<div aria-label="写真プレビュー。画像のドラッグ＆ドロップまたは貼り付けに対応" class="photo-preview photo-form__wide" id="photoPreviewDropZone" role="button" tabindex="0">
+<img alt="写真プレビュー" hidden="" id="photoPreview"/>
+<p id="photoPreviewPlaceholder">選択した写真がここに表示されます。ここへ画像をドラッグ＆ドロップ、または貼り付けもできます。</p>
+</div>
+<div class="photo-optimization-info photo-form__wide" hidden="" id="photoOptimizationInfo">
+<div><dt>元画像</dt><dd id="photoOriginalInfo">-</dd></div>
+<div><dt>保存画像</dt><dd id="photoSavedInfo">-</dd></div>
+<div><dt>削減率</dt><dd id="photoReductionInfo">-</dd></div>
+<div><dt>上限判定</dt><dd id="photoLimitInfo">-</dd></div>
+<div><dt>重複確認</dt><dd id="photoDuplicateInfo">-</dd></div>
+<div><dt>撮影日時取得</dt><dd id="photoCapturedAtInfo">-</dd></div>
+<div><dt>位置情報</dt><dd id="photoGpsInfo">-</dd></div>
+<div><dt>メタデータ処理</dt><dd id="photoMetadataInfo">-</dd></div>
+</div>
+<div class="photo-form__wide form-actions">
+<button class="primary-action" type="submit">写真を登録</button>
+<span class="form-message" id="photoMessage"></span>
+</div>
+</form>
+</section>
+<section class="management-panel application-essential-section" id="applicationRegisteredPhotosSection">
+<div class="management-heading">
+<div>
+<h2>申請番号別の登録写真</h2>
+</div>
+<div class="photo-filter-row">
+<input id="photoFilter" placeholder="申請番号・コメントで検索" type="search"/>
+<select id="photoApplicationFilter">
+<option value="">すべての申請番号</option>
+</select>
+<label class="check-field photo-deleted-toggle"><input id="showDeletedPhotos" type="checkbox"/> 削除済みも表示</label>
+<button id="exportPhotosCsv" type="button">CSV出力</button>
+</div>
+</div>
+<div class="photo-list" id="photoList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div>
+<h2>写真操作履歴</h2>
+</div>
+<div class="photo-filter-row">
+<input id="photoAuditFilter" placeholder="申請番号・操作者・理由で検索" type="search"/>
+<select id="photoAuditApplicationFilter">
+<option value="">すべての申請番号</option>
+</select>
+<button id="exportPhotoAuditCsv" type="button">履歴CSV出力</button>
+</div>
+</div>
+<div class="photo-audit-list" id="photoAuditList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div>
+<h2>写真の保存期間・保全管理</h2>
+</div>
+<div class="photo-filter-row">
+<select id="photoRetentionFilter">
+<option value="review-due">整理確認対象</option>
+<option value="purge-ready">完全削除候補</option>
+<option value="hold">保全指定中</option>
+<option value="all">すべて</option>
+</select>
+<button id="exportPhotoRetentionCsv" type="button">保存期間CSV出力</button>
+</div>
+</div>
+<p class="scope-note" id="photoRetentionSummary"></p>
+<div class="photo-storage-dashboard" id="photoStorageDashboard"></div>
+<div class="photo-retention-bulk-actions" hidden="" id="photoRetentionBulkActions">
+<label><input id="selectAllPurgeCandidates" type="checkbox"/> 表示中の完全削除候補をすべて選択</label>
+<input id="photoPurgeReason" placeholder="完全削除計画の理由（必須）" type="text"/>
+<input id="photoPurgeAssignedApprover" placeholder="承認担当者（任意）" type="text"/>
+<button id="createPhotoPurgePlan" type="button">選択写真の削除計画を作成</button>
+</div>
+<div class="photo-retention-list" id="photoRetentionList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div>
+<h2>写真の完全削除計画・承認</h2>
+</div>
+<div class="management-actions">
+<button id="exportPhotoPurgeCertificates" type="button">削除証明書JSON出力</button>
+<button id="exportPhotoPurgePlans" type="button">削除計画JSON出力</button>
+</div>
+</div>
+<p class="scope-note">完全削除は、計画作成者とは異なる事業所管理者または管理者の承認後に実行できます。期限超過計画は警告表示され、担当者の再割当または管理者への引継ぎができます。</p>
+<div class="photo-purge-notification-summary" id="photoPurgeNotificationSummary"></div>
+<div class="photo-purge-dashboard-tools">
+<select id="photoPurgeStatusFilter">
+<option value="active">未完了すべて</option>
+<option value="pending">承認待ち</option>
+<option value="approved">実行待ち</option>
+<option value="overdue">期限超過</option>
+<option value="escalated">管理者引継ぎ</option>
+<option value="all">完了・取消を含む</option>
+</select>
+<input id="photoPurgeAssigneeFilter" placeholder="担当者・作成者・承認者で検索" type="search"/>
+<label class="check-field"><input id="photoPurgeUnacknowledgedOnly" type="checkbox"/> 未確認のみ</label>
+<button id="exportPhotoPurgeNotifications" type="button">通知CSV出力</button>
+</div>
+<div class="photo-purge-plan-list" id="photoPurgePlanList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div><h2>完全削除証明書台帳</h2></div>
+<button id="exportPhotoPurgeCertificateLedger" type="button">台帳CSV出力</button>
+</div>
+<p class="scope-note">証明書ID、申請番号、事業所、実行者、実行日、検証状態から削除証明書を検索・照合できます。</p>
+<div class="certificate-ledger-tools">
+<input id="photoPurgeCertificateLedgerFilter" placeholder="証明書ID・計画ID・申請番号・実行者で検索" type="search"/>
+<select id="photoPurgeCertificateLedgerStatus">
+<option value="all">すべての検証状態</option>
+<option value="valid">検証合格</option>
+<option value="invalid">検証不合格</option>
+<option value="unverified">未検証</option>
+</select>
+</div>
+<p class="scope-note" id="photoPurgeCertificateLedgerSummary"></p>
+<div class="certificate-ledger-list" id="photoPurgeCertificateLedgerList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div><h2>削除証明書の月次集計・照合</h2></div>
+<div class="management-actions">
+<button id="exportPhotoPurgeMonthlyCsv" type="button">月次CSV出力</button>
+<button id="exportPhotoPurgeMonthlyJson" type="button">月次報告JSON</button>
+</div>
+</div>
+<p class="scope-note">対象月の削除証明書を事業所別に集計し、検証不合格・削除計画未照合・重複証明書を抽出します。</p>
+<div class="certificate-monthly-tools">
+<label>対象月<input id="photoPurgeMonthlyMonth" type="month"/></label>
+<select id="photoPurgeMonthlyOffice"><option value="all">すべての事業所</option></select>
+<label class="check-field"><input id="photoPurgeMonthlyIssuesOnly" type="checkbox"/> 要確認のみ表示</label>
+</div>
+<div class="certificate-monthly-summary" id="photoPurgeMonthlySummary"></div>
+<div class="certificate-monthly-office-list" id="photoPurgeMonthlyOfficeList"></div>
+<div class="certificate-monthly-issue-list" id="photoPurgeMonthlyIssueList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div><h2>アクセス監査ルール設定</h2></div>
+<div class="management-actions">
+<button id="simulateCorrectiveEvidenceAuditRules" type="button">変更前にシミュレーション</button>
+<button id="createCorrectiveEvidenceAuditRuleProposal" type="button">変更申請を作成</button>
+<button id="exportCorrectiveEvidenceAuditRuleHistory" type="button">変更履歴CSV</button>
+</div>
+</div>
+<p class="scope-note">検出基準は事業所管理者または管理者のみ変更できます。変更理由と変更前後の値を履歴として保存します。</p>
+<div class="audit-rule-grid">
+<label class="check-field"><input id="auditRulePermissionDenied" type="checkbox"/> 権限外アクセスを検出</label>
+<label class="check-field"><input id="auditRuleMissingReason" type="checkbox"/> 理由未入力を検出</label>
+<label class="check-field"><input id="auditRuleBulkDownload" type="checkbox"/> 短時間大量取得を検出</label>
+<label>集計時間（分）<input id="auditRuleWindowMinutes" max="120" min="1" type="number"/></label>
+<label>中優先度（件以上）<input id="auditRuleMediumThreshold" max="100" min="2" type="number"/></label>
+<label>高優先度（件以上）<input id="auditRuleHighThreshold" max="200" min="3" type="number"/></label>
+<label>標準監査対象時間（時間）<input id="auditRuleLookbackHours" max="720" min="1" type="number"/></label>
+<label>適用方法<select id="auditRuleReleaseMode"><option value="immediate">承認後すぐ適用</option><option value="scheduled">予約適用</option></select></label>
+<label>予約適用日時<input id="auditRuleScheduledAt" type="datetime-local"/></label>
+<label class="audit-rule-grid__wide">変更理由<input id="auditRuleChangeReason" placeholder="例：運用実績を踏まえ大量取得の閾値を見直し" type="text"/></label>
+</div>
+<p class="scope-note" id="correctiveEvidenceAuditRuleSummary"></p>
+<div class="photo-purge-notification-summary" id="correctiveEvidenceAuditRuleProposalSummary"></div>
+<div class="certificate-corrective-tools">
+<select id="correctiveEvidenceAuditRuleProposalFilter">
+<option value="all">すべての申請</option>
+<option value="pending-approval">承認待ち</option>
+<option value="approved-scheduled">予約適用待ち</option>
+<option value="overdue">期限超過</option>
+<option value="unacknowledged">未確認通知</option>
+<option value="escalated">管理者引継ぎ</option>
+</select>
+</div>
+<div class="audit-rule-simulation" id="correctiveEvidenceAuditSimulation"></div>
+<div class="audit-rule-history" id="correctiveEvidenceAuditRuleProposalList"></div>
+<div class="management-heading audit-rule-ledger-heading">
+<div><h3>変更申請の処理台帳・適用証明</h3></div>
+<div class="management-actions">
+<button id="exportAuditRuleProposalLedgerCsv" type="button">処理台帳CSV</button>
+<button id="exportAuditRuleCertificatesJson" type="button">適用証明一括JSON</button>
+</div>
+</div>
+<div class="certificate-verification-tools">
+<label>証明書JSON<input accept="application/json,.json" id="auditRuleCertificateFile" type="file"/></label>
+<button id="verifyAuditRuleCertificateFile" type="button">証明書を検証</button>
+<label>月次照合対象<input id="auditRuleCertificateMonth" type="month"/></label>
+<button id="runAuditRuleCertificateMonthly" type="button">月次照合</button>
+<button id="exportAuditRuleCertificateVerificationsCsv" type="button">検証履歴CSV</button>
+</div>
+<div class="audit-rule-simulation" id="auditRuleCertificateVerificationResult"></div>
+<div class="management-heading audit-rule-ledger-heading">
+<div><h3>適用証明の要確認・是正処置</h3></div>
+<div class="management-actions"><button id="exportAuditRuleCertificateCorrectiveCsv" type="button">是正処置CSV</button></div>
+</div>
+<p class="scope-note">月次照合で検出した検証不合格、申請未照合、ID重複について、原因・担当者・期限・対応結果・別担当者による完了確認に加え、再発防止策の効果確認、効果不十分時の再是正、再是正後の再評価と案件クローズまで管理します。</p>
+<div class="photo-purge-notification-summary" id="auditRuleCertificateCorrectiveSummary"></div>
+<div class="certificate-corrective-tools">
+<select id="auditRuleCertificateCorrectiveStatus"><option value="active">未完了すべて</option><option value="open">対応中</option><option value="pending-verification">完了確認待ち</option><option value="overdue">期限超過</option><option value="closed">完了</option><option value="all">すべて</option></select>
+<input id="auditRuleCertificateCorrectiveFilter" placeholder="証明書ID・申請ID・担当者・原因・是正内容で検索" type="search"/>
+</div>
+<div class="certificate-verification-tools">
+<label>傾向分析対象月<input id="auditRuleCertificateCorrectiveTrendMonth" type="month"/></label>
+<button id="runAuditRuleCertificateCorrectiveTrend" type="button">傾向分析</button>
+<button id="exportAuditRuleCertificateCorrectiveTrendJson" type="button">月次傾向JSON</button>
+</div>
+<div class="audit-rule-simulation" id="auditRuleCertificateCorrectiveTrendResult"></div>
+<div class="certificate-corrective-list" id="auditRuleCertificateMonthlyIssues"></div>
+<div class="certificate-corrective-list" id="auditRuleCertificateCorrectiveList"></div>
+<div class="management-heading audit-rule-ledger-heading">
+<div><h3>案件クローズ証明・アーカイブ台帳</h3></div>
+<div class="management-actions"><button id="exportCaseClosureCertificatesJson" type="button">証明書一括JSON</button><button id="exportCaseClosureCertificatesCsv" type="button">台帳CSV</button></div>
+</div>
+<div class="certificate-corrective-tools">
+<input id="caseClosureCertificateFilter" placeholder="証明書ID・是正処置ID・事業所・承認者で検索" type="search"/>
+<label>証明書保存期間<input id="caseClosureRetentionYears" max="30" min="1" type="number" value="10"/>年</label>
+<button id="saveCaseClosureRetentionYears" type="button">保存期間を設定</button>
+</div>
+<div class="photo-purge-notification-summary" id="caseClosureCertificateSummary"></div>
+<div class="certificate-corrective-list" id="caseClosureCertificateList"></div>
+<div class="management-heading audit-rule-ledger-heading">
+<div><h3>案件再開申請</h3></div>
+</div>
+<p class="scope-note">新事実、再発、判断根拠の変更などが判明した場合は、クローズ証明を削除せず、再開申請を作成して別担当者の承認を受けます。再調査、追加是正、再評価、再クローズまでの期限と処理状況を一括管理します。</p>
+<div class="photo-purge-notification-summary" id="caseReopenWorkflowSummary"></div>
+<div class="certificate-corrective-tools certificate-corrective-tools--dashboard">
+<select id="caseReopenWorkflowStatus">
+<option value="active">未完了すべて</option>
+<option value="pending-approval">再開承認待ち</option>
+<option value="investigating">再調査中</option>
+<option value="pending-review">再調査承認待ち</option>
+<option value="corrective-in-progress">追加是正中</option>
+<option value="pending-corrective-verification">追加是正确認待ち</option>
+<option value="reevaluation-pending">再評価待ち</option>
+<option value="pending-reclosure">再クローズ承認待ち</option>
+<option value="overdue">期限超過</option>
+<option value="reclosed">再クローズ済み</option>
+<option value="all">すべて</option>
+</select>
+<input id="caseReopenRequestFilter" placeholder="再開申請ID・証明書ID・担当者・理由・調査結果で検索" type="search"/>
+<select id="caseReopenWorkflowOffice"><option value="all">すべての事業所</option></select>
+<button id="exportCaseReopenWorkflowCsv" type="button">再開案件CSV</button>
+<button id="exportCaseReopenWorkflowJson" type="button">再開案件JSON</button>
+</div>
+<div class="certificate-corrective-list" id="caseReopenRequestList"></div>
+<div class="audit-rule-history" id="correctiveEvidenceAuditRuleCertificateLedger"></div>
+<div class="audit-rule-history" id="correctiveEvidenceAuditRuleHistory"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div><h2>証拠資料アクセス監査</h2></div>
+<div class="management-actions">
+<button id="runCorrectiveEvidenceAudit" type="button">設定時間を監査</button>
+<button id="exportCorrectiveEvidenceAuditCsv" type="button">監査所見CSV</button>
+<button id="exportCorrectiveEvidenceAuditMonthlyJson" type="button">月次報告JSON</button>
+</div>
+</div>
+<p class="scope-note">権限外アクセス、理由未入力による取得拒否、短時間の大量ダウンロードを、現在の監査ルールに基づいて抽出します。所見の確認、再発防止策、別担当者による完了レビューは事業所管理者または管理者のみ実行できます。</p>
+<div class="photo-purge-notification-summary" id="correctiveEvidenceAuditSummary"></div>
+<div class="certificate-corrective-tools">
+<select id="correctiveEvidenceAuditStatus"><option value="open">未処理</option><option value="pending-review">レビュー待ち</option><option value="resolved">完了</option><option value="all">すべて</option></select>
+<input id="correctiveEvidenceAuditFilter" placeholder="操作者・資料名・事業所・種別で検索" type="search"/>
+</div>
+<div class="certificate-corrective-list" id="correctiveEvidenceAuditList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div><h2>是正処置の進捗・期限管理</h2></div>
+<div class="management-actions">
+<button id="exportPhotoPurgeCorrectiveCsv" type="button">是正処置CSV出力</button>
+<button id="exportPhotoPurgeCorrectiveMonthlyJson" type="button">月次報告JSON</button>
+<button id="exportCorrectiveEvidenceAccessCsv" type="button">資料アクセス履歴CSV</button>
+</div>
+</div>
+<p class="scope-note">月次照合で検出した要確認事項について、担当者、対応期限、管理者へのエスカレーション、完了確認に加え、原因分類・再発防止策・効果確認・他事業所への横展開に加え、実施証拠・効果確認資料の登録、別担当者による資料確認、閲覧区分・ダウンロード制御・アクセス履歴を管理します。</p>
+<div class="photo-purge-notification-summary" id="photoPurgeCorrectiveSummary"></div>
+<div class="certificate-corrective-tools certificate-corrective-tools--dashboard">
+<select id="photoPurgeCorrectiveStatus">
+<option value="active">未完了すべて</option>
+<option value="open">対応中</option>
+<option value="completed-awaiting-verification">完了確認待ち</option>
+<option value="overdue">期限超過</option>
+<option value="escalated">管理者エスカレーション</option>
+<option value="closed">完了</option>
+<option value="all">すべて</option>
+</select>
+<input id="photoPurgeCorrectiveFilter" placeholder="証明書ID・計画ID・担当者・原因・是正内容で検索" type="search"/>
+<input aria-label="対象月" id="photoPurgeCorrectiveMonth" type="month"/>
+<select id="photoPurgeCorrectiveOffice"><option value="all">すべての事業所</option></select>
+</div>
+<div class="corrective-assignee-summary" id="photoPurgeCorrectiveAssigneeSummary"></div>
+<div class="certificate-corrective-list" id="photoPurgeCorrectiveList"></div>
+</section>
+<section class="management-panel">
+<div class="management-heading">
+<div>
+<h2>完全削除証明書の検証</h2>
+</div>
+</div>
+<p class="scope-note">削除証明書JSONを読み込み、検証ハッシュ、削除件数、削減容量、対応する削除計画との整合性を確認します。画像本体は読み込みません。</p>
+<div class="certificate-verification-form">
+<label>
+          削除証明書JSON
+          <input accept="application/json,.json" id="photoPurgeCertificateFile" type="file"/>
+</label>
+<button id="verifyPhotoPurgeCertificate" type="button">証明書を検証</button>
+<button disabled="" id="exportPhotoPurgeVerification" type="button">検証結果JSON出力</button>
+</div>
+<div class="certificate-verification-result" hidden="" id="photoPurgeVerificationResult"></div>
+</section>
+<dialog class="photo-viewer-dialog" id="photoViewerDialog">
+<article class="photo-viewer-card">
+<header class="photo-viewer-card__header">
+<div>
+<h3 id="photoViewerTitle">登録写真</h3>
+</div>
+<button class="secondary-link" id="photoViewerClose" type="button">閉じる</button>
+</header>
+<div class="photo-viewer-card__body">
+<img alt="登録写真の拡大表示" id="photoViewerImage"/>
+<dl class="photo-meta" id="photoViewerMeta"></dl>
+</div>
+</article>
+</dialog>
+<aside class="data-notice">
+<strong>写真の保存方式</strong>
+<p>この開発版では写真をブラウザ内に保存します。運用方式をハイブリッドまたはオンラインに変更すると、申請番号・写真の更新情報を同期キューへ登録します。本番運用では社内サーバーAPIと中央データベースへ接続します。写真枚数・容量の上限は設定画面で管理できます。</p>
+</aside>
+</main>
+<dialog class="application-detail-dialog" id="applicationDetailDialog" aria-labelledby="applicationDetailTitle">
+<div class="application-detail-dialog__shell">
+<header class="application-detail-dialog__header"><div><span class="application-detail-kicker">申請番号管理</span><h2 id="applicationDetailTitle">登録申請の詳細</h2><p>申請書取込・確認で登録した事前審査情報を再確認できます。</p></div><button type="button" id="applicationDetailClose" aria-label="詳細を閉じる">×</button></header>
+<div id="applicationDetailViewer" class="application-detail-viewer"></div>
+<footer class="application-detail-dialog__footer"><button type="button" id="applicationDetailCloseBottom">閉じる</button></footer>
+</div>
+</dialog>
+<script src="../data/organization-master.js"></script>
+<script src="../data/hazard-class-master.js?v=276"></script>
+<script src="../data/un-data.js"></script>
+<script src="../assets/js/organization.js"></script>
+<script src="../assets/js/storage.js?v=529"></script>
+<script src="../assets/js/api-client.js?v=508"></script>
+<script src="../assets/js/role-access.js?v=503"></script>
+<script src="../assets/js/application-role-mode.js?v=321"></script>
+<script src="../assets/js/application-case-common.js?v=529"></script><script src="../assets/js/applications.js?v=549"></script>
+<script src="../assets/js/application-result-link.js?v=147"></script>
+<script src="../assets/js/application-results-view.js?v=536"></script>
+<script src="../assets/js/application-documents.js?v=506"></script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/heic-to@1.5.2/dist/iife/heic-to.js"></script>
+<script src="../assets/js/image-format-support.js?v=479"></script>
+<script src="../assets/js/photos.js?v=479"></script>
+<script src="../assets/js/system-shell.js?v=508"></script>
+<script src="../assets/js/sync-manager.js?v=506"></script>
+<script src="../assets/js/auto-sync.js?v=503"></script>
+<script src="../assets/js/online-status.js?v=178"></script>
+<script>
+  (()=>{
+    const buttons=[...document.querySelectorAll("[data-application-section]")];
+    const primary=[...document.querySelectorAll(".application-primary-section")];
+    function show(id){
+      primary.forEach(section=>section.hidden=id!=="all"&&section.id!==id);
+      buttons.forEach(button=>button.classList.toggle("is-active",button.dataset.applicationSection===id));
+      if(id!=="all")document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.applicationSection)));
+
+    const optionalIds=["applicationAssignee","containerNumber","vesselName","voyageNumber","unNumber","japaneseName","englishName","hazardClass","subsidiaryHazardClasses","packingGroup","applicationDate","inspectionPlannedDate","inspectionDate","caseTitle"];
+    const optionalFields=[...optionalIds.map(id=>document.getElementById(id)?.closest("label")),...document.querySelectorAll("[data-application-detail-field]")].filter(Boolean);
+    const candidatePanel=document.getElementById("unCandidatePanel");
+    const detailButton=document.getElementById("toggleApplicationDetails");
+    function setDetailVisibility(expanded){
+      optionalFields.forEach(field=>field.hidden=!expanded);
+      if(!expanded&&candidatePanel)candidatePanel.hidden=true;
+      detailButton?.setAttribute("aria-expanded",String(expanded));
+      if(detailButton)detailButton.textContent=expanded?"詳細項目を閉じる":"詳細項目を表示";
+    }
+    detailButton?.addEventListener("click",()=>setDetailVisibility(detailButton.getAttribute("aria-expanded")!=="true"));
+    setDetailVisibility(false);
+
+    const registeredPhotos=document.getElementById("applicationRegisteredPhotosSection");
+    let passedEssential=false;
+    document.querySelectorAll("main > section.management-panel").forEach(section=>{
+      if(section===registeredPhotos){passedEssential=true;return;}
+      if(passedEssential&&!section.classList.contains("application-primary-section")){
+        section.hidden=true;
+        section.dataset.simplifiedHidden="true";
+      }
+    });
+    const quickSelect=document.getElementById("quickApplicationSelect");
+    const quickMemo=document.getElementById("quickApplicationMemo");
+    const quickMessage=document.getElementById("quickApplicationMessage");
+    const displayNumber=item=>item.numberType==="temporary"?(item.temporaryNumber||item.applicationNumber):item.applicationNumber;
+    let quickApplicationsCache=[];
+    function refreshQuickApplications(){
+      if(!quickSelect||!window.ISSStorage)return;
+      const selected=quickSelect.value;
+      const apps=window.ISSStorage.getApplications?.({scope:window.ISSStorage.isSafetyEnvironment?.()?"all":"office"})||[];
+      quickApplicationsCache=apps;
+      quickSelect.innerHTML='<option value="">選択してください</option>'+apps.sort((a,b)=>String(b.updatedAt||"").localeCompare(String(a.updatedAt||""))).map(item=>`<option value="${item.id}">${item.applicationYear||""}年度・${displayNumber(item)||""}${item.note?"（メモあり）":""}</option>`).join("");
+      if([...quickSelect.options].some(option=>option.value===selected))quickSelect.value=selected;
+      quickSelect.dispatchEvent(new Event("change"));
+    }
+    quickSelect?.addEventListener("change",()=>{
+      const item=quickApplicationsCache.find(app=>app.id===quickSelect.value);
+      if(quickMemo)quickMemo.value=item?.note||"";
+      if(quickMessage)quickMessage.textContent="";
+    });
+    document.getElementById("quickSaveMemo")?.addEventListener("click",()=>{
+      if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";quickMessage.classList.add("is-error");return;}
+      try{window.ISSStorage.updateApplication(quickSelect.value,{note:quickMemo.value});quickMessage.textContent="簡易メモを保存しました。";quickMessage.classList.remove("is-error");window.dispatchEvent(new CustomEvent("iss:applications-changed"));}
+      catch(error){quickMessage.textContent=error.message||"メモを保存できませんでした。";quickMessage.classList.add("is-error");}
+    });
+    document.getElementById("quickAddPhoto")?.addEventListener("click",()=>{if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";return;}const target=document.getElementById("photoApplication");if(target){target.value=quickSelect.value;target.dispatchEvent(new Event("change",{bubbles:true}));}show("applicationPhotoSection");});
+    document.getElementById("quickAddDocument")?.addEventListener("click",()=>{if(!quickSelect?.value){quickMessage.textContent="申請番号を選択してください。";return;}const target=document.getElementById("documentApplication");if(target){target.value=quickSelect.value;target.dispatchEvent(new Event("change",{bubbles:true}));}show("applicationDocumentSection");});
+    document.getElementById("quickCreateApplication")?.addEventListener("click",()=>show("applicationRegisterSection"));
+    window.addEventListener("iss:applications-changed",refreshQuickApplications);
+    refreshQuickApplications();
+    show("applicationQuickSection");
+  })();
+  </script>
+<script src="../assets/js/usage-tracking.js?v=222"></script>
+<script src="../assets/js/version-guard.js?v=147"></script>
+<script src="../assets/js/v1-role-visibility.js?v=1337"></script>
+
+<script src="../assets/js/v101-user-preferences.js?v=101"></script>
+<script src="../assets/js/v11-user-preferences.js?v=110"></script>
+<script src="../assets/js/v12-user-preferences.js?v=120"></script>
+<script src="../assets/js/v11-applications.js?v=110"></script>
+<script src="../assets/js/v12-applications.js?v=120"></script>
+<script src="../assets/js/v1315-application-management.js?v=324"></script>
+<script src="../assets/js/v1338-common-header.js?v=1338"></script>
+</body>
+</html>
