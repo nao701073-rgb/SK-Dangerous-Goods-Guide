@@ -1,10 +1,10 @@
 {
-  "version": "1.3.111",
-  "base": "v1.3.110",
-  "title": "CTU Valid Input / Review Status Normalization Update",
-  "summary": "固縛力参考算出の全主要入力項目を再監査し、有効な値が入力済みの項目を未確認という理由だけで「入力不足」にしないよう統一。未確認は「確認待ち」、空欄・0以下・範囲外など実際に無効な場合のみ「入力不足」とする。貨物質量、固縛材質、固縛材MSL/STF、固縛本数、貨物側/CTU側MSL、鉛直角、支保材質、支保材個数、支保力、木材w/h/L等を同一基準で判定。",
+  "version": "1.3.112",
+  "base": "v1.3.111",
+  "title": "Dangerous Goods Search Result Navigation Update",
+  "summary": "危険物検索のスマートフォン操作を改善。検索実行後は検索結果見出しと先頭結果カードが見える位置へ自動スクロールし、検索履歴の「再検索」は同条件を再検索して結果が1件の場合に危険物詳細を直接開く。複数件の場合は検索結果一覧へ自動スクロールする。",
   "calculationLogicChanged": false,
-  "calculationChangeScope": "CTU/CSSの計算式・係数・抵抗力算出は変更なし。入力済み／確認待ち／入力不足の状態分類のみ。",
+  "calculationChangeScope": "固縛力参考算出・CTU/CSS計算ロジックへの変更なし。危険物検索・検索履歴の画面遷移のみ。",
   "completeBuild": true,
   "rebuildBaseline": "v1.3.104 complete verified system",
   "ui": {
@@ -94,7 +94,11 @@
     "deficiencyFieldSupportRemoved": true,
     "supportCountValueNotClassifiedAsMissing": true,
     "enteredCountReviewSeparatedFromMissing": true,
-    "perStepConfirmationButtonsActualCardTargetFixed": true
+    "perStepConfirmationButtonsActualCardTargetFixed": true,
+    "dangerousGoodsSearchAutoScrollToResults": true,
+    "dangerousGoodsSearchMobileResultPositionOptimized": true,
+    "searchHistoryRequeryOpensSingleDetail": true,
+    "searchHistoryMultiResultFallsBackToResults": true
   },
   "verification": {
     "browserRender": "Chromium 144 production DOM/CSS/calculation-layout runtime harness (auth/external network isolated)",
@@ -147,7 +151,14 @@
     "stepConfirmationBrowserVerifier": "24/24 PASS",
     "manualMslRegressionVerifier": "11/11 PASS",
     "stepConfirmationDesktopOverflowVerified": true,
-    "stepConfirmationMobileOverflowVerified": true
+    "stepConfirmationMobileOverflowVerified": true,
+    "searchNavigationBrowserVerifier": "12/12 PASS",
+    "searchMobileResultAutoScrollVerified": true,
+    "searchDesktopResultAutoScrollVerified": true,
+    "searchResultScrollOffsetBelowStickyHeaderVerified": true,
+    "searchHistorySingleUnResultOpensDetailVerified": true,
+    "searchHistoryAdvancedConditionFallbackVerified": true,
+    "searchNavigationPageErrors": 0
   },
-  "build": "v1.3.111-update-only-valid-input-review-normalization"
+  "build": "v1.3.112-update-only-search-result-navigation"
 }

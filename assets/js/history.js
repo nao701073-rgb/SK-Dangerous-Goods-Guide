@@ -24,6 +24,18 @@
     }
   };
 
+  function historyRequeryHref(item) {
+    const query = String(item?.query || "").trim();
+    const normalizedUn = query.normalize("NFKC").replace(/^UN\s*/i, "").trim();
+    const advancedConditions = item?.conditions && typeof item.conditions === "object"
+      ? Object.entries(item.conditions).some(([key, value]) => !["query", "resultLimit", "resultSort"].includes(key) && Boolean(value))
+      : false;
+    if (!advancedConditions && Number(item?.resultCount) === 1 && /^\d{1,4}$/.test(normalizedUn)) {
+      return `dangerous-goods-detail.html?un=${encodeURIComponent(normalizedUn.padStart(4, "0"))}`;
+    }
+    return `dangerous-goods-search.html?query=${encodeURIComponent(query)}&historyOpen=detail`;
+  }
+
   function render() {
     const history = window.ISSStorage.getSearchHistory();
 
@@ -48,7 +60,7 @@
           ${
             item.openedUnNumber
               ? `<a href="dangerous-goods-detail.html?un=${encodeURIComponent(item.openedUnNumber)}">詳細を再表示</a>`
-              : `<a href="dangerous-goods-search.html?q=${encodeURIComponent(item.query || "")}">再検索</a>`
+              : `<a href="${historyRequeryHref(item)}">再検索</a>`
           }
           <button data-remove-history="${escapeHtml(item.id)}" class="danger-action" type="button">削除</button>
         </div>

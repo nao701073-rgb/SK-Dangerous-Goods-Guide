@@ -1,4 +1,0 @@
-
-/* Part 565: 登録時の申請書確認記録 */
-.part565-evidence-notice{display:flex;align-items:flex-start;gap:10px;margin:10px 0 12px;padding:10px 12px;border:1px solid #b9d7c5;border-radius:9px;background:#f0f8f3;color:#315f46}.part565-evidence-notice strong{white-space:nowrap;color:#17623d}.part565-evidence-notice span{font-size:.86rem;line-height:1.5;color:#506e5b}
-@media(max-width:700px){.part565-evidence-notice{display:grid;gap:3px}.part565-evidence-notice strong{white-space:normal}}

@@ -1,5 +1,0 @@
-/* Part 546: 事前審査確認を正本表示とし、下段の重複項目を廃止 */
-/* 許容容量・許容質量と参照包装要件は上段の事前審査確認帯で一度だけ表示する。 */
-#intakeCargoBody tr>td[data-field-group="permission"]{min-width:0}
-#intakeCargoBody .part544-review-cell{margin-bottom:2px}
-@media(max-width:760px){#intakeCargoBody tr>td[data-field-group="permission"]{grid-column:1/-1}}

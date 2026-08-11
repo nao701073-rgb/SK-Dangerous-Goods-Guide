@@ -462,6 +462,41 @@
   }
 
 
+  function scrollToSearchResults(behavior = "smooth") {
+    const target = document.querySelector(".search-meta-row") || root;
+    if (!target) return;
+    const header = document.querySelector(".sk-v1338-header");
+    const headerHeight = header ? Math.ceil(header.getBoundingClientRect().height || 0) : 0;
+    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - headerHeight - 12);
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    window.scrollTo({ top, behavior: reducedMotion ? "auto" : behavior });
+  }
+
+  function scheduleResultScroll(behavior = "smooth") {
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollToSearchResults(behavior)));
+  }
+
+  function clearFiltersForUrlQuery() {
+    Object.entries(fields).forEach(([key, field]) => {
+      if (!field) return;
+      field.value = key === "resultLimit" ? "40" : key === "resultSort" ? "un-asc" : "";
+    });
+    favoritesOnly = false;
+    favoriteFilter.textContent = "☆ お気に入り";
+    advancedPanel.hidden = true;
+    advancedToggle.setAttribute("aria-expanded", "false");
+    advancedToggle.textContent = "詳細検索を開く";
+  }
+
+  function openSingleHistoryResultIfRequested(params) {
+    if (params.get("historyOpen") !== "detail" || lastMatchedRows.length !== 1) return false;
+    const link = root.querySelector(".result-card a.result-card__main[href]");
+    if (!link) return false;
+    location.replace(link.href);
+    return true;
+  }
+
+
   function clearAdvancedConditions() {
     Object.entries(fields).forEach(([key, field]) => {
       if (!field || ["resultLimit", "resultSort"].includes(key)) return;
@@ -491,6 +526,7 @@
       conditions: currentConditions(),
       resultCount: lastMatchedRows.length
     });
+    scheduleResultScroll("smooth");
   });
 
   input.addEventListener("input", render);
@@ -607,10 +643,22 @@
   renderPresetOptions();
 
   const restoredState = restoreSearchState();
-  render();
-  if (restoredState && Number.isFinite(Number(restoredState.scrollY))) {
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: Number(restoredState.scrollY), behavior: "auto" });
-    });
+  const initialParams = new URLSearchParams(location.search);
+  const urlQuery = (initialParams.get("query") || initialParams.get("q") || "").trim();
+
+  if (urlQuery) {
+    clearFiltersForUrlQuery();
+    input.value = urlQuery;
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!openSingleHistoryResultIfRequested(initialParams)) scrollToSearchResults("auto");
+    }));
+  } else {
+    render();
+    if (restoredState && Number.isFinite(Number(restoredState.scrollY))) {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: Number(restoredState.scrollY), behavior: "auto" });
+      });
+    }
   }
 })();
