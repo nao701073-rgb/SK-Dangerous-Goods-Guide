@@ -16,6 +16,18 @@
 
   async function syncItem(item) {
     const p = item.payload || {};
+    // TEST156 diagnostic bridge: each queue item receives a durable server receipt.
+    if (["corrective-evidence-case-reopen-request",
+         "corrective-evidence-case-reopen-investigation",
+         "corrective-evidence-case-closure-certificate"].includes(item.entity)) {
+      const response = await window.ISSApi.syncReopenEvent({
+        queueId: item.id, entity: item.entity, action: item.action, payload: p
+      });
+      if (response?.status !== "persisted") {
+        return { skipped: true, reason: "サーバー保存の受領確認がありません。" };
+      }
+      return response;
+    }
     if (item.entity === "application") {
       if (item.action === "create") {
         const result = await window.ISSApi.createApplication({
@@ -144,10 +156,21 @@
     window.ISSStorage.mergeServerApplicationDocuments(documentResult.documents || [], assetBaseFromEndpoint());
     let resultRows=[];
     try { const resultResponse=await window.ISSApi.listApplicationResults(params); resultRows=resultResponse.results||[]; window.ISSApplicationResults?.mergeServerResults?.(resultRows); } catch (error) { console.warn("確認・算出結果の取得に失敗しました。",error); }
+    // Reopen state is office-scoped. Never silently mix multiple offices or swallow merge conflicts.
+    const officeId = String(context.officeId || "");
+    if (!officeId) throw new Error("再調査同期の事業所を特定できません。事業所を選択してください。");
+    if (!window.ISSApi.reopenSyncState || !window.ISSStorage.mergeServerReopenState) {
+      throw new Error("再調査同期に必要なAPIまたは保存処理がありません。");
+    }
+    const reopenResponse = await window.ISSApi.reopenSyncState({ officeId });
+    if (!reopenResponse || !Array.isArray(reopenResponse.items)) {
+      throw new Error("再調査同期の取得結果が不正です。");
+    }
+    const reopen = window.ISSStorage.mergeServerReopenState(reopenResponse.items, officeId);
     localStorage.setItem("iss-last-data-pull-at", new Date().toISOString());
     window.dispatchEvent(new CustomEvent("iss:applications-changed"));
     window.dispatchEvent(new CustomEvent("iss:application-documents-changed"));
-    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length, documents:(documentResult.documents || []).length, results:resultRows.length };
+    return { applications: (applicationResult.applications || []).length, photos: (photoResult.photos || []).length, documents:(documentResult.documents || []).length, results:resultRows.length, reopen };
   }
 
   window.ISSSync = {
@@ -156,6 +179,16 @@
     async run(onProgress) {
       if (!window.ISSApi?.isAuthenticated()) throw new Error("オンライン同期にはログインが必要です。");
       const queue = readQueue();
+      // A crashed browser must not strand in-flight reopen items forever.
+      // The server receipt keyed by queueId makes retries idempotent.
+      for (const item of queue) {
+        if (item.status === "processing" && [
+          "corrective-evidence-case-reopen-request",
+          "corrective-evidence-case-reopen-investigation",
+          "corrective-evidence-case-closure-certificate"
+        ].includes(item.entity)) item.status = "error";
+      }
+      writeQueue(queue);
       let completed = 0;
       for (const item of queue) {
         if (!["pending", "error"].includes(item.status)) continue;

@@ -30,7 +30,7 @@ CREATE INDEX IF NOT EXISTS idx_activity_retention_disposal_status
 
 CREATE TABLE IF NOT EXISTS activity_report_runs (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  schedule_id uuid REFERENCES activity_report_schedules(id),
+  schedule_id bigint REFERENCES activity_report_schedules(id),
   period_type text NOT NULL CHECK(period_type IN ('weekly','monthly')),
   period_from date NOT NULL,
   period_to date NOT NULL,

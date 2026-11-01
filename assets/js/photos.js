@@ -2746,7 +2746,15 @@
     return map[status] || status || "未開始";
   }
 
-  function getCaseReopenWorkflowRows() {
+  function caseReopenActiveDueAt(investigation) {
+  if (!investigation) return "";
+  const status = String(investigation.status || "");
+  if (status === "investigating" || status === "pending-review") return investigation.dueAt || "";
+  if (status === "corrective-in-progress" || status === "pending-corrective-verification") return investigation.correctiveDueAt || "";
+  if (status === "reevaluation-pending") return investigation.reevaluationDueAt || "";
+  return "";
+}
+function getCaseReopenWorkflowRows() {
     const query = String(caseReopenRequestFilter?.value || "").trim().toLowerCase();
     const selectedStatus = caseReopenWorkflowStatus?.value || "active";
     const selectedOffice = caseReopenWorkflowOffice?.value || "all";
@@ -2756,7 +2764,7 @@
     return requests.map(request => {
       const investigation = investigations.find(row => row.reopenRequestId === request.id && row.status !== "cancelled") || null;
       const workflowStatus = request.status === "pending-approval" ? "pending-approval" : request.status === "reclosed" ? "reclosed" : investigation?.status || "approved";
-      const dueAt = investigation?.dueAt || investigation?.correctiveDueAt || investigation?.reevaluationDueAt || "";
+      const dueAt = caseReopenActiveDueAt(investigation);
       const overdue = Boolean(dueAt && workflowStatus !== "reclosed" && new Date(dueAt).getTime() < now);
       return { request, investigation, workflowStatus, dueAt, overdue };
     }).filter(row => {
@@ -2820,7 +2828,7 @@
       return requests.map(request => {
         const investigation = investigations.find(row => row.reopenRequestId === request.id && row.status !== "cancelled") || null;
         const workflowStatus = request.status === "pending-approval" ? "pending-approval" : request.status === "reclosed" ? "reclosed" : investigation?.status || "approved";
-        const dueAt = investigation?.dueAt || investigation?.correctiveDueAt || investigation?.reevaluationDueAt || "";
+        const dueAt = caseReopenActiveDueAt(investigation);
         return { request, investigation, workflowStatus, dueAt, overdue: Boolean(dueAt && workflowStatus !== "reclosed" && new Date(dueAt).getTime() < now) };
       });
     })();

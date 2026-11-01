@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS application_linked_results (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   client_id text,
   application_id uuid NOT NULL REFERENCES applications(id),
-  office_id uuid NOT NULL REFERENCES offices(id),
+  office_id text NOT NULL REFERENCES offices(id),
   result_type text NOT NULL CHECK (result_type IN ('dangerous-goods-verification','ctu-securing','other')),
   title text NOT NULL,
   result_version integer NOT NULL DEFAULT 1,

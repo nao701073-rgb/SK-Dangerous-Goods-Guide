@@ -1,12 +1,12 @@
 -- Part 111: 写真保存期間・保全指定
-ALTER TABLE application_photos
+ALTER TABLE photos
   ADD COLUMN IF NOT EXISTS retention_hold boolean NOT NULL DEFAULT false,
   ADD COLUMN IF NOT EXISTS retention_hold_reason text,
   ADD COLUMN IF NOT EXISTS retention_hold_by text,
   ADD COLUMN IF NOT EXISTS retention_hold_at timestamptz;
 
 CREATE INDEX IF NOT EXISTS idx_application_photos_retention_hold
-  ON application_photos (office_id, retention_hold, shooting_at);
+  ON photos (office_id, retention_hold, shooting_at);
 
 CREATE TABLE IF NOT EXISTS photo_retention_policies (
   office_id text PRIMARY KEY,

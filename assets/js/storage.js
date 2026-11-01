@@ -110,13 +110,23 @@
 
   const enqueueSync = (entity, action, payload) => {
     const mode = localStorage.getItem(KEYS.operationMode) || "offline";
-    if (mode === "offline") return;
+    // TEST156: preserve reopen records for later delivery even when currently offline.
+    const reopenEntity = ["corrective-evidence-case-reopen-request",
+      "corrective-evidence-case-reopen-investigation",
+      "corrective-evidence-case-closure-certificate"].includes(entity);
+    if (mode === "offline" && !reopenEntity) return;
     const queue = read(KEYS.syncQueue, []);
     queue.push({
       id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
       entity, action, payload, createdAt: nowIso(), status: "pending"
     });
-    write(KEYS.syncQueue, queue.slice(-1000));
+    // Never silently discard pending/error/processing items at the queue limit.
+    while (queue.length > 1000) {
+      const completedIndex = queue.findIndex(row => row.status === "completed");
+      if (completedIndex < 0) throw new Error("同期キューが満杯です。未送信データを保護するため追加登録を停止しました。");
+      queue.splice(completedIndex, 1);
+    }
+    write(KEYS.syncQueue, queue);
   };
 
   const PHOTO_AUDIT_LIMIT = 5000;
@@ -231,6 +241,92 @@
       const normalized = String(value || "").trim();
       localStorage.setItem(KEYS.serverEndpoint, normalized);
       return normalized;
+    },
+    // Integrated workspace: server snapshots are imported only when doing so cannot erase local edits.
+    mergeServerReopenState(records = [], expectedOfficeId = "") {
+      if (!Array.isArray(records)) throw new Error("再調査同期の応答が不正です。");
+      if (!expectedOfficeId) throw new Error("再調査データ取得には事業所IDが必要です。");
+      if (records.length >= 500) throw new Error("再調査データが上限に達しました。全件取得が実装されるまで反映を中止します。");
+      const mapping = {
+        request: KEYS.correctiveEvidenceCaseReopenRequests,
+        investigation: KEYS.correctiveEvidenceCaseReopenInvestigations,
+        certificate: KEYS.correctiveEvidenceCaseClosureCertificates
+      };
+      const entityNames = {
+        request: "corrective-evidence-case-reopen-request",
+        investigation: "corrective-evidence-case-reopen-investigation",
+        certificate: "corrective-evidence-case-closure-certificate"
+      };
+      const metaKey = "iss-reopen-server-merge-revisions-v1";
+      const oldMeta = read(metaKey, {});
+      const meta = oldMeta && typeof oldMeta === "object" && !Array.isArray(oldMeta) ? {...oldMeta} : {};
+      const allRows = {};
+      for (const [kind, key] of Object.entries(mapping)) {
+        const rows = read(key, []);
+        if (!Array.isArray(rows)) throw new Error("保存済みデータの形式が不正です。");
+        allRows[kind] = rows.slice();
+      }
+      const queue = read(KEYS.syncQueue, []);
+      if (!Array.isArray(queue)) throw new Error("同期キューの形式が不正です。");
+      const busy = new Set(queue.filter(item => item && item.status !== "completed" &&
+        Object.values(entityNames).includes(item.entity)).map(item => {
+        const kind = Object.keys(entityNames).find(k => entityNames[k] === item.entity);
+        const id = kind === "certificate" ? item.payload?.certificateId : item.payload?.id;
+        return `${kind}:${String(id || "")}`;
+      }));
+      let imported = 0, updated = 0, conflicts = 0;
+      const seen = new Set();
+      for (const server of records) {
+        if (!server || !Object.hasOwn(mapping, server.entity_type) ||
+            typeof server.client_id !== "string" || !server.client_id ||
+            server.office_id !== expectedOfficeId ||
+            !Number.isInteger(Number(server.revision)) || Number(server.revision) < 1 ||
+            !server.snapshot || typeof server.snapshot !== "object" || Array.isArray(server.snapshot)) {
+          throw new Error("再調査同期の対象・事業所・版数が不正です。");
+        }
+        const kind = server.entity_type;
+        const id = server.client_id;
+        if ((kind === "certificate" ? server.snapshot.certificateId : server.snapshot.id) !== id ||
+            server.snapshot.officeId !== expectedOfficeId ||
+            server.snapshot.status !== server.status) throw new Error("同期データのID・状態が一致しません。");
+        const token = `${kind}:${id}`;
+        if (seen.has(token)) throw new Error("同期応答に重複があります。");
+        seen.add(token);
+        const rows = allRows[kind];
+        const idOf = row => kind === "certificate" ? row?.certificateId : row?.id;
+        const index = rows.findIndex(row => idOf(row) === id);
+        const version = Number(server.revision);
+        const snapshot = typeof structuredClone === "function" ? structuredClone(server.snapshot) : JSON.parse(JSON.stringify(server.snapshot));
+        const fingerprint = JSON.stringify(snapshot);
+        const prior = meta[token];
+        if (busy.has(token)) { conflicts++; continue; }
+        if (index < 0) {
+          if (rows.length >= 5000) throw new Error("端末内の保存件数上限に達しました。");
+          rows.unshift(snapshot);
+          meta[token] = { revision: version, fingerprint };
+          imported++;
+        } else {
+          const local = rows[index];
+          if (!prior) {
+            // Existing offline data is not automatically server-authoritative.
+            if (JSON.stringify(local) === fingerprint) meta[token] = { revision: version, fingerprint };
+            else conflicts++;
+          } else if (JSON.stringify(local) !== prior.fingerprint) {
+            conflicts++;
+          } else if (version > Number(prior.revision)) {
+            rows[index] = snapshot;
+            meta[token] = { revision: version, fingerprint };
+            updated++;
+          } else if (version === Number(prior.revision) && fingerprint !== prior.fingerprint) {
+            conflicts++;
+          }
+        }
+      }
+      // Write after full validation; no local record is overwritten when dirty or pending.
+      for (const [kind, key] of Object.entries(mapping)) write(key, allRows[kind]);
+      write(metaKey, meta);
+      if (imported || updated) window.dispatchEvent?.(new CustomEvent("iss:reopen-changed"));
+      return { imported, updated, conflicts, fetched: records.length };
     },
     getSyncQueue() { return read(KEYS.syncQueue, []); },
     clearCompletedSyncQueue() { write(KEYS.syncQueue, this.getSyncQueue().filter(item => item.status !== "completed")); },

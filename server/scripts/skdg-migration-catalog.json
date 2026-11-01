@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "source": "SKDG R65 reviewed full lab SQL catalog (original vs integrated, 2026-10-31)",
+  "entries": [
+    {
+      "name": "001_schema.sql",
+      "sha256": "16CB3D3F771113A88D55320F71E5F0FEB1194990EE3973D999AD9B46531E3BC1",
+      "status": "Unchanged"
+    },
+    {
+      "name": "002_production_controls.sql",
+      "sha256": "05DA6FB6E0AC6734586F032061B3E86F4E24816BFD1962703546134CF87CA93B",
+      "status": "Unchanged"
+    },
+    {
+      "name": "003_validation_support.sql",
+      "sha256": "6ED559E862C6BFF77F00F9AF2B98C421A4C675AB4D58C6DC7712B898AF81506E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "004_part90_features.sql",
+      "sha256": "614A327501166F001095B9AD9290C35A60E61B421C2CD1CE43765DCFF6D9A4F4",
+      "status": "Unchanged"
+    },
+    {
+      "name": "005_login_id_email_mfa_kawasaki_pilot.sql",
+      "sha256": "FA4656469CE8276C0B0DCC3D5E6C172A8D834364B5BB235CA492B95CC36B2173",
+      "status": "Unchanged"
+    },
+    {
+      "name": "006_initial_admin_credentials.sql",
+      "sha256": "B1075C9CE8F682F4417142EB656678034550E1506619C9B3F51949AFF9A19809",
+      "status": "Unchanged"
+    },
+    {
+      "name": "007_data_migration.sql",
+      "sha256": "4262D37E97B91FF5627E06236326CB924F711B3B94D5777E8FF40CF818C75F5D",
+      "status": "Unchanged"
+    },
+    {
+      "name": "008_organization_wide_individual_accounts.sql",
+      "sha256": "E6DB92594074E0E76AF9DA8D690B373D8489CE706FFA486106AFDF2C0B9F4439",
+      "status": "Unchanged"
+    },
+    {
+      "name": "009_security_hardening.sql",
+      "sha256": "97B3C48F1D3D052951A40FE1F3ECFE31606838EB8BCD723567EF3E00249C2DEF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "010_regulation_revision_management.sql",
+      "sha256": "597E0F4638C6FB77ECCEC305882F125B30CBDF8AB1A07868BBB2D12447EAA50D",
+      "status": "Unchanged"
+    },
+    {
+      "name": "011_regulation_review_controls.sql",
+      "sha256": "83031CC5190F90CAD980A358D0C69D04E472334EBD8D1339FEC008160EB9C40C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "012_regulation_impact_and_approval.sql",
+      "sha256": "CC7168EF717E61341A2061058250C4F0C21D8F5F9C8BD0358DD7BB1F5DABDFD9",
+      "status": "Unchanged"
+    },
+    {
+      "name": "013_regulation_effective_date_history.sql",
+      "sha256": "D6DBE2F00B7DAD134251C4CBB63A523C6C84A492B8C845240A0EE2A8DDDA50CE",
+      "status": "Modified"
+    },
+    {
+      "name": "014_regulation_case_evidence_snapshots.sql",
+      "sha256": "02E1971CCEFF96BB1391A415C6AEAA3FC83B08BB5A75ECD93ECCEBCC7C24E5C3",
+      "status": "Modified"
+    },
+    {
+      "name": "015_regulation_integrity_audits.sql",
+      "sha256": "430D9A86FCF1FC2AF13F74D00F5045969CD7D568114FD15A6940150CFE88458C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "016_regulation_release_management.sql",
+      "sha256": "2BA2958D9D59423F1871A3691B854315AA469EB3F37F6EF03D9277568417C555",
+      "status": "Unchanged"
+    },
+    {
+      "name": "017_photo_audit_trail.sql",
+      "sha256": "8BBE41E95CECFF91679AE303769054D74311F309A8A4E866E9F5ABB0032FE021",
+      "status": "Unchanged"
+    },
+    {
+      "name": "018_photo_retention_management.sql",
+      "sha256": "ADB208E52636311CA1A52C1079B7D6EF5FB508204D425BCF8F471E761372D715",
+      "status": "Modified"
+    },
+    {
+      "name": "019_photo_purge_approval.sql",
+      "sha256": "38D7CB15FC3804FC064CAED84D798B6EFAF2B10901B5DE1E7129052BF4476287",
+      "status": "Unchanged"
+    },
+    {
+      "name": "020_photo_purge_approver_roles.sql",
+      "sha256": "87620857045C77208D55C7F87B3E68DF4168E14029FE18C4488FE058BE4EA451",
+      "status": "Unchanged"
+    },
+    {
+      "name": "021_photo_purge_deadlines.sql",
+      "sha256": "7F45E950D616EDBDEB01CB1A8C8E6A59DDF08C988BECA04DDB57AC2FF8929992",
+      "status": "Unchanged"
+    },
+    {
+      "name": "022_photo_purge_assignment_escalation.sql",
+      "sha256": "679D77139BF73219012B05CCFEEAE1857BADEA131D1FD99BC020E924BC36E888",
+      "status": "Unchanged"
+    },
+    {
+      "name": "023_photo_purge_notification_dashboard.sql",
+      "sha256": "8B813E0E4973DA56D0A82946B484F1AD8EFE3162B42635DC9C035BE25105E1FC",
+      "status": "Unchanged"
+    },
+    {
+      "name": "024_photo_purge_certificates.sql",
+      "sha256": "C3BCE35DC4F2CEBF610831877BBDBB3C143D3E0F8162F120A93DD141FB6CAFA0",
+      "status": "Unchanged"
+    },
+    {
+      "name": "025_photo_purge_certificate_verification.sql",
+      "sha256": "5D2BD846DF1A2EF6A892B1DF61A15AF48185562071486A053E2242BA7E09DF9F",
+      "status": "Unchanged"
+    },
+    {
+      "name": "026_photo_purge_certificate_ledger.sql",
+      "sha256": "4D5FA4E81315DF5123E77214F85017F8EA77E86168573D7AFC4B4F593B25B11C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "027_photo_purge_monthly_reconciliation.sql",
+      "sha256": "D20D1A13A84ABF732B7D7E4BFB625BE548C5A2209EC075E2C5E63F89FE0891EA",
+      "status": "Unchanged"
+    },
+    {
+      "name": "028_photo_purge_corrective_actions.sql",
+      "sha256": "9089A5723DD571FDF64BA9080458CD5A676FCDE434326025C34ED77CFA3CC3C7",
+      "status": "Unchanged"
+    },
+    {
+      "name": "029_photo_purge_corrective_dashboard.sql",
+      "sha256": "3D1709D387F762132F57417B63156DF2F1C004C2407494DA133465E5C8289F0C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "030_photo_purge_recurrence_prevention.sql",
+      "sha256": "90078354135E49A9DEE9B2DB08A85F224F9797E55678DC1D51281251BAE6524A",
+      "status": "Unchanged"
+    },
+    {
+      "name": "031_photo_purge_corrective_evidence.sql",
+      "sha256": "6A79C5F404F261E579EBCF827C0B49BA1BAF64E38FA9BAE79C134B87F11CF40E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "032_corrective_evidence_version_control.sql",
+      "sha256": "4D64CFBE339A2C0F78DA234AD3460C0E6A6E5FF8DAA7D3A654BECA10BB517768",
+      "status": "Unchanged"
+    },
+    {
+      "name": "033_corrective_evidence_access_control.sql",
+      "sha256": "88CD17A5AD653FD6F4ACBA31FC985D7873B6555972886D49E8F16FFA10ADF10A",
+      "status": "Unchanged"
+    },
+    {
+      "name": "034_corrective_evidence_access_audit.sql",
+      "sha256": "6E9E80B661F43CA784D7E726D72374CE861D0473BEE8A4CF3BCDF591DB8F3C44",
+      "status": "Unchanged"
+    },
+    {
+      "name": "035_corrective_evidence_audit_review.sql",
+      "sha256": "89857200F58C3468DE3092A635CDC566B66069FC62EB8D87F3F317FA5EB73B2A",
+      "status": "Modified"
+    },
+    {
+      "name": "036_corrective_evidence_audit_rules.sql",
+      "sha256": "F7F0DFFC5E0C00BE9E1E94EB482FC1B99D3AAE6C8697E2B425EEF1D7CB944FBA",
+      "status": "Unchanged"
+    },
+    {
+      "name": "037_corrective_evidence_audit_rule_simulation.sql",
+      "sha256": "707F1A5CD2155CA0AFF3E47D9308A658C6D155F7D31F1BCD29DF1A9365C98E9B",
+      "status": "Unchanged"
+    },
+    {
+      "name": "038_corrective_evidence_audit_rule_release.sql",
+      "sha256": "19F16DE75D87080D1267557BC53ED7B3A52EC1B90FE4885D3E2569AAC121ED33",
+      "status": "Unchanged"
+    },
+    {
+      "name": "039_corrective_evidence_audit_rule_proposal_deadlines.sql",
+      "sha256": "C7796BBCEDD1D2B5BF0AA714C326C15AAAC82D21F09536BB03A849B77B808A00",
+      "status": "Unchanged"
+    },
+    {
+      "name": "040_corrective_evidence_audit_rule_assignment.sql",
+      "sha256": "684999A0DD951DB125C08B836714389C0AA36F315031B2F9F5FD937C116E34B3",
+      "status": "Unchanged"
+    },
+    {
+      "name": "041_corrective_evidence_audit_rule_application_ledger.sql",
+      "sha256": "E19212CFB13C055716837894556A63625C14184B81F46AE6E9B53D5959DCF93E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "042_corrective_evidence_audit_rule_certificate_verification.sql",
+      "sha256": "274BD0E64050E5B694BCDC2698B0E24DD197F65D0F8C549EBD65C76E0150DC6C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "043_corrective_evidence_audit_rule_certificate_corrective_actions.sql",
+      "sha256": "D5CB4400B4DF2CC6166A7818043CA6F3910C517F5D848D8D291888ECDB46B1BB",
+      "status": "Unchanged"
+    },
+    {
+      "name": "044_audit_rule_certificate_corrective_recurrence.sql",
+      "sha256": "1E0215DD88A0305BD3023D10A83C24402D37054A3046DA3FDF5AE2F50BFBB73E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "045_audit_rule_certificate_effectiveness_review.sql",
+      "sha256": "DC0ACEBF14DE79B7BFA1F34C302307508564FC25BB82729951AEEC1C0EDC09EF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "046_audit_rule_certificate_followup_corrective_workflow.sql",
+      "sha256": "0753BFB8A99E23CEDB7C9A3C14FA1E6611181317151A0AC21DA111FD1EC759A5",
+      "status": "Unchanged"
+    },
+    {
+      "name": "047_audit_rule_certificate_followup_reevaluation.sql",
+      "sha256": "DED5123C5240FC3ABA8633561572B865EC173F6BB0E40D3FC8C97CF223925CD8",
+      "status": "Unchanged"
+    },
+    {
+      "name": "048_corrective_case_closure_certificates.sql",
+      "sha256": "4790DD9A4E571307ACBA5B748CCCCD51C77420368FB227937DE6820A4D1AEAA8",
+      "status": "Unchanged"
+    },
+    {
+      "name": "049_case_closure_reverification_and_reopen.sql",
+      "sha256": "299397D212B2D446D0BB964735F9BF912AF28CBA039A5DC2EED99C423A0CF9E7",
+      "status": "Unchanged"
+    },
+    {
+      "name": "050_case_reopen_investigation_reclosure.sql",
+      "sha256": "17D2038163F43D0C8ACC6C3937204480B15837E30AFC4BB58866B75E9A8D09AF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "051_case_reopen_workflow_dashboard.sql",
+      "sha256": "68FB5C963A272458240DBE1450B6BA313DD81CB5B9A712918050B37A5C7904C6",
+      "status": "Modified"
+    },
+    {
+      "name": "052_system_integrity_backup_handover.sql",
+      "sha256": "F7946A339E27C3CE2502878F52B9AF68FC29EBED33A3467973359A20A76E2DEE",
+      "status": "Unchanged"
+    },
+    {
+      "name": "053_production_release_gate.sql",
+      "sha256": "76D8E41E2B83D17C8A428DDD4FC1D8D7FCF11095C505AD2FC319E2C55F19DBDF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "054_operations_monitoring_and_recovery.sql",
+      "sha256": "9B874F046182B4DCCECB2034909246AAF47A4F1DD80EE3FC86CADEF5411CA8E1",
+      "status": "Unchanged"
+    },
+    {
+      "name": "055_login_scaling_indexes.sql",
+      "sha256": "02C3A197C48B7CF3E6B4B00AE325059F8CEA3EFF84FF5750BAC37CCC114C5C22",
+      "status": "Unchanged"
+    },
+    {
+      "name": "056_safety_environment_roles.sql",
+      "sha256": "3380617D76B460771C7283EAD783DF6DE75D6ADCF75D96CC1F50353957AC949E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "057_admin_succession_workflow.sql",
+      "sha256": "4F5EE94095A40CE7BC1A5C3B832BD543923DC7EA9B8835F14B8339F110396C7E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "058_admin_succession_completion.sql",
+      "sha256": "F68F47602B4ECFF5F898066121AE7537EECA05746D9E574B636BD6A90541BAD2",
+      "status": "Unchanged"
+    },
+    {
+      "name": "059_admin_governance_and_emergency_recovery.sql",
+      "sha256": "8795E089356C44DD8E4D9CFCF8ADD90320BC58A4D069E4BB12E8110B825FF778",
+      "status": "Unchanged"
+    },
+    {
+      "name": "060_admin_governance_corrective_actions.sql",
+      "sha256": "C1733AB112E41E4283379E0AB072BC101E6F2890EC6ECA56EB9CB7C7321A0D75",
+      "status": "Unchanged"
+    },
+    {
+      "name": "061_admin_operations_center.sql",
+      "sha256": "7B95D9786E24425906D2A1E48FF74BF2734CC30AEF5CF80F3E9F4F45ED63FCFA",
+      "status": "Unchanged"
+    },
+    {
+      "name": "062_account_lifecycle_security.sql",
+      "sha256": "F5A3DCDF5248624134C4B31B1E069C08A192E92D51EEC9F8FE8333DACD6631B6",
+      "status": "Unchanged"
+    },
+    {
+      "name": "063_identity_operations_and_readiness.sql",
+      "sha256": "2BF73E8F290296693458B326D9716A68584D3B858A629477FDF6C6BC247AD671",
+      "status": "Unchanged"
+    },
+    {
+      "name": "064_production_identity_and_data_protection.sql",
+      "sha256": "449FA2E1127F2552155D9872ACFEB7A1C8DF61FB4091EFFCD71D3CF193C096EF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "065_operations_lifecycle_and_assurance.sql",
+      "sha256": "5D420F893F306562B8315D62137B6C2CE91F78E9CB570C4A17EDA90548FFC27B",
+      "status": "Modified"
+    },
+    {
+      "name": "066_integrated_operations_center.sql",
+      "sha256": "D200015ABBB2A736A71807F8F2F33216A29A1DC70A8A223F747918B9396B1C87",
+      "status": "Unchanged"
+    },
+    {
+      "name": "067_final_production_readiness.sql",
+      "sha256": "919677FA5F8AAD4AA536575A9C865AB071547691960B09A939C413BEEE2C6835",
+      "status": "Unchanged"
+    },
+    {
+      "name": "068_post_launch_adoption_management.sql",
+      "sha256": "8242A89D23F18A29228458FBCEEEB131C15D29CE8746C52289CF57C47DEF654C",
+      "status": "Modified"
+    },
+    {
+      "name": "069_cloud_pilot_launch_package.sql",
+      "sha256": "5DE8A231019F08A4A506D412A9BA08CC695195986A39B947968DABCA961A1EFF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "070_pilot_execution_and_acceptance.sql",
+      "sha256": "8C11CF9C5D5FE96575C61C5641448BF39C85BEC9384D368C072B001BEA7E353D",
+      "status": "Unchanged"
+    },
+    {
+      "name": "071_role_permission_assurance.sql",
+      "sha256": "A425215391C2F1FE4582B0B4772547DCED425FC61EF42B5C34149F7049A5FB75",
+      "status": "Unchanged"
+    },
+    {
+      "name": "072_access_governance_workflow.sql",
+      "sha256": "24DC6BFD11F9A06B21B7475FB250F02C41C5849194D861E34502DA1501D71DD9",
+      "status": "Modified"
+    },
+    {
+      "name": "073_user_activity_monitoring.sql",
+      "sha256": "849A41DCDFCE5584734C6EF4B16D0D63992748C44570FC90279C4F35735A7692",
+      "status": "Unchanged"
+    },
+    {
+      "name": "074_daily_usage_monitoring.sql",
+      "sha256": "CDF0EA7D1BF2A9E92EF27FD796E0334D888CB845E787CFAAA47579B22B283FE7",
+      "status": "Modified"
+    },
+    {
+      "name": "075_usage_analytics_and_retention.sql",
+      "sha256": "21709ADFF8E7345B3362E3344A2D5C6BEE8676F337C7C9F8D11E8564629C4AEC",
+      "status": "Unchanged"
+    },
+    {
+      "name": "076_voluntary_usage_monitoring_policy.sql",
+      "sha256": "C50486CD06B35129095D87A82CDC6CDBC538688AC6CB568B11F3346E8C008A65",
+      "status": "Unchanged"
+    },
+    {
+      "name": "077_activity_audit_review_workflow.sql",
+      "sha256": "EF29CDCC0230BFC54D31D521CFD127FD595A3FE125253272073DA3C631CB6837",
+      "status": "Unchanged"
+    },
+    {
+      "name": "078_activity_audit_governance.sql",
+      "sha256": "13BCD672433A2FF87ACBD3C523084F6957C6036F1A0460F1A8FA28A5BABF1525",
+      "status": "Unchanged"
+    },
+    {
+      "name": "079_activity_audit_operations.sql",
+      "sha256": "069035318AAB3658DC4CC08304EA2C5308B67F20510AB77569FDA8D6CF2CA479",
+      "status": "Modified"
+    },
+    {
+      "name": "080_activity_audit_completion_and_summary.sql",
+      "sha256": "6EA94AC9A34072D224C0160FFB61E13FFE23C8A078F48170CF5A29B995DF9D32",
+      "status": "Unchanged"
+    },
+    {
+      "name": "081_activity_audit_distribution_and_evidence.sql",
+      "sha256": "201744B85D1BD2AA4EC5760ECAE3CD398EE13A82D31BF69A0C267AE13B65B3C9",
+      "status": "Unchanged"
+    },
+    {
+      "name": "081_revision_validator_role.sql",
+      "sha256": "DFEC3BF88ED3D6136C9CF8040277DD09B4EAD1DAB1AF9877B14F4DE305752AA0",
+      "status": "Unchanged"
+    },
+    {
+      "name": "082_operations_acceptance_reviews.sql",
+      "sha256": "63550717ACB07394427A6269F3F8ADF74082CFB87D565A3E7BD7F484DCC9131C",
+      "status": "Unchanged"
+    },
+    {
+      "name": "083_operations_acceptance_governance.sql",
+      "sha256": "063B76B51ECCC51A2A8C996806561664B6BA838F0B1BE89EB12EBC1D88D07648",
+      "status": "Unchanged"
+    },
+    {
+      "name": "084_operations_acceptance_reporting.sql",
+      "sha256": "DB2A4F4586363DED1D091EF9A4C41CD609EC75C5978A7043C8605C8969E51189",
+      "status": "Unchanged"
+    },
+    {
+      "name": "085_operations_acceptance_improvement_and_annual_closing.sql",
+      "sha256": "72C20F6C0C5A4EC4C473E2341F9F3819C52662F358CC4022C842407CB962F6CA",
+      "status": "Unchanged"
+    },
+    {
+      "name": "086_operations_improvement_progress_and_handoff.sql",
+      "sha256": "C73B2E2DEB1394ABC3718EF1319B750D5C9784168F53BEA0FBE9379DC8A5B92D",
+      "status": "Unchanged"
+    },
+    {
+      "name": "087_improvement_plan_governance_and_handoff.sql",
+      "sha256": "AE94A2A4694DEA41227436BAA1743D35B958ACFDD31B7EAE35365D56D51DDD68",
+      "status": "Modified"
+    },
+    {
+      "name": "088_deployment_execution_records.sql",
+      "sha256": "B4AE0D1F7F42854EAC5EC8BFE63ECCE54B69951F9CE78E748F6F4D31C50FC0FC",
+      "status": "Unchanged"
+    },
+    {
+      "name": "089_post_deployment_operations_and_handoff.sql",
+      "sha256": "36D8B61CE0BA3C8099A5CEF7FB1299C11FC9313CFCB03C8A55A920D5FC7AA20A",
+      "status": "Modified"
+    },
+    {
+      "name": "090_maintenance_governance_and_annual_update.sql",
+      "sha256": "F15E5B6E9EB27FCC4611D2552C1905121482482C72388654A756F31DE25E38D5",
+      "status": "Unchanged"
+    },
+    {
+      "name": "091_change_and_release_governance.sql",
+      "sha256": "57CABEC40D7F83F7B2482298BCEF4CA56A5A4C66DF6279FB77D6BC1E049D0FDE",
+      "status": "Modified"
+    },
+    {
+      "name": "092_system_access_policy.sql",
+      "sha256": "EBB0CAC7BC39E00AF608E9E88C2A22F83CA839E31BFFB67C78AE695CA221C0D9",
+      "status": "Unchanged"
+    },
+    {
+      "name": "093_part503_storage_permissions_approval_history_performance.sql",
+      "sha256": "041D66C10E59DC108850908A23324FCC82835225119C36FAA4E69549C81BBEE2",
+      "status": "Unchanged"
+    },
+    {
+      "name": "094_part506_application_results_and_system_migration.sql",
+      "sha256": "9E65A6A204E679B01F126BD6641A42415660C49FBC66F0681BBAF9ACF89C4086",
+      "status": "Modified"
+    },
+    {
+      "name": "095_part507_server_auth_persistence_authorization.sql",
+      "sha256": "900FE80BCD9560A49EAC8AF180EDB85635B4B680C91A65680F25FAB000B49505",
+      "status": "Unchanged"
+    },
+    {
+      "name": "096_part508_regulation_source_verification_approval.sql",
+      "sha256": "D0C6684BE69FD4C3B69BC1553112C59B81713FE94FAD9F9A416C5911DE07F1A9",
+      "status": "Unchanged"
+    },
+    {
+      "name": "097_part509_copyright_publication_scope.sql",
+      "sha256": "4E6C9A7C01BE4A2352EC5CDAC32CC0AE5D8E004D51A50781B6E4491034DE6CE3",
+      "status": "Unchanged"
+    },
+    {
+      "name": "098_part510_backup_restore_migration_drill.sql",
+      "sha256": "9AFB0687AD2559D33EB789B3E54EBB0DFB64F9A57B5BF1DD2F48C941D4C9A3C4",
+      "status": "Unchanged"
+    },
+    {
+      "name": "111_part528_operations_command_center.sql",
+      "sha256": "ECD0E7DCF16433E53B674ADDEEE47EA7F5272EC4A940FE694B3220A4FFB67BEF",
+      "status": "Unchanged"
+    },
+    {
+      "name": "112_part529_common_application_case_data.sql",
+      "sha256": "331F12FBC43B0AA03CEA223BC41F86FF24DFF461419C603C149AC2760FD5D092",
+      "status": "Unchanged"
+    },
+    {
+      "name": "113_part530_assurance_security_external_audit.sql",
+      "sha256": "ED6B68AFB39F6664488F9D7500D78FE2078D2D2AD95420109BAAFA661EA542C1",
+      "status": "Unchanged"
+    },
+    {
+      "name": "114_part531_platform_reliability_configuration_governance.sql",
+      "sha256": "ACBA2B3313C1D9EDF9739A2EDE664FD9724F683254A42DF6485B280FE63E0828",
+      "status": "Unchanged"
+    },
+    {
+      "name": "115_part532_data_integrity_performance_governance.sql",
+      "sha256": "FB7E76B684A6034A357CC89A76ECB8C3C09AAD9837A59EB6C5A6CAC5FBDD09A3",
+      "status": "Unchanged"
+    },
+    {
+      "name": "116_part533_quality_release_governance.sql",
+      "sha256": "845768641D04E0FAAC22BD1547D85F5CE2FBD13694612E1738415C31CEA38A25",
+      "status": "Unchanged"
+    },
+    {
+      "name": "117_part534_distribution_compatibility_continuity.sql",
+      "sha256": "F254B9C4358263C4CFE7E7C4BBEC37CCFD91FEB0AB3CF4FA17A9A3C076B1EF1E",
+      "status": "Unchanged"
+    },
+    {
+      "name": "118_part535_application_intake_handoff.sql",
+      "sha256": "A2C8AEA8F4C0A5211D8C431E206038671E917E61DFBFDEE07D035747E7F74481",
+      "status": "Modified"
+    },
+    {
+      "name": "125_regulation_multi_dataset_preview_packages.sql",
+      "sha256": "3B03C838813B81B8C372BDC5D89E666F211B84E9842BB1008C8BA01C7F5FA9DF",
+      "status": "Modified"
+    },
+    {
+      "name": "126_surveyor_account_category_standardization.sql",
+      "sha256": "8A34FEF6756AB50FD6D8D4B755FC0B95B36A4FE2977AFF6052F7B4D4B3BEDC5F",
+      "status": "Unchanged"
+    },
+    {
+      "name": "127_reopen_sync_bridge_diagnostic.sql",
+      "sha256": "25BFF30D0206CF04E96BFA0952941B79BE6A40CE01895FFB43C8A6A0B3F47A1F",
+      "status": "Added"
+    }
+  ]
+}

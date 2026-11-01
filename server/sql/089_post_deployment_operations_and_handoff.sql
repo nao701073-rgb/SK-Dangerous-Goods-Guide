@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS post_deployment_operations_reviews (
   summary TEXT,
   stabilization_checks JSONB NOT NULL DEFAULT '{}'::jsonb,
   handoff_checks JSONB NOT NULL DEFAULT '{}'::jsonb,
-  created_by BIGINT REFERENCES users(id),
+  created_by uuid REFERENCES users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
