@@ -32,28 +32,45 @@ if (args.length !== 1 || !['--blocked-legacy', '--plan'].includes(args[0])) {
       names.add(entry.name);
       counts[entry.status]++;
     }
-    if (counts.Unchanged !== 93 || counts.Modified !== 16 || counts.Added !== 1) {
+    if (counts.Unchanged !== 92 || counts.Modified !== 17 || counts.Added !== 1) {
       throw new Error('CATALOG_CHANGE_SCOPE_INVALID');
     }
     const files = fs.readdirSync(sqlDir).filter(name => /^\d+.*\.sql$/.test(name));
     if (files.length !== 110 || files.some(name => !names.has(name))) {
       throw new Error('SQL_FILE_SET_MISMATCH');
     }
+    // The catalog records SHA256 for LF-normalized SQL bytes. The release ZIP
+    // contains 108 SQL files with CRLF, and two already with LF. Normalizing
+    // CRLF *only for verification* leaves the actual SQL files unchanged.
+    // Using latin1 here is byte-preserving even if SQL text contains UTF-8.
+    let rawMatches = 0;
+    let crlfNormalizedMatches = 0;
     for (const entry of manifest.entries) {
       const file = path.join(sqlDir, entry.name);
       const stat = fs.lstatSync(file);
       if (!stat.isFile() || stat.isSymbolicLink()) throw new Error('SQL_FILE_TYPE_INVALID_' + entry.name);
-      const actual = crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
-      if (actual.toUpperCase() !== entry.sha256.toUpperCase()) {
+      const bytes = fs.readFileSync(file);
+      const actual = crypto.createHash('sha256').update(bytes).digest('hex');
+      if (actual.toUpperCase() === entry.sha256.toUpperCase()) {
+        rawMatches++;
+        continue;
+      }
+      // A content change other than CRLF -> LF MUST still fail closed.
+      const normalizedBytes = Buffer.from(bytes.toString('latin1').replace(/\r\n/g, '\n'), 'latin1');
+      const normalizedHash = crypto.createHash('sha256').update(normalizedBytes).digest('hex');
+      if (normalizedHash.toUpperCase() !== entry.sha256.toUpperCase()) {
         throw new Error('SQL_CHECKSUM_MISMATCH_' + entry.name);
       }
+      crlfNormalizedMatches++;
     }
     console.log('SKDG_R65_MIGRATION_MODE: OFFLINE_CATALOG_PLAN_ONLY');
     console.log('SQL_CATALOG_ENTRIES: 110');
-    console.log('SQL_UNCHANGED: 93');
-    console.log('SQL_MODIFIED: 16');
+    console.log('SQL_UNCHANGED: 92');
+    console.log('SQL_MODIFIED: 17');
     console.log('SQL_ADDED: 1');
-    console.log('ALL_110_SQL_SHA256_MATCH: True');
+    console.log('SQL_RAW_SHA256_MATCH: ' + rawMatches);
+    console.log('SQL_CRLF_TO_LF_CANONICAL_SHA256_MATCH: ' + crlfNormalizedMatches);
+    console.log('ALL_110_SQL_CATALOG_SHA256_MATCH_WITH_CRLF_NORMALIZATION: True');
     console.log('DATABASES_CONNECTED: 0');
     console.log('SQL_EXECUTED: NO');
     console.log('LEGACY_MIGRATION_EXECUTION: BLOCKED');
