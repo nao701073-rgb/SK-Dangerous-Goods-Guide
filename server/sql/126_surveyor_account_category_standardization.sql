@@ -9,6 +9,10 @@ ALTER TABLE users DROP CONSTRAINT IF EXISTS users_account_category_check;
 ALTER TABLE users DROP CONSTRAINT IF EXISTS users_office_role_check;
 ALTER TABLE users DROP CONSTRAINT IF EXISTS users_office_scope_check;
 
+-- Do not leave an invalid legacy default under the new role-dependent CHECK.
+-- The R65 API and seed paths explicitly populate account_category.
+ALTER TABLE users ALTER COLUMN account_category DROP DEFAULT;
+
 UPDATE users
    SET account_category=CASE role
        WHEN 'office-user' THEN 'surveyor'
@@ -25,7 +29,18 @@ UPDATE users
  WHERE role IN (
    'office-user','office-admin','guest','validator','revision-validator',
    'safety-environment-admin','safety-environment-director','safety-environment-staff'
- );
+ )
+ AND account_category IS DISTINCT FROM CASE role
+       WHEN 'office-user' THEN 'surveyor'
+       WHEN 'office-admin' THEN 'surveyor'
+       WHEN 'guest' THEN 'staff-guest'
+       WHEN 'validator' THEN 'staff-validator'
+       WHEN 'revision-validator' THEN 'staff-validator'
+       WHEN 'safety-environment-admin' THEN 'safety-environment-admin'
+       WHEN 'safety-environment-director' THEN 'safety-environment-director'
+       WHEN 'safety-environment-staff' THEN 'safety-environment-staff'
+       ELSE account_category
+     END;
 
 ALTER TABLE users
   ADD CONSTRAINT users_account_category_check

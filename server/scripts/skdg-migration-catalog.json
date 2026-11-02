@@ -254,7 +254,7 @@
     },
     {
       "name": "051_case_reopen_workflow_dashboard.sql",
-      "sha256": "68FB5C963A272458240DBE1450B6BA313DD81CB5B9A712918050B37A5C7904C6",
+      "sha256": "C9F51E0248C294A69BE778F5E3CB7867B605AFEB7C80414A5703AD6959264C9D",
       "status": "Modified"
     },
     {
@@ -544,8 +544,8 @@
     },
     {
       "name": "126_surveyor_account_category_standardization.sql",
-      "sha256": "8A34FEF6756AB50FD6D8D4B755FC0B95B36A4FE2977AFF6052F7B4D4B3BEDC5F",
-      "status": "Unchanged"
+      "sha256": "CD5D2DD7192838598ADCEE4DEB4D71961DD34118265460DC326FD5D6CED7872D",
+      "status": "Modified"
     },
     {
       "name": "127_reopen_sync_bridge_diagnostic.sql",
