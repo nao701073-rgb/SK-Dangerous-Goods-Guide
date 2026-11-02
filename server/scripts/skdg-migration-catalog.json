@@ -29,8 +29,8 @@
     },
     {
       "name": "006_initial_admin_credentials.sql",
-      "sha256": "B1075C9CE8F682F4417142EB656678034550E1506619C9B3F51949AFF9A19809",
-      "status": "Unchanged"
+      "sha256": "558E257074DAC6A2A606D295F515A1053E4E6D245D04A6F699AEE79689F07394",
+      "status": "Modified"
     },
     {
       "name": "007_data_migration.sql",

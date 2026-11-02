@@ -32,7 +32,7 @@ if (args.length !== 1 || !['--blocked-legacy', '--plan'].includes(args[0])) {
       names.add(entry.name);
       counts[entry.status]++;
     }
-    if (counts.Unchanged !== 92 || counts.Modified !== 17 || counts.Added !== 1) {
+    if (counts.Unchanged !== 91 || counts.Modified !== 18 || counts.Added !== 1) {
       throw new Error('CATALOG_CHANGE_SCOPE_INVALID');
     }
     const files = fs.readdirSync(sqlDir).filter(name => /^\d+.*\.sql$/.test(name));
@@ -65,8 +65,8 @@ if (args.length !== 1 || !['--blocked-legacy', '--plan'].includes(args[0])) {
     }
     console.log('SKDG_R65_MIGRATION_MODE: OFFLINE_CATALOG_PLAN_ONLY');
     console.log('SQL_CATALOG_ENTRIES: 110');
-    console.log('SQL_UNCHANGED: 92');
-    console.log('SQL_MODIFIED: 17');
+    console.log('SQL_UNCHANGED: 91');
+    console.log('SQL_MODIFIED: 18');
     console.log('SQL_ADDED: 1');
     console.log('SQL_RAW_SHA256_MATCH: ' + rawMatches);
     console.log('SQL_CRLF_TO_LF_CANONICAL_SHA256_MATCH: ' + crlfNormalizedMatches);
