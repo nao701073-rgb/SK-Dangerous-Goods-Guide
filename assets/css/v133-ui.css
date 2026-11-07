@@ -1,0 +1,38 @@
+/* SKDG v1.3.3 hotfix: native Excel picker + stable intake final rendering */
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel{
+  display:block!important;visibility:visible!important
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelDropZone{
+  cursor:default
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelFile.ctu-excel-native-input{
+  display:block!important;position:static!important;width:min(100%,620px)!important;height:auto!important;
+  margin:8px auto 0!important;padding:7px 9px!important;overflow:visible!important;clip:auto!important;
+  white-space:normal!important;border:1px solid #8db7d5!important;border-radius:9px!important;
+  background:#fff!important;color:#163d5f!important;font:inherit!important;cursor:pointer!important
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelFile.ctu-excel-native-input::file-selector-button{
+  margin-right:10px;padding:8px 14px;border:1px solid #1167a7;border-radius:8px;background:#1167a7;color:#fff;
+  font:inherit;font-weight:800;cursor:pointer
+}
+body[data-page="ctu-securing-calculator"] #ctuExcelFile.ctu-excel-native-input:hover::file-selector-button{
+  filter:brightness(.96)
+}
+body[data-page="ctu-securing-calculator"] .v133-source-application{order:1!important}
+body[data-page="ctu-securing-calculator"] .v133-source-photo{order:2!important}
+body[data-page="ctu-securing-calculator"] .v133-obsolete-source-toggle{display:none!important}
+
+/* Keep the preflight review area the same height while asynchronous checks settle. */
+body[data-page="application-intake-workflow"] #intakeCargoBody .v133-review-status-node{
+  min-height:94px!important;box-sizing:border-box!important;transition:none!important;animation:none!important
+}
+body[data-page="application-intake-workflow"].v133-intake-settling #intakeCargoBody .v133-review-status-node{
+  visibility:hidden!important;pointer-events:none!important
+}
+body[data-page="application-intake-workflow"] #intakeCargoBody,
+body[data-page="application-intake-workflow"] #intakeCargoBody *{
+  scroll-behavior:auto!important
+}
+@media(max-width:760px){
+  body[data-page="application-intake-workflow"] #intakeCargoBody .v133-review-status-node{min-height:108px!important}
+}

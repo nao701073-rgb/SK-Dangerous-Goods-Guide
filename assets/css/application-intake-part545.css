@@ -1,0 +1,19 @@
+/* Part 545: 包装要件の参照元・P200許容容量・危告示原文ジャンプ */
+.part545-reference{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-bottom:1px solid #d9e7f2;background:#f8fbfe}
+.part545-reference>div{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.part545-reference>div>span:first-child{font-size:12px;font-weight:800;color:#49647b}
+.part545-reference>div>strong{font-size:15px;color:#073b6e;overflow-wrap:anywhere}
+.part545-reference-source{display:inline-flex;padding:3px 7px;border:1px solid #bfd3e5;border-radius:999px;background:#fff;color:#46627a;font-size:11px;font-weight:700}
+.part545-source-link{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:5px 10px;border:1px solid #4f89bd;border-radius:7px;background:#fff;color:#07568f;font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap}
+.part545-source-link:hover,.part545-source-link:focus-visible{background:#edf6fd;text-decoration:underline}
+.part545-source-missing{font-size:12px;font-weight:800;color:#8a6500}
+.part545-mismatch{display:inline-flex;padding:4px 7px;border:1px solid #d67d7d;border-radius:6px;background:#fff0f0;color:#a31313;font-size:12px}
+.part544-priority--allowance.part545-p200-permit{background:#fff2d8;border-color:#dfa940}
+.part544-priority--allowance.part545-p200-permit strong{font-size:14px;line-height:1.55;color:#614500}
+#intakeCargoBody tr.part545-instruction-mismatch .part544-review{border-color:#d96b6b;box-shadow:0 0 0 1px #d96b6b}
+#intakeCargoBody tr.part545-p200-permit-row .part544-review{border-color:#d6a342}
+#intakeCargoBody tr.part545-p200-permit-row td[data-field-group="permission"]{background:#fff8df!important}
+@media(max-width:760px){.part545-reference{align-items:stretch;flex-direction:column}.part545-source-link{white-space:normal;text-align:center;width:100%}.part544-priority--allowance.part545-p200-permit strong{font-size:15px}}
+
+.part545-alternate{padding:5px 12px 7px;border-bottom:1px solid #e6eef5;background:#fbfdff;color:#526b80;font-size:11px;font-weight:700;line-height:1.5}
+.part545-mode-badge{display:inline-flex;padding:3px 7px;border:1px solid #8eb6d8;border-radius:999px;background:#edf6fd;color:#07568f;font-size:11px;font-weight:800}

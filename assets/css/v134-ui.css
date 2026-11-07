@@ -1,0 +1,16 @@
+/* SKDG v1.3.4: no-jump intake actions + lightweight field operation */
+body[data-page="application-intake-workflow"]{padding-bottom:86px}
+body[data-page="application-intake-workflow"] #intakeCheckSection,
+body[data-page="application-intake-workflow"] #intakeRegisterSection,
+body[data-page="application-intake-workflow"] #intakeCargoBody,
+body[data-page="application-intake-workflow"] #intakeCargoBody *{scroll-behavior:auto!important}
+body[data-page="application-intake-workflow"] .intake-card,
+body[data-page="application-intake-workflow"] .intake-status,
+body[data-page="application-intake-workflow"] .intake-finding,
+body[data-page="application-intake-workflow"] .intake-check{transition:none!important;animation:none!important}
+body[data-page="application-intake-workflow"] #intakeCheckSection{min-height:220px}
+body[data-page="application-intake-workflow"] #intakeRegisterState{min-height:44px;display:flex;align-items:center}
+.v134-intake-actionbar{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:1200;width:min(760px,calc(100vw - 28px));display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border:1px solid #a9c9df;border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 8px 26px rgba(22,61,95,.16);backdrop-filter:blur(8px)}
+.v134-intake-actionbar[hidden]{display:none!important}.v134-intake-actionbar>span{font-size:13px;color:#34546d;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.v134-intake-actionbar>div{display:flex;gap:8px;flex:0 0 auto}.v134-intake-actionbar button{min-height:42px;padding:8px 14px;border-radius:9px}
+html[data-skdg-follow-actions="false"] .v134-intake-actionbar{display:none!important}
+@media(max-width:760px){body[data-page="application-intake-workflow"]{padding-bottom:108px}.v134-intake-actionbar{bottom:8px;align-items:stretch;flex-direction:column;gap:7px}.v134-intake-actionbar>span{font-size:12px}.v134-intake-actionbar>div{display:grid;grid-template-columns:1fr 1fr}.v134-intake-actionbar button{width:100%}}

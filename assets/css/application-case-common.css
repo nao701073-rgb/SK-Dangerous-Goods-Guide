@@ -1,0 +1,92 @@
+:root{
+  --case-navy:#0b3a67;
+  --case-blue:#0b6db7;
+  --case-blue-dark:#075794;
+  --case-text:#102a43;
+  --case-muted:#536b82;
+  --case-border:#c8d9e8;
+  --case-soft:#f3f7fb;
+  --case-white:#fff;
+  --case-danger:#b42318;
+  --case-radius:14px;
+}
+.case-surface,.case-section{background:var(--case-white);border:1px solid var(--case-border);border-radius:var(--case-radius);box-shadow:0 4px 14px rgba(11,58,103,.07)}
+.case-section{padding:20px;margin-top:18px}
+.case-section__heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.case-section__heading h2,.case-section__heading h3{margin:0;color:var(--case-navy);font-weight:800;line-height:1.35}
+.case-section__heading p{margin:6px 0 0;color:var(--case-muted);line-height:1.7}
+.case-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.case-form-grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.case-form-grid__wide{grid-column:1/-1}
+.case-form-grid label,.case-cargo-grid label{display:grid;gap:6px;color:var(--case-text);font-weight:700;font-size:.92rem;min-width:0}
+.case-form-grid input,.case-form-grid select,.case-form-grid textarea,.case-cargo-grid input,.case-cargo-grid select,.case-cargo-grid textarea,.case-select{
+  width:100%;min-height:46px;padding:10px 12px;border:1px solid #aebfd0;border-radius:10px;background:#fff;color:var(--case-text);font:inherit;font-weight:500;box-sizing:border-box
+}
+.case-form-grid textarea,.case-cargo-grid textarea{min-height:74px;resize:vertical;line-height:1.55}
+.case-form-grid input:focus,.case-form-grid select:focus,.case-form-grid textarea:focus,.case-cargo-grid input:focus,.case-cargo-grid select:focus,.case-cargo-grid textarea:focus,.case-select:focus{outline:3px solid rgba(11,109,183,.16);border-color:var(--case-blue)}
+.case-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 15px;border:1px solid var(--case-blue);border-radius:10px;background:var(--case-blue);color:#fff;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;line-height:1.25}
+.case-button:hover{background:var(--case-blue-dark);border-color:var(--case-blue-dark)}
+.case-button--secondary{background:#fff;color:var(--case-navy)}
+.case-button--secondary:hover{background:#edf6fd;color:var(--case-navy)}
+.case-button--danger{background:#fff;color:var(--case-danger);border-color:#efb5b0}
+.case-button--danger:hover{background:#fff3f2;color:#8c1d15;border-color:#e58f88}
+.case-button:disabled{opacity:.5;cursor:not-allowed}
+.case-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.case-help{color:var(--case-muted);font-size:.84rem;line-height:1.65}
+.case-cargo-editor{margin-top:14px}
+.case-cargo-editor__toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--case-soft);border:1px solid var(--case-border);border-radius:12px;margin-bottom:12px}
+.case-cargo-editor__toolbar strong{color:var(--case-navy);font-size:1.03rem}
+.case-cargo-editor__list{display:grid;gap:14px}
+.case-cargo-row{border:1px solid var(--case-border);border-radius:14px;background:#fff;overflow:hidden}
+.case-cargo-row__header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:#edf5fb;border-bottom:1px solid var(--case-border)}
+.case-cargo-row__header>div{display:flex;align-items:center;gap:10px;color:var(--case-navy)}
+.case-cargo-number{display:inline-flex;padding:4px 8px;border-radius:7px;background:var(--case-navy);color:#fff;font-size:.82rem;font-weight:800}
+.case-cargo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:14px}
+.case-cargo-grid__wide{grid-column:span 2}
+.case-cargo-subsection{border-top:1px solid #dbe7f1;padding:0 0 2px}
+.case-cargo-subsection h4{margin:0;padding:11px 14px 0;color:var(--case-navy);font-size:.95rem}
+.case-check-field{display:flex!important;grid-column:span 2;align-items:center;grid-template-columns:auto 1fr!important;align-self:center;padding:10px 12px;border:1px solid var(--case-border);border-radius:10px;background:#fff9e8}
+.case-check-field input{width:20px!important;min-height:20px!important;margin:0}
+.case-source-link{display:inline-flex;margin:0 14px 14px;padding:9px 12px;border:1px solid var(--case-blue);border-radius:9px;color:var(--case-navy);font-weight:800;text-decoration:none}
+.case-source-link:hover{background:#edf6fd}
+.case-cargo-total{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.case-cargo-total>div{padding:12px;border:1px solid var(--case-border);border-radius:11px;background:var(--case-soft)}
+.case-cargo-total span{display:block;color:var(--case-muted);font-size:.8rem}.case-cargo-total strong{display:block;margin-top:3px;color:var(--case-navy);font-size:1.05rem}
+.case-summary-card{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.case-summary-card>div{padding:12px;border:1px solid var(--case-border);border-radius:10px;background:var(--case-soft)}
+.case-summary-card span{display:block;color:var(--case-muted);font-size:.8rem}.case-summary-card strong{display:block;margin-top:4px;color:var(--case-navy);overflow-wrap:anywhere}
+.case-cargo-preview{overflow:auto;border:1px solid var(--case-border);border-radius:12px;margin-top:12px}
+.case-cargo-preview table{min-width:980px;width:100%;border-collapse:collapse;background:#fff}
+.case-cargo-preview th,.case-cargo-preview td{padding:10px;border:1px solid #d6e3ee;vertical-align:top;text-align:left;line-height:1.55}
+.case-cargo-preview th{background:#eaf2f9;color:var(--case-navy);font-size:.86rem;white-space:nowrap}
+.case-cargo-preview td strong{color:var(--case-navy)}
+.case-inline-notice{padding:12px 14px;border-left:5px solid var(--case-blue);border-radius:9px;background:#edf7ff;color:var(--case-text);line-height:1.7}
+.case-hidden-compat{display:none!important}
+
+/* 公開中ホーム画面を基準とした申請番号管理・固縛力画面の統一 */
+body[data-page="applications"]{background:#eef3f7;color:var(--case-text);font-family:"Yu Gothic UI","Meiryo",system-ui,sans-serif}
+body[data-page="applications"] .app-header{background:var(--case-navy);color:#fff;min-height:76px;padding:0 20px}
+body[data-page="applications"] .app-header h1{font-size:clamp(1.2rem,2.4vw,1.65rem)}
+body[data-page="applications"] .main-content{max-width:1240px;margin:0 auto;padding:24px 16px 90px}
+body[data-page="applications"] .application-support-intro,body[data-page="applications"] .management-panel,body[data-page="applications"] .application-role-mode{border-color:var(--case-border);border-radius:var(--case-radius);box-shadow:0 4px 14px rgba(11,58,103,.07)}
+body[data-page="applications"] .management-panel input,body[data-page="applications"] .management-panel select,body[data-page="applications"] .management-panel textarea{border-radius:10px;min-height:46px;border-color:#aebfd0;font-size:16px}
+body[data-page="applications"] .management-panel button{border-radius:10px;min-height:42px;font-weight:800}
+body[data-page="applications"] .application-card{border-radius:14px;border-color:var(--case-border);box-shadow:none}
+body[data-page="applications"] .primary-action{background:var(--case-blue);border-color:var(--case-blue)}
+
+body[data-page="ctu-securing-calculator"]{background:#eef3f7;color:var(--case-text);font-family:"Yu Gothic UI","Meiryo",system-ui,sans-serif}
+body[data-page="ctu-securing-calculator"] .calc-shell{max-width:1240px;padding:20px 16px 90px}
+body[data-page="ctu-securing-calculator"] .hero{background:#fff;color:var(--case-text);border:1px solid var(--case-border);border-radius:14px;box-shadow:0 4px 14px rgba(11,58,103,.07)}
+body[data-page="ctu-securing-calculator"] .hero h1{color:var(--case-navy)}
+body[data-page="ctu-securing-calculator"] .panel{border-color:var(--case-border);border-radius:14px;box-shadow:0 4px 14px rgba(11,58,103,.07)}
+body[data-page="ctu-securing-calculator"] .panel h2,body[data-page="ctu-securing-calculator"] .panel h3{color:var(--case-navy)}
+body[data-page="ctu-securing-calculator"] .btn{border-radius:10px;min-height:44px;border-color:var(--case-blue);color:var(--case-navy)}
+body[data-page="ctu-securing-calculator"] .btn.primary{background:var(--case-blue);color:#fff}
+body[data-page="ctu-securing-calculator"] input,body[data-page="ctu-securing-calculator"] select{border-radius:10px;min-height:46px;border-color:#aebfd0}
+.ctu-case-selector{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px;align-items:end}
+.ctu-case-cargo-options{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.ctu-case-cargo-options label{display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid var(--case-border);border-radius:999px;background:#fff;font-weight:700}
+.ctu-case-cargo-options input{width:auto!important;min-height:auto!important}
+
+@media(max-width:900px){.case-form-grid,.case-form-grid--two{grid-template-columns:1fr 1fr}.case-cargo-grid{grid-template-columns:1fr 1fr}.case-cargo-grid__wide,.case-check-field{grid-column:1/-1}.case-cargo-total,.case-summary-card{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.case-section{padding:14px}.case-section__heading,.case-cargo-editor__toolbar,.case-cargo-row__header{align-items:stretch;flex-direction:column}.case-form-grid,.case-form-grid--two,.case-cargo-grid,.case-cargo-total,.case-summary-card,.ctu-case-selector{grid-template-columns:1fr}.case-cargo-grid__wide,.case-check-field{grid-column:1}.case-button{width:100%}.case-actions{display:grid;grid-template-columns:1fr;width:100%}body[data-page="applications"] .main-content,body[data-page="ctu-securing-calculator"] .calc-shell{padding-left:10px;padding-right:10px}}

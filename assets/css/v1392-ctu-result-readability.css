@@ -1,0 +1,77 @@
+/* SKDG v1.3.92
+   Result readability + tied worst-direction display.
+   Calculation formulas and resistance values are unchanged. */
+body[data-page="ctu-securing-calculator"] #quickStatus{
+  padding:14px 16px!important;
+  color:#24384c!important;
+  background:#fffaf0!important;
+  border-color:#e1c475!important;
+  font-size:.92rem!important;
+  line-height:1.78!important;
+  letter-spacing:.005em!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus>strong:first-child{
+  color:#704b00!important;
+  font-size:.96rem!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .v1392-worst-direction-inline{
+  color:#123f6b!important;
+  font-weight:800!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-status-breakdown{
+  gap:10px!important;
+  margin-top:12px!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-status-breakdown>span{
+  padding:10px 12px!important;
+  color:#263c51!important;
+  background:#fff!important;
+  border-color:#bfd1e1!important;
+  line-height:1.55!important;
+  font-size:.86rem!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-status-breakdown strong{
+  color:#0b477b!important;
+  font-size:.86rem!important;
+  line-height:1.45!important;
+  margin-bottom:4px!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-resistance-rule,
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-direction-note,
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-topover-note,
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-combination-note,
+body[data-page="ctu-securing-calculator"] #quickStatus .v1381-quick-confirm{
+  margin-top:10px!important;
+  padding:10px 12px!important;
+  color:#334b60!important;
+  font-size:.86rem!important;
+  line-height:1.7!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-resistance-rule{
+  background:#f1f8fe!important;
+  border-left-color:#1971ad!important;
+}
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-direction-note,
+body[data-page="ctu-securing-calculator"] #quickStatus .quick-combination-note,
+body[data-page="ctu-securing-calculator"] #quickStatus .v1381-quick-confirm{
+  background:#fff7df!important;
+  border-left-color:#c8870a!important;
+}
+body[data-page="ctu-securing-calculator"] .metric-worst-direction strong{
+  line-height:1.3!important;
+  overflow-wrap:anywhere!important;
+}
+body[data-page="ctu-securing-calculator"] .metric-worst-direction small{
+  display:block!important;
+  margin-top:4px!important;
+  color:#557086!important;
+  font-size:.70rem!important;
+  line-height:1.4!important;
+}
+@media(max-width:680px){
+  body[data-page="ctu-securing-calculator"] #quickStatus{
+    padding:12px 13px!important;
+    font-size:.90rem!important;
+    line-height:1.72!important;
+  }
+}

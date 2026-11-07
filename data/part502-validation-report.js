@@ -1,0 +1,1 @@
+window.PART502_VALIDATION_REPORT={release:'part529',status:'superseded-by-current-release-verification',generatedAt:'2026-08-06T19:20:00+09:00',summary:'現行版の検証結果はPart 529総合検証レポートを参照してください。',checks:[{name:'現行版検証レポートへの移行',status:'passed',detail:'docs/part529_総合検証レポート.json'}]};

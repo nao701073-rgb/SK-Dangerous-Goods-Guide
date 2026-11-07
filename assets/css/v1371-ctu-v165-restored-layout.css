@@ -1,0 +1,73 @@
+/* SKDG v1.3.71
+   v1.3.65 visible input content retained with the stable six-step structure.
+   Historical outer shells and Step 5 nested-card frames are retired. */
+body[data-page="ctu-securing-calculator"]{--ctu71-border:#c8d7e3;--ctu71-head:#edf5fb;--ctu71-navy:#0b477b;--ctu71-gap:16px;--ctu71-pad:16px;padding-bottom:0!important}
+body[data-page="ctu-securing-calculator"] details.part551-assist-details,
+body[data-page="ctu-securing-calculator"] #v131SourceStart,
+body[data-page="ctu-securing-calculator"] #v1PhotoStep,
+body[data-page="ctu-securing-calculator"] #part551QuickProgress,
+body[data-page="ctu-securing-calculator"] #part552ModeBadge,
+body[data-page="ctu-securing-calculator"] #part552ConditionSummary,
+body[data-page="ctu-securing-calculator"] #part552CalcProceed,
+body[data-page="ctu-securing-calculator"] #part553Completion,
+body[data-page="ctu-securing-calculator"] #part553Journey,
+body[data-page="ctu-securing-calculator"] #part553StickyNext,
+body[data-page="ctu-securing-calculator"] #part559Guide,
+body[data-page="ctu-securing-calculator"] #ctuStickyAnchor,
+body[data-page="ctu-securing-calculator"] #ctuStickySpacer,
+body[data-page="ctu-securing-calculator"] #v13ConditionCards{display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;overflow:hidden!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,
+body[data-page="ctu-securing-calculator"] #photoInputPanel,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="3"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="4"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="5"],
+body[data-page="ctu-securing-calculator"] #quickEntryPanel > .quick-flow > [data-ctu-step="6"]{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;margin:0!important;border:1px solid var(--ctu71-border)!important;border-radius:11px!important;background:#fff!important;box-shadow:none!important;overflow:hidden!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel{margin-top:14px!important}
+body[data-page="ctu-securing-calculator"] #photoInputPanel{margin-top:var(--ctu71-gap)!important}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel{margin-top:var(--ctu71-gap)!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+body[data-page="ctu-securing-calculator"] #quickEntryPanel>.quick-flow{display:grid!important;gap:var(--ctu71-gap)!important;border:0!important;background:transparent!important;box-shadow:none!important}
+body[data-page="ctu-securing-calculator"] .ctu-step-card__head,
+body[data-page="ctu-securing-calculator"] .quick-step__head.ctu-step-card__head{display:flex!important;align-items:center!important;gap:9px!important;min-height:48px!important;padding:10px 14px!important;background:var(--ctu71-head)!important;border-bottom:1px solid var(--ctu71-border)!important;color:var(--ctu71-navy)!important}
+body[data-page="ctu-securing-calculator"] .ctu-step-card__num{display:grid!important;place-items:center!important;width:24px!important;height:24px!important;min-width:24px!important;border-radius:999px!important;background:#0b477b!important;color:#fff!important;font-size:.76rem!important;font-weight:800!important;line-height:1!important}
+body[data-page="ctu-securing-calculator"] .ctu-step-card__title{font-size:.96rem!important;line-height:1.4!important;font-weight:800!important;color:var(--ctu71-navy)!important}
+body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel>.ctu-step-card__body,
+body[data-page="ctu-securing-calculator"] #photoInputPanel>.ctu-step-card__body,
+body[data-page="ctu-securing-calculator"] #quickEntryPanel .quick-step[data-ctu-step]>.quick-step__body{padding:var(--ctu71-pad)!important}
+/* Follow status: keep tracking, remove the old outer rounded card/frame. */
+body[data-page="ctu-securing-calculator"] #ctuStickyStatus{position:sticky!important;top:var(--sk38-header-height,40px)!important;z-index:980!important;margin:12px 0 14px!important;padding:7px 0 8px!important;border:0!important;border-radius:0!important;background:rgba(242,247,251,.98)!important;box-shadow:none!important;border-bottom:1px solid #d7e2eb!important}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__inner{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:6px 10px!important;align-items:start!important;border:0!important;background:transparent!important;box-shadow:none!important}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__summary{min-width:0!important}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__steps{grid-column:1/-1!important;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:6px!important;margin:0!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip{display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;grid-template-areas:"num label" "num state"!important;column-gap:6px!important;row-gap:0!important;align-items:center!important;min-width:0!important;min-height:40px!important;padding:5px 7px!important;border:1px solid #cad7e2!important;border-radius:8px!important;background:#f6f8fb!important;color:#3a536d!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip__num{grid-area:num!important;display:grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:999px!important;background:#7c90a2!important;color:#fff!important;font-size:.72rem!important;font-weight:800!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip__label{grid-area:label!important;font-size:.72rem!important;line-height:1.16!important;font-weight:800!important;white-space:normal!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip em{grid-area:state!important;font-style:normal!important;font-size:.64rem!important;line-height:1.15!important;color:#607489!important;white-space:normal!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ok"]{background:#edf8f2!important;border-color:#a7d6bc!important}body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ok"] .ctu-status-chip__num{background:#168356!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="review"]{background:#fff8e7!important;border-color:#e5c56d!important}body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="review"] .ctu-status-chip__num{background:#b47b00!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="missing"],body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ng"]{background:#fff1f1!important;border-color:#dfabab!important}body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="missing"] .ctu-status-chip__num,body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ng"] .ctu-status-chip__num{background:#ad3535!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ready"]{background:#edf6ff!important;border-color:#9cc4e7!important}body[data-page="ctu-securing-calculator"] .ctu-status-chip[data-state="ready"] .ctu-status-chip__num{background:#1768a2!important}
+body[data-page="ctu-securing-calculator"] .ctu-status-chip.is-current-step{outline:2px solid #1768a2!important;outline-offset:1px!important}
+body[data-page="ctu-securing-calculator"] .ctu-sticky-status__jump{min-height:34px!important}
+/* Step 5: same fields/wording as v1.3.65, but no card-inside-card frame. */
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important;margin:0 0 12px!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;min-width:0!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;min-height:0!important;padding:0 0 9px!important;background:transparent!important;border:0!important;border-bottom:1px solid #d8e3eb!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__title-wrap{display:flex!important;align-items:center!important;gap:7px!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__num{display:grid!important;place-items:center!important;width:20px!important;height:20px!important;min-width:20px!important;border-radius:999px!important;background:#0b477b!important;color:#fff!important;font-size:.68rem!important;font-weight:800!important;line-height:1!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__title{margin:0!important;font-size:.92rem!important;line-height:1.4!important;color:#0b477b!important;font-weight:800!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__state{font-size:.76rem!important;line-height:1.3!important;color:#50677b!important;font-weight:700!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__check{display:none!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__body{padding:12px 0 0!important}
+body[data-page="ctu-securing-calculator"] #ctuSupportSecuringPanel{padding-left:0!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined #ctuSupportSecuringPanel{padding-left:16px!important;border-left:1px solid #d8e3eb!important}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel__lead{margin:0 0 12px!important;padding:0!important;background:transparent!important;color:#5a7085!important;font-size:.8rem!important;line-height:1.6!important}
+body[data-page="ctu-securing-calculator"] .quick-grid,body[data-page="ctu-securing-calculator"] .quick-combined-grid{column-gap:14px!important;row-gap:16px!important}
+body[data-page="ctu-securing-calculator"] #quickMethod:not(:disabled){background-color:#fff!important;opacity:1!important;cursor:pointer!important;color:#173d5c!important}
+body[data-page="ctu-securing-calculator"] #quickMethod:disabled{opacity:.62!important;cursor:not-allowed!important}
+body[data-page="ctu-securing-calculator"] .ctu-v1371-restore{display:grid;gap:4px;margin:12px 0;padding:11px 13px;border-left:4px solid #17649f;background:#edf7fd;color:#173d5c}.v1371-select-note{display:block;margin-top:5px;color:#49657d;font-size:.78rem}
+body[data-page="ctu-securing-calculator"] [data-ctu-step],body[data-page="ctu-securing-calculator"] #ctuExcelRoutePanel,body[data-page="ctu-securing-calculator"] #photoInputPanel{scroll-margin-top:132px!important}
+@media(max-width:980px){body[data-page="ctu-securing-calculator"] .ctu-sticky-status__steps{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:900px){body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined{grid-template-columns:minmax(0,1fr)!important}body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined #ctuSupportSecuringPanel{padding-left:0!important;border-left:0!important;border-top:1px solid #d8e3eb!important;padding-top:14px!important}}
+@media(max-width:620px){body[data-page="ctu-securing-calculator"]{--ctu71-pad:13px}body[data-page="ctu-securing-calculator"] .ctu-sticky-status__steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}body[data-page="ctu-securing-calculator"] .quick-grid,body[data-page="ctu-securing-calculator"] .quick-combined-grid{grid-template-columns:minmax(0,1fr)!important}}
+@media print{body[data-page="ctu-securing-calculator"] #ctuStickyStatus{display:none!important}}

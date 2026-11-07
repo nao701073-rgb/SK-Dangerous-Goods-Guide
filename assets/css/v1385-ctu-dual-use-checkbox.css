@@ -1,0 +1,106 @@
+/* SKDG v1.3.85
+   Step 5: both securing and bracing/support are always visible in vertical cards.
+   Only checked methods are included in the quick calculation. */
+body[data-page="ctu-securing-calculator"] .ctu-internal-category{
+  display:none!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels,
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels.is-combined{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:18px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuPrimarySecuringPanel,
+body[data-page="ctu-securing-calculator"] #ctuSupportSecuringPanel{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  padding-left:0!important;
+  border-left:0!important;
+}
+body[data-page="ctu-securing-calculator"] #quickSupportFields{
+  display:block!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:0!important;
+  padding:6px 10px!important;
+  border:1px solid #9fb8cf!important;
+  border-radius:8px!important;
+  background:#f7fbff!important;
+  color:#244866!important;
+  font-size:.78rem!important;
+  font-weight:800!important;
+  line-height:1.25!important;
+  cursor:pointer!important;
+  white-space:nowrap!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle input{
+  position:absolute!important;
+  inline-size:1px!important;
+  block-size:1px!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle__box{
+  display:grid!important;
+  place-items:center!important;
+  width:20px!important;
+  height:20px!important;
+  min-width:20px!important;
+  border:1px solid #7895ad!important;
+  border-radius:5px!important;
+  background:#fff!important;
+  color:transparent!important;
+  font-size:.78rem!important;
+  font-weight:900!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle:has(input:checked){
+  border-color:#2b77b6!important;
+  background:#edf7ff!important;
+  color:#0b477b!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle:has(input:checked) .ctu-use-toggle__box{
+  border-color:#1768a2!important;
+  background:#1768a2!important;
+  color:#fff!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-use-toggle:focus-within{
+  outline:2px solid #2b77b6!important;
+  outline-offset:2px!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel.is-not-used .ctu-step5-panel__body{
+  opacity:.64!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel.is-not-used .ctu-step5-panel__head{
+  background:#f5f7f9!important;
+}
+body[data-page="ctu-securing-calculator"] .ctu-step5-panel.is-not-used .ctu-use-toggle{
+  background:#f5f5f5!important;
+  border-color:#c5ced6!important;
+  color:#687887!important;
+}
+body[data-page="ctu-securing-calculator"] #quickCombinationConfirm[hidden]{display:none!important}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels .quick-grid,
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels .quick-combined-grid,
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels .v1379-adopted-msl__values{
+  min-width:0!important;
+}
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels input,
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels select,
+body[data-page="ctu-securing-calculator"] #ctuStep5Panels textarea{
+  min-width:0!important;
+  max-width:100%!important;
+}
+@media(max-width:680px){
+  body[data-page="ctu-securing-calculator"] .ctu-use-toggle{
+    white-space:normal!important;
+    padding:6px 8px!important;
+  }
+}

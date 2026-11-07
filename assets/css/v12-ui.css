@@ -1,0 +1,46 @@
+:root{--v12-accent:#0b659c;--v12-soft:#f4f9fc;--v12-line:#d6e4ed;--v12-ok:#26754b}
+
+/* Intake: finished steps become compact automatically; the active step stays visually clear. */
+body[data-page="application-intake-workflow"] .intake-card{transition:border-color .15s ease,box-shadow .15s ease,background .15s ease}
+body[data-page="application-intake-workflow"] .v12-current-section{border-color:#a8cde2!important;box-shadow:0 8px 24px rgba(35,95,133,.09)!important}
+body[data-page="application-intake-workflow"] #intakeUploadSection.v12-complete-section .intake-drop,
+body[data-page="application-intake-workflow"] #intakeUploadSection.v12-complete-section .intake-privacy{display:none!important}
+body[data-page="application-intake-workflow"] #intakeUploadSection.v12-complete-section{padding-block:13px!important;background:#fbfdfd}
+body[data-page="application-intake-workflow"] #intakeUploadSection.v12-complete-section .intake-heading h2::after{content:'  ✓';color:var(--v12-ok);font-weight:900}
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded) .intake-grid,
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded)>h3,
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded) .intake-cargo-wrap,
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded) .intake-actions,
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded) #v101IntakeLayoutNote{display:none!important}
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded){padding-block:13px!important;background:#fbfdfd}
+body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit:not(.v12-expanded) .intake-heading h2::after{content:'  ✓';color:var(--v12-ok);font-weight:900}
+.v12-inline-button{border:1px solid #bdd2df;background:#fff;color:#28556f;border-radius:9px;padding:8px 11px;font-weight:750;cursor:pointer;white-space:nowrap}.v12-inline-button:hover{background:#f1f7fa}
+
+/* Application management: daily view is list + selected case. Photo/document areas open only on demand. */
+body[data-page="applications"] .v12-optional-section:not(.v12-open){display:none!important}
+body[data-page="applications"] #applicationResultSection.v12-optional-section:not(.v12-open){display:block!important;padding-block:11px!important}
+body[data-page="applications"] #applicationResultSection.v12-optional-section:not(.v12-open)>:not(.management-heading){display:none!important}
+body[data-page="applications"] #applicationResultSection .v12-section-close{display:none}
+body[data-page="applications"] #applicationResultSection.v12-open .v12-section-close{display:inline-block}
+.v12-selected-case{display:flex;align-items:center;gap:9px;margin:0 0 12px;padding:9px 11px;border:1px solid var(--v12-line);border-radius:10px;background:var(--v12-soft);min-width:0}.v12-selected-case span{flex:0 0 auto;font-size:.76rem;font-weight:800;color:#557082}.v12-selected-case strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#244d67}
+body[data-page="applications"] #applicationList>*{cursor:pointer}body[data-page="applications"] #applicationList>.v12-selected-list-item{outline:2px solid #7eb6d7;outline-offset:-2px;background:#f1f9fd!important}
+body[data-page="applications"] #applicationFilter + #v12ClearApplicationSearch{margin-left:6px}
+
+/* CTU: individual AI candidate confirmation with an obvious selected count. */
+body[data-page="ctu-securing-calculator"] .v11-ai-tools{align-items:center}
+.v12-ai-selection-status{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:5px 10px;border-radius:999px;background:#eaf5fb;color:#175c84;font-size:.84rem;font-weight:850}
+body[data-page="ctu-securing-calculator"] #v101ApplyAi:disabled{opacity:.55;cursor:not-allowed}
+body[data-page="ctu-securing-calculator"] #v101ApplyAi:not(:disabled){font-weight:850}
+body[data-page="ctu-securing-calculator"] .v101-ai-card.is-selected::after{content:'選択済み';display:inline-block;margin-top:6px;padding:2px 7px;border-radius:999px;background:#dff2e7;color:#216b45;font-size:.72rem;font-weight:800}
+@media(min-width:900px){body[data-page="ctu-securing-calculator"] #v1PhotoStep .v1-photo-layout{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}body[data-page="ctu-securing-calculator"] #v101AiAssist{margin-top:10px}}
+
+/* Settings: keep the single new field visually consistent with the existing usability settings. */
+body[data-page="user-settings"] #v12PhotoAiPreference{border-top:1px solid #e3ebf0}
+
+@media(max-width:620px){
+  body[data-page="application-intake-workflow"] #intakeUploadSection.v12-complete-section .intake-heading,
+  body[data-page="application-intake-workflow"] #intakeEditSection.v12-complete-edit .intake-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  body[data-page="applications"] #applicationFilter + #v12ClearApplicationSearch{margin:7px 0 0;width:100%}
+  .v12-selected-case{align-items:flex-start;flex-direction:column;gap:2px}.v12-selected-case strong{white-space:normal;overflow-wrap:anywhere}
+  body[data-page="ctu-securing-calculator"] .v11-ai-tools{display:grid;grid-template-columns:1fr 1fr}.v12-ai-selection-status{grid-column:1/-1}
+}

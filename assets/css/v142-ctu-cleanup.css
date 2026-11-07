@@ -1,0 +1,15 @@
+/* v1.3.12: photo AI is integrated into editable fields; duplicate/large analysis UI is removed. */
+#v101AiAssist,#v140PhotoAiBox,#v140EditableNotice,#v137MslAssist,#v1PhotoStep,.v141-photo-ai-toolbar,#v141ContainerFitPanel,#photoRecognitionPanel,#fieldAnalyzePhoto{display:none!important}
+.v142-ai-inline{display:block;margin-top:5px;font-size:11px;line-height:1.4;color:#66788b}
+.v142-ai-inline[data-state="candidate"]{color:#075f9c;font-weight:700}
+.v142-ai-inline[data-state="manual"]{color:#346b42}
+.v142-ai-inline[data-state="review"]{color:#6b6575}
+.v142-ai-suggested{outline:2px solid rgba(18,111,189,.18);outline-offset:1px;background:#f8fcff}
+.v141-container-select-wrap[hidden]{display:none!important}
+#photoInputPanel .result-details .quick-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#photoInputPanel .result-details .quick-grid label{font-size:11px;line-height:1.25}
+@media(max-width:760px){.v142-ai-inline{font-size:10.5px}#photoInputPanel .result-details .quick-grid{grid-template-columns:1fr}.v141-container-select-wrap{grid-column:1/-1}}
+
+/* v1.3.13: CTU/container selection stays compact; no default-description or fit-result helper text. */
+.v142-ai-inline[data-for="quickCtu"],.v142-ai-inline[data-for="quickContainerSpec"],#v141FitResult{display:none!important}
+#photoMeasuredLength.v141-ai-suggested,#referenceLength[data-v143-ai-suggested="1"]{background:#f8fcff;outline:2px solid rgba(18,111,189,.18);outline-offset:1px}

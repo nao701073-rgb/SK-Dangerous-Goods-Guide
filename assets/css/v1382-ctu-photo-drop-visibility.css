@@ -1,0 +1,143 @@
+/* SKDG v1.3.82 - CTU photo drag/drop visibility and layout hotfix
+   Presentation only: calculation, MSL, friction and assessment logic are unchanged. */
+
+.part542-photo-drop{
+  position:relative;
+  isolation:isolate;
+  outline:none;
+}
+
+/* The historical Part542 overlay markup survived after the old stylesheet was retired.
+   Make it an overlay again so it no longer consumes flex width beside the white placeholder. */
+.part542-photo-drop .part542-drop-overlay{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:16px;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px 14px;
+  flex-wrap:wrap;
+  width:auto;
+  max-width:calc(100% - 36px);
+  margin:0 auto;
+  padding:10px 14px;
+  border:1px dashed rgba(255,255,255,.78);
+  border-radius:10px;
+  background:rgba(9,45,75,.88);
+  color:#fff;
+  text-align:center;
+  line-height:1.45;
+  pointer-events:none;
+  box-shadow:0 4px 14px rgba(0,0,0,.24);
+  transition:opacity .16s ease,transform .16s ease,background-color .16s ease;
+}
+.part542-photo-drop .part542-drop-overlay strong{
+  color:#fff;
+  font-size:.92rem;
+  font-weight:800;
+  letter-spacing:.01em;
+}
+.part542-photo-drop .part542-drop-overlay span{
+  color:#eaf6ff;
+  font-size:.78rem;
+  font-weight:600;
+}
+
+/* Keep the central explanation clear of the bottom drop hint. */
+.part542-photo-drop .photo-placeholder{
+  padding-bottom:92px;
+}
+
+.part542-photo-drop.is-dragover{
+  box-shadow:inset 0 0 0 3px #55b8ff;
+}
+.part542-photo-drop.is-dragover .part542-drop-overlay{
+  background:rgba(0,95,158,.96);
+  border-color:#fff;
+  transform:translateY(-2px);
+}
+
+/* Do not cover the measurement canvas after a photo has been loaded. */
+.part542-photo-drop.has-photo .part542-drop-overlay{
+  opacity:0;
+}
+.part542-photo-drop.has-photo.is-dragover .part542-drop-overlay{
+  opacity:1;
+}
+
+/* The smaller MSL evidence drop targets should also make their drop affordance obvious. */
+.part542-evidence-drop,
+.part542-point-drop{
+  transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
+}
+.part542-evidence-drop.is-dragover,
+.part542-point-drop.is-dragover{
+  border-color:#1976b9!important;
+  background:#edf8ff!important;
+  box-shadow:0 0 0 2px rgba(25,118,185,.16);
+}
+.part542-mini-drop,
+.part542-inline-drop{
+  color:#365b78!important;
+  font-weight:700;
+}
+
+.part542-photo-queue{
+  margin-top:10px;
+}
+.part542-photo-queue p{
+  margin:0;
+}
+.part542-photo-queue .v1382-photo-queue-list{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.part542-photo-queue .v1382-photo-queue-btn{
+  max-width:100%;
+  border:1px solid #b8cddd;
+  border-radius:8px;
+  background:#fff;
+  color:#174c73;
+  padding:7px 10px;
+  font:inherit;
+  font-size:.78rem;
+  font-weight:700;
+  cursor:pointer;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.part542-photo-queue .v1382-photo-queue-btn:hover,
+.part542-photo-queue .v1382-photo-queue-btn:focus-visible{
+  border-color:#1976b9;
+  background:#edf8ff;
+  outline:2px solid transparent;
+}
+
+@media(max-width:620px){
+  .part542-photo-drop .part542-drop-overlay{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    max-width:calc(100% - 20px);
+    gap:4px;
+    padding:8px 10px;
+    flex-direction:column;
+  }
+  .part542-photo-drop .photo-placeholder{
+    padding-bottom:96px;
+  }
+}
+
+/* On touch-only devices the file/camera buttons are the primary affordance. */
+@media(hover:none) and (pointer:coarse){
+  .part542-photo-drop .part542-drop-overlay{display:none}
+  .part542-photo-drop .photo-placeholder{padding-bottom:30px}
+}

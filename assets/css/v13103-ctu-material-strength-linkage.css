@@ -1,0 +1,69 @@
+/* SKDG v1.3.103 — explicit material/spec → MSL/support reference linkage */
+.v13103-strength-spec-field {
+  min-width: 0;
+}
+
+.v13103-strength-spec-field > label {
+  display: block;
+  margin: 0 0 6px;
+}
+
+.v13103-strength-spec-field > select {
+  width: 100%;
+  min-width: 0;
+}
+
+.v13103-strength-spec-field > small {
+  display: block;
+  margin-top: 6px;
+  padding: 7px 9px;
+  border: 1px solid #d8e4ef;
+  border-radius: 7px;
+  background: #f8fbfd;
+  color: #3f566b;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  box-shadow: none;
+}
+
+.v13103-strength-spec-field > small[data-state="attention"] {
+  border-color: #e8c66c;
+  background: #fffaf0;
+  color: #6e5716;
+}
+
+.v13103-strength-spec-field > small[data-state="reference"] {
+  border-color: #d9bd65;
+  background: #fff8df;
+  color: #625018;
+}
+
+.v13103-strength-spec-field > small[data-state="confirmed"] {
+  border-color: #b9dac8;
+  background: #f4fbf7;
+  color: #27533b;
+}
+
+.v13103-strength-spec-field > small[data-state="manual"] {
+  border-color: #b9cde2;
+  background: #f5f9fd;
+  color: #35516b;
+}
+
+#quickStrength[data-v13103-reference-candidate="1"],
+#quickSupportStrength[data-v13103-reference-candidate="1"] {
+  background: #fffdf5;
+}
+
+@media (max-width: 767px) {
+  .v13103-strength-spec-field > small {
+    padding: 6px 8px;
+    font-size: 0.78rem;
+  }
+}
+
+@media print {
+  .v13103-strength-spec-field > small {
+    display: none !important;
+  }
+}

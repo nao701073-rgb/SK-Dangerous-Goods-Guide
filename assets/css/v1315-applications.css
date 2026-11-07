@@ -1,0 +1,15 @@
+.v1315-source-title-hidden{display:none!important}
+.v1315-registration-summary{margin:10px 16px 4px;padding:10px 12px;border:1px solid #c9dced;border-radius:10px;background:#f6fbff}
+.v1315-registration-label{display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:#4a647c}
+.v1315-registration-badges{display:flex;flex-wrap:wrap;gap:7px}
+.v1315-registration-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid #b9d4e8;border-radius:999px;background:#fff;color:#0a4f87;font-weight:700;font-size:13px;line-height:1.2}
+.v1315-registration-badge small{font-size:10px;font-weight:700;color:#2f7d58}
+.v1315-registration-badge--verification{background:#edf7ff}
+.v1315-registration-badge--ctu{background:#eef8f1}
+.v1315-hidden-action{display:none!important}
+.v1315-card-actions{display:flex;flex-wrap:wrap;gap:8px}
+.v1315-primary-action{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:40px!important;min-width:104px!important;padding:8px 14px!important;border:1px solid #0869ad!important;border-radius:8px!important;background:#0869ad!important;color:#fff!important;text-decoration:none!important;font-weight:700!important;box-sizing:border-box!important}
+.v1315-detail-link{font-size:0!important;line-height:1!important}
+.v1315-detail-link::before{content:"詳細を開く";display:inline-block;font-size:14px;line-height:1.4;color:#fff!important;font-weight:700!important;white-space:nowrap}
+.v1315-delete-case{margin-left:auto}
+@media(max-width:720px){.v1315-registration-summary{margin:8px 8px 4px}.v1315-registration-badge{font-size:12px}.v1315-delete-case{margin-left:0}}

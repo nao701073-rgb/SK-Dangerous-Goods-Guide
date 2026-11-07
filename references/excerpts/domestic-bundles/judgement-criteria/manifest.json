@@ -1,0 +1,80 @@
+{
+  "note2-1": {
+    "un": "0004",
+    "title": "備考2(1) 火薬類の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-1.pdf",
+    "bytes": 550975
+  },
+  "note2-2-i": {
+    "un": "1001",
+    "title": "備考2(2)(ⅰ) 引火性高圧ガスの判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-i.pdf",
+    "bytes": 255726
+  },
+  "note2-2-ii": {
+    "un": "1002",
+    "title": "備考2(2)(ⅱ) 非引火性非毒性高圧ガスの判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-ii.pdf",
+    "bytes": 295970
+  },
+  "note2-2-iii": {
+    "un": "1005",
+    "title": "備考2(2)(ⅲ) 毒性高圧ガスの判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-2-iii.pdf",
+    "bytes": 257653
+  },
+  "note2-3": {
+    "un": "1088",
+    "title": "備考2(3) 引火性液体類の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-3.pdf",
+    "bytes": 518851
+  },
+  "note2-4-i-iii": {
+    "un": "1309",
+    "title": "備考2(4)(ⅰ)〜(ⅲ) 可燃性物質・自己反応性物質・重合性物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-i-iii.pdf",
+    "bytes": 672476
+  },
+  "note2-4-iv": {
+    "un": "1361",
+    "title": "備考2(4)(ⅳ) 自然発火性物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-iv.pdf",
+    "bytes": 459798
+  },
+  "note2-4-v": {
+    "un": "1183",
+    "title": "備考2(4)(ⅴ) 水反応可燃性物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-4-v.pdf",
+    "bytes": 371321
+  },
+  "note2-5-i": {
+    "un": "1438",
+    "title": "備考2(5)(ⅰ) 酸化性物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-i.pdf",
+    "bytes": 426100
+  },
+  "note2-5-ii": {
+    "un": "3101",
+    "title": "備考2(5)(ⅱ) 有機過酸化物の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-5-ii.pdf",
+    "bytes": 437142
+  },
+  "note2-6": {
+    "un": "1051",
+    "title": "備考2(6) 毒物の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-6.pdf",
+    "bytes": 443205
+  },
+  "note2-7": {
+    "un": "1052",
+    "title": "備考2(7) 腐食性物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-7.pdf",
+    "bytes": 427180
+  },
+  "note2-8": {
+    "un": "2315",
+    "title": "備考2(8) 環境有害物質の判定基準",
+    "pdf": "references/excerpts/domestic-bundles/judgement-criteria/note2-8.pdf",
+    "bytes": 372874
+  }
+}

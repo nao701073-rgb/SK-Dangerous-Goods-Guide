@@ -1,0 +1,140 @@
+:root{--navy:#0b3a67;--navy-dark:#072a4a;--blue:#1f6fb2;--blue-light:#eaf4fb;--surface:#fff;--surface-soft:#f5f8fb;--border:#d9e2ea;--text:#17212b;--muted:#617080;--warning-bg:#fff5d8;--warning-text:#8a5a00;--shadow:0 14px 35px rgba(11,58,103,.10);--radius-lg:22px;--radius-md:14px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--surface-soft);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Yu Gothic",sans-serif}button,input,select,textarea{font:inherit}a{text-decoration:none;color:inherit}.app-header{position:sticky;top:0;z-index:50;min-height:74px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:#fff;box-shadow:0 8px 20px rgba(7,42,74,.18)}.app-header h1{margin:2px 0 0;font-size:clamp(1.1rem,3vw,1.55rem)}.eyebrow{margin:0;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}.app-header .eyebrow{color:#b9d6ed}.icon-button{display:inline-grid;place-items:center;width:42px;height:42px;border:0;border-radius:12px;background:rgba(255,255,255,.14);color:inherit;font-size:1.35rem}.side-menu{position:fixed;inset:0 auto 0 0;z-index:100;width:min(84vw,320px);padding:18px;background:var(--surface);transform:translateX(-105%);transition:.24s;box-shadow:18px 0 40px rgba(0,0,0,.16)}.side-menu.open{transform:translateX(0)}.side-menu__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.side-menu nav{display:grid;gap:8px}.nav-link{padding:14px 16px;border-radius:12px;font-weight:700}.nav-link:hover,.nav-link.active{background:var(--blue-light);color:var(--navy)}.menu-backdrop{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;transition:.24s}.menu-backdrop.visible{opacity:1;pointer-events:auto}.main-content{width:min(1180px,calc(100% - 28px));margin:auto;padding:24px 0 100px}.hero-card{display:flex;flex-direction:column;gap:24px;padding:26px;border-radius:var(--radius-lg);color:#fff;background:linear-gradient(135deg,rgba(11,58,103,.97),rgba(31,111,178,.92));box-shadow:var(--shadow)}.hero-card h2{margin:10px 0 8px;font-size:clamp(1.45rem,4vw,2.2rem)}.hero-card p{margin:0;max-width:760px;color:#dbeaf5;line-height:1.8}.status-badge,.coming-soon{display:inline-flex;width:fit-content;align-items:center;border-radius:999px;font-size:.78rem;font-weight:800}.status-badge{padding:7px 11px;background:rgba(255,255,255,.16)}.coming-soon{padding:6px 10px;background:var(--warning-bg);color:var(--warning-text)}.primary-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:13px;padding:0 20px;background:#fff;color:var(--navy);font-weight:800}.dashboard-section{margin-top:34px}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px}.section-heading h2{margin:4px 0 0;font-size:1.35rem}.module-grid,.activity-grid{display:grid;gap:16px}.module-card,.info-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:0 8px 24px rgba(11,58,103,.05)}.module-card{min-height:190px;display:flex;flex-direction:column;gap:16px;padding:20px}.module-card--primary{border-color:rgba(31,111,178,.35);background:linear-gradient(180deg,#fff,#f4faff)}.module-card h3,.info-panel h3{margin:0 0 7px}.module-card p{margin:0;color:var(--muted);line-height:1.7}.module-card__icon{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--blue-light);color:var(--navy);font-weight:900}.module-card .text-button,.module-card .coming-soon{margin-top:auto}.module-card.is-disabled{opacity:.72}.text-button{width:fit-content;color:var(--blue);font-weight:800}.info-panel{padding:20px}.panel-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.simple-list{list-style:none;padding:0;margin:0}.simple-list li{border-bottom:1px solid var(--border)}.simple-list__link{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 8px;border-radius:10px;transition:background-color .18s,color .18s,transform .18s}.simple-list__link:hover,.simple-list__link:focus-visible{background:var(--blue-light);color:var(--navy);outline:none;transform:translateX(2px)}.simple-list__link>div{min-width:0}.simple-list__link strong{overflow-wrap:anywhere}.simple-list__link>span{flex:0 0 auto;color:var(--blue);font-size:1.15rem;font-weight:900}.simple-list li:last-child{border-bottom:0}.simple-list strong{display:block}.simple-list small{color:var(--muted)}.bottom-nav{position:fixed;inset:auto 0 0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);min-height:70px;padding:8px;background:rgba(255,255,255,.96);border-top:1px solid var(--border);backdrop-filter:blur(14px)}.bottom-nav__item{display:grid;place-items:center;gap:2px;color:var(--muted)}.bottom-nav__item span{font-size:1.25rem}.bottom-nav__item.active{color:var(--blue);font-weight:800}.page-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:22px}.page-card p{color:var(--muted);line-height:1.8}@media(min-width:680px){.hero-card{flex-direction:row;align-items:center;justify-content:space-between}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.activity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(min-width:980px){.main-content{padding-bottom:40px}.module-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bottom-nav{display:none}}
+
+/* Part 77: SK brand icon and menu icons */
+.app-brand{display:flex;align-items:center;gap:12px;min-width:0}.app-brand__mark{width:44px;height:44px;display:grid;place-items:center;flex:0 0 44px;border-radius:50%;background:transparent;box-shadow:none;overflow:hidden}.app-brand__mark img{display:block;width:100%;height:100%;object-fit:contain}.side-menu__brand{display:flex;align-items:center;gap:10px}.side-menu__logo{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:transparent;overflow:hidden;border:0;box-shadow:none}.side-menu__logo img{display:block;width:100%;height:100%;object-fit:contain}.nav-link{display:flex;align-items:center;gap:12px}.nav-link__icon{width:28px;height:28px;display:grid;place-items:center;flex:0 0 28px;border-radius:8px;background:#edf5fb;color:var(--navy);font-size:.88rem;font-weight:900}.nav-link.active .nav-link__icon,.nav-link:hover .nav-link__icon{background:#fff;color:var(--blue)}@media(max-width:520px){.app-brand{gap:9px}.app-brand__mark{width:38px;height:38px;flex-basis:38px}.app-header h1{font-size:1rem}.app-header .eyebrow{font-size:.62rem}}
+
+
+/* Part 82: improved SK logo sizing and functional icons */
+.app-brand{gap:14px}
+.app-brand__mark{width:58px;height:58px;flex-basis:58px;align-self:center;transform:translateY(1px);overflow:visible}
+.app-brand__mark img{width:100%;height:100%;object-fit:contain;display:block}
+.side-menu__brand{gap:14px;align-items:center}
+.side-menu__logo{width:48px;height:48px;flex:0 0 48px;overflow:visible}
+.side-menu__logo img{width:100%;height:100%;object-fit:contain;display:block}
+.nav-link{display:flex;align-items:center;gap:12px}
+.nav-link__icon,.sidebar-icon,.bottom-nav__icon,.module-card__icon svg{display:block}
+.nav-link__icon,.sidebar-icon,.bottom-nav__icon{color:var(--navy)}
+.nav-link__icon{width:40px;height:40px;flex:0 0 40px;border-radius:14px;background:#edf5fb;padding:8px}
+.nav-link__icon svg{width:100%;height:100%}
+.nav-link.active .nav-link__icon,.nav-link:hover .nav-link__icon{background:#fff;color:var(--blue)}
+.bottom-nav__icon{width:22px;height:22px}
+.bottom-nav__icon svg{width:100%;height:100%}
+.module-card__icon{width:92px;height:92px;border-radius:18px;background:#0b4f9a;color:#fff;padding:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.module-card__icon svg{width:100%;height:100%}
+@media(max-width:520px){.app-brand{gap:10px}.app-brand__mark{width:52px;height:52px;flex-basis:52px}.side-menu__logo{width:44px;height:44px;flex-basis:44px}.nav-link__icon{width:36px;height:36px;flex-basis:36px;padding:7px}}
+
+/* Part 90: online/hybrid status */
+.online-status-bar{position:fixed;right:14px;bottom:14px;z-index:120;display:flex;align-items:center;gap:7px;max-width:min(92vw,440px);padding:8px 10px;border:1px solid #cbd9e7;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 8px 26px rgba(11,58,103,.18);font-size:.68rem;color:#304d69;backdrop-filter:blur(8px)}.online-status-bar button{border:0;background:transparent;color:#075ca8;font-weight:900;cursor:pointer}.online-status-dot{width:9px;height:9px;border-radius:50%;background:#8b98a5;flex:0 0 9px}.online-status-bar[data-state="online"] .online-status-dot{background:#1b9c54}.online-status-bar[data-state="error"] .online-status-dot,.online-status-bar[data-state="offline"] .online-status-dot{background:#d34a3f}.online-status-bar[data-state="warning"] .online-status-dot{background:#e4a218}.online-status-bar[data-state="checking"] .online-status-dot{background:#3182ce;animation:statusPulse 1s infinite alternate}@keyframes statusPulse{to{opacity:.35}}@media(max-width:600px){.online-status-bar{bottom:78px;left:10px;right:10px;justify-content:center}.online-status-detail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
+/* Part 153: place the home button at the left edge on feature pages */
+.app-header{justify-content:flex-start}.app-header>.icon-button{order:-1;flex:0 0 auto}.app-header>div,.app-header>.app-brand{flex:1;min-width:0}
+
+/* Part 171: feedback request menu */
+.side-menu{overflow-y:auto;overscroll-behavior:contain;padding-bottom:max(24px,env(safe-area-inset-bottom))}.side-menu nav{padding-bottom:18px}.side-menu .nav-link{flex-shrink:0}
+
+/* Part 221: settings menu separation */
+.nav-section{display:grid;gap:8px;margin-top:10px;padding-top:12px;border-top:1px solid var(--border)}
+.nav-section__label{padding:0 16px 4px;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.nav-section .nav-link>span:last-child{display:grid;gap:2px;min-width:0}
+.nav-section .nav-link strong{font-size:.88rem}
+.nav-section .nav-link small{color:var(--muted);font-size:.66rem;font-weight:600;line-height:1.35}
+.nav-section .nav-link:hover small,.nav-section .nav-link.active small{color:inherit}
+
+
+/* Part 309: user-selectable post-login appearance. Login page is intentionally excluded. */
+html[data-app-theme="bright"]{--navy:#0758a6;--navy-dark:#064684;--blue:#2088d8;--blue-light:#eef8ff;--surface:#fff;--surface-soft:#f8fbfe;--border:#d8e8f5;--text:#132130;--muted:#597084;--shadow:0 14px 35px rgba(10,86,157,.09)}
+html[data-app-theme="calm"]{--navy:#36566f;--navy-dark:#294457;--blue:#557f9f;--blue-light:#eef3f6;--surface:#fcfdfd;--surface-soft:#eef2f4;--border:#d2dde3;--text:#22313c;--muted:#657681;--shadow:0 14px 35px rgba(47,74,93,.09)}
+html[data-app-theme="dark"]{--navy:#112f52;--navy-dark:#091d35;--blue:#5aaeea;--blue-light:#17314d;--surface:#10243a;--surface-soft:#091a2b;--border:#2a4660;--text:#edf6ff;--muted:#b2c3d2;--warning-bg:#493b13;--warning-text:#ffe08a;--shadow:0 14px 35px rgba(0,0,0,.3);color-scheme:dark}
+html[data-app-theme="dark"] body,html[data-app-theme="dark"] .workspace{background:var(--surface-soft);color:var(--text)}
+html[data-app-theme="dark"] .module-card,html[data-app-theme="dark"] .info-panel,html[data-app-theme="dark"] .page-card,html[data-app-theme="dark"] .panel,html[data-app-theme="dark"] .panel-body,html[data-app-theme="dark"] input,html[data-app-theme="dark"] select,html[data-app-theme="dark"] textarea{background:var(--surface);color:var(--text);border-color:var(--border)}
+html[data-app-theme="dark"] .bottom-nav{background:rgba(16,36,58,.96)}
+
+/* Part 333: 権限エラー画面 */
+.access-denied-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: #eef4fa;
+}
+
+.access-denied-workspace {
+  width: min(100% - 32px, 960px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-inline: auto;
+  padding-block: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom));
+  display: grid;
+  align-content: start;
+}
+
+.access-denied-panel {
+  overflow: hidden;
+  border: 1px solid #cfdeec;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(18, 56, 91, 0.08);
+}
+
+.access-denied-panel .panel-heading {
+  padding: 24px 20px;
+  border-bottom: 1px solid #d8e4ef;
+}
+
+.access-denied-panel .panel-heading h1 {
+  margin: 0;
+  color: #082d50;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  line-height: 1.35;
+}
+
+.access-denied-panel .panel-heading h1:focus {
+  outline: 3px solid #1677d2;
+  outline-offset: 4px;
+}
+
+.access-denied-panel .panel-body {
+  padding: 28px 20px 30px;
+}
+
+.access-denied-description {
+  margin: 0;
+  color: #123b61;
+  line-height: 1.9;
+}
+
+.access-denied-actions {
+  margin: 18px 0 0;
+}
+
+.access-denied-return {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.access-denied-return:focus-visible {
+  outline: 3px solid #1677d2;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .access-denied-workspace {
+    width: min(100% - 20px, 960px);
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .access-denied-panel .panel-heading,
+  .access-denied-panel .panel-body {
+    padding-inline: 16px;
+  }
+
+  .access-denied-return {
+    width: 100%;
+  }
+}
