@@ -1,7 +1,7 @@
 BEGIN;
 CREATE TABLE IF NOT EXISTS application_intake_workflows (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  office_id uuid NOT NULL REFERENCES offices(id),
+  office_id text NOT NULL REFERENCES offices(id),
   application_id uuid REFERENCES applications(id),
   source_label text NOT NULL,
   source_format text NOT NULL CHECK(source_format IN('xls','xlsx','csv')),

@@ -12,7 +12,7 @@
   const LOCAL_ACCESS_POLICY_KEY = "iss-local-access-policy-v365";
   const LOCAL_AUDIT_KEY = "iss-local-auth-audit-v365";
   const normalizeBase = value => String(value || "").trim().replace(/\/$/, "");
-  const endpoint = () => normalizeBase(window.ISSStorage?.getServerEndpoint?.() || localStorage.getItem("iss-server-endpoint") || "");
+  const endpoint = () => normalizeBase(window.ISSStorage?.getServerEndpoint?.() || localStorage.getItem("iss-server-endpoint") || "/api");
   const token = () => sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || "";
   const isServerSession = () => token() === SERVER_SESSION_MARKER;
   const csrfToken = () => sessionStorage.getItem(CSRF_KEY) || "";
@@ -20,7 +20,6 @@
   const nowIso = () => new Date().toISOString();
   const safeJsonParse = (value, fallback) => { try { return JSON.parse(value); } catch { return fallback; } };
   const sanitize = value => String(value || "").trim();
-  const defaultPassword = "TempPass!2026";
   const AUTH_BRIDGE_PREFIXES = ["ISS_AUTH_BRIDGE_V3:", "ISS_AUTH_BRIDGE_V2:", "ISS_AUTH_BRIDGE_V1:"];
   const AUTH_BRIDGE_PREFIX = AUTH_BRIDGE_PREFIXES[0];
   const readAuthBridge = () => {
@@ -70,97 +69,16 @@
     return offices.find(item => item.id === id)?.id || offices[0]?.id || null;
   };
 
-  const defaultLocalUsers = () => {
-    return [
-      { id:"local-user-001", login_id:"yamamoto", loginId:"yamamoto", display_name:"山本", displayName:"山本", role:"safety-environment-staff", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-002", login_id:"ninomiya", loginId:"ninomiya", display_name:"二ノ宮", displayName:"二ノ宮", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-003", login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-004", login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-005", login_id:"koyama", loginId:"koyama", display_name:"小山", displayName:"小山", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-006", login_id:"konaka", loginId:"konaka", display_name:"小中", displayName:"小中", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-007", login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-008", login_id:"takashima", loginId:"takashima", display_name:"高嶋", displayName:"高嶋", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-009", login_id:"oura", loginId:"oura", display_name:"大浦", displayName:"大浦", role:"office-user", office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-010", login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者", role:"safety-environment-admin", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-011", login_id:"validator", loginId:"validator", display_name:"検証用アカウント", displayName:"検証用アカウント", role:"validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-012", login_id:"guest", loginId:"guest", display_name:"ゲストアカウント", displayName:"ゲストアカウント", role:"guest", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-013", login_id:"revision-validator", loginId:"revision-validator", display_name:"改正検証者用アカウント", displayName:"改正検証者用アカウント", role:"revision-validator", office_id:null, officeId:null, email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-014", login_id:"daikoku.sato", loginId:"daikoku.sato", display_name:"佐藤", displayName:"佐藤", role:"office-user", office_id:resolveOfficeId("office-yokohama-daikoku"), officeId:resolveOfficeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false },
-      { id:"local-user-015", login_id:"daikoku.ueki", loginId:"daikoku.ueki", display_name:"植木", displayName:"植木", role:"office-user", office_id:resolveOfficeId("office-yokohama-daikoku"), officeId:resolveOfficeId("office-yokohama-daikoku"), email:"", password:defaultPassword, active:true, locked_until:null, failed_attempts:0, passwordChangeRequired:false, last_login_at:null, mfa_required:false }
-    ];
-  };
-
+  const defaultLocalUsers = () => [];
   const ensureLocalUsers = () => {
-    let users = safeJsonParse(localStorage.getItem(LOCAL_USERS_KEY), null);
-    if (!Array.isArray(users) || !users.length) {
-      users = defaultLocalUsers();
-      localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
-    } else {
-      const defaults = defaultLocalUsers();
-      let changed = false;
-
-      // Part 409: 川崎事業所利用者の権限・読み・ログインIDを既存端末にも反映する。
-      const migrateUser = (predicate, updates) => {
-        const user = users.find(predicate);
-        if (!user) return;
-        Object.assign(user, updates);
-        changed = true;
-      };
-      migrateUser(user => user.id === "local-user-003" || String(user.login_id || user.loginId || "").toLowerCase() === "sato", {
-        login_id:"sato", loginId:"sato", display_name:"佐藤", displayName:"佐藤", role:"office-admin",
-        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
-      });
-      migrateUser(user => user.id === "local-user-004" || ["narutake","naritake"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
-        login_id:"naritake", loginId:"naritake", display_name:"成竹（なりたけ）", displayName:"成竹（なりたけ）", role:"office-user",
-        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
-      });
-      migrateUser(user => user.id === "local-user-007" || ["awazaki","awasaki"].includes(String(user.login_id || user.loginId || "").toLowerCase()), {
-        login_id:"awasaki", loginId:"awasaki", display_name:"粟崎（あわさき）", displayName:"粟崎（あわさき）", role:"office-user",
-        office_id:resolveOfficeId("office-kawasaki"), officeId:resolveOfficeId("office-kawasaki")
-      });
-
-      // Part 422: 管理者の旧ロック情報・無効状態をローカル端末上で自動復旧する。
-      // パスワードが既に設定されている場合は変更しない。
-      const localAdministrator = users.find(user => user.id === "local-user-010" || String(user.login_id || user.loginId || "").toLowerCase() === "administrator");
-      if (localAdministrator) {
-        Object.assign(localAdministrator, {
-          login_id:"administrator", loginId:"administrator", display_name:"管理者", displayName:"管理者",
-          role:"safety-environment-admin", active:true, locked_until:null, failed_attempts:0
-        });
-        if (!String(localAdministrator.password || "")) localAdministrator.password = defaultPassword;
-        changed = true;
-      }
-
-      // 現在ログイン中の利用者情報も即時更新する。
-      const current = safeJsonParse(localStorage.getItem(USER_KEY), null);
-      if (current?.id) {
-        const migrated = users.find(user => user.id === current.id);
-        if (migrated) {
-          localStorage.setItem(USER_KEY, JSON.stringify({
-            ...current,
-            login_id:migrated.login_id || migrated.loginId,
-            loginId:migrated.loginId || migrated.login_id,
-            display_name:migrated.display_name || migrated.displayName,
-            displayName:migrated.displayName || migrated.display_name,
-            role:migrated.role,
-            office_id:migrated.office_id ?? migrated.officeId ?? null,
-            officeId:migrated.officeId ?? migrated.office_id ?? null
-          }));
-        }
-      }
-
-      defaults.forEach(defaultUser => {
-        if (!users.some(user => (user.login_id || user.loginId) === defaultUser.login_id)) {
-          users.push(defaultUser);
-          changed = true;
-        }
-      });
-      if (changed) localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
+    const users = safeJsonParse(localStorage.getItem(LOCAL_USERS_KEY), []);
+    if (!Array.isArray(users)) {
+      localStorage.removeItem(LOCAL_USERS_KEY);
+      return [];
     }
-    return users.map(user => {
-      const loginAt = resolveLastLoginAt(user);
-      return { ...user, login_id: user.login_id || user.loginId, loginId: user.loginId || user.login_id, display_name: user.display_name || user.displayName, displayName: user.displayName || user.display_name, office_id: user.office_id ?? user.officeId ?? null, officeId: user.officeId ?? user.office_id ?? null, active: user.active !== false, passwordChangeRequired: Boolean(user.passwordChangeRequired), last_login_at: loginAt, lastLoginAt: loginAt };
-    });
+    // Final ITDX review source does not create embedded default accounts.
+    // Existing local prototype accounts are not provisioned by source code.
+    return users.filter(user => user && typeof user === "object");
   };
   const saveLocalUsers = users => localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(users));
   const ensureLocalAccessPolicy = () => {
@@ -424,6 +342,22 @@
     reviewRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/review`,{method:'POST',body:JSON.stringify(payload)}),
     approveRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/approve`,{method:'POST',body:JSON.stringify(payload)}),
     publishRegulationChangeSet: (id,payload) => request(`/regulation-change-sets/${encodeURIComponent(id)}/publish`,{method:'POST',body:JSON.stringify(payload)}),
+    regulationSources: () => request('/regulation-sources'),
+    regulationPreviewPackages: params => request(`/regulation-preview-packages?${new URLSearchParams(params || {})}`),
+    regulationPreviewPackageEvents: id => request(`/regulation-preview-packages/${encodeURIComponent(id)}/events`),
+    regulationVersionAccessPolicy: () => request('/regulation-version-access-policy'),
+    updateRegulationVersionAccessPolicy: payload => request('/admin/regulation-version-access-policy',{method:'PUT',body:JSON.stringify(payload)}),
+    createRegulationPreviewPackage: payload => request('/regulation-preview-packages',{method:'POST',body:JSON.stringify(payload)}),
+    saveRegulationPreviewCandidate: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/candidate`,{method:'PUT',body:JSON.stringify(payload)}),
+    reviewRegulationPreviewCandidate: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/candidate-review`,{method:'POST',body:JSON.stringify(payload)}),
+    sendRegulationPreviewPackage: (id,payload={}) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/send-preview`,{method:'POST',body:JSON.stringify(payload)}),
+    reviewRegulationPreviewPackage: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/preview-review`,{method:'POST',body:JSON.stringify(payload)}),
+    confirmRegulationPreviewSafety: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/safety-confirm`,{method:'POST',body:JSON.stringify(payload)}),
+    approveRegulationPreviewProduction: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/production-approve`,{method:'POST',body:JSON.stringify(payload)}),
+    publishRegulationPreviewPackage: (id,payload) => request(`/regulation-preview-packages/${encodeURIComponent(id)}/publish`,{method:'POST',body:JSON.stringify(payload)}),
+    regulationPreviewRuntime: params => request(`/regulation-preview-runtime?${new URLSearchParams(params || {})}`),
+    syncReopenEvent: payload => request('/reopen-sync/events',{method:'POST',body:JSON.stringify(payload)}),
+    reopenSyncState: params => request(`/reopen-sync/state?${new URLSearchParams(params || {})}`),
     regulationVerificationSummary: () => request('/regulation-verification/summary'),
     regulationVerificationItems: params => request(`/regulation-verification/items?${new URLSearchParams(params || {})}`),
     regulationVerificationEvents: id => request(`/regulation-verification/items/${encodeURIComponent(id)}/events`),

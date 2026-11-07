@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS change_requests (
   priority VARCHAR(20) NOT NULL DEFAULT 'normal',
   requested_date DATE,
   requester_name TEXT,
-  requester_user_id BIGINT REFERENCES users(id),
+  requester_user_id uuid REFERENCES users(id),
   status VARCHAR(30) NOT NULL DEFAULT 'submitted',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS change_impact_assessments (
   risk_assessment TEXT NOT NULL,
   decision VARCHAR(30) NOT NULL DEFAULT 'pending',
   decision_notes TEXT,
-  assessed_by BIGINT REFERENCES users(id),
+  assessed_by uuid REFERENCES users(id),
   assessed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS release_candidates (
   test_result TEXT,
   decision VARCHAR(30) NOT NULL DEFAULT 'draft',
   rollback_retirement_plan TEXT,
-  created_by BIGINT REFERENCES users(id),
+  created_by uuid REFERENCES users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

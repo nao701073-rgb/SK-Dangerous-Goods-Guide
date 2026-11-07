@@ -10,6 +10,7 @@ import path from 'path';
 import { z } from 'zod';
 import { config } from './config.js';
 import { query, transaction } from './db.js';
+import { registerReopenSyncRoutes } from './reopen-sync-router.js';
 import { authenticate, requireRole, requireOperationalRead, requireOperationalWrite, requireOperationalDelete, requireAdministrator, canManageUser, signToken, officeScope, validatePassword } from './auth.js';
 import { createServerSession, rotateSessionCsrf, revokeSession, revokeAllUserSessions, clearSessionCookie, cleanupExpiredSessions } from './session-auth.js';
 import { rolePermissionSnapshot } from './permissions.js';
@@ -26,6 +27,13 @@ import { evaluateQualityRuleRun, validateCorrectionCandidate, validateCorrection
 import { evaluateDistributionPackage, validateDistributionActors, evaluateClientCompatibility, validateContinuityExercise, validateContinuityActors, evaluateDistributionContinuityGate, validateReviewActors as validateDistributionReviewActors } from './distribution-continuity-policy.js';
 import { evaluateIntakeRecord, validateIntakeActors, intakeSnapshotSha } from './application-intake-workflow-policy.js';
 
+// ITDX-COMPLIANCE-IMPORT v1.3.133
+import { assertItdxProductionSecurity, createItdxSecurityBoundary, createItdxExternalAuthRouter } from './itdx-security-boundary.js';
+import { createItdxGovernanceRouter } from './itdx-governance-router.js';
+import { createItdxOperationalAssuranceRouter } from './itdx-operational-assurance-router.js';
+
+// ITDX-PRODUCTION-GATE v1.3.133
+assertItdxProductionSecurity();
 const configurationErrors = [];
 if (config.nodeEnv === 'production') {
   if (!config.corsOrigins.length) configurationErrors.push('CORS_ORIGINS is required in production');
@@ -41,7 +49,12 @@ if (configurationErrors.length) throw new Error(`Production configuration is inv
 
 fs.mkdirSync(config.photoStorageDir, { recursive: true });
 const app = express();
+// TEST156 diagnostic bridge; blocked in production until complete release review.
+if (config.nodeEnv === 'production') throw new Error('TEST156_DIAGNOSTIC_CODE_MUST_NOT_RUN_IN_PRODUCTION');
 app.set('trust proxy', config.trustProxy);
+// ITDX-SECURITY-BOUNDARY v1.3.133
+app.disable('x-powered-by');
+app.use(createItdxSecurityBoundary());
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
   hsts: config.nodeEnv === 'production' ? { maxAge: 31536000, includeSubDomains: true, preload: true } : false
@@ -69,6 +82,20 @@ app.use('/api/auth/mfa/verify', loginLimiter);
 const hashText = value => crypto.createHash('sha256').update(String(value)).digest('hex');
 const randomDigits = length => Array.from({ length }, () => crypto.randomInt(0, 10)).join('');
 const publicUser = user => ({ id:user.id, loginId:user.login_id, email:user.email, displayName:user.display_name, role:user.role, officeId:user.office_id, accountCategory:user.account_category });
+const accountCategoryForRole = role => {
+  switch(role){
+    case 'guest': return 'staff-guest';
+    case 'validator':
+    case 'revision-validator': return 'staff-validator';
+    case 'safety-environment-admin': return 'safety-environment-admin';
+    case 'safety-environment-director': return 'safety-environment-director';
+    case 'safety-environment-staff': return 'safety-environment-staff';
+    case 'office-admin':
+    case 'office-user': return 'surveyor';
+    default: throw new Error(`Unsupported role for account category: ${role}`);
+  }
+};
+
 
 const signAssetAccess = (type,id,user,minutes=60) => {
   const payload=Buffer.from(JSON.stringify({type,id,sub:user.id,role:user.role,officeId:user.office_id||null,exp:Date.now()+minutes*60_000})).toString('base64url');
@@ -163,7 +190,7 @@ app.get('/api/runtime', (_req, res) => {
     expectedUsersPilot: 50,
     expectedUsersFuture: 150,
     photoStorage: objectStorage.provider,
-    systemVersion: 'Part 535',
+    systemVersion: 'v1.3.111',
     publicationScope: config.publication.defaultScope,
     authenticationMode: config.session.enabled ? 'server-session' : (config.session.legacyBearerEnabled ? 'legacy-bearer' : 'disabled'),
     persistentStorage: objectStorage.provider
@@ -192,6 +219,34 @@ app.put('/api/admin/system/access-policy', authenticate, requireRole('safety-env
   await query(`INSERT INTO system_runtime_settings(setting_key,setting_value,updated_by,updated_at) VALUES('access_policy',$1::jsonb,$2,now()) ON CONFLICT(setting_key) DO UPDATE SET setting_value=excluded.setting_value,updated_by=excluded.updated_by,updated_at=now()`,[JSON.stringify(value),req.user.id]);
   await audit(req,'update','system-access-policy','access_policy',value);
   res.json(value);
+});
+
+const defaultSystemAnnouncement = () => ({ schemaVersion:1, enabled:false, title:'', body:'', displayDate:null });
+const normalizeSystemAnnouncement = value => {
+  const source=value&&typeof value==='object'?value:{};
+  return {
+    schemaVersion:1,
+    enabled:source.enabled===true,
+    title:String(source.title||'').slice(0,120),
+    body:String(source.body||'').slice(0,2000),
+    displayDate:/^\d{4}-\d{2}-\d{2}$/.test(String(source.displayDate||''))?String(source.displayDate):null
+  };
+};
+async function readSystemAnnouncement(){
+  const {rows}=await query(`SELECT s.setting_value,s.updated_at,u.display_name updated_by_name FROM system_runtime_settings s LEFT JOIN users u ON u.id=s.updated_by WHERE s.setting_key='system_announcement' LIMIT 1`);
+  const row=rows[0];
+  return { announcement:row?normalizeSystemAnnouncement(row.setting_value):defaultSystemAnnouncement(), updatedAt:row?.updated_at||null, updatedByName:row?.updated_by_name||null };
+}
+app.get('/api/system/announcement',authenticate,async(_req,res)=>{
+  res.setHeader('Cache-Control','private, no-store');res.json(await readSystemAnnouncement());
+});
+app.put('/api/admin/system/announcement',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({enabled:z.boolean(),title:z.string().max(120),body:z.string().max(2000),displayDate:z.union([z.string().regex(/^\d{4}-\d{2}-\d{2}$/),z.null()]).optional().default(null)}).superRefine((value,ctx)=>{if(value.enabled&&!value.title.trim())ctx.addIssue({code:z.ZodIssueCode.custom,path:['title'],message:'件名を入力してください。'});});
+  const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'お知らせ内容を確認してください。'});
+  const value=normalizeSystemAnnouncement(parsed.data);
+  await query(`INSERT INTO system_runtime_settings(setting_key,setting_value,updated_by,updated_at) VALUES('system_announcement',$1::jsonb,$2,now()) ON CONFLICT(setting_key) DO UPDATE SET setting_value=excluded.setting_value,updated_by=excluded.updated_by,updated_at=now()`,[JSON.stringify(value),req.user.id]);
+  await audit(req,'update','system-announcement','system_announcement',{enabled:value.enabled,title:value.title,displayDate:value.displayDate});
+  res.setHeader('Cache-Control','private, no-store');res.json(await readSystemAnnouncement());
 });
 
 app.post('/api/auth/login', async (req, res) => {
@@ -649,6 +704,9 @@ app.post('/api/sync/batch', authenticate, requireOperationalWrite, async (req, r
 
 
 
+// TEST156: dedicated, fail-closed request/investigation synchronization.
+registerReopenSyncRoutes({app,authenticate,requireOperationalRead,requireOperationalWrite,query,transaction});
+
 const adminUserSchema = z.object({
   loginId: z.string().regex(/^[A-Za-z0-9._-]{3,100}$/),
   email: z.string().email().nullable().optional(),
@@ -706,7 +764,7 @@ app.post('/api/admin/users', authenticate, requireAdministrator, async (req, res
     const { rows: existingManagers } = await query(`SELECT id,display_name,login_id FROM users WHERE office_id=$1 AND role='office-admin' AND active=true LIMIT 1`, [data.officeId]);
     if (existingManagers[0]) return res.status(409).json({ error: `この事業所には有効な事業所管理者（事業所長）アカウント「${existingManagers[0].display_name}」が既に登録されています。交代時は旧アカウントを無効化してから登録してください。` });
   }
-  const accountCategory = data.role === 'guest' ? 'staff-guest' : data.role === 'validator' ? 'staff-validator' : data.role === 'revision-validator' ? 'staff-validator' : data.role === 'safety-environment-admin' ? 'safety-environment-admin' : data.role === 'safety-environment-director' ? 'safety-environment-director' : data.role === 'safety-environment-staff' ? 'safety-environment-staff' : data.role === 'office-admin' ? 'office-director' : 'inspector';
+  const accountCategory = accountCategoryForRole(data.role);
   const passwordErrors = validatePassword(data.initialPassword);
   if (passwordErrors.length) return res.status(400).json({ error: `初期パスワードには${passwordErrors.join('・')}が必要です。` });
   const hash = await bcrypt.hash(data.initialPassword, 12);
@@ -751,7 +809,7 @@ app.put('/api/admin/users/:id', authenticate, requireAdministrator, async (req,r
     const {rows:existing}=await query(`SELECT id,display_name FROM users WHERE office_id=$1 AND role='office-admin' AND active=true AND id<>$2 LIMIT 1`,[data.officeId,target.id]);
     if(existing[0]) return res.status(409).json({error:`この事業所には有効な事業所管理者「${existing[0].display_name}」が既に登録されています。`});
   }
-  const accountCategory=data.role==='guest'?'staff-guest':data.role==='validator'?'staff-validator':data.role==='revision-validator'?'staff-validator':data.role==='safety-environment-admin'?'safety-environment-admin':data.role==='safety-environment-director'?'safety-environment-director':data.role==='safety-environment-staff'?'safety-environment-staff':data.role==='office-admin'?'office-director':'inspector';
+  const accountCategory=accountCategoryForRole(data.role);
   try{
     const {rows}=await query(`UPDATE users SET login_id=lower($1),display_name=$2,role=$3,account_category=$4,office_id=$5,token_version=CASE WHEN role<>$3 THEN token_version+1 ELSE token_version END,updated_at=now() WHERE id=$6 RETURNING id,login_id,display_name,role,office_id,active`,[data.loginId,data.displayName,data.role,accountCategory,['office-user','office-admin'].includes(data.role)?data.officeId:null,target.id]);
     await audit(req,'update','user',target.id,{loginId:data.loginId,displayName:data.displayName,role:data.role,officeId:data.officeId||null});
@@ -1037,8 +1095,9 @@ app.post('/api/admin/import', authenticate, requireAdministrator, async (req,res
           if(req.user.role==='office-admin' && row.role!=='office-user') throw new Error('事業所管理者は検査員のみ登録できます。');
           const passwordErrors=validatePassword(String(row.initialPassword||'')); if(passwordErrors.length) throw new Error(`パスワード要件: ${passwordErrors.join('・')}`);
           const hash=await bcrypt.hash(String(row.initialPassword),12);
+          const accountCategory=accountCategoryForRole(row.role);
           await client.query(`INSERT INTO users(login_id,email,password_hash,display_name,role,office_id,account_category,must_change_password,active)
-            VALUES($1,NULLIF($2,''),$3,$4,$5,NULLIF($6,''),CASE WHEN $5 IN ('guest','validator','revision-validator') THEN 'internal-viewer' ELSE 'inspector' END,true,true)`,[String(row.loginId).trim(),row.email||'',hash,row.displayName,row.role,row.officeId||null]);
+            VALUES($1,NULLIF($2,''),$3,$4,$5,NULLIF($6,''),$7,true,true)`,[String(row.loginId).trim(),row.email||'',hash,row.displayName,row.role,row.officeId||null,accountCategory]);
         } else {
           if(req.user.role!=='safety-environment-admin') throw new Error('事業所追加は安全環境室管理者のみ実行できます。');
           await client.query(`INSERT INTO blocks(id,name,active) VALUES($1,$2,true) ON CONFLICT(id) DO UPDATE SET name=EXCLUDED.name`,[row.blockId,row.blockName]);
@@ -1594,7 +1653,7 @@ app.post('/api/admin/access-governance/deletion-requests',authenticate,requireRo
   const {rows}=await query(`INSERT INTO deletion_requests(target_type,target_id,office_name,reason,requested_by) VALUES($1,$2,NULLIF($3,''),$4,$5) RETURNING *`,[d.targetType,d.targetId,d.officeName,d.reason,req.user.id]);await audit(req,'request-delete',d.targetType,d.targetId,{requestId:rows[0].id});res.status(201).json({request:rows[0]});
 });
 app.post('/api/admin/access-governance/deletion-requests/:id/decision',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({decision:z.enum(['approved','rejected']),note:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'判断内容を確認してください。'});const {rows}=await query(`UPDATE deletion_requests SET status=$1,decision_note=NULLIF($2,''),decided_by=$3,decided_at=now(),updated_at=now() WHERE id=$4 AND status='pending' RETURNING *`,[parsed.data.decision,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認待ちの削除申請が見つかりません。'});await audit(req,parsed.data.decision==='approved'?'approve-delete':'reject-delete',rows[0].target_type,rows[0].target_id,{requestId:rows[0].id});res.json({request:rows[0]});});
-app.post('/api/admin/access-governance/role-change-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({userId:z.string().uuid(),requestedRole:z.enum(['guest','office-user','office-admin','safety-environment-staff','safety-environment-director','safety-environment-admin']),effectiveDate:z.string().date().nullable().optional(),reason:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'権限変更申請の内容を確認してください。'});const {rows:u}=await query(`SELECT role FROM users WHERE id=$1`,[parsed.data.userId]);if(!u[0])return res.status(404).json({error:'利用者が見つかりません。'});if(parsed.data.requestedRole==='safety-environment-admin'&&u[0].role!=='safety-environment-director')return res.status(409).json({error:'システム管理者への移行先は安全環境室長に限定されています。'});const {rows}=await query(`INSERT INTO role_change_requests(user_id,current_role,requested_role,effective_date,reason,requested_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[parsed.data.userId,u[0].role,parsed.data.requestedRole,parsed.data.effectiveDate||null,parsed.data.reason,req.user.id]);await audit(req,'request-role-change','user',parsed.data.userId,{requestId:rows[0].id,requestedRole:parsed.data.requestedRole});res.status(201).json({request:rows[0]});});
+app.post('/api/admin/access-governance/role-change-requests',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({userId:z.string().uuid(),requestedRole:z.enum(['guest','office-user','office-admin','safety-environment-staff','safety-environment-director','safety-environment-admin']),effectiveDate:z.string().date().nullable().optional(),reason:z.string().min(1).max(3000)});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'権限変更申請の内容を確認してください。'});const {rows:u}=await query(`SELECT role FROM users WHERE id=$1`,[parsed.data.userId]);if(!u[0])return res.status(404).json({error:'利用者が見つかりません。'});if(parsed.data.requestedRole==='safety-environment-admin'&&u[0].role!=='safety-environment-director')return res.status(409).json({error:'システム管理者への移行先は安全環境室長に限定されています。'});const {rows}=await query(`INSERT INTO role_change_requests(user_id,current_role_name,requested_role,effective_date,reason,requested_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[parsed.data.userId,u[0].role,parsed.data.requestedRole,parsed.data.effectiveDate||null,parsed.data.reason,req.user.id]);await audit(req,'request-role-change','user',parsed.data.userId,{requestId:rows[0].id,requestedRole:parsed.data.requestedRole});res.status(201).json({request:rows[0]});});
 app.post('/api/admin/access-governance/role-change-requests/:id/decision',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({decision:z.enum(['approved','rejected']),note:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success)return res.status(400).json({error:'判断内容を確認してください。'});const {rows}=await query(`UPDATE role_change_requests SET status=$1,decision_note=NULLIF($2,''),decided_by=$3,decided_at=now(),updated_at=now() WHERE id=$4 AND status='pending' RETURNING *`,[parsed.data.decision,parsed.data.note,req.user.id,req.params.id]);if(!rows[0])return res.status(404).json({error:'承認待ちの権限変更申請が見つかりません。'});await audit(req,parsed.data.decision==='approved'?'approve-role-change':'reject-role-change','user',rows[0].user_id,{requestId:rows[0].id,requestedRole:rows[0].requested_role});res.json({request:rows[0]});});
 app.post('/api/admin/access-governance/reviews',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{const schema=z.object({reviewDate:z.string().date(),targetCount:z.number().int().min(0).max(500),issueCount:z.number().int().min(0).max(500),nextReviewDate:z.string().date().nullable().optional(),notes:z.string().max(3000).optional().default('')});const parsed=schema.safeParse(req.body);if(!parsed.success||parsed.data.issueCount>parsed.data.targetCount)return res.status(400).json({error:'棚卸し結果を確認してください。'});const d=parsed.data;const {rows}=await query(`INSERT INTO access_review_records(review_date,target_count,issue_count,next_review_date,notes,reviewed_by) VALUES($1,$2,$3,$4,NULLIF($5,''),$6) RETURNING *`,[d.reviewDate,d.targetCount,d.issueCount,d.nextReviewDate||null,d.notes,req.user.id]);await audit(req,'record','access-review',rows[0].id,{targetCount:d.targetCount,issueCount:d.issueCount});res.status(201).json({review:rows[0]});});
 
@@ -1906,10 +1965,17 @@ app.get('/api/auth/permissions', authenticate, (req,res) => {
     'safety-environment-staff': { dangerousGoods:true, regulations:true, references:true, applications:'read-all', photos:'read-all', documents:'read-all', regulationReview:true, administration:false },
     'safety-environment-director': { dangerousGoods:true, regulations:true, references:true, applications:'write-all', photos:'write-all', documents:'write-all', regulationReview:true, regulationApproval:true, administration:false },
     'safety-environment-admin': { dangerousGoods:true, regulations:true, references:true, applications:'write-all', photos:'write-all', documents:'write-all', regulationReview:true, regulationApproval:true, regulationPublish:true, administration:true },
-    validator: { dangerousGoods:false, regulations:false, references:true, applications:false, photos:false, documents:false, validation:true },
+    validator: { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, regulationReview:true, revisionPreview:true, validation:true },
     'revision-validator': { dangerousGoods:true, regulations:true, references:true, applications:false, photos:false, documents:false, regulationReview:true }
   };
   res.json({role:req.user.role,officeId:req.user.office_id || null,permissions:ui[req.user.role] || {},serverPermissions:operational});
+});
+
+app.get('/api/regulation-sources', authenticate, requireRole('revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'), async (_req,res) => {
+  const {rows}=await query(`SELECT s.id,s.regulation_id,s.edition_label,s.publication_date,s.effective_from,s.effective_to,s.language,s.publisher,s.source_url,s.original_file_name,s.mime_type,s.file_size,s.checksum_sha256,s.status,s.change_summary,s.created_by,s.created_at,u.display_name created_by_name
+    FROM regulation_sources s LEFT JOIN users u ON u.id=s.created_by ORDER BY s.created_at DESC LIMIT 500`);
+  res.setHeader('Cache-Control','private, no-store');
+  res.json({sources:rows});
 });
 
 app.post('/api/regulation-sources', authenticate, requireRole('safety-environment-staff','safety-environment-director','safety-environment-admin','revision-validator'), regulationUpload.single('source'), async (req,res) => {
@@ -1984,6 +2050,225 @@ app.post('/api/regulation-change-sets/:id/publish',authenticate,requireRole('saf
   const published=await transaction(async client=>{const current=await client.query(`SELECT c.*,s.regulation_id FROM regulation_change_sets c JOIN regulation_sources s ON s.id=c.source_id WHERE c.id=$1 FOR UPDATE`,[req.params.id]);const row=current.rows[0];if(!row)throw Object.assign(new Error('変更セットが見つかりません。'),{status:404});if(row.status!=='approved'||!row.reviewed_by||!row.approved_by)throw Object.assign(new Error('照合・承認済みの変更セットだけを公開できます。'),{status:409});if([row.created_by,row.reviewed_by,row.approved_by].map(String).some((v,i,a)=>a.indexOf(v)!==i))throw Object.assign(new Error('作成・照合・承認は別の利用者が行う必要があります。'),{status:409});
     const previous=await client.query(`SELECT id FROM regulation_publications WHERE regulation_id=$1 ORDER BY published_at DESC LIMIT 1`,[row.regulation_id]);const pub=await client.query(`INSERT INTO regulation_publications(change_set_id,regulation_id,effective_from,release_version,previous_publication_id,published_by) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[row.id,row.regulation_id,parsed.data.effectiveFrom,parsed.data.releaseVersion,previous.rows[0]?.id||null,req.user.id]);await client.query(`UPDATE regulation_change_sets SET status='published',published_by=$1,published_at=now() WHERE id=$2`,[req.user.id,row.id]);await client.query(`UPDATE regulation_sources SET status='published',published_at=now() WHERE id=$1`,[row.source_id]);await client.query(`INSERT INTO regulation_approval_events(change_set_id,event_type,actor_user_id,actor_role,comment) VALUES($1,'published',$2,$3,$4)`,[row.id,req.user.id,req.user.role,`release ${parsed.data.releaseVersion}`]);return pub.rows[0];});
   await audit(req,'publish','regulation-change-set',req.params.id,{releaseVersion:parsed.data.releaseVersion,effectiveFrom:parsed.data.effectiveFrom});res.status(201).json({publication:published});
+});
+
+
+// R65 internal candidate: multi-dataset legal amendment package and controlled version-reference runtime.
+// This layer intentionally leaves the existing single-dataset regulation_change_sets workflow unchanged.
+const regulationPreviewManagementRoles=['revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const regulationPreviewPrepareRoles=['safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const regulationPreviewSafetyRoles=['safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const regulationPreviewValidatorRoles=new Set(['revision-validator','validator']);
+const regulationVersionAccessRoles=['revision-validator','validator','safety-environment-staff','safety-environment-director','safety-environment-admin'];
+const regulationVersionAccessRoleSet=new Set(regulationVersionAccessRoles);
+const regulationVersionRestrictedRoles=new Set(['guest','office-user','office-admin']);
+const defaultRegulationVersionAccessPolicy=()=>({schemaVersion:1,roles:Object.fromEntries(regulationVersionAccessRoles.map(role=>[role,{preview:false,history:false}]))});
+const normalizeRegulationVersionAccessPolicy=raw=>{
+  const value=defaultRegulationVersionAccessPolicy();
+  for(const role of regulationVersionAccessRoles){
+    value.roles[role]={preview:raw?.roles?.[role]?.preview===true,history:raw?.roles?.[role]?.history===true};
+  }
+  return value;
+};
+const readRegulationVersionAccessPolicy=async()=>{
+  try{
+    const {rows}=await query(`SELECT setting_value FROM system_runtime_settings WHERE setting_key='regulation_version_access_policy'`);
+    return normalizeRegulationVersionAccessPolicy(rows[0]?.setting_value||{});
+  }catch{return defaultRegulationVersionAccessPolicy();}
+};
+const regulationVersionAccessForRole=(policy,role)=>{
+  if(regulationVersionRestrictedRoles.has(role)||!regulationVersionAccessRoleSet.has(role))return {current:true,preview:false,history:false};
+  const configured=policy?.roles?.[role]||{};return {current:true,preview:configured.preview===true,history:configured.history===true};
+};
+const regulationPreviewDatasetIds=new Set([
+  'dangerous-goods-basic','label-master','packaging-requirements','special-provisions','article-links',
+  'domestic-imdg-cross-reference','regulation-registry','marking-rules','legal-code-master-codes',
+  'domestic-code-originals','domestic-code-page-ranges','domestic-law-articles'
+]);
+const stableRegulationJson=value=>{
+  if(Array.isArray(value))return `[${value.map(stableRegulationJson).join(',')}]`;
+  if(value&&typeof value==='object')return `{${Object.keys(value).sort().map(key=>`${JSON.stringify(key)}:${stableRegulationJson(value[key])}`).join(',')}}`;
+  return JSON.stringify(value);
+};
+const regulationPreviewHash=value=>crypto.createHash('sha256').update(stableRegulationJson(value)).digest('hex');
+const normalizeRegulationPreviewDatasets=raw=>{
+  if(!Array.isArray(raw)||!raw.length||raw.length>30)throw Object.assign(new Error('更新候補JSONのdatasetsは1～30件の配列にしてください。'),{status:400});
+  const seen=new Set();
+  return raw.map((item,index)=>{
+    if(!item||typeof item!=='object'||Array.isArray(item))throw Object.assign(new Error(`datasets[${index}]の形式が正しくありません。`),{status:400});
+    const id=String(item.id||item.type||'').trim();
+    if(!regulationPreviewDatasetIds.has(id))throw Object.assign(new Error(`未対応の更新対象です: ${id||'(未指定)'}`),{status:400});
+    if(seen.has(id))throw Object.assign(new Error(`同じ更新対象が重複しています: ${id}`),{status:400});
+    seen.add(id);
+    const operation=String(item.operation||'upsert').trim();
+    if(!['upsert','replace','remove'].includes(operation))throw Object.assign(new Error(`${id} のoperationは upsert / replace / remove のいずれかにしてください。`),{status:400});
+    if(!Array.isArray(item.records)||!item.records.length||item.records.length>5000)throw Object.assign(new Error(`${id} のrecordsは1～5000件の配列にしてください。`),{status:400});
+    const keyField=String(item.keyField||'').trim().slice(0,100);
+    return {id,operation,keyField,records:item.records};
+  });
+};
+const recordRegulationPreviewEvent=async(client,{packageId,eventType,user,comment='',payloadSha256=null,details={}})=>{
+  await client.query(`INSERT INTO regulation_preview_package_events(package_id,event_type,actor_user_id,actor_role,comment,payload_sha256,details)
+    VALUES($1,$2,$3,$4,$5,$6,$7::jsonb)`,[packageId,eventType,user?.id||null,user?.role||null,comment||'',payloadSha256||null,JSON.stringify(details||{})]);
+};
+const readRegulationPreviewPackage=async(client,id,forUpdate=false)=>{
+  const sql=`SELECT p.*,s.regulation_id,s.original_file_name source_file_name,s.checksum_sha256 source_checksum_sha256,
+    preparer.display_name prepared_by_name,verifier.display_name candidate_verified_by_name,previewverifier.display_name preview_verified_by_name,
+    safety.display_name safety_confirmed_by_name,approver.display_name production_approved_by_name,publisher.display_name published_by_name
+    FROM regulation_preview_packages p JOIN regulation_sources s ON s.id=p.source_id
+    LEFT JOIN users preparer ON preparer.id=p.prepared_by
+    LEFT JOIN users verifier ON verifier.id=p.candidate_verified_by
+    LEFT JOIN users previewverifier ON previewverifier.id=p.preview_verified_by
+    LEFT JOIN users safety ON safety.id=p.safety_confirmed_by
+    LEFT JOIN users approver ON approver.id=p.production_approved_by
+    LEFT JOIN users publisher ON publisher.id=p.published_by
+    WHERE p.id=$1${forUpdate?' FOR UPDATE OF p':''}`;
+  const found=await client.query(sql,[id]);
+  return found.rows[0]||null;
+};
+
+app.get('/api/regulation-version-access-policy',authenticate,requireRole(...regulationPreviewManagementRoles),async(req,res)=>{
+  const policy=await readRegulationVersionAccessPolicy();
+  res.setHeader('Cache-Control','private, no-store');
+  res.json({policy,access:regulationVersionAccessForRole(policy,req.user.role),editable:req.user.role==='safety-environment-admin'});
+});
+
+app.put('/api/admin/regulation-version-access-policy',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({roles:z.record(z.object({preview:z.boolean(),history:z.boolean()}))});
+  const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'版参照設定を確認してください。'});
+  const unknown=Object.keys(parsed.data.roles||{}).filter(role=>!regulationVersionAccessRoleSet.has(role));
+  if(unknown.length)return res.status(400).json({error:`設定対象外の権限が含まれています: ${unknown.join(', ')}`});
+  const policy=normalizeRegulationVersionAccessPolicy(parsed.data);
+  await query(`INSERT INTO system_runtime_settings(setting_key,setting_value,updated_by,updated_at) VALUES('regulation_version_access_policy',$1::jsonb,$2,now()) ON CONFLICT(setting_key) DO UPDATE SET setting_value=excluded.setting_value,updated_by=excluded.updated_by,updated_at=now()`,[JSON.stringify(policy),req.user.id]);
+  await audit(req,'update','regulation-version-access-policy','regulation_version_access_policy',policy);
+  res.setHeader('Cache-Control','private, no-store');res.json({policy});
+});
+
+app.get('/api/regulation-preview-packages',authenticate,requireRole(...regulationPreviewManagementRoles),async(req,res)=>{
+  const values=[];let where='1=1';
+  if(req.query.status){values.push(String(req.query.status));where+=` AND p.status=$${values.length}`;}
+  const {rows}=await query(`SELECT p.*,s.regulation_id,s.edition_label source_edition_label,s.original_file_name source_file_name,
+    preparer.display_name prepared_by_name,verifier.display_name candidate_verified_by_name,previewverifier.display_name preview_verified_by_name,
+    safety.display_name safety_confirmed_by_name,approver.display_name production_approved_by_name,publisher.display_name published_by_name
+    FROM regulation_preview_packages p JOIN regulation_sources s ON s.id=p.source_id
+    LEFT JOIN users preparer ON preparer.id=p.prepared_by LEFT JOIN users verifier ON verifier.id=p.candidate_verified_by
+    LEFT JOIN users previewverifier ON previewverifier.id=p.preview_verified_by LEFT JOIN users safety ON safety.id=p.safety_confirmed_by
+    LEFT JOIN users approver ON approver.id=p.production_approved_by LEFT JOIN users publisher ON publisher.id=p.published_by
+    WHERE ${where} ORDER BY p.updated_at DESC,p.created_at DESC LIMIT 500`,values);
+  res.setHeader('Cache-Control','private, no-store');res.json({packages:rows});
+});
+
+app.get('/api/regulation-preview-packages/:id/events',authenticate,requireRole(...regulationPreviewManagementRoles),async(req,res)=>{
+  const {rows}=await query(`SELECT e.*,u.display_name actor_name,u.login_id actor_login FROM regulation_preview_package_events e LEFT JOIN users u ON u.id=e.actor_user_id WHERE e.package_id=$1 ORDER BY e.created_at,e.id`,[req.params.id]);
+  res.setHeader('Cache-Control','private, no-store');res.json({events:rows});
+});
+
+app.post('/api/regulation-preview-packages',authenticate,requireRole(...regulationPreviewPrepareRoles),async(req,res)=>{
+  const schema=z.object({sourceId:z.string().uuid(),packageTitle:z.string().max(300).default(''),editionLabel:z.string().max(150).default(''),effectiveFrom:z.string().date().nullable().optional(),schemaVersion:z.string().max(50).default('1.0')});
+  const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'解析支援ジョブの原典・版情報を確認してください。'});const d=parsed.data;
+  const source=await query('SELECT id,regulation_id,edition_label FROM regulation_sources WHERE id=$1',[d.sourceId]);if(!source.rows[0])return res.status(404).json({error:'中央保存済み原典PDFが見つかりません。'});
+  const {rows}=await query(`INSERT INTO regulation_preview_packages(source_id,package_title,edition_label,effective_from,schema_version,prepared_by)
+    VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,[d.sourceId,d.packageTitle,d.editionLabel,d.effectiveFrom||null,d.schemaVersion,req.user.id]);
+  await query(`INSERT INTO regulation_preview_package_events(package_id,event_type,actor_user_id,actor_role,comment,details) VALUES($1,'created',$2,$3,$4,$5::jsonb)`,[rows[0].id,req.user.id,req.user.role,'解析支援ジョブを作成',JSON.stringify({regulationId:source.rows[0].regulation_id})]);
+  await audit(req,'create','regulation-preview-package',rows[0].id,{sourceId:d.sourceId});res.status(201).json({package:rows[0]});
+});
+
+app.put('/api/regulation-preview-packages/:id/candidate',authenticate,requireRole(...regulationPreviewPrepareRoles),async(req,res)=>{
+  const schema=z.object({candidate:z.object({datasets:z.array(z.any())}).passthrough(),sourcePageReferences:z.array(z.any()).min(1).max(200),confidenceMetadata:z.record(z.any()).default({}),note:z.string().max(10000).default(''),packageTitle:z.string().max(300).optional(),editionLabel:z.string().max(150).optional(),effectiveFrom:z.string().date().nullable().optional()});
+  const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'更新候補JSONと原典ページ根拠を確認してください。'});const d=parsed.data;
+  let datasets;try{datasets=normalizeRegulationPreviewDatasets(d.candidate.datasets);}catch(error){return res.status(error.status||400).json({error:error.message});}
+  const payload={datasets,sourcePageReferences:d.sourcePageReferences,confidenceMetadata:d.confidenceMetadata};const payloadSha256=regulationPreviewHash(payload);
+  const result=await transaction(async client=>{
+    const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('解析支援ジョブが見つかりません。'),{status:404});
+    if(!['draft','returned','preview-returned'].includes(current.status))throw Object.assign(new Error('この候補は再登録できる状態ではありません。'),{status:409});
+    const updated=await client.query(`UPDATE regulation_preview_packages SET datasets=$1::jsonb,source_page_references=$2::jsonb,confidence_metadata=$3::jsonb,candidate_note=$4,payload_sha256=$5,status='submitted',submitted_by=$6,submitted_at=now(),prepared_by=COALESCE(prepared_by,$6),package_title=COALESCE($7,package_title),edition_label=COALESCE($8,edition_label),effective_from=COALESCE($9,effective_from),candidate_verified_by=NULL,candidate_verified_at=NULL,preview_sent_by=NULL,preview_sent_at=NULL,preview_verified_by=NULL,preview_verified_at=NULL,safety_confirmed_by=NULL,safety_confirmed_at=NULL,production_approved_by=NULL,production_approved_at=NULL,returned_by=NULL,return_reason=NULL,updated_at=now() WHERE id=$10 RETURNING *`,[JSON.stringify(datasets),JSON.stringify(d.sourcePageReferences),JSON.stringify(d.confidenceMetadata),d.note,payloadSha256,req.user.id,d.packageTitle??null,d.editionLabel??null,d.effectiveFrom??null,req.params.id]);
+    await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:'submitted',user:req.user,comment:d.note,payloadSha256,details:{datasetIds:datasets.map(x=>x.id),datasetCount:datasets.length,recordCount:datasets.reduce((n,x)=>n+x.records.length,0)}});return updated.rows[0];
+  });
+  await audit(req,'submit','regulation-preview-package',req.params.id,{payloadSha256,datasetIds:datasets.map(x=>x.id)});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/candidate-review',authenticate,requireRole('validator','revision-validator'),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['verified','returned']),comment:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'検証結果とコメントを入力してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('更新候補が見つかりません。'),{status:404});if(current.status!=='submitted')throw Object.assign(new Error('提出済み候補だけを検証できます。'),{status:409});if(String(current.submitted_by||'')===String(req.user.id))throw Object.assign(new Error('候補提出者本人は検証できません。'),{status:409});
+    const verified=parsed.data.decision==='verified';const updated=await client.query(`UPDATE regulation_preview_packages SET status=$1,candidate_verified_by=CASE WHEN $2::boolean THEN $3::uuid ELSE NULL::uuid END,candidate_verified_at=CASE WHEN $2::boolean THEN now() ELSE NULL END,returned_by=CASE WHEN $2::boolean THEN NULL::uuid ELSE $3::uuid END,return_reason=CASE WHEN $2::boolean THEN NULL::text ELSE $4::text END,updated_at=now() WHERE id=$5 RETURNING *`,[verified?'candidate-verified':'returned',verified,req.user.id,parsed.data.comment,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:verified?'candidate-verified':'returned',user:req.user,comment:parsed.data.comment,payloadSha256:current.payload_sha256});return updated.rows[0];});
+  await audit(req,parsed.data.decision==='verified'?'verify':'return','regulation-preview-package',req.params.id,{stage:'candidate'});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/send-preview',authenticate,requireRole(...regulationPreviewSafetyRoles),async(req,res)=>{
+  const schema=z.object({comment:z.string().max(5000).default('')});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'検証版送付コメントを確認してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('更新候補が見つかりません。'),{status:404});if(current.status!=='candidate-verified'||!current.candidate_verified_by)throw Object.assign(new Error('候補検証合格後だけ検証版へ送付できます。'),{status:409});if(String(current.candidate_verified_by)===String(req.user.id))throw Object.assign(new Error('候補検証者本人は検証版送付者になれません。'),{status:409});
+    const updated=await client.query(`UPDATE regulation_preview_packages SET status='preview',preview_sent_by=$1,preview_sent_at=now(),preview_verified_by=NULL,preview_verified_at=NULL,safety_confirmed_by=NULL,safety_confirmed_at=NULL,production_approved_by=NULL,production_approved_at=NULL,updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:'preview-sent',user:req.user,comment:parsed.data.comment,payloadSha256:current.payload_sha256});return updated.rows[0];});
+  await audit(req,'send-preview','regulation-preview-package',req.params.id,{});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/preview-review',authenticate,requireRole('validator','revision-validator'),async(req,res)=>{
+  const schema=z.object({decision:z.enum(['verified','returned']),comment:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'検証版確認結果を入力してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('検証版候補が見つかりません。'),{status:404});if(current.status!=='preview')throw Object.assign(new Error('検証版送付済み候補だけを確認できます。'),{status:409});
+    const verified=parsed.data.decision==='verified';const updated=await client.query(`UPDATE regulation_preview_packages SET status=$1,preview_verified_by=CASE WHEN $2::boolean THEN $3::uuid ELSE NULL::uuid END,preview_verified_at=CASE WHEN $2::boolean THEN now() ELSE NULL END,returned_by=CASE WHEN $2::boolean THEN NULL::uuid ELSE $3::uuid END,return_reason=CASE WHEN $2::boolean THEN NULL::text ELSE $4::text END,updated_at=now() WHERE id=$5 RETURNING *`,[verified?'preview-verified':'preview-returned',verified,req.user.id,parsed.data.comment,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:verified?'preview-verified':'preview-returned',user:req.user,comment:parsed.data.comment,payloadSha256:current.payload_sha256});return updated.rows[0];});
+  await audit(req,parsed.data.decision==='verified'?'verify-preview':'return-preview','regulation-preview-package',req.params.id,{});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/safety-confirm',authenticate,requireRole(...regulationPreviewSafetyRoles),async(req,res)=>{
+  const schema=z.object({comment:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'安全環境室確認コメントを入力してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('検証版候補が見つかりません。'),{status:404});if(current.status!=='preview-verified'||!current.preview_verified_by)throw Object.assign(new Error('検証者による検証版確認後だけ安全環境室確認へ進めます。'),{status:409});if(String(current.preview_verified_by)===String(req.user.id))throw Object.assign(new Error('検証版確認者本人は安全環境室確認者になれません。'),{status:409});
+    const updated=await client.query(`UPDATE regulation_preview_packages SET status='safety-confirmed',safety_confirmed_by=$1,safety_confirmed_at=now(),updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:'safety-confirmed',user:req.user,comment:parsed.data.comment,payloadSha256:current.payload_sha256});return updated.rows[0];});
+  await audit(req,'safety-confirm','regulation-preview-package',req.params.id,{});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/production-approve',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({comment:z.string().min(1).max(10000)});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'本番移行承認コメントを入力してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('更新パッケージが見つかりません。'),{status:404});if(current.status!=='safety-confirmed'||!current.safety_confirmed_by)throw Object.assign(new Error('安全環境室確認後だけ本番移行承認できます。'),{status:409});if(String(current.safety_confirmed_by)===String(req.user.id))throw Object.assign(new Error('安全環境室確認者本人は本番移行承認者になれません。'),{status:409});
+    const updated=await client.query(`UPDATE regulation_preview_packages SET status='production-approved',production_approved_by=$1,production_approved_at=now(),updated_at=now() WHERE id=$2 RETURNING *`,[req.user.id,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:'production-approved',user:req.user,comment:parsed.data.comment,payloadSha256:current.payload_sha256});return updated.rows[0];});
+  await audit(req,'production-approve','regulation-preview-package',req.params.id,{});res.json({package:result});
+});
+
+app.post('/api/regulation-preview-packages/:id/publish',authenticate,requireRole('safety-environment-admin'),async(req,res)=>{
+  const schema=z.object({releaseVersion:z.string().min(1).max(100),comment:z.string().max(10000).default('')});const parsed=schema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'公開版番号を確認してください。'});
+  const result=await transaction(async client=>{const current=await readRegulationPreviewPackage(client,req.params.id,true);if(!current)throw Object.assign(new Error('更新パッケージが見つかりません。'),{status:404});if(current.status!=='production-approved'||!current.production_approved_by)throw Object.assign(new Error('本番移行承認済みパッケージだけを公開できます。'),{status:409});
+    const updated=await client.query(`UPDATE regulation_preview_packages SET status='published',release_version=$1,published_by=$2,published_at=now(),updated_at=now() WHERE id=$3 RETURNING *`,[parsed.data.releaseVersion,req.user.id,req.params.id]);await recordRegulationPreviewEvent(client,{packageId:req.params.id,eventType:'published',user:req.user,comment:parsed.data.comment||`release ${parsed.data.releaseVersion}`,payloadSha256:current.payload_sha256,details:{releaseVersion:parsed.data.releaseVersion}});return updated.rows[0];});
+  await audit(req,'publish','regulation-preview-package',req.params.id,{releaseVersion:parsed.data.releaseVersion});res.json({package:result});
+});
+
+// Standard screens call only this endpoint. General users, surveyors and office administrators are always current-only.
+// Preview/history payloads are returned only to explicitly enabled verification/approval roles.
+app.get('/api/regulation-preview-runtime',authenticate,async(req,res)=>{
+  const requestedView=['current','preview','history'].includes(String(req.query.view||''))?String(req.query.view):'current';
+  const requestedVersionId=String(req.query.versionId||'').trim();
+  const policy=await readRegulationVersionAccessPolicy();
+  const access=regulationVersionAccessForRole(policy,req.user.role);
+  let selectedView=requestedView;
+  if(selectedView==='preview'&&!access.preview)selectedView='current';
+  if(selectedView==='history'&&!access.history)selectedView='current';
+
+  const published=await query(`SELECT id,source_id,package_title,edition_label,effective_from,datasets,payload_sha256,status,release_version,published_at,updated_at FROM regulation_preview_packages WHERE status='published' AND (effective_from IS NULL OR effective_from <= (now() AT TIME ZONE 'Asia/Tokyo')::date) ORDER BY effective_from NULLS FIRST,published_at,id`);
+  const publishedRows=published.rows;
+  const baselineVersion={id:'baseline',label:'初期基準版',releaseVersion:null,effectiveFrom:null,publishedAt:null};
+  const availableVersions=[baselineVersion,...publishedRows.map(row=>({id:String(row.id),label:row.release_version||row.edition_label||row.package_title||'公開版',releaseVersion:row.release_version||null,effectiveFrom:row.effective_from||null,publishedAt:row.published_at||null}))];
+  const currentVersionId=availableVersions.at(-1)?.id||'baseline';
+  let selectedVersionId=currentVersionId;
+  let packageRows=publishedRows;
+
+  if(selectedView==='history'){
+    const historical=availableVersions.slice(0,-1);
+    if(!historical.length){selectedView='current';selectedVersionId=currentVersionId;}
+    else{
+      const chosen=historical.find(item=>item.id===requestedVersionId)||historical.at(-1);
+      selectedVersionId=chosen.id;
+      if(selectedVersionId==='baseline')packageRows=[];
+      else{const index=publishedRows.findIndex(row=>String(row.id)===selectedVersionId);packageRows=index>=0?publishedRows.slice(0,index+1):[];}
+    }
+  }else if(selectedView==='preview'){
+    const [futurePublished,preview]=await Promise.all([
+      query(`SELECT id,source_id,package_title,edition_label,effective_from,datasets,payload_sha256,status,release_version,published_at,updated_at FROM regulation_preview_packages WHERE status='published' AND effective_from > (now() AT TIME ZONE 'Asia/Tokyo')::date ORDER BY effective_from,published_at,id`),
+      query(`SELECT id,source_id,package_title,edition_label,effective_from,datasets,payload_sha256,status,release_version,published_at,updated_at FROM regulation_preview_packages WHERE status IN ('preview','preview-verified','safety-confirmed','production-approved') ORDER BY preview_sent_at,id`)
+    ]);
+    packageRows=[...publishedRows,...futurePublished.rows,...preview.rows];selectedVersionId='preview';
+  }
+
+  const packages=packageRows.map(row=>({id:row.id,title:row.package_title,editionLabel:row.edition_label,effectiveFrom:row.effective_from,status:row.status,releaseVersion:row.release_version||null,payloadSha256:row.payload_sha256,datasets:row.datasets||[]}));
+  const runtime={mode:selectedView,requestedView,selectedView,selectedVersionId,currentVersionId,access,availableVersions,packages};
+  runtime.runtimeSha256=regulationPreviewHash({role:req.user.role,selectedView,selectedVersionId,access,availableVersions:availableVersions.map(v=>({id:v.id,releaseVersion:v.releaseVersion,effectiveFrom:v.effectiveFrom})),packages:packages.map(p=>({id:p.id,status:p.status,payloadSha256:p.payloadSha256,datasets:p.datasets}))});
+  res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('Vary','Authorization, Cookie');res.json(runtime);
 });
 
 
@@ -2917,5 +3202,12 @@ app.use((error, req, res, _next) => {
 
 cleanupExpiredSessions().catch(error => console.error('session cleanup failed', error));
 setInterval(() => cleanupExpiredSessions().catch(error => console.error('session cleanup failed', error)), 6 * 60 * 60_000).unref();
+
+// ITDX-GOVERNANCE-ROUTER v1.3.133
+app.use('/api/itdx/auth', createItdxExternalAuthRouter({ query, createServerSession, audit }));
+app.use('/api/admin/itdx-governance', createItdxGovernanceRouter({ query, audit, authenticate, requireAdministrator }));
+
+// ITDX-OPERATIONAL-ASSURANCE v1.3.133
+app.use('/api/admin/itdx-assurance', createItdxOperationalAssuranceRouter({ query, audit, authenticate, requireAdministrator }));
 
 app.listen(config.port, () => console.log(`Inspection Support API listening on ${config.port}`));

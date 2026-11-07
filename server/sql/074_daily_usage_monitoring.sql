@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS daily_usage_report_exports (
   generated_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS idx_daily_usage_report_date ON daily_usage_report_exports(report_date DESC);
-CREATE INDEX IF NOT EXISTS idx_user_activity_daily ON user_activity_events((occurred_at::date),user_id);
+CREATE INDEX IF NOT EXISTS idx_user_activity_daily ON user_activity_events(((occurred_at AT TIME ZONE 'Asia/Tokyo')::date),user_id);
