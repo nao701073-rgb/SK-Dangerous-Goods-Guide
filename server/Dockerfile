@@ -1,6 +1,6 @@
 FROM node:22-alpine@sha256:fe4f6d74e20370acb04ad889077d14d0f64a9c8ea6a42bc60cddf1e844699914
 WORKDIR /app
-RUN apk add --no-cache postgresql-client openssl tzdata
+RUN apk add --no-cache postgresql-client openssl tzdata python3 bash
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund
 COPY src ./src

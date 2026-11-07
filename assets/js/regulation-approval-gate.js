@@ -16,7 +16,7 @@
     if(approved){banner.innerHTML=`<strong>原典照合・承認済み</strong><small>承認証明：${esc(status.certificate_number||'-')}／承認日：${esc(status.approved_at?String(status.approved_at).slice(0,10):'-')}／原典版：${esc(status.source_edition||'-')}</small>`;}
     else if(formal){banner.innerHTML='<strong>正式利用対象外：原典照合・承認が完了していません</strong><small>正式運用モードでは、承認済み情報だけを業務判断に使用してください。原典本文を確認し、管理者へ照合・承認を依頼してください。</small>';document.documentElement.dataset.regulationApproval='blocked';}
     else{banner.innerHTML='<strong>試作・参考表示：原典照合・承認待ち</strong><small>整理情報には未承認の内容を含む可能性があります。実務判断では最新版の原典本文を確認してください。</small>';}
-    const anchor=document.querySelector('.page-heading-row')||document.querySelector('main.workspace');if(anchor?.parentNode)anchor.insertAdjacentElement('afterend',banner);else document.body.prepend(banner);
+    /* R65 display policy: keep approval decision and blocking flag, suppress end-user status banner. */document.querySelectorAll('.regulation-approval-banner').forEach(el=>el.remove());
   };
   const target=inferTarget();const base=endpoint();
   if(!target||!base){insertBanner(null);return;}

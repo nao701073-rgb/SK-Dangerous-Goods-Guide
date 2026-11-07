@@ -329,21 +329,45 @@
     populateSupportProfiles();
     applyRestoredSelections();
 
+    // Keep manually/confirmed MSL when compatibility code re-emits a change event
+    // without actually changing the selected material. Also protect a value written by the
+    // same AI/import batch immediately after the material change event.
+    let deviceStrengthRevision = 0;
+    ['input', 'change'].forEach(type => $('quickStrength')?.addEventListener(type, () => { deviceStrengthRevision += 1; }));
+    mainMaterial.dataset.v13110LastMaterial = String(mainMaterial.value || '');
     mainMaterial.addEventListener('change', () => {
-      populateDeviceProfiles();
-      clearInputValue($('quickStrength'));
+      const current = String(mainMaterial.value || '');
+      const previous = String(mainMaterial.dataset.v13110LastMaterial || '');
+      mainMaterial.dataset.v13110LastMaterial = current;
+      populateDeviceProfiles({ preserve: current === previous });
+      if (current === previous) return;
+      const revisionAtMaterialChange = deviceStrengthRevision;
+      window.setTimeout(() => {
+        if (deviceStrengthRevision === revisionAtMaterialChange) clearInputValue($('quickStrength'));
+      }, 0);
     });
     materialProfile.addEventListener('change', applyDeviceProfile);
 
+    let supportStrengthRevision = 0;
+    ['input', 'change'].forEach(type => $('quickSupportStrength')?.addEventListener(type, () => { supportStrengthRevision += 1; }));
+    supportMaterial.dataset.v13110LastSupportMaterial = String(supportMaterial.value || '');
     supportMaterial.addEventListener('change', () => {
-      populateSupportProfiles();
-      clearInputValue($('quickSupportStrength'));
-      const basis = $('quickSupportBasis');
-      if (basis?.dataset.v13103AutoBasis === '1') {
-        basis.value = '';
-        delete basis.dataset.v13103AutoBasis;
-        emit(basis, 'input'); emit(basis, 'change');
-      }
+      const current = String(supportMaterial.value || '');
+      const previous = String(supportMaterial.dataset.v13110LastSupportMaterial || '');
+      supportMaterial.dataset.v13110LastSupportMaterial = current;
+      populateSupportProfiles({ preserve: current === previous });
+      if (current === previous) return;
+      const revisionAtMaterialChange = supportStrengthRevision;
+      window.setTimeout(() => {
+        if (supportStrengthRevision !== revisionAtMaterialChange) return;
+        clearInputValue($('quickSupportStrength'));
+        const basis = $('quickSupportBasis');
+        if (basis?.dataset.v13103AutoBasis === '1') {
+          basis.value = '';
+          delete basis.dataset.v13103AutoBasis;
+          emit(basis, 'input'); emit(basis, 'change');
+        }
+      }, 0);
     });
     supportProfile.addEventListener('change', applySupportProfile);
 
@@ -367,4 +391,5 @@
   } else {
     window.setTimeout(init, 80);
   }
+  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v13103-ctu-material-strength-linkage.js':'v1.3.110-same-batch-material-strength-guard'});
 })();

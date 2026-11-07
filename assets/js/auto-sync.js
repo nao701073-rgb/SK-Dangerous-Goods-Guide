@@ -6,7 +6,11 @@
     if(!enabled()||!window.ISSSync)return;
     if(running){rerun=true;return;}
     running=true;
-    try{await window.ISSSync.run();document.dispatchEvent(new CustomEvent("iss:auto-sync-completed"));}
+    try{
+      const result=await window.ISSSync.run();
+      if(!result.pullError && result.remaining===0) document.dispatchEvent(new CustomEvent("iss:auto-sync-completed"));
+      else console.warn("自動同期は未完了です。",{remaining:result.remaining,pullError:result.pullError});
+    }
     catch(error){console.warn("自動同期を完了できませんでした。",error);}
     finally{running=false;if(rerun){rerun=false;schedule(500);}}
   }

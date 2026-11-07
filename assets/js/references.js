@@ -817,6 +817,22 @@
     });
   }
 
+  // 同一の注意文は「注意」欄を優先して表示し、誤りリスト内の重複だけを省く。
+  // 元のAI要約データや検索・個人メモ・お気に入りの保存形式は変更しない。
+  function renderUniqueAiMistakes(item) {
+    const cautionText = normalize(item.caution).trim();
+    const displayed = new Set();
+    const uniqueMistakes = (Array.isArray(item.commonMistakes) ? item.commonMistakes : [])
+      .filter(point => {
+        const key = normalize(point).trim();
+        if (!key || key === cautionText || displayed.has(key)) return false;
+        displayed.add(key);
+        return true;
+      });
+    if (!uniqueMistakes.length) return "";
+    return `<section class="ai-guide-mistakes"><h4>よくある誤り</h4><ul>${uniqueMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>`;
+  }
+
   function renderAiGuides() {
     const query = normalize(aiQueryInput.value);
     const category = aiCategorySelect.value;
@@ -869,7 +885,7 @@
           ${item.whyItMatters ? `<section><h4>なぜ重要か</h4><p>${escapeHtml(item.whyItMatters)}</p></section>` : ""}
           ${Array.isArray(item.checkProcedure) ? `<section><h4>確認の手順</h4><ol>${item.checkProcedure.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ol></section>` : ""}
 
-          ${Array.isArray(item.commonMistakes) ? `<section class="ai-guide-mistakes"><h4>よくある誤り</h4><ul>${item.commonMistakes.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></section>` : ""}
+          ${renderUniqueAiMistakes(item)}
 
           <aside class="ai-guide-caution">
             <strong>注意</strong>
@@ -935,6 +951,18 @@
   }
 
   aiList.addEventListener("click", event => {
+    const favoriteButton = event.target.closest("[data-ai-guide-favorite]");
+    if (favoriteButton) {
+      const id = favoriteButton.dataset.aiGuideFavorite;
+      const current = readAiProgress()[id] || {};
+      const openIds = Array.from(aiList.querySelectorAll("details.ai-guide-card[open]"), detail => detail.dataset.aiGuideId);
+      patchAiProgress(id, { favorite: !current.favorite });
+      renderAiGuides();
+      aiList.querySelectorAll("details.ai-guide-card").forEach(detail => {
+        if (openIds.includes(detail.dataset.aiGuideId)) detail.open = true;
+      });
+      return;
+    }
     const sourceButton = event.target.closest("[data-ai-source-id]");
     if (!sourceButton) return;
     openAiSourcePdf(summaries.find(entry => entry.id === sourceButton.dataset.aiSourceId));

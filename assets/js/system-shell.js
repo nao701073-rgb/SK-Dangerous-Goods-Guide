@@ -20,7 +20,7 @@
   if (["detail", "regulations", "references", "ems"].includes(page)) {
     const current = document.currentScript?.src || "";
     const script = document.createElement("script");
-    script.src = current ? new URL("regulation-approval-gate.js?v=508", current).toString() : "../assets/js/regulation-approval-gate.js?v=508";
+    script.src = current ? new URL("regulation-approval-gate.js?v=20261103d", current).toString() : "../assets/js/regulation-approval-gate.js?v=20261103d";
     script.defer = true;
     document.head.appendChild(script);
   }

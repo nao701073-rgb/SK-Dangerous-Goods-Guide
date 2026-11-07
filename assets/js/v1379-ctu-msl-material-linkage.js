@@ -20,6 +20,8 @@
     other:'other'
   };
   let internalSync=false;
+  let quickStrengthRevision=0;
+  const roleTargetRevision={device:0,cargo:0,ctu:0};
 
   function roleIds(role){
     const p=ROLE[role]?.prefix;
@@ -106,7 +108,7 @@
     renderAdoptedMsl();
     return true;
   }
-  function syncMainMaterial(){
+  function syncMainMaterial({preserveCurrentStrength=false}={}){
     const category=$('quickMaterialCategory')?.value||'tensile';
     const method=$('quickMethod')?.value||'direct';
     if(category==='support'||method!=='direct'){renderAdoptedMsl();return}
@@ -119,8 +121,12 @@
       select.dispatchEvent(new Event('change',{bubbles:true}));
       internalSync=false;
     }
-    clearTarget('device','材質だけではMSLを確定しません。上の「規格・サイズ／表示値」を選択してください。');
-    setMainHint('固縛材の規格・サイズ／表示値を選ぶと、その条件に対応するMSL候補を自動反映します。','review');
+    if(!preserveCurrentStrength){
+      clearTarget('device','材質だけではMSLを確定しません。上の「規格・サイズ／表示値」を選択してください。');
+      setMainHint('固縛材の規格・サイズ／表示値を選ぶと、その条件に対応するMSL候補を自動反映します。','review');
+    }else{
+      setMainHint('同じ反映操作で設定されたMSLを保持しました。実物の規格・表示との一致を確認してください。','review');
+    }
     renderAdoptedMsl();
   }
   function ensureSummary(){
@@ -166,20 +172,48 @@
   }
   function bindEstimator(role){
     const ids=roleIds(role);if(!ids)return;
-    $(ids.material)?.addEventListener('change',()=>{
-      const el=$(ids.material);
-      if(internalSync||!el)return;
+    const materialEl=$(ids.material),targetEl=$(ROLE[role]?.target);
+    ['input','change'].forEach(type=>targetEl?.addEventListener(type,()=>{roleTargetRevision[role]=(roleTargetRevision[role]||0)+1}));
+    if(materialEl)materialEl.dataset.v1379LastMaterial=String(materialEl.value||'');
+    materialEl?.addEventListener('change',()=>{
+      const el=materialEl;if(!el)return;
       const current=String(el.value||'');
-      if(el.dataset.v1379LastMaterial===current)return;
+      const previous=String(el.dataset.v1379LastMaterial||'');
+      // Main-material synchronization intentionally updates the hidden estimator.
+      // Record that synchronized value so a later compatibility re-dispatch is treated
+      // as a duplicate rather than a new material selection.
+      if(internalSync){el.dataset.v1379LastMaterial=current;return}
+      if(previous===current)return;
       el.dataset.v1379LastMaterial=current;
-      setTimeout(()=>{clearTarget(role,'材質を変更しました。規格・サイズ／製品仕様を選択してください。');renderAdoptedMsl()},0)
+      const revisionAtMaterialChange=roleTargetRevision[role]||0;
+      setTimeout(()=>{
+        // If an AI/import/profile batch wrote the target after changing the helper material,
+        // that newly supplied value belongs to the same operation and must not be erased.
+        if((roleTargetRevision[role]||0)!==revisionAtMaterialChange){renderAdoptedMsl();return}
+        clearTarget(role,'材質を変更しました。規格・サイズ／製品仕様を選択してください。');renderAdoptedMsl()
+      },0)
     });
     $(ids.profile)?.addEventListener('change',()=>setTimeout(()=>autoReflectRole(role,'estimator-profile'),0));
     $(ids.evidence)?.addEventListener('change',()=>setTimeout(()=>autoReflectRole(role,'estimator-evidence'),0));
   }
   function bind(){
     ['device','cargo','ctu'].forEach(bindEstimator);
-    $('quickMaterial')?.addEventListener('change',()=>setTimeout(syncMainMaterial,0));
+    ['input','change'].forEach(type=>$('quickStrength')?.addEventListener(type,()=>{quickStrengthRevision+=1}));
+    const mainMaterial=$('quickMaterial');
+    if(mainMaterial){
+      mainMaterial.dataset.v1379LastMainMaterial=String(mainMaterial.value||'');
+      mainMaterial.addEventListener('change',()=>{
+        const current=String(mainMaterial.value||'');
+        const previous=String(mainMaterial.dataset.v1379LastMainMaterial||'');
+        mainMaterial.dataset.v1379LastMainMaterial=current;
+        // Compatibility/input-assist code may re-emit change without changing the material.
+        // In that case preserve a manually confirmed MSL. For a true change, also preserve
+        // an MSL that is written by the same AI/import batch after this event.
+        if(current===previous){renderAdoptedMsl();return}
+        const revisionAtMaterialChange=quickStrengthRevision;
+        setTimeout(()=>syncMainMaterial({preserveCurrentStrength:quickStrengthRevision!==revisionAtMaterialChange}),0)
+      });
+    }
     $('quickTransport')?.addEventListener('change',()=>setTimeout(()=>{if(($('quickMaterial')?.value||'')==='tygard')syncMainMaterial();else renderAdoptedMsl()},0));
     $('quickMaterialCategory')?.addEventListener('change',()=>setTimeout(()=>{if(($('quickMaterialCategory')?.value||'')!=='support'&&($('quickMethod')?.value||'direct')==='direct')syncMainMaterial();else renderAdoptedMsl()},0));
     $('quickMethod')?.addEventListener('change',()=>setTimeout(()=>{
@@ -199,5 +233,5 @@
   }
   function init(){ensureSummary();bind();renderAdoptedMsl()}
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>setTimeout(init,40)):setTimeout(init,40);
-  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1379-ctu-msl-material-linkage.js':'v1.3.108-ignore-duplicate-material-change'});
+  window.__SK_ASSET_BUILD__=Object.assign(window.__SK_ASSET_BUILD__||{}, {'assets/js/v1379-ctu-msl-material-linkage.js':'v1.3.110-preserve-duplicate-main-material-change'});
 })();

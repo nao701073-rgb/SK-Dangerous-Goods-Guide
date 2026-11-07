@@ -1,5 +1,6 @@
 #!/bin/bash
-set -eu
+# R65 v43 backup correction: fail when any stage in a file-list pipeline fails.
+set -euo pipefail
 
 SOURCE_DIR=${1:-${SYSTEM_RELEASE_SOURCE_DIR:-/app/public}}
 OUTPUT_DIR=${2:-${SYSTEM_RELEASE_OUTPUT_DIR:-/tmp/system-release}}
@@ -17,8 +18,12 @@ ARCHIVE="$OUTPUT_DIR/system-release_${RELEASE}.tar.gz"
 find "$SOURCE_DIR" -type f \
   ! -path '*/.git/*' \
   ! -path '*/node_modules/*' \
-  ! -path '*/server/.env' \
-  ! -path '*/server/.env.*.local' \
+  ! -name '.env' \
+  ! -name '.env.*' \
+  ! -name '*.pem' \
+  ! -name '*.pfx' \
+  ! -name '*.p12' \
+  ! -name '*.key' \
   ! -path '*/server/storage/*' \
   ! -path '*/server/data/migration-staging/*' \
   ! -path '*/server/data/releases/*' \
@@ -33,6 +38,11 @@ find "$SOURCE_DIR" -type f \
   done > "$FILE_LIST"
 
 FILE_COUNT=$(wc -l < "$FILE_LIST" | tr -d ' ')
+# Do not generate a success-looking archive containing only a synthetic manifest.
+if [ "$FILE_COUNT" -eq 0 ]; then
+  echo 'RELEASE_SOURCE_HAS_NO_ELIGIBLE_FILES' >&2
+  exit 48
+fi
 TOTAL_BYTES=$(awk -F '\t' '{s+=$2} END{print s+0}' "$FILE_LIST")
 FILES_SHA=$(sha256sum "$FILE_LIST" | awk '{print $1}')
 GENERATED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -53,20 +63,17 @@ payload={
   'fileCount':int(count),
   'totalBytes':int(total),
   'fileListSha256':files_sha,
-  'excluded':['.git','node_modules','server/.env*','server/storage','migration-staging','releases','public-release','backups','*.log'],
+  'excluded':['.git','node_modules','.env*','*.pem','*.pfx','*.p12','*.key','server/storage','migration-staging','releases','public-release','backups','*.log'],
   'files':files
 }
 with open(out,'w',encoding='utf-8') as f: json.dump(payload,f,ensure_ascii=False,indent=2)
 PY
 
-cp "$MANIFEST" "$SOURCE_DIR/.part510-release-manifest.tmp"
-trap 'rm -f "$SOURCE_DIR/.part510-release-manifest.tmp"; rm -rf "$WORK_DIR"' EXIT INT TERM HUP
-# Use a deterministic file list so unexpected files cannot enter the archive.
+# Keep source immutable; the generated manifest belongs to the temporary working dir.
+cp "$MANIFEST" "$WORK_DIR/.part510-release-manifest.tmp"
 cut -f1 "$FILE_LIST" > "$WORK_DIR/archive-files.txt"
-printf '%s\n' '.part510-release-manifest.tmp' >> "$WORK_DIR/archive-files.txt"
-tar -czf "$ARCHIVE" -C "$SOURCE_DIR" -T "$WORK_DIR/archive-files.txt"
-rm -f "$SOURCE_DIR/.part510-release-manifest.tmp"
-trap 'rm -rf "$WORK_DIR"' EXIT INT TERM HUP
+# GNU tar applies -C to subsequent names, including the generated temporary manifest.
+tar -czf "$ARCHIVE" -C "$SOURCE_DIR" -T "$WORK_DIR/archive-files.txt" -C "$WORK_DIR" .part510-release-manifest.tmp
 
 ARCHIVE_SHA=$(sha256sum "$ARCHIVE" | awk '{print $1}')
 cp "$MANIFEST" "$OUTPUT_DIR/system-release_${RELEASE}.manifest.json"

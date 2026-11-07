@@ -10,7 +10,7 @@ import path from 'path';
 import { z } from 'zod';
 import { config } from './config.js';
 import { query, transaction } from './db.js';
-import { registerReopenSyncRoutes } from './reopen-sync-router.js';
+
 import { authenticate, requireRole, requireOperationalRead, requireOperationalWrite, requireOperationalDelete, requireAdministrator, canManageUser, signToken, officeScope, validatePassword } from './auth.js';
 import { createServerSession, rotateSessionCsrf, revokeSession, revokeAllUserSessions, clearSessionCookie, cleanupExpiredSessions } from './session-auth.js';
 import { rolePermissionSnapshot } from './permissions.js';
@@ -44,13 +44,19 @@ if (config.nodeEnv === 'production') {
   if (config.session.legacyBearerEnabled) configurationErrors.push('LEGACY_BEARER_AUTH_ENABLED must be false in production');
   if (config.jwtSecret === 'development-only-change-this-secret-immediately' || config.jwtSecret.length < 64) configurationErrors.push('JWT_SECRET must be a random value of at least 64 characters');
   if (!config.session.csrfSecret || config.session.csrfSecret.length < 64 || config.session.csrfSecret === 'development-csrf-secret') configurationErrors.push('CSRF_SECRET must be a random value of at least 64 characters');
+  // R65 v43: stop production API startup if filesystem uploads are outside the shared persistent Docker volume.
+  if (config.storage.provider === 'filesystem' &&
+      (path.resolve(config.photoStorageDir) !== '/app/storage/photos' ||
+       path.resolve(config.storage.localDir) !== '/app/storage/photos')) {
+    configurationErrors.push('PHOTO_STORAGE_DIR and ATTACHMENT_STORAGE_DIR must both resolve to /app/storage/photos (mounted persistent storage)');
+  }
 }
 if (configurationErrors.length) throw new Error(`Production configuration is invalid: ${configurationErrors.join('; ')}`);
 
 fs.mkdirSync(config.photoStorageDir, { recursive: true });
 const app = express();
-// TEST156 diagnostic bridge; blocked in production until complete release review.
-if (config.nodeEnv === 'production') throw new Error('TEST156_DIAGNOSTIC_CODE_MUST_NOT_RUN_IN_PRODUCTION');
+// TEST156 LAB routes are disabled in production and all normal runtime modes.
+// They require an explicit opt-in in the test environment only.
 app.set('trust proxy', config.trustProxy);
 // ITDX-SECURITY-BOUNDARY v1.3.133
 app.disable('x-powered-by');
@@ -62,7 +68,7 @@ app.use(helmet({
 if (config.enforceHttps) {
   app.use((req,res,next) => {
     const forwarded = String(req.get('x-forwarded-proto') || '').split(',')[0].trim();
-    if (req.secure || forwarded === 'https') return next();
+    if (req.secure) return next();
     return res.status(426).json({ error:'本番環境ではHTTPS接続が必要です。' });
   });
 }
@@ -619,8 +625,11 @@ app.patch('/api/application-documents/:id/status',authenticate,requireOperationa
   const officeId=officeScope(req.user,req.query.officeId);
   const sql=parsed.data.action==='cancel'
     ? `UPDATE application_documents d SET cancelled_at=now(),cancelled_by=$1,cancellation_reason=$2,updated_at=now() FROM applications a WHERE d.id=$3 AND a.id=d.application_id AND d.cancelled_at IS NULL AND ($4::text IS NULL OR a.office_id=$4) RETURNING d.*`
-    : `UPDATE application_documents d SET cancelled_at=NULL,cancelled_by=NULL,cancellation_reason=NULL,restored_at=now(),restored_by=$1,updated_at=now() FROM applications a WHERE d.id=$3 AND a.id=d.application_id AND d.cancelled_at IS NOT NULL AND ($4::text IS NULL OR a.office_id=$4) RETURNING d.*`;
-  const {rows}=await query(sql,[req.user.id,parsed.data.reason,req.params.id,officeId]);if(!rows[0])return res.status(404).json({error:'対象の添付資料が見つかりません。'});
+    : `UPDATE application_documents d SET cancelled_at=NULL,cancelled_by=NULL,cancellation_reason=NULL,restored_at=now(),restored_by=$1,updated_at=now() FROM applications a WHERE d.id=$2 AND a.id=d.application_id AND d.cancelled_at IS NOT NULL AND ($3::text IS NULL OR a.office_id=$3) RETURNING d.*`;
+  const values = parsed.data.action==='cancel'
+    ? [req.user.id,parsed.data.reason,req.params.id,officeId]
+    : [req.user.id,req.params.id,officeId];
+  const {rows}=await query(sql,values);if(!rows[0])return res.status(404).json({error:'対象の添付資料が見つかりません。'});
   await audit(req,parsed.data.action,'application-document',req.params.id,{reason:parsed.data.reason});res.json({document:{...rows[0],url:documentApiUrl(rows[0].id,req.user)}});
 });
 
@@ -675,37 +684,24 @@ app.post('/api/admin/users/:id/force-logout', authenticate, requireAdministrator
   res.json({message:'対象利用者のログイン状態を終了しました。'});
 });
 
-app.post('/api/sync/batch', authenticate, requireOperationalWrite, async (req, res) => {
-  const schema = z.object({ items: z.array(z.object({ id: z.string().min(1).max(150), entity: z.enum(['application','photo']), action: z.enum(['create','update','delete']), clientVersion: z.number().int().positive().optional(), payload: z.record(z.string(), z.any()) })).max(500) });
-  const parsed = schema.safeParse(req.body);
-  if (!parsed.success) return res.status(400).json({ error: '同期データの形式が正しくありません。' });
-  const results = [];
-  for (const item of parsed.data.items) {
-    const receipt = await query('SELECT status,result FROM sync_receipts WHERE id=$1', [item.id]);
-    if (receipt.rows[0]) { results.push({ id: item.id, status: receipt.rows[0].status, ...receipt.rows[0].result, idempotent: true }); continue; }
-    let result = { status: 'accepted' };
-    try {
-      if (item.entity === 'photo' && item.action === 'create') result = { status: 'requires-upload', error: '写真本体は /api/photos へmultipart/form-dataで送信してください。' };
-      else if (item.entity === 'application' && item.action === 'update') {
-        const id = item.payload.id;
-        const version = item.clientVersion || item.payload.version;
-        const officeId = officeScope(req.user, item.payload.officeId);
-        const updated = await query(`UPDATE applications SET shipper=COALESCE($1,shipper),cargo_name=COALESCE($2,cargo_name),note=COALESCE($3,note),status=COALESCE($4,status),case_data=COALESCE($5::jsonb,case_data),updated_by=$6,version=version+1,updated_at=now() WHERE id=$7 AND version=$8 AND deleted_at IS NULL AND ($9::text IS NULL OR office_id=$9) RETURNING id,version,updated_at`, [item.payload.shipper, item.payload.cargoName, item.payload.note, item.payload.status, item.payload.caseData === undefined ? null : JSON.stringify(item.payload.caseData), req.user.id, id, version, officeId]);
-        result = updated.rows[0] ? { status: 'updated', server: updated.rows[0] } : { status: 'conflict', error: 'サーバー側のデータが更新されています。再取得して統合してください。' };
-      }
-    } catch (error) {
-      result = { status: 'error', error: error.message };
-    }
-    await query('INSERT INTO sync_receipts(id,user_id,entity_type,action,client_version,status,result) VALUES($1,$2,$3,$4,$5,$6,$7)', [item.id, req.user.id, item.entity, item.action, item.clientVersion || null, result.status, result]);
-    results.push({ id: item.id, ...result });
-  }
-  res.json({ results, serverTime: new Date().toISOString() });
+// REVIEW V33: Deprecated legacy batch bridge. The application uses authenticated
+// per-entity endpoints; the old batch handler acknowledged unwritten create/delete
+// operations and bypassed application-revision auditing on update. Fail closed.
+app.post('/api/sync/batch', authenticate, requireOperationalWrite, (_req, res) => {
+  res.status(410).json({
+    error: '旧同期一括APIは安全上の理由により使用できません。認証済みの申請・写真・資料APIをご利用ください。',
+    code: 'LEGACY_SYNC_BATCH_DISABLED'
+  });
 });
 
 
 
-// TEST156: dedicated, fail-closed request/investigation synchronization.
-registerReopenSyncRoutes({app,authenticate,requireOperationalRead,requireOperationalWrite,query,transaction});
+// TEST156: isolated test-only request/investigation synchronization.
+// Do not import or register LAB routes unless explicitly authorized for a test runtime.
+if (config.nodeEnv === 'test' && process.env.SKDG_TEST156_LAB_ENABLED === 'true') {
+  const { registerReopenSyncRoutes } = await import('./reopen-sync-router.js');
+  registerReopenSyncRoutes({app,authenticate,requireOperationalRead,requireOperationalWrite,query,transaction});
+}
 
 const adminUserSchema = z.object({
   loginId: z.string().regex(/^[A-Za-z0-9._-]{3,100}$/),

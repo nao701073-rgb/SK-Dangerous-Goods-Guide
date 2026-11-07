@@ -156,17 +156,24 @@
     window.ISSStorage.mergeServerApplicationDocuments(documentResult.documents || [], assetBaseFromEndpoint());
     let resultRows=[];
     try { const resultResponse=await window.ISSApi.listApplicationResults(params); resultRows=resultResponse.results||[]; window.ISSApplicationResults?.mergeServerResults?.(resultRows); } catch (error) { console.warn("確認・算出結果の取得に失敗しました。",error); }
-    // Reopen state is office-scoped. Never silently mix multiple offices or swallow merge conflicts.
-    const officeId = String(context.officeId || "");
-    if (!officeId) throw new Error("再調査同期の事業所を特定できません。事業所を選択してください。");
-    if (!window.ISSApi.reopenSyncState || !window.ISSStorage.mergeServerReopenState) {
-      throw new Error("再調査同期に必要なAPIまたは保存処理がありません。");
+    // TEST156 is LAB-only and is not registered in production. Its absence (404)
+    // must not block normal applications/photos/documents, but reopen queue writes
+    // remain errors until an approved server implementation exists.
+    let reopen = { status: "not-deployed" };
+    if (window.ISSApi.reopenSyncState && window.ISSStorage.mergeServerReopenState) {
+      const officeId = String(context.officeId || "");
+      if (officeId) {
+        try {
+          const reopenResponse = await window.ISSApi.reopenSyncState({ officeId });
+          if (!reopenResponse || !Array.isArray(reopenResponse.items)) {
+            throw new Error("再調査同期の取得結果が不正です。");
+          }
+          reopen = window.ISSStorage.mergeServerReopenState(reopenResponse.items, officeId);
+        } catch (error) {
+          if (error?.status !== 404) throw error;
+        }
+      }
     }
-    const reopenResponse = await window.ISSApi.reopenSyncState({ officeId });
-    if (!reopenResponse || !Array.isArray(reopenResponse.items)) {
-      throw new Error("再調査同期の取得結果が不正です。");
-    }
-    const reopen = window.ISSStorage.mergeServerReopenState(reopenResponse.items, officeId);
     localStorage.setItem("iss-last-data-pull-at", new Date().toISOString());
     window.dispatchEvent(new CustomEvent("iss:applications-changed"));
     window.dispatchEvent(new CustomEvent("iss:application-documents-changed"));
@@ -214,9 +221,14 @@
         onProgress?.({ completed, total: queue.length, item });
       }
       const remaining = queue.filter(item => item.status !== "completed").length;
-      let pulled = null;
-      try { pulled = await pullServerData(); } catch (error) { console.warn("サーバーからの最新データ取得に失敗しました。", error); }
-      return { completed, remaining, pulled };
+      let pulled = null, pullError = null;
+      try { pulled = await pullServerData(); }
+      catch (error) {
+        pullError = error?.message || "サーバーからの最新データ取得に失敗しました。";
+        console.warn("同期後の最新データ取得に失敗しました。", error);
+      }
+      // Push success is independent of pull success: surface both explicitly.
+      return { completed, remaining, pulled, pullError };
     }
   };
 })();

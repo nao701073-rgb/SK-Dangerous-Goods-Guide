@@ -203,7 +203,9 @@
         sessionStorage.removeItem(CSRF_KEY);
         return request(path, { ...options, __csrfRetried:true });
       }
-      throw new Error(data.error || `サーバーエラー（${response.status}）`);
+      const error = new Error(data.error || `サーバーエラー（${response.status}）`);
+      error.status = response.status;
+      throw error;
     }
     return data;
   }

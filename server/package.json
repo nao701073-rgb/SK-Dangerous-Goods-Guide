@@ -46,7 +46,7 @@
     "rights:catalog": "node scripts/seed-publication-rights-catalog.js",
     "security:phase3": "node scripts/verify-phase3-publication-rights.js",
     "build:public-sanitized": "node scripts/build-public-sanitized-package.js",
-    "release:package": "sh scripts/create-release-package.sh",
+    "release:package": "bash scripts/create-release-package.sh",
     "release:verify": "sh scripts/verify-release-package.sh",
     "restore:drill": "sh scripts/restore-drill.sh",
     "migration:drill": "sh scripts/migration-drill.sh",

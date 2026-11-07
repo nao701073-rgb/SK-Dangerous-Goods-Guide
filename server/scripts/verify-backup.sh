@@ -7,6 +7,9 @@ sha256sum -c SHA256SUMS
 [ -f manifest.json ] || { echo "manifest.json is missing" >&2; exit 3; }
 FORMAT=$(python3 -c 'import json;print(json.load(open("manifest.json")).get("format",""))')
 [ "$FORMAT" = "SK-ISS-BACKUP-SET" ] || { echo "Unsupported manifest format: $FORMAT" >&2; exit 3; }
+# A pointer to object storage is not a restorable attachment backup.
+PROVIDER=$(python3 -c 'import json;print(json.load(open("manifest.json")).get("storageProvider", ""))')
+[ "$PROVIDER" = "filesystem" ] || { echo 'NON_FILESYSTEM_BACKUP_NOT_RESTORABLE' >&2; exit 5; }
 DB_FILE=$(python3 -c 'import json;print(json.load(open("manifest.json"))["databaseFile"])')
 ATTACHMENT_FILE=$(python3 -c 'import json;print(json.load(open("manifest.json"))["attachmentFile"])')
 RELEASE_FILE=$(python3 -c 'import json;print(json.load(open("manifest.json")).get("releaseFile") or "")')
@@ -16,11 +19,10 @@ case "$DB_FILE" in
   *.sql.gz) gzip -t "$DB_FILE" ;;
   *) echo "Unsupported database format: $DB_FILE" >&2; exit 4 ;;
 esac
-if echo "$ATTACHMENT_FILE" | grep -q '\.tar\.gz$'; then
-  tar -tzf "$ATTACHMENT_FILE" >/dev/null
-else
-  [ -f "$ATTACHMENT_FILE" ] || { echo "Attachment pointer is missing" >&2; exit 5; }
-fi
+case "$ATTACHMENT_FILE" in
+  *.tar.gz) [ -f "$ATTACHMENT_FILE" ] && tar -tzf "$ATTACHMENT_FILE" >/dev/null || { echo 'ATTACHMENT_ARCHIVE_MISSING_OR_INVALID' >&2; exit 5; } ;;
+  *) echo 'ATTACHMENT_ARCHIVE_REQUIRED_NOT_POINTER' >&2; exit 5 ;;
+esac
 if [ -n "$RELEASE_FILE" ]; then
   [ -f "$RELEASE_FILE" ] || { echo "Release package is missing" >&2; exit 6; }
   "$(dirname "$0")/verify-release-package.sh" "$PWD/$RELEASE_FILE" >/dev/null

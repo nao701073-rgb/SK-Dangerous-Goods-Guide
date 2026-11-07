@@ -175,8 +175,12 @@
       });
       syncQueueCount.textContent = `${window.ISSSync.getPendingCount()}件`;
       renderSyncQueue();
-      onlineConnectionStatus.textContent = result.remaining ? `一部未同期（${result.remaining}件）` : "同期完了";
-      showMessage(`${result.completed}件を同期しました。`);
+      onlineConnectionStatus.textContent = result.pullError
+        ? `最新データ取得失敗（未送信${result.remaining}件）`
+        : result.remaining ? `一部未同期（${result.remaining}件）` : "同期完了";
+      showMessage(result.pullError
+        ? `送信処理${result.completed}件が完了しましたが、最新データの取得に失敗しました：${result.pullError}`
+        : `${result.completed}件を同期しました。`);
     } catch (error) {
       onlineConnectionStatus.textContent = "同期失敗";
       showMessage(error.message || "同期に失敗しました。");

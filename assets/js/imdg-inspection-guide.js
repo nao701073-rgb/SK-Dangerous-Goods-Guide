@@ -150,64 +150,18 @@
           </div>
           <label>個人メモ<textarea class="training-guide-note" data-guide-note="${escapeHtml(item.id)}" placeholder="確認事項や社内運用メモ">${escapeHtml(state.note || "")}</textarea></label>
 
-          <section>
-            <h4>元資料の図・写真・表の要約</h4>
-            <p class="training-guide-gallery-note">同じページを重複表示せず、元資料から選定した各ページを1枚ずつ掲載しています。画像を押すと拡大でき、文字・数値・凡例・脚注を確認できます。</p>
-            <div class="training-guide-gallery">
-              ${(item.images || []).map(image => `
-                <figure class="training-guide-figure">
-                  <button class="training-guide-image-button" type="button"
-                          data-image-src="${escapeHtml(image.src)}"
-                          data-image-caption="${escapeHtml(image.caption)}（PDF ${escapeHtml(image.page)}ページ）">
-                    <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.caption)}" loading="lazy">
-                  </button>
-                  <figcaption>
-                    <div class="training-guide-figure-label">元資料ページ</div>
-                    <strong>${escapeHtml(image.caption)}</strong>
-                    <span>PDF ${escapeHtml(image.page)}ページ</span>
-                    <p>${escapeHtml(image.summary || `${image.caption}について、元資料の構成・表示例・判断上のポイントを視覚的に確認できます。`)}</p>
-                    ${Array.isArray(image.checkPoints) && image.checkPoints.length ? `<div class="training-guide-figure-checks"><b>この画像で確認する点</b><ul>${image.checkPoints.map(point => `<li>${escapeHtml(point)}</li>`).join("")}</ul></div>` : ""}
-                  </figcaption>
-                </figure>`).join("")}
-            </div>
-          </section>
+          ${Array.isArray(item.images) && item.images.length ? `<section class="training-guide-media-held" aria-label="元資料の画像確認状況">
+            <h4>元資料の図・写真・表</h4>
+            <p>図・写真・表は原典PDFの照合情報として管理しています。</p>
+            <p>照合対象：${item.images.length}件（画像参照と説明文は確認台帳に保存）</p>
+          </section>` : ""}
         </div>
       </details>
     `; }).join("");
     updateProgressSummary();
   }
 
-  function openLightbox(src, caption) {
-    const overlay = document.createElement("div");
-    overlay.className = "training-guide-lightbox";
-    overlay.innerHTML = `
-      <div class="training-guide-lightbox__dialog" role="dialog" aria-modal="true" aria-label="参考画像の拡大表示">
-        <div class="training-guide-lightbox__header">
-          <strong>${escapeHtml(caption)}</strong>
-          <button type="button" aria-label="閉じる">×</button>
-        </div>
-        <div class="training-guide-lightbox__body">
-          <img src="${escapeHtml(src)}" alt="${escapeHtml(caption)}">
-        </div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    const close = () => overlay.remove();
-    overlay.querySelector("button").addEventListener("click", close);
-    overlay.addEventListener("click", event => {
-      if (event.target === overlay) close();
-    });
-    document.addEventListener("keydown", function onKey(event) {
-      if (event.key === "Escape") {
-        close();
-        document.removeEventListener("keydown", onKey);
-      }
-    });
-  }
-
   list.addEventListener("click", event => {
-    const imageButton = event.target.closest(".training-guide-image-button");
-    if (imageButton) { openLightbox(imageButton.dataset.imageSrc, imageButton.dataset.imageCaption); return; }
     const completeButton = event.target.closest("[data-guide-complete]");
     if (completeButton) { const state=getState(completeButton.dataset.guideComplete); patchState(completeButton.dataset.guideComplete,{ completed: !state.completed }); render(); return; }
     const favoriteButton = event.target.closest("[data-guide-favorite]");
@@ -227,7 +181,7 @@
 
   caution.innerHTML = `
     <strong>${escapeHtml(master.title || "資料AI要約")}</strong>
-    <p>${escapeHtml(master.sourceNote || "")}</p>
+    <p>元資料PDF（129ページ）は非公開の確認資料として収録されています。6分野の要約・確認事項・68件の画像説明を129ページの原本本文と再照合しました。原本の誤記・旧情報の可能性、現行法令への適合性、内容承認は別途確認が必要です。画像はWeb配信していません。</p>
     <p>${escapeHtml(master.caution || "")}</p>
   `;
 

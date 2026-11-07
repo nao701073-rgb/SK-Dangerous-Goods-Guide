@@ -411,7 +411,7 @@
 <div class="quick-step__body quick-grid">
 <div><label for="quickTransport">輸送条件</label><select id="quickTransport"><option value="road">道路輸送</option><option value="rail">鉄道輸送（通常）</option><option value="railShock">鉄道輸送（短時間衝撃）</option><option value="seaA">海上輸送 海域A</option><option selected="" value="seaB">海上輸送 海域B（標準）</option><option value="seaC">海上輸送 海域C</option></select></div>
 <div><label for="quickCtu">CTUの種類</label><select id="quickCtu"><option selected="" value="container">汎用コンテナ</option><option value="swap">スワップボディ</option><option value="roadL">道路車両 Code L</option><option value="roadXL">道路車両 Code XL</option><option value="none">壁強度を算入しない</option><option value="manual">手動入力</option></select></div>
-<div><label for="quickMass">貨物質量（t）</label><input id="quickMass" min="0" step="0.001" type="number" value="5"/></div>
+<div><label for="quickMass">貨物質量（t）</label><input id="quickMass" min="0" step="0.001" type="number" value="" placeholder="申請書・実測・計量値を入力"/></div>
 <div><label for="quickCargoDescription">貨物名・品名</label><input id="quickCargoDescription" type="text"/></div>
 <div hidden aria-hidden="true"><label for="quickFriction">接触面の状態</label><select id="quickFriction"><option value="unknown">組合せ不明・未検証</option><option value="verified">確認済みの摩擦係数を使用</option><option value="unclean">完全に清められていない</option><option value="snow">霜・氷・雪</option><option value="oil">油脂付着・シートパレット</option></select></div>
 <div hidden aria-hidden="true"><label for="quickMu">摩擦係数 μ</label><input id="quickMu" max="1" min="0" step="0.01" type="number" value="0.20"/></div>
@@ -772,7 +772,7 @@
 <div><label for="unNumbers">国連番号</label><input id="unNumbers" placeholder="例：UN1001、UN1950" type="text"/></div>
 <div><label for="packageCount">個数</label><input id="packageCount" min="0" placeholder="申請書から取得または手入力" step="1" type="number"/></div>
 <div><label for="containerNumber">コンテナ番号</label><input id="containerNumber" placeholder="任意" type="text"/></div>
-<div><label for="mass">貨物質量 m（t）</label><input id="mass" min="0" step="0.001" type="number" value="5"/></div>
+<div><label for="mass">貨物質量 m（t）</label><input id="mass" min="0" step="0.001" type="number" value="" placeholder="申請書・実測・計量値を入力"/></div>
 <div><label for="width">貨物幅（m）</label><input id="width" min="0" step="0.01" type="number" value="1.2"/></div>
 <div><label for="length">貨物長さ（m）</label><input id="length" min="0" step="0.01" type="number" value="1.2"/></div>
 <div><label for="cargoHeight">貨物全高（m）</label><input id="cargoHeight" min="0" step="0.01" type="number" value="1.6"/><div class="hint">風圧・波洗い投影面積の自動算出に使用</div></div>
@@ -864,7 +864,7 @@
 <script defer src="../assets/js/v133-ctu-upload.js?v=133"></script>
 <script defer src="../assets/js/v135-ctu-stability.js?v=135"></script>
 <script defer src="../assets/js/v137-ctu-usability.js?v=13108"></script>
-<script defer src="../assets/js/v1379-ctu-msl-material-linkage.js?v=13108"></script>
+<script defer src="../assets/js/v1379-ctu-msl-material-linkage.js?v=r65p0-20261104"></script>
 <script defer src="../assets/js/v137-prototype-ui.js?v=139"></script>
 <script defer src="../assets/js/v140-photo-ai-editable.js?v=140"></script>
 <script defer src="../assets/js/v141-photo-ai-container-fit.js?v=143"></script>
@@ -888,7 +888,7 @@
 <script defer src="../assets/js/v13101-ctu-print-state.js?v=13101"></script>
 <script defer src="../assets/js/v13102-ctu-expanded-print-state.js?v=13102"></script>
 <script defer src="../assets/js/v13103-ctu-actionable-confirmation-guide.js?v=13109"></script>
-<script defer src="../assets/js/v13103-ctu-material-strength-linkage.js?v=13103"></script>
+<script defer src="../assets/js/v13103-ctu-material-strength-linkage.js?v=r65p0-20261104"></script>
 <script defer src="../assets/js/v13104-ctu-timber-dimensions-ai.js?v=13104"></script>
 <script defer src="../assets/js/v13105-ctu-guided-usability.js?v=13105"></script>
 <script defer src="../assets/js/v13106-ctu-confirmation-retention.js?v=13109"></script>

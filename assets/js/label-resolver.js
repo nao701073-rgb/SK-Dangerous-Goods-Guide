@@ -17,7 +17,7 @@
     return master.find(item => normalize(item.class) === value) || null;
   }
 
-  function findWithFallback(classValue) {
+  function findWithFallback(classValue, classification = "") {
     const value = normalize(classValue);
     const exact = findExact(value);
     if (exact) return exact;
@@ -25,7 +25,17 @@
     // Division details may be absent in some records.
     // Only then fall back to the main class.
     const mainClass = value.split(".")[0];
-    return master.find(item => normalize(item.class) === mainClass) || null;
+    const mainClassLabel = master.find(item => normalize(item.class) === mainClass) || null;
+    if (mainClassLabel) return mainClassLabel;
+
+    // Current domestic table contains one explosive sample whose class column is "x".
+    // It is still categorized as 火薬類. Use the general Class 1 placard rather than
+    // leaving the search result without a primary placard.
+    if (String(classification || "").includes("火薬類")) {
+      return master.find(item => normalize(item.class) === "1") || null;
+    }
+
+    return null;
   }
 
   function isLithiumBattery(record) {
@@ -68,7 +78,7 @@
         return withSource(master.find(item => item.id === "class9-lithium"));
       }
 
-      return withSource(findWithFallback(record?.class));
+      return withSource(findWithFallback(record?.class, record?.classification));
     },
 
     resolveSubsidiaries(record) {
